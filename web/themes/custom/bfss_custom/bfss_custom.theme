@@ -1,0 +1,10 @@
+<?php
+
+use Drupal\Component\Utility\Html;
+
+function bfss_custom_preprocess_html(&$variables) {
+    $path_class = !$variables['root_path'] ? 'path-frontpage' : 'path-' . Html::getClass($variables['root_path']);
+    if (isset($path_class)) {
+        $variables['attributes']['class'][] = $path_class;
+    }
+}

@@ -1,0 +1,12 @@
+/* Ryan Custom Styles */
+
+.path-registration {
+  .navbar {
+    display: none;
+  }
+  .row {
+    > div {
+      display: none;
+    }
+  }
+}

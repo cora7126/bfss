@@ -1,0 +1,4 @@
+cache: false
+sourcemaps: true
+output_format: 'compressed'
+check_modify_time: true
