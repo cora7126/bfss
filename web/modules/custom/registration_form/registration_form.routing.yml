@@ -1,0 +1,7 @@
+registration_form.registration:
+  path: '/registration'
+  defaults:
+    _controller: '\Drupal\registration_form\Controller\RegistrationFormController::myPage'
+    _title: 'My first page in Drupal8'
+  requirements:
+    _permission: 'access content'

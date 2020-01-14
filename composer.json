@@ -19,7 +19,10 @@
         "drupal/bootstrap": "^3.21",
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-project-message": "^8.8",
-        "drupal/core-recommended": "^8.8"
+        "drupal/core-recommended": "^8.8",
+        "drupal/devel": "^2.1",
+        "drupal/multiple_registration": "^2.88",
+        "drupal/scss_compiler": "^1.0@RC"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8"
