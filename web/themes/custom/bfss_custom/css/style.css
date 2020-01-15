@@ -7962,9 +7962,206 @@ p:last-child,
 }
 
 /* Ryan Custom Styles */
-.path-registration .navbar {
+a {
+  color: #EB6E06;
+}
+
+a:hover {
+  color: #EB6E06;
+}
+
+body {
+  font-family: montserrat, Sans-Serif;
+}
+
+.alert {
+  border-radius: 0 !important;
+}
+
+body.user-login,
+body.user-password {
+  background: white;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(80%, #fefbb7));
+  background: linear-gradient(180deg, white 0%, #fefbb7 80%);
+}
+body.user-login .sub-header-logo,
+body.user-password .sub-header-logo {
+  text-align: center;
+}
+body.user-login .sub-header-logo img,
+body.user-password .sub-header-logo img {
+  max-width: 250px;
+}
+body.user-login .register-area,
+body.user-password .register-area {
+  margin: 80px auto 0;
+  float: none;
+}
+body.user-login .register-area h3,
+body.user-password .register-area h3 {
+  font-family: montserrat, Sans-Serif;
+  font-size: 20px;
+  text-align: center;
+}
+body.user-login .register-area button,
+body.user-password .register-area button {
+  width: 100%;
+  background-color: black;
+  color: #EB6E06;
+  padding: 9px;
+  font-family: montserrat, Sans-Serif;
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+}
+body.user-login .register-area:after,
+body.user-password .register-area:after {
+  border-bottom: 1px solid black;
+  content: " ";
+  margin: 55px 0;
+  width: 100%;
+  display: block;
+}
+body.user-login .registration-area,
+body.user-password .registration-area {
+  float: none;
+  margin: 55px auto;
+}
+body.user-login .registration-area #block-textaboveuserloginform,
+body.user-password .registration-area #block-textaboveuserloginform {
+  font-family: montserrat, Sans-Serif;
+  font-size: 20px;
+  text-align: center;
+}
+body.user-login .registration-area #block-textaboveuserloginform h3,
+body.user-password .registration-area #block-textaboveuserloginform h3 {
+  margin-top: 0;
+  font-size: 20px;
+}
+body.user-login .registration-area .user-login-form .form-item label,
+body.user-password .registration-area .user-login-form .form-item label {
   display: none;
 }
-.path-registration .row > div {
+body.user-login .registration-area .user-login-form .form-item input,
+body.user-password .registration-area .user-login-form .form-item input {
+  backgroun-image: inherit;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 0;
+}
+body.user-login .registration-area .user-login-form .form-item input::-webkit-input-placeholder, body.user-password .registration-area .user-login-form .form-item input::-webkit-input-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-login-form .form-item input::-moz-placeholder, body.user-password .registration-area .user-login-form .form-item input::-moz-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-login-form .form-item input:-ms-input-placeholder, body.user-password .registration-area .user-login-form .form-item input:-ms-input-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-login-form .form-item input::-ms-input-placeholder, body.user-password .registration-area .user-login-form .form-item input::-ms-input-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-login-form .form-item input::placeholder,
+body.user-password .registration-area .user-login-form .form-item input::placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-login-form .form-item input:focus,
+body.user-password .registration-area .user-login-form .form-item input:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
+}
+body.user-login .registration-area .user-login-form .form-item .pass-info,
+body.user-password .registration-area .user-login-form .form-item .pass-info {
+  font-size: 11px;
+  margin-top: 8px;
+}
+body.user-login .registration-area .user-login-form button,
+body.user-password .registration-area .user-login-form button {
+  width: 100%;
+  background-color: black;
+  color: #EB6E06;
+  padding: 9px;
+  font-family: montserrat, Sans-Serif;
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+}
+body.user-login .registration-area .user-login-form button span,
+body.user-password .registration-area .user-login-form button span {
   display: none;
+}
+body.user-login .registration-area .user-login-form .forgot-password,
+body.user-password .registration-area .user-login-form .forgot-password {
+  margin: 20px 0;
+  font-size: 13px;
+}
+body.user-login .registration-area .user-pass .form-item label,
+body.user-password .registration-area .user-pass .form-item label {
+  display: none;
+}
+body.user-login .registration-area .user-pass .form-item input,
+body.user-password .registration-area .user-pass .form-item input {
+  backgroun-image: inherit;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 0;
+}
+body.user-login .registration-area .user-pass .form-item input::-webkit-input-placeholder, body.user-password .registration-area .user-pass .form-item input::-webkit-input-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-pass .form-item input::-moz-placeholder, body.user-password .registration-area .user-pass .form-item input::-moz-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-pass .form-item input:-ms-input-placeholder, body.user-password .registration-area .user-pass .form-item input:-ms-input-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-pass .form-item input::-ms-input-placeholder, body.user-password .registration-area .user-pass .form-item input::-ms-input-placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-pass .form-item input::placeholder,
+body.user-password .registration-area .user-pass .form-item input::placeholder {
+  color: #9B9796;
+  font-family: montserrat;
+}
+body.user-login .registration-area .user-pass .form-item input:focus,
+body.user-password .registration-area .user-pass .form-item input:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
+}
+body.user-login .registration-area .user-pass button,
+body.user-password .registration-area .user-pass button {
+  width: 100%;
+  background-color: black;
+  color: #EB6E06;
+  padding: 9px;
+  font-family: montserrat, Sans-Serif;
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+}
+body.user-login .registration-area .user-pass .form-group,
+body.user-password .registration-area .user-pass .form-group {
+  margin-bottom: 7px;
+}
+body.user-login .registration-area .user-pass p,
+body.user-password .registration-area .user-pass p {
+  font-size: 11px;
+  margin-top: 8px;
+}
+body.user-login footer,
+body.user-password footer {
+  border-top: none;
+}
+body.user-login footer .region-footer section#block-copyright,
+body.user-password footer .region-footer section#block-copyright {
+  text-align: center;
+  font-size: 12px;
+  color: black;
 }

@@ -29,3 +29,14 @@ function registration_form_theme($existing, $type, $theme, $path) {
         ),
     );
 }
+function registration_form_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    if($form_id == 'user_login_form') {
+        $form['pass']['#field_suffix'] = '<div class="pass-info">This page is protected by reCAPTCHA, and subject to the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a></div>';
+        $form['actions']['submit']['#value'] = 'SIGN IN';
+        $form['actions']['submit']['#field_suffix'] = '<div class="forgot-password"><a href="/user/password">Forgot Password</a></div>';
+    }
+    if($form_id == 'user_pass') {
+        $form['name']['#placeholder'] = "Enter your e-mail";
+
+    }
+}
