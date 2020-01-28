@@ -1,0 +1,204 @@
+<?php
+
+/**
+ * @file
+ * Contains bfss_registration_form.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_help().
+ */
+function bfss_registration_form_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the bfss_registration_form module.
+    case 'help.page.bfss_registration_form':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Ajax Registration Form') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function bfss_registration_form_theme() {
+  return [
+    'bfss_registration_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function bfss_registration_form_form_user_register_form_alter(&$form, FormStateInterface $form_state) {
+  // Get user type from url
+  $type = Drupal::routeMatch()->getParameter('type');
+
+  // Attach custom javascript
+  $form['#attached']['library'][] = 'bfss_registration_form/ajax-registration';
+
+  // Add wrapper for ajax
+  $form['#prefix'] = '<div id="register-form-container">';
+  $form['#suffix'] = '</div>';
+
+  // Change theme suggestion
+  $form['#theme'] = 'bfss_registration_form';
+
+  // Step 1 group
+  $form['step_1'] = [
+    '#type' => 'details',
+    '#title' => t('Step 1'),
+    '#open' => TRUE, // Controls the HTML5 'open' attribute. Defaults to FALSE.
+    '#attributes' => [
+      'class' => ['step-1']
+    ]
+  ];
+
+  // Add a select field for role selection
+  $form['step_1']['user_type'] = [
+    '#type' => 'select',
+    '#title' => t('Please select your user type below.'),
+    '#options' => _get_role_options(),
+    '#default_value' => $type ? $type : '0',
+    '#required' => TRUE,
+    '#limit_validation_errors' => [],
+    '#ajax' => [
+      'callback' => 'changedUserType',
+      'disable-refocus' => TRUE, // Or TRUE to prevent re-focusing on the triggering element.
+      'event' => 'change',
+      'wrapper' => 'register-form-container', // This element is updated with this AJAX callback.
+      // 'progress' => [
+      //   'type' => 'throbber',
+      //   'message' => $this->t('Verifying entry...'),
+      // ],
+    ]
+  ];
+
+  // Step 2 group
+  $form['step_2'] = [
+    '#type' => 'details',
+    '#title' => t('Step 2'),
+    '#open' => FALSE,
+    '#attributes' => [
+      'class' => ['step-2']
+    ]
+  ];
+
+  $userInput = $form_state->getUserInput();
+
+  if ((empty($userInput) || !isset($userInput['user_type']) || empty($userInput['user_type'])) && $type == null) {
+    // If the user input is empty or role is not selected yet
+    // Unset the name, account fields and submit button
+    $form['field_first_name']['#access'] = FALSE;
+    $form['field_last_name']['#access'] = FALSE;
+    $form['account']['mail']['#access'] = FALSE;
+    $form['account']['name']['#access'] = FALSE;
+    $form['account']['pass']['#access'] = FALSE;
+    $form['actions']['submit']['#access'] = FALSE;
+
+    // Markup for step 2 if role is not chosen
+    $form['step_2']['markup'] = ['#markup' => t('Please select a user type.')];
+  }
+  else {
+    // Move the fields to step 2 group and unset from main form
+    // Close step 1
+    $form['step_1']['#open'] = FALSE;
+
+    // Open step 2
+    $form['step_2']['#open'] = TRUE;
+
+    if ($type) {
+      $options = _get_role_options();
+      $form['step_2']['#title'] = t("Step 2 - {$options[$type]}");
+      unset($form['step_2']['markup']);
+    }
+
+    $form['step_2']['loan_officer'] = [
+      '#type' => 'select',
+      '#title' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
+      // '#description' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
+      '#options' => ['a' => 'A', 'b' => 'B'],
+      '#weight' => -10
+    ];
+
+    // Set fields
+    // $form['step_2']['field_first_name'] = $form['field_first_name'] + ['#weight' => 0];
+    // $form['step_2']['field_last_name'] = $form['field_last_name'] + ['#weight' => 1];
+    $form['step_2']['account'] = $form['account'];
+    $form['step_2']['account']['#weight'] = 2;
+    $form['step_2']['account']['mail']['#weight'] = 10;
+
+    // Unset the name and account fields
+    unset($form['field_first_name']);
+    unset($form['field_last_name']);
+    unset($form['account']);
+
+    // Finally add a custom submit handler to store the selected role in session to later update in hook_user_update
+    array_unshift($form['actions']['submit']['#submit'], 'ajax_register_user_register_form_submit');
+  }
+}
+
+
+/**
+ * Implements hook_ENTITY_TYPE_INSERT().
+ */
+function bfss_registration_form_user_insert(User $user) {
+  $role = $_SESSION['bfss_registration_form_user_type'];
+  $user->addRole($role);
+  $user->save();
+}
+
+/**
+ * Ajax callback for user type
+ */
+function ajax_register_user_register_form_submit(array &$form, FormStateInterface $form_state) {
+  $userType = $form_state->getValue('user_type');
+  $_SESSION['bfss_registration_form_user_type'] = $userType;
+}
+
+/**
+ * Ajax callback for user type
+ */
+function changedUserType(array &$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  $options = _get_role_options();
+
+  if (!empty($values['user_type'])) {
+    // Update step 2 title
+    $form['step_2']['#title'] = t("Step 2 - {$options[$values['user_type']]}");
+
+    // Unset the markup
+    unset($form['step_2']['markup']);
+
+    $form['step_2']['loan_officer'] = [
+      '#type' => 'select',
+      '#title' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
+      // '#description' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
+      '#options' => ['a' => 'A', 'b' => 'B'],
+      '#weight' => -10
+    ];
+  }
+
+  return $form;
+}
+
+
+/**
+ * Returns role options
+ */
+function _get_role_options() {
+  $roles = user_role_names(TRUE);
+  unset($roles['administrator']);
+  unset($roles['authenticated']);
+  array_unshift($roles, 'Select');
+  return $roles;
+}

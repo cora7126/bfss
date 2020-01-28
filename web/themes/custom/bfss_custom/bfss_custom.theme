@@ -1,10 +1,19 @@
 <?php
 
-use Drupal\Component\Utility\Html;
+
 
 function bfss_custom_preprocess_html(&$variables) {
-    $path_class = !$variables['root_path'] ? 'path-frontpage' : 'path-' . Html::getClass($variables['root_path']);
-    if (isset($path_class)) {
-        $variables['attributes']['class'][] = $path_class;
+
+    $current_path = \Drupal::service('path.current')->getPath();
+    $path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+    $path_alias = ltrim($path_alias, '/');
+    if(isset($path_alias)) {
+        $variables['attributes']['class'][] = \Drupal\Component\Utility\Html::cleanCssIdentifier($path_alias);
     }
 }
+
+function bfss_custom_form_user_login_form_alter(&$form, $form_state) {
+    $form['name']['#placeholder'] = t('Username / E-mail');
+    $form['pass']['#placeholder'] = t('Password');
+}
+

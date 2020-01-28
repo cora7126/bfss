@@ -16,13 +16,15 @@
     ],
     "require": {
         "composer/installers": "^1.2",
+        "drupal/admin_toolbar": "^2.0",
         "drupal/bootstrap": "^3.21",
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-project-message": "^8.8",
         "drupal/core-recommended": "^8.8",
         "drupal/devel": "^2.1",
         "drupal/multiple_registration": "^2.88",
-        "drupal/scss_compiler": "^1.0@RC"
+        "drupal/scss_compiler": "^1.0@RC",
+        "drush/drush": "8.x-dev"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8"
