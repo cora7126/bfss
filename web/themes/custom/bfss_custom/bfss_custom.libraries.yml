@@ -1,5 +1,7 @@
 framework:
   css:
+    base:
+      'https://fonts.googleapis.com/css?family=Montserrat&display=swap' : { type: external }
     theme:
       css/style.css: {}
   js:
