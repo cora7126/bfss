@@ -1,0 +1,7 @@
+ajax-registration:
+  version: 1.x
+  js:
+    js/ajax-registration.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.onc

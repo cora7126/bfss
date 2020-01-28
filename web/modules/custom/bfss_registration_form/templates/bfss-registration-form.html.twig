@@ -1,0 +1,20 @@
+<!-- Add you custom twig html here -->
+<!-- TestX -->
+
+<div class="xyz">
+  {{ form.step_1 }}
+</div>
+<div class="xyz">
+  {{ form.step_2 }}
+</div>
+
+{# Renders the rest of the form #}
+{{ form|without('step_1','step_2') }}
+
+<!-- Sub fields like this -->
+<!-- <div class="xyz">
+  {# {{ form.step_2.account }} #}
+</div> -->
+
+<!-- Whole Form -->
+{# {{ form }} #}
