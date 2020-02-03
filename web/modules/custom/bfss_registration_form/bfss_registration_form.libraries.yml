@@ -4,4 +4,12 @@ ajax-registration:
     js/ajax-registration.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.onc
+    - core/jquery.once
+
+ajax-complete-registration:
+  version: 1.x
+  js:
+    js/ajax-complete-registration.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once

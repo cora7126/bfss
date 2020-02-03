@@ -1,5 +1,45 @@
 /* Ryan Custom Styles */
 
+@mixin permission-absolute-field() {
+  [id*="edit-parent-permission"] {
+    legend {
+      position: absolute;
+      width: 100%;
+    }
+    .fieldset-wrapper {
+      margin-top: 14px;
+    }
+  }
+}
+
+@mixin bfss-button() {
+  display: inline-block;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  background-color: black;
+  color: #EB6E06;
+  padding: 9px;
+  font-family: montserrat, Sans-Serif;
+  border: none;
+  border-radius: 0;
+  text-transform: uppercase;
+
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-underline: none !important;
+  }
+}
+
+@mixin login-buton-style() {
+  @include bfss-button;
+  span {
+    display: none;
+  }
+}
+
 a {
   color: #EB6E06;
 }
@@ -13,10 +53,13 @@ body {
   border-radius: 0 !important;
 }
 
+
 body.user-login,
 body.user-password,
 body.registration-coach,
-body.user-register {
+body.user-register,
+body.user-reset,
+body.complete-registration {
   background: rgb(255,255,255);
   background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(254,251,183,1) 80%);
 
@@ -35,15 +78,8 @@ body.user-register {
       font-size: 20px;
       text-align: center;
     }
-    button {
-      width: 100%;
-      background-color: black;
-      color: #EB6E06;
-      padding: 9px;
-      font-family: montserrat, Sans-Serif;
-      font-size: 18px;
-      border: none;
-      border-radius: 0;
+    .bfss-button {
+      @include bfss-button;
     }
     &:after {
       border-bottom: 1px solid black;
@@ -106,19 +142,18 @@ body.user-register {
           font-size: 11px;
           margin-top: 8px;
         }
+        .btn-forgot-pass {
+          display: inline-block;
+          width: auto;
+          background: transparent;
+          padding: 0;
+          font-size: 12px;
+          margin-top: 12px;
+          margin-bottom: 24px;
+        }
       }
       button {
-        width: 100%;
-        background-color: black;
-        color: #EB6E06;
-        padding: 9px;
-        font-family: montserrat, Sans-Serif;
-        font-size: 18px;
-        border: none;
-        border-radius: 0;
-        span {
-          display: none;
-        }
+        @include login-buton-style();
       }
       .forgot-password {
         margin: 20px 0;
@@ -145,14 +180,7 @@ body.user-register {
         }
       }
       button {
-        width: 100%;
-        background-color: black;
-        color: #EB6E06;
-        padding: 9px;
-        font-family: montserrat, Sans-Serif;
-        font-size: 18px;
-        border: none;
-        border-radius: 0;
+        @include bfss-button;
       }
       .form-group {
         margin-bottom: 7px;
@@ -163,10 +191,13 @@ body.user-register {
       }
     }
     #register-form-container {
+      .button--primary {
+        @include login-buton-style;
+      }
       .reg-form-tabs {
         .panel {
           background-color: transparent;
-          box-shoadow: 0;
+          @include box-shadow(none);
           border-radius: 0;
           border: 0;
           .panel-heading {
@@ -174,10 +205,35 @@ body.user-register {
             border: 0;
             padding: 10px 0;
             > a {
+              font-size: 21px;
               img {
                 float: right;
                 width: 20px;
               }
+            }
+            .panel-title[aria-expanded="true"] {
+              padding-bottom: 0;
+            }
+          }
+          .panel-body {
+            position: relative;
+            padding-left: 0;
+            padding-right: 0;
+            fieldset {
+              @include box-shadow(none);
+              &.form-composite {
+                legend {
+                  border-bottom: 0;
+                }
+              }
+              .panel {
+                .panel-heading {
+                  font-size: 21px;
+                }
+              }
+            }
+            &.in {
+              padding-top: 0;
             }
           }
           input, select {
@@ -194,12 +250,124 @@ body.user-register {
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
           }
         }
-      }
-      .reg-tab-1 {
+        .form-item-subtitle {
+          //position: absolute;
+          //margin-top: -25px;
+          font-size: 12px;
+        }
+        .form-item-fields-list-title {
+          //margin-top: 30px;
+          //font-size: 21px;
+        }
+        .form-item-cck-csv,
+        .form-item-cck-month,
+        .form-item-cck-year {
+          float: left;
+          width: 50%;
+          .select-wrapper {
+            width: 95%;
+          }
+        }
+        .form-item-cck-year {
+          .select-wrapper {
+            float: right;
+          }
+        }
+        .form-item-cck-csv {
+          clear: left;
+          width: 50%;
+          .form-item {
+            width: 95%;
+          }
+        }
 
-      }
-      .reg-tab-2 {
+        .fieldset-cck,
+        .fieldset-billing-info {
+          clear: both;
 
+        }
+        .form-item-cck-csv {
+          .form-control {
+            width: 95%;
+          }
+        }
+
+        .form-item-bi-city {
+          clear: left;
+          width: 40%;
+          float: left;
+        }
+
+        .form-item-bi-state {
+          width: 20%;
+          float: left;
+          margin-left: 5%;
+        }
+
+        .form-item-bi-postal-code {
+          width: 30%;
+          float: left;
+          margin-left: 5%;
+        }
+
+        .form-item-title {
+          font-size: 21px;
+        }
+        [id*="edit-is-over-16-years"],
+        [id*="edit-parent-permission"] {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          legend {
+            font-size: 12px;
+            margin-bottom: 0;
+            float: left;
+            width: 40%;
+          }
+          .fieldset-wrapper {
+            width: 60%;
+            float: right;
+            > div {
+              margin-top: 0;
+              margin-bottom: 0;
+            }
+          }
+          .form-type-radio {
+            margin-top: 0;
+            margin-bottom: 0;
+            float: left;
+            margin-right: 10px;
+            .form-radio {
+              margin-top: 4px;
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        @media screen and (min-width: 1510px) {
+          @include permission-absolute-field;
+        }
+        @media screen and (min-width: 1140px) and (max-width: 1200px) {
+          @include permission-absolute-field;
+        }
+        @media screen and (min-width: 911px) and (max-width: 992px) {
+          @include permission-absolute-field;
+        }
+
+        @media screen and (max-width: 767px) {
+          [id*="edit-parent-permission"] {
+            width: auto;
+            position: relative;
+            .fieldset-wrapper {
+              margin-top: 0;
+            }
+          }
+        }
+
+
+        button {
+          @include login-buton-style;
+          text-transform: uppercase;
+        }
       }
     }
   }
@@ -214,6 +382,128 @@ body.user-register {
       }
     }
   }
+}
 
+body.complete-registration {
+  .registration-area {
+    margin-top: 20px;
+  }
+  .complete-registration-form {
+    .button--primary,
+    .btn-set,
+    .btn-set-password {
+      @include login-buton-style;
+    }
+    .panel {
+      background-color: transparent;
+      @include box-shadow(none);
+      border-radius: 0;
+      border: 0;
+      .panel-heading {
+        background-color: transparent;
+        border: 0;
+        padding: 10px 0 0;
+        > a {
+          font-size: 21px;
+          img {
+            float: right;
+            width: 20px;
+          }
+        }
+        .panel-title {
+          font-size: 21px;
+          padding-bottom: 0;
+        }
+      }
+      .panel-body {
+        position: relative;
+        padding-left: 0;
+        padding-right: 0;
+        fieldset {
+          @include box-shadow(none);
+          &.form-composite {
+            legend {
+              border-bottom: 0;
+            }
+          }
+          .panel {
+            .panel-heading {
+              font-size: 21px;
+            }
+          }
+        }
+        &.in {
+          padding-top: 0;
+        }
+      }
 
+      &:first-child {
+        margin-bottom: 0;
+        .panel-body {
+          padding-bottom: 0;
+        }
+      }
+      &:last-child {
+        .panel-body {
+          padding-bottom: 0;
+        }
+      }
+
+      .form-item-description {
+        font-size: 12px;
+      }
+      .form-type-tel {
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+        input {
+          width: 100%;
+        }
+      }
+      input, select {
+        backgroun-image: inherit;
+        background-color: transparent;
+        border: 1px solid black;
+        border-radius: 0;
+      }
+      input::placeholder {
+        color: #9B9796;
+        font-family: montserrat;
+      }
+      input:focus, select:focus {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+    .additional-info {
+      a {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+    }
+    .form-item-confirm-code {
+      margin-bottom: 15px;
+    }
+    .send-code-wrapper {
+      .btn {
+        margin-bottom: 20px;
+        display: inline-block;
+        font-size: 12px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        color: #EB6E06;
+      }
+    }
+    .resend-message {
+
+    }
+  }
+}
+
+body.user-reset {
+  .btn-primary {
+    @include login-buton-style;
+  }
 }
