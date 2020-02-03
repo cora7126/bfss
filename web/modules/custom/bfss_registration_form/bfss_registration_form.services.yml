@@ -3,3 +3,8 @@ services:
     class: Drupal\bfss_registration_form\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+
+  bfss_registration_form.user_first_login:
+    class: Drupal\bfss_registration_form\EventSubscriber\FirstLoginSubscriber
+    tags:
+      - {name: event_subscriber}

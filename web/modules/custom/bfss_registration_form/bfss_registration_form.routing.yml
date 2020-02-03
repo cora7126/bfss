@@ -1,0 +1,9 @@
+bfss_registration_form.complete_registration_page:
+  path: 'complete-registration'
+  defaults:
+    _controller: '\Drupal\bfss_registration_form\Controller\CompleteRegistration::content'
+    _title: 'Complete Registration'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+  options:
+    no_cache: TRUE

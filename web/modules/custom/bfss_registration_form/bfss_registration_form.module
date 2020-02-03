@@ -37,11 +37,55 @@ function bfss_registration_form_theme() {
 }
 
 /**
+ * Generate button for next step
+ *
+ * @param int $step
+ *
+ * @return array
+ */
+function bfss_registration_form_next_btn($step = 1) {
+  return [
+    '#type' => 'submit',
+    '#value' => t('Continue'),
+    '#validate' => ['bfss_registration_form_next_validate'],
+    '#submit' => ['bfss_registration_form_next_submit'],
+    '#name' => 'next_step_' . $step,
+    '#ajax' => [
+      'callback' => 'bfss_registration_form_next_ajax',
+      'wrapper' => 'register-form-container',
+      'event' => 'click',
+      'disable-refocus' => TRUE,
+    ],
+  ];
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function bfss_registration_form_form_user_register_form_alter(&$form, FormStateInterface $form_state) {
+
+  //  get additional fields
+  $additional_fields = [
+    'field_first_name',
+    'field_last_name',
+    'field_parent_first_name',
+    'field_parent_last_name',
+    'field_parent_email',
+    'field_program_term',
+    'field_state',
+  ];
+
+  if (!$form_state->has('step')) {
+    $form_state->set('step', 1);
+  }
+
+  $step = $form_state->get('step');
+
+  $form['#step'] = $step;
+
   // Get user type from url
-  $type = Drupal::routeMatch()->getParameter('type');
+  //  $type = Drupal::routeMatch()->getParameter('type');
+  $type = $form_state->getValue('user_type', 0);
 
   // Attach custom javascript
   $form['#attached']['library'][] = 'bfss_registration_form/ajax-registration';
@@ -57,10 +101,15 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
   $form['step_1'] = [
     '#type' => 'details',
     '#title' => t('Step 1'),
-    '#open' => TRUE, // Controls the HTML5 'open' attribute. Defaults to FALSE.
+    //    '#open' => TRUE, // Controls the HTML5 'open' attribute. Defaults to FALSE.
     '#attributes' => [
-      'class' => ['step-1']
-    ]
+      'class' => ['step-1'],
+    ],
+  ];
+
+  $form['step_1']['subtitle'] = [
+    '#type' => 'item',
+    '#markup' => t('Select Account'),
   ];
 
   // Add a select field for role selection
@@ -68,83 +117,590 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     '#type' => 'select',
     '#title' => t('<div class="step-text">Please select your user type below.</div>'),
     '#options' => _get_role_options(),
-    '#default_value' => $type ? $type : '0',
+    '#default_value' => $type,
+    //$type ? $type : '0',
     '#required' => TRUE,
     '#limit_validation_errors' => [],
-    '#ajax' => [
-      'callback' => 'changedUserType',
-      'disable-refocus' => TRUE, // Or TRUE to prevent re-focusing on the triggering element.
-      'event' => 'change',
-      'wrapper' => 'register-form-container', // This element is updated with this AJAX callback.
-      // 'progress' => [
-      //   'type' => 'throbber',
-      //   'message' => $this->t('Verifying entry...'),
-      // ],
-    ]
+    //    '#ajax' => [
+    //      'callback' => 'changedUserType',
+    ////      'callback' => '\Drupal\bfss_registration_form::AthleteFormStep1',
+    //      'disable-refocus' => TRUE, // Or TRUE to prevent re-focusing on the triggering element.
+    //      'event' => 'change',
+    //      'wrapper' => 'register-form-container', // This element is updated with this AJAX callback.
+    //      // 'progress' => [
+    //      //   'type' => 'throbber',
+    //      //   'message' => $this->t('Verifying entry...'),
+    //      // ],
+    //    ]
   ];
 
-  // Step 2 group
-  $form['step_2'] = [
-    '#type' => 'details',
-    '#title' => t('Step 2'),
-    '#open' => FALSE,
-    '#attributes' => [
-      'class' => ['step-2']
-    ]
-  ];
+  //  add next button to this step
+  $form['step_1']['actions'] = ['#type' => 'actions'];
+  $form['step_1']['actions']['next_step_1'] = bfss_registration_form_next_btn();
+  $form['step_1']['actions']['next_step_1'] += ['#attributes' => ['class' => ['hide']]];  //  hide button because, should not be visible
 
   $userInput = $form_state->getUserInput();
 
-  if ((empty($userInput) || !isset($userInput['user_type']) || empty($userInput['user_type'])) && $type == null) {
-    // If the user input is empty or role is not selected yet
+  //  remove description for "account][mail" field
+  if (isset($form['account']['mail'])) {
+    $form['account']['mail']['#description'] = '';
+  }
+  //  remove description for "account][name" field
+  if (isset($form['account']['name'])) {
+    $form['account']['name']['#title'] = t('Create Username');
+    $form['account']['name']['#description'] = '';
+  }
+
+  //  Password field don't require on current form
+  $form['account']['pass']['#required'] = FALSE;
+  $form['account']['pass']['#access'] = FALSE;
+
+  //  if ((empty($userInput) || !isset($userInput['user_type']) || empty($userInput['user_type'])) && $type == null) {
+  // If the user input is empty or role is not selected yet
+
+  //  default step
+  if ($step == 1) {
     // Unset the name, account fields and submit button
-    $form['field_first_name']['#access'] = FALSE;
-    $form['field_last_name']['#access'] = FALSE;
+    foreach ($additional_fields as $k => $additional_field) {
+      $form[$additional_field]['#access'] = FALSE;
+    }
+
     $form['account']['mail']['#access'] = FALSE;
     $form['account']['name']['#access'] = FALSE;
     $form['account']['pass']['#access'] = FALSE;
     $form['actions']['submit']['#access'] = FALSE;
 
     // Markup for step 2 if role is not chosen
-    $form['step_2']['markup'] = ['#markup' => t('Please select a user type.')];
+//    $form['step_2']['markup'] = ['#markup' => t('Please select a user type.')];
   }
   else {
-    // Move the fields to step 2 group and unset from main form
-    // Close step 1
-    $form['step_1']['#open'] = FALSE;
+    //  add pivate information
+    if ($step >= 2) {
+      // Step 2 group
+      $form['step_2'] = [
+        '#type' => 'details',
+        '#title' => t('Step 2'),
+        //    '#open' => FALSE,
+        '#attributes' => [
+          'class' => ['step-2'],
+        ],
+      ];
 
-    // Open step 2
-    $form['step_2']['#open'] = TRUE;
+      //  disable set password
+      if (!empty($form['step_2']['account'])) {
+        $form['step_2']['account']['#required'] = FALSE;
+      }
 
-    if ($type) {
-      $options = _get_role_options();
-      $form['step_2']['#title'] = t("Step 2 - {$options[$type]}");
-      unset($form['step_2']['markup']);
+      //  replace title for "details wrapper"
+      if ($type) {
+        $options = _get_role_options();
+        $form['step_2']['#title'] = t("Step 2 - {$options[$type]}");
+        unset($form['step_2']['markup']);
+      }
+
+      $form['step_2']['subtitle'] = [
+        '#type' => 'item',
+        '#markup' => t('Complete All Fields Below'),
+        '#weight' => -2,
+      ];
+
+      if ($type == 'parent_guardian_registering_athlete_') {
+        $sub_title = t('Athlete\'s Information');
+      }
+      else {
+        $sub_title = t('@type Information', ['@type' => $options[$type] . "'s"]);
+      }
+
+      $form['step_2']['fields_list_title'] = [
+        '#type' => 'item',
+        '#markup' => $sub_title,
+        '#weight' => -1,
+      ];
+
+      // Set fields for all
+      if (isset($form['field_first_name'])) {
+        $form['step_2']['field_first_name'] = $form['field_first_name'];
+        $form['step_2']['field_first_name'] = array_merge($form['step_2']['field_first_name'], ['#weight' => 0]);
+      }
+
+      if (isset($form['field_last_name'])) {
+        $form['step_2']['field_last_name'] = $form['field_last_name'];
+        $form['step_2']['field_last_name'] = array_merge($form['step_2']['field_last_name'], ['#weight' => 1]);
+      }
+
+      if (isset($form['account']['mail'])) {
+        $form['step_2']['mail'] = $form['account']['mail'];
+        $form['step_2']['mail'] = array_merge($form['step_2']['mail'], ['#weight' => 2]);
+      }
+
+      $form['step_2']['conf_mail'] = [
+        '#title' => t('Confirm E-mail'),
+        '#type' => 'email',
+        '#title_invisible' => TRUE,
+        '#required' => TRUE,
+        '#placeholder' => t('Confirm Email'),
+        '#default_value' => $form_state->getValue('conf_mail'),
+        '#weight' => 2,
+      ];
+
+      if (isset($form['account']['name'])) {
+        $form['step_2']['name'] = $form['account']['name'];
+        $form['step_2']['name'] = array_merge($form['step_2']['name'], ['#weight' => 3]);
+      }
+
+      if (isset($form['field_state'])) {
+        $form['step_2']['field_state'] = $form['field_state'];
+        $form['step_2']['field_state'] = array_merge($form['step_2']['field_state'], ['#weight' => 4]);
+      }
+
+      $form['step_2']['fields_list_title_2'] = [
+        '#type' => 'item',
+        '#markup' => t('@type Information', ['@type' => $options[$type] . "'s"]),
+        '#weight' => 9,
+        '#access' => FALSE,
+      ];
+
+      if (isset($form['field_parent_first_name'])) {
+        $form['step_2']['field_parent_first_name'] = array_merge($form['field_parent_first_name'], ['#weight' => 10]);
+        $form['step_2']['field_parent_first_name']['#access'] = FALSE;
+      }
+
+      if (isset($form['field_parent_last_name'])) {
+        $form['step_2']['field_parent_last_name'] = array_merge($form['field_parent_last_name'], ['#weight' => 11]);
+        $form['step_2']['field_parent_last_name']['#access'] = FALSE;
+      }
+
+      if (isset($form['field_parent_email'])) {
+        $form['step_2']['field_parent_email'] = array_merge($form['field_parent_email'], ['#weight' => 12]);
+        $form['step_2']['field_parent_email'][0]['widget']['value']['#required'] = TRUE;
+        $form['step_2']['field_parent_email']['#access'] = FALSE;
+      }
+
+      if (isset($form['step_2']['field_parent_email'])) {
+        $form['step_2']['parent_conf_email'] = [
+          '#title' => t('Confirm Parent Email'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Confirm Parent Mail'),
+          '#type' => 'email',
+          '#required' => TRUE,
+          '#access' => $form['step_2']['field_parent_email']['#access'],
+          '#weight' => 13
+        ];
+      }
+
+      $form['actions']['submit']['#access'] = FALSE;
+
+      //  if user_type != "coach" => continue registration
+      if ($step >= 2 && !in_array($type, ['coach'])) {
+        $form['step_2']['actions'] = ['#type' => 'actions', '#weight' => 14];
+        $form['step_2']['actions']['next_step_2'] = bfss_registration_form_next_btn(2);
+      }
+
+      if ($step >= 2) {
+        unset($form['account']['name']);
+        unset($form['account']['mail']);
+        //  set fields for "Parent Guardian Registering Athlete"
+        if (in_array($type, ['parent_guardian_registering_athlete_'])) {
+          $form['step_2']['fields_list_title_2']['#access'] = TRUE;
+          $form['step_2']['parent_conf_email']['#access'] = TRUE;
+
+          foreach ([
+                     'field_parent_first_name',
+                     'field_parent_last_name',
+                     'field_parent_email',
+                   ] as $k => $field_name) {
+            $form['step_2'][$field_name]['#access'] = TRUE;
+
+            if (isset($form['step_2'][$field_name]['widget'][0]['value'])) {
+              $form['step_2'][$field_name]['widget'][0]['value']['#required'] = TRUE;
+            }
+          }
+        }
+      }
+
+      if (in_array($type, ['coach'])) {
+        //  if user_type == "coach" => continue registration
+        $form['actions']['submit']['#access'] = TRUE;
+        // Finally add a custom submit handler to store the selected role in session to later update in hook_user_update
+        array_unshift($form['actions']['submit']['#submit'], 'ajax_register_user_register_form_submit');
+
+        $form['actions']['submit']['#ajax'] = [
+          'callback' => 'bfss_registration_form_last',
+          'wrapper' => 'register-form-container'
+        ];
+      }
+      else {
+        if ($step <= 3) {
+          unset($form['account']);
+        }
+      }
+
     }
 
-    $form['step_2']['loan_officer'] = [
-      '#type' => 'select',
-      '#title' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
-      // '#description' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
-      '#options' => ['a' => 'A', 'b' => 'B'],
-      '#weight' => -10
-    ];
+    //  select program
+    if ($step >= 3) {
+      // Step 3 group
+      $form['step_3'] = [
+        '#type' => 'details',
+        '#title' => t('Step 3'),
+        '#open' => TRUE,
+        '#attributes' => [
+          'class' => ['step-3'],
+        ],
+      ];
 
-    // Set fields
-    // $form['step_2']['field_first_name'] = $form['field_first_name'] + ['#weight' => 0];
-    // $form['step_2']['field_last_name'] = $form['field_last_name'] + ['#weight' => 1];
-    $form['step_2']['account'] = $form['account'];
-    $form['step_2']['account']['#weight'] = 2;
-    $form['step_2']['account']['mail']['#weight'] = 10;
+      //  add new field
+      if (isset($form['field_program_term'])) {
+        $form['step_3']['fields_list_title'] = [
+          '#type' => 'item',
+          '#markup' => t('Select Program'),
+          '#weight' => -1,
+        ];
+        $form['step_3']['field_program_term'] = $form['field_program_term'];
+        $form['step_3']['field_program_term']['#access'] = TRUE;
+      }
 
-    // Unset the name and account fields
-    unset($form['field_first_name']);
-    unset($form['field_last_name']);
-    unset($form['account']);
+      if ($step >= 3) {
+        $form['step_3']['actions'] = ['#type' => 'actions', '#weight' => 12];
+        $form['step_3']['actions']['next_step_3'] = bfss_registration_form_next_btn(3);
+        $form['step_3']['actions']['next_step_3']['#attributes']['class'][] = 'hide';
+      }
+    }
 
-    // Finally add a custom submit handler to store the selected role in session to later update in hook_user_update
-    array_unshift($form['actions']['submit']['#submit'], 'ajax_register_user_register_form_submit');
+    //  payment form and payment agreement
+    if ($step >= 4) {
+
+      $form['actions']['submit']['#access'] = TRUE;
+
+      $field_program_term_value = $form_state->getValue('field_program_term');
+      $target_id = $field_program_term_value[0]['target_id'];
+
+      $field_program_term = \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->load($target_id);
+
+      // Step 4 group
+      $form['step_4'] = [
+        '#type' => 'details',
+        '#title' => t('Step 4'),
+        '#open' => TRUE,
+        '#attributes' => [
+          'class' => ['step-4'],
+        ],
+      ];
+
+      //  get field_program_term
+
+      $form['step_4']['title'] = [
+        '#type' => 'item',
+        '#markup' => $field_program_term->label(),
+      ];
+
+      $form['step_4']['is_over_16_years'] = [
+        '#type' => 'radios',
+        '#title' => t('Over 16 years old?'),
+        '#required' => TRUE,
+        '#options' => [
+          'yes' => t('Yes'),
+          'no' => t('No'),
+        ],
+        '#default_value' => $form_state->getValue('is_over_16_years'),
+      ];
+
+      $is_over_16_years = $form_state->getValue('is_over_16_years');
+      $parent_permission_show = $form_state->get('parent_permission_show');
+
+      $parent_permission = $form_state->getValue('parent_permission');
+
+      //      if (in_array($is_over_16_years, ['no'])) {
+      $form['step_4']['parent_permission'] = [
+        '#type' => 'radios',
+        '#title' => t('Do you have permission from your parents/legal guardian to create this account'),
+        '#access' => in_array($is_over_16_years, ['no']),
+        '#options' => [
+          'yes' => t('Yes'),
+          'no' => t('No'),
+        ],
+        '#default_value' => $form_state->getValue('parent_permission'),
+      ];
+
+      $form['step_4']['parent_permission_error'] = [
+        '#type' => 'item',
+        '#markup' => ''
+      ];
+      //      }
+
+      $form['step_4']['actions']['next_step_4'] = bfss_registration_form_next_btn(4);
+      $form['step_4']['actions']['next_step_4']['#value'] = t('Check');
+      $form['step_4']['actions']['next_step_4']['#name'] = 'next_step_4';
+      $form['step_4']['actions']['next_step_4']['#attributes']['class'][] = 'hide button';
+
+      //  here need add additional validation
+      array_unshift($form['#validate'], 'bfss_registration_form_next_validate');
+
+      // Finally add a custom submit handler to store the selected role in session to later update in hook_user_update
+      array_unshift($form['actions']['submit']['#submit'], 'ajax_register_user_register_form_submit');
+
+      //  make main button is ajax
+      $form['actions']['submit']['#ajax'] = [
+        'callback' => 'bfss_registration_form_last',
+        'wrapper' => 'register-form-container'
+      ];
+
+      //      if ($is_over_16_years == 'yes' || ($is_over_16_years == 'no' && in_array($parent_permission, ['yes']))) {
+//      if ($parent_permission_show == 'show' || ($is_over_16_years == 'no' && $parent_permission == 'yes')) {
+//      if ($parent_permission_show == 'show') {
+        $form['step_4']['cck'] = [
+          '#title' => t('Credit Card Information'),
+          '#type' => 'fieldset',
+          '#attributes' => [
+            'class' => ['fieldset-cck'],
+          ],
+        ];
+
+        $form['step_4']['cck']['cck_name'] = [
+          '#title' => t('Credit Card Name'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Credit Card Name'),
+          '#required' => TRUE,
+          '#type' => 'textfield',
+        ];
+
+        $form['step_4']['cck']['cck_number'] = [
+          '#title' => t('Credit Card Number'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Credit Card Number'),
+          '#required' => TRUE,
+          '#type' => 'textfield',
+        ];
+
+        $month_options = [];
+        for ($m = 1; $m <= 12; ++$m) {
+          $time = mktime(0, 0, 0, $m, 1);
+          $month_options[date('m', $time)] = date('F', $time);
+        }
+
+        $year_options = [];
+
+        for ($i = date("Y"); $i < date("Y") + 10; $i++) {
+          $year_options[$i] = $i;
+        }
+
+        $form['step_4']['cck']['cck_month'] = [
+          '#title' => t('Month'),
+          '#title_display' => 'invisible',
+          '#type' => 'select',
+          '#required' => TRUE,
+          '#options' => $month_options,
+        ];
+
+        $form['step_4']['cck']['cck_year'] = [
+          '#title' => t('Year'),
+          '#title_display' => 'invisible',
+          '#type' => 'select',
+          '#required' => TRUE,
+          '#options' => $year_options,
+        ];
+
+        $form['step_4']['cck']['cck_csv'] = [
+          '#title' => t('CSV'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('CSV'),
+          '#required' => TRUE,
+          '#type' => 'textfield',
+        ];
+
+        $form['step_4']['cck']['billing_info'] = [
+          '#title' => t('Billing Information'),
+          '#type' => 'fieldset',
+          '#attributes' => [
+            'class' => ['fieldset-billing-info'],
+          ],
+        ];
+
+        $form['step_4']['cck']['billing_info']['bi_first_name'] = [
+          '#title' => t('Billing First Name'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Billing First Name'),
+          '#type' => 'textfield',
+          '#default_value' => $form_state->getValue('bi_first_name', ''),
+        ];
+
+        $form['step_4']['cck']['billing_info']['bi_last_name'] = [
+          '#title' => t('Billing Last Name'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Billing Last Name'),
+          '#type' => 'textfield',
+          '#default_value' => $form_state->getValue('bi_last_name', ''),
+        ];
+
+        $form['step_4']['cck']['billing_info']['bi_address'] = [
+          '#title' => t('Billing Address'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Billing Address'),
+          '#type' => 'textfield',
+          '#default_value' => $form_state->getValue('bi_address', ''),
+        ];
+
+        $form['step_4']['cck']['billing_info']['bi_city'] = [
+          '#title' => t('Billing City'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Billing City'),
+          '#type' => 'textfield',
+          '#default_value' => $form_state->getValue('bi_city', ''),
+        ];
+
+        $states = array(
+          'AL'=>'AL',
+          'AK'=>'AK',
+          'AS'=>'AS',
+          'AZ'=>'AZ',
+          'AR'=>'AR',
+          'CA'=>'CA',
+          'CO'=>'CO',
+          'CT'=>'CT',
+          'DE'=>'DE',
+          'DC'=>'DC',
+          'FM'=>'FM',
+          'FL'=>'FL',
+          'GA'=>'GA',
+          'GU'=>'GU',
+          'HI'=>'HI',
+          'ID'=>'ID',
+          'IL'=>'IL',
+          'IN'=>'IN',
+          'IA'=>'IA',
+          'KS'=>'KS',
+          'KY'=>'KY',
+          'LA'=>'LA',
+          'ME'=>'ME',
+          'MH'=>'MH',
+          'MD'=>'MD',
+          'MA'=>'MA',
+          'MI'=>'MI',
+          'MN'=>'MN',
+          'MS'=>'MS',
+          'MO'=>'MO',
+          'MT'=>'MT',
+          'NE'=>'NE',
+          'NV'=>'NV',
+          'NH'=>'NH',
+          'NJ'=>'NJ',
+          'NM'=>'NM',
+          'NY'=>'NY',
+          'NC'=>'NC',
+          'ND'=>'ND',
+          'MP'=>'MP',
+          'OH'=>'OH',
+          'OK'=>'OK',
+          'OR'=>'OR',
+          'PW'=>'PW',
+          'PA'=>'PA',
+          'PR'=>'PR',
+          'RI'=>'RI',
+          'SC'=>'SC',
+          'SD'=>'SD',
+          'TN'=>'TN',
+          'TX'=>'TX',
+          'UT'=>'UT',
+          'VT'=>'VT',
+          'VI'=>'VI',
+          'VA'=>'VA',
+          'WA'=>'WA',
+          'WV'=>'WV',
+          'WI'=>'WI',
+          'WY'=>'WY',
+          'AE'=>'AE',
+          'AA'=>'AA',
+          'AP'=>'AP'
+        );
+
+        $form['step_4']['cck']['billing_info']['bi_state'] = [
+          '#title' => t('Billing State'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Billing Postal Code'),
+          '#type' => 'select',
+          '#empty_option' => 'States',
+          '#options'=> $states,
+          '#default_value' => $form_state->getValue('bi_state', ''),
+        ];
+
+        $form['step_4']['cck']['billing_info']['bi_postal_code'] = [
+          '#title' => t('Billing Postal Code'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Billing Postal Code'),
+          '#type' => 'textfield',
+          '#default_value' => $form_state->getValue('bi_postal_code', ''),
+        ];
+
+        $form['step_4']['cck']['billing_info']['bi_country'] = [
+          '#title' => t('Billing Country'),
+          '#title_display' => 'invisible',
+          '#placeholder' => t('Billing Country'),
+          '#type' => 'select',
+          '#empty_option' => t('Country'),
+          '#options' => [
+            'usa' => 'USA',
+            'canada' => 'Canada',
+          ],
+          '#default_value' => $form_state->getValue('bi_country', ''),
+        ];
+//      }
+
+    } else {
+
+    }
+
+    // Unset the account fields si1nce step 2
+
+    // unset additional fields
+    foreach ($additional_fields as $k => $additional_field) {
+      if (isset($form[$additional_field])) {
+        unset($form[$additional_field]);
+      }
+    }
   }
+
+  for ($i = 1; $i <= $step; $i++) {
+    //  Open/Close "details" tab
+    $form['step_' . $i]['#open'] = $i == $step ? TRUE : FALSE;
+
+    // set placeholders
+    foreach ($form['step_' . $i] as $k => $form_item) {
+      if (strpos($k, '#') === FALSE) {
+        if (isset($form_item['#type']) && in_array($form_item['#type'], [
+            'select',
+            'textfield',
+            'textarea',
+            'email',
+            'number',
+          ])) { //  set fields that can have placeholders
+          $form['step_' . $i][$k]['#placeholder'] = $form_item['#title'];
+          $form['step_' . $i][$k]['#title_display'] = 'invisible';
+        }
+        elseif (in_array($k, $additional_fields)) {
+          if (isset($form['step_' . $i][$k]['widget']['#options'])) { // conditions for select list
+            if ($k == 'field_state') {
+              $form['step_' . $i][$k]['widget']['#title_display'] = 'invisible';
+              $form['step_' . $i][$k]['widget']['#options']['_none'] = t('State');
+            }
+            elseif ($k == 'field_program_term') {
+              $form['step_' . $i][$k]['widget']['#title_display'] = 'invisible';
+              $form['step_' . $i][$k]['widget']['#options']['_none'] = t('Program Options');
+            }
+          }
+          else {  //  conditions for textfields
+            $form['step_' . $i][$k]['widget'][0]['value']['#placeholder'] = $form_item['widget'][0]['value']['#title'];
+            $form['step_' . $i][$k]['widget'][0]['value']['#title_display'] = 'invisible';
+          }
+        }
+      }
+    }
+
+  }
+
+  //  add to current step to frontEnd
+  $form['#attached']['drupalSettings']['bfss_registration_form']['step'] = $step;
 }
 
 
@@ -154,6 +710,13 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 function bfss_registration_form_user_insert(User $user) {
   $role = $_SESSION['bfss_registration_form_user_type'];
   $user->addRole($role);
+
+  $pass = $user->getPassword();
+
+  if ($pass == '' && !empty($_SESSION['bfss_registration_form_user_type'])) {
+    $user->setPassword(randomPassword()); //  set random password
+  }
+
   $user->save();
 }
 
@@ -163,6 +726,8 @@ function bfss_registration_form_user_insert(User $user) {
 function ajax_register_user_register_form_submit(array &$form, FormStateInterface $form_state) {
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
+
+  $form_state->disableRedirect();
 }
 
 /**
@@ -172,7 +737,30 @@ function changedUserType(array &$form, FormStateInterface $form_state) {
   $values = $form_state->getValues();
   $options = _get_role_options();
 
+  $form['#step'] = 2;
+
+  $ar = new \Drupal\Core\Ajax\AjaxResponse();
+
   if (!empty($values['user_type'])) {
+    // Update step 2 title
+    $form['step_2']['#title'] = t("Step 2 - {$options[$values['user_type']]}");
+
+    // Unset the markup
+    unset($form['step_2']['markup']);
+
+    //    $form['step_2']['loan_officer'] = [
+    //      '#type' => 'select',
+    //      '#title' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
+    //      // '#description' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
+    //      '#options' => ['a' => 'A', 'b' => 'B'],
+    //      '#weight' => -10
+    //    ];
+  }
+
+  $ar->addCommand(new \Drupal\Core\Ajax\ReplaceCommand('#register-form-container form', $form));
+  return $ar;
+
+  /*if (!empty($values['user_type'])) {
     // Update step 2 title
     $form['step_2']['#title'] = t("Step 2 - {$options[$values['user_type']]}");
 
@@ -186,19 +774,325 @@ function changedUserType(array &$form, FormStateInterface $form_state) {
       '#options' => ['a' => 'A', 'b' => 'B'],
       '#weight' => -10
     ];
-  }
+  }*/
 
   return $form;
 }
 
 
 /**
+ * Validate implementation for next action
+ */
+function bfss_registration_form_next_validate(&$form, FormStateInterface $form_state) {
+  //  get step
+  $step = $form_state->get('step');
+
+  //  get triggered element
+  $te = $form_state->getTriggeringElement();
+
+  $errors = $form_state->getErrors();
+
+
+  //  check email confirmation
+  if ($step >= 2 || $te['#name'] == 'next_step_2') {
+    $mail = $form_state->getValue('mail');
+    $conf_mail = $form_state->getValue('conf_mail');
+
+    if ($mail != $conf_mail) {
+      $form_state->setErrorByName('conf_mail', t('Your e-mail address and confirmed e-mail address must match.'));
+      $form_state->setRebuild();
+    }
+
+    $user_input = $form_state->getUserInput();
+
+    //  check if parent email is set
+    if (isset($user_input['field_parent_email'][0]['value'])) {
+
+      $parent_email = $form_state->getValue('field_parent_email');
+      $parent_conf_email = $form_state->getValue('parent_conf_email');
+
+      if ($parent_email[0]['value'] != $parent_conf_email) {
+        $form_state->setErrorByName('parent_conf_email', t('Your parent e-mail address and confirmed parent e-mail address must match.'));
+      }
+    }
+  }
+
+  switch ($te['#name']) {
+    case 'next_step_1':
+      //  if we trigger "user_type" => we reload form => all errors gone
+      $form_state->clearErrors();
+
+      //  clean values if need
+      //      $form_state->cleanValues();
+
+      $type = $form_state->getValue('user_type');
+      if ($type == '0') {
+        $form_state->set('step', 1);
+      }
+      else {
+        $form_state->set('step', 2);
+      }
+
+      $form_state->cleanValues();
+
+      $form_state->setRebuild();
+
+      break;
+    case 'next_step_2':
+    case 'next_step_3':
+      if ($te['#name'] == 'next_step_2') {
+        if ($step > 2) {
+          $form_state->clearErrors();
+        }
+        $step = 2;
+
+      }
+
+      if ($te['#name'] == 'next_step_3') {
+        if ($step > 3) {
+          $form_state->clearErrors();
+        }
+        $step = 3;
+      }
+
+      //  if we trigger "user_type" => we reload form => all errors gone
+      //  check if email exist or name exist
+      if ($error = user_validate_name($form_state->getValue(['name']))) {
+        $form_state->setErrorByName('name', $error);
+      }
+
+      if ($account = user_load_by_name($form_state->getValue(['name']))) {
+        $form_state->setErrorByName('name', t('The username @name is already taken.', ['@name' => $form_state->getValue('name')]));
+      }
+
+      if ($account = user_load_by_mail($form_state->getValue('mail'))) {
+        $form_state->setErrorByName('mail', t('The mail @mail is already taken.', ['@mail' => $form_state->getValue('mail')]));
+      }
+
+      if (!$errors) {
+        $form_state->set('step', $step + 1);
+        $form_state->setRebuild();
+      }
+      break;
+    case 'next_step_4':
+      $form_state->clearErrors();
+
+      $form_state->set('step', 4);
+      $form_state->set('parent_permission_show', 'hide');
+
+      //  check 16 years over
+      $is_over_16_years = $form_state->getValue('is_over_16_years');
+      //  check parent permissions
+      $parent_permission = $form_state->getValue('parent_permission');
+
+//      if ($is_over_16_years == 'yes' || ($is_over_16_years == 'no' && $parent_permission == 'yes')) {
+      if ($is_over_16_years == 'yes' || $is_over_16_years == 'no') {
+        $form_state->set('parent_permission_show', 'show');
+      }
+
+      if ($is_over_16_years == 'no' && $parent_permission == 'no') {
+        $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
+      }
+
+      $form_state->setRebuild();
+
+      break;
+    default:
+
+      //  check 16 years over
+      $is_over_16_years = $form_state->getValue('is_over_16_years');
+
+
+      //  check parent permissions
+      $parent_permission = $form_state->getValue('parent_permission');
+
+      if (strpos($te['#name'], 'op') !== FALSE && 1) {
+
+        if ($is_over_16_years == 'no' && $parent_permission == 'no') {
+          $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
+          //          $form_state->setRebuild();
+//          return FALSE;
+        }
+      }
+
+      //@todo: better to use this library https://github.com/inacho/php-credit-card-validator
+
+      //  validate credit card number
+      $credit_card_number = $form_state->getValue('cck_number');
+      $luhn_check = !luhn_check($credit_card_number);
+      $is_cck_number = $credit_card_number == '4111111111111111';
+      if (!$luhn_check && !$is_cck_number) {
+        $form_state->setErrorByName('cck_number', t('Please set valid Credit Card Number.'));
+        //        $form_state->setRebuild();
+      }
+
+      $cck_month = $form_state->getValue('cck_month');
+      $cck_year = $form_state->getValue('cck_year');
+
+      //  validate credit card expiration date
+      $expires = $cck_month . $cck_year;
+      $now = date('my', time());
+
+      if ($expires < $now) {
+        // expired
+        $form_state->setErrorByName('cck_month', t('Please set valid Credit Card Expiration Date.'));
+        //        $form_state->setRebuild();
+      }
+
+      if ($form_state->getErrors()) {
+        $form_state->setRebuild();
+//        return FALSE;
+      }
+
+      break;
+  }
+
+}
+
+/**
+ * Submit implementation for next action
+ */
+function bfss_registration_form_next_submit(&$form, FormStateInterface $form_state) {
+  //  get triggered element
+  $te = $form_state->getTriggeringElement();
+
+  switch ($te['#name']) {
+    case 'next_step_1':
+      $type = $form_state->getValue('user_type');
+      if ($type == '0') {
+        $form_state->set('step', 1);
+      }
+      else {
+        $form_state->set('step', 2);
+      }
+      break;
+    case 'next_step_2':
+      $form_state->set('step', 3);
+      break;
+  }
+
+  if (strpos($te['#name'], 'next_step_') !== FALSE) {
+    $form_state->setRebuild();
+  }
+}
+
+/**
+ * Ajax implementation for next action
+ */
+function bfss_registration_form_next_ajax(&$form, FormStateInterface $form_state) {
+  return $form;
+}
+
+function bfss_registration_form_last(&$form, FormStateInterface $form_state) {
+  $form_state->setRebuild();
+  //$form_state->cleanValues();
+  $form['#attached']['drupalSettings']['bfss_registration_form']['registered'] = 1;
+
+  \Drupal::messenger()->deleteAll();
+
+  \Drupal::messenger()->addStatus(t('A confirmation e-mail has been sent please check your inbox or your spam folder for next step.'));
+
+  $message = [
+    '#theme' => 'status_messages',
+    '#message_list' => drupal_get_messages(),
+    '#status_headings' => [
+      'status' => t('Status message'),
+      'error' => t('Error message'),
+      'warning' => t('Warning message'),
+    ],
+  ];
+  $messages = \Drupal::service('renderer')->render($message);
+
+  $form['messages'] = [
+    '#type' => 'item',
+    '#markup' => $messages,
+    //    '#prefix' => '<div class="messages__wrapper">',
+    //    '#suffix' => '</div>',
+    '#weight' => 20
+  ];
+
+  return $form;
+}
+
+/**
  * Returns role options
  */
 function _get_role_options() {
   $roles = user_role_names(TRUE);
+  //  remove unnecessary roles
   unset($roles['administrator']);
   unset($roles['authenticated']);
-  array_unshift($roles, 'Select');
+  array_unshift($roles, t('Account Options'));
   return $roles;
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function bfss_registration_form_user_login(\Drupal\user\UserInterface $account) {
+
+  //  check if user logged in first time
+  $last_login_time = $account->getLastLoginTime();
+  $last_access_time= $account->getLastAccessedTime();
+
+  //  conditions for mark as first login
+  if (($last_access_time == 0 || $last_login_time == 0)) {
+    $_SESSION['user_first_login'] = 1;
+  }
+}
+
+/* Luhn algorithm number checker - (c) 2005-2008 shaman - www.planzero.org *
+ * This code has been released into the public domain, however please      *
+ * give credit to the original author where possible.                      */
+/**
+ * Check credit card number
+ *
+ * @param $number
+ *
+ * @return bool
+ */
+function luhn_check($number) {
+
+  // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
+  $number = preg_replace('/\D/', '', $number);
+
+  // Set the string length and parity
+  $number_length = strlen($number);
+  $parity = $number_length % 2;
+
+  // Loop through each digit and do the maths
+  $total = 0;
+  for ($i = 0; $i < $number_length; $i++) {
+    $digit = $number[$i];
+    // Multiply alternate digits by two
+    if ($i % 2 == $parity) {
+      $digit *= 2;
+      // If the sum is two digits, add them together (in effect)
+      if ($digit > 9) {
+        $digit -= 9;
+      }
+    }
+    // Total up the digits
+    $total += $digit;
+  }
+
+  // If the total mod 10 equals 0, the number is valid
+  return ($total % 10 == 0) ? TRUE : FALSE;
+
+}
+
+/**
+ * Generate random password
+ *
+ * @return string
+ */
+function randomPassword() {
+  $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  $pass = array(); //remember to declare $pass as an array
+  $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+  for ($i = 0; $i < 8; $i++) {
+    $n = rand(0, $alphaLength);
+    $pass[] = $alphabet[$n];
+  }
+  return implode($pass); //turn the array into a string
 }

@@ -1,0 +1,5 @@
+name: 'BFSS User'
+type: module
+description: 'Custom BFSS module for user hooks'
+core: 8.x
+package: 'Custom'

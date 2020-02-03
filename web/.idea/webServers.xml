@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="da189edf-0dd7-4b98-8b4f-f516ea1718ae" name="5ppsystem" url="http://5ppsystem.com">
+        <fileTransfer host="5ppsystem.com" port="22" rootFolder="/var/www/5ppsystem.com/web/" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
