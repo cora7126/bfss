@@ -1,14 +1,52 @@
 <!-- Add you custom twig html here -->
 
-<div class="reg-form-tabs reg-tab-1">
-  {{ form.step_1 }}
-</div>
-<div class="reg-form-tabs reg-tab-2">
-  {{ form.step_2 }}
-</div>
+{#{{ devel_breakpoint() }}#}
+
+{#{% set steps = [#}
+    {#'step_1',#}
+    {#'step_2',#}
+    {#'step_3',#}
+    {#'step_4',#}
+    {#'step_5'#}
+  {#]#}
+{#%}#}
+
+{#{% for k,step in steps %}#}
+    {#{% if form[k] %}#}
+      {#<div class="reg-form-tabs reg-tab-{{ k }}">#}
+          {#{{ form[k] }}#}
+      {#</div>#}
+    {#{% endif %}#}
+{#{% endfor %}#}
+
+
+{% set step = form['#step'] %}
+
+{#{% if step >= 1 %}#}
+  <div class="reg-form-tabs reg-tab-1" data-step="1">
+    {{ form.step_1 }}
+  </div>
+{#{% endif %}#}
+{#{% if step >= 1 %}#}
+  <div class="reg-form-tabs reg-tab-2" data-step="2">
+    {{ form.step_2 }}
+  </div>
+{#{% endif %}#}
+{#{% if step >= 3 %}#}
+  <div class="reg-form-tabs reg-tab-3" data-step="3">
+    {{ form.step_3 }}
+  </div>
+{#{% endif %}#}
+{#{% if step == 4 %}#}
+  <div class="reg-form-tabs reg-tab-4" data-step="4">
+    {{ form.step_4 }}
+  </div>
+{#{% endif %}#}
 
 {# Renders the rest of the form #}
-{{ form|without('step_1','step_2') }}
+{{ form|without('step_1','step_2','step_3','step_4','messages') }}
+
+{{ form.messages }}
 
 <!-- Sub fields like this -->
 <!-- <div class="xyz">
