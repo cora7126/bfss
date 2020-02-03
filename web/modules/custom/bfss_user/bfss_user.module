@@ -1,0 +1,118 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Valentine
+ * Date: 02.02.2020
+ * Time: 14:17
+ */
+
+/**
+ * Alter "user_pass" form
+ *
+ * @param $form
+ * @param $form_state
+ */
+function bfss_user_form_user_pass_alter(&$form, &$form_state) {
+  // alter just for anonymous users
+  if (\Drupal::currentUser()->isAnonymous()) {
+    $form['#action'] = \Drupal\Core\Url::fromRoute('user.pass')->toString();
+    $form['#attached']['library'][] = 'core/drupal.ajax';
+    $form['name']['#placeholder'] = t('Enter your e-mail');
+
+
+    $form['#prefix'] = '<div class="user-pass-wrapper" id="user-pass-wrapper">';
+    $form['#suffix'] = '</div>';
+
+    $form['#submit'] = ['bfss_user_pass_submit']; // replace on own submit handler
+
+    $form['#validate'][] = 'bfss_user_pass_validate';
+    $form['actions']['submit']['#ajax'] = [
+      'callback' => 'bfss_user_pass_submit_ajax',
+      'wrapper' => 'user-pass-wrapper'
+    ];
+
+    $form['system_messages'] = [
+      '#markup' => '<div id="form-pass-system-messages"></div>',
+      '#weight' => -100,
+    ];
+  }
+}
+
+/**
+ * "user_pass" validation handler
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function bfss_user_pass_validate(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  //  check if does not exists any error
+  if ($form_state->getErrors()) {
+    $form_state->setRebuild();
+    return $form;
+  }
+}
+
+/**
+ * "user_pass" submit alter
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function bfss_user_pass_submit(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+
+  $account = $form_state->getValue('account');
+  // Mail one time login URL and instructions using current language.
+  $mail = _user_mail_notify('password_reset', $account, $langcode);
+  if (!empty($mail)) {
+    \Drupal::logger('user')->notice('Password reset instructions mailed to %name at %email.', ['%name' => $account->getAccountName(), '%email' => $account->getEmail()]);
+    \Drupal::messenger()->addStatus(t('Further instructions have been sent to your email address.'));
+  }
+
+  $form_state->setRebuild();
+}
+
+/**
+ * 'user_pass' ajax submit handler
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *
+ * @return array
+ */
+function bfss_user_pass_submit_ajax(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $form_state->setRebuild();
+  return $form;
+}
+
+/**
+ * Alter "user_login" form
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function bfss_user_form_user_login_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $form['name']['#weight'] = 0;
+  $form['pass']['#weight'] = 1;
+  $form['pass']['#description'] = t('This page is protected by reCAPTCHA, and subject to the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of service</a>');
+
+  $form['forgot_pass'] = [
+    '#type' => 'item',
+    '#markup'=> t('<a href="@url" class="use-ajax btn-forgot-pass">Forgot your password?</a>', ['@url' => \Drupal\Core\Url::fromRoute('bfss_user.user_pass')->toString()]),
+    '#weight' => 10,
+  ];
+
+  $form['actions']['#weight'] = 2;
+  $form['actions']['submit']['#value'] = t('Sing In');
+
+  $form['#attached']['library'][] = 'core/drupal.ajax';
+
+  $form['#suffix'] = '<div id="user-pass-load" class="user-pass-load"></div>';
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function bfss_user_mail_alter(&$message) {
+  \Drupal::logger('bfss_user.mail')->info('Body message:' . print_r($message['body'], TRUE));
+}

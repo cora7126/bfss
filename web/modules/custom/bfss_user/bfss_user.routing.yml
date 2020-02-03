@@ -1,0 +1,11 @@
+#redefine user.login route
+bfss_user.user_pass:
+  path: '/bfss-user-password'
+  defaults:
+    _controller: '\Drupal\bfss_user\Controller\UserPass::content'
+    _title: 'Log in'
+  requirements:
+    _user_is_logged_in: 'FALSE'
+  options:
+    _maintenance_access: TRUE
+
