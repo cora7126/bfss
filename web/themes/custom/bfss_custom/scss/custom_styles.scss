@@ -272,6 +272,9 @@ body.complete-registration {
           .select-wrapper {
             float: right;
           }
+          .form-item--error-message {
+            clear: both;
+          }
         }
         .form-item-cck-csv {
           clear: left;

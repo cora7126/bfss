@@ -6885,6 +6885,13 @@ body.complete-registration {
     body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper,
     body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper {
       float: right; }
+    body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message,
+    body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message,
+    body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message,
+    body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message,
+    body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message,
+    body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message {
+      clear: both; }
     body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv,
     body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv,
     body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv,

@@ -158,6 +158,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
   //  if ((empty($userInput) || !isset($userInput['user_type']) || empty($userInput['user_type'])) && $type == null) {
   // If the user input is empty or role is not selected yet
 
+  //  @todo: need move to separate function or class
   //  default step
   if ($step == 1) {
     // Unset the name, account fields and submit button
@@ -169,11 +170,14 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     $form['account']['name']['#access'] = FALSE;
     $form['account']['pass']['#access'] = FALSE;
     $form['actions']['submit']['#access'] = FALSE;
+    $form['actions']['submit']['#disabled'] = FALSE;
 
     // Markup for step 2 if role is not chosen
 //    $form['step_2']['markup'] = ['#markup' => t('Please select a user type.')];
   }
   else {
+
+    //  @todo: need move to separate function or class
     //  add pivate information
     if ($step >= 2) {
       // Step 2 group
@@ -244,6 +248,8 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
       ];
 
       if (isset($form['account']['name'])) {
+        $form['account']['name']['#access'] = TRUE;
+        //        $form['step_2']['name']['#access'] = TRUE;
         $form['step_2']['name'] = $form['account']['name'];
         $form['step_2']['name'] = array_merge($form['step_2']['name'], ['#weight' => 3]);
       }
@@ -321,6 +327,11 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
       if (in_array($type, ['coach'])) {
         //  if user_type == "coach" => continue registration
         $form['actions']['submit']['#access'] = TRUE;
+
+        //  here need add additional validation
+//        array_unshift($form['#validate'], 'bfss_registration_form_next_validate');
+        $form['#validate'][] =  'bfss_registration_form_next_validate';
+
         // Finally add a custom submit handler to store the selected role in session to later update in hook_user_update
         array_unshift($form['actions']['submit']['#submit'], 'ajax_register_user_register_form_submit');
 
@@ -337,6 +348,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
     }
 
+    //  @todo: need move to separate function or class
     //  select program
     if ($step >= 3) {
       // Step 3 group
@@ -367,6 +379,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
       }
     }
 
+    //  @todo: need move to separate function or class
     //  payment form and payment agreement
     if ($step >= 4) {
 
@@ -550,70 +563,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#default_value' => $form_state->getValue('bi_city', ''),
         ];
 
-        $states = array(
-          'AL'=>'AL',
-          'AK'=>'AK',
-          'AS'=>'AS',
-          'AZ'=>'AZ',
-          'AR'=>'AR',
-          'CA'=>'CA',
-          'CO'=>'CO',
-          'CT'=>'CT',
-          'DE'=>'DE',
-          'DC'=>'DC',
-          'FM'=>'FM',
-          'FL'=>'FL',
-          'GA'=>'GA',
-          'GU'=>'GU',
-          'HI'=>'HI',
-          'ID'=>'ID',
-          'IL'=>'IL',
-          'IN'=>'IN',
-          'IA'=>'IA',
-          'KS'=>'KS',
-          'KY'=>'KY',
-          'LA'=>'LA',
-          'ME'=>'ME',
-          'MH'=>'MH',
-          'MD'=>'MD',
-          'MA'=>'MA',
-          'MI'=>'MI',
-          'MN'=>'MN',
-          'MS'=>'MS',
-          'MO'=>'MO',
-          'MT'=>'MT',
-          'NE'=>'NE',
-          'NV'=>'NV',
-          'NH'=>'NH',
-          'NJ'=>'NJ',
-          'NM'=>'NM',
-          'NY'=>'NY',
-          'NC'=>'NC',
-          'ND'=>'ND',
-          'MP'=>'MP',
-          'OH'=>'OH',
-          'OK'=>'OK',
-          'OR'=>'OR',
-          'PW'=>'PW',
-          'PA'=>'PA',
-          'PR'=>'PR',
-          'RI'=>'RI',
-          'SC'=>'SC',
-          'SD'=>'SD',
-          'TN'=>'TN',
-          'TX'=>'TX',
-          'UT'=>'UT',
-          'VT'=>'VT',
-          'VI'=>'VI',
-          'VA'=>'VA',
-          'WA'=>'WA',
-          'WV'=>'WV',
-          'WI'=>'WI',
-          'WY'=>'WY',
-          'AE'=>'AE',
-          'AA'=>'AA',
-          'AP'=>'AP'
-        );
+        $states = getStates();
 
         $form['step_4']['cck']['billing_info']['bi_state'] = [
           '#title' => t('Billing State'),
@@ -823,8 +773,6 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
       $form_state->clearErrors();
 
       //  clean values if need
-      //      $form_state->cleanValues();
-
       $type = $form_state->getValue('user_type');
       if ($type == '0') {
         $form_state->set('step', 1);
@@ -833,7 +781,9 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
         $form_state->set('step', 2);
       }
 
-      $form_state->cleanValues();
+      //  @todo: maybe need reset form values
+
+      $form['actions']['submit']['#disabled'] = FALSE;
 
       $form_state->setRebuild();
 
@@ -899,49 +849,54 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
       break;
     default:
 
-      //  check 16 years over
-      $is_over_16_years = $form_state->getValue('is_over_16_years');
+      $type = $form_state->getValue('user_type');
+
+      //  validation just for "athlete & athlete with parent"
+      if ($type != 'coach') {
+        //  check 16 years over
+        $is_over_16_years = $form_state->getValue('is_over_16_years');
 
 
-      //  check parent permissions
-      $parent_permission = $form_state->getValue('parent_permission');
+        //  check parent permissions
+        $parent_permission = $form_state->getValue('parent_permission');
 
-      if (strpos($te['#name'], 'op') !== FALSE && 1) {
+        if (strpos($te['#name'], 'op') !== FALSE && 1) {
 
-        if ($is_over_16_years == 'no' && $parent_permission == 'no') {
-          $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
-          //          $form_state->setRebuild();
-//          return FALSE;
+          if ($is_over_16_years == 'no' && $parent_permission == 'no') {
+            $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
+            //          $form_state->setRebuild();
+            //          return FALSE;
+          }
         }
-      }
 
-      //@todo: better to use this library https://github.com/inacho/php-credit-card-validator
+        //@todo: better to use this library https://github.com/inacho/php-credit-card-validator
 
-      //  validate credit card number
-      $credit_card_number = $form_state->getValue('cck_number');
-      $luhn_check = !luhn_check($credit_card_number);
-      $is_cck_number = $credit_card_number == '4111111111111111';
-      if (!$luhn_check && !$is_cck_number) {
-        $form_state->setErrorByName('cck_number', t('Please set valid Credit Card Number.'));
-        //        $form_state->setRebuild();
-      }
+        //  validate credit card number
+        $credit_card_number = $form_state->getValue('cck_number');
+        $luhn_check = !luhn_check($credit_card_number);
+        $is_cck_number = $credit_card_number == '4111111111111111';
+        if (!$luhn_check && !$is_cck_number) {
+          $form_state->setErrorByName('cck_number', t('Please set valid Credit Card Number.'));
+          //        $form_state->setRebuild();
+        }
 
-      $cck_month = $form_state->getValue('cck_month');
-      $cck_year = $form_state->getValue('cck_year');
+        $cck_month = $form_state->getValue('cck_month');
+        $cck_year = $form_state->getValue('cck_year');
 
-      //  validate credit card expiration date
-      $expires = $cck_month . $cck_year;
-      $now = date('my', time());
+        //  validate credit card expiration date
+        $expires = $cck_month . $cck_year;
+        $now = date('my', time());
 
-      if ($expires < $now) {
-        // expired
-        $form_state->setErrorByName('cck_month', t('Please set valid Credit Card Expiration Date.'));
-        //        $form_state->setRebuild();
-      }
+        if ($expires < $now) {
+          // expired
+          $form_state->setErrorByName('cck_month', t('Please set valid Credit Card Expiration Date.'));
+          //        $form_state->setRebuild();
+        }
 
-      if ($form_state->getErrors()) {
-        $form_state->setRebuild();
-//        return FALSE;
+        if ($form_state->getErrors()) {
+          $form_state->setRebuild();
+          //        return FALSE;
+        }
       }
 
       break;
@@ -956,18 +911,22 @@ function bfss_registration_form_next_submit(&$form, FormStateInterface $form_sta
   //  get triggered element
   $te = $form_state->getTriggeringElement();
 
+  //  processed in validation, may can be useful in future
   switch ($te['#name']) {
     case 'next_step_1':
       $type = $form_state->getValue('user_type');
       if ($type == '0') {
-        $form_state->set('step', 1);
+//        $form_state->set('step', 1);
       }
       else {
-        $form_state->set('step', 2);
+//        $form_state->set('step', 2);
       }
       break;
     case 'next_step_2':
-      $form_state->set('step', 3);
+//      $form_state->set('step', 3);
+      break;
+    case 'next_step_3':
+//      $form_state->set('step', 4);
       break;
   }
 
@@ -983,18 +942,43 @@ function bfss_registration_form_next_ajax(&$form, FormStateInterface $form_state
   return $form;
 }
 
+/**
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *
+ * @return mixed
+ */
 function bfss_registration_form_last(&$form, FormStateInterface $form_state) {
   $form_state->setRebuild();
-  //$form_state->cleanValues();
-  $form['#attached']['drupalSettings']['bfss_registration_form']['registered'] = 1;
+//  $form['actions']['submit']['#access'] = FALSE;
+  $errors = $form_state->getErrors();
 
-  \Drupal::messenger()->deleteAll();
+  if (!$errors) {
 
-  \Drupal::messenger()->addStatus(t('A confirmation e-mail has been sent please check your inbox or your spam folder for next step.'));
+    \Drupal::messenger()->deleteAll();
+
+    \Drupal::messenger()->addStatus(t('A confirmation e-mail has been sent please check your inbox or your spam folder for next step.'));
+
+    $form['#attached']['drupalSettings']['bfss_registration_form']['registered'] = 1;
+
+//    $form['#validated'] = FALSE;
+    $form_state->set('user', NULL);
+    $form_state->setValue('uid', NULL);
+
+    $form_state->setStorage([]);
+    $form_state->setValues([]);
+    $form_state->setUserInput([]);
+
+    $values = $form_state->getValues();
+
+    foreach ($values as $k => $value) {
+      $form_state->unsetValue($k);
+    }
+  }
 
   $message = [
     '#theme' => 'status_messages',
-    '#message_list' => drupal_get_messages(),
+    '#message_list' => drupal_get_messages(), //\Drupal::messenger()->all(),
     '#status_headings' => [
       'status' => t('Status message'),
       'error' => t('Error message'),
@@ -1006,8 +990,6 @@ function bfss_registration_form_last(&$form, FormStateInterface $form_state) {
   $form['messages'] = [
     '#type' => 'item',
     '#markup' => $messages,
-    //    '#prefix' => '<div class="messages__wrapper">',
-    //    '#suffix' => '</div>',
     '#weight' => 20
   ];
 
@@ -1088,11 +1070,78 @@ function luhn_check($number) {
  */
 function randomPassword() {
   $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-  $pass = array(); //remember to declare $pass as an array
+  $pass = []; //remember to declare $pass as an array
   $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
   for ($i = 0; $i < 8; $i++) {
     $n = rand(0, $alphaLength);
     $pass[] = $alphabet[$n];
   }
   return implode($pass); //turn the array into a string
+}
+
+function getStates() {
+  return [
+    'AL'=>'AL',
+    'AK'=>'AK',
+    'AS'=>'AS',
+    'AZ'=>'AZ',
+    'AR'=>'AR',
+    'CA'=>'CA',
+    'CO'=>'CO',
+    'CT'=>'CT',
+    'DE'=>'DE',
+    'DC'=>'DC',
+    'FM'=>'FM',
+    'FL'=>'FL',
+    'GA'=>'GA',
+    'GU'=>'GU',
+    'HI'=>'HI',
+    'ID'=>'ID',
+    'IL'=>'IL',
+    'IN'=>'IN',
+    'IA'=>'IA',
+    'KS'=>'KS',
+    'KY'=>'KY',
+    'LA'=>'LA',
+    'ME'=>'ME',
+    'MH'=>'MH',
+    'MD'=>'MD',
+    'MA'=>'MA',
+    'MI'=>'MI',
+    'MN'=>'MN',
+    'MS'=>'MS',
+    'MO'=>'MO',
+    'MT'=>'MT',
+    'NE'=>'NE',
+    'NV'=>'NV',
+    'NH'=>'NH',
+    'NJ'=>'NJ',
+    'NM'=>'NM',
+    'NY'=>'NY',
+    'NC'=>'NC',
+    'ND'=>'ND',
+    'MP'=>'MP',
+    'OH'=>'OH',
+    'OK'=>'OK',
+    'OR'=>'OR',
+    'PW'=>'PW',
+    'PA'=>'PA',
+    'PR'=>'PR',
+    'RI'=>'RI',
+    'SC'=>'SC',
+    'SD'=>'SD',
+    'TN'=>'TN',
+    'TX'=>'TX',
+    'UT'=>'UT',
+    'VT'=>'VT',
+    'VI'=>'VI',
+    'VA'=>'VA',
+    'WA'=>'WA',
+    'WV'=>'WV',
+    'WI'=>'WI',
+    'WY'=>'WY',
+    'AE'=>'AE',
+    'AA'=>'AA',
+    'AP'=>'AP'
+  ];
 }
