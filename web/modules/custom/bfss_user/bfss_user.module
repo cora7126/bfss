@@ -103,7 +103,7 @@ function bfss_user_form_user_login_form_alter(array &$form, \Drupal\Core\Form\Fo
   ];
 
   $form['actions']['#weight'] = 2;
-  $form['actions']['submit']['#value'] = t('Sing In');
+  $form['actions']['submit']['#value'] = t('Sign In');
 
   $form['#attached']['library'][] = 'core/drupal.ajax';
 
