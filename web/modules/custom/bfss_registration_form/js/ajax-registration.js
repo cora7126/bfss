@@ -19,12 +19,35 @@
         if (drupalSettings.bfss_registration_form.step !== undefined) {
           step = drupalSettings.bfss_registration_form.step;
         }
+        //  check if user type exist
+        if (drupalSettings.bfss_registration_form.user_type !== undefined) {
+          setTimeout(function () {
+            $('select[name=user_type]').trigger('change');
+          }, 150);
+          drupalSettings.bfss_registration_form.user_type = undefined;
+        }
+        //  check if field_program_term exist
+        if (drupalSettings.bfss_registration_form.field_program_term !== undefined) {
+          setTimeout(function () {
+            $('select[name=field_program_term]').trigger('change');
+          }, 150);
+          drupalSettings.bfss_registration_form.field_program_term = undefined;
+        }
         if (drupalSettings.bfss_registration_form.registered !== undefined) {
+          $('.user-register-form .button--primary').attr({'disabled':'disabled'});
+
+          setTimeout(function () {
+            $('.user-register-form').prev().find('.messages__wrapper').remove();
+          }, 150);
+
+          drupalSettings.bfss_registration_form.registered = undefined;
           setTimeout(function(){
+            //  redirect page to home
+            location.href = location.origin;
+            //  set form to initally value
             // $('.user-register-form select[name=user_type]').val(0);
             // $('.user-register-form select[name=user_type]').trigger('change');
-          }, 5000);
-          drupalSettings.bfss_registration_form.registered = undefined;
+          }, 7000);
         }
       }
 
@@ -51,41 +74,26 @@
         changeTheSign();
       }
 
+      changeTheSign(step);
 
-
-
-      if (jQuery().credit) {
-        // jQuery('.form-item-cck-number').credit({'placeholder': 'Credit Card Number'});
-      }
-
-      // $('.step-1 .panel-title').click(function () {
-      //   $('.step-2 .panel-body').removeClass('in');
-      //   changeTheSign("one");
-      // });
-      //
-      // $('.step-2 .panel-title').click(function () {
-      //   $('.step-1 .panel-body').removeClass('in');
-      //   changeTheSign("two");
-      // });
-      //
-      // changeTheSign();
-      //
-      // function changeTheSign(step) {
-      //
-      //   /* Step 1 */
-      //   if ((step === 'one') || (step === '')) {
-      //     if ($('.step-1 .panel-title').attr('aria-expanded') === 'true') {
-      //       $('.step-1 .panel-title img').attr('src',
-      // '/sites/default/files/images/forms/bfss-register-form-icon-minus.png');
-      // $('.step-2 .panel-title img').attr('src',
-      // '/sites/default/files/images/forms/bfss-register-form-icon-plus.png')
-      // } else { $('.step-1 .panel-title img').attr('src',
-      // '/sites/default/files/images/forms/bfss-register-form-icon-plus.png');
-      // $('.step-2 .panel-title img').attr('src',
-      // '/sites/default/files/images/forms/bfss-register-form-icon-minus.png')
-      // } } /* Step 2 */ if ((step === 'two') || (step === '')) { if
-      // ($('.step-2 .panel-title').attr('aria-expanded') === 'true') {
-      // $('.step-2 .panel-title img').attr('src', '/sites/default/files/images/forms/bfss-register-form-icon-plus.png'); $('.step-1 .panel-title img').attr('src', '/sites/default/files/images/forms/bfss-register-form-icon-plus.png') } else { $('.step-2 .panel-title img').attr('src', '/sites/default/files/images/forms/bfss-register-form-icon-minus.png'); $('.step-1 .panel-title img').attr('src', '/sites/default/files/images/forms/bfss-register-form-icon-plus.png') } } }
     }
   };
+
+  $(document).ready(function () {
+
+    $(document).ajaxSend(function( event, xhr, settings ) {
+      if (settings.url.indexOf('/user/register?') !== -1) {
+        // $('.panel-body.in').throbber('show');
+        $('.panel-body.in').throbber().throbber('show');
+      }
+    });
+
+    $(document).ajaxComplete(function( event, xhr, settings ) {
+      if (settings.url.indexOf('/user/register?') !== -1) {
+        // $('.panel-body').removeClass('processed');
+      }
+    });
+
+  });
+
 })(jQuery, Drupal);
