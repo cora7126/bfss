@@ -6343,6 +6343,9 @@ p:last-child,
     margin-top: 0; }
 
 /* Ryan Custom Styles */
+html {
+  min-height: 100%; }
+
 a {
   color: #EB6E06; }
 
@@ -6354,6 +6357,32 @@ body {
 
 .alert {
   border-radius: 0 !important; }
+
+body.maintenance-page {
+  height: 100%;
+  background: white;
+  background: linear-gradient(180deg, white 0%, #fefbb7 80%); }
+  body.maintenance-page h1 {
+    text-align: center;
+    font-size: 21px;
+    margin: 0 0 20px; }
+  body.maintenance-page .maintenance-message {
+    font-size: 12px;
+    text-align: center; }
+  body.maintenance-page .sub-header-logo {
+    text-align: center; }
+    body.maintenance-page .sub-header-logo img {
+      max-width: 250px; }
+  body.maintenance-page .navbar-default {
+    display: none; }
+  body.maintenance-page .ex-area {
+    width: 100%;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid #000; }
+    body.maintenance-page .ex-area img {
+      width: 150px;
+      margin: 0 auto; }
 
 body.user-login,
 body.user-password,

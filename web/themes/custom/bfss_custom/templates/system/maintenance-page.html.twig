@@ -1,0 +1,52 @@
+{% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
+
+{# Main #}
+{% block main %}
+    <div role="main" class="main-container {{ container }} js-quickedit-main-content">
+        <div class="row">
+
+            <div class="sub-header">
+                <div class="sub-header-logo">
+                    <img src="/sites/default/files/BFSS-LogoFinal-Yellow.png" />
+                </div>
+            </div>
+
+            {# Content #}
+            {%
+                set content_classes = [
+                page.sidebar_first and page.sidebar_second ? 'col-sm-6',
+                page.sidebar_first and page.sidebar_second is empty ? 'col-sm-9',
+                page.sidebar_second and page.sidebar_first is empty ? 'col-sm-9',
+                page.sidebar_first is empty and page.sidebar_second is empty ? 'col-sm-12'
+            ]
+            %}
+            {#<section{{ content_attributes.addClass(content_classes) }}>#}
+            <section class="registration-area col-lg-3 col-md-4 col-sm-5 col-xs-9">
+                {# Content #}
+                {% block content %}
+                    <a id="main-content"></a>
+
+                    <h1>{{ 'Site Maintenance'|t }}</h1>
+
+                    <div class="ex-area">
+                        <img src="/themes/custom/bfss_custom/images/ex-mark.png" class="img-responsive">
+                    </div>
+
+                    <div class="maintenance-message">
+                        {{ page.content }}
+                    </div>
+                {% endblock %}
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+
+<footer class="footer {{ container }}" role="contentinfo">
+    <div class="region region-footer">
+        <section id="block-copyright" class="block block-block-content block-block-content7d8fa0aa-6813-4ff1-a58f-bbdb2dae410c clearfix">
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item">{{ '© Copyright 2020 Better Faster Stronger Science, LLC All Rights Reserved.'|t }}</div>
+        </section>
+    </div>
+
+</footer>
