@@ -13,3 +13,15 @@ ajax-complete-registration:
   dependencies:
     - core/jquery
     - core/jquery.once
+
+jquery-throbber:
+  version: 1.x
+  css:
+      theme:
+        /libraries/jquery-throbber/jquery.throbber.css: {}
+  js:
+    /libraries/jquery-throbber/jquery.throbber.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.ui
+    - core/jquery.ui.widget
