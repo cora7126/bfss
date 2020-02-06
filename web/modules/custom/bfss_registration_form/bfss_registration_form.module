@@ -60,6 +60,23 @@ function bfss_registration_form_next_btn($step = 1) {
 }
 
 /**
+ * Prepare "additional fields" that used on register form
+ *
+ * @return array
+ */
+function bfss_registration_form_get_additional_fields() {
+  return  [
+    'field_first_name',
+    'field_last_name',
+    'field_parent_first_name',
+    'field_parent_last_name',
+    'field_parent_email',
+    'field_program_term',
+    'field_state',
+  ];
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function bfss_registration_form_form_user_register_form_alter(&$form, FormStateInterface $form_state) {
@@ -67,18 +84,46 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
   // apply change just for front anonyomus users
 
   $current_user = \Drupal::currentUser();
+  $maintenance_mode = \Drupal::state()->get('system.maintenance_mode');
 
-  if ($current_user->isAnonymous()) {
+  //  get triggered element
+  $el = $form_state->getTriggeringElement();
+
+  if ($current_user->isAnonymous() && !$maintenance_mode) {
+
     //  get additional fields
-    $additional_fields = [
-      'field_first_name',
-      'field_last_name',
-      'field_parent_first_name',
-      'field_parent_last_name',
-      'field_parent_email',
-      'field_program_term',
-      'field_state',
-    ];
+    $additional_fields = bfss_registration_form_get_additional_fields();
+
+    // Get user type from url
+    //  $type = Drupal::routeMatch()->getParameter('type');
+    $type = $form_state->getValue('user_type', '0');
+
+    // Get user type from url
+    //    $type_from_url = Drupal::routeMatch()->getParameter('type');
+    $type_from_url = Drupal::request()->query->get('type'); // form param
+    
+//    $package_from_url = !empty($_GET['package']) ? $_GET['package'] : '';
+    $package_from_url = \Drupal::request()->query->get('package'); // form param
+
+    $userInput = $form_state->getUserInput();
+
+    if ($type == '0' && !isset($userInput['user_type']) && !$form_state->has('step')) {
+      $role_vals = array_keys(_get_role_options());
+
+      //  need remove - empty option -
+      if (isset($role_vals[0])) {
+        unset($role_vals[0]);
+      }
+
+      $type = in_array($type_from_url, $role_vals) ? $type_from_url : (string) $type;
+
+      if ($type != '0') {
+        $form['#attached']['drupalSettings']['bfss_registration_form']['user_type'] = $type;
+//        $form_state->set('step', 2);
+//        $form_state->setValue('user_type', $type);
+//        $form_state->setTriggeringElement($form['step_1']['actions']['next_step_1']);
+      }
+    }
 
     if (!$form_state->has('step')) {
       $form_state->set('step', 1);
@@ -88,11 +133,9 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
     $form['#step'] = $step;
 
-    // Get user type from url
-    //  $type = Drupal::routeMatch()->getParameter('type');
-    $type = $form_state->getValue('user_type', 0);
-
     // Attach custom javascript
+    $form['#attached']['library'][] = 'core/jquery.ui';
+    $form['#attached']['library'][] = 'bfss_registration_form/jquery-throbber';
     $form['#attached']['library'][] = 'bfss_registration_form/ajax-registration';
 
     // Add wrapper for ajax
@@ -140,11 +183,15 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     ];
 
     //  add next button to this step
-    $form['step_1']['actions'] = ['#type' => 'actions'];
-    $form['step_1']['actions']['next_step_1'] = bfss_registration_form_next_btn();
-    $form['step_1']['actions']['next_step_1'] += ['#attributes' => ['class' => ['hide']]];  //  hide button because, should not be visible
+//    if(!isset($userInput['user_type']) && $step != 1) {
+      $form['step_1']['actions'] = ['#type' => 'actions'];
+      $form['step_1']['actions']['next_step_1'] = bfss_registration_form_next_btn();
+      $form['step_1']['actions']['next_step_1'] += ['#attributes' => ['class' => ['hide']]];  //  hide button because, should not be visible
+//    }
 
-    $userInput = $form_state->getUserInput();
+    if ($step > 1 && !isset($userInput['user_type'])) {
+      $form['step_1']['actions']['next_step_1']['#access'] = FALSE;
+    }
 
     //  remove description for "account][mail" field
     if (isset($form['account']['mail'])) {
@@ -163,7 +210,6 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     //  if ((empty($userInput) || !isset($userInput['user_type']) || empty($userInput['user_type'])) && $type == null) {
     // If the user input is empty or role is not selected yet
 
-    //  @todo: need move to separate function or class
     //  default step
     if ($step == 1) {
       // Unset the name, account fields and submit button
@@ -176,9 +222,6 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
       $form['account']['pass']['#access'] = FALSE;
       $form['actions']['submit']['#access'] = FALSE;
       $form['actions']['submit']['#disabled'] = FALSE;
-
-      // Markup for step 2 if role is not chosen
-      //    $form['step_2']['markup'] = ['#markup' => t('Please select a user type.')];
     }
     else {
 
@@ -295,7 +338,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
             '#type' => 'email',
             '#required' => TRUE,
             '#access' => $form['step_2']['field_parent_email']['#access'],
-            '#weight' => 13
+            '#weight' => 13,
           ];
         }
 
@@ -334,16 +377,17 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           $form['actions']['submit']['#access'] = TRUE;
 
           //  here need add additional validation
-          //        array_unshift($form['#validate'], 'bfss_registration_form_next_validate');
-          $form['#validate'][] =  'bfss_registration_form_next_validate';
+//          array_unshift($form['#validate'], 'bfss_registration_form_next_validate');
+          $form['#validate'][] = 'bfss_registration_form_next_validate';
 
           // Finally add a custom submit handler to store the selected role in session to later update in hook_user_update
           array_unshift($form['actions']['submit']['#submit'], 'ajax_register_user_register_form_submit');
 
           $form['actions']['submit']['#ajax'] = [
             'callback' => 'bfss_registration_form_last',
-            'wrapper' => 'register-form-container'
+            'wrapper' => 'register-form-container',
           ];
+
         }
         else {
           if ($step <= 3) {
@@ -354,6 +398,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
       }
 
       //  @todo: need move to separate function or class
+      $selected_program = NULL;
       //  select program
       if ($step >= 3) {
         // Step 3 group
@@ -373,8 +418,27 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
             '#markup' => t('Select Program'),
             '#weight' => -1,
           ];
+//          unset($form['field_program_term']['field_program_term']['widget']);
+//          $form['field_program_term']['widget']['#default_value'] = 2;
           $form['step_3']['field_program_term'] = $form['field_program_term'];
           $form['step_3']['field_program_term']['#access'] = TRUE;
+        }
+
+        //  set default value $package_from_url
+        $field_program_term_default_value = $form_state->getValue(['field_program_term', '0', 'target_id']);
+        if ($field_program_term_default_value == NULL && $package_from_url != '') {
+
+          //  check that package_from url is valid
+          $field_program_term_default = \Drupal::entityTypeManager()
+            ->getStorage('taxonomy_term')
+            ->load($package_from_url);
+
+          if ($field_program_term_default !== NULL) {
+            $form['#attached']['drupalSettings']['bfss_registration_form']['field_program_term'] = $step;
+
+            $form['step_3']['field_program_term']['widget']['#default_value'] = $package_from_url;
+            $form['step_3']['field_program_term']['widget']['#value'] = $package_from_url;
+          }
         }
 
         if ($step >= 3) {
@@ -386,12 +450,12 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
       //  @todo: need move to separate function or class
       //  payment form and payment agreement
+//      if ($step >= 4 && $selected_program != NULL) {
       if ($step >= 4) {
 
         $form['actions']['submit']['#access'] = TRUE;
 
-        $field_program_term_value = $form_state->getValue('field_program_term');
-        $target_id = $field_program_term_value[0]['target_id'];
+        $target_id = $form_state->getValue(['field_program_term', 0, 'target_id']);
 
         $field_program_term = \Drupal::entityTypeManager()
           ->getStorage('taxonomy_term')
@@ -407,11 +471,17 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           ],
         ];
 
-        //  get field_program_term
+        $label = $field_program_term->label();
 
+        //  add price to name
+//        if ($field_program_term->haField('field_price')) {
+//          $label .= ' - ' . $field_program_term->get('field_price')->value;
+//        }
+
+        //  get field_program_term
         $form['step_4']['title'] = [
           '#type' => 'item',
-          '#markup' => $field_program_term->label(),
+          '#markup' => $label,
         ];
 
         $form['step_4']['is_over_16_years'] = [
@@ -444,7 +514,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
         $form['step_4']['parent_permission_error'] = [
           '#type' => 'item',
-          '#markup' => ''
+          '#markup' => '',
         ];
         //      }
 
@@ -462,7 +532,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
         //  make main button is ajax
         $form['actions']['submit']['#ajax'] = [
           'callback' => 'bfss_registration_form_last',
-          'wrapper' => 'register-form-container'
+          'wrapper' => 'register-form-container',
         ];
 
         //      if ($is_over_16_years == 'yes' || ($is_over_16_years == 'no' && in_array($parent_permission, ['yes']))) {
@@ -576,7 +646,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#placeholder' => t('Billing Postal Code'),
           '#type' => 'select',
           '#empty_option' => 'States',
-          '#options'=> $states,
+          '#options' => $states,
           '#default_value' => $form_state->getValue('bi_state', ''),
         ];
 
@@ -601,8 +671,6 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#default_value' => $form_state->getValue('bi_country', ''),
         ];
         //      }
-
-      } else {
 
       }
 
@@ -657,6 +725,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     //  add to current step to frontEnd
     $form['#attached']['drupalSettings']['bfss_registration_form']['step'] = $step;
   }
+
 }
 
 
@@ -683,6 +752,8 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
+
+
   $form_state->disableRedirect();
 }
 
@@ -693,30 +764,7 @@ function changedUserType(array &$form, FormStateInterface $form_state) {
   $values = $form_state->getValues();
   $options = _get_role_options();
 
-  $form['#step'] = 2;
-
-  $ar = new \Drupal\Core\Ajax\AjaxResponse();
-
   if (!empty($values['user_type'])) {
-    // Update step 2 title
-    $form['step_2']['#title'] = t("Step 2 - {$options[$values['user_type']]}");
-
-    // Unset the markup
-    unset($form['step_2']['markup']);
-
-    //    $form['step_2']['loan_officer'] = [
-    //      '#type' => 'select',
-    //      '#title' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
-    //      // '#description' => t('Selecting this Loan Officer will not restrict you from working with other Loan Officers.'),
-    //      '#options' => ['a' => 'A', 'b' => 'B'],
-    //      '#weight' => -10
-    //    ];
-  }
-
-  $ar->addCommand(new \Drupal\Core\Ajax\ReplaceCommand('#register-form-container form', $form));
-  return $ar;
-
-  /*if (!empty($values['user_type'])) {
     // Update step 2 title
     $form['step_2']['#title'] = t("Step 2 - {$options[$values['user_type']]}");
 
@@ -730,7 +778,7 @@ function changedUserType(array &$form, FormStateInterface $form_state) {
       '#options' => ['a' => 'A', 'b' => 'B'],
       '#weight' => -10
     ];
-  }*/
+  }
 
   return $form;
 }
@@ -740,17 +788,20 @@ function changedUserType(array &$form, FormStateInterface $form_state) {
  * Validate implementation for next action
  */
 function bfss_registration_form_next_validate(&$form, FormStateInterface $form_state) {
+
   //  get step
   $step = $form_state->get('step');
 
   //  get triggered element
   $te = $form_state->getTriggeringElement();
+  $te_name = $te['#name'];
 
   $errors = $form_state->getErrors();
-
+// $p = $_POST;
+//  $te_name = $_POST['_triggering_element_name'];
 
   //  check email confirmation
-  if ($step >= 2 || $te['#name'] == 'next_step_2') {
+  if ($step >= 2 || $te_name == 'next_step_2') {
     $mail = $form_state->getValue('mail');
     $conf_mail = $form_state->getValue('conf_mail');
 
@@ -773,7 +824,7 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
     }
   }
 
-  switch ($te['#name']) {
+  switch ($te_name) {
     case 'next_step_1':
       //  if we trigger "user_type" => we reload form => all errors gone
       $form_state->clearErrors();
@@ -796,19 +847,28 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
       break;
     case 'next_step_2':
     case 'next_step_3':
-      if ($te['#name'] == 'next_step_2') {
+      if ($te_name == 'next_step_2') {
         if ($step > 2) {
+          //  allow reload form without validation next steps
           $form_state->clearErrors();
         }
         $step = 2;
-
+        $v = $form_state->getValues();
       }
 
-      if ($te['#name'] == 'next_step_3') {
+      if ($te_name == 'next_step_3') {
         if ($step > 3) {
+          //  allow reload form without validation next steps
           $form_state->clearErrors();
         }
         $step = 3;
+      }
+
+      // check program_options
+      // if current step is 3 and nothing selected on from this option
+      $field_program_term = $form_state->getValue(['field_program_term', '0', 'target_id']);
+      if ($field_program_term == NULL && $te_name == 'next_step_3') {
+        $step = 2;
       }
 
       //  if we trigger "user_type" => we reload form => all errors gone
@@ -825,12 +885,15 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
         $form_state->setErrorByName('mail', t('The mail @mail is already taken.', ['@mail' => $form_state->getValue('mail')]));
       }
 
+      $errors = $form_state->getErrors();
+
       if (!$errors) {
         $form_state->set('step', $step + 1);
         $form_state->setRebuild();
       }
       break;
     case 'next_step_4':
+      //  allow reload form without validation next steps (that do radio buttons)
       $form_state->clearErrors();
 
       $form_state->set('step', 4);
@@ -841,7 +904,7 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
       //  check parent permissions
       $parent_permission = $form_state->getValue('parent_permission');
 
-//      if ($is_over_16_years == 'yes' || ($is_over_16_years == 'no' && $parent_permission == 'yes')) {
+      //      if ($is_over_16_years == 'yes' || ($is_over_16_years == 'no' && $parent_permission == 'yes')) {
       if ($is_over_16_years == 'yes' || $is_over_16_years == 'no') {
         $form_state->set('parent_permission_show', 'show');
       }
@@ -866,7 +929,7 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
         //  check parent permissions
         $parent_permission = $form_state->getValue('parent_permission');
 
-        if (strpos($te['#name'], 'op') !== FALSE && 1) {
+        if (strpos($te_name, 'op') !== FALSE && 1) {
 
           if ($is_over_16_years == 'no' && $parent_permission == 'no') {
             $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
@@ -908,35 +971,51 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
       break;
   }
 
+//  $errors = $form_state->getErrors();
+//  if (1) {
+//
+//  }
+
+  //  $errors = $form_state->getErrors();
+//  if ($errors) {
+//    return $form;
+//  }
 }
 
 /**
  * Submit implementation for next action
  */
 function bfss_registration_form_next_submit(&$form, FormStateInterface $form_state) {
-  //  get triggered element
-  $te = $form_state->getTriggeringElement();
+//  if (1) {
+//
+//  }
 
+  //  get triggered element
+  $el = $form_state->getTriggeringElement();
+  $te_name = $el['#name'];
+
+//  $te_name = $_POST['_triggering_element_name'];
   //  processed in validation, may can be useful in future
-  switch ($te['#name']) {
+  switch ($te_name) {
     case 'next_step_1':
       $type = $form_state->getValue('user_type');
       if ($type == '0') {
-//        $form_state->set('step', 1);
+        $form_state->set('step', 1);
       }
       else {
-//        $form_state->set('step', 2);
+        $form_state->set('step', 2);
       }
       break;
     case 'next_step_2':
-//      $form_state->set('step', 3);
+        $form_state->set('step', 3);
       break;
     case 'next_step_3':
-//      $form_state->set('step', 4);
+        $form_state->set('step', 4);
       break;
   }
 
-  if (strpos($te['#name'], 'next_step_') !== FALSE) {
+//  if (strpos($el['#name'], 'next_step_') !== FALSE) {
+  if (strpos($te_name, 'next_step_') !== FALSE) {
     $form_state->setRebuild();
   }
 }
@@ -945,6 +1024,27 @@ function bfss_registration_form_next_submit(&$form, FormStateInterface $form_sta
  * Ajax implementation for next action
  */
 function bfss_registration_form_next_ajax(&$form, FormStateInterface $form_state) {
+
+  //  need for replace any messages bottom of page
+
+  $message = [
+    '#theme' => 'status_messages',
+    '#message_list' => drupal_get_messages(), //\Drupal::messenger()->all(),
+    '#status_headings' => [
+      'status' => t('Status message'),
+      'error' => t('Error message'),
+      'warning' => t('Warning message'),
+    ],
+  ];
+
+  $messages = \Drupal::service('renderer')->render($message);
+
+  $form['messages'] = [
+    '#type' => 'item',
+    '#markup' => $messages,
+    '#weight' => 20,
+  ];
+
   return $form;
 }
 
@@ -956,18 +1056,19 @@ function bfss_registration_form_next_ajax(&$form, FormStateInterface $form_state
  */
 function bfss_registration_form_last(&$form, FormStateInterface $form_state) {
   $form_state->setRebuild();
-//  $form['actions']['submit']['#access'] = FALSE;
+  //  $form['actions']['submit']['#access'] = FALSE;
   $errors = $form_state->getErrors();
 
   if (!$errors) {
 
     \Drupal::messenger()->deleteAll();
 
-    \Drupal::messenger()->addStatus(t('A confirmation e-mail has been sent please check your inbox or your spam folder for next step.'));
+    \Drupal::messenger()
+      ->addStatus(t('A confirmation e-mail has been sent please check your inbox or your spam folder for next step.'));
 
     $form['#attached']['drupalSettings']['bfss_registration_form']['registered'] = 1;
 
-//    $form['#validated'] = FALSE;
+    //    $form['#validated'] = FALSE;
     $form_state->set('user', NULL);
     $form_state->setValue('uid', NULL);
 
@@ -991,12 +1092,13 @@ function bfss_registration_form_last(&$form, FormStateInterface $form_state) {
       'warning' => t('Warning message'),
     ],
   ];
+
   $messages = \Drupal::service('renderer')->render($message);
 
   $form['messages'] = [
     '#type' => 'item',
     '#markup' => $messages,
-    '#weight' => 20
+    '#weight' => 20,
   ];
 
   return $form;
@@ -1021,7 +1123,7 @@ function bfss_registration_form_user_login(\Drupal\user\UserInterface $account) 
 
   //  check if user logged in first time
   $last_login_time = $account->getLastLoginTime();
-  $last_access_time= $account->getLastAccessedTime();
+  $last_access_time = $account->getLastAccessedTime();
 
   //  conditions for mark as first login
   if (($last_access_time == 0 || $last_login_time == 0)) {
@@ -1087,67 +1189,67 @@ function randomPassword() {
 
 function getStates() {
   return [
-    'AL'=>'AL',
-    'AK'=>'AK',
-    'AS'=>'AS',
-    'AZ'=>'AZ',
-    'AR'=>'AR',
-    'CA'=>'CA',
-    'CO'=>'CO',
-    'CT'=>'CT',
-    'DE'=>'DE',
-    'DC'=>'DC',
-    'FM'=>'FM',
-    'FL'=>'FL',
-    'GA'=>'GA',
-    'GU'=>'GU',
-    'HI'=>'HI',
-    'ID'=>'ID',
-    'IL'=>'IL',
-    'IN'=>'IN',
-    'IA'=>'IA',
-    'KS'=>'KS',
-    'KY'=>'KY',
-    'LA'=>'LA',
-    'ME'=>'ME',
-    'MH'=>'MH',
-    'MD'=>'MD',
-    'MA'=>'MA',
-    'MI'=>'MI',
-    'MN'=>'MN',
-    'MS'=>'MS',
-    'MO'=>'MO',
-    'MT'=>'MT',
-    'NE'=>'NE',
-    'NV'=>'NV',
-    'NH'=>'NH',
-    'NJ'=>'NJ',
-    'NM'=>'NM',
-    'NY'=>'NY',
-    'NC'=>'NC',
-    'ND'=>'ND',
-    'MP'=>'MP',
-    'OH'=>'OH',
-    'OK'=>'OK',
-    'OR'=>'OR',
-    'PW'=>'PW',
-    'PA'=>'PA',
-    'PR'=>'PR',
-    'RI'=>'RI',
-    'SC'=>'SC',
-    'SD'=>'SD',
-    'TN'=>'TN',
-    'TX'=>'TX',
-    'UT'=>'UT',
-    'VT'=>'VT',
-    'VI'=>'VI',
-    'VA'=>'VA',
-    'WA'=>'WA',
-    'WV'=>'WV',
-    'WI'=>'WI',
-    'WY'=>'WY',
-    'AE'=>'AE',
-    'AA'=>'AA',
-    'AP'=>'AP'
+    'AL' => 'AL',
+    'AK' => 'AK',
+    'AS' => 'AS',
+    'AZ' => 'AZ',
+    'AR' => 'AR',
+    'CA' => 'CA',
+    'CO' => 'CO',
+    'CT' => 'CT',
+    'DE' => 'DE',
+    'DC' => 'DC',
+    'FM' => 'FM',
+    'FL' => 'FL',
+    'GA' => 'GA',
+    'GU' => 'GU',
+    'HI' => 'HI',
+    'ID' => 'ID',
+    'IL' => 'IL',
+    'IN' => 'IN',
+    'IA' => 'IA',
+    'KS' => 'KS',
+    'KY' => 'KY',
+    'LA' => 'LA',
+    'ME' => 'ME',
+    'MH' => 'MH',
+    'MD' => 'MD',
+    'MA' => 'MA',
+    'MI' => 'MI',
+    'MN' => 'MN',
+    'MS' => 'MS',
+    'MO' => 'MO',
+    'MT' => 'MT',
+    'NE' => 'NE',
+    'NV' => 'NV',
+    'NH' => 'NH',
+    'NJ' => 'NJ',
+    'NM' => 'NM',
+    'NY' => 'NY',
+    'NC' => 'NC',
+    'ND' => 'ND',
+    'MP' => 'MP',
+    'OH' => 'OH',
+    'OK' => 'OK',
+    'OR' => 'OR',
+    'PW' => 'PW',
+    'PA' => 'PA',
+    'PR' => 'PR',
+    'RI' => 'RI',
+    'SC' => 'SC',
+    'SD' => 'SD',
+    'TN' => 'TN',
+    'TX' => 'TX',
+    'UT' => 'UT',
+    'VT' => 'VT',
+    'VI' => 'VI',
+    'VA' => 'VA',
+    'WA' => 'WA',
+    'WV' => 'WV',
+    'WI' => 'WI',
+    'WY' => 'WY',
+    'AE' => 'AE',
+    'AA' => 'AA',
+    'AP' => 'AP',
   ];
 }

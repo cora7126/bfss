@@ -1,6 +1,7 @@
 services:
   bfss_registration_form.route_subscriber:
     class: Drupal\bfss_registration_form\Routing\RouteSubscriber
+    arguments: ['@config.factory']
     tags:
       - { name: event_subscriber }
 

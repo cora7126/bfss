@@ -19,6 +19,20 @@
         if (drupalSettings.bfss_registration_form.step !== undefined) {
           step = drupalSettings.bfss_registration_form.step;
         }
+        //  check if user type exist
+        if (drupalSettings.bfss_registration_form.user_type !== undefined) {
+          setTimeout(function () {
+            $('select[name=user_type]').trigger('change');
+          }, 150);
+          drupalSettings.bfss_registration_form.user_type = undefined;
+        }
+        //  check if field_program_term exist
+        if (drupalSettings.bfss_registration_form.field_program_term !== undefined) {
+          setTimeout(function () {
+            $('select[name=field_program_term]').trigger('change');
+          }, 150);
+          drupalSettings.bfss_registration_form.field_program_term = undefined;
+        }
         if (drupalSettings.bfss_registration_form.registered !== undefined) {
           $('.user-register-form .button--primary').attr({'disabled':'disabled'});
 
@@ -26,11 +40,15 @@
             $('.user-register-form').prev().find('.messages__wrapper').remove();
           }, 150);
 
+          drupalSettings.bfss_registration_form.registered = undefined;
           setTimeout(function(){
+            //  redirect page to home
+            location.href = location.origin;
+
+            //  set form to initally value
             // $('.user-register-form select[name=user_type]').val(0);
             // $('.user-register-form select[name=user_type]').trigger('change');
           }, 5000);
-          drupalSettings.bfss_registration_form.registered = undefined;
         }
       }
 
@@ -57,6 +75,26 @@
         changeTheSign();
       }
 
+      changeTheSign(step);
+
     }
   };
+
+  $(document).ready(function () {
+
+    $(document).ajaxSend(function( event, xhr, settings ) {
+      if (settings.url.indexOf('/user/register?') !== -1) {
+        // $('.panel-body.in').throbber('show');
+        $('.panel-body.in').throbber().throbber('show');
+      }
+    });
+
+    $(document).ajaxComplete(function( event, xhr, settings ) {
+      if (settings.url.indexOf('/user/register?') !== -1) {
+        // $('.panel-body').removeClass('processed');
+      }
+    });
+
+  });
+
 })(jQuery, Drupal);
