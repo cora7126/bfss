@@ -724,6 +724,10 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
     //  add to current step to frontEnd
     $form['#attached']['drupalSettings']['bfss_registration_form']['step'] = $step;
+
+
+    $form['#cache'] = ['max-age' => 0];
+
   }
 
 }
@@ -797,8 +801,6 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
   $te_name = $te['#name'];
 
   $errors = $form_state->getErrors();
-// $p = $_POST;
-//  $te_name = $_POST['_triggering_element_name'];
 
   //  check email confirmation
   if ($step >= 2 || $te_name == 'next_step_2') {
@@ -943,7 +945,7 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
         //  validate credit card number
         $credit_card_number = $form_state->getValue('cck_number');
         $luhn_check = !luhn_check($credit_card_number);
-        $is_cck_number = $credit_card_number == '4111111111111111';
+        $is_cck_number = $credit_card_number == '4111111111111111'; //  @todo: should be replaced
         if (!$luhn_check && !$is_cck_number) {
           $form_state->setErrorByName('cck_number', t('Please set valid Credit Card Number.'));
           //        $form_state->setRebuild();
@@ -970,26 +972,12 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
 
       break;
   }
-
-//  $errors = $form_state->getErrors();
-//  if (1) {
-//
-//  }
-
-  //  $errors = $form_state->getErrors();
-//  if ($errors) {
-//    return $form;
-//  }
 }
 
 /**
  * Submit implementation for next action
  */
 function bfss_registration_form_next_submit(&$form, FormStateInterface $form_state) {
-//  if (1) {
-//
-//  }
-
   //  get triggered element
   $el = $form_state->getTriggeringElement();
   $te_name = $el['#name'];
