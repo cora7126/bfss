@@ -44,11 +44,10 @@
           setTimeout(function(){
             //  redirect page to home
             location.href = location.origin;
-
             //  set form to initally value
             // $('.user-register-form select[name=user_type]').val(0);
             // $('.user-register-form select[name=user_type]').trigger('change');
-          }, 5000);
+          }, 7000);
         }
       }
 
