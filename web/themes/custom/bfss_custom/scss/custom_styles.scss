@@ -1,5 +1,9 @@
 /* Ryan Custom Styles */
 
+html {
+  min-height: 100%;
+}
+
 @mixin permission-absolute-field() {
   [id*="edit-parent-permission"] {
     legend {
@@ -53,6 +57,46 @@ body {
   border-radius: 0 !important;
 }
 
+
+body.maintenance-page {
+  height: 100%;
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(254,251,183,1) 80%);
+
+  h1 {
+    text-align: center;
+    font-size: 21px;
+    margin: 0 0 20px;
+  }
+
+  .maintenance-message {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .sub-header-logo {
+    text-align: center;
+
+    img {
+      max-width: 250px;
+    }
+  }
+
+  .navbar-default {
+    display: none;
+  }
+
+  .ex-area {
+    width: 100%;
+    img {
+      width: 150px;
+      margin: 0 auto;
+    }
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid #000;
+  }
+}
 
 body.user-login,
 body.user-password,
@@ -152,7 +196,7 @@ body.complete-registration {
           margin-bottom: 24px;
         }
       }
-      button {
+      button.btn {
         @include login-buton-style();
       }
       .forgot-password {
@@ -179,7 +223,7 @@ body.complete-registration {
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
         }
       }
-      button {
+      button.btn {
         @include bfss-button;
       }
       .form-group {
@@ -271,6 +315,9 @@ body.complete-registration {
         .form-item-cck-year {
           .select-wrapper {
             float: right;
+          }
+          .form-item--error-message {
+            clear: both;
           }
         }
         .form-item-cck-csv {
@@ -364,7 +411,7 @@ body.complete-registration {
         }
 
 
-        button {
+        button.btn {
           @include login-buton-style;
           text-transform: uppercase;
         }
@@ -506,4 +553,22 @@ body.user-reset {
   .btn-primary {
     @include login-buton-style;
   }
+}
+
+
+.user-login,
+.user-pass {
+  .messages__wrapper {
+    p {
+      margin-top: 0 !important;
+      font-size: 14px !important;
+    }
+  }
+}
+
+.ui-throbber {
+  left: 50%;
+  top: 50%;
+  margin-left: -16px;
+  margin-top: -16px;
 }
