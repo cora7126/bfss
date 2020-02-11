@@ -769,3 +769,5 @@ $databases['default']['default'] = array (
   'driver' => 'mysql',
 );
 $settings['config_sync_directory'] = 'sites/default/files/config_2RrciJktdxW87ebUQLPunOlhNelI9tOkfP86OAm9IIqEV5THiX7bLIVUh-r5Q02Pe_4tGyhc8w/sync';
+
+//$settings['rebuild_access'] = TRUE;

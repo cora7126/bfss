@@ -1,0 +1,41 @@
+<?php
+/**
+ * @File
+ * Example custom module for Drupal 8.
+ * @author BFSS
+ */
+/**
+ * Implements hook_theme().
+ * 
+ * Register a module or theme's theme implementations.
+ * The implementations declared by this hook specify how a particular render array is to be rendered as HTML.
+ * 
+ * 
+ * If you change this method, clear theme registry and routing table 'drush cc theme-registry' and 'drush cc router'.
+ */
+function module_name_theme($existing, $type, $theme, $path) {
+
+echo "<pre>";
+  var_dump($path);
+echo "</pre>";
+
+  return [
+    'content_view' => [
+      'variables' => ['test_var' => NULL],
+    ],
+  ];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
