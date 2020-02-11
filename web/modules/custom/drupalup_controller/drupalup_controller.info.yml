@@ -1,0 +1,4 @@
+name: Drupal Up My custom Module with template
+description: This is cistom dashboard module
+type: module
+core: 8.x
