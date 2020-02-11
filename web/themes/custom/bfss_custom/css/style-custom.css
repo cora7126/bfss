@@ -1,11 +1,11 @@
 
 body{
-	font-family: 'Open Sans', sans-serif !important;
+  font-family: 'Open Sans', sans-serif !important;
 }
 nav.navbar.navbar-expand-xs.bg-dark.navbar-dark {
         background: black !important;
     padding: 23.8px 5px; 
-	
+  
 }
 .modal-header {
     padding: 0px !important;
@@ -37,7 +37,7 @@ nav.navbar.navbar-expand-xs.bg-dark.navbar-dark {
     margin-left: 32px;
 }
 .newzz{
-	padding:0px !important;
+  padding:0px !important;
 }
 .modal-content {
     width: 670px !important;
@@ -85,11 +85,11 @@ background: #030000;
     padding: 22px
 }
 .profile-sec{
-	background: #030000;
+  background: #030000;
     text-align: center;
     height: 100px;
     padding: 10px 0px;
-	    position: relative;
+      position: relative;
 }
 #sidenav {
    
@@ -170,7 +170,7 @@ ul.dropdown-menu.open li a:hover {
 }
   
  a.drop:hover{
- 	text-decoration: none;
+  text-decoration: none;
  } 
 .down-caret {
     width: 0;
@@ -271,7 +271,7 @@ ul.dropdown-menu.open li a:hover {
     z-index: 9;
     width: 250px;
     right: 11px;
-	border: 1px solid #bebebe;
+  border: 1px solid #bebebe;
 }
 
 /* Add styles to the form container */
@@ -282,7 +282,7 @@ ul.dropdown-menu.open li a:hover {
 }
 .pop_img_sec img {
     width: 100%;
-	border: 2px solid #f76907;
+  border: 2px solid #f76907;
 }
 
 /* Full-width textarea */
@@ -326,16 +326,16 @@ ul.dropdown-menu.open li a:hover {
 }
 .pop_img_sec {
     border-bottom: 1px solid #9b9b9b;
-	padding-bottom: 8px;
-	margin-bottom: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
 }
 .pop_img_sec h2 {
     font-size: 20px;
-	text-align: left;
+  text-align: left;
 }
 .pop_img_sec p {
     font-size: 16px;
-	text-align: left;
+  text-align: left;
 }
 .pop_text_sec {
     text-align: left;
@@ -357,7 +357,7 @@ ul.dropdown-menu.open li a:hover {
 
 .pop_text_sec a p:hover {
     color: #000;
-	
+  
 }
 .pop_text_sec a  i:hover {
     color: #f76907;
@@ -398,7 +398,7 @@ ul.dropdown-menu.open li a:hover {
 .quick-link h1 {
     font-size: 14px;
     margin: 15px 0px 5px 0px;
-	font-weight: 600;
+  font-weight: 600;
 }
 .quick-link-sub-sec {
     text-align: center;
@@ -423,7 +423,7 @@ ul.dropdown-menu.open li a:hover {
 .quick-link button.accordion {
     background-color: #000;
     color: #fff;
-	margin-top: 36px;
+  margin-top: 36px;
 }
 .quick-link .accordion {
   background-color: #eee;
@@ -453,17 +453,17 @@ ul.dropdown-menu.open li a:hover {
 }
 .quick-link .panel p {
     font-size: 12px;
-	    font-weight: 600;
+      font-weight: 600;
 }
 /* ---------Quick-Link-ACCORDIAN------CSS--end-- */
 
 .tab-nav ul {
     list-style-type: none;
-	padding: 0px;
+  padding: 0px;
 }
 .tab-nav ul li{
     display:inline-block;
-	padding-right: 20px;
+  padding-right: 20px;
 }
 .tab-nav ul li a {
     color: #4c4c4c;
@@ -472,4 +472,663 @@ ul.dropdown-menu.open li a:hover {
 }
 .tab-nav ul li a:hover {
     text-decoration:none;
+}
+
+body{
+  font-family: 'Open Sans', sans-serif !important;
+}
+nav.navbar.navbar-expand-xs.bg-dark.navbar-dark {
+        background: black !important;
+    padding: 23.8px 5px; 
+  
+}
+.modal-header {
+    padding: 0px !important;
+}
+.modals-section img {
+    width: 96.5%;
+    margin-left: 15px;
+}
+.modals-bg h4 {
+    color: orange !important;
+    padding-top: 18px !important;
+    margin-left: 32px;
+    font-size: 21px;
+}
+.modals-bg {
+    height: 244px !important;
+    background-color: #e6e7e8;
+    width: 95.9%;
+}
+.modal-footer {
+    border-top: none !important;
+}
+.modals-bg h1 {
+    font-size: 19px;
+    font-weight: bold;
+    margin-left: 32px;
+}
+.modals-bg p {
+    margin-left: 32px;
+}
+.newzz{
+  padding:0px !important;
+}
+.modal-content {
+    width: 670px !important;
+}
+a.navbar-brand img {
+    width: 150px;
+}
+.calender_img {
+    background: #030000;
+    text-align: center;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    height: 100px;
+}
+.calender_img img {
+    padding: 10px 0px;
+}
+.athletic_profile{
+    background: #030000;
+    text-align: center;
+     border-right: 1px solid #fff;
+     height: 100px;
+}
+.athletic_profile img {
+    padding: 10px 0px;
+}
+.calender_img p {
+    color: #fff;
+    margin-bottom: 0px;
+    line-height: 14px;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+.athletic_profile p {
+    color: #ffd537;
+    margin-bottom: 0px;
+    line-height: 14px;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+.bell-icon-sec{
+background: #030000;
+    text-align: center;
+    height: 100px;
+    padding: 22px
+}
+.profile-sec{
+  background: #030000;
+    text-align: center;
+    height: 100px;
+    padding: 10px 0px;
+      position: relative;
+}
+#sidenav {
+   
+    background-color: #000000;
+}
+
+ul.side_nav {
+    padding: 0px;
+}
+ul.side_nav li {
+    /*padding: 0px 10px 0px 10px;*/
+    border-bottom: 1px solid #fff;
+    
+    line-height: 50px;
+}
+button.side_button {
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    text-transform: capitalize;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+div#sidenav ul li i {
+    color: #f76907;
+    font-size: 15px;
+    margin-right: 15px;
+}
+ul.side_nav .sub_menu {
+    padding: 0px 10px;
+}
+li.sub_menu button {
+    padding: 0px;
+}
+li.sub-menu-drop .drop {
+    padding: 0px 10px !important;
+}
+li.sub_menu button:focus {
+    outline: none !important;
+}
+li.sub_menu.active {
+    background-color: #f76907;
+}
+li.sub_menu.active i{
+    color: #fff !important;
+}
+
+ul.dropdown-menu.open li a {
+    padding: 0px 0px 0px 20px;
+}
+ul.dropdown-menu.open li a:hover {
+    text-decoration: none;
+    background-color: #f76907;
+    color: #fff;
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown .drop {
+    background-color: #2f2f2f;
+}
+.dropdown .drop {
+    background-color: transparent;
+    color: #fff;
+    padding: 0px;
+    border-radius: 6px;
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+}
+  
+ a.drop:hover{
+  text-decoration: none;
+ } 
+.down-caret {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: #ffffff transparent transparent transparent;
+    display: inline-block;
+    margin-left: 10px;
+    top: -3px;
+    position: relative;
+    transform: rotate(0deg);
+    transition: all 0.25s ease-in;
+}
+.dropdown  .dropdown-menu {
+    width: 100%;
+    margin: 0;
+    margin-top: 8px;
+    padding: 0;
+    position: relative !important;
+    float: left;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.55s linear;
+    background-color: #fff;
+    border-radius: unset;
+    background-clip: unset;
+
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  }
+  .drop {
+    background-color: #3498db;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 6px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  
+.dropdown > .dropdown-menu.open {
+    max-height: 300px;
+    height: auto;
+    transition: all 0.25s linear;
+    display: block;
+}
+.dropdown > .dropdown-menu > li > a {
+    padding: 0.5rem 1rem;
+    display: block;
+    color: #555;
+    text-align: left;
+    transition: all 0.25s linear;
+    font-size: 14px;
+    padding: 0px 0px;
+    border-bottom: 1px solid #909090;
+}
+
+  .open li  a:hover {
+        background-color: #3498db;
+        color: #fff;
+      }
+   
+
+
+  .open-caret {
+    transform: rotate(180deg);
+    transition: all .25s ease-out;
+  }
+
+
+
+/* -------profile-pop-css----------- */
+
+* {box-sizing: border-box;}
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+    display: none;
+    position: absolute;
+    z-index: 9;
+    width: 250px;
+    right: 11px;
+  border: 1px solid #bebebe;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+.pop_img_sec img {
+    width: 100%;
+  border: 2px solid #f76907;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+  padding: 4px 15px;
+    float: right;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+.pop_img_sec {
+    border-bottom: 1px solid #9b9b9b;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+.pop_img_sec h2 {
+    font-size: 20px;
+  text-align: left;
+}
+.pop_img_sec p {
+    font-size: 16px;
+  text-align: left;
+}
+.pop_text_sec {
+    text-align: left;
+}
+.pop_text_sec a p {
+    margin-bottom: 0px;
+    line-height: 35px;
+    font-size: 13px;
+    color: #f76907;
+    font-weight: 600;
+}
+.pop_text_sec a p i {
+    color: #000;
+    margin-right: 6px;
+}
+.pop_text_sec a:hover {
+   text-decoration:none;
+}
+
+.pop_text_sec a p:hover {
+    color: #000;
+  }
+  
+.pop_text_sec a  i:hover {
+    color: #f76907;
+}
+/* -------profile-pop-css-----End------ */
+
+/* -------profile-Modal-css-------Start---- */
+.profile-right-modal .modal-content {
+    width: 800px !important;
+  padding:20px;
+}
+.profile-right-modal .modal-body button.accordion {
+    background-color: #000;
+    color: #fff;
+}
+.profile-right-modal .accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 8px 15px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.profile-right-modal .active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.profile-right-modal .modal-body .panel {
+  padding: 16px 16px 0px 16px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+  border: 1px solid #949494;
+}
+
+.profile-right-modal .modal-body .panel p {
+    font-size: 12px;
+      font-weight: 600;
+}
+.profile-right-modal .modal-body input{
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 3px;
+}
+.profile-right-modal .modal-body input::placeholder {
+  font-size:12px;
+  font-weight:600;
+}
+.profile-right-modal .modal-body textarea::placeholder {
+  font-size:12px;
+  font-weight:600;
+}
+.profile-right-modal .form-control {
+    
+    padding: 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.profile-right-modal .modal-title {
+    font-size: 18px;
+    padding: 15px 0px 5px 16px;
+}
+.profile-right-modal .modal-header {
+    border-bottom: none;
+ }
+.profile-right-modal .modal-footer button {
+    width: 100%;
+    background-color: #115719;
+}
+.social-club-sec {
+    margin-top: 25px;
+}
+.social-club-sec a {
+    color: #f76907;
+    font-size: 14px;
+  font-weight: 600;
+}
+.social-club-sec a:hover {
+    text-decoration:none;
+  color:#f76907;
+}
+.social-club-sec a i{
+    margin-right: 5px;
+    font-size: 12px;
+}
+.social-club-sec textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding:5px;
+}
+.social-club-sec h3 {
+    line-height: 0px;
+    margin-bottom: 12px;
+}
+ .profile-right-modal button.accordion i{
+    float: right;
+    line-height: 22px;
+  color:#f76907;
+}
+h3.add-organization {
+    margin-top: 12px;
+}
+/* -------profile-Modal-css-------End---- */
+
+/* ---------Dashboard right------Start--css-- */
+.dash-main-right h1 {
+    font-size: 15px;
+    padding: 5px 5px;
+    margin-bottom: 0px;
+    color: #000;
+}
+.dash-main-right h1 i{
+    color: #f76907;
+}
+.dash-sub-main {
+    display: flex;
+    background: #fffcd7;
+    padding: 15px 15px 15px 40px;
+    border: 1px solid #343434;
+}
+.dash-sub-main img {
+    width: 72px;
+    height: 72px;
+    margin-right: 15px;
+}
+.dash-sub-main h2 span {
+    font-size: 13px;
+    font-weight: 600;
+}
+.dash-sub-main h2 {
+    font-size: 25px;
+}
+/* ---------Dashboard right------css--End-- */
+
+/* ---------Quick Link sec------css--start-- */
+.quick-link h1 {
+    font-size: 14px;
+    margin: 15px 0px 5px 0px;
+  font-weight: 600;
+}
+.quick-link-sub-sec {
+    text-align: center;
+    padding: 10px;
+    background: #fffcd7;
+    border: 1px solid #6b6b6b;
+}
+.quick-link-sub-sec i {
+    font-size: 40px;
+    color: #f76907;
+    margin-bottom: 10px;
+}
+.quick-link-sub-sec p {
+    margin-bottom: 0px;
+    font-size: 12px;
+    color: #000;
+    font-weight: 600;
+}
+/* ---------Quick Link sec------css--end-- */
+
+/* ---------Quick-Link-ACCORDIAN------css--start-- */
+.quick-link button.accordion {
+    background-color: #000;
+    color: #fff;
+  margin-top: 36px;
+}
+.quick-link .accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.quick-link .panel {
+  padding: 0 16px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+.quick-link .panel {
+    border: 1px solid #949494;
+}
+.quick-link .panel p {
+    font-size: 12px;
+      font-weight: 600;
+}
+.my-assessment {
+    position: relative;
+}
+.my-assessment .panel {
+    position: absolute;
+    width: 100%;
+}
+/* ---------Quick-Link-ACCORDIAN------CSS--end-- */
+
+.tab-nav ul {
+    list-style-type: none;
+  padding: 0px;
+}
+.tab-nav ul li{
+    display:inline-block;
+  padding-right: 20px;
+}
+.tab-nav ul li a {
+    color: #4c4c4c;
+    font-size: 14px;
+    font-weight: 600;
+}
+.tab-nav ul li a:hover {
+    text-decoration:none;
+}
+.tab-main-sec h2 {
+    font-size: 16px;
+    margin-top: 10px;
+}
+/* ------------Card---css------ */
+.profile-card .card {
+    padding: 5px;
+    background-color: #e7e7e7;
+    border-radius: unset;
+    border: 1px solid #8a8a8a;
+}
+.card-sub {
+    display: flex;
+}
+.card-sub h1 {
+    font-size: 14px;
+  width: 85%;
+   margin-bottom: 0px;
+   font-weight: 600;
+}
+.card-sub p {
+    width: 15%;
+    font-size: 10px;
+    text-align: center;
+    background: #f76907;
+    line-height: 15px;
+    padding: 3px;
+    color: #fff;
+    margin-bottom: 0px;
+}
+.card-sub p span {
+    font-size: 15px;
+    font-weight: 600;
+}
+.time-sec {
+    font-size: 10px;
+    margin-bottom: 3px;
+    margin-top: 2px;
+  color:#58595b;
+}
+.card-img-sec ul li {
+    display: inline-block;
+    font-size: 10px;
+    padding-right: 8px;
+  margin-bottom: 0px;
+}
+.card-img-sec  ul li::before {
+  display: inline-block;
+    content: '';
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    height: 6px;
+    width: 6px;
+    margin-right: 3px;
+    background-color: #f66907;
+  color: #58595b;
+}
+.card-img-sec ul {
+    list-style-type: none;
+    padding-left: 0px;
+  margin-bottom: 0px;
+}
+.card-img-sec p {
+    font-size: 10px;
+    margin-bottom: 5px;
+    color: #58595b;
+}
+.card-img-sec img {
+    background: #fff;
+    padding: 8px 6px 8px 6px;
+}
+.profile-card.profile-card-second {
+    margin-top: 10px;
 }

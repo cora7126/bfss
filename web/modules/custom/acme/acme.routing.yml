@@ -1,0 +1,7 @@
+acme_hello:
+  path: /dashboard
+  defaults:
+    _controller: Drupal\acme\Controller\DefaultController::dashboard
+    _title: 'BFSS Dashboard'
+  requirements:
+    _permission: 'access content'
