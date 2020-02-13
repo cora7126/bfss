@@ -2,6 +2,16 @@ acme_hello:
   path: /dashboard
   defaults:
     _controller: Drupal\acme\Controller\DefaultController::dashboard
-    _title: 'BFSS Dashboard'
+    _title: 'BFSS dashboard'
   requirements:
     _permission: 'access content'
+    
+acme.form:
+ path: '/userform'
+ defaults:
+   _title: 'Application form'
+   _form: '\Drupal\acme\Controller\DefaultController::userform'
+ requirements:
+   _permission: 'access content'
+    
+   
