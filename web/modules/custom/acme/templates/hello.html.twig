@@ -1,405 +1,551 @@
-{#
-/**
-* @file
-* Default theme implementation to display the basic html structure of a single
-* Drupal page.
-*
-* Variables:
-* - $css: An array of CSS files for the current page.
-* - $language: (object) The language the site is being displayed in.
-*   $language->language contains its textual representation.
-*   $language->dir contains the language direction. It will either be 'ltr' or
-*   'rtl'.
-* - $rdf_namespaces: All the RDF namespace prefixes used in the HTML document.
-* - $grddl_profile: A GRDDL profile allowing agents to extract the RDF data.
-* - $head_title: A modified version of the page title, for use in the TITLE
-*   tag.
-* - $head_title_array: (array) An associative array containing the string parts
-*   that were used to generate the $head_title variable, already prepared to be
-*   output as TITLE tag. The key/value pairs may contain one or more of the
-*   following, depending on conditions:
-*   - title: The title of the current page, if any.
-*   - name: The name of the site.
-*   - slogan: The slogan of the site, if any, and if there is no title.
-* - $head: Markup for the HEAD section (including meta tags, keyword tags, and
-*   so on).
-* - $styles: Style tags necessary to import all CSS files for the page.
-* - $scripts: Script tags necessary to load the JavaScript files and settings
-*   for the page.
-* - $page_top: Initial markup from any modules that have altered the
-*   page. This variable should always be output first, before all other dynamic
-*   content.
-* - $page: The rendered page content.
-* - $page_bottom: Final closing markup from any modules that have altered the
-*   page. This variable should always be output last, after all other dynamic
-*   content.
-* - $classes String of classes that can be used to style contextually through
-*   CSS.
-*
-* @ingroup templates
-*
-* @see bootstrap_preprocess_html()
-* @see template_preprocess()
-* @see template_preprocess_html()
-* @see template_process()
-*/
-#}
-
-
-{% include '@bfss_custom/includes/header.html.twig' %}
+<html>   
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/themes/custom/bfss_custom/css/style-custom.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<script type="text/javascript">
+   $(document).ready(function(){
+   $('.dropdown').click(function(e){
+     $(this).find('.dropdown-menu').toggleClass('open');
+     $($(e.target).find('.down-caret').toggleClass('open-caret'));
+     e.preventDefault();
+     e.stopPropagation();
+     $(document).click(function(){
+       $('.dropdown-menu').removeClass('open');
+       $('.down-caret').removeClass('open-caret');  
+     });
+   });
+   });
+   
+   function openForm() {
+   document.getElementById("myForm").style.display = "block";
+   }
+   
+   function closeForm() {
+   document.getElementById("myForm").style.display = "none";
+   }
+   
+   
+</script>
 <body>
-<div class="row" style="margin-left: 0px;margin-right: 0px;">
-   <div class="col-lg-2 pr-0 pl-0">
-      <nav class="navbar navbar-expand-xs bg-dark navbar-dark">
-         <!-- Brand -->
-         <a class="navbar-brand" href="#"><img src="/themes/custom/bfss_custom/images/images-dashboard/logo.png"></a>
-         <!-- Toggler/collapsibe Button -->
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-         <span class="navbar-toggler-icon"></span>
-         </button>
-         <!-- Navbar links -->
-         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+   <div class="row" style="margin-left: 0px;margin-right: 0px;">
+      <div class="col-lg-2 pr-0 pl-0">
+         <nav class="navbar navbar-expand-xs bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#"><img src="/themes/custom/bfss_custom/images/images-dashboard/logo.png"></a>
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+               <ul class="navbar-nav">
+                  <li class="nav-item">
+                     <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="#">Link</a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+      </div>
+      <div class="col-lg-10 col-md-10">
+         <div class="row">
+            <div class="col-lg-1 pr-0 pl-0">
+               <div class="calender_img">
+                  <img src="/themes/custom/bfss_custom/images/images-dashboard/calender.png">
+                  <p>Scheduled <br>
+                     Assessments 
+                  </p>
+               </div>
+            </div>
+            <div class="col-lg-1 pr-0 pl-0">
+               <div class="athletic_profile" data-toggle="modal" data-target="#myModal">
+                  <img src="/themes/custom/bfss_custom/images/images-dashboard/athletic-profile.png">
+                  <p>My Athletic <br>
+                     Profile 
+                  </p>
+               </div>
+            </div>
+            <div class="col-lg-8 pl-0 pr-0" style="background: #000;"></div>
+            <div class="col-lg-1 pl-0 pr-0">
+               <div class="bell-icon-sec">
+                  <img src="/themes/custom/bfss_custom/images/images-dashboard/bell-icon.png">
+               </div>
+            </div>
+            <div class="col-lg-1 pl-0 pr-0">
+               <div class="profile-sec">
+                  <img src="/themes/custom/bfss_custom/images/images-dashboard/image.jpg" onclick="openForm()">
+                  <!----------- profile pop up start----------- -->
+                  <div class="chat-popup" id="myForm">
+                     <div class="form-container">
+                        <div class="container">
+                           <div class="pop_img_sec">
+                              <div class="row">
+                                 <div class="col-md-4 pr-0 ">
+                                    <img src="/themes/custom/bfss_custom/images/images-dashboard/profile-img.png">
+                                 </div>
+                                 <div class="col-md-8">
+                                    <h2>Jodi Blogs</h2>
+                                    <p>Athlete</p>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="pop_text_sec">
+                              <a href="#">
+                                 <p><i class="far fa-edit"></i>Edit Account Profile</p>
+                              </a>
+                              <a href="#">
+                                 <p><i class="fas fa-user-tie"></i>Edit Account Profile</p>
+                              </a>
+                              <a href="#" data-toggle="modal" data-target="#my-profile-Modal">
+                                 <p><i class="fas fa-user"></i>Parent / Guardian</p>
+                              </a>
+                              <a href="#">
+                                 <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
+                              </a>
+                              <a href="#">
+                                 <p><i class="fas fa-power-off"></i>Sign Out</p>
+                              </a>
+                              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-------Modal Pop start------>
+            <div class="profile-right-modal">
+               <div class="container">
+                  <!-- The Modal -->
+                  <div class="modal fade" id="my-profile-Modal">
+                     <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                           <!-- Modal Header -->
+                           <div class="modal-header">
+                              <h4 class="modal-title">Welcome Jodi,to continue you must complete all the required
+                                 fields below.
+                              </h4>
+                              <!--  <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                           </div>
+                           <!-- Modal body -->
+                           <div class="modal-body">
+                              <div class="row">
+                                 <div class="col-md-7">
+                                    <button class="accordion">ATHLETE'S INFORMATION <i class="fas fa-info"></i></button>
+                                    <div class="panel">
+                                       <input type="text" name="name" placeholder="Jodi">
+                                       <input type="text" name="name" placeholder="Blogs">
+                                       <div class="form-group">
+                                          <select class="form-control" id="sel1">
+                                             <option>AZ</option>
+                                             <option>AB</option>
+                                             <option>AC</option>
+                                             <option>AD</option>
+                                          </select>
+                                       </div>
+                                       <input type="text" name="name" placeholder="City">
+                                       <div class="form-group">
+                                          <select class="form-control" id="sel1">
+                                             <option>Birth Gender</option>
+                                             <option>Male</option>
+                                             <option>Female</option>
+                                          </select>
+                                       </div>
+                                       <input type="text" name="name" placeholder="DOB:MM/DD/YYYY">
+                                       <input type="text" name="name" placeholder="Height in Inches">
+                                       <input type="text" name="name" placeholder="Weight in Pounds">
+                                    </div>
+                                    <!-------SOCIAL/CLUB/UNIVERSITY---SEC--- START-->
+                                    <div class="social-club-sec">
+                                       <button class="accordion">SOCIAL/CLUB/UNIVERSITY <i class="far fa-trash-alt"></i></button>
+                                       <div class="panel">
+                                          <div class="form-group">
+                                             <select class="form-control" id="sel1">
+                                                <option>Organization Type</option>
+                                                <option>ABCD</option>
+                                                <option>ABCD</option>
+                                                <option>ABCD</option>
+                                             </select>
+                                          </div>
+                                          <div class="form-group">
+                                             <select class="form-control" id="sel1">
+                                                <option>Organization Name</option>
+                                                <option>ABCD</option>
+                                                <option>ABCD</option>
+                                                <option>ABCD</option>
+                                                <option>ABCD</option>
+                                             </select>
+                                          </div>
+                                          <input type="text" name="name" placeholder="Coach's Last Name(Optional)">
+                                          <input type="text" name="name" placeholder="Sports">
+                                          <input type="text" name="name" placeholder="Position">
+                                          <h3><a href="#"><i class="fal fa-plus"></i>Additional Position</a></h3>
+                                          <textarea placeholder="Your Stats" rows="4"></textarea>
+                                       </div>
+                                       <h3 class="add-organization"><a href="#"><i class="fal fa-plus"></i>Add Another Organization</a></h3>
+                                    </div>
+                                    <!-------SOCIAL/CLUB/UNIVERSITY---SEC--- END-->
+                                 </div>
+                                 <div class="col-md-5">
+                                    <div class="socila-media-sec">
+                                       <button class="accordion">SOCIAL MEDIA <i class="fas fa-info"></i></button>
+                                       <div class="panel">
+                                          <input type="text" name="name" placeholder="Your Instagram Account(Optional)">
+                                          <input type="text" name="name" placeholder="Your Youtube / Vimeo Channel(Optional)">
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- Modal footer -->
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-------Modal Pop End------>
+            <!----------- profile pop up -----End--------- -->
+         </div>
+      </div>
+   </div>
+   </div>
+   <div class="row" style="margin-left: 0px;margin-right: 0px;">
+      <!-- ------------Side Navbar----------start -->
+      <div class="col-lg-2 col-md-2 pl-0 pr-0">
+         <div class="sidenav" id="sidenav">
+            <ul class="side_nav">
+               <li class="sub_menu">
+                  <button class="side_button">NAVIGATION</button> 
                </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+               <li class="sub_menu active">
+                  <button class="side_button"><i class="fas fa-home"></i></i>Dashboard</button>
                </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+               <li class="sub-menu-drop">
+                  <!--  <button class="side_button">Calender-View & Book</button> -->
+                  <nav>
+                     <div class="dropdown">
+                        <a class="drop" href="#"><i class="fal fa-calendar-alt"></i>Calender-View & Book<span class="down-caret"></span></a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#"> Upcoming Group Assessments </a></li>
+                           <li><a href="#"> Book a Private Assessment</a></li>
+                           <li><a href="#">My Scheduled Assessment</a></li>
+                        </ul>
+                     </div>
+                  </nav>
+               </li>
+               <li class="sub_menu">
+                  <button class="side_button"><i class="far fa-chart-bar"></i>My Assessment Status</button>
+               </li>
+               <li class="sub-menu-drop">
+                  <nav>
+                     <div class="dropdown">
+                        <a class="drop" href="#"><i class="far fa-chart-network"></i>My Athlectic Profile<span class="down-caret"></span></a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#">Edit My Athletic Profile </a></li>
+                           <li><a href="#">View My Webpage</a></li>
+                        </ul>
+                     </div>
+                  </nav>
+               </li>
+               <!-- <li class="sub_menu"> -->
+               <!-- <button class="side_button"><i class="far fa-cogs"></i></i>Support</button> -->
+               <!-- </li> -->
+               <li class="sub-menu-drop">
+                  <nav>
+                     <div class="dropdown">
+                        <a class="drop" href="#"><i class="far fa-cogs"></i></i>Support<span class="down-caret"></span></a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#"> FAQs </a></li>
+                           <li><a href="#">Ticketing</a></li>
+                        </ul>
+                     </div>
+                  </nav>
                </li>
             </ul>
          </div>
-      </nav>
-   </div>
-   <div class="col-lg-10 col-md-10">
-      <div class="row">
-         <div class="col-lg-1 pr-0 pl-0">
-            <div class="calender_img">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/calender.png">
-               <p>Scheduled <br>
-                  Assessments 
-               </p>
+      </div>
+      <!-- ------------Side Navbar----------end -->
+      <div class="col-lg-10 col-md-10 pl-0 pr-0">
+         <div class="dash-main-right">
+            <h1><i class="fas fa-home"></i> > Dashboard </h1>
+            <div class="dash-sub-main">
+               <img src="/themes/custom/bfss_custom/images/images-dashboard/dash-img.png">  
+               <h2><span>ALL FEATURES</span><br>Dashboard  </h2>
             </div>
          </div>
-         <div class="col-lg-1 pr-0 pl-0">
-            <div class="athletic_profile" data-toggle="modal" data-target="#myModal">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/athletic-profile.png">
-               <p>My Athletic <br>
-                  Profile 
-               </p>
+         <!----------Quick Link Section -----Start------->
+         <div class="quick-link">
+            <div class="row" style="margin-left: 0px;margin-right: 0px;">
+               <div class="col-md-8">
+                  <h1>Quick links</h1>
+                  <div class="row">
+                     <div class="col-md-3">
+                        <div class="quick-link-sub-sec">
+                           <i class="fal fa-calendar-alt"></i>
+                           <p>My Scheduled <br>
+                              Assessments
+                           </p>
+                        </div>
+                     </div>
+                     <div class="col-md-3">
+                        <div class="quick-link-sub-sec">
+                           <i class="far fa-chart-bar"></i>
+                           <p>My Assessment <br>
+                              Stats
+                           </p>
+                        </div>
+                     </div>
+                     <div class="col-md-3">
+                        <div class="quick-link-sub-sec">
+                           <i class="far fa-chart-network"></i>
+                           <p>My Atheltic<br>
+                              Profile
+                           </p>
+                        </div>
+                     </div>
+                     <div class="col-md-3">
+                        <div class="quick-link-sub-sec">
+                           <i class="fas fa-lightbulb-on"></i>
+                           <p>Frequently Asked<br>
+                              Questions
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-3">
+                  <div class="my-assessment">
+                     <button class="accordion">MY ASSESSMENTS</button>
+                     <div class="panel">
+                        <h1>Elite Assessment</h1>
+                        <p style="color:#115719;">December 29,2019</p>
+                        <h1 style="color:#f76907;">Starter Assessment</h1>
+                        <p>September 29,2019</p>
+                        <h1 style="color:#f76907;">Starter Assessment</h1>
+                        <p>March 29,2019</p>
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
-         <div class="col-lg-8 pl-0 pr-0" style="background: #000;"></div>
-         <div class="col-lg-1 pl-0 pr-0">
-            <div class="bell-icon-sec">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/bell-icon.png">
-            </div>
-         </div>
-         <div class="col-lg-1 pl-0 pr-0">
-            <div class="profile-sec">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/image.jpg" onclick="openForm()">
-               <!----------- profile pop up start----------- -->
-               <div class="chat-popup" id="myForm">
-                  <div class="form-container">
-                     <div class="container">
-                        <div class="pop_img_sec">
-                           <div class="row">
-                              <div class="col-md-4 pr-0 ">
-                                 <img src="/themes/custom/bfss_custom/images/images-dashboard/profile-img.png">
+         <!----------Quick Link Section -----End-------> 
+         <!----------Tabs Section -----Start------->
+         <div class="tab-main-sec">
+            <div class="row" style="margin-left: 0px;margin-right: 0px;">
+               <div class="col-md-8">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <h2><i class="fal fa-angle-left"></i>August 2019<i class="fal fa-angle-right"></i></h2>
+                     </div>
+                     <div class="col-md-3">
+                        <a href="#"> <i class="fas fa-search"></i></a>
+                     </div>
+                     <div class="col-md-3">
+                     </div>
+                  </div>
+                  <div class="tab-nav">
+                     <ul>
+                        <li><a href="#">Categories </a> </li>
+                        <li><a href="#">Tags </a></li>
+                        <li><a href="#">Organizers </a></li>
+                        <li><a href="#">Venues </a></li>
+                     </ul>
+                  </div>
+                  <!-- ---------Profile Card---HTML----Start-->
+                  <div class="profile-card">
+                     <div class="row">
+                        <div class="col-md-4 pr-0">
+                           <div class="card">
+                              <div class="card-sub">
+                                 <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
+                                 <p>Aug<br><span>02</span><br>2019</p>
                               </div>
-                              <div class="col-md-8">
-                                 <h2>Jodi Blogs</h2>
-                                 <p>Athlete</p>
+                              <p class="time-sec">10:30 am</p>
+                              <div class="card-img-sec">
+                                 <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
+                                 <ul>
+                                    <li>Sports </li>
+                                    <li>Mesa/Gilbert,AZ </li>
+                                 </ul>
+                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore
+                                 </p>
                               </div>
                            </div>
                         </div>
-                        <div class="pop_text_sec">
-                           <a href="#">
-                              <p><i class="far fa-edit"></i>Edit Account Profile</p>
-                           </a>
-                           <a href="#">
-                              <p><i class="fas fa-user-tie"></i>Edit Account Profile</p>
-                           </a>
-                           <a href="#" data-toggle="modal" data-target="#my-profile-Modal">
-                              <p><i class="fas fa-user"></i>Parent / Guardian</p>
-                           </a>
-                           <a href="#">
-                              <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
-                           </a>
-                           <a href="#">
-                              <p><i class="fas fa-power-off"></i>Sign Out</p>
-                           </a>
-                           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                        <div class="col-md-4 pr-0">
+              <div class="card">
+                              <div class="card-sub">
+                                 <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
+                                 <p>Aug<br><span>02</span><br>2019</p>
+                              </div>
+                              <p class="time-sec">10:30 am</p>
+                              <div class="card-img-sec">
+                                 <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
+                                 <ul>
+                                    <li>Sports </li>
+                                   <!--  <li>Mesa/Gilbert,AZ </li> -->
+                                 </ul>
+                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore
+                                 </p>
+                              </div>
+                           </div>
+            </div>
+                        <div class="col-md-4 pr-0">
+              <div class="card">
+                              <div class="card-sub">
+                                 <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
+                                 <p>Aug<br><span>02</span><br>2019</p>
+                              </div>
+                              <p class="time-sec">10:30 am</p>
+                              <div class="card-img-sec">
+                                 <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
+                                 <ul>
+                                    <li>Sports </li>
+                                    <li>Mesa/Gilbert,AZ </li>
+                                 </ul>
+                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore
+                                 </p>
+                              </div>
+                           </div>
+            </div>
+                     </div>
+                  </div>
+          <div class="profile-card profile-card-second">
+                     <div class="row">
+                        <div class="col-md-4 pr-0">
+                           <div class="card">
+                              <div class="card-sub">
+                                 <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
+                                 <p>Aug<br><span>02</span><br>2019</p>
+                              </div>
+                              <p class="time-sec">10:30 am</p>
+                              <div class="card-img-sec">
+                                 <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
+                                 <ul>
+                                    <li>Sports </li>
+                                    <!-- <li>Mesa/Gilbert,AZ </li> -->
+                                 </ul>
+                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-4 pr-0">
+              <div class="card">
+                              <div class="card-sub">
+                                 <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
+                                 <p>Aug<br><span>02</span><br>2019</p>
+                              </div>
+                              <p class="time-sec">10:30 am</p>
+                              <div class="card-img-sec">
+                                 <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
+                                 <ul>
+                                    <li>Sports </li>
+                                    <li>Mesa/Gilbert,AZ </li>
+                                 </ul>
+                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore
+                                 </p>
+                              </div>
+                           </div>
+            </div>
+                        <div class="col-md-4 pr-0">
+              <div class="card">
+                              <div class="card-sub">
+                                 <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
+                                 <p>Aug<br><span>02</span><br>2019</p>
+                              </div>
+                              <p class="time-sec">10:30 am</p>
+                              <div class="card-img-sec">
+                                 <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
+                                 <ul>
+                                    <li>Sports </li>
+                                    <li>Mesa/Gilbert,AZ </li>
+                                 </ul>
+                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore
+                                 </p>
+                              </div>
+                           </div>
+            </div>
+                     </div>
+                  </div>
+          <!-- ---------Profile Card---HTML----End-->
+          
+               </div>
+         
+               <div class="col-md-1"></div>
+         <div class="col-md-3"></div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="container">
+      <div class="modal fade" id="myModal" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <div class = "modals-section">
+                     <div class = "row">
+                        <div class = "col-md-7 newzz">
+                           <span> <img src="/themes/custom/bfss_custom/images/images-dashboard/better-image.png"></span>
+                        </div>
+                        <div class = "col-md-5 newzz">
+                           <div class = "modals-bg">
+                              <h4>Aug<br> 04</h4>
+                              <h1>Atheltic Profile Assessments</h1>
+                              <p> Williams field high school</p>
+                           </div>
+                        </div>
+                        <div class="modal-body">
+                           <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
-         <!-------Modal Pop start------>
-        <div class="profile-right-modal"> 
-      <div class="container">
-            <!-- The Modal -->
-            <div class="modal fade" id="my-profile-Modal">
-               <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                     <!-- Modal Header -->
-                     <div class="modal-header">
-                        <h4 class="modal-title">Welcome Jodi,to continue you must complete all the required
-            fields below.</h4>
-                       <!--  <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                     </div>
-                     <!-- Modal body -->
-                    <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6">
-              <button class="accordion">My ASSESSMENTS</button>
-                <div class="panel">
-                  <input type="text" name="username" value="Jodi">
-                  <input type="text" name="username" value="Blogs">
-                  <div class="form-group">
-                  <select class="form-control" id="sel1">
-                    <option>AZ</option>
-                    <option>AB</option>
-                    <option>AC</option>
-                    <option>AD</option>
-                  </select>
-                  </div>
-                  <input type="text" name="username" value="City">
-                  <div class="form-group">
-                  <select class="form-control" id="sel1">
-                    <option>Male</option>
-                    <option>Female</option>
-                    
-                  </select>
-                  </div>
-                  <input type="text" name="username" value="">
-                  <input type="text" name="username" value="Height in Inches">
-                  <input type="text" name="username" value="Weight in Pounds">
-                </div>
-            </div>
-            
-            <div class="col-md-6"> </div>
-            </div>
-                     </div>
-                     <!-- Modal footer -->
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-    </div>
-         <!-------Modal Pop End------>
-         <!----------- profile pop up -----End--------- -->
       </div>
    </div>
-</div>
-</div>
-<div class="row" style="margin-left: 0px;margin-right: 0px;">
-   <!-- ------------Side Navbar----------start -->
-   <div class="col-lg-2 col-md-2 pl-0 pr-0">
-      <div class="sidenav" id="sidenav">
-         <ul class="side_nav">
-            <li class="sub_menu">
-               <button class="side_button">NAVIGATION</button> 
-            </li>
-            <li class="sub_menu active">
-               <button class="side_button"><i class="fas fa-home"></i></i>Dashboard</button>
-            </li>
-            <li class="sub-menu-drop">
-               <!--  <button class="side_button">Calender-View & Book</button> -->
-               <nav>
-                  <div class="dropdown">
-                     <a class="drop" href="#"><i class="fal fa-calendar-alt"></i>Calender-View & Book<span class="down-caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#"> Upcoming Group Assessments </a></li>
-                        <li><a href="#"> Book a Private Assessment</a></li>
-                        <li><a href="#">My Scheduled Assessment</a></li>
-                     </ul>
-                  </div>
-               </nav>
-            </li>
-            <li class="sub_menu">
-               <button class="side_button"><i class="far fa-chart-bar"></i>My Assessment Status</button>
-            </li>
-            <li class="sub-menu-drop">
-               <nav>
-                  <div class="dropdown">
-                     <a class="drop" href="#"><i class="far fa-chart-network"></i>My Athlectic Profile<span class="down-caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">Edit My Athletic Profile </a></li>
-                        <li><a href="#">View My Webpage</a></li>
-                     </ul>
-                  </div>
-               </nav>
-            </li>
-            <!-- <li class="sub_menu"> -->
-            <!-- <button class="side_button"><i class="far fa-cogs"></i></i>Support</button> -->
-            <!-- </li> -->
-            <li class="sub-menu-drop">
-               <nav>
-                  <div class="dropdown">
-                     <a class="drop" href="#"><i class="far fa-cogs"></i></i>Support<span class="down-caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#"> FAQs </a></li>
-                        <li><a href="#">Ticketing</a></li>
-                     </ul>
-                  </div>
-               </nav>
-            </li>
-         </ul>
-      </div>
-   </div>
-   <!-- ------------Side Navbar----------end -->
-   <div class="col-lg-10 col-md-10 pl-0 pr-0">
-      <div class="dash-main-right">
-         <h1><i class="fas fa-home"></i> > Dashboard </h1>
-         <div class="dash-sub-main">
-            <img src="/themes/custom/bfss_custom/images/images-dashboard/dashboard.png">  
-            <h2><span>ALL FEATURES</span><br>Dashboard  </h2>
-         </div>
-      </div>
-      <!----------Quick Link Section -----Start------->
-      <div class="quick-link">
-         <div class="row" style="margin-left: 0px;margin-right: 0px;">
-            <div class="col-md-7">
-               <h1>Quick links</h1>
-               <div class="row">
-                  <div class="col-md-3">
-                     <div class="quick-link-sub-sec">
-                        <i class="fal fa-calendar-alt"></i>
-                        <p>My Scheduled <br>
-                           Assessments
-                        </p>
-                     </div>
-                  </div>
-                  <div class="col-md-3">
-                     <div class="quick-link-sub-sec">
-                        <i class="far fa-chart-bar"></i>
-                        <p>My Assessment <br>
-                           Stats
-                        </p>
-                     </div>
-                  </div>
-                  <div class="col-md-3">
-                     <div class="quick-link-sub-sec">
-                        <i class="far fa-chart-network"></i>
-                        <p>My Atheltic<br>
-                           Profile
-                        </p>
-                     </div>
-                  </div>
-                  <div class="col-md-3">
-                     <div class="quick-link-sub-sec">
-                        <i class="fas fa-lightbulb-on"></i>
-                        <p>Frequently Asked<br>
-                           Questions
-                        </p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-3">
-               <button class="accordion">My ASSESSMENTS</button>
-               <div class="panel">
-                  <h1>Elite Assessment</h1>
-                  <p style="color:#115719;">December 29,2019</p>
-                  <h1 style="color:#f76907;">Starter Assessment</h1>
-                  <p>September 29,2019</p>
-                  <h1 style="color:#f76907;">Starter Assessment</h1>
-                  <p>March 29,2019</p>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!----------Quick Link Section -----End-------> 
-      <!----------Tabs Section -----Start------->
-      <div class="tab-main-sec">
-         <div class="row" style="margin-left: 0px;margin-right: 0px;">
-            <div class="col-md-7">
-               <div class="row">
-                  <div class="col-md-6">
-                     <h2><i class="fal fa-angle-left"></i>August 2019<i class="fal fa-angle-right"></i></h2>
-                  </div>
-                  <div class="col-md-3">
-                     <input type="text" placeholder="Search..">
-                  </div>
-                  <div class="col-md-3">
-                     <input type="text" placeholder="Search..">
-                  </div>
-               </div>
-               <div class="tab-nav">
-                  <ul>
-                     <li><a href="">Categories </a> </li>
-                     <li><a href="">Tags </a></li>
-                     <li><a href="">Organizers </a></li>
-                     <li><a href="">Venues </a></li>
-                  </ul>
-               </div>
-            </div>
-            <div class="col-md-5"></div>
-         </div>
-      </div>
-   </div>
-</div>
- <div class="container">
-   <div class="modal fade" id="myModal" role="dialog">
-     <div class="modal-dialog">
-     
+   <!-----Model_End------>
+   <script>
+      var acc = document.getElementsByClassName("accordion");
+      var i;
       
-       <div class="modal-content"> 
-         <div class="modal-header">
-          <div class = "modals-section">
-     <div class = "row"> 
-      <div class = "col-md-7 newzz">
-             <span> <img src="/themes/custom/bfss_custom/images/images-dashboard/better-image.png"></span>
-     </div>
-      
-       <div class = "col-md-5 newzz">
-     <div class = "modals-bg">
-                <h4>Aug<br> 04</h4>
-       <h1>Atheltic Profile Assessments</h1>
-       <p> Williams field high school</p>
-     </div>
-     
-    </div>
-    
-         <div class="modal-body">
-           <p>Some text in the modal.</p>
-         </div> 
-         <div class="modal-footer">
-           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-         </div>
-       </div>
-       
-     </div>
-   </div>
-   </div>
-   </div>
-   </div>
-   </div> 
-<!-----Model_End------>
-<script>
-   var acc = document.getElementsByClassName("accordion");
-   var i;
-   
-   for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var panel = this.nextElementSibling;
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
+      for (i = 0; i < acc.length; i++) {
+       acc[i].addEventListener("click", function() {
+         this.classList.toggle("active");
+         var panel = this.nextElementSibling;
+         if (panel.style.display === "block") {
+           panel.style.display = "none";
+         } else {
+           panel.style.display = "block";
+         }
+       });
       }
-    });
-   }
-   
-</script>
+      
+   </script>
 </body>
 </html>
