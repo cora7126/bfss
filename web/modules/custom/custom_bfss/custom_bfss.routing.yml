@@ -1,0 +1,6 @@
+bfss_edit:
+    path: /edit/user
+    defaults: 
+        _controller: Drupal\custom_bfss\Controller\custom_bfss_controller::custom_bfss_form_alter
+    requirements:
+        _permission: 'access content'
