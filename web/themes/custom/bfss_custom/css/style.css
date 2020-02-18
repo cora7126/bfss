@@ -7327,3 +7327,132 @@ body.user-reset .btn-primary {
   margin-top: -16px; }
 
 /*# sourceMappingURL=style.css.map */
+
+/* 17-02-2020 */
+.user-form .panel-default {
+    width: 67%;
+    display: inline-block;
+    float: left;
+}
+.user-form aside#user-edit-div {
+    width: 30%;
+    display: inline-block;
+    float: right;
+    margin-left: 2.5%;
+    
+    border: 1px solid #ccc;
+}
+.user-form aside#user-edit-div .image_side_bar{
+    padding: 20px;
+}
+form#user-form {
+    padding: 20px;
+}
+.user-form  div#edit-actions {
+    width: 100%;
+    display: inline-block;
+}
+.user-form .panel-default > .panel-heading {
+    color: #fff;
+    background-color: #000 !important;
+    border-color: #000 !important;
+    
+} 
+.user-form .box-image{
+    float:left;
+}
+.user-form .panel-default a.panel-title:before {
+    content: "-";
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    color: red;
+    font-size: 40px;
+    font-family: FontAwesome;
+    line-height: 10px;
+}
+.user-form .panel-title img {
+    display:none;
+}
+.user-form .panel-title{
+    padding-left:35px;
+    position:relative;
+}
+body{
+    overflow-x:hidden;
+}
+.user-form .form-inline .form-control{
+    width:100%;
+}
+.user-form #edit-field-date-0{
+    border:0 none;
+}
+.user-form #edit-field-date-0 .panel-heading{
+    display:none;
+}
+.user-form #edit-field-date-0 .panel-body{
+   padding-left:0; 
+}
+.user-form #user-edit-div .accordion-item{
+        margin: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 10px;
+    background: #000;
+}
+.user-form #user-edit-div .accordion-item a{
+    color:#fff;
+    text-decoration: none;
+}
+.user-form #user-edit-div span.file-size {
+    display: none;
+}
+.user-form #user-edit-div span.file.file--mime-image-png.file--image.icon-before {
+    display: none;
+}
+.user-form #user-edit-div .control-label{
+    display:none;
+}
+.user-form #user-edit-div .preview {
+    width: 100% !important;
+}
+.user-form #user-edit-div .preview img {
+    display: table;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+.user-form #user-edit-div .data button{
+        display: table;
+    margin: 10px auto;
+}
+.user-form .data {
+    width: 100% !important;
+}
+.main-container > .row{
+    margin: 0 !important;
+}
+div#edit-field-date-wrapper {
+    margin-left: -15px;
+}
+#edit-field-date-wrapper .col-sm-6{
+    width:100% !important;
+}
+div#edit-field-date-wrapper .container {
+    width: 100%;
+    padding-right: 0;
+}
+.user-form .form-item-current-pass, .user-form .form-item-pass-pass1, .user-form .form-item-pass-pass2{
+    display: none;
+}
+@media(max-width:767px){
+    .user-form .panel-default {
+        width: 100%;
+    }
+.user-form aside#user-edit-div {
+        width: 100%;
+        margin-left: 0%;
+        float: left;
+        margin-bottom: 20px;
+    }
+}
