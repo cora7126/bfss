@@ -1,5 +1,0 @@
-name: Bfss custom module
-type: module
-description: "This is a custom module for user edit."
-package: Sample
-core: 8.x

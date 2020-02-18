@@ -1,0 +1,6 @@
+name: Hook event dispacher module
+description: Drupal form alter
+type: module
+core: 8.x
+dependencies:
+    - drupal:hook_event_dispatcher
