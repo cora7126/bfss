@@ -1,0 +1,8 @@
+<?php
+function edit_form_theme($existing, $type, $theme, $path) {
+  	return [
+	    'my_edit_form' => [
+	      'render element' => 'form',
+	    ],
+  	];
+}

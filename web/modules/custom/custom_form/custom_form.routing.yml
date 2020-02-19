@@ -1,0 +1,7 @@
+custom_form.content:
+  path: '/customform'
+  defaults:
+    _form: '\Drupal\custom_form\Form\edit_profile_form'
+    _title: 'Custom Title'
+  requirements:
+    _permission: 'access content'

@@ -133,7 +133,7 @@ class MydataForm extends FormBase {
         '#value' => 'save',
         //'#value' => t('Submit'),
     ];
-    $form['#theme'] = 'my_form';
+    //$form['#theme'] = 'my_form';
     return $form;
   }
   /**
@@ -144,12 +144,12 @@ class MydataForm extends FormBase {
           if(preg_match('/[^A-Za-z]/', $name)) {
              $form_state->setErrorByName('jodi', $this->t('your jodi must in characters without space'));
           }
-        if (!is_float($form_state->getValue('height'))) {
-             $form_state->setErrorByName('candidate_age', $this->t('Height needs to be a number'));
-            }
-        if (!is_float($form_state->getValue('weight'))) {
-             $form_state->setErrorByName('candidate_age', $this->t('Weight needs to be a number'));
-            }
+//        if (is_float($form_state->getValue('height'))) {
+//             $form_state->setErrorByName('candidate_age', $this->t('Height needs to be a number'));
+//            }
+//        if (is_float($form_state->getValue('weight'))) {
+//             $form_state->setErrorByName('candidate_age', $this->t('Weight needs to be a number'));
+//            }
          /* $number = $form_state->getValue('candidate_age');
           if(!preg_match('/[^A-Za-z]/', $number)) {
              $form_state->setErrorByName('candidate_age', $this->t('your age must in numbers'));
@@ -163,6 +163,7 @@ class MydataForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+      echo 'herer';die;
 
     $field=$form_state->getValues();
     $jodi=$field['jodi'];
