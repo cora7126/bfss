@@ -163,6 +163,7 @@ class AcmeForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+      echo 'here';die;
 
     $field=$form_state->getValues();
     $jodi=$field['jodi'];

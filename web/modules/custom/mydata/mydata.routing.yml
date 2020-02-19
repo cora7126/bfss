@@ -5,7 +5,7 @@ mydata.mydata_form:
     _form: '\Drupal\mydata\Form\MydataForm'
     _title: 'MydataForm'
   requirements:
-    _access: 'TRUE'
+    _permission: 'access content'
 
 mydata.display_table_controller_display:
   path: '/mydata/hello/table'
@@ -21,4 +21,4 @@ mydata.delete_form:
     _form: '\Drupal\mydata\Form\DeleteForm'
     _title: 'DeleteForm'
   requirements:
-    _access: 'TRUE'
+     _role: 'athlete'

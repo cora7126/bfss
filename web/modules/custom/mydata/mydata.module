@@ -1,5 +1,7 @@
 <?php
-
+use Drupal\Core\Database\Database;
+use Drupal\media\Entity\Media;
+use Drupal\file\Entity\File;
 function mydata_theme() {
   return [
     'my_form' => [
@@ -8,4 +10,31 @@ function mydata_theme() {
     
   ];
    
+}
+function mydata_preprocess(&$variables){
+	$current_user = \Drupal::currentUser()->id();
+	$account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+	
+	$username = $account->get('name')->value;
+	$account_array = $account->toArray();
+	$roles = $account_array['roles'][0]['target_id'];
+    
+	$query = \Drupal::database()->select('user__user_picture', 'n');
+    $query->addField('n', 'user_picture_target_id');
+    $query->condition('entity_id', $current_user,'=');
+    $results = $query->execute()->fetchAssoc();
+	
+	$img_id = $results['user_picture_target_id'];
+	$file = File::load($img_id);
+	if(!empty($file)){
+		$url = $file->url();
+	}else{
+		$url = '/5ppsystem.com/web/sites/default/files/pictures/2020-02/DefaultProfile.png';
+	}
+	$url_pos = strpos($url,"/sites");
+	$url_valid = substr($url,$url_pos);
+	
+	$variables['user_img_url'] = $url_valid;
+	$variables['user_name'] = $username;
+	$variables['user_roles'] = $roles;
 }

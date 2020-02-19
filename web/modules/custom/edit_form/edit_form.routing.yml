@@ -1,0 +1,7 @@
+edit_form.contribute_form:
+  path: 'contribute-form'
+  defaults:
+    _form: '\Drupal\edit_form\Form\ContributeForm'
+    _title: 'Conribute page'
+  requirements:
+    _permission: 'access content'
