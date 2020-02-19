@@ -31,3 +31,10 @@ function bfss_custom_preprocess_page(&$variables) {
   }
 }
 
+function bfss_custom_preprocess_user(&$variables) {
+  /** @var User $account */
+  $account = $variables['elements']['#user'];
+
+  $variables['username'] = $account->getDisplayName();
+}
+
