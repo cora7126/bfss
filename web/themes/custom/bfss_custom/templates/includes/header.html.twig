@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<title>Dashboard</title>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+   $('.dropdown').click(function(e){
+     $(this).find('.dropdown-menu').toggleClass('open');
+     $($(e.target).find('.down-caret').toggleClass('open-caret'));
+     e.preventDefault();
+     e.stopPropagation();
+     $(document).click(function(){
+       $('.dropdown-menu').removeClass('open');
+       $('.down-caret').removeClass('open-caret');
+     });
+   });
+   });
+   
+   function openForm() {
+   document.getElementById("myForm").style.display = "block";
+   }
+   
+   function closeForm() {
+   document.getElementById("myForm").style.display = "none";
+   }
+   
+   
+</script>
+</head>

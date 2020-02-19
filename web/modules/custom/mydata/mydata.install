@@ -1,0 +1,90 @@
+<?php
+function mydata_schema() {
+  $schema['mydata'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'field_jodi'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_bloggs'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_az'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+        ),
+      'field_city'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => TRUE,
+      ),
+      'field_birth_gender'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_dob'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => TRUE,
+      ),
+	  'field_height'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_weight'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_organization_type'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_organization_name'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_coach_lname'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_sport'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_position'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_instagram'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_youtube'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  
+	  
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

@@ -1,0 +1,14 @@
+<?php
+
+function scheduled_assessment_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form_id == 'webform_submission_scheduled_assessment_add_form'){
+  	$form['elements']['time']['slot2'] = array(
+  			'#type' => 'radio',
+  			'#title' => t('rs'),
+  			'#options' => t('Enable')
+  	);
+
+  }
+}
+
+?>

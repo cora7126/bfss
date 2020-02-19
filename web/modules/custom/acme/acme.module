@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Contains acme.module..
+ */
+
+
+/**
+ * Implements hook_theme()
+ * @return mixed
+ */
+function acme_theme() {
+  $theme['hello_page'] = [
+    'variables' => ['name' => NULL],
+    'template' => 'hello',
+  ];
+  $theme['athlete_profile'] = [
+    'variables' => ['themeName' => NULL],
+    'template' => 'athleteForm',
+  ];
+
+  return $theme;
+}
+
+function acme_preprocess(&$variables){
+	$user_id = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+//        echo $user_id;die;
+//	$variables['test'] = $user_id;
+}	
