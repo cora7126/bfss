@@ -10,4 +10,7 @@
             }
         });
     });
+	 $(window).on('load',function(){
+        $('.dashboard #athelets-modal').modal('show');
+    });
 })(jQuery);

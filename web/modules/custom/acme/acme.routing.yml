@@ -7,11 +7,17 @@ acme_hello:
     _permission: 'access content'
     
 acme.form:
- path: '/userform'
+ path: /userform
  defaults:
    _title: 'Application form'
-   _form: '\Drupal\acme\Controller\DefaultController::userform'
+   _controller: \Drupal\acme\Controller\DefaultController::userform
  requirements:
    _permission: 'access content'
     
-   
+acme.achme_form:
+  path: /athlete_form
+  defaults:
+    _form: '\Drupal\acme\Form\AcmeForm'
+    _title: 'MydataForm'
+  requirements:
+    _access: 'TRUE' 

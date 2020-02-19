@@ -24,10 +24,16 @@ class DefaultController extends ControllerBase {
   
 public function userform()
 {
-	$build = [
-      '#markup' => $this->t('Hello World!'),
+	return [
+      '#cache' => ['max-age' => 0,],
+      '#theme' => 'athlete_profile',
+      '#name' => ' ',
+      '#attached' => [
+        'library' => [
+          'acme/acme-styles', //include our custom library for this response
+        ]
+      ]
     ];
-    return $build;
 }
    
 }
