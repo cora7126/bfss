@@ -1,3 +1,4 @@
+{ % include '@mydata/my-form.html.twig' % }
 <html>   
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,8 +35,8 @@
    
 </script>
 <body>
-   <div class="row" style="margin-left: 0px;margin-right: 0px;margin-top:-2px">
-      <div class="col-lg-2 pr-0 pl-0">
+   <div class="row border_bottom" style="margin-left: 0px;margin-right: 0px;margin-top:-2px">
+      <div class="col-lg-3 pr-0 pl-0">
          <nav class="navbar navbar-expand-xs bg-dark navbar-dark">
             <!-- Brand -->
             <a class="navbar-brand" href="#"><img src="/themes/custom/bfss_custom/images/images-dashboard/logo.png"></a>
@@ -54,7 +55,7 @@
             </div>
          </nav>
       </div>
-      <div class="col-lg-10 col-md-10">
+      <div class="col-lg-9 col-md-10">
          <div class="row">
             <div class="col-lg-1 pr-0 pl-0">
                <div class="calender_img">
@@ -98,7 +99,7 @@
                            </div>
                            <div class="pop_text_sec">
                               <a href="#">
-                                 <p><i class="far fa-edit"></i>Edit Account Profile</p>
+                                 <a href='/user/1/edit'><i class="far fa-edit"></i>{{test}}</a>
                               </a>
                               <a href="#">
                                  <p><i class="fas fa-user-tie"></i>Edit Account Profile</p>
@@ -220,7 +221,7 @@
    </div>
    <div class="row" style="margin-left: 0px;margin-right: 0px;">
       <!-- ------------Side Navbar----------start -->
-      <div class="col-lg-2 col-md-2 pl-0 pr-0">
+      <div class="col-lg-3 col-md-2 pl-0 pr-0 left_bg_color">
          <div class="sidenav" id="sidenav">
             <ul class="side_nav">
                <li class="sub_menu">
@@ -274,7 +275,7 @@
          </div>
       </div>
       <!-- ------------Side Navbar----------end -->
-      <div class="col-lg-10 col-md-10 pl-0 pr-0">
+      <div class="col-lg-9 col-md-10 pl-0 pr-0">
          <div class="dash-main-right">
             <h1><i class="fas fa-home"></i> > Dashboard </h1>
             <div class="dash-sub-main">
@@ -524,6 +525,142 @@
          </div>
       </div>
    </div>
+   <div class="modal" id="athelets-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <!-- <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div> -->
+
+      <!-- Modal body -->
+      <div class="modal-body">
+		<div class="row">
+			<div class="col-md-12 pb-2">
+				<p>Welcome Jodi, to continue you must complete all the required fields below.</p>
+			</div>
+		</div>
+			<div class="row">
+				<div class="col-md-8">
+					<div id="accordion">
+						<div class="card">
+							<div class="card-header">
+							  <a class="card-link d-flex justify-content-between" data-toggle="collapse" href="#collapseOne">
+								<span><i class="fas fa-minus text-orange pr-2"></i>ATHLETE'S INFORMATION</span>
+								<i class="fas fa-info text-orange"></i>
+							  </a>
+							</div>
+							<div id="collapseOne" class="collapse show" data-parent="#accordion">
+							  <div class="card-body py-4 my-2">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Jodi" disabled>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Bloggs" disabled>
+								</div>
+								<div class="form-group">
+									<select class="form-control" id="exampleFormControlSelect1">
+									  <option>AZ</option>
+									  <option>2</option>
+									  <option>3</option>
+									  <option>4</option>
+									  <option>5</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input type="number" class="form-control" placeholder="Qty">
+								</div>
+								<div class="form-group">
+									<select class="form-control" id="exampleFormControlSelect2">
+									  <option>Birth Gender</option>
+									  <option>2</option>
+									  <option>3</option>
+									  <option>4</option>
+									  <option>5</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input type="number" class="form-control" placeholder="Height In Inches">
+								</div>
+								<div class="form-group">
+									<input type="number" class="form-control" placeholder="Weight In Pounds">
+								</div>
+							</div>
+						  </div>
+						</div>
+					  <div class="card">
+						<div class="card-header">
+						  <a class="collapsed card-link d-flex justify-content-between" data-toggle="collapse" href="#collapseTwo">
+							<span><i class="fas fa-minus text-orange pr-2"></i>SCHOOL/CLUB/UNIVERSITY</span>
+							<i class="far fa-trash-alt text-orange"></i>
+						  </a>
+						</div>
+						<div id="collapseTwo" class="collapse show">
+						  <div class="card-body py-4 my-2">
+							<div class="form-group">
+								<select class="form-control" id="exampleFormControlSelect3">
+								  <option>Organization Type</option>
+								  <option>2</option>
+								  <option>3</option>
+								  <option>4</option>
+								  <option>5</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<select class="form-control" id="exampleFormControlSelect4">
+								  <option>Organization Name</option>
+								  <option>2</option>
+								  <option>3</option>
+								  <option>4</option>
+								  <option>5</option>
+								</select>
+							</div>
+							<div class="form-group">
+									<input type="text" class="form-control" placeholder="Coach's Last Name(Optional)">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Sport">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Position">
+							</div>
+							<button type="button" class="bg-transparent border-0 text-orange">+ Additional Position</button>
+							
+						  </div>
+						</div>
+					  </div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header">
+						  <a class="collapsed card-link d-flex justify-content-between" data-toggle="collapse" href="#collapseThree">
+							<span><i class="fas fa-minus text-orange pr-2"></i>SOCIAL MEDIA</span>
+							<i class="fas fa-info text-orange"></i>
+						  </a>
+						</div>
+						<div id="collapseThree" class="collapse show">
+							<div class="card-body py-4 my-2">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Your Instagram Account(Optional)">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Your Youtube/Vimeo Channel(Optional)">
+								</div>
+							</div>
+						</div>
+					  </div>
+				</div>
+			</div>	
+		</div>
+      <!-- Modal footer -->
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> -->
+
+    </div>
+  </div>
    <!-----Model_End------>
    <script>
       var acc = document.getElementsByClassName("accordion");

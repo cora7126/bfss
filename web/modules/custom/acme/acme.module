@@ -15,6 +15,16 @@ function acme_theme() {
     'variables' => ['name' => NULL],
     'template' => 'hello',
   ];
+  $theme['athlete_profile'] = [
+    'variables' => ['themeName' => NULL],
+    'template' => 'athleteForm',
+  ];
 
   return $theme;
 }
+
+function acme_preprocess(&$variables){
+	$user_id = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+//        echo $user_id;die;
+//	$variables['test'] = $user_id;
+}	
