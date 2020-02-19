@@ -15,7 +15,7 @@ acme.form:
    _permission: 'access content'
     
 acme.achme_form:
-  path: /athlete_form
+  path: /dashboard
   defaults:
     _form: '\Drupal\acme\Form\AcmeForm'
     _title: 'MydataForm'

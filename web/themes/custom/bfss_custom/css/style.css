@@ -1264,6 +1264,9 @@ p {
 	
 	.text-orange {color: #f58641;}
 	i.text-orange {font-size:9px;vertical-align: middle;}
+        .modal-body.athelet_form_content {
+            display: none;
+        }
 	@media (max-width: 992px) {
 			#athelets-modal .modal-content {
 				width: 100% !important;
@@ -7525,6 +7528,11 @@ span.navbar-toggler-icon{
 nav .dropdown .drop{
   width: 100%;
 }
+#menu-button .toggle_icon{
+  font-size: 24px;
+  color: #f76907;
+  cursor: pointer;
+}
 nav .dropdown .drop .down-caret{
   position: absolute;
   top: 25px;
@@ -7539,7 +7547,10 @@ nav .dropdown .drop .down-caret{
 .sidenav ul.side_nav li.sub_menu , .sidenav ul.side_nav li.sub-menu-drop{
   border-bottom: 1px solid grey;
 }
-.sidenav ul.dropdown-menu.open li:last-child a{
+.sidenav ul.dropdown-menu.open li:last-child a , .dropdown > .dropdown-menu.open{
+  border-bottom: unset;
+}
+ul.side_nav li:last-child{
   border-bottom: unset;
 }
 .sidenav ul.dropdown-menu.open li a {
@@ -7559,4 +7570,189 @@ nav .dropdown .drop .down-caret{
 }
 .left_bg_color{
   background: #000;
+  border-right: 1px solid grey;
 }
+.down-arrow{
+  transform: rotate(0deg);
+  transition: all 0.25s ease-in;
+  color: grey;
+  font-size: 18px;
+  position: relative;
+}
+nav .dropdown .drop .down-arrow {
+    position: absolute;
+    top: 17px;
+    right: 15px;
+    pointer-events: none;
+}
+.top_right .calender_img {
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+}
+.dashboard .athletic_profile {
+    border-right: 1px solid grey;
+}
+.dash-main-right .dash-sub-main {
+    border: 1px solid grey;
+    border-left: unset;
+    padding: 15px 15px 15px 15px;
+}
+.dash-main-right h1 {
+    padding: 5px 20px !important;
+}
+.quick-link-sub-sec:hover{
+  background: #000;
+}
+.quick-link-sub-sec:hover i{
+  color: #fff;
+}
+.quick-link-sub-sec:hover p{
+  color: #ffd537;
+}
+.tab-main-sec .tab-nav{
+  border-top: 1px solid #9090906b;
+  padding: 5px 0px 0 5px;
+}
+.calender_img .fa-calendar-alt , .athletic_profile .fa-chart-network{
+  font-size: 40px;
+  color: #f76907;
+  padding: 10px 0;
+}
+.dashboard .athletic_profile p{
+  color: #fff;
+}
+.calender_img:hover i , .athletic_profile:hover i{
+  color: #fff
+}
+.calender_img:hover p , .athletic_profile:hover p{
+  color: #ffd537;
+}
+.dashboard .navbar .navbar-brand{
+  max-width: 150px;
+}
+.remove_padding section.col-sm-12{
+  padding-left: 0;
+  padding-right: 0;
+}
+.dashboard .quick-link .panel {
+    border-radius: inherit;
+}
+.my-assessment{
+  position: relative;
+}
+.quick-link button.accordion:before{
+    content: "\f068";
+    font-family: "Font Awesome 5 Pro";
+    position: absolute;
+    color: #f76907;
+    font-size: 18px;
+    top: 53px;
+    left: 19px;
+    pointer-events: none;
+}
+.quick-link button.accordion.active:before{
+  content: "\f067";
+}
+.dashboard .quick-link button.accordion{
+  padding-left: 42px;
+}
+.dashboard .search_icon a{
+  line-height: 48px;
+  color: #909090;
+}
+.dashboard h2 span.month_year{
+  color: #f76907;
+  }
+  .dashboard .card-sub p{
+    width: 20%;
+  }
+  .dashboard .card-sub p span {
+    font-size: 18px;
+    font-weight: 700;
+}
+.sidenav ul.dropdown-menu.open li:hover::before{
+  background: #fff;
+}
+.pop_text_sec a p:hover i{
+  color: #f76907;
+}
+.datepicker{
+  position: relative;
+}
+.footer{
+  display: none;
+}
+.region-footer{
+    margin-top: 100px;
+    padding-top: 35px;
+    padding-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.quick-link .my-assessment .panel{
+  display: block;
+}
+#date-picker-example{
+  display: inline-block;
+    font-size: 9px;
+    width: 83%;
+}
+.user-92-edit .user-form .panel-default > .panel-heading {
+    color: #fff;
+    font-weight: bold;
+}
+.user-92-edit .user-form .panel-default > .panel-heading{
+  background: #000;
+  position: relative;
+}
+.user-92-edit .user-form .panel-default a.panel-title:before{
+    content: "\f068";
+    font-family: "Font Awesome 5 Pro";
+    position: absolute;
+    color: #f76907;
+    font-size: 18px;
+    top: 7px;
+    left: 7px;
+    pointer-events: none;
+}
+.user-92-edit .user-form .panel-default a.panel-title.collapsed:before{
+  content: "\f067";
+}
+.user-92-edit .user-form .panel-default{
+  width: 66%;
+}
+.user-92-edit .user-form .panel-title img{
+  display: none !important;
+}
+.user-92-edit .user-form .panel-default a.panel-title {
+    padding: 10px 35px !important;
+}
+.dashboard .profile-sec img{
+  width: 90%;
+}
+.dashboard.modal-open .card #collapseTwo button.btn-success{
+  background: #000;
+}
+.user-92-edit #edit-actions button.btn-success{
+   background: #000;
+}
+.js-form-item-jodi input:focus{
+  background: #90909033;
+}
+.first-accordian--content .form-type-textfield label{
+  
+}
+        /* media quaries*/
+@media (max-width: 992px) {
+      .dash-main-right .dash-sub-main {
+        border-left: 1px solid grey;
+    }
+    .dashboard .quick-link .panel {
+    z-index: 9;
+}
+    }
+    @media (max-width: 420px) {
+      .datepicker{
+        width: 96%;
+      }
+    }
