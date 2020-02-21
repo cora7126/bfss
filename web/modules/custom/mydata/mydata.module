@@ -37,4 +37,19 @@ function mydata_preprocess(&$variables){
 	$variables['user_img_url'] = $url_valid;
 	$variables['user_name'] = $username;
 	$variables['user_roles'] = $roles;
+        
+        $query1 = \Drupal::database()->select('user__field_last_name', 'ufln');
+        $query1->addField('ufln', 'field_last_name_value');
+        $query1->condition('entity_id', $current_user,'=');
+        $results1 = $query1->execute()->fetchAssoc();
+//        echo '<pre>';print_r($results1);die;
+        $fname = $results1['field_last_name_value'];
+        $query2 = \Drupal::database()->select('user__field_state', 'ufs');
+        $query2->addField('ufs', 'field_state_value');
+        $query2->condition('entity_id', $current_user,'=');
+        $results2 = $query2->execute()->fetchAssoc();
+        $state = $results2['field_state_value'];
+        //echo '<pre>';print_r($results2);die;
+        $variables['fname'] = $fname;
+        $variables['state'] = $state;
 }

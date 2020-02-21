@@ -1,3 +1,5 @@
+ 
+</html>
 <html>   
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +44,7 @@
             <!-- Toggler/collapsibe Button -->
               <div id="cssmenu">
                <div id="menu-button">
-                      <span class="navbar-toggler-icon"></span>
+                      <span class=" toggle_icon fa fa-bars"></span>
             </div>
               <ul class="menutoggle">
                 <li> <a href="#">link1</a> </li>
@@ -72,7 +74,9 @@
                   </p>
                </div>
             </div>
-            <div class="col-lg-6 pl-0 pr-0" style="background: #000;"></div>
+            <div class="col-lg-6 pl-0 pr-0" >
+			 <div class="athletic_profile"></div>
+			 </div>
             <div class="col-lg-1 pl-0 pr-0">
                <div class="bell-icon-sec">
                   <img src="/themes/custom/bfss_custom/images/images-dashboard/bell-icon.png">
@@ -80,7 +84,7 @@
             </div>
             <div class="col-lg-1 pl-0 pr-0">
                <div class="profile-sec">
-                  <img src="/themes/custom/bfss_custom/images/images-dashboard/image.jpg" onclick="openForm()">
+                  <img src="{{user_img_url}}" onclick="openForm()">
                   <!----------- profile pop up start----------- -->
                   <div class="chat-popup" id="myForm">
                      <div class="form-container">
@@ -88,20 +92,20 @@
                            <div class="pop_img_sec">
                               <div class="row">
                                  <div class="col-md-4 pr-0 ">
-                                    <img src="/themes/custom/bfss_custom/images/images-dashboard/profile-img.png">
+                                    <img src="{{user_img_url}}">
                                  </div>
                                  <div class="col-md-8">
-                                    <h2>Jodi Blogs</h2>
-                                    <p>Athlete</p>
+                                    <h2>{{user_name}}</h2>
+                                    <p>{{user_roles}}</p>
                                  </div>
                               </div>
                            </div>
                            <div class="pop_text_sec">
                               <a href="#">
-                                 <a href='/user/1/edit'><i class="far fa-edit"></i>{{test}}</a>
+                                 <a href='/user/{{user.id}}/edit'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
                               </a>
                               <a href="#">
-                                 <p><i class="fas fa-user-tie"></i>Edit Account Profile</p>
+                                 <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
                               </a>
                               <a href="#" data-toggle="modal" data-target="#my-profile-Modal">
                                  <p><i class="fas fa-user"></i>Parent / Guardian</p>
@@ -110,7 +114,7 @@
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
                               <a href="#">
-                                 <p><i class="fas fa-power-off"></i>Sign Out</p>
+                                 <a href='/user/logout'><p><i class="fas fa-power-off"></i>Sign Out</p></a>
                               </a>
                               <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                            </div>
@@ -222,7 +226,7 @@
       <!-- ------------Side Navbar----------start -->
       <div class="col-lg-3 col-md-2 pl-0 pr-0 left_bg_color">
          <div class="sidenav" id="sidenav">
-            <ul class="side_nav">
+            <ul class="side_nav mb-0">
                <li class="sub_menu">
                   <button class="side_button">NAVIGATION</button> 
                </li>
@@ -248,7 +252,7 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a class="drop" href="#"><i class="far fa-chart-network"></i>My Athlectic Profile<span class="down-arrow fa fa-angle-down"></span></a>
+                        <a class="drop" href="/bfssAthleteProfile"><i class="far fa-chart-network"></i>My Athlectic Profile<span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li><a href="#">Edit My Athletic Profile </a></li>
                            <li><a href="#">View My Webpage</a></li>
@@ -307,9 +311,9 @@
                      <div class="col-md-3">
                         <div class="quick-link-sub-sec">
                            <i class="far fa-chart-network"></i>
-                           <p>My Atheltic<br>
-                              Profile
-                           </p>
+                           <a href='/bfssAthleteProfile'><p>My Atheltic<br>
+                              Profile</p>
+                           </a>
                         </div>
                      </div>
                      <div class="col-md-3">
@@ -344,17 +348,17 @@
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
                <div class="col-md-8">
                   <div class="row">
-                     <div class="col-md-9">
-                        <h2><i class="fal fa-angle-left mr-2"></i>August 2019<i class="fal fa-angle-right ml-2"></i></h2>
+                     <div class="col-md-9 col-6">
+                        <h2 class="mb-0"><i class="fal fa-angle-left mr-2"></i><span class="month_year">August 2019</span><i class="fal fa-angle-right ml-2"></i></h2>
+                        <p class="pl-4">************</p>
                      </div>
-                     <div class="col-md-1 search_icon">
-                        <a href="#"> <i class="fas fa-search"></i></a>
-                     </div>
-                     <div class="col-md-2">
+                     <div class="col-md-3 col-6 search_icon">
+                      <a href="#" class="pr-3"> <i class="fas fa-search"></i></a>
+                        <input placeholder="month view" type="text" id="date-picker-example" class="form-control datepicker mt-4">
                      </div>
                   </div>
                   <div class="tab-nav">
-                     <ul>
+                     <ul class="mb-4">
                         <li><a href="#">Categories </a> </li>
                         <li><a href="#">Tags </a></li>
                         <li><a href="#">Organizers </a></li>
@@ -362,7 +366,7 @@
                      </ul>
                   </div>
                   <!-- ---------Profile Card---HTML----Start-->
-                  <div class="profile-card">
+                  <div class="profile-card pr-4">
                      <div class="row">
                         <div class="col-md-4 pr-0">
                            <div class="card">
@@ -411,7 +415,6 @@
                               <p class="time-sec">10:30 am</p>
                               <div class="card-img-sec">
                                  <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
-								 
                                  <ul>
                                     <li>Sports </li>
                                     <li>Mesa/Gilbert,AZ </li>
@@ -424,7 +427,7 @@
             </div>
                      </div>
                   </div>
-          <div class="profile-card profile-card-second">
+          <div class="profile-card profile-card-second pr-4">
                      <div class="row">
                         <div class="col-md-4 pr-0">
                            <div class="card">
@@ -670,10 +673,10 @@
        acc[i].addEventListener("click", function() {
          this.classList.toggle("active");
          var panel = this.nextElementSibling;
-         if (panel.style.display === "block") {
-           panel.style.display = "none";
-         } else {
+         if (panel.style.display === "none") {
            panel.style.display = "block";
+         } else {
+           panel.style.display = "none";
          }
        });
       }

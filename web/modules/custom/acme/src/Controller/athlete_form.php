@@ -1,18 +1,15 @@
 <?php
 
-namespace Drupal\acme\Form;
+namespace Drupal\acme\Controller;
 
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\Controller\ControllerBase;
 
-class athlete_form extends FormBase {
+class athlete_form extends ControllerBase {
 
  
-public function userform()
+public function custom_submit()
 {
-	$build = [
-      '#markup' => $this->t('Hello World!'),
-    ];
-    return $build;
+	echo "here"; die;
 }
    
 }
