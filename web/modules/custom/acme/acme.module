@@ -43,4 +43,15 @@ function acme_theme() {
 	// $url_valid = substr($url,$url_pos);
 	// print_r($url_valid);die;
 	// $variables['user_img_url'] = $url;
-// }	
+// }
+
+function acme_preprocess_html(&$variables) {  
+  $cls = 'edit-profile-class';
+    $path = \Drupal::request()->getPathInfo();
+  $path_args = explode('/', $path);  
+  if (count($path_args) >= 2 && !empty($path_args[3])) {
+    if(strtolower($path_args[3])=="edit"){
+      $variables['edit_profile_class'] = $cls;
+    }
+  }
+}
