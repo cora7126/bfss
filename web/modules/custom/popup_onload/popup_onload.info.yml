@@ -1,0 +1,12 @@
+name: 'Popup On Load'
+type: module
+description: 'Create popup on page load.'
+core: 8.x
+package: 'Popup On Load'
+dependencies:
+  - drupal:field_ui
+
+# Information added by Drupal.org packaging script on 2019-10-02
+version: '8.x-1.x-dev'
+project: 'popup_onload'
+datestamp: 1570022587

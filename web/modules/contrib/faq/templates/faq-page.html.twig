@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Template file for wrapping FAQ pages
+ * 
+ * Available variables:
+ * - description: Rendered description of the FAQ-page.
+ * - content: Rendered content.
+ * - answers: Rendered answers.
+ * - faq_expand: True or false, depends on 
+ * 'Show "expand / collapse all" links for collapsed questions' setting.
+ * 
+ * @see template_preprocess_faq_page()
+ * 
+ * @ingroup themable
+ */
+#}
+<h1 style="margin-top: 10px;font-size:15px;margin-left: 20px; ">
+    <i class="fas fa-home" style="color: #f76907;margin-right: 5px;"></i>
+    <i class="fas fa-angle-right" style="font-weight:400;margin-right:5px; color: #333333;"></i>
+    <a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold; color: #333333;">Dashboard</a>
+    <i class="fas fa-angle-right" style="font-weight:400;margin-right:5px; color: #333333;"></i>
+    <a href="javascript:void(0)" class="edit_dash" style="margin-right:5px;font-weight: bold; color: #333333;">Support</a>
+    <i class="fas fa-angle-right" style="font-weight:400;margin-right:5px; color: #333333;"></i>
+    <a class="edit_dash" style="font-weight: bold; color: #333333;" href="javascript:void(0)">FAQs</a>
+</h1>
+<div class="edit_header" style="display:flex; padding:15px;background: #fffcd7;border: 1px solid grey; margin-bottom: 30px;">
+    <i class="fa fa-lightbulb-on edit_image" aria-hidden="true"></i>
+    <h2 style="margin-top:0px;margin-bottom:0px;"><span style="font-size:13px;font-weight:600; text-transform: uppercase;">Frequently Asked</span><br>Questions</h2>
+</div>
+<div class="faq-content">
+    <div class="faq">
+        {% if description is not empty %}
+            <div class="faq-description">
+                {{ description }}
+            </div>
+        {% endif %}
+        {% if faq_expand %}
+            <div id="faq-expand-all">
+                <a class="faq-expand-all-link" href="#faq-expand-all-link">[{{ 'expand all'|t }}]</a>
+                <a class="faq-collapse-all-link" href="#faq-collapse-all-link">[{{ 'collapse all'|t }}]</a>
+            </div>
+        {% endif %}
+        
+        {{ content }}
+        {{ answers }}
+    </div>
+</div>
