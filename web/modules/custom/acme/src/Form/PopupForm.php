@@ -235,6 +235,7 @@ class PopupForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+      $popupFlag = 'filled';
     $field=$form_state->getValues();
     $jodi=$field['fname'];
     //echo "$name";
@@ -320,6 +321,8 @@ class PopupForm extends FormBase {
               'field_position' => $position,
               'field_instagram' => $instagram,
               'field_youtube' => $youtube,
+              'popup_flag' => $popupFlag,
+              'uid' => $current_user,
           )
 	)->execute();
        $form_state->setRedirect('acme_hello');

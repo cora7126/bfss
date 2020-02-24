@@ -91,7 +91,7 @@
      var image_action = jQuery("<div class='edit_dropdown'><a class='drop'>Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div>");
      jQuery('#edit-profile-class .field-group-format-toggler').after(image_action);
      
-     jQuery('#edit-profile-class .edit_dropdown , .right_section .edit_dropdown .drop').click(function(){
+   /*  jQuery('#edit-profile-class .edit_dropdown , .right_section .edit_dropdown .drop').click(function(){
 //        var button_html =  jQuery(document).find('.image-widget').find('button[value="Remove"]').wrap('<div class="remove_bttn"></div>');
 //        var full_html = jQuery('.remove_bttn').html();
 //        console.log(full_html);
@@ -106,7 +106,7 @@
         
 
      });
-     
+     */
 //     var athleteprofile_header = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='margin-right:5px;font-weight: bold;'>Dashboard</span><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='font-weight: bold;'>Atheltic Profile</span></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='far fa-chart-network edit_image'></i></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Atheltic</span><br>Profile</h2></div></div>");
 //     
 //    //jQuery('.bfssathleteprofile .dialog-off-canvas-main-canvas .edit-form').before(athleteprofile_header);
