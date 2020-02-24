@@ -330,6 +330,7 @@ class ContributeForm extends FormBase {
       // drupal_set_message($key . ': ' . $value);
     // }
 	 //echo '<pre>';print_r($form_state->getValues()['jodi']);die;
+      
 	 $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
 	$conn->insert('athlete_info')->fields(
@@ -342,6 +343,7 @@ class ContributeForm extends FormBase {
     'athlete_year' => $form_state->getValue('doj'),
     'field_height' => $form_state->getValue('height'),
     'field_weight' => $form_state->getValue('weight'),
+    'popup_flag' => $popupFlag,
     // 'sender_subject' => $form_state->getValue('recipient'),
     // 'sender_message' => $form_state->getValue('message'),
 	)

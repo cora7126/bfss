@@ -55,3 +55,29 @@ function acme_preprocess_html(&$variables) {
     }
   }
 }
+
+/*
+
+ * Hook for user login
+ * Redirecting user after login
+ */
+function acme_user_login(\Drupal\user\UserInterface $account) {
+//    echo '<pre>';print_r($account);die;
+  // Default login destination to the dashboard.
+    $current_user = \Drupal::currentUser()->id();
+    $query = \Drupal::database()->select('mydata', 'md');
+    $query->addField('md', 'popup_flag');
+    $query->condition('uid', $current_user,'=');
+    $results = $query->execute()->fetchAssoc();
+//    echo '<pre>';print_r($current_user);
+//    echo '<pre>';print_r($results);die;
+    if(!empty($results['popup_flag']) && $results['popup_flag'] == 'filled'){
+        $current_request = \Drupal::service('request_stack')->getCurrentRequest();
+        if (!$current_request->query->get('destination')) {
+          $current_request->query->set(
+            'destination',
+            \Drupal\Core\Url::fromRoute('acme_hello')->toString()
+          );
+        }
+    }
+}

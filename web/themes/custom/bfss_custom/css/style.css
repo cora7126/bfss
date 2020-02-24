@@ -7631,6 +7631,12 @@ nav .dropdown .drop .down-arrow {
 .quick-link-sub-sec:hover p{
   color: #ffd537;
 }
+.quick-link-sub-sec{
+  min-height: 125px;
+}
+.profile-card .card{
+  min-height: 312px;
+}
 .tab-main-sec .tab-nav{
   border-top: 1px solid #9090906b;
   padding: 5px 0px 0 5px;
@@ -7750,11 +7756,11 @@ nav .dropdown .drop .down-arrow {
     padding: 10px 35px !important;
 } 
 .dashboard .profile-sec img{
-  width: 95%;
+    width: 100%;
+    max-width: 61px;
 }
 .dashboard .profile-sec{
-  height: auto;
-  padding: 4.5px 0px;
+  padding: 11px 0px;
 }
 .dashboard.modal-open .card #collapseTwo button.btn-success{
   background: #000;
@@ -7932,6 +7938,8 @@ nav .dropdown .drop .down-arrow {
     padding-left: 15px;
     color: #555555;
     font-weight: normal;
+    padding-right: 19px;
+    word-break: break-word;
 }
 .right_section .athlete_right button {
         border-radius: 2px;
@@ -7947,7 +7955,7 @@ nav .dropdown .drop .down-arrow {
 #athlete_submit{
     display:inline-block;
     width:100%;
-    margin:20px;
+    padding:20px;
 }
 #athlete_submit button{
      border-radius: 2px;
@@ -8106,12 +8114,30 @@ input#name_1 {
 .popup_left_section .athlete_school.popup-athlete-school-hide{
     display: none;
 }
+.quick-link a.atheltic_link:hover{
+  text-decoration: none;
+}
         /* media quaries*/
 @media (max-width: 992px) {
+        .right_section .athlete_right h3{
+          font-size: 13px;
+        }
+      .top_right .calender_img , .athletic_icon_section .athletic_profile{
+        border-top: 1px solid grey;
+      }
+      .bell_sec .bell-icon-sec{
+        border-top: 1px solid grey;
+        border-right: 1px solid grey;
+      }
+      .profile_img_section .profile-sec{
+        border-top: 1px solid grey;
+      }
       .dash-main-right .dash-sub-main {
         border-left: 1px solid grey;
     }
-    
+      .mobile_hide{
+        display: none;
+      }
         .dashboard .quick-link .panel {
         z-index: 9;
     }
@@ -8135,6 +8161,12 @@ input#name_1 {
     .left_section {
         width: 100%;
     }
+    .left_section a.add_org{
+      padding-bottom: 12px;
+    }
+    .mob_bottom_margin{
+      padding-bottom: 10px;
+    }
     .right_section {
         width: 100%;
         margin-left: 0%;
@@ -8153,3 +8185,9 @@ input#name_1 {
 #popup_form_id {
   display: none;
 }
+@media (max-width: 1024px) {
+  .dashboard .profile-sec {
+    padding: 18.5px 0px;
+}
+}
+

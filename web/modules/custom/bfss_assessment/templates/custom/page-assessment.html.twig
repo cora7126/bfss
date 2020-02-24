@@ -1,0 +1,39 @@
+<style>
+.col{width: 24%;display: inline-block; margin: 10px; padding:10px; background-color:#c2c2c2; cursor: pointer;}
+</style>
+<div class="container">
+  <div class="row">
+  	{% for row in data %}
+	    <div class="col use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;:800}" href="{{ row.url }}">
+	    	<div class='top-head'>
+		    	<div class='title-date'>
+		    		<h2>
+						{{ row.title }}
+					</h2>
+					{% if row.latest_timing %}
+						<span class="timing-date">
+						{{ row.latest_timing|date("M d Y") }}
+						</span>
+					{% endif %}
+				</div>
+				<div class='timing'>
+					{% if row.latest_timing %}
+						<span>
+						{{ row.latest_timing|date("h:i a") }}
+						</span>
+					{% endif %}
+				</div>
+			</div>
+			<div class='image'>
+				<img src='{{ row.field_image }}' alt='{{ row.title }}' />
+			</div>
+			<div class='categories-tags'>
+				<ul><li>TAGS</li><li>CAT HERE</li></ul>
+			</div>
+			<div class='node-body'>
+				{{ row.body|striptags|slice(0,100) }}
+			</div>
+		</div>
+	{% endfor %}
+  </div>
+</div>

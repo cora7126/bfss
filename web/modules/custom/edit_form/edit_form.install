@@ -1,4 +1,7 @@
 <?php
+
+use Drupal\Core\Database\Database;
+
 function edit_form_schema() {
   $schema['athlete_info'] = array(
     'fields' => array(
@@ -258,4 +261,38 @@ function edit_form_schema() {
   ); 
   
   return $schema;
+}
+/*
+
+ * Hook Alter upadte
+ */
+function edit_form_update_8100() {
+    
+     $popup_flag = [
+    'type' => 'varchar',
+    'description' => "New Col",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+ $schema = Database::getConnection()->schema();
+ $schema->addField('athlete_info', 'popup_flag', $popup_flag);
+}
+
+function edit_form_update_8101() {
+    
+     $popup_flag = [
+    'type' => 'varchar',
+    'description' => "New Col",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+      $uid = [
+    'type' => 'varchar',
+    'description' => "New Col",
+    'length' => 20,
+    'not null' => TRUE,
+  ]; 
+ $schema = Database::getConnection()->schema();
+ $schema->addField('mydata', 'popup_flag', $popup_flag);
+ $schema->addField('mydata', 'uid', $uid);
 }
