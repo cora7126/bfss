@@ -2,6 +2,7 @@
     $(document).ready(function() {
         //$('#cssmenu').prepend('<div id="menu-button">Menu</div>');
         $('#cssmenu #menu-button').on('click', function() {
+
             if ($(window).width() < 420) {
                 $('body').toggleClass('open_left_side_mobile');
                 $('body').removeClass('open_left_side');
@@ -10,6 +11,7 @@
                 $('body').toggleClass('open_left_side');
                 $('body').removeClass('open_left_side_mobile');
             }
+
         });
         $( window ).resize(function() {
           if ($(window).width() < 420) {

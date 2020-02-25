@@ -8151,6 +8151,7 @@ input#name_1 {
 .quick-link a.atheltic_link:hover{
   text-decoration: none;
 }
+
 .open_left_side_mobile .left_side_section{
   display: block;
 }
@@ -8173,6 +8174,7 @@ input#name_1 {
     line-height: 3;
 }
 /*25-02-2020 end*/
+
 
         /* media quaries*/
 @media (max-width: 992px) {
