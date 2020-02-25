@@ -1,0 +1,13 @@
+custom:
+  version: 1.x
+  css:
+    layout:
+      css/custom.css: {}
+
+assessment_mulitform_lib:
+  version: 1.x
+  css:
+    layout:
+      css/multiform.css: {}
+  js:
+    js/multiform.js: {}

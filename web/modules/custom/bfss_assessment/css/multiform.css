@@ -1,0 +1,122 @@
+/* Global css here */
+div.main-head{
+	display: block;
+	float: left;
+	width: 100%;
+}
+div.main-head > div{
+	display: inline-block;
+	width: 18.99%;
+	margin: 3px;
+}
+div.main-head div.bar{
+	width: 100%;
+	padding: 3px;
+	border: 1px solid #c2c2c2;
+}
+/*payment process order*/
+div.main-head div.bar{
+	background-color: #c2c2c2;
+}
+div.one div.main-head div.first div.bar,
+div.two div.main-head div.first div.bar,
+div.two div.main-head div.second div.bar,
+div.three div.main-head div.first div.bar,
+div.three div.main-head div.second div.bar,
+div.three div.main-head div.third div.bar,
+div.four div.main-head div.first div.bar,
+div.four div.main-head div.second div.bar,
+div.four div.main-head div.third div.bar,
+div.four div.main-head div.fourth div.bar,
+.final div.main-head div.bar
+{
+	background-color: green;
+}
+/*payment process order title*/
+div.one div.main-head div.first h6,
+div.two div.main-head div.first h6,
+div.two div.main-head div.second h6,
+div.three div.main-head div.first h6,
+div.three div.main-head div.second h6,
+div.three div.main-head div.third h6,
+div.four div.main-head div.first h6,
+div.four div.main-head div.second h6,
+div.four div.main-head div.third h6,
+div.four div.main-head div.fourth h6,
+.final div.main-head h6
+{
+	color: #f4650f;
+}
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form select
+ {
+	width: 100%;
+}
+#edit-submit {
+    float: right;
+    /*background-color: #f4650f;*/
+    /*color: #ffffff;*/
+}
+/* First Form css here */
+
+/* Second Form css here */
+#multistep-form-two .timeslots {
+    display: block;
+    float: left;
+    margin: 10px;
+    padding: 10px;
+}
+#multistep-form-two .form-actions {
+    display: block;
+    float: left;
+    width: 100%;
+}
+#multistep-form-two .timeslots .fieldset-legend {
+    background-color: #f4650f;
+	padding: 9px;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 6px;
+}
+
+#multistep-form-two .timeslots .js-form-item.form-type-radio {
+	padding: 4px;
+	border: 1px solid #c2c2c2;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+/* Third Form css here */
+
+#multistep-form-three div.js-form-item {
+	display: block;
+	width: 100%;
+}
+#multistep-form-three div.js-form-item.form-item-first-name,
+#multistep-form-three div.js-form-item.form-item-last-name {
+    display: inline-block;
+    width: 49.75%;
+}
+/* Fourth Form css here */
+#multistep-form-four div.form-item-expiration-month,
+#multistep-form-four div.form-item-cvv {
+	display: inline-block;
+	width: 33%;
+}
+#multistep-form-four div.form-item-expiration-year {
+	display: inline-block;
+	width: 23%;
+}
+
+#multistep-form-four div.form-item-city,
+#multistep-form-four div.form-item-country {
+	display: inline-block;
+	width: 53%;
+}
+
+#multistep-form-four div.form-item-state,
+#multistep-form-four div.form-item-zip {
+	display: inline-block;
+	width: 23.1%;
+}

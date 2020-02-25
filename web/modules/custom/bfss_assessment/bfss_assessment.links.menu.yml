@@ -1,0 +1,12 @@
+bfss_assessment.assessment_prices:
+  title: 'Assessment Prices'
+  route_name: bfss_assessment.assessment_prices
+  description: 'Assessment Prices Form'
+  parent: system.admin_config_system
+  weight: 99
+entity.bfsspayments.collection:
+  title: 'Payments'
+  route_name: entity.bfsspayments.collection
+  description: 'Payments'
+  parent: system.admin_config_system
+  weight: 100

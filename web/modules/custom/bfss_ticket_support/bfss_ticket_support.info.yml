@@ -1,0 +1,5 @@
+name: BFSS ticket support
+description: Custom module for ticket support
+type: module
+core: 8.x
+package: Custom
