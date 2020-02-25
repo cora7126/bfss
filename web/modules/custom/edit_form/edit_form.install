@@ -1,0 +1,310 @@
+<?php
+
+use Drupal\Core\Database\Database;
+
+function edit_form_schema() {
+  $schema['athlete_info'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_email'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_state'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_city'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+        ),
+      'athlete_coach'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+      'athlete_year'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+	  'field_height'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+	  'field_weight'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+	$schema['athlete_about'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => true,
+      ),
+	  'athlete_about_me'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['athlete_social'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_social_1'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_social_2'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  ); 
+  $schema['athlete_school'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_school_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_school_coach'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_school_sport'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+        ),
+      'athlete_school_pos'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+      'athlete_school_stat'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['athlete_club'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_club_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_club_coach'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_club_sport'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+        ),
+      'athlete_club_pos'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+      'athlete_club_stat'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );$schema['athlete_uni'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_uni_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_uni_coach'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_uni_sport'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+        ),
+      'athlete_uni_pos'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+      'athlete_uni_stat'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  ); 
+  $schema['athlete_web'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_web_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_web_visibility'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  ); 
+  $schema['athlete_addweb'] = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_addweb_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_addweb_visibility'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  ); 
+  
+  return $schema;
+}
+/*
+
+ * Hook Alter upadte
+ */
+function edit_form_update_8100() {
+    
+     $popup_flag = [
+    'type' => 'varchar',
+    'description' => "New Col",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+ $schema = Database::getConnection()->schema();
+ $schema->addField('athlete_info', 'popup_flag', $popup_flag);
+}
+
+//function edit_form_update_8101() {
+//    
+//     $popup_flag = [
+//    'type' => 'varchar',
+//    'description' => "New Col",
+//    'length' => 20,
+//    'not null' => FALSE,
+//  ]; 
+//      $uid = [
+//    'type' => 'varchar',
+//    'description' => "New Col",
+//    'length' => 20,
+//    'not null' => TRUE,
+//  ]; 
+// $schema = Database::getConnection()->schema();
+// $schema->addField('mydata', 'popup_flag', $popup_flag);
+// $schema->addField('mydata', 'uid', $uid);
+//}
+function edit_form_update_8102() {
+    
+     $athlete_organizationName = [
+    'type' => 'varchar',
+    'description' => "New Col",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+     
+ $schema = Database::getConnection()->schema();
+ $schema->addField('athlete_school', 'athlete_school_type', $athlete_organizationName);
+}

@@ -1,0 +1,79 @@
+bfss_assessment.assessment_prices:
+  path: '/admin/config/assessment-prices'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\AssessmentPriceForm'
+    _title: 'Assessment Price Form'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+bfss_assessment.page_assessment:
+  path: '/assessments/all'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::allNodes'
+    _title: 'Assessment'
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.modal_node_view:
+  path: '/assessment/node/{node_id}'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::modalNodeView'
+    _title: 'Assessment'
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.multistep_one:
+  path: '/assessment/type/{node_id}'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepOneForm'
+    _title: 'Assessment Type'
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.multistep_two:
+  path: '/assessment/time'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepTwoForm'
+    _title: 'Time'
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.multistep_three:
+  path: '/assessment/details'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepThreeForm'
+    _title: 'Details'
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.multistep_four:
+  path: '/assessment/payment'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepFourForm'
+    _title: 'Payment'
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.assessment_success:
+  path: '/assessment/success'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::assessmentDone'
+    _title: "You're Scheduled!"
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
+entity.bfsspayments.collection:
+  path: '/bfsspayments/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the contact entity.
+    _entity_list: 'bfsspayments'
+    _title: 'Inventory List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'view bfsspayments entity'
