@@ -41,92 +41,74 @@ class edit_user extends FormBase {
         $query3->condition('entity_id', $current_user,'=');
         $results3 = $query3->execute()->fetchAssoc();
 	$query4 = \Drupal::database()->select('users_field_data', 'ufln4');
-        $query4->addField('ufln4', 'mail');
+        $query4->fields('ufln4');
         $query4->condition('uid', $current_user,'=');
         $results4 = $query4->execute()->fetchAssoc();
+	$query5 = \Drupal::database()->select('user__field_mobile', 'ufm');
+        $query5->addField('ufm', 'field_mobile_value');
+        $query5->condition('entity_id', $current_user,'=');
+        $results5 = $query5->execute()->fetchAssoc();
+	$query6 = \Drupal::database()->select('user__field_mobile_2', 'ufm2');
+        $query6->addField('ufm2', 'field_mobile_2_value');
+        $query6->condition('entity_id', $current_user,'=');
+        $results6 = $query6->execute()->fetchAssoc();
+		
 	$form['prefix'] = "<div class=athlete_edit_class>";
 	$form['suffix'] = "</div>";
-    $form['fname'] = array(
+    $form['username'] = array(
       '#type' => 'textfield',
-      //'#title' => t('Candidate Name:'),
       '#required' => TRUE,
-      '#placeholder' => t('Jodi'),
-       //'#default_values' => array(array('id')),
-      '#default_value' => $results1['field_first_name_value'],
+      '#default_value' => $results4['name'],
 	  '#prefix'=>'<div class="left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Login Information</h3><div class=items_div>',
+	  '#attributes' => array('disabled'=>true),
       );
-    $form['lname'] = array(
-      '#type' => 'textfield',
-     // '#title' => t('Mobile Number:'),
-      '#placeholder' => t('Bloggs'),
-      '#default_value' => $results2['field_last_name_value'],
-      );
+    
 	$form['email'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Email'),
       '#default_value' => $results4['mail'],
+	  '#prefix' => '',
+	  '#suffix' => '<a class="change_pass" id=change_id>Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ATHLETE\'s Information</h3><div class=items_div>',
       );
-    $form['az'] = array(
-    //'#title' => t('az'),
-    '#type' => 'select',
-    //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- AZ ---'), t('10"'), t('12"'), t('16"')),
-      );
-    $form['city'] = array(
+	  
+	  
+	  $form['fname'] = array(
       '#type' => 'textfield',
-      //'#title' => t('City'),
-      '#required' => TRUE,
-      '#placeholder' => t('City'),
-      '#default_value' => '',
+      '#default_value' => $results1['field_first_name_value'],
+	  '#attributes' => array('disabled'=>true),
+	  
       );
-
-    $form['birth_gender'] = array(
-    //'#title' => t('az'),
-    '#type' => 'select',
-    //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('Male'), t('Female'), t('Other')),
-      );
-    $form['doj'] = array(
-        '#type' => 'textfield',
-        //'#title' => 'Enter Your Date of Birth',
-        '#required' => TRUE,
-        '#default_value' => substr($results3['field_date_value'],0,10),
-        '#format' => 'm/d/Y',
-        '#description' => t('i.e. 09/06/2016'),
-        );
-	$form['sophmore'] = array (
+	  $form['lname'] = array(
       '#type' => 'textfield',
-      //'#title' => ('Height'),
-      '#placeholder' => t('Sophmore'),
-      '#default_value' => '',
-      );
-	  $form['twenty'] = array (
+     // '#title' => t('Mobile Number:'),
+      // '#placeholder' => t('Bloggs'),
+      '#default_value' => $results2['field_last_name_value'],
+	  '#attributes' => array('disabled'=>true),
+      ); 
+	  $form['numberone'] = array(
       '#type' => 'textfield',
-      //'#title' => ('Height'),
-      '#placeholder' => t('2020'),
-      '#default_value' => '',
-      );
-    $form['height'] = array (
+	  '#placeholder' => '(602)333-4567',
+      '#default_value' => $results5['field_mobile_value'],
+      ); 
+	  $form['numbertwo'] = array(
       '#type' => 'textfield',
-      //'#title' => ('Height'),
-      '#placeholder' => t('Height in Inches'),
-      '#default_value' => '',
+	  '#placeholder' => '(888)123-4567',
+      '#default_value' => $results6['field_mobile_2_value'],
       );
-     $form['weight'] = array (
+	  $form['somedate'] = array(
       '#type' => 'textfield',
-      //'#title' => ('Height'),
-      '#placeholder' => t('Weight in Pounds'),
-      '#default_value' => '',
-	  '#suffix' => '</div></div>',
+      '#default_value' => substr($results3['field_date_value'],0,10),
+	  '#attributes' => array('disabled'=>true),
       );
+    
 	  
 	  $form['stats'] = array (
       '#type' => 'textarea',
-	  '#suffix' => '</div></div><a class="add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
-      '#default_value' => '',
+	  '#suffix' => '</div></div></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=popupimage id="imagepopup">',
+	  '#attributes' => array('style' => 'display:none'),
       );
      
-	  $form['image_athlete'] = [
+	  $form['image_popup'] = [
                             '#type' => 'managed_file',
                             '#upload_validators' => [
                               'file_validate_extensions' => ['gif png jpg jpeg'],
@@ -137,16 +119,11 @@ class edit_user extends FormBase {
                             '#upload_location' => 'public://',
                             '#required' => FALSE,
 							'#prefix' => '</div>',
-							'#suffix' =>'<div class="action_bttn"><span>Action</span><ul><li>Remove</li></ul></div></div></div>',
-                          ];				  
-
-	  
-	
-   
+                          ];	
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
-		'#prefix' =>'<div id="athlete_submit">',
+		'#prefix' =>'	</div></div><div id="athlete_submit">',
 		'#suffix' => '</div>',
         //'#value' => t('Submit'),
     ];
@@ -176,50 +153,27 @@ class edit_user extends FormBase {
       
 	 $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
-	$conn->insert('athlete_info')->fields(
-	array(
-    'athlete_uid' => $current_user,
-    'athlete_email' => $form_state->getValue('email'),
-    'athlete_state' => $form_state->getValue('az'),
-    'athlete_city' => $form_state->getValue('city'),
-    'athlete_coach' => $form_state->getValue('coach'),
-    'athlete_year' => $form_state->getValue('doj'),
-    'field_height' => $form_state->getValue('height'),
-    'field_weight' => $form_state->getValue('weight'),
-    'popup_flag' => $popupFlag,
-    // 'sender_subject' => $form_state->getValue('recipient'),
-    // 'sender_message' => $form_state->getValue('message'),
-	)
-	)->execute();
 	
-	$conn->insert('athlete_about')->fields(
-	array(
-    'athlete_uid' => $current_user,
-    'athlete_about_me' => $form_state->getValue('aboutme'),
-	)
-	)->execute();
-	$conn->insert('athlete_social')->fields(
-	array(
-    'athlete_uid' => $current_user,
-    'athlete_social_1' => $form_state->getValue('instagram'),
-    'athlete_social_2' => $form_state->getValue('youtube'),
-	)
-	)->execute();
-	$conn->insert('athlete_web')->fields(
-	array(
-    'athlete_uid' => $current_user,
-    'athlete_web_name' => $form_state->getValue('name_web'),
-    'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-	)
-	)->execute();
-	$conn->insert('athlete_addweb')->fields(
-	array(
-    'athlete_uid' => $current_user,
-    'athlete_addweb_name' => $form_state->getValue('name_web2'),
-    'athlete_addweb_visibility' => $form_state->getValue('web_visible_2'),
-	)
-	)->execute();
-	
+	// $conn->update('users_field_data')->fields(
+						// array(
+						// 'name' => $form_state->getValue('username'),
+						// )
+				// )->execute();
+	$conn->update('users_field_data')->fields(
+						array(
+						'mail' => $form_state->getValue('email'),
+						)
+				)->execute();
+	$conn->update('user__field_mobile')->fields(
+						array(
+						'field_mobile_value' => $form_state->getValue('numberone'),
+						)
+				)->execute();
+	$conn->update('user__field_mobile_2')->fields(
+						array(
+						'field_mobile_2_value' => $form_state->getValue('numbertwo'),
+						)
+				)->execute();
 	// $form_state->setRedirect('acme_hello');
  // return;
   }

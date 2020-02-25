@@ -20,4 +20,12 @@ edit_form.edit_user_form:
     _form: '\Drupal\edit_form\Form\edit_user'
     _title: 'Edit User'
   requirements:
-    _permission: 'access content'    
+    _access: 'TRUE'    
+    
+edit_form.changepass_form:
+  path: '/changepass'
+  defaults:
+    _form: '\Drupal\edit_form\Form\changepass'
+    _title: 'Change Password'
+  requirements:
+    _access: 'TRUE'    

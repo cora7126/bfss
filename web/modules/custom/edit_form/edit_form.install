@@ -278,21 +278,33 @@ function edit_form_update_8100() {
  $schema->addField('athlete_info', 'popup_flag', $popup_flag);
 }
 
-function edit_form_update_8101() {
+//function edit_form_update_8101() {
+//    
+//     $popup_flag = [
+//    'type' => 'varchar',
+//    'description' => "New Col",
+//    'length' => 20,
+//    'not null' => FALSE,
+//  ]; 
+//      $uid = [
+//    'type' => 'varchar',
+//    'description' => "New Col",
+//    'length' => 20,
+//    'not null' => TRUE,
+//  ]; 
+// $schema = Database::getConnection()->schema();
+// $schema->addField('mydata', 'popup_flag', $popup_flag);
+// $schema->addField('mydata', 'uid', $uid);
+//}
+function edit_form_update_8102() {
     
-     $popup_flag = [
+     $athlete_organizationName = [
     'type' => 'varchar',
     'description' => "New Col",
     'length' => 20,
     'not null' => FALSE,
   ]; 
-      $uid = [
-    'type' => 'varchar',
-    'description' => "New Col",
-    'length' => 20,
-    'not null' => TRUE,
-  ]; 
+     
  $schema = Database::getConnection()->schema();
- $schema->addField('mydata', 'popup_flag', $popup_flag);
- $schema->addField('mydata', 'uid', $uid);
+ $schema->addField('athlete_school', 'athlete_school_type', $athlete_organizationName);
 }
