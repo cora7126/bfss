@@ -403,34 +403,42 @@ class ContributeForm extends FormBase {
 //    ->condition('athlete_uid', $current_user,'=');;
         
     $query = \Drupal::database()->select('athlete_school', 'ats');
-    $query->fields('ats');
-    $query->condition('athlete_uid', $current_user,'=');
-    $results = $query->execute()->fetchAll();
+		$query->fields('ats');
+		$query->condition('athlete_uid', $current_user,'=');
+		$results = $query->execute()->fetchAll();
+	$query_uni = \Drupal::database()->select('athlete_uni', 'ats');
+		$query_uni->fields('ats');
+		$query_uni->condition('athlete_uid', $current_user,'=');
+		$results_uni = $query_uni->execute()->fetchAll();
+	$query_club = \Drupal::database()->select('athlete_club', 'ats');
+		$query_club->fields('ats');
+		$query_club->condition('athlete_uid', $current_user,'=');
+		$results_club = $query_club->execute()->fetchAll();
     // print_r($results);die;
 	if(empty($results)){
 		 $conn = Database::getConnection();
 	$conn->insert('athlete_info')->fields(
-	array(
-    'athlete_uid' => $current_user,
-    'athlete_email' => $form_state->getValue('email'),
-    'athlete_state' => $form_state->getValue('az'),
-    'athlete_city' => $form_state->getValue('city'),
-    'athlete_coach' => $form_state->getValue('coach'),
-    'athlete_year' => $form_state->getValue('doj'),
-    'field_height' => $form_state->getValue('height'),
-    'field_weight' => $form_state->getValue('weight'),
-    'popup_flag' => $popupFlag,
-    // 'sender_subject' => $form_state->getValue('recipient'),
-    // 'sender_message' => $form_state->getValue('message'),
-	)
-	)->execute();
+			array(
+			'athlete_uid' => $current_user,
+			'athlete_email' => $form_state->getValue('email'),
+			'athlete_state' => $form_state->getValue('az'),
+			'athlete_city' => $form_state->getValue('city'),
+			'athlete_coach' => $form_state->getValue('coach'),
+			'athlete_year' => $form_state->getValue('doj'),
+			'field_height' => $form_state->getValue('height'),
+			'field_weight' => $form_state->getValue('weight'),
+			'popup_flag' => $popupFlag,
+			// 'sender_subject' => $form_state->getValue('recipient'),
+			// 'sender_message' => $form_state->getValue('message'),
+			)
+			)->execute();
 	
 	$conn->insert('athlete_about')->fields(
-	array(
-    'athlete_uid' => $current_user,
-    'athlete_about_me' => $form_state->getValue('aboutme'),
-	)
-	)->execute();
+			array(
+			'athlete_uid' => $current_user,
+			'athlete_about_me' => $form_state->getValue('aboutme'),
+			)
+		)->execute();
 	$conn->insert('athlete_social')->fields(
 	array(
     'athlete_uid' => $current_user,
@@ -461,6 +469,26 @@ class ContributeForm extends FormBase {
     'athlete_school_pos' => $form_state->getValue('position'),
     'athlete_school_stat' => $form_state->getValue('stats'),
     'athlete_school_type' => $form_state->getValue('organizationType'),
+	)
+	)->execute(); 
+	$conn->insert('athlete_uni')->fields(
+	array(
+    'athlete_uid' => $current_user,
+    'athlete_uni_name' => $form_state->getValue('education_1'),
+    'athlete_uni_coach' => $form_state->getValue('coach_1'),
+    'athlete_uni_sport' => $form_state->getValue('sport_1'),
+    'athlete_uni_pos' => $form_state->getValue('position_1'),
+    'athlete_uni_stat' => $form_state->getValue('stats_1'),
+	)
+	)->execute(); 
+	$conn->insert('athlete_club')->fields(
+	array(
+    'athlete_uid' => $current_user,
+    'athlete_club_name' => $form_state->getValue('education_2'),
+    'athlete_club_coach' => $form_state->getValue('coach_2'),
+    'athlete_club_sport' => $form_state->getValue('sport_2'),
+    'athlete_club_pos' => $form_state->getValue('position_2'),
+    'athlete_club_stat' => $form_state->getValue('stats_2'),
 	)
 	)->execute();
 	
