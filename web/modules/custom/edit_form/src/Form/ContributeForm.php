@@ -47,7 +47,11 @@ class ContributeForm extends FormBase {
     $query5 = \Drupal::database()->select('athlete_school', 'ats');
     $query5->fields('ats');
     $query5->condition('athlete_uid', $current_user,'=');
-    $results5 = $query5->execute()->fetchAssoc();
+    $results5 = $query5->execute()->fetchAssoc(); 
+	$query6 = \Drupal::database()->select('athlete_club', 'atc');
+    $query6->fields('atc');
+    $query6->condition('athlete_uid', $current_user,'=');
+    $results6 = $query6->execute()->fetchAssoc();
 	
 	$form['prefix'] = "<div class=athlete_edit_class>";
 	$form['suffix'] = "</div>";
@@ -324,14 +328,14 @@ class ContributeForm extends FormBase {
    $form['school_web2'] = array (
       '#type' => 'textfield',
       '#placeholder' => t('school'),
-      '#default_value' => $results5['athlete_school_name'],
+      '#default_value' => $results6['athlete_club_name'],
 	  '#attributes' => array('disabled' => true),
 	  '#prefix' => '</div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
       );
 	   $form['sport_web2'] = array (
       '#type' => 'textfield',
       '#placeholder' => t('sport'),
-      '#default_value' => $results5['athlete_school_sport'],
+      '#default_value' => $results6['athlete_club_sport'],
 	  '#attributes' => array('disabled' => true),
       );
 	   $form['name_web2'] = array (
