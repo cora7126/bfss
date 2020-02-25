@@ -1,3 +1,5 @@
+ 
+</html>
 <html>   
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,16 +13,18 @@
 </head>
 <script type="text/javascript">
    $(document).ready(function(){
-   $('.dropdown').click(function(e){
-     $(this).find('.dropdown-menu').toggleClass('open');
-     $($(e.target).find('.down-arrow').toggleClass('open-caret'));
+   $('.dropdown > a').click(function(e){
      e.preventDefault();
      e.stopPropagation();
-     $(document).click(function(){
+     $(this).siblings('.dropdown-menu').toggleClass('open');
+     $(this).find('.down-arrow').toggleClass('open-caret');
+
+   });
+
+   $(document).click(function(){
        $('.dropdown-menu').removeClass('open');
        $('.down-arrow').removeClass('open-caret');  
      });
-   });
    });
    
    function openForm() {
@@ -34,29 +38,22 @@
    
 </script>
 <body>
-   <div class="row border_bottom" style="margin-left: 0px;margin-right: 0px;margin-top:-2px">
-      <div class="col-lg-3 pr-0 pl-0">
+   <div class="row border_bottom custom-nav-box" style="margin-left: 0px;margin-right: 0px;margin-top:-2px">
+      <div class="col-lg-3 pr-0 pl-0 custom-left-box-width">
          <nav class="navbar navbar-expand-xs bg-dark navbar-dark">
             <!-- Brand -->
             <a class="navbar-brand" href="#"><img src="/themes/custom/bfss_custom/images/images-dashboard/logo.png"></a>
             <!-- Toggler/collapsibe Button -->
               <div id="cssmenu">
                <div id="menu-button">
-                      <span class="navbar-toggler-icon"></span>
+                      <span class=" toggle_icon fa fa-bars"></span>
             </div>
-              <ul class="menutoggle">
-                <li> <a href="#">link1</a> </li>
-                <li> <a href="#">link2</a> </li>
-                <li> <a href="#">link3</a> </li>
-                <li> <a href="#">link4</a> </li>
-                <li> <a href="#">link4</a> </li>
-              </ul>
             </div>
          </nav>
       </div>
-      <div class="col-lg-9 col-md-10">
+      <div class="col-lg-9 col-md-12 custom-right-nav-box">
          <div class="row">
-            <div class="col-lg-2 pr-0 pl-0 top_right">
+            <div class="col-lg-2 col-md-3 col-sm-6 col-6 pr-0 pl-0 top_right">
                <div class="calender_img">
                   <i class="fal fa-calendar-alt"></i>
                   <p>Scheduled <br>
@@ -64,7 +61,7 @@
                   </p>
                </div>
             </div>
-            <div class="col-lg-2 pr-0 pl-0">
+            <div class="col-lg-2 col-md-3 col-sm-6 col-6 pr-0 pl-0 athletic_icon_section">
                <div class="athletic_profile" data-toggle="modal" data-target="#myModal">
                   <i class="far fa-chart-network"></i>
                   <p>My Athletic <br>
@@ -72,15 +69,17 @@
                   </p>
                </div>
             </div>
-            <div class="col-lg-6 pl-0 pr-0" style="background: #000;"></div>
-            <div class="col-lg-1 pl-0 pr-0">
+            <div class="col-lg-6 pl-0 pr-0 mobile_hide" >
+			 <div class="athletic_profile"></div>
+			 </div>
+            <div class="col-lg-1 col-md-3 col-sm-6 col-6 pl-0 pr-0 bell_sec">
                <div class="bell-icon-sec">
                   <img src="/themes/custom/bfss_custom/images/images-dashboard/bell-icon.png">
                </div>
             </div>
-            <div class="col-lg-1 pl-0 pr-0">
+            <div class="col-lg-1 col-md-3 col-sm-6 col-6 pl-0 pr-0 profile_img_section">
                <div class="profile-sec">
-                  <img src="/themes/custom/bfss_custom/images/images-dashboard/image.jpg" onclick="openForm()">
+                  <img src="{{user_img_url}}" onclick="openForm()">
                   <!----------- profile pop up start----------- -->
                   <div class="chat-popup" id="myForm">
                      <div class="form-container">
@@ -88,20 +87,20 @@
                            <div class="pop_img_sec">
                               <div class="row">
                                  <div class="col-md-4 pr-0 ">
-                                    <img src="/themes/custom/bfss_custom/images/images-dashboard/profile-img.png">
+                                    <img src="{{user_img_url}}">
                                  </div>
                                  <div class="col-md-8">
-                                    <h2>Jodi Blogs</h2>
-                                    <p>Athlete</p>
+                                    <h2>{{user_name}}</h2>
+                                    <p>{{user_roles}}</p>
                                  </div>
                               </div>
                            </div>
                            <div class="pop_text_sec">
                               <a href="#">
-                                 <a href='/user/1/edit'><i class="far fa-edit"></i>{{test}}</a>
+                                 <a href='/user/{{user.id}}/edit'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
                               </a>
                               <a href="#">
-                                 <p><i class="fas fa-user-tie"></i>Edit Account Profile</p>
+                                 <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
                               </a>
                               <a href="#" data-toggle="modal" data-target="#my-profile-Modal">
                                  <p><i class="fas fa-user"></i>Parent / Guardian</p>
@@ -110,7 +109,7 @@
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
                               <a href="#">
-                                 <p><i class="fas fa-power-off"></i>Sign Out</p>
+                                 <a href='/user/logout'><p><i class="fas fa-power-off"></i>Sign Out</p></a>
                               </a>
                               <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                            </div>
@@ -220,20 +219,22 @@
    </div>
    <div class="row" style="margin-left: 0px;margin-right: 0px;">
       <!-- ------------Side Navbar----------start -->
-      <div class="col-lg-3 col-md-2 pl-0 pr-0 left_bg_color">
+
+      <div class="left_side_section pl-0 pr-0">
+
          <div class="sidenav" id="sidenav">
-            <ul class="side_nav">
+            <ul class="side_nav mb-0">
                <li class="sub_menu">
-                  <button class="side_button">NAVIGATION</button> 
+                  <button class="side_button"><span class="side_menu_text">NAVIGATION</span></button> 
                </li>
                <li class="sub_menu active">
-                  <button class="side_button"><i class="fas fa-home"></i></i>Dashboard</button>
+                  <button class="side_button"><i class="fas fa-home"></i><span class="side_menu_text">Dashboard</span></button>
                </li>
                <li class="sub-menu-drop">
                   <!--  <button class="side_button">Calender-View & Book</button> -->
                   <nav>
                      <div class="dropdown">
-                        <a class="drop" href="#"><i class="fal fa-calendar-alt"></i>Calender-View & Book<span class="down-arrow fa fa-angle-down"></span></a>
+                        <a class="drop" href="#"><i class="fal fa-calendar-alt"></i><span class="side_menu_text">Calender-View & Book</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li><a href="#"> Upcoming Group Assessments </a></li>
                            <li><a href="#"> Book a Private Assessment</a></li>
@@ -243,14 +244,16 @@
                   </nav>
                </li>
                <li class="sub_menu">
-                  <button class="side_button"><i class="far fa-chart-bar"></i>My Assessment Status</button>
+                  <button class="side_button"><i class="far fa-chart-bar"></i><span class="side_menu_text">My Assessment Status</span></button>
                </li>
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a class="drop" href="#"><i class="far fa-chart-network"></i>My Athlectic Profile<span class="down-arrow fa fa-angle-down"></span></a>
+
+                        <a class="drop" href="/bfssAthleteProfile"><i class="far fa-chart-network"></i><span class="side_menu_text">My Athlectic Profile</span><span class="down-arrow fa fa-angle-down"></span></a>
+
                         <ul class="dropdown-menu">
-                           <li><a href="#">Edit My Athletic Profile </a></li>
+                           <li><a href="/bfssAthleteProfile">Edit My Athletic Profile </a></li>
                            <li><a href="#">View My Webpage</a></li>
                         </ul>
                      </div>
@@ -262,9 +265,9 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a class="drop" href="#"><i class="far fa-cogs"></i></i>Support<span class="down-arrow fa fa-angle-down"></span></a>
+                        <a class="drop" href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li><a href="#"> FAQs </a></li>
+                           <li><a href="/faq-page"> FAQs </a></li>
                            <li><a href="#">Ticketing</a></li>
                         </ul>
                      </div>
@@ -274,7 +277,7 @@
          </div>
       </div>
       <!-- ------------Side Navbar----------end -->
-      <div class="col-lg-9 col-md-10 pl-0 pr-0">
+      <div class="right_side_section pl-0 pr-0">
          <div class="dash-main-right">
             <h1><i class="fas fa-home"></i> > Dashboard </h1>
             <div class="dash-sub-main">
@@ -285,10 +288,10 @@
          <!----------Quick Link Section -----Start------->
          <div class="quick-link">
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
-               <div class="col-md-8">
+               <div class="col-lg-8 ">
                   <h1>Quick links</h1>
                   <div class="row">
-                     <div class="col-md-3">
+                     <div class="col-md-3 mob_bottom_margin">
                         <div class="quick-link-sub-sec">
                            <i class="fal fa-calendar-alt"></i>
                            <p>My Scheduled <br>
@@ -296,7 +299,7 @@
                            </p>
                         </div>
                      </div>
-                     <div class="col-md-3">
+                     <div class="col-md-3 mob_bottom_margin">
                         <div class="quick-link-sub-sec">
                            <i class="far fa-chart-bar"></i>
                            <p>My Assessment <br>
@@ -304,13 +307,14 @@
                            </p>
                         </div>
                      </div>
-                     <div class="col-md-3">
-                        <div class="quick-link-sub-sec">
+                     <div class="col-md-3 mob_bottom_margin">
+                           <a href='/bfssAthleteProfile' class="atheltic_link">
+                              <div class="quick-link-sub-sec">
                            <i class="far fa-chart-network"></i>
-                           <p>My Atheltic<br>
-                              Profile
-                           </p>
+                              <p>My Atheltic<br>
+                              Profile</p>
                         </div>
+                           </a>
                      </div>
                      <div class="col-md-3">
                         <div class="quick-link-sub-sec">
@@ -322,8 +326,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-md-1"></div>
-               <div class="col-md-3">
+               <div class="col-lg-4">
                   <div class="my-assessment">
                      <button class="accordion">MY ASSESSMENTS</button>
                      <div class="panel">
@@ -342,19 +345,19 @@
          <!----------Tabs Section -----Start------->
          <div class="tab-main-sec">
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
-               <div class="col-md-8">
+               <div class="col-lg-8 col-md-12">
                   <div class="row">
-                     <div class="col-md-9">
-                        <h2><i class="fal fa-angle-left mr-2"></i>August 2019<i class="fal fa-angle-right ml-2"></i></h2>
+                     <div class="col-xl-9 col-lg-8 col-md-6 col-6">
+                        <h2 class="mb-0"><i class="fal fa-angle-left mr-2"></i><span class="month_year">August 2019</span><i class="fal fa-angle-right ml-2"></i></h2>
+                        <p class="pl-4">************</p>
                      </div>
-                     <div class="col-md-1 search_icon">
-                        <a href="#"> <i class="fas fa-search"></i></a>
-                     </div>
-                     <div class="col-md-2">
+                     <div class="col-xl-3 col-lg-4 col-md-6 col-6 search_icon">
+                      <a href="#" class="pr-3"> <i class="fas fa-search"></i></a>
+                        <input placeholder="month view" type="text" id="date-picker-example" class="form-control datepicker mt-4">
                      </div>
                   </div>
                   <div class="tab-nav">
-                     <ul>
+                     <ul class="mb-4">
                         <li><a href="#">Categories </a> </li>
                         <li><a href="#">Tags </a></li>
                         <li><a href="#">Organizers </a></li>
@@ -362,9 +365,9 @@
                      </ul>
                   </div>
                   <!-- ---------Profile Card---HTML----Start-->
-                  <div class="profile-card">
+                  <div class="profile-card pr-4">
                      <div class="row">
-                        <div class="col-md-4 pr-0">
+                        <div class="col-md-4 pr-0 mob_bottom_margin">
                            <div class="card">
                               <div class="card-sub">
                                  <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
@@ -383,7 +386,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-4 pr-0">
+                        <div class="col-md-4 pr-0 mob_bottom_margin">
               <div class="card">
                               <div class="card-sub">
                                  <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
@@ -411,7 +414,6 @@
                               <p class="time-sec">10:30 am</p>
                               <div class="card-img-sec">
                                  <img src="/themes/custom/bfss_custom/images/images-dashboard/card-img.jpg"  style="width:100%">
-								 
                                  <ul>
                                     <li>Sports </li>
                                     <li>Mesa/Gilbert,AZ </li>
@@ -424,9 +426,9 @@
             </div>
                      </div>
                   </div>
-          <div class="profile-card profile-card-second">
+          <div class="profile-card profile-card-second pr-4">
                      <div class="row">
-                        <div class="col-md-4 pr-0">
+                        <div class="col-md-4 pr-0 mob_bottom_margin">
                            <div class="card">
                               <div class="card-sub">
                                  <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
@@ -445,7 +447,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-4 pr-0">
+                        <div class="col-md-4 pr-0 mob_bottom_margin">
               <div class="card">
                               <div class="card-sub">
                                  <h1>Athletic Profile<br> Assessments at the <br>AZ Head Office</h1>
@@ -670,10 +672,10 @@
        acc[i].addEventListener("click", function() {
          this.classList.toggle("active");
          var panel = this.nextElementSibling;
-         if (panel.style.display === "block") {
-           panel.style.display = "none";
-         } else {
+         if (panel.style.display === "none") {
            panel.style.display = "block";
+         } else {
+           panel.style.display = "none";
          }
        });
       }
