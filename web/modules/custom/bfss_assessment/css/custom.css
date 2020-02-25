@@ -17,3 +17,6 @@ p.note {
     padding-left: 4px;
     color: #000;
 }
+.image, .image img{ 
+    width: 100%;
+}

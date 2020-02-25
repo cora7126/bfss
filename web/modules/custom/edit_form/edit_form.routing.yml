@@ -13,3 +13,19 @@ edit_form.athlete_form:
     _title: 'Athlete Form'
   requirements:
     _access: 'TRUE'
+    
+edit_form.edit_user_form:
+  path: 'edit/user'
+  defaults:
+    _form: '\Drupal\edit_form\Form\edit_user'
+    _title: 'Edit User'
+  requirements:
+    _access: 'TRUE'    
+    
+edit_form.changepass_form:
+  path: '/changepass'
+  defaults:
+    _form: '\Drupal\edit_form\Form\changepass'
+    _title: 'Change Password'
+  requirements:
+    _access: 'TRUE'    
