@@ -5,3 +5,11 @@ edit_form.contribute_form:
     _title: 'Conribute page'
   requirements:
     _permission: 'access content'
+    
+edit_form.athlete_form:
+  path: /bfssAthleteProfile
+  defaults:
+    _form: '\Drupal\edit_form\Form\ContributeForm'
+    _title: 'Athlete Form'
+  requirements:
+    _access: 'TRUE'

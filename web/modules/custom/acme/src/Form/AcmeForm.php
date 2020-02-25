@@ -22,7 +22,17 @@ class AcmeForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
+  $current_user = \Drupal::currentUser()->id();
+    $conn = Database::getConnection();
+    $query2 = \Drupal::database()->select('user__field_state', 'ufs');
+    $query2->addField('ufs', 'field_state_value');
+    $query2->condition('entity_id', $current_user,'=');
+    $results2 = $query2->execute()->fetchAssoc();
+    $state = $results2['field_state_value'];
+    $query1 = \Drupal::database()->select('user__field_last_name', 'ufln');
+    $query1->addField('ufln', 'field_last_name_value');
+    $query1->condition('entity_id', $current_user,'=');
+    $results1 = $query1->execute()->fetchAssoc();
     $conn = Database::getConnection();
      $record = array();
     if (isset($_GET['num'])) {
@@ -31,25 +41,27 @@ class AcmeForm extends FormBase {
             ->fields('m');
         $record = $query->execute()->fetchAssoc();
     }
-    $form['jodi'] = array(
+	$form['#attributes'] = array('id' => 'form_id');
+    $form['fname'] = array(
       '#type' => 'textfield',
       //'#title' => t('Candidate Name:'),
       '#required' => TRUE,
-      '#placeholder' => t('Jodi'),
+      '#placeholder' => t('First name'),
        //'#default_values' => array(array('id')),
-      '#default_value' => '',
+      '#default_value' => $results1['field_last_name_value'],
       );
-    $form['bloggs'] = array(
+    $form['lname'] = array(
       '#type' => 'textfield',
      // '#title' => t('Mobile Number:'),
-      '#placeholder' => t('Bloggs'),
-      '#default_value' => '',
+      '#placeholder' => t('Last name'),
+      '#default_value' => $results1['field_last_name_value'],
       );
-    $form['az'] = array(
+    $form['state'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- AZ ---'), t('10"'), t('12"'), t('16"')),
+//    '#options' => array(t('--- AZ ---'), t('AL'), t('AK'), t('AZ'), t('AR'), t('CA'), t('CO'), t('CT'), t('DE'), t('DC'), t('FL'), t('GA'), t('HI'), t('ID'), t('IL'), t('IN'), t('IA'), t('KS'), t('KY'), t('LA'), t('ME'), t('MT'), t('NE'), t('NV'), t('NH'), t('NJ'), t('NM'), t('NY'), t('NC'), t('ND'), t('OH'), t('OR'), t('MD'), t('MA'), t('MI'), t('MN'), t('MS'), t('MO'), t('PA'), t('RI'), t('SC'), t('SD'), t('TN'), t('TX'), t('UT'), t('VT'), t('VA'), t('WA'), t('WV'), t('WI'), t('WY')),
+    '#default_value' => $results1['field_last_name_value'],
       );
     $form['city'] = array(
       '#type' => 'textfield',
@@ -132,24 +144,42 @@ class AcmeForm extends FormBase {
         '#type' => 'submit',
         '#value' => 'save',
         //'#value' => t('Submit'),
+		'#ajax' => [
+        'callback' => [$this, 'submitForm'],
+        'wrapper' => 'complete-edit-wrapper'
+      ]
     ];
-    $form['#theme'] = 'my_form';
+    $message = [
+    '#theme' => 'status_messages',
+    '#message_list' => drupal_get_messages(), //\Drupal::messenger()->all(),
+    '#status_headings' => [
+      'status' => t('Status message'),
+      'error' => t('Error message'),
+      'warning' => t('Warning message'),
+    ],
+  ];
+     $form['messages'] = [
+    '#type' => 'item',
+    '#markup' => $messages,
+    '#weight' => 20,
+  ];
+    // $form['#theme'] = 'my_form';
     return $form;
   }
   /**
     * {@inheritdoc}
     */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-         $name = $form_state->getValue('jodi');
-          if(preg_match('/[^A-Za-z]/', $name)) {
-             $form_state->setErrorByName('jodi', $this->t('your jodi must in characters without space'));
-          }
-        if (!is_float($form_state->getValue('height'))) {
-             $form_state->setErrorByName('candidate_age', $this->t('Height needs to be a number'));
-            }
-        if (!is_float($form_state->getValue('weight'))) {
-             $form_state->setErrorByName('candidate_age', $this->t('Weight needs to be a number'));
-            }
+         // $name = $form_state->getValue('jodi');
+          // if(preg_match('/[^A-Za-z]/', $name)) {
+             // $form_state->setErrorByName('jodi', $this->t('your jodi must in characters without space'));
+          // }
+        // if (!is_float($form_state->getValue('height'))) {
+             // $form_state->setErrorByName('candidate_age', $this->t('Height needs to be a number'));
+            // }
+        // if (!is_float($form_state->getValue('weight'))) {
+             // $form_state->setErrorByName('candidate_age', $this->t('Weight needs to be a number'));
+            // }
          /* $number = $form_state->getValue('candidate_age');
           if(!preg_match('/[^A-Za-z]/', $number)) {
              $form_state->setErrorByName('candidate_age', $this->t('your age must in numbers'));
@@ -157,14 +187,13 @@ class AcmeForm extends FormBase {
 //          if (strlen($form_state->getValue('mobile_number')) < 10 ) {
 //            $form_state->setErrorByName('mobile_number', $this->t('your mobile number must in 10 digits'));
 //           }
-    parent::validateForm($form, $form_state);
+    // parent::validateForm($form, $form_state);
   }
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-      echo 'here';die;
-
+echo "here"; die;
     $field=$form_state->getValues();
     $jodi=$field['jodi'];
     //echo "$name";

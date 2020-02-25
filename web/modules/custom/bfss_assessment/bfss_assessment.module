@@ -1,0 +1,50 @@
+<?php
+
+/*
+ * HOOK_theme
+ */
+function bfss_assessment_theme() {
+return [
+    'page_assessment' => [
+        'variables' => [
+          'data'=>[],
+        ],
+        'template'=>'custom/page-assessment',
+    ],
+    'modal_assessment' => [
+        'variables' => [
+          'data'=>[],
+        ],
+        'template'=>'custom/modal-assessment',
+    ], 
+    'assessment_success' => [
+      'variables' => [
+          'message'=> null,
+        ],
+        'template'=>'custom/assessment-success',
+    ],  
+  ];
+}
+/*function bfss_assessment_theme() {
+  return array(
+	'views_view_grid__assessments__block_1' => [
+      'template' => 'views/views-view-grid--assessments--block_1',
+      'base hook' => 'view',
+    ],
+    'views_view_grid__assessments__page_1' => [
+      'template' => 'views/views-view-grid--assessments--page_1',
+      'base hook' => 'view',
+    ],
+    'node__assessment' => [
+      'template' => 'content/node--assessment',
+      'base hook' => 'node',
+    ],
+  );
+}
+
+
+function bfss_assessment_entity_view_mode_alter(&$view_mode, Drupal\Core\Entity\EntityInterface $entity, $context) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'assessment' && $view_mode == 'full') {
+    $view_mode = 'modal';      
+  }
+}*/

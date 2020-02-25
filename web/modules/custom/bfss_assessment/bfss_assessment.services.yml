@@ -1,0 +1,4 @@
+services:
+  bfss_assessment.default:
+    class: Drupal\bfss_assessment\AssessmentService
+    arguments: ['@request_stack', '@config.factory']
