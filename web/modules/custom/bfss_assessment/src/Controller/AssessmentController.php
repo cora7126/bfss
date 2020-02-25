@@ -71,6 +71,11 @@ class AssessmentController extends ControllerBase {
       return [
           '#theme' => 'modal_assessment',
           '#data' => $data,
+          '#attached' =>[
+            'library' => [
+              'bfss_assessment/custom',
+            ],
+          ],
         ];
     }
     return [

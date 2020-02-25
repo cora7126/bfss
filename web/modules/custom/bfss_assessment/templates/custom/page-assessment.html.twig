@@ -2,27 +2,38 @@
 .col{width: 24%;display: inline-block; margin: 10px; padding:10px; background-color:#c2c2c2; cursor: pointer;}
 </style>
 <div class="container">
-  <div class="row">
+  <div class="row assessment_block">
   	{% for row in data %}
-	    <div class="col use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;:800}" href="{{ row.url }}">
-	    	<div class='top-head'>
-		    	<div class='title-date'>
-		    		<h2>
+	    <div class="col use-ajax assessment_inner" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;:800}" href="{{ row.url }}">
+	    	<div class="top-head">
+				<div class="timing">
+					<h2>
 						{{ row.title }}
 					</h2>
-					{% if row.latest_timing %}
-						<span class="timing-date">
-						{{ row.latest_timing|date("M d Y") }}
-						</span>
-					{% endif %}
+					<span>
+						{% if row.latest_timing %}
+							{{ row.latest_timing|date("h:i a") }}
+						{% endif %}	
+					</span>
 				</div>
-				<div class='timing'>
-					{% if row.latest_timing %}
-						<span>
-						{{ row.latest_timing|date("h:i a") }}
-						</span>
-					{% endif %}
+
+					<div class="timing-date">
+
+					<span>
+						{% if row.latest_timing %}
+							<span class="m">
+							{{ row.latest_timing|date("M") }}
+							</span>
+							<span class="d">
+							{{ row.latest_timing|date("d") }}
+							</span>
+							<span class="y">
+							{{ row.latest_timing|date("Y") }}
+							</span>
+						{% endif %}
+					</span>
 				</div>
+
 			</div>
 			<div class='image'>
 				<img src='{{ row.field_image }}' alt='{{ row.title }}' />
