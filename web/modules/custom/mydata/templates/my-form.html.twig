@@ -1,117 +1,4 @@
-<html>   
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/themes/custom/bfss_custom/css/style-custom.css">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-
-      <!-- Modal body -->
-      <div class="modal-body athelet_form_content">
-		<div class="row">
-			<div class="col-md-12 pb-2">
-				<p>Welcome Jodi, to continue you must complete all the required fields below.</p>
-			</div>
-		</div>
-			<div class="row">
-				<div class="col-md-8">
-					<div id="accordion">
-						<div class="card">
-							<div class="card-header">
-							  <a class="card-link d-flex justify-content-between" data-toggle="collapse" href="#collapseOne">
-								<span><i class="fas fa-minus text-orange pr-2"></i>ATHLETE'S INFORMATION</span>
-								<i class="fas fa-info text-orange"></i>
-							  </a>
-							</div>
-							<div id="collapseOne" class="collapse show" data-parent="#accordion">
-							  <div class="card-body py-4 my-2">
-								<div class="form-group">
-									{{form.jodi}}
-								</div>
-								<div class="form-group">
-									{{form.bloggs}}
-								</div>
-								<div class="form-group">
-									{{form.az}}
-								</div>
-								<div class="form-group">
-									{{form.city}}
-								</div>
-								
-							</div>
-						  </div>
-						</div>
-					  <div class="card">
-						<div class="card-header">
-						  <a class="collapsed card-link d-flex justify-content-between" data-toggle="collapse" href="#collapseTwo">
-							<span><i class="fas fa-minus text-orange pr-2"></i>SCHOOL/CLUB/UNIVERSITY</span>
-							<i class="far fa-trash-alt text-orange"></i>
-						  </a>
-						</div>
-						<div id="collapseTwo" class="collapse show">
-						  <div class="card-body py-4 my-2">
-							<div class="form-group">
-								{{form.organization_type}}
-							</div>
-							<div class="form-group">
-								{{form.organization_name}}
-							</div>
-							<div class="form-group">
-                                                                {{form.coach_lname}}
-							</div>
-							<div class="form-group">
-								{{form.sport}}
-							</div>
-							<div class="form-group position_div">
-								{{form.position}}
-							</div>
-                                                        <div class="actions athlete_form_submit">
-                                                        {{ form.submit }}
-                                                        {{ form.actions }}
-                                                         </div>
-							<button type="button" class="bg-transparent border-0 text-orange">+ Additional Position</button>
-							
-						  </div>
-						</div>
-					  </div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-header">
-						  <a class="collapsed card-link d-flex justify-content-between" data-toggle="collapse" href="#collapseThree">
-							<span><i class="fas fa-minus text-orange pr-2"></i>SOCIAL MEDIA</span>
-							<i class="fas fa-info text-orange"></i>
-						  </a>
-						</div>
-						<div id="collapseThree" class="collapse show">
-							<div class="card-body py-4 my-2">
-								<div class="form-group">
-                                                                    {{form.instagram}}
-								</div>
-								<div class="form-group">
-                                                                    {{form.youtube}}
-								</div>
-							</div>
-						</div>
-					  </div>
-				</div>
-			</div>	
-		</div>
-      <!-- Modal footer -->
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> -->
-
-    </div>
-  </div>
-  </body>
-  
+ 
 </html>
 <html>   
 <meta charset="utf-8">
@@ -187,7 +74,9 @@
                   </p>
                </div>
             </div>
-            <div class="col-lg-6 pl-0 pr-0" style="background: #000;"></div>
+            <div class="col-lg-6 pl-0 pr-0" >
+			 <div class="athletic_profile"></div>
+			 </div>
             <div class="col-lg-1 pl-0 pr-0">
                <div class="bell-icon-sec">
                   <img src="/themes/custom/bfss_custom/images/images-dashboard/bell-icon.png">
@@ -363,7 +252,7 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a class="drop" href="#"><i class="far fa-chart-network"></i>My Athlectic Profile<span class="down-arrow fa fa-angle-down"></span></a>
+                        <a class="drop" href="/bfssAthleteProfile"><i class="far fa-chart-network"></i>My Athlectic Profile<span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li><a href="#">Edit My Athletic Profile </a></li>
                            <li><a href="#">View My Webpage</a></li>
@@ -422,9 +311,9 @@
                      <div class="col-md-3">
                         <div class="quick-link-sub-sec">
                            <i class="far fa-chart-network"></i>
-                           <p>My Atheltic<br>
-                              Profile
-                           </p>
+                           <a href='/bfssAthleteProfile'><p>My Atheltic<br>
+                              Profile</p>
+                           </a>
                         </div>
                      </div>
                      <div class="col-md-3">
@@ -463,7 +352,7 @@
                         <h2 class="mb-0"><i class="fal fa-angle-left mr-2"></i><span class="month_year">August 2019</span><i class="fal fa-angle-right ml-2"></i></h2>
                         <p class="pl-4">************</p>
                      </div>
-                     <div class="col-md-3 col-4 search_icon">
+                     <div class="col-md-3 col-6 search_icon">
                       <a href="#" class="pr-3"> <i class="fas fa-search"></i></a>
                         <input placeholder="month view" type="text" id="date-picker-example" class="form-control datepicker mt-4">
                      </div>
@@ -477,7 +366,7 @@
                      </ul>
                   </div>
                   <!-- ---------Profile Card---HTML----Start-->
-                  <div class="profile-card">
+                  <div class="profile-card pr-4">
                      <div class="row">
                         <div class="col-md-4 pr-0">
                            <div class="card">
@@ -538,7 +427,7 @@
             </div>
                      </div>
                   </div>
-          <div class="profile-card profile-card-second">
+          <div class="profile-card profile-card-second pr-4">
                      <div class="row">
                         <div class="col-md-4 pr-0">
                            <div class="card">

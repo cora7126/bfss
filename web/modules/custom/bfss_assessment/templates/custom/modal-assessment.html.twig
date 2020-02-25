@@ -1,0 +1,64 @@
+<style>
+.col{width: 24%;display: inline-block; margin: 10px; padding:10px; background-color:#c2c2c2; cursor: pointer;}
+.container div.row div.col-half {display: inline-block;width: 49%;}
+</style>
+<div class="container">
+	<div class="row tophead">
+		<div class="col-half image">
+			<img src='{{ data.field_image }}' alt='{{ data.title }}' />
+		</div>
+		<div class="col-half title-timing">
+			<div>
+				{% if data.latest_timing %}
+					<span class="timing-date">
+					{{ data.latest_timing|date("M d") }}
+					</span>
+				{% endif %}
+			</div>
+			<div>
+				<h2>
+					{{ data.title }}
+				</h2>
+				<span class='loca'>{{ data.field_location|slice(0,27) }} </span>
+			</div>
+		</div>
+	</div>
+	<div class="row ticketing">
+		<div class="share">
+		<span>Share</span>
+		</div>
+		<div class="ticket">
+		<span>TICKETING</span>
+		</div>
+	</div>
+	<div class="row details">
+		<div class="col-half body">
+			<div class='node-body'>
+				{{ data.body }}
+			</div>
+		</div>
+		<div class="col-half date-location">
+			<div class="date-and-time">
+				<p>DATE AND TIME</p>
+				{% if data.latest_timing %}
+					<span class="timing-date">
+						{{ data.latest_timing|date("F, M d, Y h:i A") }}
+					</span>
+				{% endif %}
+				<p>UNTIL</p>
+				<span>
+				{{ data.latest_duration }}
+				</span>
+
+			<div>
+			<div class="location">
+				<p>LOCATION</p>
+				{{ data.field_location }}
+			<div>
+			<div class="ticketing">
+				<p>TICKETING</p>
+				<a href="{{ data.url }}" class="book-now">Book Now</a>
+			<div>
+		</div>
+	</div>
+</div>

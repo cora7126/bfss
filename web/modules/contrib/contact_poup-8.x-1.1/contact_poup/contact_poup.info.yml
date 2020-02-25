@@ -1,0 +1,11 @@
+name: Contact Form Popup
+type: module
+description: This module will provide the option make the default drupal contact form in popup.
+# core: 8.x
+package: Contact
+
+# Information added by Drupal.org packaging script on 2016-06-21
+version: '8.x-1.1'
+core: '8.x'
+project: 'contact_poup'
+datestamp: 1466490840

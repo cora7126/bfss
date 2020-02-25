@@ -1,0 +1,4 @@
+name: BFSS Assessment Scheduled
+description: 'Provides Assessment Schedule functionality'
+type: module
+core: 8.x

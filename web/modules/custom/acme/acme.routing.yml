@@ -14,10 +14,26 @@ acme.form:
  requirements:
    _permission: 'access content'
     
-acme.achme_form:
-  path: /dashboard
+# acme.achme_form:
+  # path: /dashboard
+  # defaults:
+    # _form: '\Drupal\acme\Form\AcmeForm'
+    # _title: 'MydataForm'
+  # requirements:
+    # _access: 'TRUE' 
+    
+acme.athlete_form:
+ path: /edit/athlete
+ defaults:
+   _title: 'Athlete form'
+   _controller: \Drupal\acme\Controller\athlete_form::custom_submit
+ requirements:
+   _permission: 'access content'    
+   
+acme.popup_form:
+  path: /dashboard/profile
   defaults:
-    _form: '\Drupal\acme\Form\AcmeForm'
-    _title: 'MydataForm'
+    _form: '\Drupal\acme\Form\PopupForm'
+    _title: 'MyPopupForm'
   requirements:
-    _access: 'TRUE' 
+    _access: 'TRUE'    

@@ -43,4 +43,41 @@ function acme_theme() {
 	// $url_valid = substr($url,$url_pos);
 	// print_r($url_valid);die;
 	// $variables['user_img_url'] = $url;
-// }	
+// }
+
+function acme_preprocess_html(&$variables) {  
+  $cls = 'edit-profile-class';
+    $path = \Drupal::request()->getPathInfo();
+  $path_args = explode('/', $path);  
+  if (count($path_args) >= 2 && !empty($path_args[3])) {
+    if(strtolower($path_args[3])=="edit"){
+      $variables['edit_profile_class'] = $cls;
+    }
+  }
+}
+
+/*
+
+ * Hook for user login
+ * Redirecting user after login
+ */
+function acme_user_login(\Drupal\user\UserInterface $account) {
+//    echo '<pre>';print_r($account);die;
+  // Default login destination to the dashboard.
+    $current_user = \Drupal::currentUser()->id();
+    $query = \Drupal::database()->select('mydata', 'md');
+    $query->addField('md', 'popup_flag');
+    $query->condition('uid', $current_user,'=');
+    $results = $query->execute()->fetchAssoc();
+//    echo '<pre>';print_r($current_user);
+//    echo '<pre>';print_r($results);die;
+    if(!empty($results['popup_flag']) && $results['popup_flag'] == 'filled'){
+        $current_request = \Drupal::service('request_stack')->getCurrentRequest();
+        if (!$current_request->query->get('destination')) {
+          $current_request->query->set(
+            'destination',
+            \Drupal\Core\Url::fromRoute('acme_hello')->toString()
+          );
+        }
+    }
+}
