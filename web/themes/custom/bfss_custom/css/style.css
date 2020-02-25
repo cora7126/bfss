@@ -8117,6 +8117,24 @@ input#name_1 {
 .quick-link a.atheltic_link:hover{
   text-decoration: none;
 }
+.left_side_menu span.side_menu_text {
+    display: none;
+}
+.left_side_menu.collpase span.side_menu_text {
+    display: inline-block;
+}
+.left_side_menu span.down-arrow.fa.fa-angle-down {
+    display: none;
+}
+.left_side_menu.collpase span.down-arrow.fa.fa-angle-down {
+    display: block;
+}
+div#sidenav ul li i{
+  margin-left: 15px;
+}
+.left_side_menu.collpase{
+  width: 326.50px;
+}
         /* media quaries*/
 @media (max-width: 992px) {
         .right_section .athlete_right h3{
