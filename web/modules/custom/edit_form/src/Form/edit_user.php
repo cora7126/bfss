@@ -106,7 +106,26 @@ class edit_user extends FormBase {
       '#placeholder' => t('2020'),
       '#default_value' => '',
       );
-    
+    $form['height'] = array (
+      '#type' => 'textfield',
+      //'#title' => ('Height'),
+      '#placeholder' => t('Height in Inches'),
+      '#default_value' => '',
+      );
+     $form['weight'] = array (
+      '#type' => 'textfield',
+      //'#title' => ('Height'),
+      '#placeholder' => t('Weight in Pounds'),
+      '#default_value' => '',
+	  '#suffix' => '</div></div>',
+      );
+	  
+	  $form['stats'] = array (
+      '#type' => 'textarea',
+	  '#suffix' => '</div></div><a class="add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+      '#default_value' => '',
+      );
+     
 	  $form['image_athlete'] = [
                             '#type' => 'managed_file',
                             '#upload_validators' => [

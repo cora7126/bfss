@@ -7598,12 +7598,14 @@ ul.side_nav li:last-child{
 }
 .right_side_section{
   width: calc(100% - 325px);
+  transition: width 2s;
 }
 .open_left_side .left_side_section{
   max-width: 75px;
 }
 .open_left_side .right_side_section{
   width: calc(100% - 75px);
+  transition: width 2s;
 }
 .open_left_side .left_side_section .side_menu_text{
   display: none;
