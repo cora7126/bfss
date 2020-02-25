@@ -13,17 +13,18 @@
 </head>
 <script type="text/javascript">
    $(document).ready(function(){
-   $('.dropdown').click(function(e){
-      $('.left_side_menu').toggleClass('collpase');
-     $(this).find('.dropdown-menu').toggleClass('open');
-     $($(e.target).find('.down-arrow').toggleClass('open-caret'));
+   $('.dropdown > a').click(function(e){
      e.preventDefault();
      e.stopPropagation();
-     $(document).click(function(){
+     $(this).siblings('.dropdown-menu').toggleClass('open');
+     $(this).find('.down-arrow').toggleClass('open-caret');
+
+   });
+
+   $(document).click(function(){
        $('.dropdown-menu').removeClass('open');
        $('.down-arrow').removeClass('open-caret');  
      });
-   });
    });
    
    function openForm() {
@@ -37,8 +38,8 @@
    
 </script>
 <body>
-   <div class="row border_bottom" style="margin-left: 0px;margin-right: 0px;margin-top:-2px">
-      <div class="col-lg-3 pr-0 pl-0">
+   <div class="row border_bottom custom-nav-box" style="margin-left: 0px;margin-right: 0px;margin-top:-2px">
+      <div class="col-lg-3 pr-0 pl-0 custom-left-box-width">
          <nav class="navbar navbar-expand-xs bg-dark navbar-dark">
             <!-- Brand -->
             <a class="navbar-brand" href="#"><img src="/themes/custom/bfss_custom/images/images-dashboard/logo.png"></a>
@@ -50,7 +51,7 @@
             </div>
          </nav>
       </div>
-      <div class="col-lg-9 col-md-12">
+      <div class="col-lg-9 col-md-12 custom-right-nav-box">
          <div class="row">
             <div class="col-lg-2 col-md-3 col-sm-6 col-6 pr-0 pl-0 top_right">
                <div class="calender_img">
@@ -218,7 +219,9 @@
    </div>
    <div class="row" style="margin-left: 0px;margin-right: 0px;">
       <!-- ------------Side Navbar----------start -->
-      <div class="left_side_menu pl-0 pr-0 left_bg_color">
+
+      <div class="left_side_section pl-0 pr-0">
+
          <div class="sidenav" id="sidenav">
             <ul class="side_nav mb-0">
                <li class="sub_menu">
@@ -246,7 +249,9 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
+
                         <a class="drop" href="/bfssAthleteProfile"><i class="far fa-chart-network"></i><span class="side_menu_text">My Athlectic Profile</span><span class="down-arrow fa fa-angle-down"></span></a>
+
                         <ul class="dropdown-menu">
                            <li><a href="/bfssAthleteProfile">Edit My Athletic Profile </a></li>
                            <li><a href="#">View My Webpage</a></li>
@@ -262,7 +267,7 @@
                      <div class="dropdown">
                         <a class="drop" href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li><a href="#"> FAQs </a></li>
+                           <li><a href="/faq-page"> FAQs </a></li>
                            <li><a href="#">Ticketing</a></li>
                         </ul>
                      </div>
@@ -272,7 +277,7 @@
          </div>
       </div>
       <!-- ------------Side Navbar----------end -->
-      <div class="col-lg-9 col-md-8 pl-0 pr-0">
+      <div class="right_side_section pl-0 pr-0">
          <div class="dash-main-right">
             <h1><i class="fas fa-home"></i> > Dashboard </h1>
             <div class="dash-sub-main">

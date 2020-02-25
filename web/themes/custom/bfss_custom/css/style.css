@@ -7576,7 +7576,7 @@ ul.side_nav li:last-child{
   border-bottom: unset;
 }
 .sidenav ul.dropdown-menu.open li a {
-    padding: 10px 0px 10px 37px;
+    padding: 10px 15px 10px 37px;
 }
 .sidenav ul.dropdown-menu.open li{
   position: relative;
@@ -7590,9 +7590,42 @@ ul.side_nav li:last-child{
     left: 12px;
     top: 18px;
 }
-.left_bg_color{
+.left_side_section{
   background: #000;
   border-right: 1px solid grey;
+  width: 100%;
+  max-width: 327.5px;
+  transition: max-width 0.5s;
+}
+.right_side_section{
+  width: calc(100% - 327.5px);
+  transition: width 0.5s;
+}
+.open_left_side .left_side_section{
+  max-width: 75px;
+  transition: max-width 0.5s;
+}
+.open_left_side .right_side_section{
+  width: calc(100% - 75px);
+  transition: width 0.5s;
+}
+.open_left_side .left_side_section .side_menu_text{
+  display: none;
+}
+.open_left_side .left_side_section span.down-arrow{
+  display: none;
+}
+.open_left_side .left_side_section ul.side_nav li{
+  text-align: center;
+}
+.open_left_side div#sidenav ul li i{
+  margin-right: 0px;
+}
+.open_left_side .dropdown > .dropdown-menu.open{
+  min-width: 250px;
+  position: absolute ! important;
+  top: -8px;
+  left: 74px;
 }
 .down-arrow{
   transform: rotate(0deg);
@@ -7865,6 +7898,7 @@ nav .dropdown .drop .down-arrow {
     display: inline-block;
     width: 67%;
     float: left;
+    position: relative;
 }
 .right_section {
     display: inline-block;
@@ -8117,24 +8151,31 @@ input#name_1 {
 .quick-link a.atheltic_link:hover{
   text-decoration: none;
 }
-.left_side_menu span.side_menu_text {
-    display: none;
+
+.open_left_side_mobile .left_side_section{
+  display: block;
 }
-.left_side_menu.collpase span.side_menu_text {
-    display: inline-block;
+
+/*25-02-2020 start*/
+.custom-left-box-width {
+    max-width: 328px !important;
 }
-.left_side_menu span.down-arrow.fa.fa-angle-down {
-    display: none;
+.custom-nav-box {
+     background:#030000;
 }
-.left_side_menu.collpase span.down-arrow.fa.fa-angle-down {
-    display: block;
+.container-inline.web_name {
+    width: 60%;
+    float: left;
 }
-div#sidenav ul li i{
-  margin-left: 15px;
+.container-inline.web_name #name_1 {
+    width: 100%;
 }
-.left_side_menu.collpase{
-  width: 326.50px;
+#label_1 {
+    line-height: 3;
 }
+/*25-02-2020 end*/
+
+
         /* media quaries*/
 @media (max-width: 992px) {
         .right_section .athlete_right h3{
@@ -8146,9 +8187,11 @@ div#sidenav ul li i{
       .bell_sec .bell-icon-sec{
         border-top: 1px solid grey;
         border-right: 1px solid grey;
+        border-left: 1px solid grey;
       }
       .profile_img_section .profile-sec{
         border-top: 1px solid grey;
+        border-right: 1px solid grey;
       }
       .dash-main-right .dash-sub-main {
         border-left: 1px solid grey;
@@ -8179,6 +8222,9 @@ div#sidenav ul li i{
     .left_section {
         width: 100%;
     }
+    .my-assessment .panel{
+      position: initial ! important;
+    }
     .left_section a.add_org{
       padding-bottom: 12px;
     }
@@ -8196,6 +8242,17 @@ div#sidenav ul li i{
 @media (max-width: 420px) {
   .datepicker{
     width: 96%;
+  }
+  .right_side_section{
+    width: auto;
+    transition: unset;
+  }
+  .left_side_section{
+    position: absolute;
+    top: 99px;
+    max-width: initial;
+    z-index: 99;
+    display: none;
   }
 }
 //for dashboard popup

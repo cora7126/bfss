@@ -2,15 +2,25 @@
     $(document).ready(function() {
         //$('#cssmenu').prepend('<div id="menu-button">Menu</div>');
         $('#cssmenu #menu-button').on('click', function() {
-            $('.left_side_menu').toggleClass('collpase');
-           /* var menu = $(this).next('ul');
-            if (menu.hasClass('open')) {
-                menu.removeClass('open');
-            } else {
-                menu.addClass('open');
-            }*/
+
+            if ($(window).width() < 420) {
+                $('body').toggleClass('open_left_side_mobile');
+                $('body').removeClass('open_left_side');
+            }
+            else{
+                $('body').toggleClass('open_left_side');
+                $('body').removeClass('open_left_side_mobile');
+            }
+
         });
-        
+        $( window ).resize(function() {
+          if ($(window).width() < 420) {
+            $('body').removeClass('open_left_side');
+          }
+          else{
+            $('body').removeClass('open_left_side_mobile');
+          }
+        });
         /* 21-02-2020 */
 //        jQuery('.remove_click').click(function(){
 //            console.log('clickkk');
@@ -27,8 +37,7 @@
             }
             
         })
-        
-        
+       
          /* 20-02-2020 */
         jQuery(document).on('click','.left_section .athlete_left h3 , .right_section .athlete_right h3',function(){
             jQuery(this).parent().find('.items_div').slideToggle();
@@ -92,7 +101,7 @@
      var image_action = jQuery("<div class='edit_dropdown'><a class='drop'>Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div>");
      jQuery('#edit-profile-class .field-group-format-toggler').after(image_action);
      
-   /*  jQuery('#edit-profile-class .edit_dropdown , .right_section .edit_dropdown .drop').click(function(){
+   jQuery('#edit-profile-class .edit_dropdown , .right_section .edit_dropdown .drop').click(function(){
 //        var button_html =  jQuery(document).find('.image-widget').find('button[value="Remove"]').wrap('<div class="remove_bttn"></div>');
 //        var full_html = jQuery('.remove_bttn').html();
 //        console.log(full_html);
@@ -107,7 +116,7 @@
         
 
      });
-     */
+     
 //     var athleteprofile_header = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='margin-right:5px;font-weight: bold;'>Dashboard</span><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='font-weight: bold;'>Atheltic Profile</span></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='far fa-chart-network edit_image'></i></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Atheltic</span><br>Profile</h2></div></div>");
 //     
 //    //jQuery('.bfssathleteprofile .dialog-off-canvas-main-canvas .edit-form').before(athleteprofile_header);
@@ -123,10 +132,10 @@
  var counter_click = 0;
  jQuery(document).on('click', '.popup_add_org', function(){
      if(counter_click == 0){
-        jQuery(this).parents('#popup_form_id').find('.previous_athlete').css('display', 'block');
+        jQuery(this).siblings('.previous_athlete').css('display', 'block');
         counter_click++
     }else if(counter_click == 1){
-        jQuery(this).parents('#popup_form_id').find('.last_athlete').css('display', 'block');
+        jQuery(this).siblings('.last_athlete').css('display', 'block');
         jQuery(this).hide();
         counter_click++
     }
