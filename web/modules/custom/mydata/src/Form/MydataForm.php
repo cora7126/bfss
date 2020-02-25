@@ -22,8 +22,13 @@ class MydataForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
+      $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
+    $query1 = \Drupal::database()->select('user__field_last_name', 'ufln');
+        $query1->addField('ufln', 'field_last_name_value');
+        $query1->condition('entity_id', $current_user,'=');
+        $results1 = $query1->execute()->fetchAssoc();
+       // echo '<pre>';print_r($results1);die;
      $record = array();
     if (isset($_GET['num'])) {
         $query = $conn->select('mydata', 'm')
@@ -35,9 +40,9 @@ class MydataForm extends FormBase {
       '#type' => 'textfield',
       //'#title' => t('Candidate Name:'),
       '#required' => TRUE,
-      '#placeholder' => t('Jodi'),
+      '#placeholder' => t('Jodiss'),
        //'#default_values' => array(array('id')),
-      '#default_value' => '',
+      '#default_value' => $results1['field_last_name_value'],
       );
     $form['bloggs'] = array(
       '#type' => 'textfield',
