@@ -685,10 +685,11 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  * @code
  */
 
- $settings['trusted_host_patterns'] = [
-   '5ppsystem\.com$',
- ];
- /*
+ $settings['trusted_host_patterns'] = array(
+  '^mindimage\.net$',
+  '^.+\.mindimage\.net$',
+);
+/*
  * @endcode
  * will allow the site to only run from www.example.com.
  *
