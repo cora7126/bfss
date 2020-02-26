@@ -498,7 +498,7 @@ class ContributeForm extends FormBase {
 	
 	}	
    
-	// $form_state->setRedirect('acme_hello');
+	$form_state->setRedirect('acme_hello');
  // return;
   }
 }
