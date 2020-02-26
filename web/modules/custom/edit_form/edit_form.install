@@ -308,3 +308,53 @@ function edit_form_update_8102() {
  $schema = Database::getConnection()->schema();
  $schema->addField('athlete_school', 'athlete_school_type', $athlete_organizationName);
 }
+function edit_form_update_8103() {
+    
+     $athlete_organizationtype = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+     
+ $schema = Database::getConnection()->schema();
+ $schema->addField('athlete_uni', 'athlete_uni_type', $athlete_organizationtype);
+}
+function edit_form_update_8104() {
+    
+     $position_add = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+  $position_add2 = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+     
+ $schema = Database::getConnection()->schema();
+ $schema->addField('athlete_uni', 'athlete_uni_pos2', $position_add);
+ $schema->addField('athlete_uni', 'athlete_uni_pos3', $position_add2);
+}
+function edit_form_update_8105() {
+    
+     $position_adds = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+  $position_adds2 = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+     
+ $schema = Database::getConnection()->schema();
+ $schema->addField('athlete_school', 'athlete_school_pos2', $position_adds);
+ $schema->addField('athlete_school', 'athlete_school_pos3', $position_adds2);
+}

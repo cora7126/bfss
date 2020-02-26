@@ -60,13 +60,23 @@
             var skl_data = '<div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class="items_div"><div class="form-item js-form-item form-type-select js-form-type-select form-item-schoolname js-form-item-schoolname form-no-label form-group"><div class="select-wrapper"><select data-drupal-selector="edit-education" class="form-select form-control" id="edit-education" name="education"><option value="0">--- Highschol ---</option><option value="1">10"</option><option value="2">12"</option><option value="3">16"</option></select></div></div><div class="form-item js-form-item form-type-select js-form-type-select form-item-schoolname js-form-item-schoolname form-no-label form-group"><div class="select-wrapper"><select data-drupal-selector="edit-schoolname" class="form-select form-control" id="edit-schoolname" name="schoolname"><option value="0">--- Williams Highschol ---</option><option value="1">10"</option><option value="2">12"</option><option value="3">16"</option></select></div></div><div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-coach js-form-item-coach form-no-label form-group"><input data-drupal-selector="edit-coach" class="form-text form-control" type="text" id="edit-coach" name="coach" value="" size="60" maxlength="128" placeholder="Coaches Last Name (Optional)"></div><div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-sport js-form-item-sport form-no-label form-group"><input data-drupal-selector="edit-sport" class="form-text form-control" type="text" id="edit-sport" name="sport" value="" size="60" maxlength="128" placeholder="Sport"></div><div class="add_pos_div"><div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-position js-form-item-position form-no-label form-group"><input data-drupal-selector="edit-position" class="form-text form-control" type="text" id="edit-position" name="position" value="" size="60" maxlength="128" placeholder="Position"></div><a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos" style="display: none;"><i class="fa fa-trash"></i>Remove Position</a></div><div class="form-item js-form-item form-type-textarea js-form-type-textarea form-item-stats js-form-item-stats form-no-label form-group"><div class="form-textarea-wrapper"><textarea data-drupal-selector="edit-stats" class="form-textarea form-control resize-vertical" id="edit-stats" name="stats" rows="5" cols="60"></textarea></div></div></div></div></div></div>';
             jQuery(this).parents('.athlete_school').append(skl_data);
         });
-        
+        var counter_clickadd = 0;
         jQuery(document).on('click','.add_pos', function(){
-            var add_pos = '<div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-position js-form-item-position form-no-label form-group"><input data-drupal-selector="edit-position" class="form-text form-control" type="text" id="edit-position" name="position" value="" size="60" maxlength="128" placeholder="Position"></div>';
-            jQuery(this).parents('.add_pos_div').append(add_pos);
-            jQuery(this).parents('.add_pos_div').find('.remove_pos').show();
-            
-        });
+//            var add_pos = '<div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-position js-form-item-position form-no-label form-group"><input data-drupal-selector="edit-position" class="form-text form-control" type="text" id="edit-position" name="position" value="" size="60" maxlength="128" placeholder="Position"></div>';
+//            jQuery(this).parents('.add_pos_div').append(add_pos);
+                
+                if(counter_clickadd == 0){
+                    jQuery(this).parents('.add_pos_div').find('.form-item-position2').children('#edit-position2').css('display', 'block');
+                     counter_clickadd = 1;
+            }else if(counter_clickadd == 1){
+                jQuery(this).parents('.add_pos_div').find('.form-item-position3').children('#edit-position3').css('display', 'block');
+                //jQuery(this).hide();
+                //jQuery('.remove_pos').css('left','0px');
+                counter_clickadd = 0;
+            }
+                    jQuery(this).parents('.add_pos_div').find('.remove_pos').show();
+
+                });
         
         
     });
@@ -96,7 +106,7 @@
      $("#accordion").find('form').submit();
 });
      var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold;'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold;'>Edit Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>EDIT</span><br>Profile</h2></div></div>");
-     jQuery('#edit-profile-class .main-container').before(header_html);
+     jQuery('.edit-user .main-container').before(header_html);
 
      var image_action = jQuery("<div class='edit_dropdown'><a class='drop'>Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div>");
      jQuery('#edit-profile-class .field-group-format-toggler').after(image_action);
@@ -110,8 +120,8 @@
            //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu,.right_section .edit_dropdown ul.dropdown-menu ').append('<li>'+full_html+'</li>');
             
             //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu ,.right_section .edit_dropdown ul.dropdown-menu').toggle();
-            jQuery('.right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
-            jQuery('#edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span').toggleClass('edit_open');
+            //jQuery('.right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
+            //jQuery('#edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span').toggleClass('edit_open');
         //}
         
 
@@ -140,3 +150,22 @@
         counter_click++
     }
  });
+ 
+// var counter_click_1 = 0;
+// jQuery(document).on('click', '.add_pos', function(){
+//     if(counter_click_1 == 0){
+//        jQuery(this).parents('.add_pos_div').find('.form-item-position2').siblings('#edit-position2').css('display', 'block');
+//        counter_click++
+//    }else if(counter_click_1 == 1){
+//        jQuery(this).parents('.add_pos_div').find('.form-item-position3').siblings('#edit-position3').css('display', 'block');
+//        jQuery(this).hide();
+//        counter_click++
+//    }
+// });
+ // jQuery('#save_pass').on('click',function(){
+	 // alert('a');
+	 // jQuery.ajax({
+		 // url
+		 
+	 // });
+ // });
