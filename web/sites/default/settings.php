@@ -685,9 +685,13 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  * @code
  */
 
- $settings['trusted_host_patterns'] = [
-   '5ppsystem\.com$',
- ];/*
+$settings['trusted_host_patterns'] = array(
+  '^mindimage\.net$',
+  '^.+\.mindimage\.net$',
+  '^bfss\.mindimage\.net$',
+);
+
+/*
  * @endcode
  * will allow the site to only run from www.example.com.
  *
@@ -770,3 +774,6 @@ $databases['default']['default'] = array (
 $settings['config_sync_directory'] = 'sites/default/files/config_2RrciJktdxW87ebUQLPunOlhNelI9tOkfP86OAm9IIqEV5THiX7bLIVUh-r5Q02Pe_4tGyhc8w/sync';
 
 //$settings['rebuild_access'] = TRUE;
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}

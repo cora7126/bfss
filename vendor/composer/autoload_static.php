@@ -27,9 +27,9 @@ class ComposerStaticInit8b5a36692d154bc584f90030d44941c2
         '0b0974a5566a1077e4f2e111341112c1' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_server.php',
         '1ca3bc274755662169f9629d5412a1da' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_uploaded_files.php',
         '40360c0b9b437e69bcbb7f1349ce029e' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/parse_cookie_header.php',
+        '952683d815ff0a7bf322b93c0be7e4e4' => __DIR__ . '/..' . '/chi-teck/drupal-code-generator/src/bootstrap.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        '952683d815ff0a7bf322b93c0be7e4e4' => __DIR__ . '/..' . '/chi-teck/drupal-code-generator/src/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -146,6 +146,7 @@ class ComposerStaticInit8b5a36692d154bc584f90030d44941c2
         ),
         'D' => 
         array (
+            'Drush\\Internal\\' => 15,
             'Drush\\' => 6,
             'Drupal\\Driver\\' => 14,
             'Drupal\\Core\\' => 12,
@@ -456,6 +457,10 @@ class ComposerStaticInit8b5a36692d154bc584f90030d44941c2
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
         ),
+        'Drush\\Internal\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/drush/drush/src/internal-forks',
+        ),
         'Drush\\' => 
         array (
             0 => __DIR__ . '/..' . '/drush/drush/src',
@@ -625,10 +630,6 @@ class ComposerStaticInit8b5a36692d154bc584f90030d44941c2
         ),
         'D' => 
         array (
-            'Drush' => 
-            array (
-                0 => __DIR__ . '/..' . '/drush/drush/lib',
-            ),
             'Drupal\\' => 
             array (
                 0 => __DIR__ . '/..' . '/drupal/coder/coder_sniffer/Drupal',
@@ -648,10 +649,6 @@ class ComposerStaticInit8b5a36692d154bc584f90030d44941c2
         ),
         'C' => 
         array (
-            'Consolidation' => 
-            array (
-                0 => __DIR__ . '/..' . '/drush/drush/lib',
-            ),
             'Console' => 
             array (
                 0 => __DIR__ . '/..' . '/pear/console_getopt',
