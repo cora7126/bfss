@@ -686,9 +686,8 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  */
 
 $settings['trusted_host_patterns'] = array(
-  '^mindimage\.net$',
-  '^.+\.mindimage\.net$',
-  '^bfss\.mindimage\.net$',
+  '^5ppsystem\.com$',
+  '^www\.5ppsystem\.com$',
 );
 
 /*
