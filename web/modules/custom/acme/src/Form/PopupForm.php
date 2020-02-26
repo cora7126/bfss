@@ -87,14 +87,14 @@ class PopupForm extends FormBase {
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- Organization Type ---'), t('Public'), t('Private'), t('Other')),
+    '#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
 	'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
       );
      $form['organization_name'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- Organization Name ---'), t('A'), t('B'), t('C')),
+    '#options' => array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3')),
       );
      $form['coach_lname'] = array (
       '#type' => 'textfield',
@@ -253,6 +253,16 @@ class PopupForm extends FormBase {
     $position=$field['position'];
     $instagram=$field['instagram'];
     $youtube=$field['youtube'];
+	
+	$seltype1 = $form_state->getValue('organization_type');
+	$selname1 = $form_state->getValue('organization_name');
+	$seltype2 = $form_state->getValue('education_1');
+	$selname2 = $form_state->getValue('schoolname_1');
+	$selstate = $form_state->getValue('az');
+	$seltypeval1 = $form['organization_type']['#options'][$seltype1];
+	$selnameval1 = $form['organization_name']['#options'][$selname1];
+	$seltypeval2 = $form['education_1']['#options'][$seltype2];
+	$selnameval2 = $form['schoolname_1']['#options'][$selname2];
           // $field  = array(
               // 'field_jodi'   => $jodi,
               // 'field_bloggs' =>  $bloggs,
@@ -325,6 +335,19 @@ class PopupForm extends FormBase {
               'uid' => $current_user,
           )
 	)->execute();
+	$conn->insert('athlete_school')->fields(
+			array(
+			'athlete_uid' => $current_user,
+			'athlete_school_name' => $selnameval1,
+			'athlete_school_coach' => $form_state->getValue('coach_lname'),
+			'athlete_school_sport' => $form_state->getValue('sport'),
+			'athlete_school_pos' => $form_state->getValue('position'),
+			// 'athlete_school_pos2' => $form_state->getValue('position2'),
+			// 'athlete_school_pos3' => $form_state->getValue('position3'),
+			'athlete_school_stat' => $form_state->getValue('stats'),
+			'athlete_school_type' => $seltypeval1,
+			)
+		)->execute();
        $form_state->setRedirect('acme_hello');
      }
 }

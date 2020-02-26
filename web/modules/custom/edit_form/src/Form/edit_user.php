@@ -71,7 +71,6 @@ class edit_user extends FormBase {
 	  '#suffix' => '<a class="change_pass" id=change_id>Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ATHLETE\'s Information</h3><div class=items_div>',
       );
 	  
-	  
 	  $form['fname'] = array(
       '#type' => 'textfield',
       '#default_value' => $results1['field_first_name_value'],
@@ -87,14 +86,14 @@ class edit_user extends FormBase {
       ); 
 	  $form['numberone'] = array(
       '#type' => 'textfield',
-	  '#placeholder' => '(602)333-4567',
+	  '#placeholder' => 'Phone Number',
       '#default_value' => $results5['field_mobile_value'],
       ); 
-	  $form['numbertwo'] = array(
-      '#type' => 'textfield',
-	  '#placeholder' => '(888)123-4567',
-      '#default_value' => $results6['field_mobile_2_value'],
-      );
+	  // $form['numbertwo'] = array(
+      // '#type' => 'textfield',
+	  // '#placeholder' => '(888)123-4567',
+      // '#default_value' => $results6['field_mobile_2_value'],
+      // );
 	  $form['somedate'] = array(
       '#type' => 'textfield',
       '#default_value' => substr($results3['field_date_value'],0,10),
@@ -104,21 +103,21 @@ class edit_user extends FormBase {
 	  
 	  $form['stats'] = array (
       '#type' => 'textarea',
-	  '#suffix' => '</div></div></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=popupimage id="imagepopup">',
-	  '#attributes' => array('style' => 'display:none'),
+	  '#suffix' => '</div></div></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class="popupimage" id="imagepopup">',
+//	  '#attributes' => array('style' => 'display:none'),
       );
      
-	  $form['image_popup'] = [
+	  $form['image_edit_user'] = [
                             '#type' => 'managed_file',
-                            '#upload_validators' => [
-                              'file_validate_extensions' => ['gif png jpg jpeg'],
-                              'file_validate_size' => [25600000],
-                            ],
+//                            '#upload_validators' => [
+//                              'file_validate_extensions' => ['gif png jpg jpeg'],
+//                              'file_validate_size' => '',
+//                            ],
                             '#theme' => 'image_widget',
                             '#preview_image_style' => 'medium',
                             '#upload_location' => 'public://',
                             '#required' => FALSE,
-							'#prefix' => '</div>',
+                            '#prefix' => '</div>',
                           ];	
     $form['submit'] = [
         '#type' => 'submit',
@@ -127,6 +126,38 @@ class edit_user extends FormBase {
 		'#suffix' => '</div>',
         //'#value' => t('Submit'),
     ];
+	//CHANGE PASSWORD FIELDS
+	   $form['pass_label'] = array(
+      '#type' => 'label',
+      '#value' => t('Your password must be at least 8 characters long and contain at least one number and one character'),
+	  '#prefix' => '<div id=changepassdiv>',
+      );
+	  $form['current_pass'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('Old Password'),
+      );
+	  $form['newpass'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('New Password'),
+      );
+	  $form['newpassconfirm'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('Confirm New Password'),
+      );
+	  
+	  $form['pass_error'] = array(
+      '#type' => 'label',
+      '#value' => t('Incorrect enrty,please try again.'),
+	  '#suffix' => '<span class=passerror> Need more help? Click here </span>',
+      );
+    $form['changebutton'] = [
+        '#type' => 'button',
+        '#value' => 'save',
+		'#prefix' =>'',
+		'#suffix' => '</div>',
+		'#attributes' => array('id'=>'save_pass'),
+    ];
+	  //end change password
     // $form['#theme'] = 'athlete_form';
     return $form;
   }
@@ -160,20 +191,26 @@ class edit_user extends FormBase {
 						// )
 				// )->execute();
 	$conn->update('users_field_data')->fields(
-						array(
-						'mail' => $form_state->getValue('email'),
-						)
-				)->execute();
-	$conn->update('user__field_mobile')->fields(
-						array(
-						'field_mobile_value' => $form_state->getValue('numberone'),
-						)
-				)->execute();
-	$conn->update('user__field_mobile_2')->fields(
-						array(
-						'field_mobile_2_value' => $form_state->getValue('numbertwo'),
-						)
-				)->execute();
+array(
+'mail' => $form_state->getValue('email'),
+)
+);
+$conn->condition('uid',$current_user,'=');
+$conn->execute();
+$conn->update('user__field_mobile')->fields(
+array(
+'field_mobile_value' => $form_state->getValue('numberone'),
+)
+);
+$conn->condition('entity_id',$current_user,'=');
+$conn->execute();
+$conn->update('user__field_mobile_2')->fields(
+array(
+'field_mobile_2_value' => $form_state->getValue('numbertwo'),
+)
+);
+$conn->condition('entity_id',$current_user,'=');
+$conn->execute();
 	// $form_state->setRedirect('acme_hello');
  // return;
   }

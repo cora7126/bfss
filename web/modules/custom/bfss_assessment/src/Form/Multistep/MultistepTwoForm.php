@@ -48,7 +48,7 @@ class MultistepTwoForm extends MultistepFormBase {
     $sortedTimings = [];
     foreach ($timings as $key => $value) {
       $value = date('h:i a',$value);
-      $sortedTimings[date('Ymd',$key)][$key] = $value;
+      $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
     }
     foreach ($sortedTimings as $key => $value) {
       $maintitle = current(array_keys($value));
