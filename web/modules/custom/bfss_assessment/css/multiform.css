@@ -8,7 +8,7 @@ div.main-head{
 div.main-head > div{
 	display: inline-block;
 	width: 18.99%;
-	margin: 3px;
+	margin: 1px;
 }
 div.main-head div.bar{
 	width: 100%;
@@ -35,6 +35,12 @@ div.four div.main-head div.fourth div.bar,
 .final div.main-head div.bar
 {
 	background-color: green;
+
+
+	 border-top-left-radius: 10px; 
+ 	border-bottom-left-radius:10px;
+ 	height: 12px;color: #145213;
+ 	border: none;
 }
 /*payment process order title*/
 div.one div.main-head div.first h6,
@@ -50,6 +56,7 @@ div.four div.main-head div.fourth h6,
 .final div.main-head h6
 {
 	color: #f4650f;
+
 }
 form input[type="text"],
 form input[type="email"],
@@ -153,6 +160,7 @@ form select
 .service-top-head{font-weight: 600;font-size: 13px;}
 .form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: center;display: block;margin: auto;}
  .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
+
  .btn:hover{color: #fff;}
 #multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
 span.fieldset-legend{font-weight: normal!important;}
@@ -199,6 +207,7 @@ span.fieldset-legend{font-weight: normal!important;}
 .service-top-head{font-weight: 600;font-size: 13px;}
 .form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: left;display: block;margin: auto;}
  .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
+
 #multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
 span.fieldset-legend{font-weight: normal!important;}
 #multistep-form-two .timeslots .js-form-item.form-type-radio:nth-of-type(1){margin: 10px 0 2px;}
@@ -206,20 +215,4 @@ span.fieldset-legend{font-weight: normal!important;}
 .form-actions .btn, .form-actions .btn-group{padding: 6px 30px;}
 .form-control{color: #101010;font-weight: 600;}
 
-html .container{max-width: 100%!important;}
-html body{margin-top:0!important;}
-.timeslots .form-item .control-label{text-align: center;}
 
-
-div.main-head .first div.bar{border-top-left-radius: 10px!important; 
- 	border-bottom-left-radius:10px!important;}
-
-#multistep-form-three div.js-form-item.form-item-first-name{padding-right: 5px;}
-#multistep-form-three div.js-form-item.form-item-last-name{padding-left: 5px;}
-.form-inline .form-control{width: 100%!important;}
-#multistep-form-four h3{font-size: 13px;font-weight: 600;color: #101010;}
-.region-content .form-item{margin-bottom: 30px!important;}
-#multistep-form-four div.form-item-expiration-month, #multistep-form-four div.form-item-cvv{margin-right: 10px;margin-top: 0;}
-.form input[type="text"]{width: 98%;}
-input#edit-city{width: 98%;}
-input#edit-state{width: 96%;}
