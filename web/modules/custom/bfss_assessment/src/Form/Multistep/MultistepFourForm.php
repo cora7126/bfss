@@ -38,6 +38,7 @@ class MultistepFourForm extends MultistepFormBase {
     $form['heading']['#suffix'] = '</div>';
     #add container class to form
     $form['#attributes']['class'][] = 'container';
+    $form['#attributes']['class'][] = 'parent';
     $form['instruction'] = [
       '#type' => 'markup',
       '#markup' => $this->t('<h3>Please add your payment details to continue.</h3>'),

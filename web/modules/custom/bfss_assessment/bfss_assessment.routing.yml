@@ -4,9 +4,10 @@ bfss_assessment.assessment_prices:
     _form: '\Drupal\bfss_assessment\Form\AssessmentPriceForm'
     _title: 'Assessment Price Form'
   requirements:
-    _permission: 'access administration pages'
-  options:
-    _admin_route: TRUE
+    _role: 'athlete+parent_guardian_registering_athlete_'
+  #   _permission: 'access administration pages'
+  # options:
+  #   _admin_route: TRUE
 
 bfss_assessment.page_assessment:
   path: '/assessments/all'
@@ -15,7 +16,8 @@ bfss_assessment.page_assessment:
     _title: 'Assessment'
     node_id: null
   requirements:
-    _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+    # _permission: 'access content'
 
 bfss_assessment.modal_node_view:
   path: '/assessment/node/{node_id}'
@@ -24,7 +26,8 @@ bfss_assessment.modal_node_view:
     _title: 'Assessment'
     node_id: null
   requirements:
-    _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+    # _permission: 'access content'
 
 bfss_assessment.multistep_one:
   path: '/assessment/type/{node_id}'
@@ -33,7 +36,8 @@ bfss_assessment.multistep_one:
     _title: 'Assessment Type'
     node_id: null
   requirements:
-    _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+    # _permission: 'access content'
 
 bfss_assessment.multistep_two:
   path: '/assessment/time'
@@ -41,7 +45,8 @@ bfss_assessment.multistep_two:
     _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepTwoForm'
     _title: 'Time'
   requirements:
-    _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+    # _permission: 'access content'
 
 bfss_assessment.multistep_three:
   path: '/assessment/details'
@@ -49,7 +54,8 @@ bfss_assessment.multistep_three:
     _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepThreeForm'
     _title: 'Details'
   requirements:
-    _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+    # _permission: 'access content'
 
 bfss_assessment.multistep_four:
   path: '/assessment/payment'
@@ -57,7 +63,8 @@ bfss_assessment.multistep_four:
     _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepFourForm'
     _title: 'Payment'
   requirements:
-    _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+    # _permission: 'access content'
 
 bfss_assessment.assessment_success:
   path: '/assessment/success'
@@ -66,7 +73,8 @@ bfss_assessment.assessment_success:
     _title: "You're Scheduled!"
     node_id: null
   requirements:
-    _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+    # _permission: 'access content'
 
 entity.bfsspayments.collection:
   path: '/bfsspayments/list'
@@ -76,4 +84,4 @@ entity.bfsspayments.collection:
     _title: 'Inventory List'
   requirements:
   # Checks for permission directly.
-    _permission: 'view bfsspayments entity'
+    _permission: 'administrator'
