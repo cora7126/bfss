@@ -44,3 +44,10 @@ p.note {
 .timing{height: 100%;position: relative;}
 .timing span{position: absolute;bottom: 0;padding: 2px 0px;}
 .tophead .timing-date{padding: 30px 10px;}
+.date-location{width: 39% !important;}
+.row.details .node-body{width: 46%}
+
+html .container{max-width: 100%!important;}
+html body{margin-top:0!important;}
+
+
