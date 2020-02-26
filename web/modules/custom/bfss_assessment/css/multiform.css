@@ -64,6 +64,9 @@ form input[type="number"],
 form select
  {
 	width: 100%;
+	border-radius: 0;
+	box-shadow: none;
+	border: 1px solid #ccc;
 }
 #edit-submit {
     float: right;
@@ -157,6 +160,54 @@ form select
 .service-top-head{font-weight: 600;font-size: 13px;}
 .form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: center;display: block;margin: auto;}
  .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
+
+ .btn:hover{color: #fff;}
+#multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
+span.fieldset-legend{font-weight: normal!important;}
+#multistep-form-two .timeslots .js-form-item.form-type-radio:nth-of-type(1){margin: 10px 0 2px;}
+#multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 2px 0 2px;}
+.form-actions .btn, .form-actions .btn-group{padding: 6px 30px;}
+
+
+/*CSS 7:21 */
+
+
+#multistep-form-four div.form-item-city,
+#multistep-form-four div.form-item-country {
+	display: inline-block;
+	width: 53%;
+}
+
+#multistep-form-four div.form-item-state,
+#multistep-form-four div.form-item-zip {
+	display: inline-block;
+	width: 23.1%;
+}
+
+.first h6{font-weight: 600;}
+ div.one div.main-head div.first div.bar, .first div.three div.main-head div.first div.bar{
+ 	border-top-left-radius: 10px!important; 
+ 	border-bottom-left-radius:10px!important;
+ 	height: 12px;color: #145213;
+ 	border: none;}
+
+
+.main-head h6{color: #010101;
+	font-weight: 600;}
+
+.form-group{margin-top: 20px;}
+.control-label{font-size: 13px;
+    color: #f4650f;}
+.form-item .select-wrapper select{color: #101010;font-weight: 700;height: 40px;border: 1px solid #d2d2d2;
+    box-shadow: none;border-radius: 0!important;}
+.form-item .control-label{margin-bottom: 10px;}
+.select-wrapper:after{content: '';background-image: url('../img/down-arrow.png');background-repeat: no-repeat;
+    color: transparent !important;margin-right: 5px;}
+ button.button[type="submit"]{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;}
+.service-top-head{font-weight: 600;font-size: 13px;}
+.form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: left;display: block;margin: auto;}
+ .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
+
 #multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
 span.fieldset-legend{font-weight: normal!important;}
 #multistep-form-two .timeslots .js-form-item.form-type-radio:nth-of-type(1){margin: 10px 0 2px;}
@@ -164,5 +215,4 @@ span.fieldset-legend{font-weight: normal!important;}
 .form-actions .btn, .form-actions .btn-group{padding: 6px 30px;}
 .form-control{color: #101010;font-weight: 600;}
 
- 
 
