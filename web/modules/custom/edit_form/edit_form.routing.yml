@@ -37,3 +37,11 @@ edit_form.test_form:
     _title: 'Edit User'
   requirements:
     _access: 'TRUE'
+    
+edit_form.parent_form:
+  path: 'edit/parent'
+  defaults:
+    _form: '\Drupal\edit_form\Form\edit_parent'
+    _title: 'Edit Parent/Guardian'
+  requirements:
+    _access: 'TRUE'
