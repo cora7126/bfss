@@ -127,7 +127,7 @@
             </div>
             <div class="col-lg-1 col-md-3 col-sm-6 col-6 pl-0 pr-0 profile_img_section">
                <div class="profile-sec">
-                  <img src="" onclick="openForm()">
+                  <img src="{{user_img_url}}" onclick="openForm()">
                   <!----------- profile pop up start----------- -->
                   <div class="chat-popup" id="myForm">
                      <div class="form-container">
@@ -135,17 +135,16 @@
                            <div class="pop_img_sec">
                               <div class="row">
                                  <div class="col-md-4 pr-0 ">
-                                    <img src="">
+                                     <img src="{{user_img_url}}">
                                  </div>
                                  <div class="col-md-8">
-                                    <h2>ph3l1x</h2>
-                                    <p>athlete</p>
+                                    <h2>{{user_name}}</h2>
+                                    <p>{{user_roles}}</p>
                                  </div>
                               </div>
                            </div>
                            <div class="pop_text_sec">
-                              <a href="#">
-                                 </a><a href="/edit/user"><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
+                              <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
                               
                               <a href="#">
                                  <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
@@ -156,8 +155,7 @@
                               <a href="#">
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
-                              <a href="#">
-                                 </a><a href="/user/logout"><p><i class="fas fa-power-off"></i>Sign Out</p></a>
+                               <a href='/user/logout'><p><i class="fas fa-power-off"></i>Sign Out</p></a>
                               
                               <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                            </div>
