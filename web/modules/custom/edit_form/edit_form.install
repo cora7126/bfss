@@ -358,3 +358,36 @@ function edit_form_update_8105() {
  $schema->addField('athlete_school', 'athlete_school_pos2', $position_adds);
  $schema->addField('athlete_school', 'athlete_school_pos3', $position_adds2);
 }
+function edit_form_update_8107(){
+	$spec = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'entity_id'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => true,
+      ),
+	  'parent_id'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => true,
+      ),
+	  'mobile1'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+	  'mobile2'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+    $schema = Database::getConnection()->schema();
+	$schema->createTable('parent_mobiles', $spec);
+}

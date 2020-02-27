@@ -7598,17 +7598,10 @@ ul.side_nav li:last-child{
   border-right: 1px solid grey;
   width: 25%;
   transition: width 0.5s;
-}
-.right_side_section{
-  width: calc(100% - 25%);
-  transition: width 0.5s;
+  float: left;
 }
 .open_left_side .left_side_section{
   width: 75px;
-  transition: width 0.5s;
-}
-.open_left_side .right_side_section{
-  width: calc(100% - 75px);
   transition: width 0.5s;
 }
 .open_left_side .left_side_section .side_menu_text{
@@ -7894,7 +7887,12 @@ nav .dropdown .drop .down-arrow {
 #edit-form {
     padding: 20px;
     display: inline-block;
-    width:100%;
+    width: calc(100% - 25%);
+    transition: width 0.5s;
+}
+.open_left_side #edit-form{
+  width: calc(100% - 75px);
+  transition: width 0.5s;
 }
 .left_section {
     display: inline-block;

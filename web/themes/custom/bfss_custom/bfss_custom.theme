@@ -3,6 +3,7 @@
 
 
 function bfss_custom_preprocess_html(&$variables) {
+    $variables['attributes']['class'][] = 'dashboard';
 
     $current_path = \Drupal::service('path.current')->getPath();
     $path_alias = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
@@ -11,6 +12,7 @@ function bfss_custom_preprocess_html(&$variables) {
 
     if (in_array($routeMatch->getRouteName(), ['user.reset', 'user.reset.form'])) {
       $variables['attributes']['class'][] = 'user-reset';
+      
     }
 
     if(isset($path_alias)) {
