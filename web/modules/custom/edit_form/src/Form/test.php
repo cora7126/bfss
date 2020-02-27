@@ -344,15 +344,27 @@ class test extends FormBase {
 							'user_picture_target_id' => $imgid[0],
 							)
 					)->execute();
-				}else{
-                $conn->update('user__user_picture')
-					->condition('entity_id',$current_user,'=')
-					->fields(
-						array(
-						'user_picture_target_id' => $imgid[0],
+				}else {
+					if(!empty($imgid[0])){
+						$conn->update('user__user_picture')
+						->condition('entity_id',$current_user,'=')
+						->fields(
+							array(
+							'user_picture_target_id' => $imgid[0],
+							)
 						)
-					)
-				->execute();
+						->execute();
+					}else{
+						$conn->update('user__user_picture')
+						->condition('entity_id',$current_user,'=')
+						->fields(
+							array(
+							'user_picture_target_id' => '240',
+							)
+						)
+						->execute();
+					}
+                
 				}
     if(empty($results)){
     $conn->insert('user__field_mobile')->fields(

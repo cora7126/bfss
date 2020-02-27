@@ -64,17 +64,18 @@
         jQuery(document).on('click','.add_pos', function(){
 //            var add_pos = '<div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-position js-form-item-position form-no-label form-group"><input data-drupal-selector="edit-position" class="form-text form-control" type="text" id="edit-position" name="position" value="" size="60" maxlength="128" placeholder="Position"></div>';
 //            jQuery(this).parents('.add_pos_div').append(add_pos);
-                
                 if(counter_clickadd == 0){
                     jQuery(this).parents('.add_pos_div').find('.form-item-position2').children('#edit-position2').css('display', 'block');
                      counter_clickadd = 1;
+                     jQuery(this).parents('.add_pos_div').find('.remove_pos').show();
             }else if(counter_clickadd == 1){
                 jQuery(this).parents('.add_pos_div').find('.form-item-position3').children('#edit-position3').css('display', 'block');
                 //jQuery(this).hide();
                 //jQuery('.remove_pos').css('left','0px');
                 counter_clickadd = 0;
+                return false;
             }
-                    jQuery(this).parents('.add_pos_div').find('.remove_pos').show();
+                    
 
                 });
         
@@ -150,7 +151,9 @@
         counter_click++
     }
  });
- 
+ jQuery(document).ready(function(){
+	jQuery('.messages__wrapper').css('display','none'); 
+ });
 // var counter_click_1 = 0;
 // jQuery(document).on('click', '.add_pos', function(){
 //     if(counter_click_1 == 0){
