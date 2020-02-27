@@ -22,6 +22,9 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; }
 
+.messages__wrapper{
+	display: none !important;
+}
 body {
   margin: 0; }
 

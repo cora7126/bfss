@@ -11,6 +11,8 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Contribute form.
  */
@@ -575,19 +577,51 @@ class ContributeForm extends FormBase {
 	// $img_id = $results['user_picture_target_id'];	
     // print_r($form_state->getValue('image_athlete'));die;
 		$imgid = $form_state->getValue('image_athlete');
+		$query_pic = \Drupal::database()->select('user__user_picture', 'uup');
+		$query_pic->fields('uup');
+		$query_pic->condition('entity_id', $current_user,'=');
+		$results_pic = $query_pic->execute()->fetchAll();	
+                $imgid = $form_state->getValue('image_athlete');
+				if(empty($results_pic)){
+					 $conn->insert('user__user_picture')->fields(
+							array(
+							'entity_id' => $current_user,
+							'bundle' => 'user',
+							'deleted' => '0',
+							'revision_id' => $current_user,
+							'langcode' => 'en',
+							'delta' => '0',
+							'user_picture_target_id' => $imgid[0],
+							)
+					)->execute();
+				}else {
+					if(!empty($imgid[0])){
+						$conn->update('user__user_picture')
+						->condition('entity_id',$current_user,'=')
+						->fields(
+							array(
+							'user_picture_target_id' => $imgid[0],
+							)
+						)
+						->execute();
+					}else{
+						$conn->update('user__user_picture')
+						->condition('entity_id',$current_user,'=')
+						->fields(
+							array(
+							'user_picture_target_id' => '240',
+							)
+						)
+						->execute();
+					}
+                
+				}
+		
 		$conn->update('user__field_first_name')
 				->condition('entity_id',$current_user,'=')
 				->fields(
 							array(
 							'field_first_name_value' => $form_state->getValue('fname'),
-							)
-						)
-				->execute();
-		$conn->update('user__user_picture')
-				->condition('entity_id',$current_user,'=')
-				->fields(
-							array(
-							'user_picture_target_id' => $imgid[0],
 							)
 						)
 				->execute();
