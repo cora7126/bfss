@@ -295,7 +295,38 @@ class test extends FormBase {
 		'#options' => array(t('Website Visibility'), t('on'), t('off')),
 		'#suffix' => '</div></div></div></div>',
       );
-   
+   //CHANGE PASSWORD FIELDS
+	   $form['pass_label'] = array(
+      '#type' => 'label',
+      '#value' => t('Your password must be at least 8 characters long and contain at least one number and one character'),
+	  '#prefix' => '<div id="changepassdiv">',
+      );
+	  $form['current_pass'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('Old Password'),
+      );
+	  $form['newpass'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('New Password'),
+      );
+	  $form['newpassconfirm'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('Confirm New Password'),
+      );
+	  
+	  $form['pass_error'] = array(
+      '#type' => 'label',
+      '#value' => t('Incorrect entry,please try again.'),
+	  '#suffix' => '<span class=passerror> Need more help? Click here </span>',
+      );
+    $form['changebutton'] = [
+        '#type' => 'button',
+        '#value' => 'save',
+		'#prefix' =>'',
+		'#suffix' => '</div>',
+		'#attributes' => array('id'=>'save_pass'),
+    ];
+	  //end change password
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
