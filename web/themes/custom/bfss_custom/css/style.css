@@ -7834,7 +7834,7 @@ nav .dropdown .drop .down-arrow {
     z-index: 99;
     right: 0px;
     top: 0px;
-    padding: 18px 15px;
+    padding: 19px 12px;
   }
    #edit-profile-class .edit_dropdown a.drop , .right_section .edit_dropdown a.drop{
     color: #EB6E06;
@@ -7887,12 +7887,7 @@ nav .dropdown .drop .down-arrow {
 #edit-form {
     padding: 20px;
     display: inline-block;
-    width: calc(100% - 25%);
     transition: width 0.5s;
-}
-.open_left_side #edit-form{
-  width: calc(100% - 75px);
-  transition: width 0.5s;
 }
 .left_section {
     display: inline-block;
@@ -7989,7 +7984,7 @@ nav .dropdown .drop .down-arrow {
 #athlete_submit{
     display:inline-block;
     width:100%;
-    padding:20px;
+    padding-top:20px;
 }
 #athlete_submit button{
      border-radius: 2px;
@@ -8014,12 +8009,15 @@ nav .dropdown .drop .down-arrow {
 }
 .right_section .image-widget .data{
     position: absolute;
-    bottom: 0px;
+    top: 59px;
     right: 0;
     width: auto !important;
     background: white;
-    padding: 10px 20px;
+    padding: 7px 8px;
     display: block;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-right: none;;
 }
 .right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{
     display:table;
@@ -8038,7 +8036,7 @@ nav .dropdown .drop .down-arrow {
 }
 .right_section .preview img{
    display: table;
-    max-width: 100%;
+    max-width: initial;
     height: auto;
 }
 .toggle_icon {
@@ -8069,6 +8067,8 @@ nav .dropdown .drop .down-arrow {
 .left_section a.add_org.popup_add_org{
     position: relative;
     padding-left: 15px;
+    color: #f76907;
+    font-size: 14px;
 }
 .athlete_school {
     position: relative;
@@ -8082,8 +8082,8 @@ input#name_1 {
     width: 70%;
 }
 .right_section .edit_dropdown a {
-   
-    padding: 18px 15px;
+    background-color: #000;
+    padding: 0;
 }
  .right_section .edit_dropdown:before {
     height: 100%;
@@ -8195,8 +8195,22 @@ input#name_1 {
   padding: 38px 0 45px 0;
   width: 255px;
 }
-.edit-user .spb-popup-main-wrapper.spb_top_center .spb-controls{
-  top: 6px;
+#spb-imagepopup .spb-popup-main-wrapper.spb_top_center .spb-controls{
+  bottom: 2px;
+  left: 38%;
+  right: unset;
+}
+.spb_close.submit_btn{
+  padding: 5px 14px;
+    color: #fff;
+    background: green;
+    border-radius: 3px;
+}
+#spb-changepassdiv .spb-controls{
+  top: 7px;
+}
+.edit-user .right_section .image-widget .data{
+  border: none;
 }
 .edit-user .spb-popup-main-wrapper.spb_top_center .image-widget .data{
   position: absolute;
@@ -8206,6 +8220,7 @@ input#name_1 {
     background: unset;
     padding: 10px 17px;
     display: block;
+    top: unset;
 }
 #edit-form img.edit-profile-image{
   width: 100%;
@@ -8213,13 +8228,47 @@ input#name_1 {
   padding: 40px;
 }
 /*25-02-2020 end*/
-
-
+.right_side_section , .edit-user .region-content , .bfssAthleteProfile .region-content , .edit-parent .region-content{
+  width: calc(100% - 25%);
+  transition: width 0.5s;
+}
+.open_left_side .right_side_section , .edit-user.open_left_side .region-content ,  .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{
+  width: calc(100% - 75px);
+  transition: width 0.5s;
+}
+.region-content .edit-parent{
+  padding: 20px;
+}
+.chat-popup{
+  z-index: 999 ! important;
+}
+.add_pos_first , .add_pos_second , .add_pos_third{
+  margin-left: 17px;
+  font-size: 12px;
+  color: #f76907 ! important;
+}
+.remove_pos_first , .remove_pos_second , .remove_pos_third{
+  font-size: 12px;
+  margin-left: 15px;
+  color: #f76907 ! important;
+  display: none;
+}
+.parent_hide{
+   display: none;
+}
         /* media quaries*/
 @media (max-width: 992px) {
  .edit-user .spb-popup-main-wrapper.spb_top_center .preview{
     padding-top: 15px;
   }
+  .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content {
+    width: calc(100% - 33%);
+    transition: width 0.5s;
+}
+.open_left_side .right_side_section , .edit-user.open_left_side .region-content ,  .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{
+  width: calc(100% - 75px);
+  transition: width 0.5s;
+}
       .left_side_section{
       width: 33%;
     }
@@ -8297,6 +8346,10 @@ input#name_1 {
   .datepicker{
     width: 96%;
   }
+  .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content {
+    width: auto;
+    transition: width 0.5s;
+}
   .right_side_section{
     width: auto;
     transition: unset;

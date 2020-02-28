@@ -45,3 +45,27 @@ edit_form.parent_form:
     _title: 'Edit Parent/Guardian'
   requirements:
     _access: 'TRUE'
+    
+edit_form.delparent:
+  path: 'delete/parent/{id}/{delta}'
+  defaults:
+    _controller: '\Drupal\edit_form\Controller\delparent::deleteparent'
+    _title: 'Delete Parent/Guardian'
+  requirements:
+    _access: 'TRUE'
+    
+edit_form.delathlete:
+  path: 'delete/athlete/{aid}/{orgname}'
+  defaults:
+    _controller: '\Drupal\edit_form\Controller\delathlete::deleteathlete'
+    _title: 'Delete Athlete'
+  requirements:
+    _access: 'TRUE'
+    
+edit_form.changepassajax:
+  path: 'changepass/{oldpass}/{oldpassconfirm}/{newpass}'
+  defaults:
+    _controller: '\Drupal\edit_form\Controller\delparent::changepass'
+    _title: 'Change Password'
+  requirements:
+    _access: 'TRUE'

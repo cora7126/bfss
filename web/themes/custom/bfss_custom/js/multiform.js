@@ -11,5 +11,6 @@
       	jQuery(this).prop('checked', true);
       });
     }
+	
   }
 })(jQuery, Drupal);
