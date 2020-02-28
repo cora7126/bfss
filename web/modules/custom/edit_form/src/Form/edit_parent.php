@@ -35,7 +35,7 @@ class edit_parent extends FormBase {
 		$query1->condition('fpfnv.entity_id', $current_user,'=');
 		$query1->condition('pm.entity_id', $current_user,'=');
 		$results1 = $query1->execute()->fetchAll(); 
-		$count = count($results1);
+		// $count = count($results1);
 		// echo "<pre>"; print_r($results1);die;
 	$query2 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
 	$query2->join('user__field_parent_last_name', 'ufpln', 'fpfnv.delta = ufpln.delta');
@@ -46,24 +46,28 @@ class edit_parent extends FormBase {
 	// echo "<pre>"; print_r($results2);die;
 	$form['prefix'] = "<div class=athlete_edit_class>";
 	$form['suffix'] = "</div>";
-    // $query3 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
-	// $query3->fields('fpfnv');
-	  // $query3->condition('fpfnv.entity_id', $current_user,'=');
-	  // $results3 = $query3->execute()->fetchAll();
-	  // $count = count($results3);
+    $query3 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
+	$query3->fields('fpfnv');
+	  $query3->condition('fpfnv.entity_id', $current_user,'=');
+	  $results3 = $query3->execute()->fetchAll();
+	$query4 = \Drupal::database()->select('user__field_parent_last_name', 'abcd');
+	$query4->fields('abcd');
+	  $query4->condition('entity_id', $current_user,'=');
+	  $results4 = $query4->execute()->fetchAll();
+	  $count = count($results3);
 	  // echo "<pre>"; print_r($results3);die;
 	  $form['fname1'] = array(
       '#type' => 'textfield',
-      '#default_value' => $results1[0]->field_parent_first_name_value,
-	  '#attributes' => array('disabled'=>true),
-	  '#prefix'=> '<div class="left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3><div class=items_div>',
+      '#default_value' => $results3[0]->field_parent_first_name_value,
+	  // '#attributes' => array('disabled'=>true),
+	  '#prefix'=> '<div class="left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 	  '#placeholder' => t('First Name'),
       );
 	  $form['lname1'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Last Name'),
-      '#default_value' => $results2[0]->field_parent_last_name_value,
-	  '#attributes' => array('disabled'=>true),
+      '#default_value' => $results4[0]->field_parent_last_name_value,
+	  // '#attributes' => array('disabled'=>true),
       ); 
 	  $form['cellphone1'] = array(
       '#type' => 'textfield',
@@ -74,13 +78,14 @@ class edit_parent extends FormBase {
       '#type' => 'textfield',
 	  '#placeholder' => 'Home Phone',
       '#default_value' => $results1[0]->mobile2,
+	  '#suffix' => '',
       ); 
 	  if($count > 1){
 			  $form['fname2'] = array(
 			  '#type' => 'textfield',
 			  '#default_value' => $results1[1]->field_parent_first_name_value,
 			  '#attributes' => array('disabled'=>true),
-			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3><div class=items_div>',
+			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname2'] = array(
@@ -104,7 +109,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#default_value' => $results1['field_first_name_value'],
 			  '#attributes' => array('style'=>'display:none'),
-			  '#prefix'=> '</div></div><div class="athlete_left" style="display:none !important;"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3><div class=items_div>',
+			  '#prefix'=> '</div></div><div class="athlete_left parent_hide"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname2'] = array(
@@ -132,7 +137,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#default_value' => $results1[2]->field_parent_first_name_value,
 			  '#attributes' => array('disabled'=>true),
-			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3><div class=items_div>',
+			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname3'] = array(
@@ -156,7 +161,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#default_value' => $results1['field_first_name_value'],
 			  '#attributes' => array('style'=>'display:none'),
-			  '#prefix'=> '</div></div><div class="athlete_left" style="display:none !important;"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3><div class=items_div>',
+			  '#prefix'=> '</div></div><div class="athlete_left parent_hide"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname3'] = array(
@@ -184,7 +189,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#default_value' => $results1[3]->field_parent_first_name_value,
 			  '#attributes' => array('disabled'=>true),
-			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3><div class=items_div>',
+			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname4'] = array(
@@ -208,7 +213,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#default_value' => $results1['field_first_name_value'],
 			  '#attributes' => array('style'=>'display:none'),
-			  '#prefix'=> '</div></div><div class="athlete_left" style="display:none !important;"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3><div class=items_div>',
+			  '#prefix'=> '</div></div><div class="athlete_left parent_hide"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname4'] = array(
@@ -232,10 +237,17 @@ class edit_parent extends FormBase {
 			  
 	  }
 		
+	$form['label_text'] = array(
+	'#type' => 'label',
+	'#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
+	'#prefix' => '<a class="add_parent add_guardian"><i class="fa fa-plus"></i>Add Another Organization</a></div></div></div><div class ="right_section"><div class = "athlete_right">',
+	'#suffix' => '</div></div>',
+	'#attributes' => array('id => parent_label'),
+	);	
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
-		'#prefix' =>'	</div></div><div id="athlete_submit">',
+		'#prefix' =>'<a class="add_parent add_guardian"><i class="fa fa-plus"></i>Add Another Organization</a><div id="athlete_submit">',
 		'#suffix' => '</div>',
         //'#value' => t('Submit'),
     ];

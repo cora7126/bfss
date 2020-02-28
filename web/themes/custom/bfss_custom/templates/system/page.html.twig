@@ -59,14 +59,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
+
 {% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
 {# Main #}
 {% block main %}
   <div role="main" class="main-container remove_padding js-quickedit-main-content">
-    <div class="container px-0">
+    <div class="container">
 
       {# Header #}
-      <div class="row border_bottom custom-nav-box" style="margin-left: 0px;margin-right: 0px;margin-top:-2px">
+      <div class="row border_bottom custom-nav-box">
       <div class="col-lg-3 pr-0 pl-0">
          <nav class="navbar navbar-expand-xs bg-dark navbar-dark">
             <!-- Brand -->
@@ -247,9 +248,11 @@
      
       {% if page.header %}
         {% block header %}
+        <div class="row">
           <div class="col-sm-12" role="heading">
             {{ page.header }}
           </div>
+        </div>
         {% endblock %}
       {% endif %}
 
@@ -271,7 +274,7 @@
           page.sidebar_first is empty and page.sidebar_second is empty ? 'col-sm-12'
         ]
       %}
-      <section{{ content_attributes.addClass(content_classes) }}>
+      <section {{ "class='row'" }}>
           <!--Header left side section -->
       <div class="left_side_section pl-0 pr-0">
 

@@ -107,18 +107,30 @@ class edit_user extends FormBase {
 //	  '#attributes' => array('style' => 'display:none'),
       );
      
-	  $form['image_edit_user'] = [
-                            '#type' => 'managed_file',
+//	  $form['image_edit_user'] = [
+//                            '#type' => 'managed_file',
 //                            '#upload_validators' => [
 //                              'file_validate_extensions' => ['gif png jpg jpeg'],
 //                              'file_validate_size' => '',
 //                            ],
-                            '#theme' => 'image_widget',
-                            '#preview_image_style' => 'medium',
-                            '#upload_location' => 'public://',
-                            '#required' => FALSE,
-                            '#prefix' => '</div>',
-                          ];	
+//                            '#theme' => 'image_widget',
+//                            '#preview_image_style' => 'medium',
+//                            '#upload_location' => 'public://',
+//                            '#required' => FALSE,
+//                            '#prefix' => '</div>',
+//                          ];
+          $crop_config = \Drupal::config('image_widget_crop.settings');
+$form['image_edit_user'] = [
+  '#type' => 'image_crop',
+  '#file' => $file_object,
+  '#crop_type_list' => $crop_config->get('settings.crop_list'),
+  '#crop_preview_image_style' => $crop_config->get('settings.crop_preview_
+   image_style'),
+  '#show_default_crop' => $crop_config->get('settings.show_default_crop'),
+  '#show_crop_area' => $crop_config->get('settings.show_crop_area'),
+  '#warn_mupltiple_usages' => $crop_config->get('settings.warn_
+   mupltiple_usages'),
+];
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
@@ -130,7 +142,7 @@ class edit_user extends FormBase {
 	   $form['pass_label'] = array(
       '#type' => 'label',
       '#value' => t('Your password must be at least 8 characters long and contain at least one number and one character'),
-	  '#prefix' => '<div id=changepassdiv>',
+	  '#prefix' => '<div id="changepassdiv">',
       );
 	  $form['current_pass'] = array(
       '#type' => 'password',
@@ -147,7 +159,7 @@ class edit_user extends FormBase {
 	  
 	  $form['pass_error'] = array(
       '#type' => 'label',
-      '#value' => t('Incorrect enrty,please try again.'),
+      '#value' => t('Incorrect entry,please try again.'),
 	  '#suffix' => '<span class=passerror> Need more help? Click here </span>',
       );
     $form['changebutton'] = [

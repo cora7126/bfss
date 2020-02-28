@@ -11,36 +11,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
-<script type="text/javascript">
-   $(document).ready(function(){
-   $('.dropdown > a').click(function(e){
-     e.preventDefault();
-     e.stopPropagation();
-     $(this).siblings('.dropdown-menu').toggleClass('open');
-     $(this).find('.down-arrow').toggleClass('open-caret');
 
-   });
-
-   $(document).click(function(){
-       $('.dropdown-menu').removeClass('open');
-       $('.down-arrow').removeClass('open-caret');  
-     });
-   });
-   
-   function openForm() {
-   document.getElementById("myForm").style.display = "block";
-   }
-   
-   function closeForm() {
-   document.getElementById("myForm").style.display = "none";
-   }
-   
-   
-</script>
 <body>
    
    </div>
-   <div class="row" style="margin-left: 0px;margin-right: 0px;">
+   
       <!-- ------------Side Navbar----------start -->
 
      
@@ -142,7 +117,6 @@
             </div>
          </div>
       </div>
-   </div>
    <div class="container">
       <div class="modal fade" id="myModal" role="dialog">
          <div class="modal-dialog">
@@ -310,22 +284,6 @@
     </div>
   </div>
    <!-----Model_End------>
-   <script>
-      var acc = document.getElementsByClassName("accordion");
-      var i;
-      
-      for (i = 0; i < acc.length; i++) {
-       acc[i].addEventListener("click", function() {
-         this.classList.toggle("active");
-         var panel = this.nextElementSibling;
-         if (panel.style.display === "none") {
-           panel.style.display = "block";
-         } else {
-           panel.style.display = "none";
-         }
-       });
-      }
-      
-   </script>
+  
 </body>
 </html>
