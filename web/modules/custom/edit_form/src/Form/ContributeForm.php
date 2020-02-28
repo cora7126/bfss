@@ -86,6 +86,18 @@ class ContributeForm extends FormBase {
 		$query_img->addField('n', 'user_picture_target_id');
 		$query_img->condition('entity_id', $current_user,'=');
 		$results = $query_img->execute()->fetchAssoc();
+	$query15 = \Drupal::database()->select('athlete_addschool', 'aas');
+		$query15->fields('aas');
+		$query15->condition('athlete_uid', $current_user,'=');
+		$results15 = $query15->execute()->fetchAssoc();
+	$query16 = \Drupal::database()->select('athlete_club', 'aclub');
+		$query16->fields('aclub');
+		$query16->condition('athlete_uid', $current_user,'=');
+		$results16 = $query16->execute()->fetchAssoc();
+	$query17 = \Drupal::database()->select('athlete_clubweb', 'aclubw');
+		$query17->fields('aclubw');
+		$query17->condition('athlete_uid', $current_user,'=');
+		$results17 = $query17->execute()->fetchAssoc(); 
 	$img_id = $results['user_picture_target_id'];
 	// echo "<pre>"; print_r($results8['field_state_value']);die;
 	// $file = File::load($img_id);
@@ -195,7 +207,7 @@ class ContributeForm extends FormBase {
 		'#type' => 'select',
 		//'#description' => 'Select the desired pizza crust size.',
 		'#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
-		'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+		'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
 		'#default_value' => array_search($results5['athlete_school_type'],$orgtype),
       );
 		$orgname = array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3'));
@@ -220,8 +232,8 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Position'),
       '#default_value' => $results5['athlete_school_pos'],
-	  '#prefix' => '<div class="add_pos_div">',
-	  '#suffix' => '<a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos"><i class="fa fa-trash"></i>Remove Position</a>',
+	  '#prefix' => '<div class="add_pos_div_first">',
+	  '#suffix' => '',
       );
 	  if(empty($results5['athlete_school_pos2'])){
 		  $form['position2'] = array (
@@ -229,17 +241,17 @@ class ContributeForm extends FormBase {
 		  '#placeholder' => t('Position'),
 		  '#default_value' => $results5['athlete_school_pos2'],
 		  '#attributes' => array('style'=>'display:none'),
-		  '#prefix' => '',
-		  '#suffix' => '',
+		  '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
+		  '#suffix' => '</div>',
 		  );
 	  }else{
 		  $form['position2'] = array (
 		  '#type' => 'textfield',
 		  '#placeholder' => t('Position'),
 		  '#default_value' => $results5['athlete_school_pos2'],
-		  // '#attributes' => array('style'=>'display:block'),
-		  '#prefix' => '',
-		  '#suffix' => '',
+		  '#attributes' => array('class' =>'pos_show_first_1','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_1',
+		  '#suffix' => '</div>',
 		  );
 	  }
 	  if(empty($results5['athlete_school_pos3'])){
@@ -247,8 +259,8 @@ class ContributeForm extends FormBase {
 		  '#type' => 'textfield',
 		  '#placeholder' => t('Position'),
 		  '#default_value' => $results5['athlete_school_pos3'],
-		  '#attributes' => array('style'=>'display:none'),
-		  '#prefix' => '',
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
 		  '#suffix' => '</div>',
 		  );
 	  }else{
@@ -256,27 +268,29 @@ class ContributeForm extends FormBase {
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Position'),
 			  '#default_value' => $results5['athlete_school_pos3'],
-			  '#attributes' => array('style'=>'display:block'),
-			  '#prefix' => '',
-			  '#suffix' => '</div>',
+			  '#attributes' => array('class' =>'pos_show_first_2','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_2',
+		  '#suffix' => '</div>',
 			  );
 	  }
 	  
 	  $form['stats'] = array (
       '#type' => 'textarea',
       '#placeholder' => t('Add all personal stats'),
+	  '#prefix' =>'<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a>',
 	  '#suffix' => '</div></div>',
       '#default_value' => $results5['athlete_school_stat'],
       );
     
     /*Add another organization 1 start*/
-    $orgtype2 =  array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3'));      
+	if(!empty($results12)){
+		$orgtype2 =  array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3'));      
        $form['education_1'] = array(
 		//'#title' => t('az'),
 		'#type' => 'select',
 		//'#description' => 'Select the desired pizza crust size.',
 		'#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
-		'#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+		'#prefix' => '</div><div class="org_notempty"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_uni" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
         '#default_value' => array_search($results12['athlete_uni_type'],$orgtype2),
       );
 	$orgname2 = array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3'));
@@ -301,26 +315,26 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Position'),
       '#default_value' => $results12['athlete_uni_pos'],
-	  '#prefix' => '<div class="add_pos_div">',
-	  '#suffix' => '<a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos"><i class="fa fa-trash"></i>Remove Position</a></div>',
+	  '#prefix' => '<div class="add_pos_div_first">',
+	  '#suffix' => '',
       );
 	  if(empty($results6['athlete_uni_pos2'])){
 		  $form['position_12'] = array (
 		  '#type' => 'textfield',
 		  '#placeholder' => t('Position'),
 		  '#default_value' => $results6['athlete_uni_pos2'],
-		  '#attributes' => array('style'=>'display:none'),
-		  '#prefix' => '',
-		  '#suffix' => '',
+		  '#attributes' => array('class' =>'pos_hidden_second_1','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
+		  '#suffix' => '</div>',
 		  );
 	  }else{
 		  $form['position_12'] = array (
 		  '#type' => 'textfield',
 		  '#placeholder' => t('Position'),
 		  '#default_value' => $results6['athlete_uni_pos2'],
-		  '#attributes' => array('style'=>'display:block'),
-		  '#prefix' => '',
-		  '#suffix' => '',
+		  '#attributes' => array('class' =>'pos_show_first_1','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_1',
+		  '#suffix' => '</div>',
 		  );
 	  }
 	  if(empty($results6['athlete_uni_pos3'])){
@@ -328,30 +342,189 @@ class ContributeForm extends FormBase {
 		  '#type' => 'textfield',
 		  '#placeholder' => t('Position'),
 		  '#default_value' => $results6['athlete_uni_pos3'],
-		  '#attributes' => array('style'=>'display:none'),
-		  '#prefix' => '',
-		  '#suffix' => '',
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
+		  '#suffix' => '</div>',
 		  );
 	  }else{
 		  $form['position_13'] = array (
 		  '#type' => 'textfield',
 		  '#placeholder' => t('Position'),
 		  '#default_value' => $results6['athlete_uni_pos3'],
-		  '#attributes' => array('style'=>'display:block'),
-		  '#prefix' => '',
-		  '#suffix' => '',
+		  '#attributes' => array('class' =>'pos_show_first_2','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_2',
+		  '#suffix' => '</div>',
 		  );
 	  }
 	  $form['stats_1'] = array (
       '#type' => 'textarea',
       '#placeholder' => t('Add all personal stats'),
+	  '#prefix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a></div>',
 	  '#suffix' => '</div></div>',
       '#default_value' => $results12['athlete_uni_stat'],
-      );     
+      );   
+	} else{
+		$orgtype2 =  array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3'));      
+       $form['education_1'] = array(
+		//'#title' => t('az'),
+		'#type' => 'select',
+		//'#description' => 'Select the desired pizza crust size.',
+		'#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
+		'#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+        // '#default_value' => array_search($results12['athlete_uni_type'],$orgtype2),
+      );
+	$orgname2 = array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3'));
+	  $form['schoolname_1'] = array(
+		//'#title' => t('az'),
+		'#type' => 'select',
+		//'#description' => 'Select the desired pizza crust size.',
+		'#options' => array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3')),
+        // '#default_value' => array_search($results12['athlete_uni_name'],$orgname2),
+      );
+	  $form['coach_1'] = array (
+      '#type' => 'textfield',
+      '#placeholder' => t("Coache's Last Name"),
+      // '#default_value' => $results12['athlete_uni_coach'],
+      );
+	  $form['sport_1'] = array (
+      '#type' => 'textfield',
+      '#placeholder' => t('Sport'),
+      // '#default_value' => $results12['athlete_uni_sport'],
+      );
+	  $form['position_1'] = array (
+      '#type' => 'textfield',
+      '#placeholder' => t('Position'),
+      // '#default_value' => $results12['athlete_uni_pos'],
+	  '#prefix' => '<div class="add_pos_div_first">',
+	  '#suffix' => '',
+      );
+	  if(empty($results6['athlete_uni_pos2'])){
+		  $form['position_12'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_uni_pos2'],
+		  '#attributes' => array('class' =>'pos_hidden_second_1','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
+		  '#suffix' => '</div>',
+		  );
+	  }else{
+		  $form['position_12'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_uni_pos2'],
+		  '#attributes' => array('class' =>'pos_show_first_1','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_1',
+		  '#suffix' => '</div>',
+		  );
+	  }
+	  if(empty($results6['athlete_uni_pos3'])){
+		  $form['position_13'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_uni_pos3'],
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
+		  '#suffix' => '</div>',
+		  );
+	  }else{
+		  $form['position_13'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_uni_pos3'],
+		  '#attributes' => array('class' =>'pos_show_first_2','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_2',
+		  '#suffix' => '</div>',
+		  );
+	  }
+	  $form['stats_1'] = array (
+      '#type' => 'textarea',
+      '#placeholder' => t('Add all personal stats'),
+	  '#prefix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a></div>',
+	  '#suffix' => '</div></div>',
+      // '#default_value' => $results12['athlete_uni_stat'],
+      );   
+	}
+      
      /*Add another organization 1 END*/
           /*Add another organization 1 start*/
-          
-       $form['education_2'] = array(
+    if(!empty($results16)){
+		$unitype = array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3'));
+		$form['education_2'] = array(
+		'#type' => 'select',
+		'#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
+	  '#prefix' => '</div><div class="org_notempty"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+	  '#default_value' => array_search($results12['athlete_uni_type'],$unitype),
+      );
+		$uniname = array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3'));
+	  $form['schoolname_2'] = array(
+		'#type' => 'select',
+		'#options' => array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3')),
+		'#default_value' => array_search($results12['athlete_uni_name'],$uniname),
+      );
+		$form['coach_2'] = array (
+      '#type' => 'textfield',
+      '#placeholder' => t("Coache's Last Name"),
+      '#default_value' => $results16['athlete_club_coach'],
+      );
+	  $form['sport_2'] = array (
+      '#type' => 'textfield',
+      '#placeholder' => t('Sport'),
+      '#default_value' => $results16['athlete_club_sport'],
+      );
+	  $form['position_2'] = array (
+      '#type' => 'textfield',
+      '#placeholder' => t('Position'),
+      '#default_value' => $results16['athlete_club_pos'],
+	  '#prefix' => '<div class="add_pos_div_first">',
+	  '#suffix' => '',
+      );
+	  if(empty($results16['athlete_school_pos2'])){
+		  $form['position_22'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results16['athlete_school_pos2'],
+		  '#attributes' => array('class' =>'pos_hidden_third_1','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
+		  '#suffix' => '</div>',
+		  );
+	  }else{
+		  $form['position_22'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results16['athlete_school_pos2'],
+		  '#attributes' => array('class' =>'pos_show_first_1','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_1',
+		  '#suffix' => '</div>',
+		  );
+	  }
+	  if(empty($results16['athlete_school_pos3'])){
+		   $form['position_23'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results16['athlete_school_pos3'],
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
+		  '#suffix' => '</div>',
+		  );
+	  }else{
+		  $form['position_23'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results16['athlete_school_pos3'],
+		  '#attributes' => array('class' =>'pos_show_first_2','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_2',
+		  '#suffix' => '</div>',
+		  );
+	  }
+	  $form['stats_2'] = array (
+      '#type' => 'textarea',
+      '#placeholder' => t('Add all personal stats'),
+	  '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+      '#default_value' => '',
+	  '#prefix'=>'<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a></div>',
+      );
+	}else{
+		  $form['education_2'] = array(
 		//'#title' => t('az'),
 		'#type' => 'select',
 		//'#description' => 'Select the desired pizza crust size.',
@@ -379,15 +552,55 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Position'),
       '#default_value' => '',
-	  '#prefix' => '<div class="add_pos_div">',
-	  '#suffix' => '<a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos"><i class="fa fa-trash"></i>Remove Position</a></div>',
+	  '#prefix' => '<div class="add_pos_div_first">',
+	  '#suffix' => '',
       );
-	  $form['stats_2'] = array (
-      '#type' => 'textarea',
-      '#placeholder' => t('Add all personal stats'),
-	  '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
-      '#default_value' => '',
-      );     
+	  if(empty($results16['athlete_school_pos2'])){
+		  $form['position_22'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_school_pos2'],
+		  '#attributes' => array('class' =>'pos_hidden_first_1','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
+		  '#suffix' => '</div>',
+		  );
+	  }else{
+		  $form['position_22'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_school_pos2'],
+		  '#attributes' => array('class' =>'pos_show_first_1','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_1 ',
+		  '#suffix' => '</div>',
+		  );
+	  }
+	  if(empty($results16['athlete_school_pos3'])){
+		   $form['position_23'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_school_pos3'],
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
+		  '#suffix' => '</div>',
+		  );
+	  }else{
+		  $form['position_23'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  // '#default_value' => $results6['athlete_school_pos3'],
+		  '#attributes' => array('class' =>'pos_show_first_2','style'=>'display:block'),
+		  '#prefix' => '<div class =pos_show_first_2',
+		  '#suffix' => '</div>',
+		  );
+	  }
+		  $form['stats_2'] = array (
+		  '#type' => 'textarea',
+		  '#placeholder' => t('Add all personal stats'),
+		  '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+		  '#default_value' => '',
+		  '#prefix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a></div>',
+		  );
+	  }
      /*Add another organization 1 END*/
      
 	  $form['image_athlete'] = [
@@ -403,7 +616,8 @@ class ContributeForm extends FormBase {
 							'#default_value' => array($img_id),
 							'#prefix' => '</div>',
 							'#suffix' =>'<div class="action_bttn"><span>Action</span><ul><li>Remove</li></ul></div></div></div>',
-                          ];				  
+                          ];		
+						  
 	   $form['school_web'] = array (
       '#type' => 'textfield',
       '#placeholder' => t('School'),
@@ -442,54 +656,97 @@ class ContributeForm extends FormBase {
 		'#type' => 'select',
 		'#options' => array(t('Website Visibility'), t('On'), t('Off')),
 		'#default_value' => $results13['athlete_web_visibility'],
-		'#suffix' => '</div>',
+		'#suffix' => '',
       );
-   $form['school_web2'] = array (
-      '#type' => 'textfield',
-      '#placeholder' => t('School'),
-      '#default_value' => $results6['athlete_uni_name'],
-	  '#attributes' => array('disabled' => true),
-	  '#prefix' => '</div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
-      );
-	   $form['sport_web2'] = array (
-      '#type' => 'textfield',
-      '#placeholder' => t('Sport'),
-      '#default_value' => $results6['athlete_uni_sport'],
-	  '#attributes' => array('disabled' => true),
-      );
-	   $form['name_web2'] = array (
-      '#type' => 'textfield',
-      '#placeholder' => t('Pick a Name'),
-      '#default_value' => $results14['athlete_addweb_name'],
-	  '#prefix' => '<div class="container-inline web_name">',
-'#suffix' => '</div>',
-	  '#attributes' => array('id'=>'name_2'),
-      );
-	  $form['label_12'] = array (
-      '#type' => 'label',
-      '#title' => '.bfsscience.com',
-	  '#attributes' => array('id'=>'label_2'),
-      );
-	  $form['label_22'] = array (
-      '#type' => 'label',
-      '#title' => 'Create your unique website profile.<br> eg.jodibloggs.bfsscience.com.<br> Once published , this will become your permanent address and it can not be changed.<br>',
-      );
-	  $form['preview_12'] = array (
-      '#type' => 'button',
-      '#default_value' => 'Preview Changes',
-      );
-	  $form['web_visible_2'] = array(
-		'#type' => 'select',
-		'#options' => array(t('Website Visibility'), t('on'), t('off')),
-		'#default_value' => $results14['athlete_addweb_visibility'],
-		'#suffix' => '</div></div></div></div>',
-      );
-   
+	 if(!empty($results12)){
+		   $form['school_web2'] = array (
+			  '#type' => 'textfield',
+			  '#placeholder' => t('School'),
+			  '#default_value' => $results6['athlete_uni_name'],
+			  '#attributes' => array('disabled' => true),
+			  '#prefix' => '</div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
+			  );
+			   $form['sport_web2'] = array (
+			  '#type' => 'textfield',
+			  '#placeholder' => t('Sport'),
+			  '#default_value' => $results6['athlete_uni_sport'],
+			  '#attributes' => array('disabled' => true),
+			  );
+			   $form['name_web2'] = array (
+			  '#type' => 'textfield',
+			  '#placeholder' => t('Pick a Name'),
+			  '#default_value' => $results14['athlete_addweb_name'],
+			  '#prefix' => '<div class="container-inline web_name">',
+				'#suffix' => '</div>',
+			  '#attributes' => array('id'=>'name_2'),
+			  );
+			  $form['label_12'] = array (
+			  '#type' => 'label',
+			  '#title' => '.bfsscience.com',
+			  '#attributes' => array('id'=>'label_2'),
+			  );
+			  $form['label_22'] = array (
+			  '#type' => 'label',
+			  '#title' => 'Create your unique website profile.<br> eg.jodibloggs.bfsscience.com.<br> Once published , this will become your permanent address and it can not be changed.<br>',
+			  );
+			  $form['preview_12'] = array (
+			  '#type' => 'button',
+			  '#default_value' => 'Preview Changes',
+			  );
+			  $form['web_visible_2'] = array(
+				'#type' => 'select',
+				'#options' => array(t('Website Visibility'), t('on'), t('off')),
+				'#default_value' => $results14['athlete_addweb_visibility'],
+				'#suffix' => '</div></div></div>',
+			  );
+	 }
+	 if(!empty($results16)){	
+		 $form['school_web3'] = array (
+			  '#type' => 'textfield',
+			  '#placeholder' => t('School'),
+			  '#default_value' => $results16['athlete_club_name'],
+			  '#attributes' => array('disabled' => true),
+			  '#prefix' => '<div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
+			  );
+			   $form['sport_web3'] = array (
+			  '#type' => 'textfield',
+			  '#placeholder' => t('Sport'),
+			  '#default_value' => $results16['athlete_club_sport'],
+			  '#attributes' => array('disabled' => true),
+			  );
+			   $form['name_web3'] = array (
+			  '#type' => 'textfield',
+			  '#placeholder' => t('Pick a Name'),
+			  '#default_value' => $results17['athlete_clubweb_name'],
+			  '#prefix' => '<div class="container-inline web_name">',
+				'#suffix' => '</div>',
+			  '#attributes' => array('id'=>'name_2'),
+			  );
+			  $form['label_13'] = array (
+			  '#type' => 'label',
+			  '#title' => '.bfsscience.com',
+			  '#attributes' => array('id'=>'label_2'),
+			  );
+			  $form['label_23'] = array (
+			  '#type' => 'label',
+			  '#title' => 'Create your unique website profile.<br> eg.jodibloggs.bfsscience.com.<br> Once published , this will become your permanent address and it can not be changed.<br>',
+			  );
+			  $form['preview_13'] = array (
+			  '#type' => 'button',
+			  '#default_value' => 'Preview Changes',
+			  );
+			  $form['web_visible_3'] = array(
+				'#type' => 'select',
+				'#options' => array(t('Website Visibility'), t('on'), t('off')),
+				'#default_value' => $results17['athlete_clubweb_visibility'],
+				'#suffix' => '</div></div></div>',
+			  );
+	 }
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
 		'#prefix' =>'<div id="athlete_submit">',
-		'#suffix' => '</div>',
+		'#suffix' => '</div></div>',
         //'#value' => t('Submit'),
     ];
     // $form['#theme'] = 'athlete_form';
@@ -516,11 +773,15 @@ class ContributeForm extends FormBase {
 	$selname1 = $form_state->getValue('organizationName');
 	$seltype2 = $form_state->getValue('education_1');
 	$selname2 = $form_state->getValue('schoolname_1');
+	$seltype3 = $form_state->getValue('education_2');
+	$selname3 = $form_state->getValue('schoolname_2');
 	$selstate = $form_state->getValue('az');
 	$seltypeval1 = $form['organizationType']['#options'][$seltype1];
 	$selnameval1 = $form['organizationName']['#options'][$selname1];
 	$seltypeval2 = $form['education_1']['#options'][$seltype2];
 	$selnameval2 = $form['schoolname_1']['#options'][$selname2];
+	$seltypeval3 = $form['education_2']['#options'][$seltype3];
+	$selnameval3 = $form['schoolname_2']['#options'][$selname3];
 	$statevalue = $form['az']['#options'][$selstate];
     $query_info = \Drupal::database()->select('athlete_info', 'ai');
 		$query_info->fields('ai');
@@ -570,6 +831,14 @@ class ContributeForm extends FormBase {
 		$query_addweb->fields('athaw');
 		$query_addweb->condition('athlete_uid', $current_user,'=');
 		$results_addweb = $query_addweb->execute()->fetchAll();
+	$query_clubweb = \Drupal::database()->select('athlete_clubweb', 'athawa');
+		$query_clubweb->fields('athawa');
+		$query_clubweb->condition('athlete_uid', $current_user,'=');
+		$results_clubweb = $query_clubweb->execute()->fetchAll();
+	$query_club = \Drupal::database()->select('athlete_club', 'athawac');
+		$query_club->fields('athawac');
+		$query_club->condition('athlete_uid', $current_user,'=');
+		$results_club = $query_club->execute()->fetchAll();
 	// $query_img = \Drupal::database()->select('user__user_picture', 'n');
 		// $query_img->addField('n', 'user_picture_target_id');
 		// $query_img->condition('entity_id', $current_user,'=');
@@ -771,6 +1040,24 @@ class ContributeForm extends FormBase {
 			)
 		)
 				->execute();
+	}
+	if(empty($results_clubweb)){
+		$conn->insert('athlete_clubweb')->fields(
+			array(
+			'athlete_uid' => $current_user,
+			'athlete_clubweb_name' => $form_state->getValue('name_web3'),
+			'athlete_clubweb_visibility' => $form_state->getValue('web_visible_3'),
+			)
+		)->execute();
+	}else{
+		$conn->update('athlete_clubweb')
+				->condition('athlete_uid',$current_user,'=')->fields(
+			array(
+			'athlete_clubweb_name' => $form_state->getValue('name_web3'),
+			'athlete_clubweb_visibility' => $form_state->getValue('web_visible_3'),
+			)
+		)
+				->execute();
 	}	
 	if(empty($results_school)){
 		$conn->insert('athlete_school')->fields(
@@ -798,6 +1085,36 @@ class ContributeForm extends FormBase {
 			'athlete_school_pos3' => $form_state->getValue('position3'),
 			'athlete_school_stat' => $form_state->getValue('stats'),
 			'athlete_school_type' => $seltypeval1,
+			)
+		)
+				->execute();
+	}
+	if(empty($results_club)){
+		$conn->insert('athlete_club')->fields(
+			array(
+			'athlete_uid' => $current_user,
+			'athlete_club_name' => $selnameval3,
+			'athlete_club_coach' => $form_state->getValue('coach_2'),
+			'athlete_club_sport' => $form_state->getValue('sport_2'),
+			'athlete_club_pos' => $form_state->getValue('position_2'),
+			'athlete_school_pos2' => $form_state->getValue('position_22'),
+			'athlete_school_pos3' => $form_state->getValue('position_23'),
+			'athlete_club_stat' => $form_state->getValue('stats_2'),
+			'athlete_school_type' => $seltypeval3,
+			)
+		)->execute();
+	}else{
+		$conn->update('athlete_club')
+				->condition('athlete_uid',$current_user,'=')->fields(
+			array(
+			'athlete_club_name' => $selnameval3,
+			'athlete_club_coach' => $form_state->getValue('coach_2'),
+			'athlete_club_sport' => $form_state->getValue('sport_2'),
+			'athlete_club_pos' => $form_state->getValue('position_2'),
+			'athlete_school_pos2' => $form_state->getValue('position_22'),
+			'athlete_school_pos3' => $form_state->getValue('position_23'),
+			'athlete_club_stat' => $form_state->getValue('stats_2'),
+			'athlete_school_type' => $seltypeval3,
 			)
 		)
 				->execute();

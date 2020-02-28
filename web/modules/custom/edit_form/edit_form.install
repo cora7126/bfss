@@ -391,3 +391,111 @@ function edit_form_update_8107(){
     $schema = Database::getConnection()->schema();
 	$schema->createTable('parent_mobiles', $spec);
 }
+function edit_form_update_8108(){
+	$spec = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_addschool_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_addschool_coach'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_addschool_sport'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+        ),
+      'athlete_addschool_pos'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+      'athlete_addschool_stat'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+	  'athlete_addschool_type'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+	  'athlete_addschool_pos2'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+	  'athlete_addschool_pos3'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $position_adds = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+  $position_adds2 = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+  $position_adds3 = [
+    'type' => 'varchar',
+    'description' => "",
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+     
+ $schema = Database::getConnection()->schema();
+ $schema->createTable('athlete_addschool', $spec);
+ $schema->addField('athlete_club', 'athlete_school_type', $position_adds);
+ $schema->addField('athlete_club', 'athlete_school_pos2', $position_adds2);
+ $schema->addField('athlete_club', 'athlete_school_pos3', $position_adds3);
+}
+function edit_form_update_8109(){
+	$spec = array(
+    'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+	  'athlete_clubweb_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'athlete_clubweb_visibility'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  ); 
+  $schema = Database::getConnection()->schema();
+ $schema->createTable('athlete_clubweb', $spec);
+}
