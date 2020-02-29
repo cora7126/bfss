@@ -32,7 +32,7 @@ class delparent extends ControllerBase {
 			  return new JsonResponse($response);
 		}
 		
-		public function changepass($id=null,$delta=null)
+		public function changepass($oldpass=null,$newpass=null,$newpassconfirm=null)
 		{ 
 			$current_user = \Drupal::currentUser()->id();
 			$current_user_name = \Drupal::currentUser()->getUsername();
@@ -41,17 +41,21 @@ class delparent extends ControllerBase {
 				$query1->addField('ufd', 'pass');
 				$query1->condition('uid', $current_user,'=');
 				$results1 = $query1->execute()->fetchAssoc(); 
-		
+					
 				$loggedin = \Drupal::service('user.auth')->authenticate($current_user_name, $oldpass);
 				if($loggedin == $current_user){
 					if($newpass == $newpassconfirm){
-						// $conn->update('users_field_data')->fields(
-								// array(
-								// 'pass' => $newpass,
-								// )
-						// );
-						// $conn->condition('uid',$current_user,'=');
-						// $conn->execute();
+						// Get user storage object.
+					$user_storage = \Drupal::entityManager()->getStorage('user');
+
+					// Load user by their user ID
+					$user = $user_storage->load($current_user);
+
+					// Set the new password
+					$user->setPassword($newpass);
+
+					// Save the user
+					$user->save();
 					}else{
 						drupal_set_message('NEW PASS MISMATCH ERROR','error');
 					}

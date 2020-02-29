@@ -11,49 +11,58 @@ error :function (data){
 }
 
 });*/
+		//Delete Second Social/Club/Uni
 		jQuery('#athlete_uni').on('click',function(){
-			jQuery.ajax({
-				url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_uni',
-				dataType: 'json',
-				cache: false,
-				success: function(data){
-				},
-				error :function (data){
+			if(confirm('Are you sure you want to delete this?')){
+				jQuery.ajax({
+					url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_uni',
+					dataType: 'json',
+					cache: false,
+					success: function(data){
+					},
+					error :function (data){
 
-				}
-
-			});
+					}
+				});
 			jQuery(this).parents('.athlete_left').remove();
+			}
 		});
+		//Delete Third Social/Club/Uni
 		jQuery('#athlete_club').on('click',function(){
-			jQuery.ajax({
-				url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_club',
-				dataType: 'json',
-				cache: false,
-				success: function(data){
-				},
-				error :function (data){
+			if(confirm('Are you sure you want to delete this?')){
+				jQuery.ajax({
+					url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_club',
+					dataType: 'json',
+					cache: false,
+					success: function(data){
+					},
+					error :function (data){
 
-				}
-
-			});
-			jQuery(this).parents('.athlete_left').remove();
+					}
+				});
+				jQuery(this).parents('.athlete_left').remove();
+			}
 		});
-		// jQuery('#save_pass').on('click',function(e){
-					// e.stopPropagation();
-					// e.preventDefault();
-					// jQuery.ajax({
-						// url : 'http://5ppsystem.com/changepass/'+$oldpass+'/'+$oldpassconfirm+'/'+$newpass,
-						// dataType: 'json',
-						// cache: false,
-						// success: function(data){
-						// jQuery('span.changepassdiv-modal-close.spb_close').hide();
-						// },
-						// error :function (data){
+		//To CHANGE USER PASS
+		jQuery('#save_pass').on('click',function(e){
+					e.stopPropagation();
+					e.preventDefault();
+					var oldpass = jQuery('#edit-current-pass').val();
+					var newpass = jQuery('#edit-newpass').val();
+					var newpassconfirm = jQuery('#edit-newpassconfirm').val();
+					jQuery.ajax({
+						url : 'http://5ppsystem.com/changepass/'+oldpass+'/'+newpass+'/'+newpassconfirm,
+						dataType: 'json',
+						cache: false,
+						success: function(data){
+						
+						},
+						error :function (data){
 
-						// }
-					// });
-		// });
+						}
+					});
+					jQuery('span.changepassdiv-modal-close.spb_close').click();
+		});
         //$('#cssmenu').prepend('<div id="menu-button">Menu</div>');
         $('#cssmenu #menu-button').on('click', function() {
 
@@ -81,16 +90,16 @@ error :function (data){
 //            jQuery(document).find('.image-widget').find('button').submit();
 //        })
         
-        jQuery(document).on('click','.add_pos_div .remove_pos',function(){
-            jQuery(this).parents('.add_pos_div ').find('.form-item').last().remove();
-            if(jQuery(this).parents('.add_pos_div ').find('.form-item').length < 2 ){
-                jQuery(this).parents('.add_pos_div ').find('.remove_pos').hide();
-            }else{
-                jQuery(this).parents('.add_pos_div').find('.remove_pos').show();
+        // jQuery(document).on('click','.add_pos_div .remove_pos',function(){
+            // jQuery(this).parents('.add_pos_div ').find('.form-item').last().remove();
+            // if(jQuery(this).parents('.add_pos_div ').find('.form-item').length < 2 ){
+                // jQuery(this).parents('.add_pos_div ').find('.remove_pos').hide();
+            // }else{
+                // jQuery(this).parents('.add_pos_div').find('.remove_pos').show();
                 
-            }
+            // }
             
-        })
+        // })
        
          /* 20-02-2020 */
         jQuery(document).on('click','.left_section .athlete_left h3 , .right_section .athlete_right h3',function(){
@@ -118,8 +127,94 @@ error :function (data){
             jQuery(this).parents('.athlete_school').append(skl_data);
         });*/
         var counter_click_addpos = 0;
-        jQuery(document).on('click','.add_pos_first', function(){
-            console.log("here: ", jQuery(this).parents('.add_pos_div_first ').find('.hidpos').length);
+		//FIRST POSITION
+		if(jQuery('#edit-position2').css('display') != 'none'){
+			if(jQuery('#edit-position3').css('display') != 'none'){
+				jQuery('.add_pos_first').hide();
+			}
+			jQuery('.remove_pos_first').show();
+		}
+        jQuery(document).on('click','.add_pos_first', function(){ 
+			if(jQuery('#edit-position2').css('display') == 'none'){
+				jQuery('#edit-position2').show();
+				jQuery('.remove_pos_first').show();
+			}else if(jQuery('#edit-position3').css('display') == 'none'){
+				jQuery('#edit-position3').show();
+				jQuery(this).hide();
+			}
+		});
+		jQuery(document).on('click','.remove_pos_first', function(){
+			if(jQuery('#edit-position3').css('display') != 'none'){
+				jQuery('#edit-position3').val("");
+				jQuery('#edit-position3').hide();
+				jQuery('.add_pos_first').show();
+			}else if(jQuery('#edit-position2').css('display') != 'none'){
+				jQuery('#edit-position2').val("");
+				jQuery('#edit-position2').hide();
+				jQuery(this).hide();
+			}
+		});
+		//SECOND POSITION
+		if(jQuery('#edit-position-12').css('display') != 'none'){
+			if(jQuery('#edit-position-13').css('display') != 'none'){
+				jQuery('.add_pos_second').hide();
+			}
+			jQuery('.remove_pos_second').show();
+		}
+		jQuery(document).on('click','.add_pos_second', function(){ 
+			if(jQuery('#edit-position-12').css('display') == 'none'){
+				jQuery('#edit-position-12').show();
+				jQuery('.remove_pos_second').show();
+			}else if(jQuery('#edit-position-13').css('display') == 'none'){
+				jQuery('#edit-position-13').show();
+				jQuery(this).hide();
+			}
+		});
+		jQuery(document).on('click','.remove_pos_second', function(){
+			if(jQuery('#edit-position-13').css('display') != 'none'){
+				jQuery('#edit-position-13').val("");
+				jQuery('#edit-position-13').hide();
+				jQuery('.add_pos_second').show();
+			}else if(jQuery('#edit-position-12').css('display') != 'none'){
+				jQuery('#edit-position-12').val("");
+				jQuery('#edit-position-12').hide();
+				jQuery(this).hide();
+			}
+		});
+		//THIRD POSITION
+		if(jQuery('#edit-position-22').css('display') != 'none'){
+			if(jQuery('#edit-position-23').css('display') != 'none'){
+				jQuery('.add_pos_third').hide();
+			}
+			jQuery('.remove_pos_third').show();
+		}
+		jQuery(document).on('click','.add_pos_third', function(){ 
+			if(jQuery('#edit-position-22').css('display') == 'none'){
+				jQuery('#edit-position-22').show();
+				jQuery('.remove_pos_third').show();
+			}else if(jQuery('#edit-position-23').css('display') == 'none'){
+				jQuery('#edit-position-23').show();
+				jQuery(this).hide();
+			}
+		});
+		jQuery(document).on('click','.remove_pos_third', function(){
+			if(jQuery('#edit-position-23').css('display') != 'none'){
+				jQuery('#edit-position-23').val("");
+				jQuery('#edit-position-23').hide();
+				jQuery('.add_pos_third').show();
+			}else if(jQuery('#edit-position-22').css('display') != 'none'){
+				jQuery('#edit-position-22').val("");
+				jQuery('#edit-position-22').hide();
+				jQuery(this).hide();
+			}
+		});
+		//TO REMOVE ADD ANOTHER ORG LINK IF MAX LIMIT REACHED
+		if(jQuery('.athlete_school.popup-athlete-school-hide.last_athlete').css('display') != 'none' && jQuery('.athlete_school.popup-athlete-school-hide.previous_athlete').css('display') != 'none'){
+			jQuery('.popup_add_org').hide();
+		}
+		
+		
+            /*console.log("here: ", jQuery(this).parents('.add_pos_div_first ').find('.hidpos').length);
             if(jQuery(this).parents('.add_pos_div_first ').find('.hidpos').length == 2 ){
                 console.log("if");
                 if(counter_click_addpos == 0)
@@ -145,9 +240,9 @@ error :function (data){
             
 //            var add_pos = '<div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-position js-form-item-position form-no-label form-group"><input data-drupal-selector="edit-position" class="form-text form-control" type="text" id="edit-position" name="position" value="" size="60" maxlength="128" placeholder="Position"></div>';
 //            jQuery(this).parents('.add_pos_div').append(add_pos);
-            
-                });
-        jQuery(document).on('click','.remove_pos_first', function(){
+            */
+               
+       /*  jQuery(document).on('click','.remove_pos_first', function(){
             if(jQuery(this).parents('.add_pos_div_first ').find('.hidpos').length == 2 ){
                 if(counter_click_addpos == 2){
                     jQuery(this).parents('.add_pos_div_first ').children('.pos_hidden_first_2').removeClass('showpos').find('input').css('display' , 'none');
@@ -164,7 +259,7 @@ error :function (data){
                     jQuery(this).css('display', 'none');
                 }
             }
-        });
+        }); */
         jQuery('#spb-imagepopup .imagepopup-modal').find('.spb-controls').children('.spb_close').html('submit').addClass('submit_btn');
     });
     var athelet = $(".dashboard .athelet_form_content").html();
