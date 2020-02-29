@@ -63,7 +63,7 @@ edit_form.delathlete:
     _access: 'TRUE'
     
 edit_form.changepassajax:
-  path: 'changepass/{oldpass}/{oldpassconfirm}/{newpass}'
+  path: 'changepass/{oldpass}/{newpass}/{newpassconfirm}'
   defaults:
     _controller: '\Drupal\edit_form\Controller\delparent::changepass'
     _title: 'Change Password'

@@ -320,11 +320,12 @@ class test extends FormBase {
 	  '#suffix' => '<span class=passerror> Need more help? Click here </span>',
       );
     $form['changebutton'] = [
-        '#type' => 'button',
-        '#value' => 'save',
+        '#type' => 'label',
+        '#title' => 'save',
 		'#prefix' =>'',
 		'#suffix' => '</div>',
-		'#attributes' => array('id'=>'save_pass'),
+		'#attributes' => array('id'=>'save_pass','style'=>'cursor:pointer; background:green;padding: 5px;
+    border-radius: 3px;'),
     ];
 	  //end change password
     $form['submit'] = [
