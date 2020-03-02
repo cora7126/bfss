@@ -1,50 +1,50 @@
 /* Global css here */
-.wrapper {display: block;float: left;width: 75%;}
+.region.region-content {display: block;float: left;width: 75%;}
 .wrapper .dash-main-right {margin-bottom: 40px;}
-div.main-head{display: block;float: left;width: 100%;margin-bottom: 20px;}
-div.main-head > div{display: inline-block;width: 18.99%;margin: 0px;}
-div.main-head div.bar{width: 100%;padding: 3px;background-color: #a7a8ac;border: none;height: 12px;}
+.wrapper div.main-head{display: block;float: left;width: 100%;margin-bottom: 20px;}
+.wrapper div.main-head > div{display: inline-block;width: 18.99%;margin: 0px;}
+.wrapper div.main-head div.bar{width: 100%;padding: 3px;background-color: #a7a8ac;border: none;height: 12px;}
 /*payment process order*/
-div.main-head div.bar{background-color: #a6a7ac;}
-div.one div.main-head div.first div.bar,
-div.two div.main-head div.first div.bar,
-div.two div.main-head div.second div.bar,
-div.three div.main-head div.first div.bar,
-div.three div.main-head div.second div.bar,
-div.three div.main-head div.third div.bar,
-div.four div.main-head div.first div.bar,
-div.four div.main-head div.second div.bar,
-div.four div.main-head div.third div.bar,
-div.four div.main-head div.fourth div.bar,
+.wrapper div.main-head div.bar{background-color: #a6a7ac;}
+.wrapper div.one div.main-head div.first div.bar,
+.wrapper div.two div.main-head div.first div.bar,
+.wrapper div.two div.main-head div.second div.bar,
+.wrapper div.three div.main-head div.first div.bar,
+.wrapper div.three div.main-head div.second div.bar,
+.wrapper div.three div.main-head div.third div.bar,
+.wrapper div.four div.main-head div.first div.bar,
+.wrapper div.four div.main-head div.second div.bar,
+.wrapper div.four div.main-head div.third div.bar,
+.wrapper div.four div.main-head div.fourth div.bar,
 .final div.main-head div.bar
 {
 	background-color: green;
 }
 /*payment process order title*/
-div.one div.main-head div.first h6,
-div.two div.main-head div.first h6,
-div.two div.main-head div.second h6,
-div.three div.main-head div.first h6,
-div.three div.main-head div.second h6,
-div.three div.main-head div.third h6,
-div.four div.main-head div.first h6,
-div.four div.main-head div.second h6,
-div.four div.main-head div.third h6,
-div.four div.main-head div.fourth h6,
-.final div.main-head h6
+.wrapper div.one div.main-head div.first h6,
+.wrapper div.two div.main-head div.first h6,
+.wrapper div.two div.main-head div.second h6,
+.wrapper div.three div.main-head div.first h6,
+.wrapper div.three div.main-head div.second h6,
+.wrapper div.three div.main-head div.third h6,
+.wrapper div.four div.main-head div.first h6,
+.wrapper div.four div.main-head div.second h6,
+.wrapper div.four div.main-head div.third h6,
+.wrapper div.four div.main-head div.fourth h6,
+.wrapper .final div.main-head h6
 {
 	color: #f4650f;
 }
-form input[type="text"],
-form input[type="email"],
-form input[type="number"],
-form select
+.wrapper form input[type="text"],
+.wrapper form input[type="email"],
+.wrapper form input[type="number"],
+.wrapper form select
  {width: 100%;border-radius: 0;box-shadow: none;border: 1px solid #ccc;}
-#edit-submit {float: right;}
+.wrapper #edit-submit {float: right;}
 /* First Form css here */
 
 /* Second Form css here */
-#multistep-form-two .timeslots {
+.wrapper #multistep-form-two .timeslots {
     display: block;
     float: left;
     margin: 10px;
@@ -52,12 +52,12 @@ form select
     margin: 30px 4px 0;
     padding: 0;
 }
-#multistep-form-two .form-actions {
+.wrapper #multistep-form-two .form-actions {
     display: block;
     float: left;
     width: 100%;
 }
-#multistep-form-two .timeslots .fieldset-legend {
+.wrapper #multistep-form-two .timeslots .fieldset-legend {
     background-color: #f4650f;
 	padding: 9px;
 	color: #fff;
@@ -65,7 +65,7 @@ form select
 	border-radius: 6px;
 }
 
-#multistep-form-two .timeslots .js-form-item.form-type-radio {
+.wrapper #multistep-form-two .timeslots .js-form-item.form-type-radio {
 	padding: 4px;
 	border: 1px solid #c2c2c2;
 	margin-top: 10px;
@@ -73,133 +73,129 @@ form select
 }
 /* Third Form css here */
 
-#multistep-form-three div.js-form-item {
+.wrapper #multistep-form-three div.js-form-item {
 	display: block;
 	width: 100%;
 }
-#multistep-form-three div.js-form-item.form-item-first-name,
-#multistep-form-three div.js-form-item.form-item-last-name {
+.wrapper #multistep-form-three div.js-form-item.form-item-first-name,
+.wrapper #multistep-form-three div.js-form-item.form-item-last-name {
     display: inline-block;
     width: 49.75%;
 }
 /* Fourth Form css here */
-#multistep-form-four div.form-item-expiration-month,
-#multistep-form-four div.form-item-cvv {
+.wrapper #multistep-form-four div.form-item-expiration-month,
+.wrapper #multistep-form-four div.form-item-cvv {
 	display: inline-block;
 	width: 33%;
 }
-#multistep-form-four div.form-item-expiration-year {
+.wrapper #multistep-form-four div.form-item-expiration-year {
 	display: inline-block;
 	width: 23%;
 }
 
-#multistep-form-four div.form-item-city,
-#multistep-form-four div.form-item-country {
+.wrapper #multistep-form-four div.form-item-city,
+.wrapper #multistep-form-four div.form-item-country {
 	display: inline-block;
 	width: 53%;
 }
 
-#multistep-form-four div.form-item-state,
-#multistep-form-four div.form-item-zip {
+.wrapper #multistep-form-four div.form-item-state,
+.wrapper #multistep-form-four div.form-item-zip {
 	display: inline-block;
 	width: 23.1%;
 }
 
-.first h6{font-weight: 600;}
- div.one div.main-head div.first div.bar, .first div.three div.main-head div.first div.bar{
+.wrapper .first h6{font-weight: 600;}
+ .wrapper div.one div.main-head div.first div.bar, .wrapper .first div.three div.main-head div.first div.bar{
  	border-top-left-radius: 10px!important; 
  	border-bottom-left-radius:10px!important;
  	height: 12px;color: #145213;
  	border: none;}
 
 
-.main-head h6{color: #010101;
-	font-weight: 600;}
+.wrapper .main-head h6{color: #010101;font-weight: 600;}
 
-.form-group{margin-top: 20px;}
-.control-label{font-size: 13px;
-    color: #f4650f;}
-.form-item .select-wrapper select{color: #101010;font-weight: 700;height: 40px;border: 1px solid #d2d2d2;
-    box-shadow: none;}
+.wrapper .form-group{margin-top: 20px;}
+.wrapper .control-label{font-size: 13px;color: #f4650f;}
+.wrapper .form-item .select-wrapper select{color: #101010;font-weight: 700;height: 40px;border: 1px solid #d2d2d2;box-shadow: none;}
 .form-item .control-label{margin-bottom: 10px;}
-.select-wrapper:after{content: '';background-image: url('../img/down-arrow.png');background-repeat: no-repeat;
-    color: transparent !important;margin-right: 5px;}
- button.button[type="submit"]{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;}
-.service-top-head{font-weight: 600;font-size: 13px;}
-.form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: center;display: block;margin: auto;}
- .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
- .btn:hover{color: #fff;}
-#multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
-span.fieldset-legend{font-weight: normal!important;}
-#multistep-form-two .timeslots .js-form-item.form-type-radio:nth-of-type(1){margin: 10px 0 2px;}
-#multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 2px 0 2px;}
-.form-actions .btn, .form-actions .btn-group{padding: 6px 30px;}
+.wrapper .select-wrapper:after{content: '';background-image: url('../img/down-arrow.png');background-repeat: no-repeat;color: transparent !important;margin-right: 5px;}
+.wrapper button.button[type="submit"]{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;}
+.wrapper .service-top-head{font-weight: 600;font-size: 13px;}
+.wrapper .form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: center;display: block;margin: auto;}
+.wrapper .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
+.wrapper .btn:hover{color: #fff;}
+.wrapper #multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
+.wrapper span.fieldset-legend{font-weight: normal!important;}
+.wrapper #multistep-form-two .timeslots .js-form-item.form-type-radio:nth-of-type(1){margin: 10px 0 2px;}
+.wrapper #multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 2px 0 2px;}
+.wrapper .form-actions .btn, .wrapper .form-actions .btn-group{padding: 6px 30px;}
 
 
 /*CSS 7:21 */
 
 
-#multistep-form-four div.form-item-city,
-#multistep-form-four div.form-item-country {
+.wrapper #multistep-form-four div.form-item-city,
+.wrapper #multistep-form-four div.form-item-country {
 	display: inline-block;
 	width: 53%;
 }
 
-#multistep-form-four div.form-item-state,
-#multistep-form-four div.form-item-zip {
+.wrapper #multistep-form-four div.form-item-state,
+.wrapper #multistep-form-four div.form-item-zip {
 	display: inline-block;
 	width: 23.1%;
 }
 
-.first h6{font-weight: 600;}
- div.one div.main-head div.first div.bar, .first div.three div.main-head div.first div.bar{
+.wrapper .first h6{font-weight: 600;}
+.wrapper div.one div.main-head div.first div.bar,
+.wrapper .first div.three div.main-head div.first div.bar{
  	border-top-left-radius: 10px!important; 
  	border-bottom-left-radius:10px!important;
  	height: 12px;color: #145213;
  	border: none;}
 
 
-.main-head h6{color: #010101;
-	font-weight: 600;}
+.wrapper .main-head h6{color: #010101;font-weight: 600;}
 
-.form-group{margin-top: 20px;}
-.control-label{font-size: 13px;
+.wrapper .form-group{margin-top: 20px;}
+.wrapper .control-label{font-size: 13px;
     color: #f4650f;}
-.form-item .select-wrapper select{color: #101010;font-weight: 700;height: 40px;border: 1px solid #d2d2d2;
+.wrapper .form-item .select-wrapper select{color: #101010;font-weight: 700;height: 40px;border: 1px solid #d2d2d2;
     box-shadow: none;border-radius: 0!important;}
-.form-item .control-label{margin-bottom: 10px;}
-.select-wrapper:after{content: '';background-image: url('../img/down-arrow.png');background-repeat: no-repeat;
+.wrapper .form-item .control-label{margin-bottom: 10px;}
+.wrapper .select-wrapper:after{content: '';background-image: url('../img/down-arrow.png');background-repeat: no-repeat;
     color: transparent !important;margin-right: 5px;}
- button.button[type="submit"]{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;}
-.service-top-head{font-weight: 600;font-size: 13px;}
-.form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: left;display: block;margin: auto;}
- .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
-#multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
-span.fieldset-legend{font-weight: normal!important;}
-#multistep-form-two .timeslots .js-form-item.form-type-radio:nth-of-type(1){margin: 10px 0 2px;}
-#multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 2px 0 2px;}
-.form-actions .btn, .form-actions .btn-group{padding: 6px 30px;}
-.form-control{color: #101010;font-weight: 600;}
+.wrapper button.button[type="submit"]{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;}
+.wrapper .service-top-head{font-weight: 600;font-size: 13px;}
+.wrapper .form-item .control-label{color: #101010;font-weight: 600;padding: 5px 0px;text-align: left;display: block;margin: auto;}
+.wrapper .btn{background: #f4650f!important;border: none;border-radius: 0!important;padding: 5px 30px;color: #fff;}
+.wrapper #multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 10px 0 2px;}
+.wrapper span.fieldset-legend{font-weight: normal!important;}
+.wrapper #multistep-form-two .timeslots .js-form-item.form-type-radio:nth-of-type(1){margin: 10px 0 2px;}
+.wrapper #multistep-form-two .timeslots .js-form-item.form-type-radio{margin: 2px 0 2px;}
+.wrapper .form-actions .btn, .form-actions .btn-group{padding: 6px 30px;}
+.wrapper .form-control{color: #101010;font-weight: 600;}
 
 html .container{max-width: 100%!important;}
 html body{margin-top:0!important;}
-.timeslots .form-item .control-label{text-align: center;margin-left: 20px}
+.wrapper .timeslots .form-item .control-label{text-align: center;margin-left: 20px}
 
 
-div.main-head .first div.bar{border-top-left-radius: 10px!important; 
+.wrapper div.main-head .first div.bar{border-top-left-radius: 10px!important; 
  	border-bottom-left-radius:10px!important;}
 
-#multistep-form-three div.js-form-item.form-item-first-name{padding-right: 5px;}
-#multistep-form-three div.js-form-item.form-item-last-name{padding-left: 5px;}
+.wrapper #multistep-form-three div.js-form-item.form-item-first-name{padding-right: 5px;}
+.wrapper #multistep-form-three div.js-form-item.form-item-last-name{padding-left: 5px;}
 .form-inline .form-control{width: 100%!important;}
-#multistep-form-four h3{font-size: 13px;font-weight: 600;color: #101010;}
-.region-content .form-item{margin-bottom: 30px!important;}
-#multistep-form-four div.form-item-expiration-month, #multistep-form-four div.form-item-cvv{margin-right: 10px;margin-top: 0;}
-.form input[type="text"]{width: 98%;}
-input#edit-city{width: 98%;}
-input#edit-state{width: 96%;}
+.wrapper #multistep-form-four h3{font-size: 13px;font-weight: 600;color: #101010;}
+.wrapper .region-content .form-item{margin-bottom: 30px!important;}
+.wrapper #multistep-form-four div.form-item-expiration-month, #multistep-form-four div.form-item-cvv{margin-right: 10px;margin-top: 0;}
+.wrapper .form input[type="text"]{width: 98%;}
+.wrapper input#edit-city{width: 98%;}
+.wrapper input#edit-state{width: 96%;}
 
-input[type="radio"]
+.wrapper input[type="radio"]
 {   -webkit-appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -217,7 +213,7 @@ input[type="radio"]
     padding: 0;
     margin-left: -25px !important;}
 
-input[type="radio"]:checked::before{
+.wrapper input[type="radio"]:checked::before{
 	width: 8px;
     display: block;
     height: 8px;
@@ -230,19 +226,19 @@ input[type="radio"]:checked::before{
     top: 2px;
 }
 
-input[type="radio"], input[type="checkbox"]{margin: 0!important;}
-.radio input[type="radio"]{margin-left: -25px!important;}
+.wrapper input[type="radio"], input[type="checkbox"]{margin: 0!important;}
+.wrapper .radio input[type="radio"]{margin-left: -25px!important;}
 
-.form-type-textfield, .form-type-number{margin-bottom: 20px!important;}
+.wrapper .form-type-textfield, .form-type-number{margin-bottom: 20px!important;}
 
-.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-address-2.js-form-item-address-2.form-no-label.form-group, .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-city.js-form-item-city.form-no-label.form-group,
- .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-state.js-form-item-state.form-no-label.form-group, .form-inline.form-item.js-form-item.form-type-number.js-form-type-number.form-item-zip.js-form-item-zip.form-no-label.form-group, 
- .form-inline.form-item.js-form-item.form-type-number.js-form-type-number.form-item-credit-card-number.js-form-item-credit-card-number.form-no-label.form-group, 
- .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-first-name.js-form-item-first-name.form-no-label.form-group, 
- .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-last-name.js-form-item-last-name.form-no-label.form-group{
+.wrapper .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-address-2.js-form-item-address-2.form-no-label.form-group, .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-city.js-form-item-city.form-no-label.form-group,
+.wrapper .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-state.js-form-item-state.form-no-label.form-group, .form-inline.form-item.js-form-item.form-type-number.js-form-type-number.form-item-zip.js-form-item-zip.form-no-label.form-group, 
+.wrapper .form-inline.form-item.js-form-item.form-type-number.js-form-type-number.form-item-credit-card-number.js-form-item-credit-card-number.form-no-label.form-group, 
+.wrapper .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-first-name.js-form-item-first-name.form-no-label.form-group, 
+.wrapper .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-last-name.js-form-item-last-name.form-no-label.form-group{
 	margin-bottom: 8px!important;
 }
 
 #sidenav{height: 100vh!important;}
-form#multistep-form-four{margin-bottom: 80px;}
-.dialog-off-canvas-main-canvas{margin-left: 20px;}
+.wrapper form#multistep-form-four{margin-bottom: 80px;}
+.wrapper .dialog-off-canvas-main-canvas{margin-left: 20px;}
