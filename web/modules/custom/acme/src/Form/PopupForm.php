@@ -88,7 +88,7 @@ class PopupForm extends FormBase {
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
     '#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
-	'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+	'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
       );
      $form['organization_name'] = array(
     //'#title' => t('az'),
@@ -114,75 +114,126 @@ class PopupForm extends FormBase {
       '#placeholder' => t('Position'),
       '#default_value' => '',
 	  '#prefix' => '<div class="add_pos_div">',
-	  '#suffix' => '<a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos"><i class="fa fa-trash"></i>Remove Position</a></div></div></div></div>',
+	  '#suffix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a></div></div></div></div>',
       );
-	  $form['organization_type_club'] = array(
+	  $form['position2'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => '',
+		  '#attributes' => array('style'=>'display:none'),
+		  // '#prefix' => '<div class ="pos_first_1"',
+		  // '#suffix' => '</div>',
+	 );
+	  $form['position3'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => '',
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  // '#prefix' => '<div class ="pos_first_2"',
+		  // '#suffix' => '</div>',
+		  );
+	  
+	  $form['education_1'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
     '#options' => array(t('--- Organization Type ---'), t('Public'), t('Private'), t('Other')),
-	'#prefix' => '<div class="athlete_school popup-athlete-school-hide previous_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+	'#prefix' => '<div class="athlete_school popup-athlete-school-hide previous_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i  class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i><div class=items_div>',
       );
-     $form['organization_name_club'] = array(
+     $form['schoolname_1'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
     '#options' => array(t('--- Organization Name ---'), t('A'), t('B'), t('C')),
       );
-     $form['coach_lname_club'] = array (
+     $form['coach_1'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t("Coache's Last Name (Optional)"),
       '#default_value' => '',
       );
-     $form['sport_club'] = array (
+     $form['sport_1'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Sport'),
       '#default_value' => '',
       );
-     $form['position_club'] = array (
+     $form['position_1'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Position'),
       '#default_value' => '',
-	  '#prefix' => '<div class="add_pos_div">',
-	  '#suffix' => '<a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos"><i class="fa fa-trash"></i>Remove Position</a></div></div></div>',
+	  '#prefix' => '<div class="add_pos_div_third">',
+	  '#suffix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div></div></div>',
       );
-	  $form['organization_type_uni'] = array(
+	   $form['position_12'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results6['athlete_uni_pos2'],
+		  '#attributes' => array('class' =>'pos_hidden_second_1','style'=>'display:none'),
+		  // '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
+		  // '#suffix' => '</div>',
+		  );
+		  $form['position_13'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results6['athlete_uni_pos3'],
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  // '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
+		  // '#suffix' => '</div>',
+		  );
+	  $form['education_2'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
     '#options' => array(t('--- Organization Type ---'), t('Public'), t('Private'), t('Other')),
-	'#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+	'#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i><div class=items_div>',
       );
-     $form['organization_name_uni'] = array(
+     $form['schoolname_2'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
     '#options' => array(t('--- Organization Name ---'), t('A'), t('B'), t('C')),
       );
-     $form['coach_lname_uni'] = array (
+     $form['coach_2'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t("Coache's Last Name (Optional)"),
       '#default_value' => '',
       );
-     $form['sport_uni'] = array (
+     $form['sport_2'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Sport'),
       '#default_value' => '',
       );
-     $form['position_uni'] = array (
+     $form['position_2'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Position'),
       '#default_value' => '',
-	  '#prefix' => '<div class="add_pos_div">',
-	  '#suffix' => '<a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos"><i class="fa fa-trash"></i>Remove Position</a></div></div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div><div class ="right_section">',
+	  '#prefix' => '<div class="add_pos_div_second">',
+	  '#suffix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div></div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div><div class ="right_section">',
 	 
       );
+	  
+	  $form['position_22'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results16['athlete_school_pos2'],
+		  '#attributes' => array('class' =>'pos_hidden_third_1','style'=>'display:none'),
+		  // '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
+		  // '#suffix' => '</div>',
+		  );
+		  
+		  $form['position_23'] = array (
+		  '#type' => 'textfield',
+		  '#placeholder' => t('Position'),
+		  '#default_value' => $results16['athlete_school_pos3'],
+		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
+		  // '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
+		  // '#suffix' => '</div>',
+		  );
      $form['instagram'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
@@ -255,14 +306,23 @@ class PopupForm extends FormBase {
     $youtube=$field['youtube'];
 	
 	$seltype1 = $form_state->getValue('organization_type');
-	$selname1 = $form_state->getValue('organization_name');
+	$selname1 = $form_state->getValue('organization_name'); 
 	$seltype2 = $form_state->getValue('education_1');
-	$selname2 = $form_state->getValue('schoolname_1');
+	$selname2 = $form_state->getValue('schoolname_1'); 
+	$seltype3 = $form_state->getValue('education_2');
+	$selname3 = $form_state->getValue('schoolname_2');
 	$selstate = $form_state->getValue('az');
 	$seltypeval1 = $form['organization_type']['#options'][$seltype1];
 	$selnameval1 = $form['organization_name']['#options'][$selname1];
 	$seltypeval2 = $form['education_1']['#options'][$seltype2];
 	$selnameval2 = $form['schoolname_1']['#options'][$selname2];
+	$seltypeval3 = $form['education_2']['#options'][$seltype3];
+	$selnameval3 = $form['schoolname_2']['#options'][$selname3];
+	// echo $selnameval1; echo $setypeval1;die;
+	$query_mydata = \Drupal::database()->select('mydata', 'md');
+		$query_mydata->fields('md');
+		$query_mydata->condition('uid', $current_user,'=');
+		$results_mydata = $query_mydata->execute()->fetchAll();
           // $field  = array(
               // 'field_jodi'   => $jodi,
               // 'field_bloggs' =>  $bloggs,
@@ -288,23 +348,23 @@ class PopupForm extends FormBase {
           // drupal_set_message("succesfully updated");
           // $form_state->setRedirect('mydata.display_table_controller_display');
       
-           $field  = array(
-              'field_jodi'   => $jodi,
-              'field_bloggs' =>  $bloggs,
-              'field_az' =>  $az,
-              'field_city' => $city,
-              'field_birth_gender' => $gender,
-              'field_dob' => $dob,
-              'field_height' => $height,
-              'field_weight' => $weight,
-              'field_organization_type' => $organizaton_type,
-              'field_organization_name' => $organizaton_name,
-              'field_coach_lname' => $coach_lname,
-              'field_sport' => $sport,
-              'field_position' => $position,
-              'field_instagram' => $instagram,
-              'field_youtube' => $youtube,
-          );
+           // $field  = array(
+              // 'field_jodi'   => $jodi,
+              // 'field_bloggs' =>  $bloggs,
+              // 'field_az' =>  $az,
+              // 'field_city' => $city,
+              // 'field_birth_gender' => $gender,
+              // 'field_dob' => $dob,
+              // 'field_height' => $height,
+              // 'field_weight' => $weight,
+              // 'field_organization_type' => $organizaton_type,
+              // 'field_organization_name' => $organizaton_name,
+              // 'field_coach_lname' => $coach_lname,
+              // 'field_sport' => $sport,
+              // 'field_position' => $position,
+              // 'field_instagram' => $instagram,
+              // 'field_youtube' => $youtube,
+          // );
            // $query = \Drupal::database();
            // $query ->insert('mydata')
                // ->fields($field)
@@ -313,41 +373,111 @@ class PopupForm extends FormBase {
            // $response = new RedirectResponse("/mydata/hello/table");
            // $response->send();
 		    $current_user = \Drupal::currentUser()->id();
-    $conn = Database::getConnection();
-	$conn->insert('mydata')->fields(
-	array(
-              'field_jodi'   => $jodi,
-              'field_bloggs' =>  $bloggs,
-              'field_az' =>  $az,
-              'field_city' => $city,
-              'field_birth_gender' => $gender,
-              'field_dob' => $dob,
-              'field_height' => $height,
-              'field_weight' => $weight,
-              'field_organization_type' => $organizaton_type,
-              'field_organization_name' => $organizaton_name,
-              'field_coach_lname' => $coach_lname,
-              'field_sport' => $sport,
-              'field_position' => $position,
-              'field_instagram' => $instagram,
-              'field_youtube' => $youtube,
-              'popup_flag' => $popupFlag,
-              'uid' => $current_user,
-          )
-	)->execute();
-	$conn->insert('athlete_school')->fields(
+    $conn = Database::getConnection(); 
+	if(empty($results_mydata)){
+		$conn->insert('mydata')->fields(
+			array(
+					  'field_jodi'   => $jodi,
+					  'field_bloggs' =>  $bloggs,
+					  'field_az' =>  $az,
+					  'field_city' => $city,
+					  'field_birth_gender' => $gender,
+					  'field_dob' => $dob,
+					  'field_height' => $height,
+					  'field_weight' => $weight,
+					  'field_organization_type' => $organizaton_type,
+					  'field_organization_name' => $organizaton_name,
+					  'field_coach_lname' => $coach_lname,
+					  'field_sport' => $sport,
+					  'field_position' => $position,
+					  'field_instagram' => $instagram,
+					  'field_youtube' => $youtube,
+					  'popup_flag' => $popupFlag,
+					  'uid' => $current_user,
+				  )
+			)->execute();
+	}else{
+		$conn->update('mydata')
+						->condition('uid',$current_user,'=')
+						->fields(
+							array(
+									  'field_jodi'   => $jodi,
+									  'field_bloggs' =>  $bloggs,
+									  'field_az' =>  $az,
+									  'field_city' => $city,
+									  'field_birth_gender' => $gender,
+									  'field_dob' => $dob,
+									  'field_height' => $height,
+									  'field_weight' => $weight,
+									  'field_organization_type' => $organizaton_type,
+									  'field_organization_name' => $organizaton_name,
+									  'field_coach_lname' => $coach_lname,
+									  'field_sport' => $sport,
+									  'field_position' => $position,
+									  'field_instagram' => $instagram,
+									  'field_youtube' => $youtube,
+									  'popup_flag' => $popupFlag,
+									  'uid' => $current_user,
+								  )
+							)
+						->execute();
+	}
+	
+	if($seltype1 != 0 && $selname1 != 0){
+		$conn->insert('athlete_school')->fields(
 			array(
 			'athlete_uid' => $current_user,
 			'athlete_school_name' => $selnameval1,
 			'athlete_school_coach' => $form_state->getValue('coach_lname'),
 			'athlete_school_sport' => $form_state->getValue('sport'),
 			'athlete_school_pos' => $form_state->getValue('position'),
-			// 'athlete_school_pos2' => $form_state->getValue('position2'),
-			// 'athlete_school_pos3' => $form_state->getValue('position3'),
+			'athlete_school_pos2' => $form_state->getValue('position2'),
+			'athlete_school_pos3' => $form_state->getValue('position3'),
 			'athlete_school_stat' => $form_state->getValue('stats'),
 			'athlete_school_type' => $seltypeval1,
 			)
 		)->execute();
+	}
+	if($seltype3 != 0 && $selname3 != 0){
+		if(!empty($selnameval3) && !empty($seltypeval3)){
+				$conn->insert('athlete_club')->fields(
+					array(
+					'athlete_uid' => $current_user,
+					'athlete_club_name' => $selnameval3,
+					'athlete_club_coach' => $form_state->getValue('coach_2'),
+					'athlete_club_sport' => $form_state->getValue('sport_2'),
+					'athlete_club_pos' => $form_state->getValue('position_2'),
+					'athlete_school_pos2' => $form_state->getValue('position_22'),
+					'athlete_school_pos3' => $form_state->getValue('position_23'),
+					'athlete_club_stat' => $form_state->getValue('stats_2'),
+					'athlete_school_type' => $seltypeval3,
+					)
+				)->execute();
+		}
+	}	
+	if($seltype2 != 0 && $selname2 != 0){
+				$conn->insert('athlete_uni')->fields(
+					array(
+					'athlete_uid' => $current_user,
+					'athlete_uni_name' => $selnameval2,
+					'athlete_uni_coach' => $form_state->getValue('coach_1'),
+					'athlete_uni_sport' => $form_state->getValue('sport_1'),
+					'athlete_uni_pos' => $form_state->getValue('position_1'),
+					'athlete_uni_pos2' => $form_state->getValue('position_12'),
+					'athlete_uni_pos3' => $form_state->getValue('position_13'),
+					'athlete_uni_stat' => $form_state->getValue('stats_1'),
+					'athlete_uni_type' => $seltypeval2,
+					)
+				)->execute(); 
+	}
+	$conn->insert('athlete_social')->fields(
+					array(
+					'athlete_uid' => $current_user,
+					'athlete_social_1' => $instagram ,
+					'athlete_social_2' => $youtube,
+					)
+				)->execute(); 
+	
        $form_state->setRedirect('acme_hello');
      }
 }
