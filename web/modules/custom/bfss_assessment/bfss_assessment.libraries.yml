@@ -11,3 +11,11 @@ assessment_mulitform_lib:
       css/multiform.css: {}
   js:
     js/multiform.js: {}
+
+athletic:
+  version: 1.x
+  css:
+    layout:
+      css/athletic.css: {}
+  js:
+    js/athletic.js: {}

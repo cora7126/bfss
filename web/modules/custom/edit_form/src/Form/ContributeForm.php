@@ -635,22 +635,22 @@ class ContributeForm extends FormBase {
 	  '#attributes' => array('disabled' => true),
       '#default_value' => $results5['athlete_school_sport'],
       );
+	  $form['label_1'] = array (
+      '#type' => 'label',
+      '#title' => ' http://bfsscience.com/users/',
+	  '#attributes' => array('id'=>'label_1','class' => array('weblabel')),
+      );
 	   $form['name_web'] = array (
       '#type' => 'textfield',
       '#placeholder' => t('Pick a Name'),
       '#default_value' => $results13['athlete_web_name'],
-	  '#prefix' => '<div class="container-inline web_name">',
+	  '#prefix' => '<div class="container-inline web_name webfield">',
 	  '#suffix' => '</div>',
 	  '#attributes' => array('id'=>'name_1'),
       );
-	  $form['label_1'] = array (
-      '#type' => 'label',
-      '#title' => '.bfsscience.com',
-	  '#attributes' => array('id'=>'label_1'),
-      );
 	  $form['label_2'] = array (
       '#type' => 'label',
-      '#title' => 'Create your unique website profile.<br> eg.jodibloggs.bfsscience.com.<br> Once published , this will become your permanent address and it can not be changed.<br>',
+      '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
       );
 	  $form['preview_1'] = array (
       '#type' => 'button',
@@ -676,22 +676,22 @@ class ContributeForm extends FormBase {
 			  '#default_value' => $results6['athlete_uni_sport'],
 			  '#attributes' => array('disabled' => true),
 			  );
+			  $form['label_12'] = array (
+			  '#type' => 'label',
+			  '#title' => ' http://bfsscience.com/users/',
+			  '#attributes' => array('id'=>'label_2','class' => array('weblabel')),
+			  );
 			   $form['name_web2'] = array (
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Pick a Name'),
 			  '#default_value' => $results14['athlete_addweb_name'],
-			  '#prefix' => '<div class="container-inline web_name">',
+			  '#prefix' => '<div class="container-inline web_name webfield">',
 				'#suffix' => '</div>',
 			  '#attributes' => array('id'=>'name_2'),
 			  );
-			  $form['label_12'] = array (
-			  '#type' => 'label',
-			  '#title' => '.bfsscience.com',
-			  '#attributes' => array('id'=>'label_2'),
-			  );
 			  $form['label_22'] = array (
 			  '#type' => 'label',
-			  '#title' => 'Create your unique website profile.<br> eg.jodibloggs.bfsscience.com.<br> Once published , this will become your permanent address and it can not be changed.<br>',
+			  '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
 			  );
 			  $form['preview_12'] = array (
 			  '#type' => 'button',
@@ -718,22 +718,22 @@ class ContributeForm extends FormBase {
 			  '#default_value' => $results16['athlete_club_sport'],
 			  '#attributes' => array('disabled' => true),
 			  );
+			  $form['label_13'] = array (
+			  '#type' => 'label',
+			  '#title' => 'http://bfsscience.com/users/',
+			  '#attributes' => array('id'=>'label_2','class' => array('weblabel')),
+			  );
 			   $form['name_web3'] = array (
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Pick a Name'),
 			  '#default_value' => $results17['athlete_clubweb_name'],
-			  '#prefix' => '<div class="container-inline web_name">',
+			  '#prefix' => '<div class="container-inline web_name webfield">',
 				'#suffix' => '</div>',
 			  '#attributes' => array('id'=>'name_2'),
 			  );
-			  $form['label_13'] = array (
-			  '#type' => 'label',
-			  '#title' => '.bfsscience.com',
-			  '#attributes' => array('id'=>'label_2'),
-			  );
 			  $form['label_23'] = array (
 			  '#type' => 'label',
-			  '#title' => 'Create your unique website profile.<br> eg.jodibloggs.bfsscience.com.<br> Once published , this will become your permanent address and it can not be changed.<br>',
+			  '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
 			  );
 			  $form['preview_13'] = array (
 			  '#type' => 'button',
