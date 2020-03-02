@@ -1,6 +1,6 @@
 /* Global css here */
-/*.region.region-content {display: block;float: left;width: 75%;}*/
-.region.region-content form {margin-top: 39px;}
+.wrapper {display: block;float: left;width: 75%;}
+.wrapper .dash-main-right {margin-bottom: 40px;}
 div.main-head{display: block;float: left;width: 100%;margin-bottom: 20px;}
 div.main-head > div{display: inline-block;width: 18.99%;margin: 0px;}
 div.main-head div.bar{width: 100%;padding: 3px;background-color: #a7a8ac;border: none;height: 12px;}
