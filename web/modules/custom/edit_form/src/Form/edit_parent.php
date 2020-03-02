@@ -84,7 +84,7 @@ class edit_parent extends FormBase {
 			  $form['fname2'] = array(
 			  '#type' => 'textfield',
 			  '#default_value' => $results1[1]->field_parent_first_name_value,
-			  '#attributes' => array('disabled'=>true),
+			  // '#attributes' => array('disabled'=>true),
 			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
@@ -92,7 +92,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Last Name'),
 			  '#default_value' => $results2[1]->field_parent_last_name_value,
-			  '#attributes' => array('disabled'=>true),
+			  // '#attributes' => array('disabled'=>true),
 			  ); 
 			  $form['cellphone2'] = array(
 			  '#type' => 'textfield',
@@ -136,7 +136,7 @@ class edit_parent extends FormBase {
 			  $form['fname3'] = array(
 			  '#type' => 'textfield',
 			  '#default_value' => $results1[2]->field_parent_first_name_value,
-			  '#attributes' => array('disabled'=>true),
+			  // '#attributes' => array('disabled'=>true),
 			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
@@ -144,7 +144,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Last Name'),
 			  '#default_value' => $results2[2]->field_parent_last_name_value,
-			  '#attributes' => array('disabled'=>true),
+			  // '#attributes' => array('disabled'=>true),
 			  ); 
 			  $form['cellphone3'] = array(
 			  '#type' => 'textfield',
@@ -188,7 +188,7 @@ class edit_parent extends FormBase {
 			  $form['fname4'] = array(
 			  '#type' => 'textfield',
 			  '#default_value' => $results1[3]->field_parent_first_name_value,
-			  '#attributes' => array('disabled'=>true),
+			  // '#attributes' => array('disabled'=>true),
 			  '#prefix'=> '</div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
@@ -196,7 +196,7 @@ class edit_parent extends FormBase {
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Last Name'),
 			  '#default_value' => $results2[3]->field_parent_last_name_value,
-			  '#attributes' => array('disabled'=>true),
+			  // '#attributes' => array('disabled'=>true),
 			  ); 
 			  $form['cellphone4'] = array(
 			  '#type' => 'textfield',
@@ -240,14 +240,14 @@ class edit_parent extends FormBase {
 	$form['label_text'] = array(
 	'#type' => 'label',
 	'#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
-	'#prefix' => '<a class="add_parent add_guardian"><i class="fa fa-plus"></i>Add Another Organization</a></div></div></div><div class ="right_section"><div class = "athlete_right">',
+	'#prefix' => '<a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Parent / Guardian</a></div></div></div><div class ="right_section"><div class = "athlete_right">',
 	'#suffix' => '</div></div>',
 	'#attributes' => array('id => parent_label'),
 	);	
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
-		'#prefix' =>'<a class="add_parent add_guardian"><i class="fa fa-plus"></i>Add Another Organization</a><div id="athlete_submit">',
+		'#prefix' =>'<a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a><div id="athlete_submit">',
 		'#suffix' => '</div>',
         //'#value' => t('Submit'),
     ];
@@ -293,34 +293,11 @@ class edit_parent extends FormBase {
 		$query3->addExpression("max(delta)");
 		$results3 = $query3->execute()->fetchAll(); 
 	$query4 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
-	$query4->join('user__field_parent_last_name', 'ufpln', 'fpfnv.delta = ufpln.delta');
 		$query4->addField('fpfnv','field_parent_first_name_value');
-		$query4->addField('ufpln','field_parent_last_name_value');
-		$query4->condition('fpfnv.field_parent_first_name_value', $fname1,'=');
-		$query4->condition('ufpln.field_parent_last_name_value', $lname1,'=');
+		$query4->condition('entity_id', $currentuser,'=');
 		$results4 = $query4->execute()->fetchAll();
-	$query5 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
-	$query5->join('user__field_parent_last_name', 'ufpln', 'fpfnv.delta = ufpln.delta');
-		$query5->addField('fpfnv','field_parent_first_name_value');
-		$query5->addField('ufpln','field_parent_last_name_value');
-		$query5->condition('fpfnv.field_parent_first_name_value', $fname2,'=');
-		$query5->condition('ufpln.field_parent_last_name_value', $lname2,'=');
-		$results5 = $query5->execute()->fetchAll();
-	$query6 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
-	$query6->join('user__field_parent_last_name', 'ufpln', 'fpfnv.delta = ufpln.delta');
-		$query6->addField('fpfnv','field_parent_first_name_value');
-		$query6->addField('ufpln','field_parent_last_name_value');
-		$query6->condition('fpfnv.field_parent_first_name_value', $fname3,'=');
-		$query6->condition('ufpln.field_parent_last_name_value', $lname3,'=');
-		$results6 = $query6->execute()->fetchAll();
-	$query7 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
-	$query7->join('user__field_parent_last_name', 'ufpln', 'fpfnv.delta = ufpln.delta');
-		$query7->addField('fpfnv','field_parent_first_name_value');
-		$query7->addField('ufpln','field_parent_last_name_value');
-		$query7->condition('fpfnv.field_parent_first_name_value', $fname4,'=');
-		$query7->condition('ufpln.field_parent_last_name_value', $lname4,'=');
-		$results7 = $query7->execute()->fetchAll(); 
 	
+	// echo "<pre>"; print_r($results3);die;
 		$fname1 = $form_state->getValue('fname1');
 		$lname1 = $form_state->getValue('lname1');
 		$cellphone1 = $form_state->getValue('cellphone1');
@@ -338,15 +315,14 @@ class edit_parent extends FormBase {
 		$cellphone4 = $form_state->getValue('cellphone4');
 		$homephone4 = $form_state->getValue('homephone4');
 		
-		if(!empty($results4)){
+		if(empty($results4) && !empty($fname1)){
 			$conn->insert('user__field_parent_first_name')->fields(
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname1,
 							)
 					)->execute();
@@ -354,28 +330,26 @@ class edit_parent extends FormBase {
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname1,
 							)
 					)->execute();
 			$conn->insert('parent_mobiles')->fields(
 							array(
 							'entity_id' => $current_user,
-							'deleted' => '0',
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone1,
 							'mobile2' => $homephone1,
 							)
 					)->execute();
-		}else{
+		}else if(!empty($fname1)){
 			$conn->update('parent_mobiles')
 						->condition('entity_id',$current_user,'=')
 						->fields(
 							array(
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone1,
 							'mobile2' => $homephone1,
 							)
@@ -386,9 +360,8 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname1,
 							)
 						)
@@ -399,24 +372,22 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname1,
 							)
 						)
 						->execute();
 		}
 		
-		if(!empty($results5)){
+		if(empty($results4) && !empty($fname2)){
 			$conn->insert('user__field_parent_first_name')->fields(
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname2,
 							)
 					)->execute();
@@ -424,28 +395,26 @@ class edit_parent extends FormBase {
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname2,
 							)
 					)->execute();
 			$conn->insert('parent_mobiles')->fields(
 							array(
 							'entity_id' => $current_user,
-							'deleted' => '0',
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone2,
 							'mobile2' => $homephone2,
 							)
 					)->execute();
-		}else{
+		}else if(!empty($fname2)){
 			$conn->update('parent_mobiles')
 						->condition('entity_id',$current_user,'=')
 						->fields(
 							array(
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone2,
 							'mobile2' => $homephone2,
 							)
@@ -456,9 +425,8 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname2,
 							)
 						)
@@ -469,24 +437,22 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname2,
 							)
 						)
 						->execute();
 		}
 		
-		if(!empty($results6)){
+		if(empty($results4) && !empty($fname3)){
 			$conn->insert('user__field_parent_first_name')->fields(
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname3,
 							)
 					)->execute();
@@ -494,28 +460,26 @@ class edit_parent extends FormBase {
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname3,
 							)
 					)->execute();
 			$conn->insert('parent_mobiles')->fields(
 							array(
 							'entity_id' => $current_user,
-							'deleted' => '0',
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone3,
 							'mobile2' => $homephone3,
 							)
 					)->execute();
-		}else{
+		}else if(!empty($fname3)){
 			$conn->update('parent_mobiles')
 						->condition('entity_id',$current_user,'=')
 						->fields(
 							array(
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone3,
 							'mobile2' => $homephone3,
 							)
@@ -526,9 +490,8 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname3,
 							)
 						)
@@ -539,24 +502,22 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname3,
 							)
 						)
 						->execute();
 		}
 		
-		if(!empty($results7)){
+		if(empty($results4) && !empty($fname4)){
 			$conn->insert('user__field_parent_first_name')->fields(
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname4,
 							)
 					)->execute();
@@ -564,28 +525,26 @@ class edit_parent extends FormBase {
 							array(
 							'entity_id' => $current_user,
 							'bundle' => 'user',
-							'deleted' => '0',
 							'revision_id' => $current_user,
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname4,
 							)
 					)->execute();
 			$conn->insert('parent_mobiles')->fields(
 							array(
 							'entity_id' => $current_user,
-							'deleted' => '0',
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone4,
 							'mobile2' => $homephone4,
 							)
 					)->execute();
-		}else{
+		}else if(!empty($fname4)){
 			$conn->update('parent_mobiles')
 						->condition('entity_id',$current_user,'=')
 						->fields(
 							array(
-							'parent_id' => $results3[0]->expression,
+							'parent_id' => $results3[0]->expression+1,
 							'mobile1' => $cellphone4,
 							'mobile2' => $homephone4,
 							)
@@ -596,9 +555,8 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_first_name_value' => $fname4,
 							)
 						)
@@ -609,9 +567,8 @@ class edit_parent extends FormBase {
 						->fields(
 							array(
 							'bundle' => 'user',
-							'deleted' => '0',
 							'langcode' => 'en',
-							'delta' => $results3[0]->expression,
+							'delta' => $results3[0]->expression+1,
 							'field_parent_last_name_value' => $lname4,
 							)
 						)
