@@ -1,4 +1,5 @@
-/*.region.region-content {display: block;float: left;width: 75%;}*/
+.wrapper {display: block;float: left;width: 75%;}
+.wrapper .dash-main-right {margin-bottom: 40px;}
 .grouped {background-color: #868383;padding: 10px;box-shadow: 1px 1px 4px #e0e0d8;margin: 10px;color: #fff;font-weight: bold;}
 .grouped div {width: 30%;display: inline-block;}
 p.note {margin-left: 1%;background-color: #cecece;width: 50%;padding-left: 4px;color: #000;}
