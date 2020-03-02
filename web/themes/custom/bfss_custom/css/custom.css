@@ -88,4 +88,12 @@ html .container{max-width: 100%!important;}
 html body{margin-top:0!important;}
 
 
-
+.weblabel{
+padding: 13px 0px 0px 15px !important;
+float: left;
+width: 56%;
+}
+.container-inline.web_name.webfield{
+width: 44%;
+float: left;
+}

@@ -16,13 +16,19 @@ return [
           'data'=>[],
         ],
         'template'=>'custom/modal-assessment',
-    ], 
+    ],
     'assessment_success' => [
       'variables' => [
           'message'=> null,
         ],
         'template'=>'custom/assessment-success',
-    ],  
+    ],
+    'atheltic__profile' => [
+      'variables' => [
+          'data'=> null,
+        ],
+        'template'=>'custom/atheltic--profile',
+    ],
   ];
 }
 /*function bfss_assessment_theme() {
