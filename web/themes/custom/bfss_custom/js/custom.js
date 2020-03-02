@@ -369,24 +369,18 @@ error :function (data){
  jQuery(document).ready(function(){
 	jQuery('.messages__wrapper').css('display','none'); 
  });
-// var counter_click_1 = 0;
-// jQuery(document).on('click', '.add_pos', function(){
-//     if(counter_click_1 == 0){
-//        jQuery(this).parents('.add_pos_div').find('.form-item-position2').siblings('#edit-position2').css('display', 'block');
-//        counter_click++
-//    }else if(counter_click_1 == 1){
-//        jQuery(this).parents('.add_pos_div').find('.form-item-position3').siblings('#edit-position3').css('display', 'block');
-//        jQuery(this).hide();
-//        counter_click++
-//    }
-// });
- // jQuery('#save_pass').on('click',function(){
-	 // alert('a');
-	 // jQuery.ajax({
-		 // url
-		 
-	 // });
- // });
+	var counter_click_1 = 0;
+	jQuery(document).on('click', '.add_pos', function(){
+		if(counter_click_1 == 0){
+		   jQuery(this).parents('.add_pos_div').find('.form-item-position2').siblings('#edit-position2').css('display', 'block');
+		   counter_click++
+	   }else if(counter_click_1 == 1){
+		   jQuery(this).parents('.add_pos_div').find('.form-item-position3').siblings('#edit-position3').css('display', 'block');
+		   jQuery(this).hide();
+		   counter_click++
+	   }
+	});
+
    $(document).ready(function(){
    $('.dropdown > a').click(function(e){
      e.preventDefault();

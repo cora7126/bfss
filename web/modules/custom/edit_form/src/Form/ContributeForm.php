@@ -98,6 +98,10 @@ class ContributeForm extends FormBase {
 		$query17->fields('aclubw');
 		$query17->condition('athlete_uid', $current_user,'=');
 		$results17 = $query17->execute()->fetchAssoc(); 
+	$query18 = \Drupal::database()->select('mydata', 'md');
+		$query18->fields('md');
+		$query18->condition('uid', $current_user,'=');
+		$results18 = $query18->execute()->fetchAssoc(); 
 	$img_id = $results['user_picture_target_id'];
 	// echo "<pre>"; print_r($results8['field_state_value']);die;
 	// $file = File::load($img_id);
@@ -131,15 +135,15 @@ class ContributeForm extends FormBase {
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('State'), t('State1'), t('State2'), t('State3'), t('ExampleState')),
-	'#default_value' => 4,
+    '#options' => array(t('AL'), t('AK'), t('AZ'), t('AR'), t('CA'), t('CO'), t('CT'), t('DE'), t('DC'), t('FL'), t('GA'), t('HI'), t('ID'), t('IL'), t('IN'), t('IA'), t('KS'), t('KY'), t('LA'), t('ME'), t('MT'), t('NE'), t('NV'), t('NH'), t('NJ'), t('NM'), t('NY'), t('NC'), t('ND'), t('OH'), t('OR'), t('MD'), t('MA'), t('MI'), t('MN'), t('MS'), t('MO'), t('PA'), t('RI'), t('SC'), t('SD'), t('TN'), t('TX'), t('UT'), t('VT'), t('VA'), t('WA'), t('WV'), t('WI'), t('WY')),
+	'#default_value' => $results18['field_az'],
       );
     $form['city'] = array(
       '#type' => 'textfield',
       //'#title' => t('City'),
       // '#required' => TRUE,
       '#placeholder' => t('City'),
-      '#default_value' => '',
+      '#default_value' => $results18['field_city'],
       );
 
     $form['sex'] = array(
@@ -600,13 +604,19 @@ class ContributeForm extends FormBase {
 		  $form['stats_2'] = array (
 		  '#type' => 'textarea',
 		  '#placeholder' => t('Add all personal stats'),
-		  '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+		  '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div>',
 		  '#default_value' => '',
 		  '#prefix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
 		  );
 	  }
      /*Add another organization 1 END*/
-     
+     $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => 'save',
+		'#prefix' =>'<div id="athlete_submit">',
+		'#suffix' => '</div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+        //'#value' => t('Submit'),
+    ];
 	  $form['image_athlete'] = [
                             '#type' => 'managed_file',
                             '#upload_validators' => [
@@ -746,13 +756,7 @@ class ContributeForm extends FormBase {
 				'#suffix' => '</div></div></div>',
 			  );
 	 }
-    $form['submit'] = [
-        '#type' => 'submit',
-        '#value' => 'save',
-		'#prefix' =>'<div id="athlete_submit">',
-		'#suffix' => '</div></div>',
-        //'#value' => t('Submit'),
-    ];
+    
     // $form['#theme'] = 'athlete_form';
     return $form;
   }
@@ -843,6 +847,10 @@ class ContributeForm extends FormBase {
 		$query_club->fields('athawac');
 		$query_club->condition('athlete_uid', $current_user,'=');
 		$results_club = $query_club->execute()->fetchAll();
+	$query_mydata = \Drupal::database()->select('mydata', 'md');
+		$query_mydata->fields('md');
+		$query_mydata->condition('uid', $current_user,'=');
+		$results_mydata = $query_mydata->execute()->fetchAll();
 	// $query_img = \Drupal::database()->select('user__user_picture', 'n');
 		// $query_img->addField('n', 'user_picture_target_id');
 		// $query_img->condition('entity_id', $current_user,'=');
@@ -924,6 +932,17 @@ class ContributeForm extends FormBase {
 			)
 			->execute();
 	
+	
+		$conn->update('mydata')
+						->condition('uid',$current_user,'=')
+						->fields(
+							array(
+									  'field_az' =>  $az,
+									  'field_city' => $city,
+								  )
+							)
+						->execute();
+	
 
 	if(empty($results_web)){
 		$conn->insert('athlete_web')->fields(
@@ -939,6 +958,24 @@ class ContributeForm extends FormBase {
 			array(
 			'athlete_web_name' => $form_state->getValue('instagram'),
 			'athlete_web_visibility' => $form_state->getValue('youtube'),
+			)
+		)
+				->execute();
+	}
+	if(empty($results_mydata)){
+		$conn->insert('mydata')->fields(
+			array(
+			'uid' => $current_user,
+			'field_az' => $form_state->getValue('az'),
+			'field_city' => $form_state->getValue('city'),
+			)
+		)->execute();
+	}else{
+		$conn->update('mydata')
+				->condition('uid',$current_user,'=')->fields(
+			array(
+			'field_az' => $form_state->getValue('az'),
+			'field_city' => $form_state->getValue('city'),
 			)
 		)
 				->execute();
@@ -1156,7 +1193,7 @@ class ContributeForm extends FormBase {
 				->execute();
 	}	
    
-	$form_state->setRedirect('acme_hello');
+	// $form_state->setRedirect('acme_hello');
  // return;
   }
 }
