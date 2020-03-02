@@ -4124,7 +4124,7 @@ tbody.collapse.in {
     .breadcrumb > li + li:before {
       padding: 0 5px;
       color: #ccc;
-      content: "/ "; }
+      content: "/�"; }
   .breadcrumb > .active {
     color: #777777; }
 
@@ -6031,7 +6031,7 @@ table .checkbox.form-no-label, table .radio.form-no-label {
       opacity: 0; }
   .select-wrapper:after {
     color: #337ab7;
-    content: '▼';
+    content: '?';
     font-style: normal;
     font-weight: 400;
     line-height: 1;
