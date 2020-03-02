@@ -84,6 +84,7 @@ abstract class MultistepFormBase extends FormBase {
     $form = array();
     $form['actions']['#type'] = 'actions';
     $form['#prefix'] = $this->t('
+      <div class="wrapper">
       <div class="dash-main-right">
             <h1><i class="fas fa-home"></i> &gt; Dashboard > Your Scheduled Assessment</h1>
             <div class="dash-sub-main">
@@ -92,6 +93,7 @@ abstract class MultistepFormBase extends FormBase {
             </div>
          </div>
          ');
+    $form['#suffix'] = $this->t('</div>');
     $form['heading'] = [
       '#type' => 'markup',
       '#markup' => $this->t('
