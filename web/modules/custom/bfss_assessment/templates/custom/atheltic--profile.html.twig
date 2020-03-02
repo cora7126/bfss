@@ -1,0 +1,143 @@
+<div class='atheltic-profile'>
+	<section class="user-data">
+	  	<div class="container">
+	  		<div class="row">
+		  		<div class="col-6 user-info">
+		          	<div class="row title">
+		              	<h1>{{ data.first_name }} {{ data.last_name }}</h1>
+		              	<br />
+		              	<span class="sub_title">Women's Volleyball | Middle Blocker</span>
+		              	<div class="social_icons_top">
+		                  	<div class="icons_only">
+			                  	<i class="fa fa-share-alt"></i>
+			                  	<i class="fab fa-youtube"></i>
+			                  	<i class="fab fa-instagram"></i>
+		                  	</div>
+		                  	<div class="star_icon">
+		                  		<span class="hd_line">
+		                  			<i class="fa fa-star"></i>
+		                  			COACHES FOLLOWS THIS ATHLES
+		                  		</span>
+		                  	</div>
+		              	</div> 
+		          	</div>
+		          	<div class="row">
+		              	<div class="col-6 item_image">
+		              		<div class="image">
+		                		<img src="{{ data.image }}" alt="" />
+		                	</div>
+		                	<a href = "mailto:{{ data.mail }}">EMAIL ATHLETE</a>
+		              	</div>
+
+		              	<div class="col-6 bio_data">  
+			                <p>{{ data.athlete_info.athlete_state }}</p>
+			                <p>{{ data.date }} yrs</p>
+			                <p>SOPHMORE YEAR</p>
+			                <p>Graduates {{ data.athlete_info.athlete_year }}</p>
+			                <p>{{ data.athlete_info.field_height }}"</p>
+			                <p>{{ data.athlete_info.field_weight }} lbs</p>
+			                <p></p>
+			                <p></p>
+			                <p>{{ data.athlete_school.athlete_school_name }}</p>
+			                <p>{{ data.athlete_school.athlete_school_stat }}</p>
+		              	</div>
+		             </div>
+				</div>
+				<div class="col-6 user-stats">
+					<h2>Latest Assessment Snapshot</h2>
+					<h6>TO REVIEW ALL MY ASSESSMENTS AND STATS, SELECT THE "BFSS ASSESSMENT STATS" SECTION BELOW</h6>
+					<div class="statistics">
+						<img src="/modules/custom/bfss_assessment/img/stats.png">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="accordion_tabs_block space">
+	  	<div class="container">
+	  		<div class="row">
+	  			<!-- #toggler -->
+	  			<!-- toggler 1 -->
+	  			<div class="toggler-wrap col-12">
+	  				<h3>
+	  					<div class="toggle_icon">
+	  						<i class="fa fa-minus"></i>
+	  						<i class="fa fa-plus hide"></i>
+	  					</div>
+	  					BFSS ASSESSMENTS
+	  				</h3>
+	  				<div class="toggle-content image-include">
+	  					<img src="/modules/custom/bfss_assessment/img/assessment-table-static.jpg">
+					</div>
+				</div>
+	  			<!-- toggler 2 -->
+	  			<div class="toggler-wrap col-12">
+	  				<h3>
+	  					<div class="toggle_icon">
+	  						<i class="fa fa-minus"></i>
+	  						<i class="fa fa-plus hide"></i>
+	  					</div>
+	  					ABOUT ME
+	  				</h3>
+	  				<div class="toggle-content">
+	  					{{ data.athlete_about_me }}
+					</div>
+				</div>
+	  			<!-- toggler 3 -->
+	  			<div class="toggler-wrap col-12">
+	  				<h3>
+	  					<div class="toggle_icon">
+	  						<i class="fa fa-minus"></i>
+	  						<i class="fa fa-plus hide"></i>
+	  					</div>
+	  					PERSONAL STATS
+	  				</h3>
+	  				<div class="toggle-content">
+	  					<p>Here are my valleyball stats</p>
+	  					<p>SP: 84</p>
+	  					<p>PCT: 655</p>
+	  					<p>K: 649</p>
+	  					<p>K/S: 7.7</p>
+	  					<p>E: 44</p>
+	  					<p>Att: 924</p>
+	  					<p>Left handed</p>
+					</div>
+				</div>
+	  			<!-- toggler 4 -->
+	  			<div class="toggler-wrap col-12">
+	  				<h3>
+	  					<div class="toggle_icon">
+	  						<i class="fa fa-minus"></i>
+	  						<i class="fa fa-plus hide"></i>
+	  					</div>
+	  					MY VIDEOS
+	  				</h3>
+	  				<!-- https://www.youtube.com/channel/UCHxBGjJA3z1BEzPw8GQnExw -->
+	  				<div class="toggle-content">
+	  					{% if data.mydata.field_youtube is not empty %}
+	  						<iframe src="http://www.youtube.com/embed/?listType=user_uploads&list={{ data.mydata.field_youtube }}" width="100%" height="400"></iframe>
+	  					{% else %}
+	  						<!-- <p> No videos available! </p> -->
+	  						<iframe width="100%" height="315" src="https://www.youtube.com/embed/yAoLSRbwxL8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	  					{% endif %} 
+					</div>
+				</div>
+	  			<!-- toggler 5 -->
+	  			<div class="toggler-wrap col-12">
+	  				<h3>
+	  					<div class="toggle_icon">
+	  						<i class="fa fa-minus"></i>
+	  						<i class="fa fa-plus hide"></i>
+	  					</div>
+	  					MY INSTAGRAM
+	  				</h3>
+	  				<div class="toggle-content image-include">
+	  					<img src="/modules/custom/bfss_assessment/img/myinsta-temp.jpg">
+					</div>
+				</div>
+	  			<!-- #toggler -->
+			</div>
+		</div>
+	</section>
+</div>

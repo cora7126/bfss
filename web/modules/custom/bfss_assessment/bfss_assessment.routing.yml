@@ -85,3 +85,13 @@ entity.bfsspayments.collection:
   requirements:
   # Checks for permission directly.
     _permission: 'administrator'
+
+bfss_assessment.atheltic_profile:
+  path: '/users/{username}'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AthelticController::profilePage'
+    _title: "Atheltic Profile"
+    username: null
+  requirements:
+    _permission: 'access content'
+    # _role: 'athlete+parent_guardian_registering_athlete_'
