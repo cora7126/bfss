@@ -1,27 +1,11 @@
 /* Global css here */
-div.main-head{
-	display: block;
-	float: left;
-	width: 100%;
-	margin-bottom: 20px;
-}
-div.main-head > div{
-	display: inline-block;
-	width: 18.99%;
-	margin: 0px;
-}
-div.main-head div.bar{
-	width: 100%;
-	padding: 3px;
-	background-color: #a7a8ac;
-	border: none;
-    height: 12px;
-}
+.wrapper {display: block;float: left;width: 75%;}
+.wrapper .dash-main-right {margin-bottom: 40px;}
+div.main-head{display: block;float: left;width: 100%;margin-bottom: 20px;}
+div.main-head > div{display: inline-block;width: 18.99%;margin: 0px;}
+div.main-head div.bar{width: 100%;padding: 3px;background-color: #a7a8ac;border: none;height: 12px;}
 /*payment process order*/
-div.main-head div.bar{
-	background-color: #a6a7ac;
-
-}
+div.main-head div.bar{background-color: #a6a7ac;}
 div.one div.main-head div.first div.bar,
 div.two div.main-head div.first div.bar,
 div.two div.main-head div.second div.bar,
@@ -55,17 +39,8 @@ form input[type="text"],
 form input[type="email"],
 form input[type="number"],
 form select
- {
-	width: 100%;
-	border-radius: 0;
-	box-shadow: none;
-	border: 1px solid #ccc;
-}
-#edit-submit {
-    float: right;
-    /*background-color: #f4650f;*/
-    /*color: #ffffff;*/
-}
+ {width: 100%;border-radius: 0;box-shadow: none;border: 1px solid #ccc;}
+#edit-submit {float: right;}
 /* First Form css here */
 
 /* Second Form css here */
