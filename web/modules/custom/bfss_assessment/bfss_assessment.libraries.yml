@@ -17,5 +17,11 @@ athletic:
   css:
     layout:
       css/athletic.css: {}
+      css/instagram.css: {}
   js:
     js/athletic.js: {}
+    js/slick.js: {}
+    js/custom-slick.js: {}
+
+
+    

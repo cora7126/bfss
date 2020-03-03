@@ -1,8 +1,3 @@
-
-<pre>
-    {{ dump(data.mydata.field_youtube) }}
-</pre>
-
 <div class='atheltic-profile'>
 	<section class="user-data">
 	  	<div class="container">
@@ -121,7 +116,7 @@
 	  				<!-- https://www.youtube.com/channel/UCHxBGjJA3z1BEzPw8GQnExw -->
 	  				<div class="toggle-content">
 	  					{% if data.mydata.field_youtube is not empty %}
-	  						<iframe src="http://www.youtube.com/embed/?listType=user_uploads&list={{ data.mydata.field_youtube }}" width="100%" height="400"></iframe>
+	  						<iframe src="https://www.youtube.com/embed/{{data.mydata.field_youtube}}" width="100%" height="400"></iframe>
 	  					{% else %}
 	  						<!-- <p> No videos available! </p> -->
 	  						<iframe width="100%" height="315" src="https://www.youtube.com/embed/yAoLSRbwxL8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -138,7 +133,14 @@
 	  					MY INSTAGRAM
 	  				</h3>
 	  				<div class="toggle-content image-include">
-	  					<img src="/modules/custom/bfss_assessment/img/myinsta-temp.jpg">
+	  				{% set images = data.mydata.field_instagram %}
+  					  <section class="regular slider">
+  					  	 {% for image in images %}
+					    <div>
+					      <img src="{{image}}" width="300px" height="300px">
+					    </div>
+					    {% endfor %}
+					  </section>
 					</div>
 				</div>
 	  			<!-- #toggler -->
