@@ -7888,18 +7888,20 @@ nav .dropdown .drop .down-arrow {
     padding: 20px;
     display: inline-block;
     transition: width 0.5s;
+    display: grid;
+    grid-template-columns: 1fr 36rem;
+    grid-gap: 20px;
 }
 .left_section {
     display: inline-block;
-    width: 67%;
+    width: 100%;
     float: left;
     position: relative;
 }
 .right_section {
     display: inline-block;
-    width: 30%;
+    width: 100%;
     float: left;
-    margin-left: 3%;
 }
 .right_section .athlete_right{
     position:realtive;
@@ -8374,4 +8376,6 @@ input#name_1 {
     padding: 18.5px 0px;
 }
 }
+
+
 
