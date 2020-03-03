@@ -459,7 +459,7 @@ class ContributeForm extends FormBase {
 		'#type' => 'select',
       '#required' => TRUE,
 		'#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
-	  '#prefix' => '</div><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+	  '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
 	  '#default_value' => array_search($results12['athlete_uni_type'],$unitype),
       );
 		$uniname = array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3'));
@@ -527,7 +527,7 @@ class ContributeForm extends FormBase {
 	  $form['stats_2'] = array (
       '#type' => 'textarea',
       '#placeholder' => t('Add all personal stats'),
-	  '#suffix' => '</div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+	  '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div>',
       '#default_value' => '',
 	  '#prefix'=>'<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
       );
@@ -645,11 +645,6 @@ class ContributeForm extends FormBase {
 	  '#attributes' => array('disabled' => true),
       '#default_value' => $results5['athlete_school_sport'],
       );
-	  $form['label_1'] = array (
-      '#type' => 'label',
-      '#title' => ' http://bfsscience.com/users/',
-	  '#attributes' => array('id'=>'label_1','class' => array('weblabel')),
-      );
 	   $form['name_web'] = array (
       '#type' => 'textfield',
       '#placeholder' => t('Pick a Name'),
@@ -657,6 +652,11 @@ class ContributeForm extends FormBase {
 	  '#prefix' => '<div class="container-inline web_name webfield">',
 	  '#suffix' => '</div>',
 	  '#attributes' => array('id'=>'name_1'),
+      );
+	  $form['label_1'] = array (
+      '#type' => 'label',
+      '#title' => ' http://bfsscience.com/users/',
+	  '#attributes' => array('id'=>'label_1','class' => array('weblabel')),
       );
 	  $form['label_2'] = array (
       '#type' => 'label',
@@ -678,18 +678,13 @@ class ContributeForm extends FormBase {
 			  '#placeholder' => t('School'),
 			  '#default_value' => $results6['athlete_uni_name'],
 			  '#attributes' => array('disabled' => true),
-			  '#prefix' => '</div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
+			  '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
 			  );
 			   $form['sport_web2'] = array (
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Sport'),
 			  '#default_value' => $results6['athlete_uni_sport'],
 			  '#attributes' => array('disabled' => true),
-			  );
-			  $form['label_12'] = array (
-			  '#type' => 'label',
-			  '#title' => ' http://bfsscience.com/users/',
-			  '#attributes' => array('id'=>'label_2','class' => array('weblabel')),
 			  );
 			   $form['name_web2'] = array (
 			  '#type' => 'textfield',
@@ -698,6 +693,11 @@ class ContributeForm extends FormBase {
 			  '#prefix' => '<div class="container-inline web_name webfield">',
 				'#suffix' => '</div>',
 			  '#attributes' => array('id'=>'name_2'),
+			  );
+			  $form['label_12'] = array (
+			  '#type' => 'label',
+			  '#title' => ' http://bfsscience.com/users/',
+			  '#attributes' => array('id'=>'label_2','class' => array('weblabel')),
 			  );
 			  $form['label_22'] = array (
 			  '#type' => 'label',
@@ -711,7 +711,7 @@ class ContributeForm extends FormBase {
 				'#type' => 'select',
 				'#options' => array(t('Website Visibility'), t('on'), t('off')),
 				'#default_value' => $results14['athlete_addweb_visibility'],
-				'#suffix' => '</div></div></div>',
+				'#suffix' => '</div></div>',
 			  );
 	 }
 	 if(!empty($results16)){	
@@ -728,11 +728,6 @@ class ContributeForm extends FormBase {
 			  '#default_value' => $results16['athlete_club_sport'],
 			  '#attributes' => array('disabled' => true),
 			  );
-			  $form['label_13'] = array (
-			  '#type' => 'label',
-			  '#title' => 'http://bfsscience.com/users/',
-			  '#attributes' => array('id'=>'label_2','class' => array('weblabel')),
-			  );
 			   $form['name_web3'] = array (
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Pick a Name'),
@@ -740,6 +735,11 @@ class ContributeForm extends FormBase {
 			  '#prefix' => '<div class="container-inline web_name webfield">',
 				'#suffix' => '</div>',
 			  '#attributes' => array('id'=>'name_2'),
+			  );
+			  $form['label_13'] = array (
+			  '#type' => 'label',
+			  '#title' => 'http://bfsscience.com/users/',
+			  '#attributes' => array('id'=>'label_2','class' => array('weblabel')),
 			  );
 			  $form['label_23'] = array (
 			  '#type' => 'label',

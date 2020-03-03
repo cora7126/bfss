@@ -108,27 +108,27 @@ class edit_parent extends FormBase {
 		 $form['fname2'] = array(
 			  '#type' => 'textfield',
 			  '#default_value' => $results1['field_first_name_value'],
-			  '#attributes' => array('style'=>'display:none'),
-			  '#prefix'=> '</div></div><div class="athlete_left parent_hide"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
+			  // '#attributes' => array('style'=>'display:none'),
+			  '#prefix'=> '</div></div><div class="athlete_left parent_hide first-parent-guardian"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname2'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Last Name'),
 			  '#default_value' => $results2['field_last_name_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  $form['cellphone2'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => 'Cell Phone',
 			  '#default_value' => $results5['field_mobile_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  $form['homephone2'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => 'Home Phone',
 			  '#default_value' => $results6['field_mobile_2_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  
 	  }
@@ -160,27 +160,27 @@ class edit_parent extends FormBase {
 		  $form['fname3'] = array(
 			  '#type' => 'textfield',
 			  '#default_value' => $results1['field_first_name_value'],
-			  '#attributes' => array('style'=>'display:none'),
-			  '#prefix'=> '</div></div><div class="athlete_left parent_hide"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
+			  // '#attributes' => array('style'=>'display:none'),
+			  '#prefix'=> '</div></div><div class="athlete_left parent_hide second-parent-guardian"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname3'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Last Name'),
 			  '#default_value' => $results2['field_last_name_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  $form['cellphone3'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => 'Cell Phone',
 			  '#default_value' => $results5['field_mobile_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  $form['homephone3'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => 'Home Phone',
 			  '#default_value' => $results6['field_mobile_2_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  
 	  }
@@ -212,45 +212,45 @@ class edit_parent extends FormBase {
 		 $form['fname4'] = array(
 			  '#type' => 'textfield',
 			  '#default_value' => $results1['field_first_name_value'],
-			  '#attributes' => array('style'=>'display:none'),
-			  '#prefix'=> '</div></div><div class="athlete_left parent_hide"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
+			  // '#attributes' => array('style'=>'display:none'),
+			  '#prefix'=> '</div></div><div class="athlete_left parent_hide third-parent-guardian"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 			  '#placeholder' => t('First Name'),
 			  );
 			  $form['lname4'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => t('Last Name'),
 			  '#default_value' => $results2['field_last_name_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  $form['cellphone4'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => 'Cell Phone',
 			  '#default_value' => $results5['field_mobile_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  ); 
 			  $form['homephone4'] = array(
 			  '#type' => 'textfield',
 			  '#placeholder' => 'Home Phone',
 			  '#default_value' => $results6['field_mobile_2_value'],
-			  '#attributes' => array('style'=>'display:none'),
+			  // '#attributes' => array('style'=>'display:none'),
 			  );
 			  
 	  }
-		
+	$form['submit'] = [
+        '#type' => 'submit',
+        '#value' => 'save',
+		'#prefix' =>'</div></div><a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a><div id="athlete_submit">',
+		'#suffix' => '</div>',
+        //'#value' => t('Submit'),
+    ];	
 	$form['label_text'] = array(
 	'#type' => 'label',
 	'#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
-	'#prefix' => '<a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Parent / Guardian</a></div></div></div><div class ="right_section"><div class = "athlete_right">',
+	'#prefix' => '</div><div class ="right_section"><div class = "athlete_right">',
 	'#suffix' => '</div></div>',
 	'#attributes' => array('id => parent_label'),
 	);	
-    $form['submit'] = [
-        '#type' => 'submit',
-        '#value' => 'save',
-		'#prefix' =>'<a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a><div id="athlete_submit">',
-		'#suffix' => '</div>',
-        //'#value' => t('Submit'),
-    ];
+    
 	
     return $form;
   }
@@ -294,7 +294,7 @@ class edit_parent extends FormBase {
 		$results3 = $query3->execute()->fetchAll(); 
 	$query4 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
 		$query4->addField('fpfnv','field_parent_first_name_value');
-		$query4->condition('entity_id', $currentuser,'=');
+		$query4->condition('entity_id', $current_user,'=');
 		$results4 = $query4->execute()->fetchAll();
 	
 	// echo "<pre>"; print_r($results3);die;
@@ -316,6 +316,7 @@ class edit_parent extends FormBase {
 		$homephone4 = $form_state->getValue('homephone4');
 		
 		if(empty($results4) && !empty($fname1)){
+			// echo '<pre>';print_r($results4);die;
 			$conn->insert('user__field_parent_first_name')->fields(
 							array(
 							'entity_id' => $current_user,
