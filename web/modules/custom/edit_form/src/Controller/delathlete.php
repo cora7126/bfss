@@ -13,12 +13,12 @@ class delathlete extends ControllerBase {
 		public function deleteathlete($aid,$orgname)
 		{	
 		// echo $orgname;die;
-			$current_user = \Drupal::currentUser()->id();
+			$uid = \Drupal::currentUser()->id();
 			$conn = Database::getConnection();
 			$num_deleted = $conn->delete($orgname)
-			  ->condition('athlete_uid', $current_user)
+			  ->condition('athlete_uid', $uid, '=')
 			  ->execute();
-			  $response = 'abcddd';
+			  $response = array($uid);
 			  return new JsonResponse($response);
 		}
    

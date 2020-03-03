@@ -77,7 +77,7 @@ class test extends FormBase {
       '#required' => TRUE,
       '#default_value' => $results4['mail'],
 	  '#prefix' => '',
-	  '#suffix' => '<a class="change_pass" id=change_id>Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ATHLETE\'s Information</h3><div class=items_div>',
+	  '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ATHLETE\'s Information</h3><div class=items_div>',
       );
         $form['fname'] = array(
       '#type' => 'textfield',
@@ -192,7 +192,7 @@ class test extends FormBase {
 	  $form['stats_2'] = array (
       '#type' => 'textarea',
       '#placeholder' => t('Add all personal stats'),
-	  '#suffix' => "</div></div></div><a class='add_org popup_add_org edit-user-display'><i class='fa fa-plus'></i>Add Another Organization</a></div><div class ='right_section'><div class = 'athlete_right '><h3><div class='toggle_icon'><i class='fa fa-minus'></i><i class='fa fa-plus hide'></i></div>My Website Photo</h3><div class='edit_dropdown'><a class='drop' >Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div><img src= $url class='edit-profile-image' ><div class='items_div'><div class='popupimage' id='imagepopup'>",
+	  '#suffix' => "</div></div></div><a class='add_org popup_add_org edit-user-display'><i class='fa fa-plus'></i>Add Another Organization</a></div><div class ='right_section'><div class = 'athlete_right '><h3><div class='toggle_icon'><i class='fa fa-minus'></i><i class='fa fa-plus hide'></i></div>My Website Photo</h3><div class='edit_dropdown'><a class='drop' >Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div><img src= $url class='edit-profile-image' ><div class='items_div'><div class='popupimage' id='imagepopup'><div class='popup_header'><h3>Profile Photo <i class='fa fa-times right-icon imagepopup-modal-close spb_close' aria-hidden='true'></i></h3></div>",
       '#default_value' => '',
       );     
      /*Add another organization 1 END*/
@@ -299,7 +299,7 @@ class test extends FormBase {
 	   $form['pass_label'] = array(
       '#type' => 'label',
       '#value' => t('Your password must be at least 8 characters long and contain at least one number and one character'),
-	  '#prefix' => '<div id="changepassdiv">',
+	  '#prefix' => '<div id="changepassdiv" class="changePassword_popup"><div class="popup_header change_password_header"><h3>Change Password <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true"></i></h3></div>',
       );
 	  $form['current_pass'] = array(
       '#type' => 'password',
@@ -317,11 +317,11 @@ class test extends FormBase {
 	  $form['pass_error'] = array(
       '#type' => 'label',
       '#value' => t('Incorrect entry,please try again.'),
-	  '#suffix' => '<span class=passerror> Need more help? Click here </span>',
+	  '#suffix' => '<span class="passerror"> Need more help? Click here </span>',
       );
     $form['changebutton'] = [
         '#type' => 'label',
-        '#title' => 'save',
+        '#title' => 'update',
 		'#prefix' =>'',
 		'#suffix' => '</div>',
 		'#attributes' => array('id'=>'save_pass','style'=>'cursor:pointer; background:green;padding: 5px;
@@ -331,7 +331,7 @@ class test extends FormBase {
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
-		'#prefix' =>'<div id="athlete_submit">',
+		'#prefix' =>'<div id="athlete_submit" class="user-submit-button">',
 		'#suffix' => '</div>',
         //'#value' => t('Submit'),
     ];
