@@ -177,6 +177,7 @@ class AthelticController extends ControllerBase {
     $data['athlete_about_me'] = $this->getUserInfo('athlete_about','athlete_about_me','athlete_uid');
     #result-10
     $data['athlete_social'] = $this->getUserInfo('athlete_social','','athlete_uid');
+
     /*[id] => 3
     [athlete_uid] => 101
     [athlete_social_1] => Ryan Perry
@@ -204,6 +205,7 @@ class AthelticController extends ControllerBase {
      /*[athlete_clubweb_name] => 
     [athlete_clubweb_visibility] => */ 
     $data['mydata'] = $this->getUserInfo('mydata','','uid');
+
     /* [id] => 23
     [field_jodi] => Ryan
     [field_bloggs] => Perry
@@ -225,17 +227,41 @@ class AthelticController extends ControllerBase {
     #$this->assessmentService->check_assessment_node($nid);
     #get only channel id
     // field_dob
-
+    $data['mydata']['field_youtube'] = 'https://www.youtube.com/channel/UCJ3uq_dgtGdfScO21KU08wg';
     if (isset($data['mydata']['field_youtube']) && !empty($data['mydata']['field_youtube'])) {
-      $data['mydata']['field_youtube'] = $this->parse_channel_id($data['mydata']['field_youtube']);
+      //$data['mydata']['field_youtube'] = $this->parse_channel_id($data['mydata']['field_youtube']);
+    	$url     = $data['mydata']['field_youtube'];
+		$xml_url = $this->getYouTubeXMLUrl($url);
+		$xmlfile = file_get_contents($xml_url);  
+		// Convert xml string into an object 
+		$new = simplexml_load_string($xmlfile); 
+		// Convert into json 
+		$con = json_encode($new); 
+		// Convert into associative array 
+		$newArr = json_decode($con, true);
+		$video_id = explode("?v=",  $newArr['entry'][0]['link']['@attributes']['href']);
+		$video_id = $video_id[1];
+		$data['mydata']['field_youtube'] = $video_id;
     }
+     
+    	$data['mydata']['field_instagram'] = $data['athlete_social']['athlete_social_1'];
+     if (isset($data['mydata']['field_instagram']) && !empty($data['mydata']['field_instagram'])) {
 
-
+     		$username = $data['mydata']['field_instagram'];
+    		$instaResult = file_get_contents('https://www.instagram.com/'.$username.'/?__a=1');
+			$insta = json_decode($instaResult);
+			$instagram_photos = $insta->graphql->user->edge_owner_to_timeline_media->edges;
+			$img_urls = [];
+			foreach($instagram_photos as $instagram_photo){
+				$img_urls[] = $instagram_photo->node->display_url;
+			}
+			$data['mydata']['field_instagram'] = $img_urls;
+		}
 
     #only for dummy use
     # should be deleted 
       // $data['mydata']['field_youtube'] = 'https://www.youtube.com/channel/UCfOfVT4F6UiQw75irnS6KFA';
-      $data['athlete_about_me'] = t('<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p><p> Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel e</p>');
+      // $data['athlete_about_me'] = t('<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p><p> Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel e</p>');
      // \Drupal::logger('data')->notice('@type', array('@type' => print_r($data, 1) ));
     #only for dummy use
     # should be deleted 
@@ -271,4 +297,33 @@ class AthelticController extends ControllerBase {
     return null;
   }
 
+	private function getYouTubeXMLUrl( $url, $return_id_only = false ) {
+	    $xml_youtube_url_base = 'https://www.youtube.com/feeds/videos.xml';
+	    $preg_entities        = [
+	        'channel_id'  => '\/channel\/(([^\/])+?)$', //match YouTube channel ID from url
+	        'user'        => '\/user\/(([^\/])+?)$', //match YouTube user from url
+	        'playlist_id' => '\/playlist\?list=(([^\/])+?)$',  //match YouTube playlist ID from url
+	    ];
+	    foreach ( $preg_entities as $key => $preg_entity ) {
+	        if ( preg_match( '/' . $preg_entity . '/', $url, $matches ) ) {
+	            if ( isset( $matches[1] ) ) {
+	                if($return_id_only === false){
+	                    return $xml_youtube_url_base . '?' . $key . '=' . $matches[1];
+	                }else{
+	                    return [
+	                        'type' => $key,
+	                        'id' => $matches[1],
+	                    ];
+	                }
+
+	            }
+	        }
+	    }
+
+	}
+
+
+	
+		
+	
 }
