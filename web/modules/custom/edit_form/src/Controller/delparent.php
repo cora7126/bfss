@@ -32,37 +32,38 @@ class delparent extends ControllerBase {
 			  return new JsonResponse($response);
 		}
 		
-		public function changepass($oldpass=null,$newpass=null,$newpassconfirm=null)
+		public function changepass($oldpass,$newpass,$newpassconfirm)
 		{ 
-			$current_user = \Drupal::currentUser()->id();
+			$cur_uid = \Drupal::currentUser()->id();
 			$current_user_name = \Drupal::currentUser()->getUsername();
 			$conn = Database::getConnection();
-			$query1 = \Drupal::database()->select('users_field_data', 'ufd');
-				$query1->addField('ufd', 'pass');
-				$query1->condition('uid', $current_user,'=');
-				$results1 = $query1->execute()->fetchAssoc(); 
+//			$query1 = \Drupal::database()->select('users_field_data', 'ufd');
+//				$query1->addField('ufd', 'pass');
+//				$query1->condition('uid', $current_user,'=');
+//				$results1 = $query1->execute()->fetchAssoc(); 
 					
-				$loggedin = \Drupal::service('user.auth')->authenticate($current_user_name, $oldpass);
-				if($loggedin == $current_user){
+				$loggedin_user = \Drupal::service('user.auth')->authenticate($current_user_name, $oldpass);
+                                $response = array($loggedin_user,$cur_uid,$current_user_name,$oldpass);
+				if($loggedin_user == $cur_uid){
 					if($newpass == $newpassconfirm){
 						// Get user storage object.
 					$user_storage = \Drupal::entityManager()->getStorage('user');
 
 					// Load user by their user ID
-					$user = $user_storage->load($current_user);
+					$user = $user_storage->load($cur_uid);
 
 					// Set the new password
 					$user->setPassword($newpass);
 
 					// Save the user
 					$user->save();
-					}else{
+					}else{$response = 'ab';
 						drupal_set_message('NEW PASS MISMATCH ERROR','error');
 					}
-				}else{
+				}else{$response = 'a2';
 					drupal_set_message('INCORRECT PASS','error');
 				}
-			  $response = 'abcddd';
+			  
 			  return new JsonResponse($response);
 		}
    // return $abc;
