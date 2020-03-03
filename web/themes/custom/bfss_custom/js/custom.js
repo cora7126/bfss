@@ -13,19 +13,55 @@ error :function (data){
 });*/
 		//Delete Second Social/Club/Uni
 		jQuery('#athlete_uni').on('click',function(){
-			if(confirm('Are you sure you want to delete this?')){
-				jQuery.ajax({
-					url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_uni',
-					dataType: 'json',
-					cache: false,
-					success: function(data){
-					},
-					error :function (data){
+			$(this).parents('.athlete_left').addClass('delete_athlete');
+			$('body').append('<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">'+
+			  '<div class="modal-dialog" role="document">'+
+			    '<div class="modal-content">'+
+			      '<div class="modal-header p-4" style="background: #000;">'+
+			        '<h3 class="modal-title text-uppercase text-white" id="exampleModalLabel">DELETE Information</h3>'+
+			        '<button type="button" class="close confirmation-close-button" data-dismiss="modal" aria-label="Close">'+
+			          '<span aria-hidden="true">&times;</span>'+
+			        '</button>'+
+			     ' </div>'+
+			      '<div class="modal-body px-4"><p>Are you sure you want to delete this information permanently?</p></div>'+
+			      '<div class="modal-footer px-4">'+
+			        '<button type="button" class="btn btn-lg text-white btn-default text-uppercase p-3" id="confirm-delete" style="background: #f76907; font-size: 17px;">YES, Delete</button>'+
+			      '</div>'+
+			    '</div>'+
+			  '</div>'+
+			'</div>');
+			$('#confirmModal').modal('show');
+			// if(confirm('Are you sure you want to delete this?')){
+			// 	jQuery.ajax({
+			// 		url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_uni',
+			// 		dataType: 'json',
+			// 		cache: false,
+			// 		success: function(data){
+			// 		},
+			// 		error :function (data){
 
-					}
-				});
-			jQuery(this).parents('.athlete_left').remove();
-			}
+			// 		}
+			// 	});
+			// jQuery(this).parents('.athlete_left').remove();
+			// }
+		});
+		jQuery(document).on('click', '#confirm-delete', function(){
+
+			jQuery.ajax({
+				url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_uni',
+				dataType: 'json',
+				cache: false,
+				success: function(data){
+					jQuery('.delete_athlete').remove();
+					$('#confirmModal').modal('hide');
+				},
+				error :function (data){
+
+				}
+			});
+		});
+		jQuery(document).on('click', '#not-confirm', function(){
+			jQuery('.delete_athlete').removeClass('delete_athlete');
 		});
 		//Delete Third Social/Club/Uni
 		jQuery('#athlete_club').on('click',function(){
@@ -55,7 +91,8 @@ error :function (data){
 			counter_click--;
 		});
 		//Remove Add org button
-		if(jQuery('.previous_athlete').css('display') != 'none' && jQuery('.last_athlete').css('display') != 'none'){
+		if(jQuery('.previous_athlete').css('display') != 'none' && jQuery('.last_athlete').css('display') != 'none' && jQuery('.previous_athlete').length && jQuery('.last_athlete').length){
+			console.log("there");
 			jQuery('.popup_add_org').hide();
 		}
 		//To CHANGE USER PASS
@@ -224,7 +261,9 @@ error :function (data){
 			}
 		});
 		//TO REMOVE ADD ANOTHER ORG LINK IF MAX LIMIT REACHED
-		if(jQuery('.athlete_school.popup-athlete-school-hide.last_athlete').css('display') != 'none' && jQuery('.athlete_school.popup-athlete-school-hide.previous_athlete').css('display') != 'none'){
+		// console.log("display: " , jQuery('.bfssAthleteProfile .athlete_school.popup-athlete-school-hide.last_athlete').css('display'));
+		if(jQuery('.bfssAthleteProfile .athlete_school.popup-athlete-school-hide.last_athlete').css('display') != 'none' && jQuery('.bfssAthleteProfile .athlete_school.popup-athlete-school-hide.previous_athlete').css('display') != 'none' && jQuery('.bfssAthleteProfile .athlete_school.popup-athlete-school-hide.last_athlete').length && jQuery('.bfssAthleteProfile .athlete_school.popup-athlete-school-hide.previous_athlete').length){
+			console.log("here");
 			jQuery('.popup_add_org').hide();
 		}
 		
@@ -276,6 +315,8 @@ error :function (data){
             }
         }); */
         jQuery('#spb-imagepopup .imagepopup-modal').find('.spb-controls').children('.spb_close').html('submit').addClass('submit_btn');
+        jQuery('#spb-changepassdiv .changepassdiv-modal').find('.spb-controls').children('.spb_close').hide();
+        $('#changepassdiv').find('#save_pass').addClass('change_password_button');
     });
     var athelet = $(".dashboard .athelet_form_content").html();
     // console.log("athelet", athelet);
@@ -317,7 +358,7 @@ error :function (data){
            //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu,.right_section .edit_dropdown ul.dropdown-menu ').append('<li>'+full_html+'</li>');
             
             //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu ,.right_section .edit_dropdown ul.dropdown-menu').toggle();
-            jQuery('.right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
+            jQuery('.bfssAthleteProfile .right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
             jQuery('#edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span').toggleClass('edit_open');
         //}
         
@@ -337,15 +378,29 @@ error :function (data){
  jQuery('.popup_form_id-modal spb_overlay').css('background','black');
  
  var counter_click = 0;
- jQuery(document).on('click', '.popup_add_org', function(){
+ jQuery(document).on('click', '.bfssAthleteProfile .popup_add_org', function(){
 	 console.log(counter_click);
      if(counter_click == 0){
         jQuery(this).siblings('.previous_athlete').css('display', 'block');
         counter_click++
     }else if(counter_click == 1){
         jQuery(this).siblings('.last_athlete').css('display', 'block');
-		jQuery('.popup_add_org').hide();
+		jQuery(this).hide();
         counter_click++
+    }
+ });
+  jQuery(document).on('click', '.edit-parent .popup_add_org', function(){
+	 console.log(counter_click);
+     if(counter_click == 0){
+        jQuery(this).siblings('.first-parent-guardian').css('display', 'block');
+        counter_click++
+    }else if(counter_click == 1){
+        jQuery(this).siblings('.second-parent-guardian').css('display', 'block');
+        counter_click++
+    }else if(counter_click == 2){
+    	jQuery(this).siblings('.third-parent-guardian').css('display', 'block');
+        counter_click++
+		jQuery(this).hide();
     }
  });
 	
