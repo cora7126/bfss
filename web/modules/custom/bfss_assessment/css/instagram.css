@@ -1,4 +1,7 @@
-	.atheltic-profile{max-width: 100vw;}
+.icons_only a {
+   color: #f56907;
+}	
+    .atheltic-profile{max-width: 100vw;}
 	/* Slider */
 .slick-slider
 {

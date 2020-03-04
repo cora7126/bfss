@@ -29,6 +29,12 @@ return [
         ],
         'template'=>'custom/atheltic--profile',
     ],
+    'upcoming_group_assessments' => [
+      'variables' => [
+          'data'=> null,
+        ],
+        'template'=>'custom/upcoming-group-assessments',
+    ],
   ];
 }
 /*function bfss_assessment_theme() {
