@@ -8,76 +8,50 @@
 .col-6.item_image{padding: 0;}
 .coch_info{display: flex;flex-wrap: wrap;}
 .item_image img{width: 100%}
-.item_image a{font-size: 20px;
-  background: #f56907;
-  color: #fff;
-  text-align: center;
-  padding: 10px 7px;
-  font-weight: normal;
-  width: 100%;
-  display: block;}
+.item_image a{font-size: 20px;background: #f56907;color: #fff;text-align: center;padding: 10px 7px;font-weight: normal;width: 100%;display: block;}
 .space{padding: 40px 0;}
 .social_icons_top{display: flex;align-items: center;}
 .icons_only{border-right: 1px solid #f56907;}
-.icons_only i{margin-right: 15px;}
+.icons_only i{margin-right: 20px;font-size: 18px;}
 .star_icon{margin-left: 20px;}
-.social_icons_top{padding: 10px 0;}
+.social_icons_top{padding: 10px 0;margin-bottom: 20px;}
 .icons_only, .star_icon .fa{color: #f56907;font-size: 20px;}
 .sub_title_jodi{font-size: 20px;}
-.star_icon span{font-size: 14px;}
-.item_image .image{min-height: 85%;background-image: url("../img/user-default-profile.png");background-repeat: no-repeat;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;}
-.toggler-wrap h3{  
-  background:#000;
-  position: relative;
-  color:#fff;
-  font-weight: bold;
-  padding: 20px 15px;
-  font-size: 16px;
-  margin: 0;
-  margin-bottom: 0px;
-  text-transform: uppercase;
-  margin-bottom: 0px;
-  cursor: pointer;
-}
-
-.toggler-wrap .toggle_icon i {
-  color:#f76907;
-  padding-right: 15px;
-}
-.toggler-wrap .toggle-content {
-  display: inline-block;
-  width: 100%;
-  padding: 30px 5px;
-  border: 1px solid #c2c2c2
-}
-.toggler-wrap {
-    margin: 10px 0;
-}
-
-.user-info h1{font-size: 30px;font-weight: 700;}
+.star_icon span{font-size: 10px;color:#828282;}
+.item_image .image{min-height: 85%;background-image: url("../img/user-default-profile.png");background-repeat: no-repeat;background-repeat: no-repeat;background-size: cover;background-position: center;
+    height: 100%;margin-bottom: 7px;}
+.toggler-wrap h3{background:#000;position: relative;color:#fff;font-weight: bold;padding: 20px 15px;font-size: 16px;margin: 0;margin-bottom: 0px;text-transform: uppercase;margin-bottom: 0px;cursor: pointer;}
+.toggler-wrap .toggle_icon i{color:#f76907;padding-right: 15px;}
+.toggler-wrap .toggle-content{display: inline-block;width: 100%;padding: 30px 5px;border: 1px solid #c2c2c2}
+.toggler-wrap {margin: 10px 0;}
+.user-info h1{font-size: 30px;font-weight: 700;margin: 0;color: #000000;}
 span.sub_title{display: block;margin: auto;width: 100%;font-size: 18px;}
 .user-data{padding: 10px 20px;}
 .bio_data{font-size: 17px;line-height: 20px;}
 .image a:hover{color: #fff;}
-.user-stats h2{font-size: 20px;font-weight: bold;}
-.user-stats h6{color: #a8a9ad;font-size: 14px;line-height: 22px;}
+.user-stats h2{font-size: 20px;font-weight: bold;margin: 0;color: #000000;}
+.user-stats h6{color: #828282;font-size: 10px;line-height: 22px;}
 .statistics img{width: 100%;height: 100%;}
 .user-stats{margin-top: 40px;}
 .image-include{text-align: center;}
-.statistics{margin-top: 40px;}
 .accordion_tabs_block img{width: 100%;}
 .toggle-content iframe{width: 80%;margin: auto;display: block;}
 .slick-dotted.slick-slider{width: 80%;margin: auto;}
 .slider .slick-slide{padding: 0 10px;}
-
 .slick-prev:before{background-color: transparent!important;color: transparent!important;
     font-size: 60px!important;background-image: url("../img/left-icon.png")!important;background-repeat: no-repeat!important;}
 .slick-next:before{background-color: transparent!important;color:transparent !important;
     font-size: 60px!important;background-image: url("../img/right-icon.png")!important;background-repeat: no-repeat!important;}
 .toggler-wrap{width: 100%;}
-
 .slick-prev{left: -66px!important;}
 .slick-next{right: -66px!important;}
+.user-info .item_image{height: 225px;}
+.col-6.user-info{flex: 0 0 40%;max-width: 40%;}
+.col-6.user-stats{flex: 0 0 60%;max-width: 60%;}
+.toggle-content p{margin: 0;font-size: 12px;font-weight: 600;}
+.toggler-wrap .toggle-content{line-height: 20px;padding: 20px;font-size: 12px;font-weight: 600;}
+.region.region-content{max-width: 1170px;margin: auto;}
+.hd_line .fa{min-height: 85%;background-image: url("../img/star-o-icon.png");background-repeat: no-repeat;background-repeat: no-repeat;background-size: 85%;
+    background-position: center;}
+.hd_line .fa-star:before{width: 20px;height: 20px;color: transparent;}
+.atheltic-profile{padding: 30px 0px;}

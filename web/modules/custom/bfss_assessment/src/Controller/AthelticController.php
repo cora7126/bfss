@@ -128,7 +128,8 @@ class AthelticController extends ControllerBase {
     }
     $data['mail'] = $this->getUserInfo('users_field_data', 'mail','uid');
     $data['athlete_school'] = $this->getUserInfo('athlete_school', '','athlete_uid');
-    
+    $data['athlete_uni'] = $this->getUserInfo('athlete_uni', '','athlete_uid');
+    $data['athlete_club'] = $this->getUserInfo('athlete_club','','athlete_uid');
     /*[id] => 3
     [athlete_uid] => 101
     [athlete_school_name] => Organization Name 1
@@ -139,7 +140,7 @@ class AthelticController extends ControllerBase {
     [athlete_school_type] => Organization Type 1
     [athlete_school_pos2] => er
     [athlete_school_pos3] => ert*/
-    $data['athlete_uni'] = $this->getUserInfo('athlete_uni', '','athlete_uid');
+   
     $data['athlete_info'] = $this->getUserInfo('athlete_info', '','athlete_uid');
     /*
     [id] => 3
@@ -200,7 +201,7 @@ class AthelticController extends ControllerBase {
     // $data['image'] = 
     // 298
     $data['addschool'] = $this->getUserInfo('athlete_addschool','','athlete_uid');
-    $data['athlete_club'] = $this->getUserInfo('athlete_club','','athlete_uid');
+   
     $data['athlete_clubweb'] = $this->getUserInfo('athlete_clubweb','','athlete_uid');
      /*[athlete_clubweb_name] => 
     [athlete_clubweb_visibility] => */ 
@@ -227,7 +228,9 @@ class AthelticController extends ControllerBase {
     #$this->assessmentService->check_assessment_node($nid);
     #get only channel id
     // field_dob
-    $data['mydata']['field_youtube'] = 'https://www.youtube.com/channel/UCJ3uq_dgtGdfScO21KU08wg';
+    
+    
+    $data['mydata']['field_youtube'] = $data['athlete_social']['athlete_social_2'];
     if (isset($data['mydata']['field_youtube']) && !empty($data['mydata']['field_youtube'])) {
       //$data['mydata']['field_youtube'] = $this->parse_channel_id($data['mydata']['field_youtube']);
     	$url     = $data['mydata']['field_youtube'];
@@ -246,9 +249,8 @@ class AthelticController extends ControllerBase {
      
     	$data['mydata']['field_instagram'] = $data['athlete_social']['athlete_social_1'];
      if (isset($data['mydata']['field_instagram']) && !empty($data['mydata']['field_instagram'])) {
-
-     		$username = $data['mydata']['field_instagram'];
-    		$instaResult = file_get_contents('https://www.instagram.com/'.$username.'/?__a=1');
+     	$username = $data['mydata']['field_instagram'];
+    	$instaResult = file_get_contents('https://www.instagram.com/'.$username.'/?__a=1');
 			$insta = json_decode($instaResult);
 			$instagram_photos = $insta->graphql->user->edge_owner_to_timeline_media->edges;
 			$img_urls = [];
