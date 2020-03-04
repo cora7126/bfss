@@ -16,6 +16,10 @@ function acme_theme() {
     'variables' => ['name' => NULL,'assessments_block' => NULL],
     'template' => 'hello',
   ];
+  $theme['upcoming_page'] = [
+    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'template' => 'upcoming',
+  ];
   $theme['athlete_profile'] = [
     'variables' => ['themeName' => NULL],
     'template' => 'athleteForm',
