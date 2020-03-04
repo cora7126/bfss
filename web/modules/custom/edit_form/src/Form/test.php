@@ -343,10 +343,9 @@ class test extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Validate video URL.
-    // if (!UrlHelper::isValid($form_state->getValue('video'), TRUE)) {
-      // $form_state->setErrorByName('video', $this->t("The video url '%url' is invalid.", array('%url' => $form_state->getValue('video'))));
-    // }
+   if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
+        $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
+    }
   }
 
   /**
