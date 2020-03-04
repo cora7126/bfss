@@ -1,3 +1,7 @@
+<!-- <pre>
+	{{ dump(data) }}
+</pre> -->
+
 <div class='atheltic-profile'>
 	<section class="user-data">
 	  	<div class="container">
@@ -6,16 +10,20 @@
 		          	<div class="row title">
 		              	<h1>{{ data.first_name }} {{ data.last_name }}</h1>
 		              	<br />
-		              	<span class="sub_title">Women's Volleyball | Middle Blocker</span>
+		              	<span class="sub_title">{{data.athlete_school.athlete_school_sport}} | {{data.athlete_school.athlete_school_pos}}</span>
 		              	<div class="social_icons_top">
 		                  	<div class="icons_only">
-			                  	<i class="fa fa-share-alt"></i>
-			                  	<i class="fab fa-youtube"></i>
-			                  	<i class="fab fa-instagram"></i>
+		                  	<a href="#" target="_blank"><i class="fa fa-share-alt"></i></a>
+		                  	<a href="{{data.athlete_social.athlete_social_2}}" target="_blank"><i class="fab fa-youtube"></i></a>
+		                  	<a href="https://www.instagram.com/{{data.athlete_social.athlete_social_1}}" target="_blank"><i class="fab fa-instagram"></i></a>
 		                  	</div>
 		                  	<div class="star_icon">
 		                  		<span class="hd_line">
+		                  			{% if logged_in %}
 		                  			<i class="fa fa-star"></i>
+		                  			{% else %}
+		                  			<i class="fa fa-star-o"></i>
+		                  			{% endif %}
 		                  			COACHES FOLLOWS THIS ATHLES
 		                  		</span>
 		                  	</div>
@@ -32,14 +40,13 @@
 		              	<div class="col-6 bio_data">  
 			                <p>{{ data.athlete_info.athlete_state }}</p>
 			                <p>{{ data.date }} yrs</p>
-			                <p>SOPHMORE YEAR</p>
-			                <p>Graduates {{ data.athlete_info.athlete_year }}</p>
+			                <p>Sophomore year</p>
+			                <p>Graduates {{data.athlete_info.athlete_year}}</p>
 			                <p>{{ data.athlete_info.field_height }}"</p>
 			                <p>{{ data.athlete_info.field_weight }} lbs</p>
-			                <p></p>
-			                <p></p>
-			                <p>{{ data.athlete_school.athlete_school_name }}</p>
-			                <p>{{ data.athlete_school.athlete_school_stat }}</p>
+			                <p>Williams Field Hight School Gilbert AZ</p>
+			                <!-- <p>{{ data.athlete_school.athlete_school_name }}</p>
+			                <p>{{ data.athlete_school.athlete_school_stat }}</p> -->
 		              	</div>
 		             </div>
 				</div>
@@ -94,14 +101,63 @@
 	  					PERSONAL STATS
 	  				</h3>
 	  				<div class="toggle-content">
-	  					<p>Here are my valleyball stats</p>
+
+	  					{% if data.athlete_school.athlete_school_sport is not empty %}
+	  					<p>Here are my {{data.athlete_school.athlete_school_sport}} stats</p>
+	  					{% endif %} 
+	  					
+	  					{% if data.athlete_school.athlete_school_pos is not empty %}
+	  						<p>{{data.athlete_school.athlete_school_pos}}</p>
+	  					{% endif %} 
+
+	  					{% if data.athlete_school.athlete_school_pos2 is not empty %}
+	  						<p>{{data.athlete_school.athlete_school_pos2}}</p>
+	  					{% endif %}
+
+	  					{% if data.athlete_school.athlete_school_pos3 is not empty %}
+	  						<p>{{data.athlete_school.athlete_school_pos3}}</p>
+	  					{% endif %}
+	  					
+
+
+	  					{% if data.athlete_uni.athlete_uni_sport is not empty %}
+	  					<p>Here are my {{data.athlete_uni.athlete_uni_sport}} stats</p>
+	  					{% endif %}
+	  					
+	  						{% if data.athlete_uni.athlete_uni_pos is not empty %}
+	  						<p>{{data.athlete_uni.athlete_uni_pos}}</p>
+	  						{% endif %}
+
+	  						{% if data.athlete_uni.athlete_uni_pos2 is not empty %}
+	  						<p>{{data.athlete_uni.athlete_uni_pos2}}</p>
+	  						{% endif %}
+
+	  						{% if data.athlete_uni.athlete_uni_pos3 is not empty %}
+	  						<p>{{data.athlete_uni.athlete_uni_pos3}}</p>
+	  						{% endif %}
+	  				
+
+	  					{% if data.athlete_club.athlete_club_sport is not empty %}
+	  					<p>Here are my {{data.athlete_club.athlete_club_sport}} stats</p>
+	  					{% endif %}
+	  					
+	  						{% if data.athlete_club.athlete_club_pos is not empty %}
+	  						<p>{{data.athlete_club.athlete_club_pos}}</p>
+	  						{% endif %}
+	  						{% if data.athlete_club.athlete_club_pos2 is not empty %}
+	  						<p>{{data.athlete_club.athlete_club_pos2}}</p>
+	  						{% endif %}
+	  						{% if data.athlete_club.athlete_club_pos3 is not empty %}
+	  						<p>{{data.athlete_club.athlete_club_pos3}}</p>
+	  						{% endif %}
+	  					<!-- <p>Here are my valleyball stats</p>
 	  					<p>SP: 84</p>
 	  					<p>PCT: 655</p>
 	  					<p>K: 649</p>
 	  					<p>K/S: 7.7</p>
 	  					<p>E: 44</p>
 	  					<p>Att: 924</p>
-	  					<p>Left handed</p>
+	  					<p>Left handed</p> -->
 					</div>
 				</div>
 	  			<!-- toggler 4 -->

@@ -25,7 +25,7 @@ p.note {margin-left: 1%;background-color: #cecece;width: 50%;padding-left: 4px;c
 
 .tophead .timing-date{padding:0!important;font-size: 25px!important;background: transparent !important;color:#f76907!important; padding: 30px 10px;}
 .tophead .ticketing{width: 100%;display: flex;flex-wrap: wrap;justify-content: space-evenly;}
-.tophead .col-half h2{font-size: 18px;font-weight: bold;margin: 15px 0 5px;}
+.tophead .col-half h2{font-size: 20px;font-weight: bold;margin: 15px 0 5px;}
 .tophead .loca{text-transform: uppercase;}
 .tophead .title-timing{padding-left: 20px;}
 .tophead{background: #e6e7e9;}
@@ -40,14 +40,14 @@ p.note {margin-left: 1%;background-color: #cecece;width: 50%;padding-left: 4px;c
 .row.ticketing:before, .row.ticketing:after{display: none;content: unset;}
 .date-and-time .timing-date{background: transparent!important;color: #000 !important;padding: 0px!important;font-size:14px;}
 .date-and-time span{font-size:14px!important;}
-.date-and-time{margin-top: 40px;}
-.date-and-time div{margin-top: 25px;}
+.date-and-time{margin-top: 30px;}
+.date-and-time div{margin-top: 15px;}
 .ticketing:nth-of-type(1){box-shadow: none;display: unset;}
 .ticketing .book-now{font-size: 16px;font-weight: bold;}
-.date-and-time p:nth-of-type(2){margin-top: 25px!important;}
+.date-and-time p:nth-of-type(2){margin-top: 15px!important;}
 .date-and-time p{font-size: 14px;}
 .row.details{position: relative;}
-.row.details .node-body{position: absolute;left: 0;right: 0;top: 0;width: 46%;margin-top: 40px;}
+.row.details .node-body{position: absolute;left: 0;right: 0;top: 0;width: 46%;margin-top: 30px;margin-left: 20px;}
 .row.details .node-body p{color: #000;line-height: unset;font-size: 15px;}
 .date-and-time p{color: #b7b4b4;font-size: 14px;}
 .share span{background: url(../img/share.png);background-repeat: no-repeat;background-position: left;padding-left: 25px;}
@@ -55,9 +55,10 @@ p.note {margin-left: 1%;background-color: #cecece;width: 50%;padding-left: 4px;c
 
 .ui-dialog-titlebar .ui-dialog-title{display: none;}
 .ticketing a.book-now{color: #f16707!important;}
+.ticketing a.book-now:hover{text-decoration: none;}
 .date-location{width: 30% !important;    margin-left: 30px;}
 .date-and-time div.location{background-image: url(../img/icon_time.png)!important;background-repeat: no-repeat!important;background-position: top left!important;    margin-top: -25px;
-    padding-top: 25px;font-size: 14px;}
+    padding-top: 15px;font-size: 14px;}
 
 .row.details .col-half{width: 49%;}
 .close{margin-right: 10px;} 
@@ -67,6 +68,9 @@ html .container{max-width: 100%!important;}
 html body{margin-top:0!important;}
 
 .modal-content{position: relative!important;}
-.close span{position: absolute!important;right: 51px!important;top: 27px!important;font-size: 23px!important;}
+.close span{position: absolute!important;right: 16px!important;top: 11px!important;font-size: 23px!important;}
 .close{position: relative!important;z-index: 1!important;}
 .categories-tags ul li:nth-of-type(2){margin-left: 10px;}
+button:focus{outline: unset!important;}
+div#drupal-modal{background-color: rgba(0, 0, 0, 0.68)!important;}
+.ui-dialog-content{padding: 0!important;margin-top: -1px;overflow: hidden!important;}

@@ -8,15 +8,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\bfss_assessment\AssessmentService;
 
 /**
- * Provides a 'push button' block.
+ * Provides a 'Upcoming Group Assessments' Block.
  *
  * @Block(
- *   id = "assessments_view_block",
- *   admin_label = @Translation("Assessments Custom View"),
- *   category = @Translation("Bfss Assessments")
+ *   id = "upcoming_group_assessments",
+ *   admin_label = @Translation("Upcoming GroupA ssessments"),
+ *   category = @Translation("Upcoming Group Assessments"),
  * )
  */
-class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginInterface {
+class UpcomingGroupAssessments extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
   * Drupal\bfss_assessment\AssessmentService definition.
@@ -53,7 +53,7 @@ class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginIn
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
     $res = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
-   // $data['current_page'] = $res;
+    // $data['current_page'] = $res;
     foreach($nids as $nid){
       $arr = $this->assessmentService->getNodeData($nid);
       if ($arr) {
@@ -63,11 +63,12 @@ class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginIn
         $data[] = $arr;
       }
     }
+
   #send results
     if (!empty($data)) {
       return [
         'results' => [
-              '#theme' => 'page_assessment',
+              '#theme' => 'upcoming_group_assessments',
               '#data' => $data,
               '#empty' => 'no',
             ],

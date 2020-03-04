@@ -95,3 +95,10 @@ bfss_assessment.atheltic_profile:
   requirements:
     _permission: 'access content'
     # _role: 'athlete+parent_guardian_registering_athlete_'
+bfss_assessment.my_page:
+  path: '/upcoming-group-assessments'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\UpcomingGroupAssessments::UpcomingGroup'
+    _title: 'upcoming group assessments'
+  requirements:
+    _permission: 'access content'
