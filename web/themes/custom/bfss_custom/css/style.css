@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@charset "UTF-8";
+
 /**
  * Default Variables.
  *
@@ -7407,7 +7407,7 @@ form#user-form {
 }
 .user-form .panel-default > .panel-heading {
     color: #333;
-    background-color: transparent
+    background-color: transparent;
     border-color: #000 !important;
     
 } 
@@ -7596,10 +7596,24 @@ ul.side_nav li:last-child{
 .left_side_section{
   background: #000;
   border-right: 1px solid grey;
-  width: 25%;
+  width: 19%;
   transition: width 0.5s;
   float: left;
 }
+
+/* 04-03-2020 */
+.header_rightbar {
+    max-width: 81% !important;
+    width: 81% !important;
+    flex: 0 0 81% !important;
+}
+
+.header_leftbar {
+    max-width: 19% !important;
+    width: 19% !important;
+    flex: 0 0 19% !important;
+}
+
 .open_left_side .left_side_section{
   width: 75px;
   transition: width 0.5s;
@@ -7684,7 +7698,7 @@ nav .dropdown .drop .down-arrow {
   color: #ffd537;
 }
 .dashboard .navbar .navbar-brand{
-  max-width: 150px;
+  max-width: 100%;
 }
 .remove_padding section.col-sm-12{
   padding-left: 0;
@@ -8238,7 +8252,7 @@ input#name_1 {
 .right_side_section , .edit-user .region-content , .bfssAthleteProfile .region-content , 
 .edit-parent .region-content,
 .faq-page .region-content{
-  width: calc(100% - 25%);
+  width: calc(100% - 19%);
   transition: width 0.5s;
 }
 .edit-parent .region-content{
@@ -8398,7 +8412,7 @@ input#name_1 {
     box-shadow: 0 0 0;
     text-shadow: 0 0 0;
 }
-.close.confirmation-close-button:not(:disabled):not(.disabled):focus,,
+.close.confirmation-close-button:not(:disabled):not(.disabled):focus,
 .close.confirmation-close-button:not(:disabled):not(.disabled):hover{
   opacity: 1;
     color: #f76907;
@@ -8407,13 +8421,38 @@ input#name_1 {
 #confirmModal .modal-footer{
     justify-content: flex-start;
 }
+.dashboard_row{
+    display:none !important;
+}
+
 /* media quaries*/
+@media(max-width:1199px){
+    .dashboard .navbar .navbar-brand {
+        max-width: 120px;
+        padding-top: 10px;
+    }
+}
 @media (max-width: 992px) {
+    .header_rightbar {
+        max-width: 72% !important;
+        width: 72% !important;
+        flex: 0 0 72% !important;
+    }
+
+    .header_leftbar {
+        max-width: 28% !important;
+        width: 28% !important;
+        flex: 0 0 28% !important;
+    }
+     .dashboard .navbar .navbar-brand {
+        max-width: 80px;
+        padding-top: 15px;
+    }
  .edit-user .spb-popup-main-wrapper.spb_top_center .preview{
     padding-top: 15px;
   }
   .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content {
-    width: calc(100% - 33%);
+    width: calc(100% - 28%);
     transition: width 0.5s;
 }
 .open_left_side .right_side_section , .edit-user.open_left_side .region-content ,  .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{
@@ -8421,13 +8460,13 @@ input#name_1 {
   transition: width 0.5s;
 }
       .left_side_section{
-      width: 33%;
+      width: 28%;
     }
     .my-assessment .panel{
       position: initial ! important;
     }
     .right_side_section {
-    width: calc(100% - 33%);
+    width: calc(100% - 28%);
    }
         .right_section .athlete_right h3{
           font-size: 13px;
@@ -8513,7 +8552,7 @@ input#name_1 {
     display: none;
   }
 }
-//for dashboard popup
+
 
 #popup_form_id {
   display: none;

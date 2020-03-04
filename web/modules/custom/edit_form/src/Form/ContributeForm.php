@@ -114,7 +114,7 @@ class ContributeForm extends FormBase {
     $form['fname'] = array(
       '#type' => 'textfield',
       //'#title' => t('Candidate Name:'),
-      '#required' => TRUE,
+//      '#required' => TRUE,
       '#placeholder' => t('Firstname'),
        //'#default_values' => array(array('id')),
       '#default_value' => $results1['field_first_name_value'],
@@ -189,6 +189,7 @@ class ContributeForm extends FormBase {
 	  $form['aboutme'] = array (
       '#type' => 'textarea',
       '#placeholder' => t('Tell us about yourself'),
+      '#attributes' => array('maxlength' => 1500),
       '#default_value' => $results9['athlete_about_me'],
 	  '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>About me</h3><div class=items_div>',
 	  '#suffix' => '</div></div>',
@@ -765,10 +766,50 @@ class ContributeForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Validate video URL.
-    // if (!UrlHelper::isValid($form_state->getValue('video'), TRUE)) {
-      // $form_state->setErrorByName('video', $this->t("The video url '%url' is invalid.", array('%url' => $form_state->getValue('video'))));
-    // }
+   
+      if (!$form_state->getValue('fname') || empty($form_state->getValue('fname'))) {
+        $form_state->setErrorByName('fname', $this->t('First name should not be empty.'));
+    }
+    if (!$form_state->getValue('lname') || empty($form_state->getValue('lname'))) {
+        $form_state->setErrorByName('lname', $this->t('Last name should not be empty.'));
+    }
+    if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
+        $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
+    }
+    if (!$form_state->getValue('sex') || empty($form_state->getValue('sex'))) {
+        $form_state->setErrorByName('sex', $this->t('Sex should not be empty.'));
+    }
+    if (!$form_state->getValue('city') || empty($form_state->getValue('city'))) {
+        $form_state->setErrorByName('city', $this->t('City should not be empty.'));
+    }
+    if (!$form_state->getValue('grade') || empty($form_state->getValue('grade'))) {
+        $form_state->setErrorByName('grade', $this->t('Grade should not be empty.'));
+    }
+    if (!$form_state->getValue('gradyear') || empty($form_state->getValue('gradyear'))) {
+        $form_state->setErrorByName('gradyear', $this->t('Graduation year should not be empty.'));
+    }
+    if (!$form_state->getValue('height') || !is_numeric($form_state->getValue('height'))) {
+        $form_state->setErrorByName('height', $this->t('Height should be a number.'));
+    }
+    if (empty($form_state->getValue('height'))) {
+        $form_state->setErrorByName('height', $this->t('Height should not be empty.'));
+    }
+    if (!$form_state->getValue('weight') || !is_numeric($form_state->getValue('weight'))) {
+        $form_state->setErrorByName('weight', $this->t('Weight should be a number.'));
+    }
+    if (empty($form_state->getValue('weight'))) {
+        $form_state->setErrorByName('weight', $this->t('Weight should not be empty.'));
+    }
+//    if (!$form_state->getValue('aboutme') || strlen($form_state->getValue('aboutme')) <= 15000 ) {
+//        $form_state->setErrorByName('aboutme', $this->t('Should be a less than 1000 character.'));
+//    }
+    if (!$form_state->getValue('coach') || empty($form_state->getValue('coach'))) {
+        $form_state->setErrorByName('coach', $this->t("Coach's last name should not be empty."));
+    }
+    if (!$form_state->getValue('sport') || empty($form_state->getValue('sport'))) {
+        $form_state->setErrorByName('sport', $this->t("Sport should not be empty."));
+    }
+    
   }
 
   /**
@@ -934,14 +975,14 @@ class ContributeForm extends FormBase {
 	
 	
 		$conn->update('mydata')
-						->condition('uid',$current_user,'=')
-						->fields(
-							array(
-									  'field_az' =>  $az,
-									  'field_city' => $city,
-								  )
-							)
-						->execute();
+                ->condition('uid',$current_user,'=')
+                ->fields(
+                    array(
+                        'field_az' =>  $az,
+                        'field_city' => $city,
+                        )
+                    )
+                ->execute();
 	
 
 	if(empty($results_web)){
@@ -1192,7 +1233,7 @@ class ContributeForm extends FormBase {
 		)
 				->execute();
 	}	
-   
+   drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
 	// $form_state->setRedirect('acme_hello');
  // return;
   }
