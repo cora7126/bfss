@@ -24,8 +24,21 @@ class MultistepOneForm extends MultistepFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
+
+    $current_path = \Drupal::service('path.current')->getPath();
+    $result = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+   
     #get data
-    $nid = \Drupal::request()->get('node_id');
+    if($result== '/private-assessment'){
+       $nid = rand();
+    
+    }else{
+       $nid = \Drupal::request()->get('node_id');
+
+    }
+   
+
+
     if (!$this->assessmentService->check_assessment_node($nid)) {
       if(!$this->store->get('assessment')) {
         $this->assessmentService->notAvailableMessage();
