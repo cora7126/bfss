@@ -1,0 +1,22 @@
+.user-login,
+.user-register {
+  .sub-header {
+    margin-top: 75px;
+  }
+  .select-wrapper:after,
+  select:after {
+    color: #808285 !important;
+  }
+  #edit-pass--description,
+  input,
+  input::placeholder {
+    color: #808285 !important;
+  }
+  //h3 {
+  //  font-size: 19px !important;
+  //}
+  //.register-here, .form-submit {
+  //  font-size: 17px !important;
+  //}
+}
+
