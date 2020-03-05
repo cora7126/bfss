@@ -1,0 +1,30 @@
+.user-login .sub-header,
+.user-register .sub-header {
+  margin-top: 75px;
+}
+.user-login .select-wrapper:after,
+.user-login select:after,
+.user-register .select-wrapper:after,
+.user-register select:after {
+  color: #808285 !important;
+}
+.user-login input::-webkit-input-placeholder, .user-register input::-webkit-input-placeholder {
+  color: #808285 !important;
+}
+.user-login input::-moz-placeholder, .user-register input::-moz-placeholder {
+  color: #808285 !important;
+}
+.user-login input:-ms-input-placeholder, .user-register input:-ms-input-placeholder {
+  color: #808285 !important;
+}
+.user-login input::-ms-input-placeholder, .user-register input::-ms-input-placeholder {
+  color: #808285 !important;
+}
+.user-login #edit-pass--description,
+.user-login input,
+.user-login input::placeholder,
+.user-register #edit-pass--description,
+.user-register input,
+.user-register input::placeholder {
+  color: #808285 !important;
+}
