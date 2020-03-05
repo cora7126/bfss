@@ -27,6 +27,8 @@ class MultistepTwoForm extends MultistepFormBase {
     $form = parent::buildForm($form, $form_state);
     #if not avail
     $nid = $this->store->get('assessment');
+    //echo $nid;
+    //die;
     if(!$nid) {
       returnForm:
       $this->assessmentService->notAvailableMessage();
@@ -46,25 +48,39 @@ class MultistepTwoForm extends MultistepFormBase {
     $form['heading']['#prefix'] = '<div class="two">';
     $form['heading']['#suffix'] = '</div>';
     $sortedTimings = [];
-    foreach ($timings as $key => $value) {
-      $value = date('h:i a',$value);
-      $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
-    }
-    foreach ($sortedTimings as $key => $value) {
-      $maintitle = current(array_keys($value));
-        $form['time'.$key] = array(
-          '#type' => 'radios',
-          '#title' => $this->t(date('D, M d Y',$maintitle)),
-          '#options' => $value,
-          '#prefix' => '<div class="timeslots">',
-          '#suffix' => '</div>',
-        );
-        foreach ($value as $key1 => $value1) {
-          if ($key1 == $this->store->get('time')) {
-            $form['time'.$key]['#default_value'] = $this->store->get('time');
-          }
+
+    if(empty($timings)){
+      $form['time_date_priv'] = [
+                                  '#type' => 'datetime',
+                                  '#title' => $this->t('Scheduled'),
+                                  '#size' => 20,
+                                  '#date_date_element' => 'date', // hide date element
+                                  '#date_time_element' => 'time', // you can use text element here as well
+                                  '#date_time_format' => 'H:i',
+                                  '#default_value' => '00:00',
+                                ];
+    }else{
+        foreach ($timings as $key => $value) {
+          $value = date('h:i a',$value);
+          $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
+        }
+        foreach ($sortedTimings as $key => $value) {
+          $maintitle = current(array_keys($value));
+            $form['time'.$key] = array(
+              '#type' => 'radios',
+              '#title' => $this->t(date('D, M d Y',$maintitle)),
+              '#options' => $value,
+              '#prefix' => '<div class="timeslots">',
+              '#suffix' => '</div>',
+            );
+            foreach ($value as $key1 => $value1) {
+              if ($key1 == $this->store->get('time')) {
+                $form['time'.$key]['#default_value'] = $this->store->get('time');
+              }
+            }
         }
     }
+
     $form['actions']['previous'] = array(
       '#type' => 'link',
       '#title' => $this->t('Back'),

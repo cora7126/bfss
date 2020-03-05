@@ -1,0 +1,14 @@
+.wrapper{width: 100% !important;}
+.region.region-content {display: block;float: left;width: 75%;}
+
+div#upcoming_bk{display: grid;grid-template-columns: 1fr 1fr 1fr;margin: 0;}
+.scheduled_appointment.container:before, .scheduled_appointment.container:after{content: unset!important;}
+.scheduled_appointment .row{display: grid;grid-template-columns: 1fr 1fr 1fr;grid-gap: 20px;column-gap: 20px;}
+.scheduled_appointment .row:before{content: unset!important;}
+.scheduled_appointment .col-6{flex: 0 0 100%;max-width: 100%;border: 1px solid #000;background-color:#e7e7e7;}
+.container.scheduled_appointment{max-width: 1170px !important;margin: auto;border: none;background: transparent !important;padding: 0 40px 0;}
+.scheduled_appointment .top-head{height: 140px!important;}
+.scheduled_appointment .timing h2{margin: 10px 0 0;}
+.scheduled_appointment .categories-tags{margin-top: 10px;}
+.scheduled_appointment .appointment-created{margin-bottom: 10px;}
+.wrapper{width: 100%;}

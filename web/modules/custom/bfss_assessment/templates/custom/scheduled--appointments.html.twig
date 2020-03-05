@@ -1,0 +1,56 @@
+<div class="wrapper">
+  <div class="dash-main-right" 222>
+    <h1><i class="fas fa-home"></i> &gt; Dashboard > My Scheduled Assessment</h1>
+    <div class="dash-sub-main" gulshan>
+       <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
+       <h2><span>MY</span><br>Upcoming Appointments</h2>
+    </div>
+  </div>
+  <div class="assessment_inner container scheduled_appointment">
+  <div class="row">
+    
+      {% if data %}
+        {% for item in data %}
+          {% if item %}
+            <div class="col-6">
+              <div class="top-head">
+                <div class="timing">
+                  <h2>{{ item.assessment_title }}</h2>
+                  <span>{{ item.time|date('h:i A') }}</span>
+                </div>
+                <div class="timing-date">
+                  <span>
+                    <span class="m">
+                      {{ item.time|date('M') }}
+                    </span>
+                    <span class="d">
+                      {{ item.time|date('d') }}
+                    </span>
+                    <span class="y">
+                      {{ item.time|date('Y') }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="image">
+                <img src="{{ item.image }}" alt="{{ item.assessment_title }}">
+              </div>
+              <div class="categories-tags">
+                <strong> LOCATION: </strong>{{ item.location }}
+              </div>
+              <div class="node-body">
+                {{ item.body }}
+              </div>
+              <div class="appointment-created">
+                <strong> Created On: </strong>{{ item.created|date('M d, Y') }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+      <p>No future appointments! <a href="/dashboard">Book now</a></p>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
