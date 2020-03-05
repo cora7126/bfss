@@ -102,3 +102,21 @@ bfss_assessment.my_page:
     _title: 'upcoming group assessments'
   requirements:
     _permission: 'access content'
+
+bfss_assessment.private_assessment:
+  path: '/private-assessment'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\Multistep\MultistepOneForm'
+    _title: 'Assessment Type'
+    node_id: null
+  requirements:
+   # _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
+
+bfss_assessment.scheduled_appointments:
+  path: '/appointments/scheduled'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::scheduledAppointments'
+    _title: "Scheduled Appointments"
+  requirements:
+    _permission: 'access content'

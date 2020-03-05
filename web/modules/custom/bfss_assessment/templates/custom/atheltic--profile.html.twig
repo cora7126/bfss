@@ -1,7 +1,25 @@
 <!-- <pre>
 	{{ dump(data) }}
-</pre> -->
-
+</pre>
+	 -->
+ <!-- Modal START-->
+  <div class="modal fade" id="social_share_us" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+		      <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        </div>
+			        <div class="modal-body">
+			          {{ data.mydata.social_share }}
+			        </div>
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        </div>
+		      </div>
+	    </div>
+  </div>
+<!-- Modal END-->
 <div class='atheltic-profile'>
 	<section class="user-data">
 	  	<div class="container">
@@ -13,9 +31,9 @@
 		              	<span class="sub_title">{{data.athlete_school.athlete_school_sport}} | {{data.athlete_school.athlete_school_pos}}</span>
 		              	<div class="social_icons_top">
 		                  	<div class="icons_only">
-		                  	<a href="#" target="_blank"><i class="fa fa-share-alt"></i></a>
+		                  	<a href="#" data-toggle="modal" data-target="#social_share_us"><i class="fa fa-share-alt"></i></a>
 		                  	<a href="{{data.athlete_social.athlete_social_2}}" target="_blank"><i class="fab fa-youtube"></i></a>
-		                  	<a href="https://www.instagram.com/{{data.athlete_social.athlete_social_1}}" target="_blank"><i class="fab fa-instagram"></i></a>
+		                  	<a href="{{data.athlete_social.athlete_social_1}}" target="_blank"><i class="fab fa-instagram"></i></a>
 		                  	</div>
 		                  	<div class="star_icon">
 		                  		<span class="hd_line">
@@ -189,14 +207,16 @@
 	  					MY INSTAGRAM
 	  				</h3>
 	  				<div class="toggle-content image-include">
-	  				{% set images = data.mydata.field_instagram %}
+	  				<!-- {% set images = data.mydata.field_instagram %}
   					  <section class="regular slider">
   					  	 {% for image in images %}
 					    <div>
 					      <img src="{{image}}" width="300px" height="300px">
 					    </div>
 					    {% endfor %}
-					  </section>
+					  </section> -->
+					  <input type="hidden" name="instagram_username" id="instagram_username" value="{{ data.mydata.field_instagram }}">
+					  <div id="instagram-feed1" class="instagram_feed regular slider"></div>
 					</div>
 				</div>
 	  			<!-- #toggler -->
