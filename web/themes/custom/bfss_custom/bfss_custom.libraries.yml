@@ -5,6 +5,7 @@ framework:
     theme:
       css/custom.css: {}
       css/style.css: {}
+      css/phelix.css: {}
   js:
     bootstrap/assets/javascripts/bootstrap/affix.js: {}
     bootstrap/assets/javascripts/bootstrap/alert.js: {}
