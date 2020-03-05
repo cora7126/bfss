@@ -13,11 +13,15 @@
 .social_icons_top{display: flex;align-items: center;}
 .icons_only{border-right: 1px solid #f56907;}
 .icons_only i{margin-right: 20px;font-size: 18px;}
+.icons_only a:hover{color: #f56907!important;}
+a:focus{color: #ccc!important;text-decoration: none!important;}
+
 .star_icon{margin-left: 20px;}
 .social_icons_top{padding: 10px 0;margin-bottom: 20px;}
 .icons_only, .star_icon .fa{color: #f56907;font-size: 20px;}
 .sub_title_jodi{font-size: 20px;}
-.star_icon span{font-size: 10px;color:#828282;}
+.star_icon span{font-size: 10px;color:#828282;display: flex;
+    align-items: center;}
 .item_image .image{min-height: 85%;background-image: url("../img/user-default-profile.png");background-repeat: no-repeat;background-repeat: no-repeat;background-size: cover;background-position: center;
     height: 100%;margin-bottom: 7px;}
 .toggler-wrap h3{background:#000;position: relative;color:#fff;font-weight: bold;padding: 20px 15px;font-size: 16px;margin: 0;margin-bottom: 0px;text-transform: uppercase;margin-bottom: 0px;cursor: pointer;}
@@ -32,7 +36,7 @@ span.sub_title{display: block;margin: auto;width: 100%;font-size: 18px;}
 .user-stats h2{font-size: 20px;font-weight: bold;margin: 0;color: #000000;}
 .user-stats h6{color: #828282;font-size: 10px;line-height: 22px;}
 .statistics img{width: 100%;height: 100%;}
-.user-stats{margin-top: 40px;}
+.user-stats{margin-top: 40px;padding: 0!important;}
 .image-include{text-align: center;}
 .accordion_tabs_block img{width: 100%;}
 .toggle-content iframe{width: 80%;margin: auto;display: block;}
@@ -51,7 +55,14 @@ span.sub_title{display: block;margin: auto;width: 100%;font-size: 18px;}
 .toggle-content p{margin: 0;font-size: 12px;font-weight: 600;}
 .toggler-wrap .toggle-content{line-height: 20px;padding: 20px;font-size: 12px;font-weight: 600;}
 .region.region-content{max-width: 1170px;margin: auto;}
-.hd_line .fa{min-height: 85%;background-image: url("../img/star-o-icon.png");background-repeat: no-repeat;background-repeat: no-repeat;background-size: 85%;
-    background-position: center;}
-.hd_line .fa-star:before{width: 20px;height: 20px;color: transparent;}
+.hd_line .fa-star-o{min-height: 85%;background-image: url("../img/star-o-icon.png");background-repeat: no-repeat;background-size: 100%;
+    background-position: center;width: 20px;height: 20px;margin-right: 10px;}
+.fa-star-o:before{width: 20px;height: 20px;color: transparent;}
 .atheltic-profile{padding: 30px 0px;}
+.fa-star:before{margin-right: 10px;}
+#social_share_us .modal-content{text-align: center;width: 100% !important;margin: auto;}
+#social_share_us .modal-footer button{background: #f56907;border-radius: 0;color: #fff;padding: 5px 20px;font-size: 12px;}
+#social_share_us .modal-body{padding: 20px 0;margin: 0;}
+#social_share_us .modal-header{border: none;}
+#social_share_us .modal-header button{margin-right: 0px;}
+#social_share_us .social-media-sharing ul{padding: 0;display: flex;flex-wrap: wrap;justify-content: space-between;list-style: none;width: 70%;margin: auto;}

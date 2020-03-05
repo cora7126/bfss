@@ -104,4 +104,70 @@ class AssessmentController extends ControllerBase {
     ];
   }
 
+  /**
+   * @return markup
+   */
+  public function scheduledAppointments() {
+    $data = [];
+    $requriedFields = [
+      'id',
+      'time',
+      'assessment_title',
+      'assessment',
+      'until',
+      'created',
+    ];
+    $entity_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('user_id', \Drupal::currentUser()->id())
+        ->condition('time', time(), ">")
+        ->sort('time','ASC')
+        ->execute();
+    #if there is data
+    if ($entity_ids) {
+      foreach ($entity_ids as $entity_id) {
+        #load entity
+        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($entity_id);
+        if ($entity instanceof \Drupal\Core\Entity\ContentEntityInterface) {
+            $val = [];
+          foreach ($requriedFields as $field) {
+            if ($entity->hasField($field)) {
+              $val[$field] = $entity->get($field)->value;
+            }
+          }
+          #if assessment avail
+          if (isset($val['assessment'])) {
+            $nodeData = $this->assessmentService->getNodeData($val['assessment']);
+              #udpate title
+              if (isset($nodeData['title']) && !empty($nodeData['title'])) {
+                $val['assessment_title'] = $nodeData['title'];
+              }
+              #img
+              $val['image'] = isset($nodeData['field_image']) ? $nodeData['field_image'] : null;
+              #loc
+              $val['location'] = isset($nodeData['field_location']) ? $nodeData['field_location'] : null;
+              #body
+              $val['body'] = isset($nodeData['body']) ? $nodeData['body'] : null;
+          }
+          if ($val) {
+            $data[] = $val;
+          }
+        }
+      }
+    }
+    // foreach ($data as $key => $value) {
+      // dpm($value);
+    // }
+    // $data = [];
+    return [
+      '#theme' => 'scheduled__appointments',
+      '#data' => $data,
+      '#attached' =>[
+        'library' => [
+          'bfss_assessment/custom',
+          'bfss_assessment/upcoming_appointment',
+        ],
+      ],
+    ];
+  }
+
 }

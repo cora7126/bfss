@@ -248,17 +248,25 @@ class AthelticController extends ControllerBase {
     }
      
     	$data['mydata']['field_instagram'] = $data['athlete_social']['athlete_social_1'];
-     if (isset($data['mydata']['field_instagram']) && !empty($data['mydata']['field_instagram'])) {
-     	$username = $data['mydata']['field_instagram'];
-    	$instaResult = file_get_contents('https://www.instagram.com/'.$username.'/?__a=1');
-			$insta = json_decode($instaResult);
-			$instagram_photos = $insta->graphql->user->edge_owner_to_timeline_media->edges;
-			$img_urls = [];
-			foreach($instagram_photos as $instagram_photo){
-				$img_urls[] = $instagram_photo->node->display_url;
-			}
-			$data['mydata']['field_instagram'] = $img_urls;
-		}
+      $instagram_url = $data['athlete_social']['athlete_social_1'];
+      $regex = '/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im';
+
+        // Verify valid Instagram URL
+          if ( preg_match( $regex, $instagram_url, $matches ) ) {
+                $data['mydata']['field_instagram'] = $matches[1]; 
+            }
+
+  //    if (isset($data['mydata']['field_instagram']) && !empty($data['mydata']['field_instagram'])) {
+  //    	$username = $data['mydata']['field_instagram'];
+  //   	$instaResult = file_get_contents('https://www.instagram.com/'.$username.'/?__a=1');
+		// 	$insta = json_decode($instaResult);
+		// 	$instagram_photos = $insta->graphql->user->edge_owner_to_timeline_media->edges;
+		// 	$img_urls = [];
+		// 	foreach($instagram_photos as $instagram_photo){
+		// 		$img_urls[] = $instagram_photo->node->display_url;
+		// 	}
+		// 	$data['mydata']['field_instagram'] = $img_urls;
+		// }
 
     #only for dummy use
     # should be deleted 
@@ -268,8 +276,13 @@ class AthelticController extends ControllerBase {
     #only for dummy use
     # should be deleted 
 
+    $block = \Drupal\block\Entity\Block::load('socialsharingblock');
+    $block_content = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block);
 
-
+    $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
+    $data['mydata']['social_share'] = $assessments_block;
 
 
     #send output here

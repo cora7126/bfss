@@ -34,6 +34,12 @@ return [
           'data'=> null,
         ],
         'template'=>'custom/upcoming-group-assessments',
+    ],  
+    'scheduled__appointments' => [
+      'variables' => [
+          'data'=> null,
+        ],
+        'template'=>'custom/scheduled--appointments',
     ],
   ];
 }
