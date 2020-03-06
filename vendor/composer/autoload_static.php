@@ -170,6 +170,7 @@ class ComposerStaticInit8b5a36692d154bc584f90030d44941c2
             'Consolidation\\Log\\' => 18,
             'Consolidation\\Filter\\' => 21,
             'Consolidation\\Config\\' => 21,
+            'Consolidation\\Cgr\\' => 18,
             'Consolidation\\AnnotatedCommand\\' => 31,
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Spdx\\' => 14,
@@ -540,6 +541,10 @@ class ComposerStaticInit8b5a36692d154bc584f90030d44941c2
         'Consolidation\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/consolidation/config/src',
+        ),
+        'Consolidation\\Cgr\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/consolidation/cgr/src',
         ),
         'Consolidation\\AnnotatedCommand\\' => 
         array (
