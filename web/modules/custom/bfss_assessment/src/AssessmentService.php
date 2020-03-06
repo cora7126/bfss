@@ -58,6 +58,9 @@ class AssessmentService {
    * check assesment avail
    */
   public function check_assessment_node($nid = null) {
+    if ($nid == 9999999999) {
+      return true;
+    }
     if ((int) $nid) {
       $query = $this->getAssessmentQuery();
       $nids = $query->condition('nid',$nid)->execute();
