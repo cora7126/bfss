@@ -28,7 +28,7 @@
 		          	<div class="row title">
 		              	<h1>{{ data.first_name }} {{ data.last_name }}</h1>
 		              	<br />
-		              	<span class="sub_title">{{data.athlete_school.athlete_school_sport}} | {{data.athlete_school.athlete_school_pos}}</span>
+		              	<span class="sub_title">{{data.org_info.sport}} | {{data.org_info.pos}}</span>
 		              	<div class="social_icons_top">
 		                  	<div class="icons_only">
 		                  	<a href="#" data-toggle="modal" data-target="#social_share_us"><i class="fa fa-share-alt"></i></a>
@@ -63,8 +63,8 @@
 			                <p>{{ data.athlete_info.field_height }}"</p>
 			                <p>{{ data.athlete_info.field_weight }} lbs</p>
 			                <p>Williams Field Hight School Gilbert AZ</p>
-			                <!-- <p>{{ data.athlete_school.athlete_school_name }}</p>
-			                <p>{{ data.athlete_school.athlete_school_stat }}</p> -->
+			                <!-- <p>{{ data.org_info.name }}</p>
+			                <p>{{ data.org_info.stat }}</p> -->
 		              	</div>
 		             </div>
 				</div>
@@ -119,63 +119,19 @@
 	  					PERSONAL STATS
 	  				</h3>
 	  				<div class="toggle-content">
-
-	  					{% if data.athlete_school.athlete_school_sport is not empty %}
-	  					<p>Here are my {{data.athlete_school.athlete_school_sport}} stats</p>
-	  					{% endif %} 
-	  					
-	  					{% if data.athlete_school.athlete_school_pos is not empty %}
-	  						<p>{{data.athlete_school.athlete_school_pos}}</p>
-	  					{% endif %} 
-
-	  					{% if data.athlete_school.athlete_school_pos2 is not empty %}
-	  						<p>{{data.athlete_school.athlete_school_pos2}}</p>
+	  					{% if data.org_info.sport %}
+	  						<p>Here are my {{ data.org_info.sport }} Stats</p>
+	  					{% endif %}
+	  					{% if data.org_info.pos %}
+	  						<p>{{ data.org_info.pos }}</p>
+	  					{% endif %}
+	  					{% if data.org_info.pos1 %}
+	  						<p>{{ data.org_info.pos1 }}</p>
+	  					{% endif %}
+	  					{% if data.org_info.pos2 %}
+	  						<p>{{ data.org_info.pos2 }}</p>
 	  					{% endif %}
 
-	  					{% if data.athlete_school.athlete_school_pos3 is not empty %}
-	  						<p>{{data.athlete_school.athlete_school_pos3}}</p>
-	  					{% endif %}
-	  					
-
-
-	  					{% if data.athlete_uni.athlete_uni_sport is not empty %}
-	  					<p>Here are my {{data.athlete_uni.athlete_uni_sport}} stats</p>
-	  					{% endif %}
-	  					
-	  						{% if data.athlete_uni.athlete_uni_pos is not empty %}
-	  						<p>{{data.athlete_uni.athlete_uni_pos}}</p>
-	  						{% endif %}
-
-	  						{% if data.athlete_uni.athlete_uni_pos2 is not empty %}
-	  						<p>{{data.athlete_uni.athlete_uni_pos2}}</p>
-	  						{% endif %}
-
-	  						{% if data.athlete_uni.athlete_uni_pos3 is not empty %}
-	  						<p>{{data.athlete_uni.athlete_uni_pos3}}</p>
-	  						{% endif %}
-	  				
-
-	  					{% if data.athlete_club.athlete_club_sport is not empty %}
-	  					<p>Here are my {{data.athlete_club.athlete_club_sport}} stats</p>
-	  					{% endif %}
-	  					
-	  						{% if data.athlete_club.athlete_club_pos is not empty %}
-	  						<p>{{data.athlete_club.athlete_club_pos}}</p>
-	  						{% endif %}
-	  						{% if data.athlete_club.athlete_club_pos2 is not empty %}
-	  						<p>{{data.athlete_club.athlete_club_pos2}}</p>
-	  						{% endif %}
-	  						{% if data.athlete_club.athlete_club_pos3 is not empty %}
-	  						<p>{{data.athlete_club.athlete_club_pos3}}</p>
-	  						{% endif %}
-	  					<!-- <p>Here are my valleyball stats</p>
-	  					<p>SP: 84</p>
-	  					<p>PCT: 655</p>
-	  					<p>K: 649</p>
-	  					<p>K/S: 7.7</p>
-	  					<p>E: 44</p>
-	  					<p>Att: 924</p>
-	  					<p>Left handed</p> -->
 					</div>
 				</div>
 	  			<!-- toggler 4 -->

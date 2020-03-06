@@ -50,15 +50,52 @@ class MultistepTwoForm extends MultistepFormBase {
     $sortedTimings = [];
 
     if(empty($timings)){
-      $form['time_date_priv'] = [
-                                  '#type' => 'datetime',
-                                  '#title' => $this->t('Scheduled'),
-                                  '#size' => 20,
-                                  '#date_date_element' => 'date', // hide date element
-                                  '#date_time_element' => 'time', // you can use text element here as well
-                                  '#date_time_format' => 'H:i',
-                                  '#default_value' => '00:00',
-                                ];
+      // $form['timing']['year'] = [
+      //   '#type' => 'select',
+      //   '#title' => $this->t('Year'),
+      //   '#options' => range(date('Y'), date('Y')+10),
+      //   '#default_value' => date('Y'),
+      // ];
+      // $form['timing']['month'] = [
+      //   '#type' => 'select',
+      //   '#title' => $this->t('Month'),
+      //   '#options' => range(01,12),
+      //   '#default_value' => date('m'),
+      // ];
+      // $form['timing']['day'] = [
+      //   '#type' => 'select',
+      //   '#title' => $this->t('Day'),
+      //   '#options' => range(01,31),
+      //   '#default_value' => date('d'),
+      // ];
+      // $form['timing']['hour'] = [
+      //   '#type' => 'select',
+      //   '#title' => $this->t('Hour'),
+      //   '#options' => range(01,12),
+      //   '#default_value' => date('h'),
+      // ];
+      // $form['timing']['minute'] = [
+      //   '#type' => 'select',
+      //   '#title' => $this->t('Minute'),
+      //   '#options' => range(00,60),
+      //   '#default_value' => date('i'),
+      // ];
+      // $form['timing']['am_pm'] = [
+      //   '#type' => 'select',
+      //   '#title' => $this->t('AM/PM'),
+      //   '#options' => ['am' => 'AM', 'pm' => 'PM'],
+      //   '#default_value' => date('a'),
+      // ];
+      $form['tim_date_priv'] = [
+        '#type' => 'datetime',
+        '#title' => $this->t('Scheduled'),
+        '#size' => 20,
+        // '#date_date_element' => 'date', // hide date element
+        // '#date_time_element' => 'time', // you can use text element here as well
+        // '#date_time_format' => 'H:i',
+        // '#default_value' => date('Y-m-d H:i:s'),
+        '#required' => true,
+      ];
     }else{
         foreach ($timings as $key => $value) {
           $value = date('h:i a',$value);
@@ -122,6 +159,9 @@ class MultistepTwoForm extends MultistepFormBase {
    */
   public function getSelectedTime(FormStateInterface $form_state) {
     $allTimings = $form_state->cleanValues()->getValues();
+    if (isset($allTimings['tim_date_priv'])) {
+      return $allTimings['tim_date_priv']->getTimestamp();
+    }
     $defTime = $this->store->get('time');
     $newVal = null;
     if ($allTimings) {

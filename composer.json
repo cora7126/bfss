@@ -16,6 +16,7 @@
     ],
     "require": {
         "composer/installers": "^1.2",
+        "consolidation/cgr": "^2.0",
         "drupal/admin_toolbar": "^2.0",
         "drupal/backup_migrate": "^4.1",
         "drupal/bootstrap": "^3.21",
@@ -25,6 +26,7 @@
         "drupal/core-recommended": "^8.8",
         "drupal/creditfield": "^1.0",
         "drupal/devel": "^2.1",
+        "drupal/drush": "^6.0@RC",
         "drupal/field_group": "^3.0",
         "drupal/field_permissions": "^1.0@RC",
         "drupal/form_placeholder": "^1.0",

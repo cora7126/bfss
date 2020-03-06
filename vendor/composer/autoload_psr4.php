@@ -93,6 +93,7 @@ return array(
     'Consolidation\\Log\\' => array($vendorDir . '/consolidation/log/src'),
     'Consolidation\\Filter\\' => array($vendorDir . '/consolidation/filter-via-dot-access-data/src'),
     'Consolidation\\Config\\' => array($vendorDir . '/consolidation/config/src'),
+    'Consolidation\\Cgr\\' => array($vendorDir . '/consolidation/cgr/src'),
     'Consolidation\\AnnotatedCommand\\' => array($vendorDir . '/consolidation/annotated-command/src'),
     'Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),
     'Composer\\Spdx\\' => array($vendorDir . '/composer/spdx-licenses/src'),
