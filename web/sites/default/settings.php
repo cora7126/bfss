@@ -685,7 +685,7 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  * @code
  */
 
-/
+
 $settings['trusted_host_patterns'] = array(
   '^mindimage\.net$',
   '^.+\.mindimage\.net$',
