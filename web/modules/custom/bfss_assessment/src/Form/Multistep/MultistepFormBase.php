@@ -83,49 +83,21 @@ abstract class MultistepFormBase extends FormBase {
     }
 
     $form = array();
-    $current_path = \Drupal::service('path.current')->getPath();
-    $result = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
-
-     if (strpos($result, '/assessment/type') !== false) {
-         $this->store->set('private', '');
-      }
-    if($result== '/private-assessment'){
-      $html1 = ' <div class="wrapper">
-      <div class="dash-main-right">
-            <h1><i class="fas fa-home"></i> &gt; Dashboard > Private Assessment</h1>
-            <div class="dash-sub-main">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
-               <h2><span>YOUR</span><br>Private Assessment</h2>
-            </div>
-         </div>';
-           $this->store->set('private', 'private');
-    }else{
-
-      if($this->store->get('private') == 'private'){
-      $html1 = ' <div class="wrapper">
-      <div class="dash-main-right">
-            <h1><i class="fas fa-home"></i> &gt; Dashboard > Private Assessment</h1>
-            <div class="dash-sub-main">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
-               <h2><span>YOUR</span><br>Private Assessment</h2>
-            </div>
-         </div>';
-
-      }else{
-         $html1 = '<div class="wrapper">
-      <div class="dash-main-right">
-            <h1><i class="fas fa-home"></i> &gt; Dashboard > Your Scheduled Assessment</h1>
-            <div class="dash-sub-main">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
-               <h2><span>YOUR</span><br>Scheduled Assessment  </h2>
-            </div>
-         </div>';
-      }
-     
+    $assessmentType = 'Scheduled';
+    if (empty(\Drupal::request()->get('node_id')) || $this->store->get('is_private')) {
+      $assessmentType = 'Private';
     }
-
     $form['actions']['#type'] = 'actions';
-    $form['#prefix'] = $html1;
+    $form['#prefix'] = $this->t('
+      <div class="wrapper">
+      <div class="dash-main-right">
+            <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold; color: #333333;">Dashboard</a> > Your '.$assessmentType.' Assessment</h1>
+            <div class="dash-sub-main">
+               <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
+               <h2><span>YOUR</span><br>'.$assessmentType.' Assessment  </h2>
+            </div>
+         </div>
+         ');
     $form['#suffix'] = $this->t('</div>');
     $form['heading'] = [
       '#type' => 'markup',
@@ -190,7 +162,7 @@ abstract class MultistepFormBase extends FormBase {
       'state',
       'zip',
       'country',
-      'private_assessment',
+      'is_private',
     ];
     // $key[] = 'assessment_title';
     // $key[] = 'payment_status';
@@ -255,7 +227,7 @@ abstract class MultistepFormBase extends FormBase {
       'state',
       'zip',
       'country',
-      'private_assessment',
+      'is_private',
     ];
     #payment card fields
     $key[] = 'name_on_card';

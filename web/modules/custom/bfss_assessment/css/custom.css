@@ -1,3 +1,32 @@
+
+@font-face {
+    font-family: 'Proxima Nova Rg';
+    src: url('../fonts/ProximaNova-Regular.woff2') format('woff2'),
+        url('../fonts/ProximaNova-Regular.woff') format('woff'),
+        url('../fonts/ProximaNova-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Rg';
+    src: url('../fonts/ProximaNova-Regular.woff2') format('woff2'),
+        url('ProximaNova-Regular.woff') format('woff'),
+        url('ProximaNova-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNovaCond-Bold';
+    src: url('../fonts/ProximaNovaCond-Bold.woff2') format('woff2'),
+        url('../fonts/ProximaNovaCond-Bold.woff') format('woff'),
+        url('../fonts/ProximaNovaCond-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+*{font-family: 'Proxima Nova Rg';}
 .wrapper {display: block;float: left;width: 75%;}
 .wrapper .dash-main-right {margin-bottom: 40px;}
 .grouped {background-color: #868383;padding: 10px;box-shadow: 1px 1px 4px #e0e0d8;margin: 10px;color: #fff;font-weight: bold;}
@@ -8,20 +37,23 @@ p.note {margin-left: 1%;background-color: #cecece;width: 50%;padding-left: 4px;c
 .modal.in .modal-dialog {-webkit-transform: translate(0, 0) !important;-ms-transform: translate(0, 0) !important;-o-transform: translate(0, 0) !important;transform: translate(0, 0) !important;}
 
 /*.assessment_block {display: flex;flex-wrap: wrap;width: 100%;margin: auto;align-items: center;justify-content: space-evenly;}*/
+.assessment_block .timing h2{font-weight: 800;color: #000 !important;}
 .assessment_block{display: grid;grid-template-columns: 1fr 1fr 1fr;grid-gap: 10px;column-gap: 30px;}
-.assessment_inner{width: 100%!important;background-color: #e7e7e7!important;border: 1px solid #333;}
+#block-assessmentscustomview .assessment_block{width: 100%!important;}
+.assessment_inner{width: 100%!important;background-color: #e7e7e7!important;border: 1px solid #333;border-color: #b4b6b5;}
 .assessment_inner .top-head{display: flex;justify-content: space-between;align-items: start;height: 120px;}
-.assessment_inner img{border: 10px solid #fff;border-top: 15px solid #fff;box-shadow: 0px 0px 6px #ccc;}
+.assessment_inner img{border: 10px solid #fff;border-top: 15px solid #fff;box-shadow:0px 0px 6px #6b6b6b;}
 .timing-date {background: #f76907;color: #fff;flex-wrap: wrap;justify-content: space-around;align-items: center;padding: 7px 15px;font-weight: 500;}
 .timing h2{font-size: 25px;font-weight: 600;margin: 0;}
-.assessment_inner .node-body{padding: 0 0 20px;}
-.categories-tags ul{display: flex;flex-wrap: wrap;justify-content: space-around;width: 70%;margin: 0;padding: 0;text-align: left;position: relative;margin-left: 15px;}
-.categories-tags ul li{text-align: left;margin: 5px 0;font-size: 12px;font-weight: bold;list-style-image: url(../img/icon.png);}
+.assessment_inner .node-body{padding: 0 0 20px;color: #000;font-size: 12px;}
+.categories-tags ul{display: flex;flex-wrap: wrap;margin: 0;padding: 0;text-align: left;position: relative;}
+.categories-tags ul li{text-align: left;margin: 5px 0;font-size: 10px;font-weight: bold;color: #808285;text-transform: capitalize;}
+.categories-tags ul li::before{content: '.';background-repeat: no-repeat;font-size: 62px;line-height: 0;color: #f76907;}
 .row.assessment_block::before{display: none!important;}
 .timing-date span.m, .timing-date span.d, .timing-date span.y{display: block;margin: auto;text-align: center;}
 .timing-date span.d{font-size: 23px;font-weight: bold;}
 .timing{height: 100%;position: relative;}
-.timing span{position: absolute;bottom: 0;padding: 2px 0px;}
+.timing span{position: absolute;bottom: 0;padding: 2px 0px;color: #8c8e8d;}
 .tophead .timing-date{padding:0!important;font-size: 25px!important;background: transparent !important;color:#f76907!important; padding: 30px 10px;}
 .tophead .ticketing{width: 100%;display: flex;flex-wrap: wrap;justify-content: space-evenly;}
 .tophead .col-half h2{font-size: 20px;font-weight: bold;margin: 15px 0 5px;}
@@ -68,10 +100,15 @@ button:focus{outline: unset!important;}
 div#drupal-modal{background-color: rgba(0, 0, 0, 0.68)!important;}
 .ui-dialog-content{padding: 0!important;margin-top: -1px;overflow: hidden!important;}
 
-div#upcoming_bk{display: grid;grid-template-columns: 1fr 1fr 1fr;margin: 0;}
+div#upcoming_bk{display: grid;grid-template-columns: 1fr 1fr 1fr;margin: 0;grid-gap: 10px;}
 .scheduled_appointment.container:before, .scheduled_appointment.container:after{content: unset!important;}
 .scheduled_appointment .row{display: grid;grid-template-columns: 1fr 1fr 1fr;grid-gap: 20px;column-gap: 20px;}
 .scheduled_appointment .row:before{content: unset!important;}
 .scheduled_appointment .col-6{flex: 0 0 100%;max-width: 100%;border: 1px solid #000;background-color:#e7e7e7;}
 .container.scheduled_appointment{max-width: 1170px !important;margin: auto;border: none;background: transparent !important;padding: 0 40px 0;}
 .wrapper{width: 100%;}
+
+.footer_bt .trm_pr, .address_em{list-style: none;display: flex;flex-wrap: wrap;justify-content: start;font-size: 15px;padding: 0;margin: 0;}
+.footer_bt .trm_pr li, .address_em li{margin-right: 15px;color:#717071;font-family: 'Proxima Nova Rg';font-size: 12px;}
+.footer_bt .trm_pr li a, .address_em a{margin-right: 10px;color:#717071;font-size: 12px;}
+.footer_bt p{padding-top: 20px;font-size: 11px;color:#717071;font-family: 'Proxima Nova Rg';}
