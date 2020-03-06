@@ -1,5 +1,6 @@
 (function($) {
     $(document).ready(function() {
+
         /*jQuery.ajax({
 url : 'http://5ppsystem.com/delete/parent/'+$id+'/'+$delta,
 dataType: 'json',
@@ -11,6 +12,28 @@ error :function (data){
 }
 
 });*/
+
+		//add parameters to anchor tag
+		jQuery('a.previewButton').on('click', function(){
+			var newurl = jQuery(this).attr('href');
+			newurl = trimTheUrl(newurl);
+			var dataId= jQuery(this).parent('.previewdiv').data('id');
+			var queryParamts = '?'+jQuery('#edit-form').serialize()+'&btnId='+dataId;
+	 		jQuery(this).attr('href', newurl+queryParamts);
+			
+		});
+		function trimTheUrl(oldURL){
+			var index = 0;
+			var newURL = oldURL;
+			index = oldURL.indexOf('?');
+			if(index == -1){
+				index = oldURL.indexOf('#');
+			}
+			if(index != -1){
+				newURL = oldURL.substring(0, index);
+			}
+			return newURL;
+
 		//Delete Second Social/Club/Uni
 		jQuery('#athlete_uni').on('click',function(){
 			$(this).parents('.athlete_left').addClass('delete_athlete');
@@ -474,3 +497,8 @@ error :function (data){
          }
        });
       }
+      
+//    jQuery('.select-wrapper select[data-drupal-selector="edit-user-type"]').on('change', function(){
+//	console.log('here');
+//        jQuery('.js-text-full').removeAttr('value')
+//        });
