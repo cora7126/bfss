@@ -8119,6 +8119,27 @@ input#name_1 {
     margin: 5px auto;
     display: table;
 }
+/*Registration form*/
+.register {
+    font-size: 16px !important;
+}
+
+.form-item-fields-list-title {
+    font-size: 18px !important;
+}
+.form-item-fields-list-title-2 {
+    font-size: 18px !important;
+}
+body.user-register .registration-area #register-form-container .reg-form-tabs .panel select{
+    height : 34px !important;
+}
+.step-3 .form-item-fields-list-title {
+    margin-top: -18px !important;
+}
+div#edit-phone-section {
+    margin-top: 25px;
+}
+/*End*/
 /* FAQ PAGE */
 .faq-page{
     margin-top: 0;
