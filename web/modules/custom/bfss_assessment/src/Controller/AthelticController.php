@@ -98,26 +98,29 @@ class AthelticController extends ControllerBase {
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
       }
+      #check another username
+      $query = $this->db->select('athlete_addweb', 'tb');
+      $query->fields('tb');
+      $query->condition('athlete_addweb_name', $username,'=');
+      $query->condition('athlete_addweb_visibility', 1,'=');
+      $result = $query->execute()->fetchAssoc();
+      if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
+        return $result['athlete_uid'];
+      }
+      #check last username
+      $query = $this->db->select('athlete_clubweb', 'tb');
+      $query->fields('tb');
+      $query->condition('athlete_clubweb_name', $username,'=');
+      $query->condition('athlete_clubweb_visibility', 1,'=');
+      $result = $query->execute()->fetchAssoc();
+      if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
+        return $result['athlete_uid'];
+      }
     }
     return false;
   }
 
-  /**
-   * @return markup
-   *url bfss_assessment.atheltic_profile
-   */
-  public function profilePage() {
-    $data = [];
-    $data['username'] = $username = \Drupal::request()->get('username');
-    $profileuser = $this->getUserNameValiditity($username);
-    #if username doesn't exist
-    if (!$profileuser) {
-      return [
-        '#type' => 'markup',
-        '#markup' => t('<h3 style="padding: 10px;color:#db0000;font-weight: bold;">OOPS! The profile you are looking for is not available!</h3>'),
-      ];
-    }
-    $this->atheleteUserId = $profileuser;
+  public function getBasicData(){
     $data['first_name'] = $this->getUserInfo('user__field_first_name', 'field_first_name_value');
     $data['last_name'] = $this->getUserInfo('user__field_last_name', 'field_last_name_value');
     $data['date'] = $this->getUserInfo('user__field_date', 'field_date_value');
@@ -228,64 +231,231 @@ class AthelticController extends ControllerBase {
     #$this->assessmentService->check_assessment_node($nid);
     #get only channel id
     // field_dob
-    
-    
-    $data['mydata']['field_youtube'] = $data['athlete_social']['athlete_social_2'];
-    if (isset($data['mydata']['field_youtube']) && !empty($data['mydata']['field_youtube'])) {
-      //$data['mydata']['field_youtube'] = $this->parse_channel_id($data['mydata']['field_youtube']);
-    	$url     = $data['mydata']['field_youtube'];
-		$xml_url = $this->getYouTubeXMLUrl($url);
-		$xmlfile = file_get_contents($xml_url);  
-		// Convert xml string into an object 
-		$new = simplexml_load_string($xmlfile); 
-		// Convert into json 
-		$con = json_encode($new); 
-		// Convert into associative array 
-		$newArr = json_decode($con, true);
-		$video_id = explode("?v=",  $newArr['entry'][0]['link']['@attributes']['href']);
-		$video_id = $video_id[1];
-		$data['mydata']['field_youtube'] = $video_id;
+    return $data;
+  }
+
+
+  public function InstagramUrl(&$data, $preview =false) {
+    if (!$preview) {
+      $data['mydata']['field_instagram'] = $instagram_url = isset($data['athlete_social']['athlete_social_1']) ? $data['athlete_social']['athlete_social_1'] : null;
     }
-     
-    	$data['mydata']['field_instagram'] = $data['athlete_social']['athlete_social_1'];
-      $instagram_url = $data['athlete_social']['athlete_social_1'];
+      // $instagram_url = $data['athlete_social']['athlete_social_1'];
       $regex = '/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im';
 
-        // Verify valid Instagram URL
-          if ( preg_match( $regex, $instagram_url, $matches ) ) {
-                $data['mydata']['field_instagram'] = $matches[1]; 
-            }
+      // Verify valid Instagram URL
+        if ( preg_match( $regex, $instagram_url, $matches ) ) {
+              $data['mydata']['field_instagram'] = $matches[1]; 
+          }
+    }
 
-  //    if (isset($data['mydata']['field_instagram']) && !empty($data['mydata']['field_instagram'])) {
-  //    	$username = $data['mydata']['field_instagram'];
-  //   	$instaResult = file_get_contents('https://www.instagram.com/'.$username.'/?__a=1');
-		// 	$insta = json_decode($instaResult);
-		// 	$instagram_photos = $insta->graphql->user->edge_owner_to_timeline_media->edges;
-		// 	$img_urls = [];
-		// 	foreach($instagram_photos as $instagram_photo){
-		// 		$img_urls[] = $instagram_photo->node->display_url;
-		// 	}
-		// 	$data['mydata']['field_instagram'] = $img_urls;
-		// }
+  public function YoutubeUrl(&$data, $preview =false) {
+    if (!$preview) {
+      $data['mydata']['field_youtube'] = isset($data['athlete_social']['athlete_social_2']) ? $data['athlete_social']['athlete_social_2'] : null;
+    }
+    if (isset($data['mydata']['field_youtube']) && !empty($data['mydata']['field_youtube'])) {
+      $url     = $data['mydata']['field_youtube'];
+      $xml_url = $this->getYouTubeXMLUrl($url);
+      $xmlfile = file_get_contents($xml_url);  
+      // Convert xml string into an object 
+      $new = simplexml_load_string($xmlfile); 
+      // Convert into json 
+      $con = json_encode($new); 
+      // Convert into associative array 
+      $newArr = json_decode($con, true);
+      $video_id = explode("?v=",  isset($newArr['entry'][0]['link']['@attributes']['href']) ? $newArr['entry'][0]['link']['@attributes']['href'] : null);
+      $video_id = isset($video_id[1]) ? $video_id[1] : null;
+      $data['mydata']['field_youtube'] = $video_id;
+    }
+  }
 
-    #only for dummy use
-    # should be deleted 
-      // $data['mydata']['field_youtube'] = 'https://www.youtube.com/channel/UCfOfVT4F6UiQw75irnS6KFA';
-      // $data['athlete_about_me'] = t('<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p><p> Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel e</p>');
-     // \Drupal::logger('data')->notice('@type', array('@type' => print_r($data, 1) ));
-    #only for dummy use
-    # should be deleted 
+  private function getYouTubeXMLUrl( $url, $return_id_only = false ) {
+      $xml_youtube_url_base = 'https://www.youtube.com/feeds/videos.xml';
+      $preg_entities        = [
+          'channel_id'  => '\/channel\/(([^\/])+?)$', //match YouTube channel ID from url
+          'user'        => '\/user\/(([^\/])+?)$', //match YouTube user from url
+          'playlist_id' => '\/playlist\?list=(([^\/])+?)$',  //match YouTube playlist ID from url
+      ];
+      foreach ( $preg_entities as $key => $preg_entity ) {
+          if ( preg_match( '/' . $preg_entity . '/', $url, $matches ) ) {
+              if ( isset( $matches[1] ) ) {
+                  if($return_id_only === false){
+                      return $xml_youtube_url_base . '?' . $key . '=' . $matches[1];
+                  }else{
+                      return [
+                          'type' => $key,
+                          'id' => $matches[1],
+                      ];
+                  }
 
+              }
+          }
+      }
+
+  }
+  public function getShareBlock(&$data) {
     $block = \Drupal\block\Entity\Block::load('socialsharingblock');
-    $block_content = \Drupal::entityManager()
-      ->getViewBuilder('block')
-      ->view($block);
+    if ($block) {
+      $block_content = \Drupal::entityManager()->getViewBuilder('block')->view($block);
+      if ($block_content) {
+        $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
+        $data['mydata']['social_share'] = $assessments_block;
+      }
+    }
+  }
+  public function updateInfoForTmeplate(&$data, $username = null) {
+    if ($username) {
+      if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
+        // $data['org_info']['name']
+        $relSchl = isset($data['athlete_school']) ? $data['athlete_school'] : null;
+        if ($relSchl) {
+          foreach ($relSchl as $key => $value) {
+            $data['org_info'][str_replace('athlete_school_','', $key)] = $value;
+          }
+        }
+      }
 
-    $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
-    $data['mydata']['social_share'] = $assessments_block;
+      if (isset($data['athlete_addweb']['athlete_addweb_name']) && $data['athlete_addweb']['athlete_addweb_name'] == $username) {
+        // $data['org_info']['name']
+        $relSchl = isset($data['athlete_uni']) ? $data['athlete_uni'] : null;
+        if ($relSchl) {
+          foreach ($relSchl as $key => $value) {
+            $data['org_info'][str_replace('athlete_uni_','', $key)] = $value;
+          }
+        }
+      }
+
+      if (isset($data['athlete_clubweb']['athlete_clubweb_name']) && $data['athlete_clubweb']['athlete_clubweb_name'] == $username) {
+        // $data['org_info']['name']
+        $relSchl = isset($data['athlete_club']) ? $data['athlete_club'] : null;
+        if ($relSchl) {
+          foreach ($relSchl as $key => $value) {
+            $data['org_info'][str_replace(['athlete_club_','athlete_school_'],'', $key)] = $value;
+          }
+        }
+      }
 
 
-    #send output here
+    }
+
+  }
+
+  public function updateTempInfoForTmeplate(&$data) {
+    $req = $this->requestStack->getCurrentRequest();
+    #update values
+    if ($val = $req->get('fname')) {
+      $data['first_name'] = $val;
+    }
+    if ($val = $req->get('lname')) {
+      $data['last_name'] = $val;
+    }
+    if ($val = $req->get('email')) {
+      $data['mail'] = $val;
+    }
+
+
+    if ($val = $req->get('sex')) {
+      switch ($val) {
+        case 1:
+          $newval = 'Male';
+          break;
+
+        case 2:
+          $newval = 'Female';
+          break;
+
+        case 3:
+          $newval = 'Other';
+          break;
+        
+        default:
+          $newval = '';
+          break;
+      }
+      $data['athlete_info']['athlete_state'] = $newval;
+    }
+
+    if ($val = $req->get('gradyear')) {
+      $data['athlete_info']['athlete_year'] = $val;
+    }
+
+    if ($val = $req->get('height')) {
+      $data['athlete_info']['field_height'] = $val;
+    }
+
+    if ($val = $req->get('weight')) {
+      $data['athlete_info']['field_weight'] = $val;
+    }
+
+    if ($val = $req->get('aboutme')) {
+      $data['athlete_about_me'] = $val;
+    }
+
+    if ($val = $req->get('instagram')) {
+      $data['mydata']['field_instagram'] = $val;
+      $this->InstagramUrl($data, true);
+    }
+
+    if ($val = $req->get('youtube')) {
+      $data['mydata']['field_youtube'] = $val;
+    $this->YoutubeUrl($data, true);
+
+    }
+
+    if ($val = $req->get('btnId')) {
+      $pr = $name = $type = '';
+      if ($val == 1) {
+        $pr = '';
+        $name = 'organizationName';
+        $type = 'organizationType';
+      }elseif ($val == 2) {
+        $pr = '_1';
+        $name = 'schoolname_1';
+        $type = 'education_1';
+      }elseif ($val == 3) {
+        $pr = '_2';
+        $name = 'schoolname_2';
+        $type = 'education_2';
+      }
+      $data['org_info']['name'] = $req->get($name);
+      $data['org_info']['type'] = $req->get($type);
+      $data['org_info']['coach'] = $req->get('coach'.$pr);
+      $data['org_info']['sport'] = $req->get('sport'.$pr);
+      $data['org_info']['pos'] = $req->get('position'.$pr);
+      $data['org_info']['stat'] = $req->get('stats');
+      $data['org_info']['pos2'] = $req->get('position'.$pr.'2');
+      $data['org_info']['pos3'] = $req->get('position'.$pr.'3');
+    }
+
+
+  }
+  /**
+   * @return markup
+   *url bfss_assessment.atheltic_profile
+   */
+  public function profilePage() {
+    $data = [];
+    $username = \Drupal::request()->get('username');
+    $profileuser = $this->getUserNameValiditity($username);
+    // print_r($profileuser);die;
+    #if username doesn't exist
+    if (!$profileuser) {
+      return [
+        '#type' => 'markup',
+        '#markup' => t('<h3 style="padding: 10px;color:#db0000;font-weight: bold;">OOPS! The profile you are looking for is not available!</h3>'),
+      ];
+    }
+    $this->atheleteUserId = $profileuser;
+    $data = $this->getBasicData();
+    $data['username'] = $username;
+    
+    $this->YoutubeUrl($data);
+    $this->InstagramUrl($data);
+    $this->getShareBlock($data);
+    #data on username
+    $this->updateInfoForTmeplate($data, $username);
+    // echo "<pre>";
+    // print_r($data);die;
+    // send output here
     return [
         '#theme' => 'atheltic__profile',
         '#data' => $data,
@@ -297,47 +467,32 @@ class AthelticController extends ControllerBase {
       ];
   }
 
-  private function parse_channel_id($url = '') {
-    try {
-      $parsed = parse_url(rtrim($url, '/'));
-      if (isset($parsed['path']) && preg_match('/^\/channel\/(([^\/])+?)$/', $parsed['path'], $matches)) {
-        if (isset($matches[1])) {
-            return $matches[1];
-        }
-      }
-    } catch (\Exception $e) {
-      return null;
-      // throw new Exception("{$url} is not a valid YouTube channel URL");
-    }
-    return null;
+
+	
+
+/**
+   * @return markup
+   *url bfss_assessment.preview_atheltic_profile
+   */
+  public function previewProfile() {
+    $this->atheleteUserId = \Drupal::currentUser()->id();
+    $data = $this->getBasicData();
+    $this->YoutubeUrl($data);
+    $this->InstagramUrl($data);
+    $this->getShareBlock($data);
+    #update data with new things
+    $this->updateTempInfoForTmeplate($data, $username);
+    #send the output
+    return [
+        '#theme' => 'atheltic__profile',
+        '#data' => $data,
+        '#attached' =>[
+          'library' => [
+            'bfss_assessment/athletic',
+          ],
+        ],
+      ];
   }
-
-	private function getYouTubeXMLUrl( $url, $return_id_only = false ) {
-	    $xml_youtube_url_base = 'https://www.youtube.com/feeds/videos.xml';
-	    $preg_entities        = [
-	        'channel_id'  => '\/channel\/(([^\/])+?)$', //match YouTube channel ID from url
-	        'user'        => '\/user\/(([^\/])+?)$', //match YouTube user from url
-	        'playlist_id' => '\/playlist\?list=(([^\/])+?)$',  //match YouTube playlist ID from url
-	    ];
-	    foreach ( $preg_entities as $key => $preg_entity ) {
-	        if ( preg_match( '/' . $preg_entity . '/', $url, $matches ) ) {
-	            if ( isset( $matches[1] ) ) {
-	                if($return_id_only === false){
-	                    return $xml_youtube_url_base . '?' . $key . '=' . $matches[1];
-	                }else{
-	                    return [
-	                        'type' => $key,
-	                        'id' => $matches[1],
-	                    ];
-	                }
-
-	            }
-	        }
-	    }
-
-	}
-
-
 	
 		
 	
