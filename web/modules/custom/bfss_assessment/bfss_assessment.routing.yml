@@ -95,7 +95,17 @@ bfss_assessment.atheltic_profile:
   requirements:
     _permission: 'access content'
     # _role: 'athlete+parent_guardian_registering_athlete_'
-bfss_assessment.my_page:
+
+bfss_assessment.preview_atheltic_profile:
+  path: '/preview/profile'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AthelticController::previewProfile'
+    _title: "Atheltic Profile Preview"
+  requirements:
+    _permission: 'access content'
+    # _role: 'athlete+parent_guardian_registering_athlete_'
+
+bfss_assessment.upcoming_group:
   path: '/upcoming-group-assessments'
   defaults:
     _controller: '\Drupal\bfss_assessment\Controller\UpcomingGroupAssessments::UpcomingGroup'

@@ -610,7 +610,7 @@ h3.add-organization {
 }
 .tab-main-sec h2 {
     font-size: 16px;
-    margin-top: 10px;
+    margin: 0;
 }
 /* ------------Card---css------ */
 .profile-card .card {
@@ -695,3 +695,4 @@ span.navbar-toggler-icon {cursor: pointer;}
 /*******************/
 
 /**************** DASHBOARD CSS ENDS HERE *******************/
+
