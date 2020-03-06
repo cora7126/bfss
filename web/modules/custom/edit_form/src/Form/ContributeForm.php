@@ -29,6 +29,19 @@ class ContributeForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 	$current_user = \Drupal::currentUser()->id();
+	#/preview/profile
+	$url = \Drupal\Core\Url::fromRoute('bfss_assessment.preview_atheltic_profile');
+	// print_r($url);die;
+	$link = \Drupal\Core\Link::fromTextAndUrl($this->t('<span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes'), $url); 
+
+	if ($link) {
+      $link = $link->toRenderable();
+	  $link['#attributes'] =[
+	  	'target' => '__blank',
+	  	'class' => ['button','previewButton'],
+	  	];
+	}
+
     $conn = Database::getConnection();
     $query1 = \Drupal::database()->select('user__field_first_name', 'ufln');
         $query1->addField('ufln', 'field_first_name_value');
@@ -664,8 +677,12 @@ class ContributeForm extends FormBase {
       '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
       );
 	  $form['preview_1'] = array (
-      '#type' => 'button',
-      '#default_value' => 'Preview Changes',
+	  	'#type' => 'markup',
+        '#markup' => render($link),
+        '#prefix' => "<div class='previewdiv' data-id='1'>",
+        '#suffix' => "</div>",
+      // '#type' => 'button',
+      // '#default_value' => 'Preview Changes',
       );
 	  $form['web_visible_1'] = array(
 		'#type' => 'select',
@@ -705,8 +722,12 @@ class ContributeForm extends FormBase {
 			  '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
 			  );
 			  $form['preview_12'] = array (
-			  '#type' => 'button',
-			  '#default_value' => 'Preview Changes',
+			  	'#type' => 'markup',
+        		'#markup' => render($link),
+        		'#prefix' => "<div class='previewdiv' data-id='2'>",
+        		'#suffix' => "</div>",
+			  // '#type' => 'button',
+			  // '#default_value' => 'Preview Changes',
 			  );
 			  $form['web_visible_2'] = array(
 				'#type' => 'select',
@@ -747,8 +768,12 @@ class ContributeForm extends FormBase {
 			  '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
 			  );
 			  $form['preview_13'] = array (
-			  '#type' => 'button',
-			  '#default_value' => 'Preview Changes',
+			  	'#type' => 'markup',
+        		'#markup' => render($link),
+        		'#prefix' => "<div class='previewdiv' data-id='3'>",
+        		'#suffix' => "</div>",
+			  // '#type' => 'button',
+			  // '#default_value' => 'Preview Changes',
 			  );
 			  $form['web_visible_3'] = array(
 				'#type' => 'select',

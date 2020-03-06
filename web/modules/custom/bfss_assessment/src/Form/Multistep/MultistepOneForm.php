@@ -25,29 +25,30 @@ class MultistepOneForm extends MultistepFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    $current_path = \Drupal::service('path.current')->getPath();
-    $result = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
-   
-    #get data
-    if($result== '/private-assessment'){
-       $nid = rand();
-    
-    }else{
-       $nid = \Drupal::request()->get('node_id');
-
+    $nid = \Drupal::request()->get('node_id');
+    if ($nid || !$this->store->get('is_private')) {
+      parent::deleteStore();
     }
-   
-
-
+    if (!$nid && !$this->store->get('assessment')) {
+      $this->store->set('is_private', true);
+      $nid = 9999999999;
+    }else{
+      // $this->store->set('is_private', false);
+    }
+// $test = $this->store->get('assessment');
+    // echo $test;
+    // die;
     if (!$this->assessmentService->check_assessment_node($nid)) {
+      // echo "one";
       if(!$this->store->get('assessment')) {
+      // echo "two";
         $this->assessmentService->notAvailableMessage();
         $form['actions']['submit']['#access'] = false;
         return $form;
       }
     }
+    // die;
     if ($nid) {
-      parent::deleteStore();
       $this->store->set('assessment', $nid);
     }
     #add container class to form
