@@ -12,6 +12,7 @@ error :function (data){
 }
 
 });*/
+
 		//add parameters to anchor tag
 		jQuery('a.previewButton').on('click', function(){
 			var newurl = jQuery(this).attr('href');
@@ -32,7 +33,6 @@ error :function (data){
 				newURL = oldURL.substring(0, index);
 			}
 			return newURL;
-		}
 
 		//Delete Second Social/Club/Uni
 		jQuery('#athlete_uni').on('click',function(){
@@ -497,3 +497,8 @@ error :function (data){
          }
        });
       }
+      
+//    jQuery('.select-wrapper select[data-drupal-selector="edit-user-type"]').on('change', function(){
+//	console.log('here');
+//        jQuery('.js-text-full').removeAttr('value')
+//        });
