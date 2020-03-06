@@ -256,7 +256,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#weight' => -2,
         ];
 
-        if ($type == 'parent_guardian_registering_athlete_') {
+        if ($type == 'parent_guardian_registering_athlete_') { 
           $sub_title = t('Athlete\'s Information');
         }
         else {
@@ -354,7 +354,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           unset($form['account']['name']);
           unset($form['account']['mail']);
           //  set fields for "Parent Guardian Registering Athlete"
-          if (in_array($type, ['parent_guardian_registering_athlete_'])) {
+          if (in_array($type, ['parent_guardian_registering_athlete_'])) { 
             $form['step_2']['fields_list_title_2']['#access'] = TRUE;
             $form['step_2']['parent_conf_email']['#access'] = TRUE;
 
