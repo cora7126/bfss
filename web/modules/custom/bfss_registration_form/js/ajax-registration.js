@@ -4,7 +4,29 @@
       // trigger submit button
       $('select[name=user_type],select[name=field_program_term]').on('change', function (e) {
         e.preventDefault();
+        setTimeout(function(){
+                jQuery('.js-text-full').removeAttr('value');
+        
+               var ht = jQuery( ".step-2 .panel-title" ).html();
+//            ht.slice(0,15);
+//            console.log(ht);     
+
+    jQuery('.form-item-fields-list-title-2').html('Parent Guardian Information');
+    jQuery('.step-2 .js-form-item-fields-list-title-2').html('Parent / Guardian Information');
+           var abc = ht.split('<img');
+   //        var abc = ht.split(')');
+//           console.log(abc[0].length);
+           if(abc[0].length <= 341){
+//               console.log('herere');
+//                jQuery('.step-2 .panel-title').html('Step 2 - Athletes Information');
+           }else if(abc[0].length <= 371){
+//               console.log('dgfggdg');
+                jQuery('.step-2 .panel-title').html('<div> Step 2 - Parent / Guardian <div class ="register">(Registering Athlete)</div></div> ');
+           }
+        },2000);
+
         $(this).parents('.details-wrapper,.panel-body').find('.form-submit').trigger('click');
+        
       });
 
       $('.step-4').on('click', 'input[name="is_over_16_years"],input[name="parent_permission"]', function () {

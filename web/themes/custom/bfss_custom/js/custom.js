@@ -11,6 +11,7 @@ error :function (data){
 }
 
 });*/
+         
 		//Delete Second Social/Club/Uni
 		jQuery('#athlete_uni').on('click',function(){
 			$(this).parents('.athlete_left').addClass('delete_athlete');
@@ -474,3 +475,8 @@ error :function (data){
          }
        });
       }
+      
+//    jQuery('.select-wrapper select[data-drupal-selector="edit-user-type"]').on('change', function(){
+//	console.log('here');
+//        jQuery('.js-text-full').removeAttr('value')
+//        });
