@@ -27,7 +27,6 @@
 }
 
 
-*{font-family: 'Proxima Nova Rg';}
 
 
 .grouped {
@@ -70,7 +69,7 @@ p.note {
 .timing-date {background: #f76907;color: #fff;flex-wrap: wrap;justify-content: space-around;align-items: center;padding: 2px 7px;font-weight: 500;}
 .timing h2{font-size: 25px;font-weight: 600;margin: 0;}
 .assessment_inner .node-body{padding: 0 0 20px;color: #000;font-size: 12px;}
-.col.assessment_inner{padding: 5px;background: #f1f3f2 !important;margin: 5px;width: calc(25% - 10px)!important;flex-grow: unset;max-width: unset;flex-basis: unset;border-color: #b4b6b5;}
+#block-assessmentscustomview .col.assessment_inner{padding: 5px;background: #f1f3f2 !important;margin: 5px;width: calc(33% - 10px) !important;flex-grow: unset; max-width: unset;flex-basis: unset; border-color: #b4b6b5;}
 .upcoming-group-assessments .col.assessment_inner{width: unset!important;}
 .categories-tags ul{display: flex;flex-wrap: wrap;padding: 0;text-align: left;position: relative;list-style: none;}
 .categories-tags ul li{text-align: left;margin: 0 0 5px;font-size: 10px;font-weight: bold;background-repeat: no-repeat;color: #808285;text-transform:capitalize;}
@@ -145,3 +144,8 @@ button:focus{outline: unset!important;}
 .footer_bt .trm_pr li, .address_em li{margin-right: 15px;color:#717071;font-family: 'Proxima Nova Rg';font-size: 12px;}
 .footer_bt .trm_pr li a, .address_em a{margin-right: 10px;color:#717071;font-size: 12px;}
 .footer_bt p{padding-top: 20px;font-size: 11px;color:#717071;font-family: 'Proxima Nova Rg';}
+#block-assessmentscustomview .container {padding-right: 0;}
+
+.block-bfss-assessment .assessment_block, .block-bfss-assessment .assessment_block span{font-family:Montserrat; font-weight:normal;}
+.block-bfss-assessment .assessment_block h2{font-family:Montserrat; font-weight:bold;}
+.dash-main-right h1, .dash-main-right h2, .quick-link{font-family:Proxima Nova Rg;font-weight:normal;}
