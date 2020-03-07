@@ -25,7 +25,6 @@ class UpcomingGroupAssessments extends ControllerBase {
     return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'upcoming_page',
-      '#name' => 'Shubham Rana',
       '#assessments_block' => $assessments_block,
       '#attached' => [
         'library' => [

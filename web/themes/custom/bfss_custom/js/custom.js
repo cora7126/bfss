@@ -33,7 +33,7 @@ error :function (data){
 				newURL = oldURL.substring(0, index);
 			}
 			return newURL;
-
+		}
 		//Delete Second Social/Club/Uni
 		jQuery('#athlete_uni').on('click',function(){
 			$(this).parents('.athlete_left').addClass('delete_athlete');
