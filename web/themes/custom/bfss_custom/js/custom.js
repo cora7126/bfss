@@ -497,7 +497,7 @@ error :function (data){
          }
        });
       }
-      
+    // });  
 //    jQuery('.select-wrapper select[data-drupal-selector="edit-user-type"]').on('change', function(){
 //	console.log('here');
 //        jQuery('.js-text-full').removeAttr('value')
