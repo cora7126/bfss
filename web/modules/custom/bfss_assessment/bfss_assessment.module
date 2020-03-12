@@ -35,6 +35,12 @@ return [
         ],
         'template'=>'custom/upcoming-group-assessments',
     ],  
+    'assessors_user_block' => [
+      'variables' => [
+          'data'=> null,
+        ],
+        'template'=>'custom/assessors-user-block',
+    ], 
     'scheduled__appointments' => [
       'variables' => [
           'data'=> null,

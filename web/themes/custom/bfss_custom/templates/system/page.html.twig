@@ -82,22 +82,28 @@
       </div>
       <div class="col-lg-10 col-md-12 header_rightbar">
          <div class="row">
+           
             <div class="col-lg-2 col-md-3 col-sm-6 col-6 pr-0 pl-0 top_right">
+               {% if user_role == 0 %}
                <div class="calender_img">
                   <i class="fal fa-calendar-alt"></i>
                   <p>Scheduled <br>
                      Assessments 
                   </p>
                </div>
+               {% endif %}
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6 col-6 pr-0 pl-0 athletic_icon_section">
+               {% if user_role == 0 %}
                <div class="athletic_profile" data-toggle="modal" data-target="#myModal">
                   <i class="far fa-chart-network"></i>
                   <p>My Athletic <br>
                      Profile 
                   </p>
                </div>
+               {% endif %}
             </div>
+         
             <div class="col-lg-6 pl-0 pr-0 mobile_hide" >
 			 <div class="athletic_profile"></div>
 			 </div>
@@ -286,6 +292,7 @@
                <li class="sub_menu active">
                   <button class="side_button"><i class="fas fa-home"></i><span class="side_menu_text">Dashboard</span></button>
                </li>
+               {% if user_role == 0 %}
                <li class="sub-menu-drop">
                   <!--  <button class="side_button">Calender-View & Book</button> -->
                   <nav>
@@ -299,6 +306,7 @@
                      </div>
                   </nav>
                </li>
+               
                <li class="sub_menu">
                   <button class="side_button"><i class="far fa-chart-bar"></i><span class="side_menu_text">My Assessment Status</span></button>
                </li>
@@ -329,6 +337,7 @@
                      </div>
                   </nav>
                </li>
+            {% endif %}
             </ul>
          </div>
       </div>

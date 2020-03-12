@@ -1,5 +1,10 @@
 
 jQuery(document).ready(function(){
+    jQuery(".dashboard-tabs-assessors a").click(function(){
+      jQuery(this).tab('show');
+    });
+
+
       jQuery(".regular").slick({
         dots: true,
         infinite: true,

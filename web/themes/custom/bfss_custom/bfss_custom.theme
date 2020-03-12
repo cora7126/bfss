@@ -31,6 +31,14 @@ function bfss_custom_preprocess_page(&$variables) {
   if (\Drupal::routeMatch()->getRouteName() == 'user.login') {
 
   }
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $roles = $user->getRoles();
+    if(in_array('assessors', $roles)){
+      $variables['user_role'] = 1;
+    }else{
+      $variables['user_role'] = 0;
+    }
+    
 }
 
 function bfss_custom_preprocess_user(&$variables) {
