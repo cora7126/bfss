@@ -42,11 +42,20 @@ $current_user = \Drupal::currentUser()->id();
 	$file = File::load($img_id);
 	if($file != null && $file != ""){
 	$url = $file->url();
-	}
 	$url_pos = strpos($url,"/sites");
 	$url_valid = substr($url,$url_pos);
 	$variables['user_img_url'] = $url_valid;
-	// print_r($url_valid);die;
+        }
+        if($file == null && $file == ""){
+         $fileDefault = File::load(20);
+            if($fileDefault != null && $fileDefault != ""){
+                $url = $fileDefault->url();
+                $url_pos = strpos($url,"/sites");
+            $url_valid = substr($url,$url_pos);
+            $variables['user_img_url'] = $url_valid;
+    //	 print($url);die;
+            }
+        }
 }
 
 function acme_preprocess_html(&$variables) {  
@@ -76,6 +85,7 @@ function acme_user_login(\Drupal\user\UserInterface $account) {
 //    echo '<pre>';print_r($current_user);
 //    echo '<pre>';print_r($results);die;
     if(!empty($results['popup_flag']) && $results['popup_flag'] == 'filled'){
+//        echo 'herer';die;
         $current_request = \Drupal::service('request_stack')->getCurrentRequest();
         if (!$current_request->query->get('destination')) {
           $current_request->query->set(
