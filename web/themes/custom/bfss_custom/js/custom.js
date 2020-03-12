@@ -13,6 +13,20 @@ error :function (data){
 
 });*/
 
+jQuery(".assessmen_tg.togle div.tog").click(function(){
+    jQuery(this).parent().find('.toggle_cont').slideToggle();
+    
+     if( jQuery(this).parent().find('icon-sign').hasClass('close') ){
+        jQuery("span.icon-sign").removeClass('close');
+      
+     }else{
+    	 jQuery("span.icon-sign").addClass('close');
+       
+     }
+   
+  });
+
+
 		//add parameters to anchor tag
 		jQuery('a.previewButton').on('click', function(){
 			var newurl = jQuery(this).attr('href');

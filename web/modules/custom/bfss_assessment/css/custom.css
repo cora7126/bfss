@@ -112,3 +112,63 @@ div#upcoming_bk{display: grid;grid-template-columns: 1fr 1fr 1fr;margin: 0;grid-
 .footer_bt .trm_pr li, .address_em li{margin-right: 15px;color:#717071;font-family: 'Proxima Nova Rg';font-size: 12px;}
 .footer_bt .trm_pr li a, .address_em a{margin-right: 10px;color:#717071;font-size: 12px;}
 .footer_bt p{padding-top: 20px;font-size: 11px;color:#717071;font-family: 'Proxima Nova Rg';}
+
+
+.table_cover table {
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 100%;
+border: 1px solid #e1e1e1;
+}
+
+.table_cover td{
+border-bottom: 1px solid #e1e1e1;
+text-align: left;
+padding:  0 20px;
+height: 50px;
+font-size: 12px;
+font-weight: 600;
+}
+
+.table_cover th{border: 1px solid #6d6e72;
+background: #6d6e72;
+text-align: left;
+padding: 0 20px;
+height: 50px;
+color: #fff;
+font-size: 12px;
+font-weight: 600;}
+
+.table_cover tr:nth-child(odd) {
+background-color: #f2f3f2;
+}
+.table_cover p{color: #ec7232;}
+.table_cover .pagination{margin: 20px 0px;}
+.table_cover .pagination_cover{text-align: right;}
+.table_cover .pagination a{color: #858688;
+background: #f2f3f2;
+padding: 15px 20px;
+display: inline-block;
+text-decoration: none;
+font-size: 12px;
+font-weight: 600;}
+.table_cover .pagination a:hover{color: #fff;
+background: #e6712a;}
+
+
+.assessmen_tg.togle h3{
+    background: #000;
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    padding: 20px 15px;
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.assessmen_tg.togle .tog {
+    padding-bottom: 20px;
+}

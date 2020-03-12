@@ -1,0 +1,31 @@
+bfss_assessors.ind_starter:
+ path: '/starter-professional-assessments'
+ defaults:
+   _title: 'Starter Professional Assessments Form'
+   _form: '\Drupal\bfss_assessors\Form\StarterProfessionalAssessments'
+ requirements:
+   _permission: 'access content'
+
+bfss_assessors.individual_elete_assessment:
+ path: '/individual-elete-assessment'
+ defaults:
+   _title: 'Individual Elete Assessment Form'
+   _form: '\Drupal\bfss_assessors\Form\IndividualEleteAssessment'
+ requirements:
+   _permission: 'access content'
+
+bfss_assessors.prev_starter:
+ path: '/private-assessment-starter'
+ defaults:
+   _title: 'Private Assessment Starter Form'
+   _form: '\Drupal\bfss_assessors\Form\PrivateAssessmentStarter'
+ requirements:
+   _permission: 'access content'
+
+bfss_assessors.ind_elete:
+ path: '/private-assessment-elete'
+ defaults:
+   _title: 'Private Assessment Elete Form'
+   _form: '\Drupal\bfss_assessors\Form\PrivateAssessmentElete'
+ requirements:
+   _permission: 'access content'

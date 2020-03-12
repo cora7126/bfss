@@ -114,7 +114,7 @@
             </div>
             <div class="col-lg-1 col-md-3 col-sm-6 col-6 pl-0 pr-0 profile_img_section">
                <div class="profile-sec">
-                  <img src="{{user_img_url}}" onclick="openForm()">
+                  <img src="/themes/custom/bfss_custom/images/DefaultProfile.png" onclick="openForm()">
                   <!----------- profile pop up start----------- -->
                   <div class="chat-popup" id="myForm">
                      <div class="form-container">
@@ -134,6 +134,7 @@
                               <a href="#">
                                  <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
                               </a>
+                                {% if user_role == 0 %}
                               <a href="#">
                                  <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
                               </a>
@@ -143,6 +144,7 @@
                               <a href="#">
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
+                               {% endif %}
                               <a href="#">
                                  <a href='/user/logout'><p><i class="fas fa-power-off"></i>Sign Out</p></a>
                               </a>
