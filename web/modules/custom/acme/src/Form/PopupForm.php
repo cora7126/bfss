@@ -319,10 +319,13 @@ class PopupForm extends FormBase {
 	$seltypeval3 = $form['education_2']['#options'][$seltype3];
 	$selnameval3 = $form['schoolname_2']['#options'][$selname3];
 	// echo $selnameval1; echo $setypeval1;die;
-	$query_mydata = \Drupal::database()->select('mydata', 'md');
-		$query_mydata->fields('md');
+        $current_user = \Drupal::currentUser()->id();
+	$query_mydata = \Drupal::database()->select('mydata', 'msd');
+		$query_mydata->fields('msd');
 		$query_mydata->condition('uid', $current_user,'=');
 		$results_mydata = $query_mydata->execute()->fetchAll();
+//                echo '<pre>'; print_r($results_mydata);die;
+                
           // $field  = array(
               // 'field_jodi'   => $jodi,
               // 'field_bloggs' =>  $bloggs,
@@ -372,9 +375,9 @@ class PopupForm extends FormBase {
            // drupal_set_message("succesfully saved");
            // $response = new RedirectResponse("/mydata/hello/table");
            // $response->send();
-		    $current_user = \Drupal::currentUser()->id();
-    $conn = Database::getConnection(); 
-	if(empty($results_mydata)){
+            $current_user = \Drupal::currentUser()->id();
+            $conn = Database::getConnection(); 
+            if(empty($results_mydata)){
 		$conn->insert('mydata')->fields(
 			array(
 					  'field_jodi'   => $jodi,
