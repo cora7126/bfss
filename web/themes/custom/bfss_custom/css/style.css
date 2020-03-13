@@ -1929,7 +1929,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .quick-link-sub-sec:hover p{color:#ffd537;}
 .quick-link-sub-sec{min-height:125px;}
 .profile-card .card{min-height:312px;}
-.tab-main-sec .tab-nav{border-top:1px solid #9090906b;padding:5px 0px 0 5px;}
+
 .calender_img .fa-calendar-alt , .athletic_profile .fa-chart-network{font-size:40px;color:#f76907;padding:10px 0;}
 .dashboard .athletic_profile p{color:#fff;}
 .calender_img:hover i , .athletic_profile:hover i{color:#fff}
@@ -1938,20 +1938,18 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .remove_padding section.col-sm-12{padding-left:0;padding-right:0;}
 .dashboard .quick-link .panel{border-radius:inherit;}
 .my-assessment{position:relative;}
-.quick-link button.accordion:before{content:"\f068";font-family:"Font Awesome 5 Pro";position:absolute;color:#f76907;font-size:18px;top:53px;left:19px;pointer-events:none;}
-.quick-link button.accordion.active:before{content:"\f067";}
-.dashboard .quick-link button.accordion{padding-left:42px;}
-.dashboard .search_icon a{line-height:48px;color:#909090;}
+
+
+
 .dashboard h2 span.month_year{color:#f76907;}
- .dashboard .card-sub p{width:20%;}
- .dashboard .card-sub p span{font-size:18px;font-weight:700;}
+.dashboard .card-sub p{width:20%;}
+.dashboard .card-sub p span{font-size:18px;font-weight:700;}
 .sidenav ul.dropdown-menu.open li:hover::before{background:#fff;}
 .pop_text_sec a p:hover i{color:#f76907;}
 .datepicker{position:relative;}
-.footer{display:none;}
 .region-footer{margin-top:100px;padding-top:35px;padding-bottom:15px;margin-left:15px;margin-right:15px;}
 .quick-link .my-assessment .panel{display:block;}
-#date-picker-example{display:inline-block;font-size:9px;width:83%;}
+
 #edit-profile-class .user-form .panel-default > .panel-heading{color:#fff;font-weight:bold;}
  #edit-profile-class .user-form .panel-default > .panel-heading{background:#000;position:relative;}
  #edit-profile-class .user-form .panel-default a.panel-title:before{content:"\f068";font-family:"Font Awesome 5 Pro";position:absolute;color:#f76907;font-size:18px;top:7px;left:7px;pointer-events:none;}
@@ -1989,7 +1987,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .left_section{display:inline-block;width:100%;float:left;position:relative;}
 .right_section{display:inline-block;width:100%;float:left;}
 .right_section .athlete_right{position:realtive;}
-.left_section .athlete_left h3 ,.right_section .athlete_right h3{background:#000;position:relative;color:#fff;font-weight:bold;padding:20px 15px;font-size:16px;margin:0;text-transform:uppercase;margin-bottom:0px;cursor:pointer;}
+.left_section .athlete_left h3 ,.right_section .athlete_right h3{background:#000;position:relative;color:#fff;font-weight:bold;padding:15px;font-size:16px;margin:0;text-transform:uppercase;margin-bottom:0px;cursor:pointer;}
 .left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#f76907;padding-right:15px;}
 .left_section .athlete_left , .right_section .athlete_right{border:1px solid #ccc;padding-bottom:0px;margin-bottom:30px;position:relative;}
 .left_section .athlete_left .form-item , .right_section .athlete_right .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}

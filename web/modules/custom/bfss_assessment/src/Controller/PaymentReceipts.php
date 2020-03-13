@@ -6,7 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 /**
  * Provides route responses for the Example module.
  */
-class BfssManager extends ControllerBase {
+class PaymentReceipts extends ControllerBase {
 
   /**
    * Returns a simple page.
@@ -14,9 +14,9 @@ class BfssManager extends ControllerBase {
    * @return array
    *   A simple renderable array.
    */
-  public function Bfss_Manager() {
+  public function payment_receipts() {
     
-    $block = \Drupal\block\Entity\Block::load('bfss_manager');
+    $block = \Drupal\block\Entity\Block::load('paymentreceipts');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block);
@@ -24,7 +24,7 @@ class BfssManager extends ControllerBase {
    
     return [
       '#cache' => ['max-age' => 0,],
-      '#theme' => 'bfss_manager_page',
+      '#theme' => 'payment_receipts_page',
       '#assessments_block' => $assessments_block,
       '#attached' => [
         'library' => [
@@ -32,11 +32,6 @@ class BfssManager extends ControllerBase {
         ]
       ]
     ];
-
-    // $element = array(
-    //   '#markup' => 'upcoming group assessments',
-    // );
-    // return $element;
   }
 
 }
