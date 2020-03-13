@@ -108,7 +108,12 @@
             </div>
             <div class="col-lg-1 col-md-3 col-sm-6 col-6 pl-0 pr-0 profile_img_section">
                <div class="profile-sec">
+               {% if user_img_url is not null and user_img_url is not empty %}
                   <img src="{{user_img_url}}" onclick="openForm()">
+               {% else %}
+                <img src="/themes/custom/bfss_custom/images/DefaultProfile.png" onclick="openForm()">
+               {% endif %}
+                  
                   <!----------- profile pop up start----------- -->
                   <div class="chat-popup" id="myForm">
                      <div class="form-container">
@@ -116,7 +121,11 @@
                            <div class="pop_img_sec">
                               <div class="row">
                                  <div class="col-md-4 pr-0 ">
+                                 {% if user_img_url is not null and user_img_url is not empty %}
                                     <img src="{{user_img_url}}">
+                                 {% else %}
+                                    <img src="/themes/custom/bfss_custom/images/DefaultProfile.png">
+                                  {% endif %}
                                  </div>
                                  <div class="col-md-8">
                                     <h2>{{user_name}}</h2>
@@ -134,7 +143,7 @@
                               <a href="#" data-toggle="modal" data-target="#my-profile-Modal">
                                   <a href='/edit/parent'><p><i class="fas fa-user"></i>Parent / Guardian</p></a>
                               </a>
-                              <a href="#">
+                              <a href="/payment-receipts">
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
                               <a href="#">
