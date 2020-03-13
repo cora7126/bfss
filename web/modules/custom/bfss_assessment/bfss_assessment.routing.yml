@@ -130,3 +130,10 @@ bfss_assessment.scheduled_appointments:
     _title: "Scheduled Appointments"
   requirements:
     _permission: 'access content'
+bfss_assessment.bfss_manager:
+  path: '/bfss-manager'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\BfssManager::Bfss_Manager'
+    _title: "Scheduled Appointments"
+  requirements:
+    _permission: 'access content'
