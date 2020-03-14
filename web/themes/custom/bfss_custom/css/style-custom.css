@@ -1,7 +1,112 @@
 @charset "utf-8";
 /* CSS Document */
 
-body{font-family:'Open Sans', sans-serif !important;}
+/**************** DASHBOARD CSS STARTS HERE *******************/
+.dashboard footer.footer{display:none;}
+.dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;}
+.dash-main-right h1 i{color:#f76907;}
+.dash-main-right h1 span{padding:0 5px 0 7px;display:inline-block;}
+.dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #343434;}
+.dash-sub-main img{width:72px;height:72px;margin-right:15px;}
+.dash-sub-main h2 span{font-size:13px;font-weight:600;}
+.dash-sub-main h2{font-size:25px;}
+.dashboard ul.side_nav{list-style-type:none;}
+
+/* ---------Quick Link sec CSS STARTS HERE *******************/
+div.quick-link{margin:40px 0;}
+.quick-link h1{font-size:14px;margin:0 0 8px;font-weight:600;text-transform:uppercase;}
+.quick-link-sub-sec{text-align:center;padding:10px;background:#fffcd7;border:1px solid #6b6b6b;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-align-content:center;-webkit-align-content:center;align-content:center;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
+.quick-link-sub-sec i{font-size:40px;color:#f76907;margin-bottom:10px;}
+.quick-link-sub-sec p{margin-bottom:0px;font-size:12px;color:#000;font-weight:600;width:100%;}
+/* ---------Quick Link sec CSS ENDS HERE *******************/
+
+/* ---------Quick-Link-ACCORDIAN CSS STARTS HERE *******************/
+
+.quick-link .accordion{background-color:#eee;color:#444;cursor:pointer;padding:18px;width:100%;border:none;text-align:left;outline:none;font-size:15px;transition:0.4s;}
+.active, .accordion:hover{background-color:#ccc;}
+
+.dashboard .my-assessment button.accordion{background-color:#000;color:#fff;position:relative;}
+.dashboard .my-assessment button.accordion i{color:#f76907;font-size:16px;pointer-events:none;font-weight:400;}
+.dashboard .my-assessment button.accordion i:first-child{padding-right:15px;}
+.dashboard .my-assessment{position:relative;}
+.dashboard .my-assessment .panel{display:block;padding:0;position:absolute;width:100%;border:none;background-color:white;overflow:hidden;border:1px solid #949494;}
+.dashboard .my-assessment .panel .panel_row{width:100%;float:left;display:block;padding:15px;border-bottom:1px solid #ccc;}
+.dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#f76907;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
+.dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;}
+.dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
+.dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:.6;}
+/* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
+
+.tab-main-sec .tab-main-sec-heading h2{font-size:16px;margin:0;opacity:.6;padding:0 0 20px;}
+.tab-main-sec .tab-main-sec-heading h2 span{position:relative;}
+.tab-main-sec .tab-main-sec-heading h2 span:after{content:" ";height:3px;background:transparent url("../images/grey-dot.png") repeat-x left center/5px 5px;width:100%;display:block;position:absolute;left:0;bottom:-8px;opacity:.6;}
+.tab-main-sec .tab-main-sec-heading h2 i{color:#4c4c4c;font-size:20px;line-height:20px;position:relative;top:2px;}
+.dashboard .search_icon{text-align:right;}
+.dashboard .search_icon a{line-height:20px;color:#000;opacity:.6;}
+.search_icon_field{display:inline-block;height:25px;border:1px solid #ced4da;margin:0;padding:0 20px;position:relative;width:112px;border-radius:5px;}
+.search_icon_field > i{position:absolute;color:#000;right:5px;top:6px;opacity:.6;font-weight:600;}
+.search_icon_field > i:first-child{left:5px;right:auto;}
+#date-picker-example{display:inline-block;font-size:12px;padding:0;width:auto;height:23px;border:none;width:100%;font-weight:600;text-align:center;color:#000;}
+#date-picker-example:hover, #date-picker-example:focus{outline:none;box-shadow:none;}
+.tab-main-sec .tab-nav{border-top:1px solid #9090906b;padding:0 0 0 15px;}
+
+.tab-nav ul{list-style-type:none;padding:10px 0 0;}
+.tab-nav ul li{display:inline-block;padding-right:20px;}
+.tab-nav ul li a{color:#000;font-size:14px;font-weight:600;}
+.tab-nav ul li a:hover{text-decoration:none;color:#4c4c4c;}
+
+
+/* --------- BFSS MANAGER CSS STARTS HERE *******************/
+.bfss-main{width:65%;float:left;display:block;margin:3rem 0;}
+.bfss-main h3{width:100%;float:left;display:block;background-color:#000;margin:0;color:#fff;font-size:14px;padding:15px;line-height:16px;border:1px solid #000;}
+.bfss-main .content-bfss{width:100%;float:left;display:block;border:1px solid #4c4c4c;padding:40px 25px;}
+.bfss-main .content-bfss p{display:inline-block;float:right;color:#000;font-size:14px;line-height:20px;}
+.bfss-main .content-bfss p:first-child{float:left;}
+.bfss-main .content-bfss p .switch{position:relative;display:inline-block;width:35px;height:20px;margin:0;}
+.bfss-main .content-bfss p .switch input{opacity:0;width:0;height:0;}
+.bfss-main .content-bfss p .switch input:checked + .slider{background-color:darkgreen;}
+.bfss-main .content-bfss p .switch input:checked + .slider::before{-webkit-transform:translateX(10px);-ms-transform:translateX(10px);transform:translateX(10px);}
+.bfss-main .content-bfss p .switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s;}
+.bfss-main .content-bfss p .switch .slider::before{position:absolute;content:" ";height:15px;width:15px;left:5px;bottom:3px;background-color:white;-webkit-transition:.4s;transition:.4s;}
+.bfss-main .content-bfss p .switch .slider.round{border-radius:24px;}
+.bfss-main .content-bfss p .switch .slider.round::before{border-radius:50%;}
+
+/* --------- DASHBOARD ASSESMENT BLOCK CSS STARTS HERE *******************/
+.assessment_block .timing h2{color:#000;}
+.block-assessments-view-block{width:100%;float:left;display:block;}
+#block-assessmentscustomview .container{padding:0 !important;}
+#block-assessmentscustomview .assessment_block{margin:0;width:100%;float:left;}
+#block-assessmentscustomview .col.assessment_inner{padding:5px;background:#e7e7e7;margin:5px 10px;width:calc(33.3% - 20px) !important;border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset;
+    flex-basis:unset;-ms-flex-positive:unset;flex-grow:unset;}
+#block-assessmentscustomview .assessment_block .timing h2{font-size:16px;padding-right:25px;}
+/* --------- DASHBOARD DETAILS POPUP CSS STARTS HERE *******************/
+
+.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{max-height:84vh;margin:8vh 0;border:none;padding:30px 50px 50px;}
+.simple-popup-blocks-global form > .control-label{font-size:18px;margin:0 0 25px;color:#000;font-weight:400;}
+
+.simple-popup-blocks-global form .left_section{width:70%;float:left;display:block;padding-bottom:50px;}
+.simple-popup-blocks-global form .left_section .athlete_left h3, .simple-popup-blocks-global form .right_section .athlete_right h3{font-weight:400;font-size:13px;border:1px solid #000;padding:10px 15px;}
+.simple-popup-blocks-global form .left_section .athlete_left h3 i, .simple-popup-blocks-global form .right_section .athlete_right h3 i{font-weight:400;}
+.simple-popup-blocks-global form .left_section .athlete_left h3 .right-icon, .simple-popup-blocks-global form .right_section .athlete_right h3 .right-icon{top:12px;right:0;}
+.simple-popup-blocks-global form .left_section .items_div, .simple-popup-blocks-global form .right_section .items_div{border:1px solid #4c4c4c;padding:40px 0;}
+.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item{padding:0 10px;margin:0 0 30px;}
+.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item:last-child{margin:0;}
+.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:30px;margin:0;outline:none;font-size:13px;}
+.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:focus{background:#f1f3f2;outline:none;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div{padding:0;float:left;width:100%;display:block;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item{margin:0 0 40px;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first{margin-right:15px !important;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first, .simple-popup-blocks-global form .left_section .items_div .add_pos_div .remove_pos_first{position:relative;margin:0;top:-30px;left:15px;font-size:13px;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first i , .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.remove_pos_first i{padding-right:5px;font-weight:400;}
+.simple-popup-blocks-global form .left_section a.add_org.popup_add_org{padding:0;}
+.simple-popup-blocks-global form .left_section a.add_org.popup_add_org i{font-weight:400;}
+.athlete_submit button.form-submit.button{background-color:darkgreen;border-color:darkgreen;color:#fff;width:100%;display:block;height:40px;font-weight:500;font-style:18px;line-height:20px;}
+
+.simple-popup-blocks-global form .right_section{width:calc(30% - 25px);float:right;display:block;margin-left:25px;}
+.simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
+/**************** DASHBOARD CSS ENDS HERE *******************/
+
+
 nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padding:23.8px 10px;}
 .modal-header{padding:0px !important;}
 .modals-section img{width:96.5%;margin-left:15px;}
@@ -134,103 +239,7 @@ ul.menutoggle.open li a:hover{text-decoration:none;background-color:#f76907;colo
 span.navbar-toggler-icon{cursor:pointer;}
 /*******************/
 
-/**************** DASHBOARD CSS STARTS HERE *******************/
-.dashboard footer.footer{display:none;}
-.dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;}
-.dash-main-right h1 i{color:#f76907;}
-.dash-main-right h1 span{padding:0 5px 0 7px;display:inline-block;}
-.dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #343434;}
-.dash-sub-main img{width:72px;height:72px;margin-right:15px;}
-.dash-sub-main h2 span{font-size:13px;font-weight:600;}
-.dash-sub-main h2{font-size:25px;}
-.dashboard ul.side_nav{list-style-type:none;}
 
-.dashboard .right_side_section .quick-link .my-assessment button.accordion{background-color:#000;color:#fff;padding:10px 45px;position:relative;}
-.dashboard .right_side_section .quick-link .my-assessment button.accordion:before{content:"\f068";font-family:"Font Awesome 5 Pro";position:absolute;color:#f76907;font-size:16px;top:10px;left:19px;pointer-events:none;font-weight:400;}
-.dashboard .right_side_section .quick-link .my-assessment button.accordion.active:before{content:"\f067";}
-/* ---------Quick Link sec CSS STARTS HERE *******************/
-div.quick-link{margin:40px 0;}
-.quick-link h1{font-size:14px;margin:0 0 8px;font-weight:600;text-transform:uppercase;}
-.quick-link-sub-sec{text-align:center;padding:10px;background:#fffcd7;border:1px solid #6b6b6b;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-align-content:center;-webkit-align-content:center;align-content:center;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
-.quick-link-sub-sec i{font-size:40px;color:#f76907;margin-bottom:10px;}
-.quick-link-sub-sec p{margin-bottom:0px;font-size:12px;color:#000;font-weight:600;width:100%;}
-/* ---------Quick Link sec CSS ENDS HERE *******************/
-
-/* ---------Quick-Link-ACCORDIAN CSS STARTS HERE *******************/
-
-.quick-link .accordion{background-color:#eee;color:#444;cursor:pointer;padding:18px;width:100%;border:none;text-align:left;outline:none;font-size:15px;transition:0.4s;}
-.active, .accordion:hover{background-color:#ccc;}
-.quick-link .panel{padding:0 16px;display:none;background-color:white;overflow:hidden;}
-.quick-link .panel{border:1px solid #949494;}
-.quick-link .panel p{font-size:12px;font-weight:600;}
-.my-assessment{position:relative;}
-.my-assessment .panel{position:absolute;width:100%;}
-/* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
-
-.tab-main-sec .tab-main-sec-heading h2{font-size:16px;margin:0;opacity:.6;}
-.tab-main-sec .tab-main-sec-heading h2 span{position:relative;}
-.tab-main-sec .tab-main-sec-heading h2 span:after{content:" ";height:3px;background:transparent url("../images/grey-dot.png") repeat-x left center/5px 5px;width:100%;display:block;position:absolute;left:0;bottom:-8px;opacity:.6;}
-.tab-main-sec .tab-main-sec-heading h2 i{color:#4c4c4c;font-size:20px;line-height:20px;position:relative;top:2px;}
-.dashboard .search_icon{text-align:right;}
-.dashboard .search_icon a{line-height:20px;color:#4c4c4c;opacity:.6;}
-.search_icon_field{display:inline-block;height:25px;border:1px solid #ced4da;margin:0 0 15px !important;padding:0 20px;position:relative;width:110px;border-radius:5px;}
-.search_icon_field > i{position:absolute;color:#4c4c4c;right:5px;top:6px;opacity:.6;}
-.search_icon_field > i:first-child{left:5px;right:auto;}
-#date-picker-example{display:inline-block;font-size:12px;padding:0;width:auto;height:23px;border:none;width:100%;}
-#date-picker-example:hover, #date-picker-example:focus{outline:none;box-shadow:none;}
-.tab-main-sec .tab-nav{border-top:1px solid #9090906b;padding:0 0 0 15px;}
-
-.tab-nav ul{list-style-type:none;padding:10px 0 0;}
-.tab-nav ul li{display:inline-block;padding-right:20px;}
-.tab-nav ul li a{color:#000;font-size:14px;font-weight:600;}
-.tab-nav ul li a:hover{text-decoration:none;color:#4c4c4c;}
-
-
-/* --------- BFSS MANAGER CSS STARTS HERE *******************/
-.bfss-main{width:65%;float:left;display:block;margin:3rem 0;}
-.bfss-main h3{width:100%;float:left;display:block;background-color:#000;margin:0;color:#fff;font-size:14px;padding:15px;line-height:16px;border:1px solid #000;}
-.bfss-main .content-bfss{width:100%;float:left;display:block;border:1px solid #4c4c4c;padding:40px 25px;}
-.bfss-main .content-bfss p{display:inline-block;float:right;color:#000;font-size:14px;line-height:20px;}
-.bfss-main .content-bfss p:first-child{float:left;}
-.bfss-main .content-bfss p .switch{position:relative;display:inline-block;width:35px;height:20px;margin:0;}
-.bfss-main .content-bfss p .switch input{opacity:0;width:0;height:0;}
-.bfss-main .content-bfss p .switch input:checked + .slider{background-color:darkgreen;}
-.bfss-main .content-bfss p .switch input:checked + .slider::before{-webkit-transform:translateX(10px);-ms-transform:translateX(10px);transform:translateX(10px);}
-.bfss-main .content-bfss p .switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s;}
-.bfss-main .content-bfss p .switch .slider::before{position:absolute;content:" ";height:15px;width:15px;left:5px;bottom:3px;background-color:white;-webkit-transition:.4s;transition:.4s;}
-.bfss-main .content-bfss p .switch .slider.round{border-radius:24px;}
-.bfss-main .content-bfss p .switch .slider.round::before{border-radius:50%;}
-
-/* --------- DASHBOARD ASSESMENT BLOCK CSS STARTS HERE *******************/
-.assessment_block .timing h2{color:#000;}
-.block-assessments-view-block{width:100%;float:left;display:block;}
-#block-assessmentscustomview .container{padding:0 !important;}
-#block-assessmentscustomview .assessment_block{-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;margin:0;}
-#block-assessmentscustomview .col.assessment_inner{padding:5px;background:#e7e7e7;margin:5px 0;width:calc(32% - 10px) !important;flex-grow:unset;max-width:unset;flex-basis:unset;border-color:#b4b6b5 !important;}
-#block-assessmentscustomview .assessment_block .timing h2{font-size:16px;padding-right:25px;}
-/* --------- DASHBOARD DETAILS POPUP CSS STARTS HERE *******************/
-
-.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{max-height:84vh;margin:8vh 0;border:none;padding:30px 50px 50px;}
-.simple-popup-blocks-global form > .control-label{font-size:18px;margin:0 0 25px;color:#000;font-weight:400;}
-
-.simple-popup-blocks-global form .left_section{width:70%;float:left;display:block;}
-.simple-popup-blocks-global form .left_section .athlete_left h3, .simple-popup-blocks-global form .right_section .athlete_right h3{font-weight:400;font-size:13px;border:1px solid #000;padding:10px 15px;}
-.simple-popup-blocks-global form .left_section .athlete_left h3 i, .simple-popup-blocks-global form .right_section .athlete_right h3 i{font-weight:400;}
-.simple-popup-blocks-global form .left_section .athlete_left h3 > i.fa, .simple-popup-blocks-global form .right_section .athlete_right h3 > i.fa{top:10px;right:0;}
-.simple-popup-blocks-global form .left_section .items_div, .simple-popup-blocks-global form .right_section .items_div{border:1px solid #4c4c4c;padding:40px 0;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item{padding:0 10px;margin:0 0 30px;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item:last-child{margin:0;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:30px;margin:0;outline:none;font-size:13px;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:focus{background:#f1f3f2;outline:none;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div{padding:0;float:left;width:100%;display:block;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item{margin:0 0 40px;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first{margin-right:15px !important;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first, .simple-popup-blocks-global form .left_section .items_div .add_pos_div .remove_pos_first{position:relative;margin:0;top:-30px;left:15px;font-size:13px;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first i , .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.remove_pos_first i{padding-right:5px;font-weight:400;}
-
-.simple-popup-blocks-global form .right_section{width:calc(30% - 25px);float:right;display:block;margin-left:25px;}
-.simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
-/**************** DASHBOARD CSS ENDS HERE *******************/
 
 .bfss_manager_inner{border: 1px solid #aeaeae;padding: 20px 0px;}
 .bfss_manager_form{width: 80%;margin: auto;}
