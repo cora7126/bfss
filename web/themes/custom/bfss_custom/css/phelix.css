@@ -1,30 +1,82 @@
-.user-login .sub-header,
-.user-register .sub-header {
-  margin-top: 75px;
-}
-.user-login .select-wrapper:after,
-.user-login select:after,
-.user-register .select-wrapper:after,
-.user-register select:after {
-  color: #808285 !important;
-}
-.user-login input::-webkit-input-placeholder, .user-register input::-webkit-input-placeholder {
-  color: #808285 !important;
-}
-.user-login input::-moz-placeholder, .user-register input::-moz-placeholder {
-  color: #808285 !important;
-}
-.user-login input:-ms-input-placeholder, .user-register input:-ms-input-placeholder {
-  color: #808285 !important;
-}
-.user-login input::-ms-input-placeholder, .user-register input::-ms-input-placeholder {
-  color: #808285 !important;
-}
-.user-login #edit-pass--description,
-.user-login input,
-.user-login input::placeholder,
-.user-register #edit-pass--description,
-.user-register input,
-.user-register input::placeholder {
-  color: #808285 !important;
-}
+@charset "utf-8";
+/* CSS Document*/
+
+
+/**************************************************************************************************************************/
+/************************************** USER REGISTRATION AND LOGIN FORM CSS STARTS HERE **********************************/
+/**************************************************************************************************************************/ 
+.user-login .footer .region-footer, .user-register .footer .region-footer, .user-password .footer .region-footer, .registration-coach .footer .region-footer, .user-reset .footer .region-footer, .complete-registration .footer .region-footer{margin-top:0;}
+.user-login .footer .footer_bt ul, .user-register .footer .footer_bt ul, .user-password .footer .footer_bt ul, .registration-coach .footer .footer_bt ul, .user-reset .footer .footer_bt ul, .complete-registration .footer .footer_bt ul{display:none;}
+.user-login .footer .footer_bt p, .user-register .footer .footer_bt p, .user-password .footer .footer_bt p, .registration-coach .footer .footer_bt p, .user-reset .footer .footer_bt p, .complete-registration .footer .footer_bt p{color:#000;font-size:14px;text-align:center;}
+
+body.user-login, body.user-password, body.registration-coach, body.user-register, body.user-reset, body.complete-registration{background:white;background:linear-gradient(180deg, white 0%, #fefbb7 80%);}
+
+
+.user_form_content{max-width:40rem;margin:0 auto;overflow:hidden;}
+
+/*************************** LOGIN FORM CSS STARTS HERE **********************************/
+
+.user_form_content .sub-header{width:100%;float:left;display:block;margin:75px 0 90px;}
+.user_form_content .sub-header .sub-header-logo{text-align:center;}
+.user_form_content .sub-header .sub-header-logo img{max-width:250px;}
+
+.user_form_content .register-area{margin:0;width:100%;float:left;display:block;border-bottom:2px solid #6d6e71;padding-bottom:50px;}
+.user_form_content .register-area h3{font-family:montserrat, Sans-Serif;font-size:24px;text-align:center;font-weight:500;color:#000;width:100%;float:left;display:block;margin:0 0 15px;}
+
+
+.user_form_content .registration-area{margin:50px 0;width:100%;float:left;display:block;}
+.user_form_content .registration-area h3{margin:0 0 15px;font-size:24px;color:#000;text-align:center;}
+.user_form_content .registration-area .user-login-form{width:100%;float:left;display:block;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item{width:100%;float:left;display:block;margin:0 0 15px;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .description.help-block{color:#000;margin:8px 0;font-size:13px;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item label{display:none;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control, .user_form_content .registration-area form .form-item.js-form-item .form-control{height:50px;border:1px solid #6d6e71;background-image:inherit;background-color:transparent;border-radius:0;color:#000;font-size:16px;width:100%;display:block;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control::-webkit-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select::-webkit-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .form-control::-webkit-input-placeholder{color:#6d6e71;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control::-moz-placeholder, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select::-moz-placeholder, .user_form_content .registration-area form .form-item.js-form-item .form-control::-moz-placeholder{color:#6d6e71;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control:-ms-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:-ms-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .form-control:-ms-input-placeholder{color:#6d6e71;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control:-moz-placeholder, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:-moz-placeholder, .user_form_content .registration-area form .form-item.js-form-item .form-control:-moz-placeholder{color:#6d6e71;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control:focus, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:focus, .user_form_content .registration-area form .form-item.js-form-item .form-control:focus{border:1px solid #000;box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);}
+.user_form_content .registration-area .user-login-form a.use-ajax.btn-forgot-pass{display:block;background:transparent;padding:0;font-size:14px;margin:15px 0 0;}
+
+/***************** NEW REGISTRATION FORM CSS STARTS HERE ************************/
+.user-register .user_form_content .register-area{padding-bottom:25px;}
+.user_form_content .register-area .new-register{float:left;width:100%;display:block;}
+.user_form_content .register-area .new-register .reg-icon{padding-right:15px;float:left;display:inline-block;}
+.user_form_content .register-area .new-register .reg-icon img{max-width:65px;}
+.user_form_content .register-area .new-register .reg-text-area{width:calc(100% - 80px);float:right;display:block;}
+.user_form_content .register-area .new-register .reg-text-area .small-text{color:#6d6e71;}
+.user_form_content .register-area .new-register .reg-text-area .large-text{color:#000;font-size:42px;line-height:45px;font-weight:600;}
+
+.user-register .user_form_content .registration-area{margin:25px 0 60px;}
+.user_form_content .registration-area form{width:100%;float:left;display:block;}
+.user-register .user_form_content .registration-area .user-register-form .reg-form-tabs{width:100%;float:left;margin:0 0 40px;}
+.user_form_content .registration-area form .form-item.js-form-item, .user-register .user_form_content .registration-area form .form-group{background-color:transparent;-webkit-box-shadow:none;box-shadow:none;border-radius:0;border:0;width:100%;float:left;display:block;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading{padding:0;border:0;background-color:transparent;width:100%;float:left;display:block;margin:0 0 5px;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title{padding:0;font-size:21px;color:#000;width:100%;margin:0;line-height:25px;font-weight:500;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title img{width:22px;float:right;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body{float:left;width:100%;display:block;position:relative;padding:0;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .form-item-description{float:left;width:100%;display:block;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .form-item-description p{color:#000;font-size:14px;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-item-subtitle{font-size:14px;color:#6d6e71;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select{margin:10px 0 0;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper{display:block;position:relative;width:100%;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select{height:50px;border:1px solid #6d6e71;background-image:inherit;background-color:transparent;border-radius:0;color:#6d6e71;font-size:16px;-webkit-appearance:none;-moz-appearance:none;appearance:none;padding:10px 40px 10px 15px;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select::-ms-expand{opacity:0;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper:after{color:#6d6e71;content:'\f107';	pointer-events:none;position:absolute;right:15px;top:10px;z-index:10;font-family:'FontAwesome';font-size:20px;}
+
+
+.user_form_content .registration-area form .form-item-fields-list-title, .user_form_content .registration-area form .form-item-fields-list-title-2{font-size:21px;line-height:25px;font-weight:500;margin:15px 0;}
+.user_form_content .registration-area .reg-form-tabs .form-actions{width:100%;float:left;display:block;}
+.user_form_content .register-area .bfss-button, .user_form_content .registration-area .form-actions .js-form-submit.form-submit{display:inline-block;font-size:18px;text-align:center;width:100%;background-color:#000;color:#EB6E06;padding:12px 9px;font-family:montserrat, Sans-Serif;border:none;border-radius:0;text-transform:uppercase;height:50px;margin:0;-webkit-transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;}
+.user_form_content .register-area .bfss-button:hover, .user_form_content .registration-area .form-actions .js-form-submit.form-submit:hover{opacity:.8;text-decoration:none;}
+
+
+/***************** COMPLETE REGISTRATION FORM CSS STARTS HERE ************************/
+.complete-registration .user_form_content .registration-area{margin-top:20px;}
+.user_form_content .registration-area form .form-item.js-form-item .password-confirm-message{margin:15px 0 0;}
+.complete-registration .user_form_content .registration-area form .form-item.js-form-item .form-item-resend-message{display:none;}
+.complete-registration .user_form_content .registration-area form .form-item.js-form-item .additional-info a{clear:both;display:block;}
+
+/**************************************************************************************************************************/
+/************************************** USER REGISTRATION AND LOGIN FORM CSS ENDS HERE **********************************/
+/**************************************************************************************************************************/ 

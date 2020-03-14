@@ -19,11 +19,51 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 
+@font-face {
+    font-family: 'Proxima Nova Rg';
+    src: url('../fonts/ProximaNova-Regular.woff2') format('woff2'),
+        url('../fonts/ProximaNova-Regular.woff') format('woff'),
+        url('../fonts/ProximaNova-Regular.ttf') format('truetype')
+        url('../fonts/ProximaNova-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Rg';
+    src: url('../fonts/ProximaNova-Regular.woff2') format('woff2'),
+        url('ProximaNova-Regular.woff') format('woff'),
+        url('ProximaNova-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNovaCond-Bold';
+    src: url('../fonts/ProximaNovaCond-Bold.woff2') format('woff2'),
+        url('../fonts/ProximaNovaCond-Bold.woff') format('woff'),
+        url('../fonts/ProximaNovaCond-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),
+       url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), 
+       url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), 
+       url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), 
+       url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  font-weight:normal;
+  font-style:normal;
+}
+
+
 *, *:after, *:before{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
-.messages__wrapper{display:none !important;}
-body{margin:0;}
-article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block;}
+body{margin:0;font-family:'Open Sans', sans-serif;}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary{display:block;}
 audio,canvas,progress,video{display:inline-block;vertical-align:baseline;}
 audio:not([controls]){display:none;height:0;}
 [hidden],template{display:none;}
@@ -384,11 +424,7 @@ p{margin:0 0 10px;}
 .text-orange{color:#f58641;}
 i.text-orange{font-size:9px;vertical-align:middle;}
  .modal-body.athelet_form_content{display:none;}
-@media (max-width:992px){#athelets-modal .modal-content{width:100% !important;}
-}
-/* End */
- @media (min-width:768px){.lead{font-size:21px;}
- }
+
 small,.small{font-size:85%;}
 mark,.mark{padding:.2em;background-color:#fcf8e3;}
 .text-left{text-align:left;}
@@ -433,9 +469,7 @@ dt{font-weight:700;}
 dd{margin-left:0;}
 .dl-horizontal dd:before, .dl-horizontal dd:after{display:table;content:" ";}
 .dl-horizontal dd:after{clear:both;}
-@media (min-width:768px){.dl-horizontal dt{float:left;width:160px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
- .dl-horizontal dd{margin-left:180px;}
- }
+
 abbr[title],abbr[data-original-title]{cursor:help;}
 .initialism{font-size:90%;}
 blockquote{padding:10px 20px;margin:0 0 20px;font-size:17.5px;border-left:5px solid #eeeeee;}
@@ -456,12 +490,7 @@ pre{display:block;padding:9.5px;margin:0 0 10px;font-size:13px;line-height:1.428
 .container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;}
  .container:before, .container:after{display:table;content:" ";}
  .container:after{clear:both;}
- @media (min-width:768px){.container{width:750px;}
- }
- @media (min-width:992px){.container{width:970px;}
- }
- @media (min-width:1200px){.container{width:1170px;}
- }
+
 .container-fluid{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;}
  .container-fluid:before, .container-fluid:after{display:table;content:" ";}
  .container-fluid:after{clear:both;}
@@ -576,7 +605,8 @@ pre{display:block;padding:9.5px;margin:0 0 10px;font-size:13px;line-height:1.428
  .col-sm-offset-11{margin-left:91.6666666667%;}
  .col-sm-offset-12{margin-left:100%;}
  }
-@media (min-width:992px){.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12{float:left;}
+@media (min-width:992px){
+	.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12{float:left;}
  .col-md-1{width:8.3333333333%;}
  .col-md-2{width:16.6666666667%;}
  .col-md-3{width:25%;}
@@ -792,32 +822,14 @@ textarea.input-lg, .input-group-lg > textarea.form-control,.input-group-lg > tex
 .help-block{display:block;margin-top:5px;margin-bottom:10px;color:#737373;}
 /*Dashboard Popup */
 .dashboard-profile .popup_form_id-modal{width:100%;}
-.dashboard-profile .popup_form_id-modal:before{content:'';background:url(/themes/custom/bfss_custom/images/images-dashboard/dashboard-bg.png);background-repeat:no-repeat;background-size:cover;position:absolute;left:0;top:0;width:100%;height:100%;opacity:0.2;}
 .dashboard-profile .popup_form_id-modal .spb-popup-main-wrapper{max-height:100vh;overflow-y:auto;overflow-x:hidden;}
-@media (min-width:768px){.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle;}
- .form-inline .form-control{display:inline-block;width:auto;vertical-align:middle;}
- .form-inline .form-control-static{display:inline-block;}
- .form-inline .input-group{display:inline-table;vertical-align:middle;}
- .form-inline .input-group .input-group-addon, .form-inline .input-group .input-group-btn, .form-inline .input-group .form-control{width:auto;}
- .form-inline .input-group > .form-control{width:100%;}
- .form-inline .control-label{margin-bottom:0;vertical-align:middle;}
- .form-inline .radio, .form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle;}
- .form-inline .radio label, .form-inline .checkbox label{padding-left:0;}
- .form-inline .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"]{position:relative;margin-left:0;}
- .form-inline .has-feedback .form-control-feedback{top:0;}
- }
+
 .form-horizontal .radio,.form-horizontal .checkbox,.form-horizontal .radio-inline,.form-horizontal .checkbox-inline{padding-top:7px;margin-top:0;margin-bottom:0;}
 .form-horizontal .radio,.form-horizontal .checkbox{min-height:27px;}
 .form-horizontal .form-group{margin-right:-15px;margin-left:-15px;}
  .form-horizontal .form-group:before, .form-horizontal .form-group:after{display:table;content:" ";}
  .form-horizontal .form-group:after{clear:both;}
-@media (min-width:768px){.form-horizontal .control-label{padding-top:7px;margin-bottom:0;text-align:right;}
- }
-.form-horizontal .has-feedback .form-control-feedback{right:15px;}
-@media (min-width:768px){.form-horizontal .form-group-lg .control-label{padding-top:11px;font-size:18px;}
- }
-@media (min-width:768px){.form-horizontal .form-group-sm .control-label{padding-top:6px;font-size:12px;}
- }
+
 .btn{display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;white-space:nowrap;vertical-align:middle;touch-action:manipulation;cursor:pointer;background-image:none;border:1px solid transparent;padding:6px 12px;font-size:14px;line-height:1.428571429;border-radius:4px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
  .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
  .btn:hover, .btn:focus, .btn.focus{color:#333;text-decoration:none;}
@@ -902,20 +914,18 @@ tbody.collapse.in{display:table-row-group;}
 .dropdown-header{display:block;padding:3px 20px;font-size:12px;line-height:1.428571429;color:#777777;white-space:nowrap;}
 .dropdown-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:990;}
 .pull-right > .dropdown-menu{right:0;left:auto;}
-.dropup .caret,.navbar-fixed-bottom .dropdown .caret{content:"";border-top:0;border-bottom:4px dashed;border-bottom:4px solid \;}
+.dropup .caret, .navbar-fixed-bottom .dropdown .caret{content:"";border-top:0;border-bottom:4px dashed;}
 .dropup .dropdown-menu,.navbar-fixed-bottom .dropdown .dropdown-menu{top:auto;bottom:100%;margin-bottom:2px;}
-@media (min-width:768px){.navbar-right .dropdown-menu{right:0;left:auto;}
- .navbar-right .dropdown-menu-left{left:0;right:auto;}
- }
-.btn-group,.btn-group-vertical{position:relative;display:inline-block;vertical-align:middle;}
- .btn-group > .btn, .btn-group-vertical > .btn{position:relative;float:left;}
- .btn-group > .btn:hover, .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn:hover, .btn-group-vertical > .btn:focus, .btn-group-vertical > .btn:active, .btn-group-vertical > .btn.active{z-index:2;}
+
+.btn-group, .btn-group-vertical{position:relative;display:inline-block;vertical-align:middle;}
+.btn-group > .btn, .btn-group-vertical > .btn{position:relative;float:left;}
+.btn-group > .btn:hover, .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn:hover, .btn-group-vertical > .btn:focus, .btn-group-vertical > .btn:active, .btn-group-vertical > .btn.active{z-index:2;}
 .btn-group .btn + .btn,.btn-group .btn + .btn-group,.btn-group .btn-group + .btn,.btn-group .btn-group + .btn-group{margin-left:-1px;}
 .btn-toolbar{margin-left:-5px;}
- .btn-toolbar:before, .btn-toolbar:after{display:table;content:" ";}
- .btn-toolbar:after{clear:both;}
- .btn-toolbar .btn, .btn-toolbar .btn-group, .btn-toolbar .input-group{float:left;}
- .btn-toolbar > .btn, .btn-toolbar > .btn-group, .btn-toolbar > .input-group{margin-left:5px;}
+.btn-toolbar:before, .btn-toolbar:after{display:table;content:" ";}
+.btn-toolbar:after{clear:both;}
+.btn-toolbar .btn, .btn-toolbar .btn-group, .btn-toolbar .input-group{float:left;}
+.btn-toolbar > .btn, .btn-toolbar > .btn-group, .btn-toolbar > .input-group{margin-left:5px;}
 .btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle){border-radius:0;}
 .btn-group > .btn:first-child{margin-left:0;}
  .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle){border-top-right-radius:0;border-bottom-right-radius:0;}
@@ -1604,14 +1614,12 @@ html.js .ajax-new-content:empty{display:none !important;}
 .nav.nav-tabs.filter-formats{margin-bottom:15px;}
 /** * Form styles. */
 table .checkbox.form-no-label, table .radio.form-no-label{margin-bottom:0;margin-top:0;}
-.select-wrapper{display:inline-block;position:relative;width:100%;}
+
  .form-inline .select-wrapper{width:auto;}
  .input-group .select-wrapper{display:table-cell;}
  .input-group .select-wrapper:first-child .form-control:first-child{border-top-left-radius:4px;border-bottom-left-radius:4px;}
  .input-group .select-wrapper:last-child .form-control:first-child{border-top-right-radius:4px;border-bottom-right-radius:4px;}
- .select-wrapper select{-webkit-appearance:none;-moz-appearance:none;appearance:none;line-height:1;padding-right:2em;}
- .select-wrapper select::-ms-expand{opacity:0;}
- .select-wrapper:after{color:#337ab7;content:'▼';font-style:normal;font-weight:400;line-height:1;margin-top:-.5em;padding-right:.5em;pointer-events:none;position:absolute;right:0;top:50%;z-index:10;}
+
  .has-glyphicons .select-wrapper:after{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;content:'\e114';display:inline-block;font-family:'Glyphicons Halflings';}
  .has-error .select-wrapper:after{color:#a94442;}
  .has-success .select-wrapper:after{color:#3c763d;}
@@ -1624,6 +1632,9 @@ a.icon-before .glyphicon, a .glyphicon.icon-before{margin-right:.25em;}
 a.icon-after .glyphicon, a .glyphicon.icon-after{margin-left:.25em;}
 .btn.icon-before .glyphicon, .btn .glyphicon.icon-before{margin-left:-.25em;margin-right:.25em;}
 .btn.icon-after .glyphicon, .btn .glyphicon.icon-after{margin-left:.25em;margin-right:-.25em;}
+
+.bfssAthleteProfile .left_section .athlete_left, .bfssAthleteProfile .right_section .athlete_right{border:none;border-top:1px solid #ccc;}
+.messages__wrapper{display:none !important;}
 /** * Navbar styling. */
 body{position:relative;}
  body.navbar-is-static-top{margin-top:0;}
@@ -1734,28 +1745,20 @@ body.maintenance-page{height:100%;background:white;background:linear-gradient(18
  body.maintenance-page .navbar-default{display:none;}
  body.maintenance-page .ex-area{width:100%;padding-bottom:50px;margin-bottom:50px;border-bottom:1px solid #000;}
  body.maintenance-page .ex-area img{width:150px;margin:0 auto;}
-body.user-login,body.user-password,body.registration-coach,body.user-register,body.user-reset,body.complete-registration{background:white;background:linear-gradient(180deg, white 0%, #fefbb7 80%);}
- body.user-login .sub-header-logo, body.user-password .sub-header-logo, body.registration-coach .sub-header-logo, body.user-register .sub-header-logo, body.user-reset .sub-header-logo, body.complete-registration .sub-header-logo{text-align:center;}
- body.user-login .sub-header-logo img, body.user-password .sub-header-logo img, body.registration-coach .sub-header-logo img, body.user-register .sub-header-logo img, body.user-reset .sub-header-logo img, body.complete-registration .sub-header-logo img{max-width:250px;}
- body.user-login .register-area, body.user-password .register-area, body.registration-coach .register-area, body.user-register .register-area, body.user-reset .register-area, body.complete-registration .register-area{margin:80px auto 0;float:none;}
- body.user-login .register-area h3, body.user-password .register-area h3, body.registration-coach .register-area h3, body.user-register .register-area h3, body.user-reset .register-area h3, body.complete-registration .register-area h3{font-family:montserrat, Sans-Serif;font-size:20px;text-align:center;}
- body.user-login .register-area .bfss-button, body.user-password .register-area .bfss-button, body.registration-coach .register-area .bfss-button, body.user-register .register-area .bfss-button, body.user-reset .register-area .bfss-button, body.complete-registration .register-area .bfss-button{display:inline-block;font-size:18px;text-align:center;width:100%;background-color:black;color:#EB6E06;padding:9px;font-family:montserrat, Sans-Serif;border:none;border-radius:0;text-transform:uppercase;}
- body.user-login .register-area .bfss-button:hover, body.user-login .register-area .bfss-button:active, body.user-login .register-area .bfss-button:focus, body.user-password .register-area .bfss-button:hover, body.user-password .register-area .bfss-button:active, body.user-password .register-area .bfss-button:focus, body.registration-coach .register-area .bfss-button:hover, body.registration-coach .register-area .bfss-button:active, body.registration-coach .register-area .bfss-button:focus, body.user-register .register-area .bfss-button:hover, body.user-register .register-area .bfss-button:active, body.user-register .register-area .bfss-button:focus, body.user-reset .register-area .bfss-button:hover, body.user-reset .register-area .bfss-button:active, body.user-reset .register-area .bfss-button:focus, body.complete-registration .register-area .bfss-button:hover, body.complete-registration .register-area .bfss-button:active, body.complete-registration .register-area .bfss-button:focus{text-underline:none !important;}
- body.user-login .register-area:after, body.user-password .register-area:after, body.registration-coach .register-area:after, body.user-register .register-area:after, body.user-reset .register-area:after, body.complete-registration .register-area:after{border-bottom:1px solid black;content:' ';margin:24px 0;width:100%;display:block;}
+
+
+
+
  body.user-login .register-area .new-register .reg-icon, body.user-password .register-area .new-register .reg-icon, body.registration-coach .register-area .new-register .reg-icon, body.user-register .register-area .new-register .reg-icon, body.user-reset .register-area .new-register .reg-icon, body.complete-registration .register-area .new-register .reg-icon{float:left;padding-right:15px;}
  body.user-login .register-area .new-register .reg-icon img, body.user-password .register-area .new-register .reg-icon img, body.registration-coach .register-area .new-register .reg-icon img, body.user-register .register-area .new-register .reg-icon img, body.user-reset .register-area .new-register .reg-icon img, body.complete-registration .register-area .new-register .reg-icon img{max-width:65px;}
  body.user-login .register-area .new-register .reg-text-area .small-text, body.user-password .register-area .new-register .reg-text-area .small-text, body.registration-coach .register-area .new-register .reg-text-area .small-text, body.user-register .register-area .new-register .reg-text-area .small-text, body.user-reset .register-area .new-register .reg-text-area .small-text, body.complete-registration .register-area .new-register .reg-text-area .small-text{color:#6d6e71;}
- body.user-login .register-area .new-register .reg-text-area .large-text, body.user-password .register-area .new-register .reg-text-area .large-text, body.registration-coach .register-area .new-register .reg-text-area .large-text, body.user-register .register-area .new-register .reg-text-area .large-text, body.user-reset .register-area .new-register .reg-text-area .large-text, body.complete-registration .register-area .new-register .reg-text-area .large-text{font-size:30px;}
- body.user-login .registration-area, body.user-password .registration-area, body.registration-coach .registration-area, body.user-register .registration-area, body.user-reset .registration-area, body.complete-registration .registration-area{float:none;margin:55px auto;}
- body.user-login .registration-area #block-textaboveuserloginform, body.user-password .registration-area #block-textaboveuserloginform, body.registration-coach .registration-area #block-textaboveuserloginform, body.user-register .registration-area #block-textaboveuserloginform, body.user-reset .registration-area #block-textaboveuserloginform, body.complete-registration .registration-area #block-textaboveuserloginform{font-family:montserrat, Sans-Serif;font-size:20px;text-align:center;}
- body.user-login .registration-area #block-textaboveuserloginform h3, body.user-password .registration-area #block-textaboveuserloginform h3, body.registration-coach .registration-area #block-textaboveuserloginform h3, body.user-register .registration-area #block-textaboveuserloginform h3, body.user-reset .registration-area #block-textaboveuserloginform h3, body.complete-registration .registration-area #block-textaboveuserloginform h3{margin-top:0;font-size:20px;}
- body.user-login .registration-area .user-login-form .form-item label, body.user-password .registration-area .user-login-form .form-item label, body.registration-coach .registration-area .user-login-form .form-item label, body.user-register .registration-area .user-login-form .form-item label, body.user-reset .registration-area .user-login-form .form-item label, body.complete-registration .registration-area .user-login-form .form-item label{display:none;}
- body.user-login .registration-area .user-login-form .form-item input, body.user-password .registration-area .user-login-form .form-item input, body.registration-coach .registration-area .user-login-form .form-item input, body.user-register .registration-area .user-login-form .form-item input, body.user-reset .registration-area .user-login-form .form-item input, body.complete-registration .registration-area .user-login-form .form-item input{backgroun-image:inherit;background-color:transparent;border:1px solid black;border-radius:0;}
- body.user-login .registration-area .user-login-form .form-item input::placeholder, body.user-password .registration-area .user-login-form .form-item input::placeholder, body.registration-coach .registration-area .user-login-form .form-item input::placeholder, body.user-register .registration-area .user-login-form .form-item input::placeholder, body.user-reset .registration-area .user-login-form .form-item input::placeholder, body.complete-registration .registration-area .user-login-form .form-item input::placeholder{color:#9B9796;font-family:montserrat;}
- body.user-login .registration-area .user-login-form .form-item input:focus, body.user-password .registration-area .user-login-form .form-item input:focus, body.registration-coach .registration-area .user-login-form .form-item input:focus, body.user-register .registration-area .user-login-form .form-item input:focus, body.user-reset .registration-area .user-login-form .form-item input:focus, body.complete-registration .registration-area .user-login-form .form-item input:focus{box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);}
+
+
+
+
  body.user-login .registration-area .user-login-form .form-item .pass-info, body.user-password .registration-area .user-login-form .form-item .pass-info, body.registration-coach .registration-area .user-login-form .form-item .pass-info, body.user-register .registration-area .user-login-form .form-item .pass-info, body.user-reset .registration-area .user-login-form .form-item .pass-info, body.complete-registration .registration-area .user-login-form .form-item .pass-info{font-size:11px;margin-top:8px;}
- body.user-login .registration-area .user-login-form .form-item .btn-forgot-pass, body.user-password .registration-area .user-login-form .form-item .btn-forgot-pass, body.registration-coach .registration-area .user-login-form .form-item .btn-forgot-pass, body.user-register .registration-area .user-login-form .form-item .btn-forgot-pass, body.user-reset .registration-area .user-login-form .form-item .btn-forgot-pass, body.complete-registration .registration-area .user-login-form .form-item .btn-forgot-pass{display:inline-block;width:auto;background:transparent;padding:0;font-size:12px;margin-top:12px;margin-bottom:24px;}
- body.user-login .registration-area .user-login-form button.btn, body.user-password .registration-area .user-login-form button.btn, body.registration-coach .registration-area .user-login-form button.btn, body.user-register .registration-area .user-login-form button.btn, body.user-reset .registration-area .user-login-form button.btn, body.complete-registration .registration-area .user-login-form button.btn{display:inline-block;font-size:18px;text-align:center;width:100%;background-color:black;color:#EB6E06;padding:9px;font-family:montserrat, Sans-Serif;border:none;border-radius:0;text-transform:uppercase;}
+
+
  body.user-login .registration-area .user-login-form button.btn:hover, body.user-login .registration-area .user-login-form button.btn:active, body.user-login .registration-area .user-login-form button.btn:focus, body.user-password .registration-area .user-login-form button.btn:hover, body.user-password .registration-area .user-login-form button.btn:active, body.user-password .registration-area .user-login-form button.btn:focus, body.registration-coach .registration-area .user-login-form button.btn:hover, body.registration-coach .registration-area .user-login-form button.btn:active, body.registration-coach .registration-area .user-login-form button.btn:focus, body.user-register .registration-area .user-login-form button.btn:hover, body.user-register .registration-area .user-login-form button.btn:active, body.user-register .registration-area .user-login-form button.btn:focus, body.user-reset .registration-area .user-login-form button.btn:hover, body.user-reset .registration-area .user-login-form button.btn:active, body.user-reset .registration-area .user-login-form button.btn:focus, body.complete-registration .registration-area .user-login-form button.btn:hover, body.complete-registration .registration-area .user-login-form button.btn:active, body.complete-registration .registration-area .user-login-form button.btn:focus{text-underline:none !important;}
  body.user-login .registration-area .user-login-form button.btn span, body.user-password .registration-area .user-login-form button.btn span, body.registration-coach .registration-area .user-login-form button.btn span, body.user-register .registration-area .user-login-form button.btn span, body.user-reset .registration-area .user-login-form button.btn span, body.complete-registration .registration-area .user-login-form button.btn span{display:none;}
  body.user-login .registration-area .user-login-form .forgot-password, body.user-password .registration-area .user-login-form .forgot-password, body.registration-coach .registration-area .user-login-form .forgot-password, body.user-register .registration-area .user-login-form .forgot-password, body.user-reset .registration-area .user-login-form .forgot-password, body.complete-registration .registration-area .user-login-form .forgot-password{margin:20px 0;font-size:13px;}
@@ -1770,20 +1773,17 @@ body.user-login,body.user-password,body.registration-coach,body.user-register,bo
  body.user-login .registration-area #register-form-container .button--primary, body.user-password .registration-area #register-form-container .button--primary, body.registration-coach .registration-area #register-form-container .button--primary, body.user-register .registration-area #register-form-container .button--primary, body.user-reset .registration-area #register-form-container .button--primary, body.complete-registration .registration-area #register-form-container .button--primary{display:inline-block;font-size:18px;text-align:center;width:100%;background-color:black;color:#EB6E06;padding:9px;font-family:montserrat, Sans-Serif;border:none;border-radius:0;text-transform:uppercase;}
  body.user-login .registration-area #register-form-container .button--primary:hover, body.user-login .registration-area #register-form-container .button--primary:active, body.user-login .registration-area #register-form-container .button--primary:focus, body.user-password .registration-area #register-form-container .button--primary:hover, body.user-password .registration-area #register-form-container .button--primary:active, body.user-password .registration-area #register-form-container .button--primary:focus, body.registration-coach .registration-area #register-form-container .button--primary:hover, body.registration-coach .registration-area #register-form-container .button--primary:active, body.registration-coach .registration-area #register-form-container .button--primary:focus, body.user-register .registration-area #register-form-container .button--primary:hover, body.user-register .registration-area #register-form-container .button--primary:active, body.user-register .registration-area #register-form-container .button--primary:focus, body.user-reset .registration-area #register-form-container .button--primary:hover, body.user-reset .registration-area #register-form-container .button--primary:active, body.user-reset .registration-area #register-form-container .button--primary:focus, body.complete-registration .registration-area #register-form-container .button--primary:hover, body.complete-registration .registration-area #register-form-container .button--primary:active, body.complete-registration .registration-area #register-form-container .button--primary:focus{text-underline:none !important;}
  body.user-login .registration-area #register-form-container .button--primary span, body.user-password .registration-area #register-form-container .button--primary span, body.registration-coach .registration-area #register-form-container .button--primary span, body.user-register .registration-area #register-form-container .button--primary span, body.user-reset .registration-area #register-form-container .button--primary span, body.complete-registration .registration-area #register-form-container .button--primary span{display:none;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel, body.user-password .registration-area #register-form-container .reg-form-tabs .panel, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel, body.user-register .registration-area #register-form-container .reg-form-tabs .panel, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel{background-color:transparent;-webkit-box-shadow:none;box-shadow:none;border-radius:0;border:0;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-heading, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-heading, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-heading, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-heading, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-heading, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-heading{background-color:transparent;border:0;padding:10px 0;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a{font-size:21px;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a img, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a img, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a img, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a img, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a img, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-heading > a img{float:right;width:20px;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-heading .panel-title[aria-expanded="true"], body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-heading .panel-title[aria-expanded="true"], body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-heading .panel-title[aria-expanded="true"], body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-heading .panel-title[aria-expanded="true"], body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-heading .panel-title[aria-expanded="true"], body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-heading .panel-title[aria-expanded="true"]{padding-bottom:0;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-body, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-body, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-body, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-body, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-body, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-body{position:relative;padding-left:0;padding-right:0;}
+
+
+
+
  body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset{-webkit-box-shadow:none;box-shadow:none;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset.form-composite legend, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset.form-composite legend, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset.form-composite legend, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset.form-composite legend, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset.form-composite legend, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset.form-composite legend{border-bottom:0;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset .panel .panel-heading, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset .panel .panel-heading, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset .panel .panel-heading, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset .panel .panel-heading, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset .panel .panel-heading, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-body fieldset .panel .panel-heading{font-size:21px;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel .panel-body.in, body.user-password .registration-area #register-form-container .reg-form-tabs .panel .panel-body.in, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel .panel-body.in, body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-body.in, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel .panel-body.in, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel .panel-body.in{padding-top:0;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .panel input, body.user-login .registration-area #register-form-container .reg-form-tabs .panel select, body.user-password .registration-area #register-form-container .reg-form-tabs .panel input, body.user-password .registration-area #register-form-container .reg-form-tabs .panel select, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel input, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel select, body.user-register .registration-area #register-form-container .reg-form-tabs .panel input, body.user-register .registration-area #register-form-container .reg-form-tabs .panel select, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel input, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel select, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel input, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel select{backgroun-image:inherit;background-color:transparent;border:1px solid black;border-radius:0;}
+
  body.user-login .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.user-password .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.user-register .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel input::placeholder{color:#9B9796;font-family:montserrat;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-login .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.user-password .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-password .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.user-register .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-register .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel select:focus{box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);}
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-subtitle, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-subtitle, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-subtitle, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-subtitle, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-subtitle, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-subtitle{font-size:12px;}
+
  body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year{float:left;width:50%;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper{width:95%;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper{float:right;}
@@ -1814,37 +1814,14 @@ body.user-login,body.user-password,body.registration-coach,body.user-register,bo
  @media screen and (max-width:767px){body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"]{width:auto;position:relative;}
  body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper{margin-top:0;}
  }
- body.user-login .registration-area #register-form-container .reg-form-tabs button.btn, body.user-password .registration-area #register-form-container .reg-form-tabs button.btn, body.registration-coach .registration-area #register-form-container .reg-form-tabs button.btn, body.user-register .registration-area #register-form-container .reg-form-tabs button.btn, body.user-reset .registration-area #register-form-container .reg-form-tabs button.btn, body.complete-registration .registration-area #register-form-container .reg-form-tabs button.btn{display:inline-block;font-size:18px;text-align:center;width:100%;background-color:black;color:#EB6E06;padding:9px;font-family:montserrat, Sans-Serif;border:none;border-radius:0;text-transform:uppercase;text-transform:uppercase;}
+
  body.user-login .registration-area #register-form-container .reg-form-tabs button.btn:hover, body.user-login .registration-area #register-form-container .reg-form-tabs button.btn:active, body.user-login .registration-area #register-form-container .reg-form-tabs button.btn:focus, body.user-password .registration-area #register-form-container .reg-form-tabs button.btn:hover, body.user-password .registration-area #register-form-container .reg-form-tabs button.btn:active, body.user-password .registration-area #register-form-container .reg-form-tabs button.btn:focus, body.registration-coach .registration-area #register-form-container .reg-form-tabs button.btn:hover, body.registration-coach .registration-area #register-form-container .reg-form-tabs button.btn:active, body.registration-coach .registration-area #register-form-container .reg-form-tabs button.btn:focus, body.user-register .registration-area #register-form-container .reg-form-tabs button.btn:hover, body.user-register .registration-area #register-form-container .reg-form-tabs button.btn:active, body.user-register .registration-area #register-form-container .reg-form-tabs button.btn:focus, body.user-reset .registration-area #register-form-container .reg-form-tabs button.btn:hover, body.user-reset .registration-area #register-form-container .reg-form-tabs button.btn:active, body.user-reset .registration-area #register-form-container .reg-form-tabs button.btn:focus, body.complete-registration .registration-area #register-form-container .reg-form-tabs button.btn:hover, body.complete-registration .registration-area #register-form-container .reg-form-tabs button.btn:active, body.complete-registration .registration-area #register-form-container .reg-form-tabs button.btn:focus{text-underline:none !important;}
  body.user-login .registration-area #register-form-container .reg-form-tabs button.btn span, body.user-password .registration-area #register-form-container .reg-form-tabs button.btn span, body.registration-coach .registration-area #register-form-container .reg-form-tabs button.btn span, body.user-register .registration-area #register-form-container .reg-form-tabs button.btn span, body.user-reset .registration-area #register-form-container .reg-form-tabs button.btn span, body.complete-registration .registration-area #register-form-container .reg-form-tabs button.btn span{display:none;}
  body.user-login footer, body.user-password footer, body.registration-coach footer, body.user-register footer, body.user-reset footer, body.complete-registration footer{border-top:none;}
  body.user-login footer .region-footer section#block-copyright, body.user-password footer .region-footer section#block-copyright, body.registration-coach footer .region-footer section#block-copyright, body.user-register footer .region-footer section#block-copyright, body.user-reset footer .region-footer section#block-copyright, body.complete-registration footer .region-footer section#block-copyright{text-align:center;font-size:12px;color:black;}
-body.complete-registration .registration-area{margin-top:20px;}
-body.complete-registration .complete-registration-form .button--primary,body.complete-registration .complete-registration-form .btn-set,body.complete-registration .complete-registration-form .btn-set-password{display:inline-block;font-size:18px;text-align:center;width:100%;background-color:black;color:#EB6E06;padding:9px;font-family:montserrat, Sans-Serif;border:none;border-radius:0;text-transform:uppercase;}
- body.complete-registration .complete-registration-form .button--primary:hover, body.complete-registration .complete-registration-form .button--primary:active, body.complete-registration .complete-registration-form .button--primary:focus, body.complete-registration .complete-registration-form .btn-set:hover, body.complete-registration .complete-registration-form .btn-set:active, body.complete-registration .complete-registration-form .btn-set:focus, body.complete-registration .complete-registration-form .btn-set-password:hover, body.complete-registration .complete-registration-form .btn-set-password:active, body.complete-registration .complete-registration-form .btn-set-password:focus{text-underline:none !important;}
- body.complete-registration .complete-registration-form .button--primary span, body.complete-registration .complete-registration-form .btn-set span, body.complete-registration .complete-registration-form .btn-set-password span{display:none;}
-body.complete-registration .complete-registration-form .panel{background-color:transparent;-webkit-box-shadow:none;box-shadow:none;border-radius:0;border:0;}
- body.complete-registration .complete-registration-form .panel .panel-heading{background-color:transparent;border:0;padding:10px 0 0;}
- body.complete-registration .complete-registration-form .panel .panel-heading > a{font-size:21px;}
- body.complete-registration .complete-registration-form .panel .panel-heading > a img{float:right;width:20px;}
- body.complete-registration .complete-registration-form .panel .panel-heading .panel-title{font-size:21px;padding-bottom:0;}
- body.complete-registration .complete-registration-form .panel .panel-body{position:relative;padding-left:0;padding-right:0;}
- body.complete-registration .complete-registration-form .panel .panel-body fieldset{-webkit-box-shadow:none;box-shadow:none;}
- body.complete-registration .complete-registration-form .panel .panel-body fieldset.form-composite legend{border-bottom:0;}
- body.complete-registration .complete-registration-form .panel .panel-body fieldset .panel .panel-heading{font-size:21px;}
- body.complete-registration .complete-registration-form .panel .panel-body.in{padding-top:0;}
- body.complete-registration .complete-registration-form .panel:first-child{margin-bottom:0;}
- body.complete-registration .complete-registration-form .panel:first-child .panel-body{padding-bottom:0;}
- body.complete-registration .complete-registration-form .panel:last-child .panel-body{padding-bottom:0;}
- body.complete-registration .complete-registration-form .panel .form-item-description{font-size:12px;}
- body.complete-registration .complete-registration-form .panel .form-type-tel label{display:block;margin-bottom:5px;}
- body.complete-registration .complete-registration-form .panel .form-type-tel input{width:100%;}
- body.complete-registration .complete-registration-form .panel input, body.complete-registration .complete-registration-form .panel select{backgroun-image:inherit;background-color:transparent;border:1px solid black;border-radius:0;}
- body.complete-registration .complete-registration-form .panel input::placeholder{color:#9B9796;font-family:montserrat;}
- body.complete-registration .complete-registration-form .panel input:focus, body.complete-registration .complete-registration-form .panel select:focus{box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);}
-body.complete-registration .complete-registration-form .additional-info a{display:block;font-size:12px;margin-bottom:5px;}
-body.complete-registration .complete-registration-form .form-item-confirm-code{margin-bottom:15px;}
-body.complete-registration .complete-registration-form .send-code-wrapper .btn{margin-bottom:20px;display:inline-block;font-size:12px;background:transparent;border:0;padding:0;color:#EB6E06;}
+
+
+
 body.user-reset .btn-primary{display:inline-block;font-size:18px;text-align:center;width:100%;background-color:black;color:#EB6E06;padding:9px;font-family:montserrat, Sans-Serif;border:none;border-radius:0;text-transform:uppercase;}
  body.user-reset .btn-primary:hover, body.user-reset .btn-primary:active, body.user-reset .btn-primary:focus{text-underline:none !important;}
  body.user-reset .btn-primary span{display:none;}
@@ -1852,21 +1829,15 @@ body.user-reset .btn-primary{display:inline-block;font-size:18px;text-align:cent
 .ui-throbber{left:50%;top:50%;margin-left:-16px;margin-top:-16px;}
 /*# sourceMappingURL=style.css.map */
 /* 17-02-2020 */
-.user-form .panel-default{width:100%;display:inline-block;float:left;}
+
 .user-form aside#user-edit-div{width:30%;display:inline-block;float:right;margin-left:2.5%;border:1px solid #ccc;}
 .user-form aside#user-edit-div .image_side_bar{padding:20px;}
 form#user-form{padding:20px;}
 .user-form div#edit-actions{width:100%;display:inline-block;}
-.user-form .panel-default > .panel-heading{color:#333;background-color:transparent;border-color:#000 !important;}
- .user-form .box-image{float:left;}
-.user-form .panel-default a.panel-title{width:100% !important;padding:10px !important;margin:unset;}
-.user-form .panel-title img{display:block!important;}
-.user-form .panel-default a.panel-title{padding:10px 0 !important;}
-/*.user-form .panel-default a.panel-title.collapsed:before{content:"+";position:absolute;top:13px;left:unset;color:#f46f2c;font-size:25px;font-family:FontAwesome;line-height:10px;border:2px solid #f46f2c;padding:6px 4px 6px;right:0;font-weight:bold;}
-*/
-/*.user-form .panel-default a.panel-title:before{content:"-";position:absolute;top:13px;left:unset;color:#f46f2c;font-size:40px;font-family:FontAwesome;line-height:10px;border:2px solid #f46f2c;padding:2px 4px 10px;right:0;}
-*/
-.user-form .panel-title img{display:none;}
+
+
+
+
 .user-form .panel-title{padding-left:35px;position:relative;}
 body{overflow-x:hidden;}
 .user-form .form-inline .form-control{width:100%;}
@@ -1887,13 +1858,10 @@ div#edit-field-date-wrapper{margin-left:-15px;}
 #edit-field-date-wrapper .col-sm-6{width:100% !important;}
 div#edit-field-date-wrapper .container{width:100%;padding-right:0;}
 .user-form .form-item-current-pass, .user-form .form-item-pass-pass1, .user-form .form-item-pass-pass2{display:none;}
-@media(max-width:767px){.user-form .panel-default{width:100%;}
-.user-form aside#user-edit-div{width:100%;margin-left:0%;float:left;margin-bottom:20px;}
-}
-body.user-register .registration-area{margin:0px auto;padding:0;}
-body.user-register .registration-area #register-form-container .reg-form-tabs .panel select{border:1px solid #5a5f5f;height:45px;}
-body.user-register .registration-area #register-form-container .reg-form-tabs .panel .panel-heading .panel-title[aria-expanded="true"]{width:100%;margin:0;padding-left:0;}
-body.user-register .register-area{padding:0;}
+
+
+/******************* USER REGISTER PAGE CSS ENDS HERE *********************/
+
 /*19-02-2020*/
 span.navbar-toggler-icon{font-size:18px;}
 #cssmenu{margin-left:auto;}
@@ -1948,7 +1916,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .pop_text_sec a p:hover i{color:#f76907;}
 .datepicker{position:relative;}
 .region-footer{margin-top:100px;padding-top:35px;padding-bottom:15px;margin-left:15px;margin-right:15px;}
-.quick-link .my-assessment .panel{display:block;}
+
 
 #edit-profile-class .user-form .panel-default > .panel-heading{color:#fff;font-weight:bold;}
  #edit-profile-class .user-form .panel-default > .panel-heading{background:#000;position:relative;}
@@ -2002,17 +1970,14 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .items_div ,.left_section .items_div{display:inline-block;width:100%;padding:30px 0;}
 #athlete_submit{display:inline-block;width:100%;padding-top:20px;}
 #athlete_submit button{border-radius:2px;border:2px solid #f76907;padding:8px 15px;color:#f76907;background-color:#fff;font-size:15px;}
-#edit-user-picture-wrapper .image-widget .data{/* width:100%;*/
- display:inline-block;/*position:absolute;*/
- /* opacity:0;*/
- top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
+#edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
 .right_section .image-widget .data{position:absolute;top:59px;right:0;width:auto !important;background:white;padding:7px 8px;display:none;border:1px solid #ccc;border-top:none;border-right:none;}
 .right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{display:table;margin:0px auto 0;color:#fff !important;}
 .right_section .image-widget .data span , #edit-user-picture-wrapper .image-widget .data span{display:none;}
 .right_section .preview{width:100%;margin:0 auto;display:table;text-align:center;}
 .right_section .preview img{display:table;max-width:initial;height:auto;}
 .toggle_icon{display:inline-block;}
-.left_section .right-icon , .right_section .right-icon{position:absolute;right:10px;top:20px;color:#f76907;cursor:pointer;}
+.left_section .right-icon , .right_section .right-icon{position:absolute;right:10px;top:10px;color:#f76907;cursor:pointer;}
 .right-icon.delete_icon{right:20px;}
 /*.left_section a.add_org{text-decoration:none;}
 */
@@ -2029,9 +1994,8 @@ input#name_1{width:70%;}
  .right_section .athlete_right .edit_dropdown button{border-radius:2px;border:2px solid #f76907;color:#fff !important;margin:5px auto;display:table;}
 /*Registration form*/
 .register{font-size:16px !important;}
-.form-item-fields-list-title{font-size:18px !important;}
-.form-item-fields-list-title-2{font-size:18px !important;}
-body.user-register .registration-area #register-form-container .reg-form-tabs .panel select{height:34px !important;}
+
+
 .step-3 .form-item-fields-list-title{margin-top:-18px !important;}
 div#edit-phone-section{margin-top:25px;}
 /*End*/
@@ -2101,41 +2065,95 @@ div#edit-phone-section{margin-top:25px;}
 #confirmModal .modal-footer{justify-content:flex-start;}
 .dashboard_row{display:none !important;}
 /* media quaries*/
-@media(max-width:1199px){.dashboard .navbar .navbar-brand{max-width:120px;padding-top:10px;}
-}
-@media (max-width:992px){.header_rightbar{max-width:72% !important;width:72% !important;flex:0 0 72% !important;}
- .header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;}
- .dashboard .navbar .navbar-brand{max-width:80px;padding-top:15px;}
- .edit-user .spb-popup-main-wrapper.spb_top_center .preview{padding-top:15px;}
- .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:calc(100% - 28%);transition:width 0.5s;}
-.open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
- .left_side_section{width:28%;}
- .my-assessment .panel{position:initial ! important;}
- .right_side_section{width:calc(100% - 28%);}
- .right_section .athlete_right h3{font-size:13px;}
- .top_right .calender_img , .athletic_icon_section .athletic_profile{border-top:1px solid grey;}
- .bell_sec .bell-icon-sec{border-top:1px solid grey;border-right:1px solid grey;border-left:1px solid grey;}
- .profile_img_section .profile-sec{border-top:1px solid grey;border-right:1px solid grey;}
- .dash-main-right .dash-sub-main{border-left:1px solid grey;}
- .mobile_hide{display:none;}
- .dashboard .quick-link .panel{z-index:9;}
- .right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:100% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
- .edit_dropdown{display:none;}
-}
-@media(max-width:767px){.left_section{width:100%;}
- .left_side_section{width:50%;}
- .right_side_section{width:calc(100% - 50%);}
- .left_section a.add_org{padding-bottom:12px;}
- .mob_bottom_margin{padding-bottom:10px;}
- .right_section{width:100%;margin-left:0%;}
- #edit-profile-class .user-form .panel-default{width:100%;}
-}
-@media (max-width:420px){.datepicker{width:96%;}
- .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:auto;transition:width 0.5s;}
- .right_side_section{width:auto;transition:unset;}
- .left_side_section{position:absolute;top:99px;max-width:initial;z-index:99;display:none;}
-}
+
+
 #popup_form_id{display:none;}
-@media (max-width:1024px){.dashboard .profile-sec{padding:18.5px 0px;}
+
+/*****************************************************************************/
+/*********************** RESPONSIVE CSS STARTS HERE **************************/
+/*****************************************************************************/
+
+@media (max-width:420px){
+	.datepicker{width:96%;}
+ 	.right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:auto;transition:width 0.5s;}
+ 	.right_side_section{width:auto;transition:unset;}
+ 	.left_side_section{position:absolute;top:99px;max-width:initial;z-index:99;display:none;}
 }
-.bfssAthleteProfile .left_section .athlete_left, .bfssAthleteProfile .right_section .athlete_right{border:none;border-top:1px solid #ccc;}
+
+@media(max-width:767px){
+	.user-form .panel-default{width:100%;}
+	.user-form aside#user-edit-div{width:100%;margin-left:0%;float:left;margin-bottom:20px;}
+	.left_section{width:100%;}
+	.left_side_section{width:50%;}
+	.right_side_section{width:calc(100% - 50%);}
+	.left_section a.add_org{padding-bottom:12px;}
+	.mob_bottom_margin{padding-bottom:10px;}
+	.right_section{width:100%;margin-left:0%;}
+	#edit-profile-class .user-form .panel-default{width:100%;}
+}
+
+@media (min-width:768px){.container{width:750px;}
+	.navbar-right .dropdown-menu{right:0;left:auto;} 
+	.navbar-right .dropdown-menu-left{left:0;right:auto;}
+	.form-horizontal .control-label{padding-top:7px;margin-bottom:0;text-align:right;}
+	.form-horizontal .form-group-lg .control-label{padding-top:11px;font-size:18px;}
+	.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle;}
+	 .form-inline .form-control{display:inline-block;width:auto;vertical-align:middle;}
+	 .form-inline .form-control-static{display:inline-block;}
+	 .form-inline .input-group{display:inline-table;vertical-align:middle;}
+	 .form-inline .input-group .input-group-addon, .form-inline .input-group .input-group-btn, .form-inline .input-group .form-control{width:auto;}
+	 .form-inline .input-group > .form-control{width:100%;}
+	 .form-inline .control-label{margin-bottom:0;vertical-align:middle;}
+	 .form-inline .radio, .form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle;}
+	 .form-inline .radio label, .form-inline .checkbox label{padding-left:0;}
+	 .form-inline .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"]{position:relative;margin-left:0;}
+	 .form-inline .has-feedback .form-control-feedback{top:0;}
+	 .dl-horizontal dt{float:left;width:160px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+ .dl-horizontal dd{margin-left:180px;}
+ .lead{font-size:21px;}
+}
+
+@media(max-width:1023px){
+	.dashboard .profile-sec{padding:18.5px 0px;}
+	.header_rightbar{max-width:72% !important;width:72% !important;flex:0 0 72% !important;}
+	.header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;}
+	.dashboard .navbar .navbar-brand{max-width:80px;padding-top:15px;}
+	.edit-user .spb-popup-main-wrapper.spb_top_center .preview{padding-top:15px;}
+	.right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:calc(100% - 28%);transition:width 0.5s;}
+	.open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
+	.left_side_section{width:28%;}
+	.my-assessment .panel{position:initial ! important;}
+	.right_side_section{width:calc(100% - 28%);}
+	.right_section .athlete_right h3{font-size:13px;}
+	.top_right .calender_img , .athletic_icon_section .athletic_profile{border-top:1px solid grey;}
+	.bell_sec .bell-icon-sec{border-top:1px solid grey;border-right:1px solid grey;border-left:1px solid grey;}
+	.profile_img_section .profile-sec{border-top:1px solid grey;border-right:1px solid grey;}
+	.dash-main-right .dash-sub-main{border-left:1px solid grey;}
+	.mobile_hide{display:none;}
+	.dashboard .quick-link .panel{z-index:9;}
+	.right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:100% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
+	.edit_dropdown{display:none;}
+	#athelets-modal .modal-content{width:100% !important;}
+}
+@media (min-width:1023px){
+ 	.container{width:970px;}
+}
+
+@media (min-width:1200px){
+	.container{width:1170px;}
+}
+
+@media(max-width:1199px){
+	.dashboard .navbar .navbar-brand{max-width:120px;padding-top:10px;}
+}
+/*****************************************************************************/
+/*********************** RESPONSIVE CSS ENDS HERE **************************/
+/*****************************************************************************/
+
+
+
+.form-horizontal .has-feedback .form-control-feedback{right:15px;}
+
+
+
+  
