@@ -130,6 +130,7 @@ bfss_assessment.scheduled_appointments:
     _title: "Scheduled Appointments"
   requirements:
     _permission: 'access content'
+    
 bfss_assessment.bfss_manager:
   path: '/bfss-manager'
   defaults:
@@ -137,6 +138,7 @@ bfss_assessment.bfss_manager:
     _title: "bfss manager"
   requirements:
     _permission: 'access content'
+
 bfss_assessment.payment_receipts:
   path: '/payment-receipts'
   defaults:
