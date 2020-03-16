@@ -18,6 +18,8 @@ function mydata_preprocess(&$variables){
 		if ($account) {
 			$username = $account->get('name')->value;
 			$account_array = $account->toArray();
+			// print_r($account_array['roles']);
+			// die;
 			$roles = isset($account_array['roles'][0]['target_id']) ? $account_array['roles'][0]['target_id'] : null;
 			$variables['user_name'] = $username;
 			$variables['user_roles'] = $roles;
