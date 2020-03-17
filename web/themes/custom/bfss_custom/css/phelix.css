@@ -30,7 +30,8 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .user_form_content .registration-area .user-login-form .form-item.js-form-item{width:100%;float:left;display:block;margin:0 0 15px;}
 .user_form_content .registration-area .user-login-form .form-item.js-form-item .description.help-block{color:#000;margin:8px 0;font-size:13px;}
 .user_form_content .registration-area .user-login-form .form-item.js-form-item label{display:none;}
-.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control, .user_form_content .registration-area form .form-item.js-form-item .form-control{height:50px;border:1px solid #6d6e71;background-image:inherit;background-color:transparent;border-radius:0;color:#000;font-size:16px;width:100%;display:block;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control, .user_form_content .registration-area form .form-item.js-form-item .form-control{height:50px;border:1px solid #6d6e71;background-image:inherit;background-color:transparent;border-radius:0;color:#000;font-size:14px;width:100%;display:block;}
+.user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control.error, .user_form_content .registration-area form .form-item.js-form-item .form-control.error{border-color:red;}
 .user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control::-webkit-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select::-webkit-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .form-control::-webkit-input-placeholder{color:#6d6e71;}
 .user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control::-moz-placeholder, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select::-moz-placeholder, .user_form_content .registration-area form .form-item.js-form-item .form-control::-moz-placeholder{color:#6d6e71;}
 .user_form_content .registration-area .user-login-form .form-item.js-form-item .form-control:-ms-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:-ms-input-placeholder, .user_form_content .registration-area form .form-item.js-form-item .form-control:-ms-input-placeholder{color:#6d6e71;}
@@ -50,20 +51,22 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .user-register .user_form_content .registration-area{margin:25px 0 60px;}
 .user_form_content .registration-area form{width:100%;float:left;display:block;}
 .user-register .user_form_content .registration-area .user-register-form .reg-form-tabs{width:100%;float:left;margin:0 0 25px;}
-.user_form_content .registration-area form .form-item.js-form-item, .user_form_content .registration-area form .form-group{background-color:transparent;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border-radius:0;border:0;width:100%;float:left;display:block;position:relative;}
+.user-register .user_form_content .registration-area .user-register-form .reg-form-tabs:last-child{margin:0;}
+.user_form_content .registration-area form .form-item.js-form-item, .user_form_content .registration-area form .form-group{background-color:transparent;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border-radius:0;border:0;width:100%;float:left;position:relative;}
 .user_form_content .registration-area form .form-item.js-form-item{margin:0 0 15px;}
+.user_form_content .registration-area form .form-item.js-form-item:empty{margin:0;}
 .user_form_content .registration-area form .form-group{margin:0;}
-.user_form_content .registration-area form .form-item.js-form-item .alert, .user-register .user_form_content .registration-area form .form-group .alert{bottom:150px;position:absolute;left:0;z-index:0;}
+.user_form_content .registration-area form .form-item.js-form-item .alert, .user-register .user_form_content .registration-area form .form-group .alert{margin:12px 0 0;clear:both;float:left;width:100%;display:block;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-heading{padding:0;border:0;background-color:transparent;width:100%;float:left;display:block;margin:0 0 5px;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title{padding:0 35px 0 0;font-size:21px;color:#000;width:100%;margin:0;line-height:25px;font-weight:500;position:relative;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title .register{font-size:16px;display:block;float:left;width:100%;}
-.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title img{width:22px;position:absolute;right:10px;top:0;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title img{width:22px;position:absolute;right:0;top:0;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body{float:left;width:100%;position:relative;padding:0;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .form-item-description{float:left;width:100%;display:block;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .form-item-description p{color:#000;font-size:14px;}
-.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-item-subtitle, .user_form_content .registration-area form .reg-tab-3 .form-item-fields-list-title{font-size:14px;color:#6d6e71;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-item-subtitle, .user_form_content .registration-area form .reg-tab-3 .form-item-fields-list-title, .user_form_content .registration-area form .reg-tab-4 .form-item-title{font-size:14px;color:#6d6e71;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper{display:block;position:relative;width:100%;}
-.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select{outline:none;height:50px;border:1px solid #6d6e71;background-image:inherit;background-color:transparent;border-radius:0;color:#6d6e71;font-size:16px;-webkit-appearance:none;-moz-appearance:none;appearance:none;padding:10px 40px 10px 15px;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select{outline:none;color:#6d6e71;-webkit-appearance:none;-moz-appearance:none;appearance:none;padding:10px 40px 10px 15px;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:hover, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:focus, .user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title:hover, .user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title:focus{outline:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:focus{background:#fff;border-color:#ccc;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select::-ms-expand{opacity:0;}
@@ -77,18 +80,32 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 
 .user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item{margin:10px 0;}
 .user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item legend{font-size:14px;float:left;width:40%;font-weight:300;}
-.user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item .fieldset-wrapper{width:60%;float:right;display:block;}
+.user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item[id*="edit-parent-permission"] legend{width:100%;}
 .user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item .fieldset-wrapper .form-type-radio{margin:0 15px 0 0;width:auto;display:inline-block;}
 .user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item .fieldset-wrapper .form-type-radio input.form-radio{margin-top:4px;margin-bottom:0;}
-
+.user_form_content .registration-area form button.btn span{display:none;}
+.user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item .fieldset-wrapper [id*="edit-is-over-16-years"], .user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item[id*="edit-parent-permission"] .fieldset-wrapper{position:absolute;right:30px;}
+.user_form_content .registration-area form .reg-form-tabs .fieldgroup.js-form-item.form-item[id*="edit-parent-permission"] .fieldset-wrapper{top:20px;}
 /***************** COMPLETE REGISTRATION FORM CSS STARTS HERE ************************/
 .complete-registration .user_form_content .registration-area{margin-top:20px;}
 .user_form_content .registration-area form .form-item.js-form-item .password-confirm-message{margin:15px 0 0;}
 .complete-registration .user_form_content .registration-area form .form-item.js-form-item .form-item-resend-message{display:none;}
 .complete-registration .user_form_content .registration-area form .form-item.js-form-item .additional-info a{clear:both;display:block;}
 
-/***************** USER REGISTRATION FORM CSS STARTS HERE ************************/
+/***************** CREDIT CARD INFORMATION FORM CSS STARTS HERE ************************/
+.user_form_content .registration-area form .reg-tab-4 .step-4.form-item.js-form-item{margin:0;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-cck{clear:both;padding:15px 0 0;margin:0;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-heading{margin:0 0 15px;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .form-item-cck-month, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .form-item-cck-year, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .form-item-cck-csv{width:50%;float:left;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-type-select.form-item-cck-month .select-wrapper, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-type-select.form-item-cck-year .select-wrapper, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-item-cck-csv input.form-control, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-type-select.form-item-cck-month .alert, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-type-select.form-item-cck-year .alert, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-item-cck-csv .alert{width:calc(100% - 5px);float:left;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-type-select.form-item-cck-year .select-wrapper, .user_form_content .registration-area form .reg-tab-4 .fieldset-cck .panel-body .js-form-item.form-type-select.form-item-cck-year .alert{float:right;}
 
+.user_form_content .registration-area form .reg-tab-4 .fieldset-billing-info{margin:35px 0 0;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-billing-info .panel-body .form-item-bi-city{clear:left;width:40%;float:left;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-billing-info .panel-body .form-item-bi-postal-code{width:30%;float:left;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-billing-info .panel-body .form-item-bi-state{width:30%;float:left;padding:0 10px;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-billing-info .panel-body .form-item-bi-state .select-wrapper:after{right:10px !important;}
+.user_form_content .registration-area form .reg-tab-4 .fieldset-billing-info .panel-body .form-item-bi-state .select-wrapper select{padding:10px 30px 10px 10px !important;}
 /**************************************************************************************************************************/
 /************************************** USER REGISTRATION AND LOGIN FORM CSS ENDS HERE **********************************/
 /**************************************************************************************************************************/ 
