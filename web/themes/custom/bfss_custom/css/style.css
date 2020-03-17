@@ -120,6 +120,12 @@ td,th{padding:0;}
  .table td, .table th{background-color:#fff !important;}
  .table-bordered th, .table-bordered td{border:1px solid #ddd !important;}
  }
+
+.alert-danger {
+    color:#a94442 !important;
+    background-color:#f2dede !important;
+    border-color:#ebccd1 !important;
+}
 @font-face{font-family:"Glyphicons Halflings";src:url("../bootstrap/assets/fonts/bootstrap/glyphicons-halflings-regular.eot");src:url("../bootstrap/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../bootstrap/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../bootstrap/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../bootstrap/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../bootstrap/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");}
 .glyphicon{position:relative;top:1px;display:inline-block;font-family:"Glyphicons Halflings";font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .glyphicon-asterisk:before{content:"\002a";}
@@ -425,8 +431,8 @@ p{margin:0 0 10px;}
 i.text-orange{font-size:9px;vertical-align:middle;}
  .modal-body.athelet_form_content{display:none;}
 
-small,.small{font-size:85%;}
-mark,.mark{padding:.2em;background-color:#fcf8e3;}
+small, .small{font-size:85%;}
+mark, .mark{padding:.2em;background-color:#fcf8e3;}
 .text-left{text-align:left;}
 .text-right{text-align:right;}
 .text-center{text-align:center;}
@@ -606,7 +612,7 @@ pre{display:block;padding:9.5px;margin:0 0 10px;font-size:13px;line-height:1.428
  .col-sm-offset-12{margin-left:100%;}
  }
 @media (min-width:992px){
-	.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12{float:left;}
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12{float:left;}
  .col-md-1{width:8.3333333333%;}
  .col-md-2{width:16.6666666667%;}
  .col-md-3{width:25%;}
@@ -1635,6 +1641,7 @@ a.icon-after .glyphicon, a .glyphicon.icon-after{margin-left:.25em;}
 
 .bfssAthleteProfile .left_section .athlete_left, .bfssAthleteProfile .right_section .athlete_right{border:none;border-top:1px solid #ccc;}
 .messages__wrapper{display:none !important;}
+.form-horizontal .has-feedback .form-control-feedback{right:15px;}
 /** * Navbar styling. */
 body{position:relative;}
  body.navbar-is-static-top{margin-top:0;}
@@ -1747,16 +1754,8 @@ body.maintenance-page{height:100%;background:white;background:linear-gradient(18
  body.maintenance-page .ex-area img{width:150px;margin:0 auto;}
 
 
-
-
-
-
-
  body.user-login .registration-area .user-login-form .form-item .pass-info, body.user-password .registration-area .user-login-form .form-item .pass-info, body.registration-coach .registration-area .user-login-form .form-item .pass-info, body.user-register .registration-area .user-login-form .form-item .pass-info, body.user-reset .registration-area .user-login-form .form-item .pass-info, body.complete-registration .registration-area .user-login-form .form-item .pass-info{font-size:11px;margin-top:8px;}
 
-
-
- body.user-login .registration-area .user-login-form button.btn span, body.user-password .registration-area .user-login-form button.btn span, body.registration-coach .registration-area .user-login-form button.btn span, body.user-register .registration-area .user-login-form button.btn span, body.user-reset .registration-area .user-login-form button.btn span, body.complete-registration .registration-area .user-login-form button.btn span{display:none;}
  body.user-login .registration-area .user-login-form .forgot-password, body.user-password .registration-area .user-login-form .forgot-password, body.registration-coach .registration-area .user-login-form .forgot-password, body.user-register .registration-area .user-login-form .forgot-password, body.user-reset .registration-area .user-login-form .forgot-password, body.complete-registration .registration-area .user-login-form .forgot-password{margin:20px 0;font-size:13px;}
  body.user-login .registration-area .user-pass .form-item label, body.user-password .registration-area .user-pass .form-item label, body.registration-coach .registration-area .user-pass .form-item label, body.user-register .registration-area .user-pass .form-item label, body.user-reset .registration-area .user-pass .form-item label, body.complete-registration .registration-area .user-pass .form-item label{display:none;}
  body.user-login .registration-area .user-pass .form-item input, body.user-password .registration-area .user-pass .form-item input, body.registration-coach .registration-area .user-pass .form-item input, body.user-register .registration-area .user-pass .form-item input, body.user-reset .registration-area .user-pass .form-item input, body.complete-registration .registration-area .user-pass .form-item input{backgroun-image:inherit;background-color:transparent;border:1px solid black;border-radius:0;}
@@ -1775,30 +1774,11 @@ body.maintenance-page{height:100%;background:white;background:linear-gradient(18
  body.user-login .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.user-password .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.user-register .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel input::placeholder, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel input::placeholder{color:#9B9796;font-family:montserrat;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-login .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.user-password .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-password .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.registration-coach .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.user-register .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-register .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.user-reset .registration-area #register-form-container .reg-form-tabs .panel select:focus, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel input:focus, body.complete-registration .registration-area #register-form-container .reg-form-tabs .panel select:focus{box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);}
 
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-month, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year{float:left;width:50%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-month .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper{width:95%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .select-wrapper{float:right;}
+
+
  body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-year .form-item--error-message{clear:both;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv{clear:left;width:50%;}
  body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-item, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-item, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-item, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-item, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-item, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-item{width:95%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .fieldset-cck, body.user-login .registration-area #register-form-container .reg-form-tabs .fieldset-billing-info, body.user-password .registration-area #register-form-container .reg-form-tabs .fieldset-cck, body.user-password .registration-area #register-form-container .reg-form-tabs .fieldset-billing-info, body.registration-coach .registration-area #register-form-container .reg-form-tabs .fieldset-cck, body.registration-coach .registration-area #register-form-container .reg-form-tabs .fieldset-billing-info, body.user-register .registration-area #register-form-container .reg-form-tabs .fieldset-cck, body.user-register .registration-area #register-form-container .reg-form-tabs .fieldset-billing-info, body.user-reset .registration-area #register-form-container .reg-form-tabs .fieldset-cck, body.user-reset .registration-area #register-form-container .reg-form-tabs .fieldset-billing-info, body.complete-registration .registration-area #register-form-container .reg-form-tabs .fieldset-cck, body.complete-registration .registration-area #register-form-container .reg-form-tabs .fieldset-billing-info{clear:both;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-control, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-control, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-control, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-control, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-control, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-cck-csv .form-control{width:95%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-bi-city, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-bi-city, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-bi-city, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-bi-city, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-bi-city, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-bi-city{clear:left;width:40%;float:left;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-bi-state, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-bi-state, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-bi-state, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-bi-state, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-bi-state, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-bi-state{width:20%;float:left;margin-left:5%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs .form-item-bi-postal-code, body.user-password .registration-area #register-form-container .reg-form-tabs .form-item-bi-postal-code, body.registration-coach .registration-area #register-form-container .reg-form-tabs .form-item-bi-postal-code, body.user-register .registration-area #register-form-container .reg-form-tabs .form-item-bi-postal-code, body.user-reset .registration-area #register-form-container .reg-form-tabs .form-item-bi-postal-code, body.complete-registration .registration-area #register-form-container .reg-form-tabs .form-item-bi-postal-code{width:30%;float:left;margin-left:5%;}
-
- @media screen and (min-width:1510px){body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend{position:absolute;width:100%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper{margin-top:14px;}
- }
- @media screen and (min-width:1140px) and (max-width:1200px){body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend{position:absolute;width:100%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper{margin-top:14px;}
- }
- @media screen and (min-width:911px) and (max-width:992px){body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] legend{position:absolute;width:100%;}
- body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper{margin-top:14px;}
- }
- @media screen and (max-width:767px){body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"], body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"]{width:auto;position:relative;}
- body.user-login .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-password .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.registration-coach .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-register .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.user-reset .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper, body.complete-registration .registration-area #register-form-container .reg-form-tabs [id*="edit-parent-permission"] .fieldset-wrapper{margin-top:0;}
- }
 
 
  body.user-login .registration-area #register-form-container .reg-form-tabs button.btn span, body.user-password .registration-area #register-form-container .reg-form-tabs button.btn span, body.registration-coach .registration-area #register-form-container .reg-form-tabs button.btn span, body.user-register .registration-area #register-form-container .reg-form-tabs button.btn span, body.user-reset .registration-area #register-form-container .reg-form-tabs button.btn span, body.complete-registration .registration-area #register-form-container .reg-form-tabs button.btn span{display:none;}
@@ -1859,7 +1839,7 @@ ul.side_nav li:last-child{border-bottom:unset;}
 .sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 37px;}
 .sidenav ul.dropdown-menu.open li{position:relative;}
 .sidenav ul.dropdown-menu.open li::before{content:"";position:absolute;width:5px;height:5px;background:#909090;left:12px;top:18px;}
-.left_side_section{background:#000;border-right:1px solid grey;width:19%;transition:width 0.5s;float:left;}
+
 /* 04-03-2020 */
 .header_rightbar{max-width:81% !important;width:81% !important;flex:0 0 81% !important;}
 .header_leftbar{max-width:19% !important;width:19% !important;flex:0 0 19% !important;}
@@ -1920,7 +1900,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
  /*#edit-profile-class #first-accordian--content input{pointer-events:none;background:#eeeeee;}
 */
  #edit-profile-class .field-group-format-toggler{position:relative;padding:20px 15px !important;}
- #edit-profile-class .edit_dropdown , .right_section .edit_dropdown{position:absolute;z-index:99;right:0px;top:0px;padding:19px 12px;}
+ #edit-profile-class .edit_dropdown, .right_section .edit_dropdown{position:absolute;z-index:99;right:0;top:0;padding:12px;height:45px;font-size:14px;}
  #edit-profile-class .edit_dropdown a.drop , .right_section .edit_dropdown a.drop{color:#EB6E06;}
  #edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span{margin-left:10px;color:#EB6E06;}
 /* #edit-profile-class .edit_dropdown ul.dropdown-menu , .right_section .edit_dropdown ul.dropmenu{top:34px;min-width:85px;left:10px;}
@@ -1938,17 +1918,22 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .left_section{display:inline-block;width:100%;float:left;position:relative;}
 .right_section{display:inline-block;width:100%;float:left;}
 .right_section .athlete_right{position:realtive;}
-.left_section .athlete_left h3 ,.right_section .athlete_right h3{background:#000;position:relative;color:#fff;font-weight:bold;padding:15px;font-size:16px;margin:0;text-transform:uppercase;margin-bottom:0px;cursor:pointer;}
-.left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#f76907;padding-right:15px;}
+.left_section .athlete_left h3, .right_section .athlete_right h3{border:1px solid #000;background:#000;position:relative;color:#fff;font-weight:400;padding:13.5px 15px;font-size:14px;margin:0;text-transform:uppercase;margin-bottom:0px;cursor:pointer;height:45px;}
+.left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#f76907;padding-right:15px;font-weight: 400;}
 .left_section .athlete_left , .right_section .athlete_right{border:1px solid #ccc;padding-bottom:0px;margin-bottom:30px;position:relative;}
 .left_section .athlete_left .form-item , .right_section .athlete_right .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
-.left_section .athlete_left .form-item input , .right_section .athlete_right .form-item input , .right_section .athlete_right .form-item select , .left_section .athlete_left .form-item select{border-radius:2px;height:40px;}
+.left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;}
+.left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;}
 .left_section .athlete_left .add_pos_div{position:relative;padding-bottom:30px;}
 .left_section .athlete_left .add_pos_div a.add_pos{padding:0px 0px 0px 16px;position:absolute;bottom:5px;margin-bottom:0;left:0;cursor:pointer;}
 .left_section .athlete_left .add_pos_div a.add_pos i{padding-right:5px;}
 .left_section .athlete_left a.remove_pos{position:absolute;left:130px;padding:0px 0px 0px 16px;bottom:5px;display:none;cursor:pointer;}
 .left_section .athlete_left .remove_pos i{padding-right:5px;}
- .right_section .athlete_right label.control-label{padding-left:15px;color:#555555;font-weight:normal;padding-right:19px;word-break:break-word;}
+ .right_section .athlete_right label.control-label{padding-left:15px;color:#555555;font-weight:normal;padding-right:19px;word-break:break-word;font-size:13px;}
+.right_section .athlete_right .previewdiv{width:100%;float:left;display:block;padding:20px 15px;}
+.right_section .athlete_right .previewdiv a{color:#f76907;border:1px solid #f76907;font-size:14px;padding:8px 25px;height:40px;line-height:16px;}
+.right_section .athlete_right .previewdiv a:hover, .right_section .athlete_right .previewdiv a:focus{outline:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;background-color:#f76907;color:#fff;}
+.right_section .athlete_right .previewdiv a span{display:none;}
 .right_section .athlete_right button{border-radius:2px;border:2px solid #f76907;margin:15px;color:#f76907;}
 .right_section .items_div ,.left_section .items_div{display:inline-block;width:100%;padding:30px 0;}
 #athlete_submit{display:inline-block;width:100%;padding-top:20px;}
@@ -1972,7 +1957,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 input#name_1{width:70%;}
 .right_section .edit_dropdown a{background-color:#000;padding:0;}
  .right_section .edit_dropdown:before{height:100%;}
- .right_section .edit_dropdown .dropdown-menu , #edit-profile-class .edit_dropdown ul.dropdown-menu{right:0;left:auto;}
+ .right_section .edit_dropdown .dropdown-menu, #edit-profile-class .edit_dropdown ul.dropdown-menu{right:0;left:auto;}
  .right_section .remove_click , #edit-profile-class .edit_dropdown .remove_click{margin:0 auto;display:table;}
  .right_section .athlete_right .edit_dropdown button{border-radius:2px;border:2px solid #f76907;color:#fff !important;margin:5px auto;display:table;}
 /*Registration form*/
@@ -2054,77 +2039,77 @@ div#edit-phone-section{margin-top:25px;}
 /*****************************************************************************/
 
 @media (max-width:420px){
-	.datepicker{width:96%;}
- 	.right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:auto;transition:width 0.5s;}
- 	.right_side_section{width:auto;transition:unset;}
- 	.left_side_section{position:absolute;top:99px;max-width:initial;z-index:99;display:none;}
+  .datepicker{width:96%;}
+  .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:auto;transition:width 0.5s;}
+  .right_side_section{width:auto;transition:unset;}
+  .left_side_section{position:absolute;top:99px;max-width:initial;z-index:99;display:none;}
 }
 
 @media(max-width:767px){
-	.user-form .panel-default{width:100%;}
-	.user-form aside#user-edit-div{width:100%;margin-left:0%;float:left;margin-bottom:20px;}
-	.left_section{width:100%;}
-	.left_side_section{width:50%;}
-	.right_side_section{width:calc(100% - 50%);}
-	.left_section a.add_org{padding-bottom:12px;}
-	.mob_bottom_margin{padding-bottom:10px;}
-	.right_section{width:100%;margin-left:0%;}
-	#edit-profile-class .user-form .panel-default{width:100%;}
+  .user-form .panel-default{width:100%;}
+  .user-form aside#user-edit-div{width:100%;margin-left:0%;float:left;margin-bottom:20px;}
+  .left_section{width:100%;}
+  .left_side_section{width:50%;}
+  .right_side_section{width:calc(100% - 50%);}
+  .left_section a.add_org{padding-bottom:12px;}
+  .mob_bottom_margin{padding-bottom:10px;}
+  .right_section{width:100%;margin-left:0%;}
+  #edit-profile-class .user-form .panel-default{width:100%;}
 }
 
 @media (min-width:768px){.container{width:750px;}
-	.navbar-right .dropdown-menu{right:0;left:auto;} 
-	.navbar-right .dropdown-menu-left{left:0;right:auto;}
-	.form-horizontal .control-label{padding-top:7px;margin-bottom:0;text-align:right;}
-	.form-horizontal .form-group-lg .control-label{padding-top:11px;font-size:18px;}
-	.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle;}
-	 .form-inline .form-control{display:inline-block;width:auto;vertical-align:middle;}
-	 .form-inline .form-control-static{display:inline-block;}
-	 .form-inline .input-group{display:inline-table;vertical-align:middle;}
-	 .form-inline .input-group .input-group-addon, .form-inline .input-group .input-group-btn, .form-inline .input-group .form-control{width:auto;}
-	 .form-inline .input-group > .form-control{width:100%;}
-	 .form-inline .control-label{margin-bottom:0;vertical-align:middle;}
-	 .form-inline .radio, .form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle;}
-	 .form-inline .radio label, .form-inline .checkbox label{padding-left:0;}
-	 .form-inline .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"]{position:relative;margin-left:0;}
-	 .form-inline .has-feedback .form-control-feedback{top:0;}
-	 .dl-horizontal dt{float:left;width:160px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .navbar-right .dropdown-menu{right:0;left:auto;} 
+  .navbar-right .dropdown-menu-left{left:0;right:auto;}
+  .form-horizontal .control-label{padding-top:7px;margin-bottom:0;text-align:right;}
+  .form-horizontal .form-group-lg .control-label{padding-top:11px;font-size:18px;}
+  .form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle;}
+   .form-inline .form-control{display:inline-block;width:auto;vertical-align:middle;}
+   .form-inline .form-control-static{display:inline-block;}
+   .form-inline .input-group{display:inline-table;vertical-align:middle;}
+   .form-inline .input-group .input-group-addon, .form-inline .input-group .input-group-btn, .form-inline .input-group .form-control{width:auto;}
+   .form-inline .input-group > .form-control{width:100%;}
+   .form-inline .control-label{margin-bottom:0;vertical-align:middle;}
+   .form-inline .radio, .form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle;}
+   .form-inline .radio label, .form-inline .checkbox label{padding-left:0;}
+   .form-inline .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"]{position:relative;margin-left:0;}
+   .form-inline .has-feedback .form-control-feedback{top:0;}
+   .dl-horizontal dt{float:left;width:160px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
  .dl-horizontal dd{margin-left:180px;}
  .lead{font-size:21px;}
 }
 
 @media(max-width:1023px){
-	.dashboard .profile-sec{padding:18.5px 0px;}
-	.header_rightbar{max-width:72% !important;width:72% !important;flex:0 0 72% !important;}
-	.header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;}
-	.dashboard .navbar .navbar-brand{max-width:80px;padding-top:15px;}
-	.edit-user .spb-popup-main-wrapper.spb_top_center .preview{padding-top:15px;}
-	.right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:calc(100% - 28%);transition:width 0.5s;}
-	.open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
-	.left_side_section{width:28%;}
-	.my-assessment .panel{position:initial ! important;}
-	.right_side_section{width:calc(100% - 28%);}
-	.right_section .athlete_right h3{font-size:13px;}
-	.top_right .calender_img , .athletic_icon_section .athletic_profile{border-top:1px solid grey;}
-	.bell_sec .bell-icon-sec{border-top:1px solid grey;border-right:1px solid grey;border-left:1px solid grey;}
-	.profile_img_section .profile-sec{border-top:1px solid grey;border-right:1px solid grey;}
-	.dash-main-right .dash-sub-main{border-left:1px solid grey;}
-	.mobile_hide{display:none;}
-	.dashboard .quick-link .panel{z-index:9;}
-	.right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:100% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
-	.edit_dropdown{display:none;}
-	#athelets-modal .modal-content{width:100% !important;}
+  .dashboard .profile-sec{padding:18.5px 0px;}
+  .header_rightbar{max-width:72% !important;width:72% !important;flex:0 0 72% !important;}
+  .header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;}
+  .dashboard .navbar .navbar-brand{max-width:80px;padding-top:15px;}
+  .edit-user .spb-popup-main-wrapper.spb_top_center .preview{padding-top:15px;}
+  .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:calc(100% - 28%);transition:width 0.5s;}
+  .open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
+  .left_side_section{width:28%;}
+  .my-assessment .panel{position:initial ! important;}
+  .right_side_section{width:calc(100% - 28%);}
+  .right_section .athlete_right h3{font-size:13px;}
+  .top_right .calender_img , .athletic_icon_section .athletic_profile{border-top:1px solid grey;}
+  .bell_sec .bell-icon-sec{border-top:1px solid grey;border-right:1px solid grey;border-left:1px solid grey;}
+  .profile_img_section .profile-sec{border-top:1px solid grey;border-right:1px solid grey;}
+  .dash-main-right .dash-sub-main{border-left:1px solid grey;}
+  .mobile_hide{display:none;}
+  .dashboard .quick-link .panel{z-index:9;}
+  .right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:100% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
+  .edit_dropdown{display:none;}
+  #athelets-modal .modal-content{width:100% !important;}
 }
 @media (min-width:1023px){
- 	.container{width:970px;}
+  .container{width:970px;}
 }
 
 @media (min-width:1200px){
-	.container{width:1170px;}
+  .container{width:1170px;}
 }
 
 @media(max-width:1199px){
-	.dashboard .navbar .navbar-brand{max-width:120px;padding-top:10px;}
+  .dashboard .navbar .navbar-brand{max-width:120px;padding-top:10px;}
 }
 /*****************************************************************************/
 /*********************** RESPONSIVE CSS ENDS HERE **************************/
@@ -2132,7 +2117,7 @@ div#edit-phone-section{margin-top:25px;}
 
 
 
-.form-horizontal .has-feedback .form-control-feedback{right:15px;}
+
 
 
 
