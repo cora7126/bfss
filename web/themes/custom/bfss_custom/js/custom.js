@@ -502,3 +502,16 @@ error :function (data){
 //	console.log('here');
 //        jQuery('.js-text-full').removeAttr('value')
 //        });
+
+
+function loadModal(elem){
+	if(!elem){return false;}
+	jQuery(elem).fadeIn();
+	jQuery('body').addClass('modalActive');
+}
+
+function closeModal(elem){
+	if(!elem){return false;}
+	jQuery(elem).fadeOut();
+	jQuery('body').removeClass('modalActive');
+}

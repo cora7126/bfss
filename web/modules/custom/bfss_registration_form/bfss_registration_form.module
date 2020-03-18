@@ -756,7 +756,7 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
-
+  $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
 
   $form_state->disableRedirect();
 }

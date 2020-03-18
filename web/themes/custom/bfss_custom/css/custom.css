@@ -93,3 +93,11 @@ div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap
 .block-bfss-assessment .assessment_block h2{font-family:Montserrat;font-weight:bold;}
 .dash-main-right h1, .dash-main-right h2, .quick-link{font-family:Proxima Nova Rg;font-weight:normal;}
 
+
+/***popup***/
+.customModal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;z-index:999;}
+.customModalContent{display:flex;align-items:center;justify-content:center;height: 100%;width:100%;}
+.contentWrapper{background: #fff;padding:70px;border-radius: 20px;width: 500px;max-width: 92%;text-align: center;position: relative;}
+.customModal .close_modal {border: 2px solid #ccc;border-radius: 50%;top: -19px;background: #fff;right: -17px;font-size: 18px;font-weight: 600;position: absolute;height: 35px;width: 35px;cursor: ointer;text-align: center;line-height: 30px;}
+.customModal .customModalContent p{color:green;font-size:24px;line-height:36px;}
+
