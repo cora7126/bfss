@@ -492,8 +492,6 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
             'yes' => t('Yes'),
             'no' => t('No'),
           ],
-          // '#prefix' => '<div class="vivek">',
-          // '#suffix' => '</div>',
           '#default_value' => $form_state->getValue('is_over_16_years'),
         ];
 
