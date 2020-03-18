@@ -64,7 +64,7 @@ class PopupForm extends FormBase {
       '#required' => TRUE,
       '#placeholder' => t('First name'),
       '#default_value' => $results3['field_first_name_value'],
-	  '#prefix'=>'<div class="left_section popup_left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information</h3><div class=items_div>',
+	  '#prefix'=>'<div class="left_section popup_left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information<i class="fa fa-info right-icon" aria-hidden="true"></i></h3><div class=items_div>',
       );
     $form['lname'] = array(
       '#type' => 'textfield',
@@ -88,7 +88,7 @@ class PopupForm extends FormBase {
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
     '#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
-	'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
+	'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="far fa-trash-alt right-icon delete_icon" aria-hidden="true"></i></h3><div class=items_div>',
       );
      $form['organization_name'] = array(
     //'#title' => t('az'),
@@ -114,7 +114,7 @@ class PopupForm extends FormBase {
       '#placeholder' => t('Position'),
       '#default_value' => '',
 	  '#prefix' => '<div class="add_pos_div">',
-	  '#suffix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a></div></div></div></div>',
+	  '#suffix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a>',
       );
 	  $form['position2'] = array (
 		  '#type' => 'textfield',
@@ -124,13 +124,16 @@ class PopupForm extends FormBase {
 		  // '#prefix' => '<div class ="pos_first_1"',
 		  // '#suffix' => '</div>',
 	 );
+
+    //here1111
+
 	  $form['position3'] = array (
 		  '#type' => 'textfield',
 		  '#placeholder' => t('Position'),
 		  '#default_value' => '',
 		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
 		  // '#prefix' => '<div class ="pos_first_2"',
-		  // '#suffix' => '</div>',
+		   '#suffix' => '</div></div></div></div>',
 		  );
 	  
 	  $form['education_1'] = array(
@@ -248,11 +251,12 @@ class PopupForm extends FormBase {
 	  '#suffix' => '</div></div></div>',
       '#default_value' => '',
       );
+
     $form['submit'] = [
-        '#type' => 'submit',
-        '#value' => 'save',
-		'#prefix' =>'<div id="athlete_submit">',
-		'#suffix' => '</div>',
+    '#type' => 'submit',
+    '#value' => 'FINISH',
+		'#prefix' =>'<div class="left_section popup_left_section finish-btn"><div class="athlete_submit">',
+		'#suffix' => '</div></div>',
         //'#value' => t('Submit'),
     ];
     
@@ -319,10 +323,13 @@ class PopupForm extends FormBase {
 	$seltypeval3 = $form['education_2']['#options'][$seltype3];
 	$selnameval3 = $form['schoolname_2']['#options'][$selname3];
 	// echo $selnameval1; echo $setypeval1;die;
-	$query_mydata = \Drupal::database()->select('mydata', 'md');
-		$query_mydata->fields('md');
+        $current_user = \Drupal::currentUser()->id();
+	$query_mydata = \Drupal::database()->select('mydata', 'msd');
+		$query_mydata->fields('msd');
 		$query_mydata->condition('uid', $current_user,'=');
 		$results_mydata = $query_mydata->execute()->fetchAll();
+//                echo '<pre>'; print_r($results_mydata);die;
+                
           // $field  = array(
               // 'field_jodi'   => $jodi,
               // 'field_bloggs' =>  $bloggs,
@@ -372,9 +379,9 @@ class PopupForm extends FormBase {
            // drupal_set_message("succesfully saved");
            // $response = new RedirectResponse("/mydata/hello/table");
            // $response->send();
-		    $current_user = \Drupal::currentUser()->id();
-    $conn = Database::getConnection(); 
-	if(empty($results_mydata)){
+            $current_user = \Drupal::currentUser()->id();
+            $conn = Database::getConnection(); 
+            if(empty($results_mydata)){
 		$conn->insert('mydata')->fields(
 			array(
 					  'field_jodi'   => $jodi,
