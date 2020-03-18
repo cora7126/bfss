@@ -1,5 +1,6 @@
 <?php
-
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 /*
  * HOOK_theme
  */
@@ -35,6 +36,18 @@ return [
         ],
         'template'=>'custom/upcoming-group-assessments',
     ],  
+    'bfss_manager' => [
+      'variables' => [
+          'data'=> null,
+        ],
+        'template'=>'custom/bfss-manager',
+    ],
+    'payment_receipts' => [
+      'variables' => [
+          'data'=> null,
+        ],
+        'template'=>'custom/payment-receipts',
+    ],
     'scheduled__appointments' => [
       'variables' => [
           'data'=> null,
@@ -66,3 +79,23 @@ function bfss_assessment_entity_view_mode_alter(&$view_mode, Drupal\Core\Entity\
     $view_mode = 'modal';      
   }
 }*/
+
+
+/**
+ * Implements hook_user_login().
+ */
+function bfss_assessment_user_login($account) {
+    $current_user = \Drupal::currentUser();
+    $roles = $current_user->getRoles();
+    if(isset($roles) && in_array('athlete', $roles)){
+      if($account->getLastAccessedTime() == '0'){
+        $response = new RedirectResponse("/dashboard/profile");
+        $response->send();
+        return;
+      }else{
+        $response = new RedirectResponse("/dashboard");
+        $response->send();
+        return;
+      }
+    }
+}

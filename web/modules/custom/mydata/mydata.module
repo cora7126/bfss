@@ -18,9 +18,24 @@ function mydata_preprocess(&$variables){
 		if ($account) {
 			$username = $account->get('name')->value;
 			$account_array = $account->toArray();
-			$roles = isset($account_array['roles'][0]['target_id']) ? $account_array['roles'][0]['target_id'] : null;
+
+			$roles_data = $account->getRoles();
+			if(!empty($roles_data)){
+
+				$roles_data = array_flip($roles_data);
+				unset($roles_data['authenticated']);
+				$roles_data = array_flip($roles_data);	
+				$rol_label = [];
+				foreach ($roles_data  as $role ) {
+						$rol_label[] = user_role_load($role)->label();
+				}
+				$roles_name = implode(',', $rol_label);
+				
+			}
+			//$roles = isset($account_array['roles'][0]['target_id']) ? $account_array['roles'][0]['target_id'] : null;
 			$variables['user_name'] = $username;
-			$variables['user_roles'] = $roles;
+			$variables['user_roles'] = !empty($roles_name) ? $roles_name : '';
+			
 		}
 
 		$query = \Drupal::database()->select('user__user_picture', 'n');

@@ -57,67 +57,67 @@
 {% block main %}
     <div role="main" class="main-container {{ container }} js-quickedit-main-content">
         <div class="row">
-            <div class="sub-header">
-                <div class="sub-header-logo">
-                    <img src="/sites/default/files/BFSS-LogoFinal-Yellow.png" />
-                </div>
-            </div>
-            <div class="register-area col-lg-4 col-md-4 col-sm-5 col-xs-9">
-
-                <div class="new-register">
-                    <div class="reg-icon"><img src="/sites/default/files/images/forms/bfss-registration.png" /></div>
-                    <div class="reg-text-area">
-                        <div class="small-text">New User</div>
-                        <div class="large-text">Registration</div>
+            <div class="user_form_content">
+                <div class="sub-header">
+                    <div class="sub-header-logo">
+                        <img src="/sites/default/files/BFSS-LogoFinal-Yellow.png" />
                     </div>
                 </div>
-
-
-
-            </div>
-
-            {# Content #}
-            {%
-                set content_classes = [
-                page.sidebar_first and page.sidebar_second ? 'col-sm-6',
-                page.sidebar_first and page.sidebar_second is empty ? 'col-sm-9',
-                page.sidebar_second and page.sidebar_first is empty ? 'col-sm-9',
-                page.sidebar_first is empty and page.sidebar_second is empty ? 'col-sm-12'
-            ]
-            %}
-            {#<section{{ content_attributes.addClass(content_classes) }}>#}
-            <section class="registration-area col-lg-4 col-md-4 col-sm-5 col-xs-9">
-
-
-                {# Help #}
-                {% if page.help %}
-                    {% block help %}
-                        {{ page.help }}
-                    {% endblock %}
-                {% endif %}
+                <div class="clr"></div>
+                <div class="register-area">
+                    <div class="new-register">
+                        <div class="reg-icon"><img src="/sites/default/files/images/forms/bfss-registration.png" /></div>
+                        <div class="reg-text-area">
+                            <div class="small-text">New User</div>
+                            <div class="large-text">Registration</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clr"></div>
 
                 {# Content #}
-                {% block content %}
-                    <a id="main-content"></a>
-                    {{ page.content }}
-                {% endblock %}
+                {%
+                    set content_classes = [
+                    page.sidebar_first and page.sidebar_second ? 'col-sm-6',
+                    page.sidebar_first and page.sidebar_second is empty ? 'col-sm-9',
+                    page.sidebar_second and page.sidebar_first is empty ? 'col-sm-9',
+                    page.sidebar_first is empty and page.sidebar_second is empty ? 'col-sm-12'
+                ]
+                %}
+                {#<section{{ content_attributes.addClass(content_classes) }}>#}
+                <section class="registration-area">
 
-                {# Highlighted #}
-                {% if page.highlighted %}
-                    {% block highlighted %}
-                        <div class="highlighted">{{ page.highlighted }}</div>
+
+                    {# Help #}
+                    {% if page.help %}
+                        {% block help %}
+                            {{ page.help }}
+                        {% endblock %}
+                    {% endif %}
+
+                    {# Content #}
+                    {% block content %}
+                        <a id="main-content"></a>
+                        {{ page.content }}
+                    {% endblock %}
+
+                    {# Highlighted #}
+                    {% if page.highlighted %}
+                        {% block highlighted %}
+                            <div class="highlighted">{{ page.highlighted }}</div>
+                        {% endblock %}
+                    {% endif %}
+                </section>
+
+                {# Sidebar Second #}
+                {% if page.sidebar_second %}
+                    {% block sidebar_second %}
+                        <aside class="col-sm-3" role="complementary">
+                            {{ page.sidebar_second }}
+                        </aside>
                     {% endblock %}
                 {% endif %}
-            </section>
-
-            {# Sidebar Second #}
-            {% if page.sidebar_second %}
-                {% block sidebar_second %}
-                    <aside class="col-sm-3" role="complementary">
-                        {{ page.sidebar_second }}
-                    </aside>
-                {% endblock %}
-            {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

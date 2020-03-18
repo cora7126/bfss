@@ -130,3 +130,19 @@ bfss_assessment.scheduled_appointments:
     _title: "Scheduled Appointments"
   requirements:
     _permission: 'access content'
+    
+bfss_assessment.bfss_manager:
+  path: '/bfss-manager'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\BfssManager::Bfss_Manager'
+    _title: "bfss manager"
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.payment_receipts:
+  path: '/payment-receipts'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\PaymentReceipts::payment_receipts'
+    _title: "Payment Receipts"
+  requirements:
+    _permission: 'access content'

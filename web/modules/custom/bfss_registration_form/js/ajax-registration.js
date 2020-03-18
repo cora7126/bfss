@@ -4,12 +4,12 @@
       // trigger submit button
       $('select[name=user_type],select[name=field_program_term]').on('change', function (e) {
         e.preventDefault();
-        /* setTimeout(function(){
+         setTimeout(function(){
                 jQuery('.js-text-full').removeAttr('value');
         
                var ht = jQuery( ".step-2 .panel-title" ).html();
 //            ht.slice(0,15);
-//            console.log(ht);     
+//            console.log(ht);
 
     jQuery('.form-item-fields-list-title-2').html('Parent Guardian Information');
     jQuery('.step-2 .js-form-item-fields-list-title-2').html('Parent / Guardian Information');
@@ -23,7 +23,7 @@
 //               console.log('dgfggdg');
                 jQuery('.step-2 .panel-title').html('<div> Step 2 - Parent / Guardian <div class ="register">(Registering Athlete)</div></div> ');
            }
-        },2000); */
+        },2000); 
 
         $(this).parents('.details-wrapper,.panel-body').find('.form-submit').trigger('click');
         

@@ -3,10 +3,9 @@
 <html>   
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/themes/custom/bfss_custom/css/style-custom.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -22,7 +21,7 @@
       <!-- ------------Side Navbar----------end -->
       <div class="right_side_section pl-0 pr-0">
          <div class="dash-main-right">
-            <h1><i class="fas fa-home" 11></i> > Dashboard </h1>
+            <h1><i class="fas fa-home" 11></i><span>></span> Dashboard </h1>
             <div class="dash-sub-main">
                <img src="/themes/custom/bfss_custom/images/images-dashboard/dash-img.png">  
                <h2><span>ALL FEATURES</span><br>Dashboard  </h2>
@@ -54,7 +53,7 @@
                            <a href='/bfssAthleteProfile' class="atheltic_link">
                               <div class="quick-link-sub-sec">
                            <i class="far fa-chart-network"></i>
-                              <p>Athletic Profile</p>
+                              <p>My Athletic <br />Profile</p>
                         </div>
                            </a>
                      </div>
@@ -70,14 +69,20 @@
                </div>
                <div class="col-lg-4">
                   <div class="my-assessment">
-                     <button class="accordion">MY ASSESSMENTS</button>
+                     <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i> MY ASSESSMENTS</button>
                      <div class="panel">
-                        <h1>Elite Assessment</h1>
-                        <p style="color:#115719;">December 29,2019</p>
-                        <h1 style="color:#f76907;">Starter Assessment</h1>
-                        <p>September 29,2019</p>
-                        <h1 style="color:#f76907;">Starter Assessment</h1>
-                        <p>March 29,2019</p>
+                        <div class="panel_row">                           
+                           <h3>Elite Assessment</h3>
+                           <p>December 29,2019</p>
+                        </div>
+                        <div class="panel_row">    
+                           <h3>Starter Assessment</h3>
+                           <p>September 29,2019</p>
+                        </div>
+                        <div class="panel_row">    
+                           <h3>Starter Assessment</h3>
+                           <p>March 29,2019</p>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -88,14 +93,17 @@
          <div class="tab-main-sec">
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
                <div class="col-lg-8 col-md-12">
-                  <div class="row">
+                  <div class="row tab-main-sec-heading">
                      <div class="col-xl-9 col-lg-8 col-md-6 col-6">
-                        <h2 class="mb-0"><i class="fal fa-angle-left mr-2"></i><span class="month_year">August 2019</span><i class="fal fa-angle-right ml-2"></i></h2>
-                        <p class="pl-4">************</p>
+                        <h2 class="mb-0"><i class="fal fa-angle-left mr-3"></i><span class="month_year">August 2019</span><i class="fal fa-angle-right ml-3"></i></h2>
                      </div>
                      <div class="col-xl-3 col-lg-4 col-md-6 col-6 search_icon">
                       <a href="#" class="pr-3"> <i class="fas fa-search"></i></a>
-                        <input placeholder="month view" type="text" id="date-picker-example" class="form-control datepicker mt-4">
+                      <div class="search_icon_field">
+                        <i class="fal fa-calendar-alt"></i>
+                        <input placeholder="Month View" type="text" id="date-picker-example" class="form-control datepicker">
+                        <i class="fal fa-caret-down"></i>
+                     </div>   
                      </div>
                   </div>
                   <div class="tab-nav">

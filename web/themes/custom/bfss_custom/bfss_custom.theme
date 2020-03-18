@@ -1,6 +1,7 @@
 <?php
 
-
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 function bfss_custom_preprocess_html(&$variables) {
     $variables['attributes']['class'][] = 'dashboard';
@@ -28,9 +29,15 @@ function bfss_custom_form_user_login_form_alter(&$form, $form_state) {
 
 //  alter user login page
 function bfss_custom_preprocess_page(&$variables) {
-  if (\Drupal::routeMatch()->getRouteName() == 'user.login') {
-
+  $current_path = \Drupal::service('path.current')->getPath();
+  $result = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  if (\Drupal::currentUser()->isAnonymous()  && $current_path == '/dashboard') {
+      $response = new RedirectResponse("/user/register");
+      $response->send();
+      return;
   }
+  // if (\Drupal::routeMatch()->getRouteName() == 'user.login') {
+  // }
 }
 
 function bfss_custom_preprocess_user(&$variables) {

@@ -51,6 +51,7 @@
  * @see html.html.twig
  */
 #}
+
 <link rel="stylesheet" href="/themes/custom/bfss_custom/css/style-custom.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -65,7 +66,6 @@
 {% block main %}
   <div role="main" class="main-container remove_padding js-quickedit-main-content">
     <div class="container">
-
       {# Header #}
       <div class="row border_bottom custom-nav-box">
       <div class="col-lg-2 pr-0 pl-0 header_leftbar">
@@ -108,7 +108,12 @@
             </div>
             <div class="col-lg-1 col-md-3 col-sm-6 col-6 pl-0 pr-0 profile_img_section">
                <div class="profile-sec">
+               {% if user_img_url is not null and user_img_url is not empty %}
                   <img src="{{user_img_url}}" onclick="openForm()">
+               {% else %}
+                <img src="/themes/custom/bfss_custom/images/DefaultProfile.png" onclick="openForm()">
+               {% endif %}
+                  
                   <!----------- profile pop up start----------- -->
                   <div class="chat-popup" id="myForm">
                      <div class="form-container">
@@ -116,7 +121,11 @@
                            <div class="pop_img_sec">
                               <div class="row">
                                  <div class="col-md-4 pr-0 ">
+                                 {% if user_img_url is not null and user_img_url is not empty %}
                                     <img src="{{user_img_url}}">
+                                 {% else %}
+                                    <img src="/themes/custom/bfss_custom/images/DefaultProfile.png">
+                                  {% endif %}
                                  </div>
                                  <div class="col-md-8">
                                     <h2>{{user_name}}</h2>
@@ -128,13 +137,13 @@
                               <a href="#">
                                  <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
                               </a>
-                              <a href="#">
+                              <a href="/bfss-manager">
                                  <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
                               </a>
                               <a href="#" data-toggle="modal" data-target="#my-profile-Modal">
-                                  <a href='edit/parent'><p><i class="fas fa-user"></i>Parent / Guardian</p></a>
+                                  <a href='/edit/parent'><p><i class="fas fa-user"></i>Parent / Guardian</p></a>
                               </a>
-                              <a href="#">
+                              <a href="/payment-receipts">
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
                               <a href="#">
