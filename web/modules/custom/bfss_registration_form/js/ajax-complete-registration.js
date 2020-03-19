@@ -29,7 +29,7 @@
 
       if (drupalSettings.bfss_registration_form !== undefined) {
         if (drupalSettings.bfss_registration_form.redirect_too !== undefined) {
-          location.href = drupalSettings.bfss_registration_form.redirect_too;
+         // location.href = drupalSettings.bfss_registration_form.redirect_too;
         }
       }
 

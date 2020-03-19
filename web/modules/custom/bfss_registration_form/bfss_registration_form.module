@@ -759,6 +759,7 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
   $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
 
   $form_state->disableRedirect();
+//  $form_state['redirect'] = false;
 }
 
 /**
