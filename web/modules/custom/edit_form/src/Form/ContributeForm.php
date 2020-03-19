@@ -219,19 +219,20 @@ class ContributeForm extends FormBase {
 	  '#suffix' => '</div></div>',
       '#default_value' => $results10['athlete_social_2'],
       );
-	  $orgtype = array(t('Organization Type'), t('SCHOOL'), t('CLUB'), t('UNIVERSITY'));
+	  $orgtype = array(t('Organization Type'), t('School'), t('Club'), t('University'));
 	  $form['organizationType'] = array(
 		//'#title' => t('az'),
 		'#type' => 'select',
 		//'#description' => 'Select the desired pizza crust size.',
-		'#options' => array(t('Organization Type'), t('SCHOOL'), t('CLUB'), t('UNIVERSITY')),
+		'#options' => array(t('Organization Type'), t('School'), t('Club'), t('University')),
 		'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
 		'#default_value' => array_search($results5['athlete_school_type'],$orgtype),
       );
 		$orgname = array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3'));
 	  $form['organizationName'] = array(
 		//'#title' => t('az'),
-		'#type' => 'select',
+		'#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
 		//'#description' => 'Select the desired pizza crust size.',
 		'#options' => array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3')),
         '#default_value' => array_search($results5['athlete_school_name'],$orgname),
