@@ -77,9 +77,11 @@ div.quick-link{margin:40px 0;}
 .block-assessments-view-block{width:100%;float:left;display:block;}
 #block-assessmentscustomview .container{padding:0 !important;}
 #block-assessmentscustomview .assessment_block{margin:0;width:100%;float:left;}
-#block-assessmentscustomview .col.assessment_inner{padding:5px;background:#e7e7e7;margin:5px 10px;width:calc(33.3% - 20px) !important;border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset;
+#block-assessmentscustomview .col.assessment_inner{padding:5px;background:#fffcd7;margin:5px 10px;width:calc(33.3% - 20px) !important;border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset;
     flex-basis:unset;-ms-flex-positive:unset;flex-grow:unset;}
 #block-assessmentscustomview .assessment_block .timing h2{font-size:16px;padding-right:25px;}
+
+#block-upcominggroupassessments .col{width: 24%;display: inline-block; margin: 10px; padding:10px; background-color:#fffcd7; cursor: pointer;}
 /* --------- DASHBOARD DETAILS POPUP CSS STARTS HERE *******************/
 
 .dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{max-height:84vh;margin:8vh 0;border:none;padding:30px 50px 50px;}
@@ -107,7 +109,9 @@ div.quick-link{margin:40px 0;}
 .simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
 /**************** DASHBOARD CSS ENDS HERE *******************/
 
-
+.col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section {
+    cursor: pointer;
+}
 nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padding:23.8px 10px;}
 .modal-header{padding:0px !important;}
 .modals-section img{width:96.5%;margin-left:15px;}
@@ -131,7 +135,7 @@ a.navbar-brand img{width:100%;}
 .calender_img p{color:#fff;margin-bottom:0px;line-height:14px;font-size:12px;padding-bottom:5px;}
 .athletic_profile p{color:#ffd537;margin-bottom:0px;line-height:14px;font-size:12px;padding-bottom:5px;}
 .bell-icon-sec{background:#030000;text-align:center;height:100px;padding:22px}
-.profile-sec{background:#030000;text-align:center;height:100px;padding:10px 0px;position:relative;}
+.profile-sec{background:#030000;text-align:center;height:100px;padding:10px 0px;position:relative;cursor: pointer;}
 #sidenav{background-color:#000000;}
 ul.side_nav{padding:0px;}
 ul.side_nav li{border-bottom:1px solid #fff;line-height:50px;}
