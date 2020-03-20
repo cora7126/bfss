@@ -33,7 +33,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   width: 100%;
   float: left;
   display: block;
-  margin: 75px 0 90px;
+  margin: 50px 0 40px;
 }
 
 .user_form_content .sub-header .sub-header-logo {
@@ -50,7 +50,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   float: left;
   display: block;
   border-bottom: 2px solid #6d6e71;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .user_form_content .register-area h3 {
@@ -66,7 +66,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 }
 
 .user_form_content .registration-area {
-  margin: 50px 0;
+  margin: 30px 0;
   width: 100%;
   float: left;
   display: block;
@@ -182,7 +182,8 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   color: #000;
   font-size: 42px;
   line-height: 45px;
-  font-weight: 600;
+  font-family: lato;
+  margin-left: -3px;
 }
 
 .user-register .user_form_content .registration-area {
@@ -216,7 +217,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 }
 
 .user_form_content .registration-area form .form-item.js-form-item {
-  margin: 0 0 15px;
+  margin: 0;
 }
 
 .user_form_content .registration-area form .form-item.js-form-item:empty {
@@ -492,7 +493,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 /**************************************************************************************************************************/
 .user-login .sub-header,
 .user-register .sub-header {
-  margin-top: 75px;
+  margin-top: 45px;
 }
 .user-login .select-wrapper:after,
 .user-login select:after,
@@ -523,9 +524,39 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 
 .footer {
   border-top: none;
+  margin-top: 0 !important;
+  padding: 0 0 20px 0 !important;
 }
 
 .quick-link-sub-sec,
 .top_right .calender_img {
   cursor: pointer;
+}
+
+.dash-main-right h1,
+.dash-main-right a {
+  font-family: lato;
+  font-weight: inherit;
+}
+
+.dashboard .athletic_profile {
+  border-right: none;
+}
+
+.top_right .athletic_profile {
+  width: 125px;
+  float: left;
+  border-right: 1px solid grey;
+  cursor: pointer;
+}
+.top_right .calender_img {
+  float: left;
+  width: 125px;
+}
+
+.profile-sec {
+  width: 125px;
+  text-align: center;
+  border-left: 1px solid grey;
+  margin: 0 auto;
 }
