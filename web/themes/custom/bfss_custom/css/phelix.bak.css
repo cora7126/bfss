@@ -1,3 +1,7 @@
+@charset "utf-8";
+/* CSS Document*/
+
+
 /**************************************************************************************************************************/
 /************************************** USER REGISTRATION AND LOGIN FORM CSS STARTS HERE **********************************/
 /**************************************************************************************************************************/ 
@@ -106,30 +110,6 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 /************************************** USER REGISTRATION AND LOGIN FORM CSS ENDS HERE **********************************/
 /**************************************************************************************************************************/ 
 
-
-.user-login,
-.user-register {
-  .sub-header {
-    margin-top: 75px;
-  }
-  .select-wrapper:after,
-  select:after {
-    color: #808285 !important;
-  }
-  #edit-pass--description,
-  input,
-  input::placeholder {
-    color: #808285 !important;
-  }
-}
-
-.footer {
-	border-top: none;
-}
-.spb_top_center {
-  //top: 30% !important;
-}
-.quick-link-sub-sec,
-.top_right .calender_img {
-	cursor: pointer;
+body {
+display: none;
 }

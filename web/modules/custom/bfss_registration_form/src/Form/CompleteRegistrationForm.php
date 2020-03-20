@@ -208,8 +208,7 @@ class CompleteRegistrationForm extends FormBase {
       \Drupal::messenger()->addStatus($this->t('Phone successfully confirmed'));
     }
 
-    //$form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => \Drupal::currentUser()->id()])->toString();
-    $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('acme.popup_form')->toString();
+    $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => \Drupal::currentUser()->id()])->toString();
 
   }
 

@@ -25,3 +25,11 @@ jquery-throbber:
     - core/jquery
     - core/jquery.ui
     - core/jquery.ui.widget
+    
+ajax-popup:
+  version: 1.x
+  js:
+    js/ajax-popup.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
