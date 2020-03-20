@@ -492,8 +492,6 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
             'yes' => t('Yes'),
             'no' => t('No'),
           ],
-          // '#prefix' => '<div class="vivek">',
-          // '#suffix' => '</div>',
           '#default_value' => $form_state->getValue('is_over_16_years'),
         ];
 
@@ -758,9 +756,10 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
-
+  $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
 
   $form_state->disableRedirect();
+//  $form_state['redirect'] = false;
 }
 
 /**

@@ -19,7 +19,8 @@ regions:
   page_top: 'Page top'
   page_bottom: 'Page bottom'
   disabled: 'disabled'
-
+  popupmessage: 'popupmessage'
+  
 libraries-extend:
   bootstrap/framework:
     - bfss_custom/framework
