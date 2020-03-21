@@ -109,7 +109,22 @@ div.quick-link{margin:40px 0;}
 .simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
 
 /*************** MY AUTHENTIC PROFILE POP UP CSS STARTS HERE ****************************/
+.myathletic-menu .modal-dialog{max-width:800px;}
+.myathletic-menu .modal-dialog .modal-content{width:100% !important;}
 /*************** MY AUTHENTIC PROFILE POP UP CSS ENDS HERE ****************************/
+.calender_event_pop_up, .calender_event_pop_up .tophead, .calender_event_pop_up .ticketing, .calender_event_pop_up .details{width:100%;float:left;display:block;}
+.calender_event_pop_up .container{padding:0;}
+.calender_event_pop_up .tophead .image{width:55%;float:left;display:block;}
+.calender_event_pop_up .tophead .title-timing{width:45%;float:left;display:block;padding:40px;}
+.calender_event_pop_up .tophead .title-timing h2{margin:25px 0 0;font-size:24px;font-weight:700;}
+.calender_event_pop_up .tophead .title-timing .loca{font-size:14px;}
+.calender_event_pop_up .ticketing{border-top:1px solid #aaa;border-bottom:1px solid #aaa;border-left:0;border-right:0;}
+.calender_event_pop_up .ticketing .share{display:inline-block;float:left;}
+.calender_event_pop_up .ticketing .ticket{display:inline-block;float:right;padding:0;}
+.calender_event_pop_up .details{padding:20px;}
+.calender_event_pop_up .details .body{width:55%;float:left;display:block;font-size:16px;}
+.calender_event_pop_up .details .date-location{width:45%;float:left;display:block;padding:0 25px;}
+.calender_event_pop_up .details .date-location p{margin:0;}
 /**************** DASHBOARD CSS ENDS HERE *******************/
 
 .col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section {
@@ -171,7 +186,7 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
 .open-button{background-color:#555;color:white;padding:16px 20px;border:none;cursor:pointer;opacity:0.8;position:fixed;bottom:23px;right:28px;width:280px;}
 
 /* The popup chat - hidden by default */
-.chat-popup{display:none;position:absolute;z-index:9;width:250px;right:11px;border:1px solid #bebebe;}
+.chat-popup{/*display:none;*/position:absolute;z-index:9;width:250px;right:11px;border:1px solid #bebebe;}
 
 /* Add styles to the form container */
 .form-container{max-width:300px;padding:10px;background-color:white;}
@@ -268,6 +283,6 @@ select#zip{width:100%;}
 .left_manager_inner p{margin: 0;color: #868383;}
 .left_manager_inner ul li a{width: 100%;text-decoration: none;color: #f76907;}
 .left_manager_inner li{padding: 10px 15px;border-top: 1px solid #aeaeae;}
-
-
+span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
+.calender_img a {text-decoration: none;}
 

@@ -35,6 +35,12 @@ return [
           'data'=> null,
         ],
         'template'=>'custom/upcoming-group-assessments',
+    ], 
+    'faq_list' => [
+      'variables' => [
+          'data'=> null,
+        ],
+    'template'=>'custom/faq-list',
     ],  
     'bfss_manager' => [
       'variables' => [

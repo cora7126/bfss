@@ -107,15 +107,15 @@
                </div>
             </div> -->
             <div class="col-lg-2 col-md-3 col-sm-6 col-6 pl-0 pr-0 profile_img_section">
-               <div class="profile-sec">
+               <div class="profile-sec profile_icon_hv">
                {% if user_img_url is not null and user_img_url is not empty %}
-                  <img src="{{user_img_url}}" onclick="openForm()">
+                  <img src="{{user_img_url}}">
                {% else %}
-                <img src="/themes/custom/bfss_custom/images/DefaultProfile.png" onclick="openForm()">
+                <img src="/themes/custom/bfss_custom/images/DefaultProfile.png">
                {% endif %}
                   
                   <!----------- profile pop up start----------- -->
-                  <div class="chat-popup" id="myForm">
+                  <div class="chat-popup profile_icon_hv_leave" style="display: none;">
                      <div class="form-container">
                         <div class="container">
                            <div class="pop_img_sec">
@@ -128,8 +128,8 @@
                                   {% endif %}
                                  </div>
                                  <div class="col-md-8">
-                                    <h2>{{user_name}}</h2>
-                                    <p>{{user_roles}}</p>
+                                    <h2>{{fname}} {{lname}}</h2>
+                                    <p>{{role_n}}</p>
                                  </div>
                               </div>
                            </div>
@@ -149,7 +149,7 @@
                               <a href="#">
                                  <a href='/user/logout'><p><i class="fas fa-power-off"></i>Sign Out</p></a>
                               </a>
-                              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                            <!--   <button type="button" class="btn cancel" onclick="closeForm()">Close</button> -->
                            </div>
                         </div>
                      </div>
@@ -332,7 +332,7 @@
                      <div class="dropdown">
                         <a class="drop" href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li><a href="/faq-page"> FAQs </a></li>
+                           <li><a href="/faqs"> FAQs </a></li>
                            <li><a href="#">Ticketing</a></li>
                         </ul>
                      </div>

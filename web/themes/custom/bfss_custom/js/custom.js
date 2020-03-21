@@ -13,6 +13,42 @@ error :function (data){
 
 });*/
 
+jQuery('.faqct li.q').on('click', function(){
+  //gets next element
+  //opens .a of selected question
+jQuery(this).next().slideToggle("500")
+    //selects all other answers and slides up any open answer
+    .siblings('li.a').slideUp();
+  //Grab img from clicked question
+var img = jQuery(this).children('img');
+  //Remove Rotate class from all images except the active
+  jQuery('img').not(img).removeClass('rotate');
+  //toggle rotate class
+  img.toggleClass('rotate');
+});//End on click
+
+
+  jQuery(".profile_icon_hv").mouseenter(function(){
+    jQuery(".profile_icon_hv_leave").css("display", "block");
+  });
+  
+  jQuery(".profile_icon_hv").mouseleave(function(){
+    jQuery(".profile_icon_hv_leave").css("display", "none");
+  });
+
+ jQuery(".custom_faq.togle div.tog").click(function(){
+    jQuery(this).parent().find('.toggle_cont').slideToggle();
+    
+     if( jQuery(this).parent().find('icon-sign').hasClass('close') ){
+        jQuery("span.icon-sign").removeClass('close');
+     }else{
+    	 jQuery("span.icon-sign").addClass('close');
+       
+     }
+ });
+
+
+
 		//add parameters to anchor tag
 		jQuery('a.previewButton').on('click', function(){
 			var newurl = jQuery(this).attr('href');
@@ -22,6 +58,8 @@ error :function (data){
 	 		jQuery(this).attr('href', newurl+queryParamts);
 			
 		});
+
+
 		function trimTheUrl(oldURL){
 			var index = 0;
 			var newURL = oldURL;
