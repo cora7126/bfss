@@ -566,3 +566,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   border-left: 1px solid grey;
   margin: 0 auto;
 }
+
+.calender_img a:hover {
+  text-decoration: none;
+}
