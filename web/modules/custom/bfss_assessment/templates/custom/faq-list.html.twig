@@ -1,0 +1,31 @@
+<style>
+ul, li { list-style: none; }
+.faq li { padding: 20px; }
+.faq li.q {
+    margin-top: 12px;
+    font-size: 16px;
+    text-decoration: none;
+ 	cursor: pointer;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding: 18px 20px;
+    background: #000;
+    color: white;
+    position: relative;
+}
+.faq li.a {
+  display: none;
+  color:#000;
+}
+.rotate {
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+</style>
+<ul class="faq faqct">
+{% for faq in data %}
+ <li class="q"><img src="/modules/custom/bfss_assessment/img/arrow.png"> {{ faq.que }}</li>
+        <li class="a">{{ faq.ans }}</li>
+{% endfor %}
+</ul>
