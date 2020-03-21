@@ -33,7 +33,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   width: 100%;
   float: left;
   display: block;
-  margin: 50px 0 40px;
+  margin: 45px 0 30px;
 }
 
 .user_form_content .sub-header .sub-header-logo {
@@ -50,7 +50,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   float: left;
   display: block;
   border-bottom: 2px solid #6d6e71;
-  padding-bottom: 30px;
+  padding-bottom: 25px;
 }
 
 .user_form_content .register-area h3 {
@@ -66,7 +66,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 }
 
 .user_form_content .registration-area {
-  margin: 30px 0;
+  margin: 25px 0;
   width: 100%;
   float: left;
   display: block;
@@ -182,6 +182,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   color: #000;
   font-size: 42px;
   line-height: 45px;
+  font-weight: normal;
   font-family: lato;
   margin-left: -3px;
 }
@@ -217,7 +218,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 }
 
 .user_form_content .registration-area form .form-item.js-form-item {
-  margin: 0;
+  margin: 0 0 15px;
 }
 
 .user_form_content .registration-area form .form-item.js-form-item:empty {
@@ -533,10 +534,15 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   cursor: pointer;
 }
 
+.main_header h1 {
+  padding: 10px 0;
+}
+
 .dash-main-right h1,
-.dash-main-right a {
-  font-family: lato;
-  font-weight: inherit;
+.dash-main-right a,
+.main_header h1 a {
+  font-family: lato !important;
+  font-weight: inherit !important;
 }
 
 .dashboard .athletic_profile {
