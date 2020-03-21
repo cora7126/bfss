@@ -20,14 +20,24 @@ function acme_theme() {
     'variables' => ['name' => NULL,'assessments_block' => NULL],
     'template' => 'upcoming',
   ];
+
+  $theme['faq_page'] = [
+    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'template' => 'faqlist',
+  ];
    $theme['bfss_manager_page'] = [
     'variables' => ['name' => NULL,'assessments_block' => NULL],
     'template' => 'bfss_manager',
   ];
 
-   $theme['payment_receipts_page'] = [
+   $theme['faq_bfss_page'] = [
     'variables' => ['name' => NULL,'assessments_block' => NULL],
-    'template' => 'payment_receipts',
+    'template' => 'faq_bfss',
+  ];
+
+  $theme['payment_receipts_page1'] = [
+    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'template' => 'payment_receipts1',
   ];
   
   $theme['athlete_profile'] = [
