@@ -570,3 +570,82 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .calender_img a:hover {
   text-decoration: none;
 }
+
+.faq-left {
+  float: left;
+}
+
+.faq-right {
+  float: right;
+}
+.faq-right img {
+  width: 20px;
+}
+
+.faq li.q {
+  height: 57px;
+}
+
+.faq li.a {
+  font-size: 14px;
+}
+
+.dash-schedule {
+  font-family: "Proxima Nova Rg";
+  font-size: 28px;
+  padding: 35px 0 0 15px;
+}
+
+.wrapper .dash-main-right {
+  margin-bottom: 20px;
+}
+
+.main-head h6 {
+  font-family: "Proxima Nova Rg";
+  font-size: 14px;
+}
+
+.service-top-head {
+  font-family: "Proxima Nova Rg";
+  font-size: 14px;
+}
+
+#multistep-form-one > div.form-group > label:after {
+  background-image: inherit;
+  content: none;
+}
+
+#multistep-form-one > div.form-group > label,
+#multistep-form-two > div.two > label,
+#multistep-form-three > div.two > label,
+#multistep-form-four > div.two > label {
+  color: #f4650f;
+  font-family: "Proxima Nova Rg";
+  font-size: 14px;
+}
+
+#edit-service,
+#edit-submit,
+#edit-previous,
+.assessment-time input,
+#multistep-form-three > div.form-item input,
+#multistep-form-four > div.form-item input,
+#edit-expiration-month,
+#edit-expiration-year,
+#multistep-form-four h3 {
+  font-family: "Proxima Nova Rg";
+  font-size: 14px !important;
+}
+
+.wrapper #edit-submit {
+  float: left !important;
+}
+
+.wrapper .form-actions .btn, .form-actions .btn-group {
+  padding: 5px 30px;
+}
+
+.timeslots > fieldset > legend > span {
+  font-family: "Proxima Nova Rg";
+  font-size: 14px;
+}
