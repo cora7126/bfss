@@ -114,7 +114,7 @@ function bfss_user_pass_submit_ajax(array &$form, \Drupal\Core\Form\FormStateInt
 function bfss_user_form_user_login_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
   $form['name']['#weight'] = 0;
   $form['pass']['#weight'] = 1;
-  $form['pass']['#description'] = t('This page is protected by reCAPTCHA, and subject to the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of service</a>');
+  $form['pass']['#description'] = t('This page is protected by reCAPTCHA, and subject to the Google <a href="https://policies.google.com/privacy?hl=en" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms?hl=en" target="_blank">Terms of service</a>');
 
   $form['forgot_pass'] = [
     '#type' => 'item',

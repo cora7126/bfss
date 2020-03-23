@@ -146,3 +146,11 @@ bfss_assessment.payment_receipts:
     _title: "Payment Receipts"
   requirements:
     _permission: 'access content'
+
+bfss_assessment.bfss_faq:
+  path: '/faqs'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\FaqListing::faq_listing'
+    _title: "FAQ"
+  requirements:
+    _permission: 'access content'

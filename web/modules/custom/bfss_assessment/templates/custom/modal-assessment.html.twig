@@ -1,14 +1,10 @@
-<style>
-.col{width: 24%;display: inline-block; margin: 10px; padding:10px; background-color:#c2c2c2; cursor: pointer;}
-.container div.row div.col-half {display: inline-block;width: 49%;}
-</style>
 <div class="calender_event_pop_up">
 <div class="container">
-	<div class="row tophead">
-		<div class="col-half image">
+	<div class="tophead">
+		<div class="image">
 			<img src='{{ data.field_image }}' alt='{{ data.title }}' />
 		</div>
-		<div class="col-half title-timing">
+		<div class="title-timing">
 			<div>
 				{% if data.latest_timing %}
 					<span class="timing-date">
@@ -24,7 +20,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row ticketing">
+	<div class="ticketing">
 		<div class="share">
 		<span>Share</span>
 		</div>
@@ -32,13 +28,13 @@
 		<span>TICKETING</span>
 		</div>
 	</div>
-	<div class="row details">
-		<div class="col-half body">
+	<div class="details">
+		<div class="body">
 			<div class='node-body'>
 				{{ data.body }}
 			</div>
 		</div>
-		<div class="col-half date-location">
+		<div class="date-location">
 			<div class="date-and-time">
 				<p>DATE AND TIME</p>
 				{% if data.latest_timing %}
