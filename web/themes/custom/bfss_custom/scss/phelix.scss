@@ -1,6 +1,6 @@
 /**************************************************************************************************************************/
 /************************************** USER REGISTRATION AND LOGIN FORM CSS STARTS HERE **********************************/
-/**************************************************************************************************************************/ 
+/**************************************************************************************************************************/
 .user-login .footer .region-footer, .user-register .footer .region-footer, .user-password .footer .region-footer, .registration-coach .footer .region-footer, .user-reset .footer .region-footer, .complete-registration .footer .region-footer{margin-top:0;}
 .user-login .footer .footer_bt ul, .user-register .footer .footer_bt ul, .user-password .footer .footer_bt ul, .registration-coach .footer .footer_bt ul, .user-reset .footer .footer_bt ul, .complete-registration .footer .footer_bt ul{display:none;}
 .user-login .footer .footer_bt p, .user-register .footer .footer_bt p, .user-password .footer .footer_bt p, .registration-coach .footer .footer_bt p, .user-reset .footer .footer_bt p, .complete-registration .footer .footer_bt p{color:#000;font-size:14px;text-align:center;}
@@ -12,15 +12,15 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 
 /*************************** LOGIN FORM CSS STARTS HERE **********************************/
 
-.user_form_content .sub-header{width:100%;float:left;display:block;margin:75px 0 90px;}
+.user_form_content .sub-header{width:100%;float:left;display:block;margin:45px 0 30px;}
 .user_form_content .sub-header .sub-header-logo{text-align:center;}
 .user_form_content .sub-header .sub-header-logo img{max-width:250px;}
 
-.user_form_content .register-area{margin:0;width:100%;float:left;display:block;border-bottom:2px solid #6d6e71;padding-bottom:50px;}
+.user_form_content .register-area{margin:0;width:100%;float:left;display:block;border-bottom:2px solid #6d6e71;padding-bottom:25px;}
 .user_form_content .register-area h3{font-family:montserrat, Sans-Serif;font-size:24px;text-align:center;font-weight:500;color:#000;width:100%;float:left;display:block;margin:0 0 15px;}
 
 
-.user_form_content .registration-area{margin:50px 0;width:100%;float:left;display:block;}
+.user_form_content .registration-area{margin:25px 0;width:100%;float:left;display:block;}
 .user_form_content .registration-area h3{margin:0 0 15px;font-size:24px;color:#000;text-align:center;}
 .user_form_content .registration-area .user-login-form{width:100%;float:left;display:block;}
 .user_form_content .registration-area .user-login-form .form-item.js-form-item{width:100%;float:left;display:block;margin:0 0 15px;}
@@ -42,7 +42,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .user_form_content .register-area .new-register .reg-icon img{max-width:65px;}
 .user_form_content .register-area .new-register .reg-text-area{width:calc(100% - 80px);float:right;display:block;}
 .user_form_content .register-area .new-register .reg-text-area .small-text{color:#6d6e71;}
-.user_form_content .register-area .new-register .reg-text-area .large-text{color:#000;font-size:42px;line-height:45px;font-weight:600;}
+.user_form_content .register-area .new-register .reg-text-area .large-text{color:#000;font-size:42px;line-height:45px;font-weight:normal;font-family:lato;margin-left:-3px;}
 
 .user-register .user_form_content .registration-area{margin:25px 0 60px;}
 .user_form_content .registration-area form{width:100%;float:left;display:block;}
@@ -104,13 +104,13 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .user_form_content .registration-area form .reg-tab-4 .fieldset-billing-info .panel-body .form-item-bi-state .select-wrapper select{padding:10px 30px 10px 10px !important;}
 /**************************************************************************************************************************/
 /************************************** USER REGISTRATION AND LOGIN FORM CSS ENDS HERE **********************************/
-/**************************************************************************************************************************/ 
+/**************************************************************************************************************************/
 
 
 .user-login,
 .user-register {
   .sub-header {
-    margin-top: 75px;
+    margin-top: 45px;
   }
   .select-wrapper:after,
   select:after {
@@ -124,12 +124,117 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 }
 
 .footer {
-	border-top: none;
+  border-top: none;
+  margin-top: 0 !important;
+  padding: 0 0 20px 0 !important;
 }
+
 .spb_top_center {
   //top: 30% !important;
 }
+
 .quick-link-sub-sec,
 .top_right .calender_img {
-	cursor: pointer;
+  cursor: pointer;
 }
+.main_header h1 {
+  padding: 10px 0;
+}
+.dash-main-right h1,
+.dash-main-right a,
+.main_header h1 a {
+  font-family: lato !important;
+  font-weight: inherit !important;
+}
+
+.dashboard .athletic_profile {
+  border-right: none;
+}
+
+.top_right {
+  .athletic_profile {
+    width: 125px;
+    float: left;
+    border-right: 1px solid grey;
+    cursor: pointer;
+  }
+  .calender_img {
+    float: left;
+    width: 125px;
+  }
+}
+.profile-sec {
+  width: 125px;
+  text-align: center;
+  border-left: 1px solid grey;
+  margin: 0 auto;
+}
+.calender_img a:hover {
+  text-decoration: none;
+}
+.faq-left {
+  float: left;
+}
+.faq-right {
+  float: right;
+  img {
+    width: 20px;
+  }
+}
+.faq li.q {
+  height: 57px;
+}
+.faq li.a {
+  font-size: 14px;
+}
+.dash-schedule {
+  font-family: 'Proxima Nova Rg';
+  font-size: 28px;
+  padding: 35px 0 0 15px;
+}
+.wrapper .dash-main-right {
+  margin-bottom: 20px;
+}
+.main-head h6 {
+  font-family: 'Proxima Nova Rg';
+  font-size: 14px;
+}
+.service-top-head {
+  font-family: 'Proxima Nova Rg';
+  font-size: 14px;
+}
+#multistep-form-one > div.form-group > label:after {
+  background-image: inherit;
+  content: none;
+}
+#multistep-form-one > div.form-group > label,
+#multistep-form-two > div.two > label,
+#multistep-form-three > div.two > label,
+#multistep-form-four > div.two > label {
+  color: #f4650f;
+  font-family: 'Proxima Nova Rg';
+  font-size: 14px;
+}
+#edit-service,
+#edit-submit,
+#edit-previous,
+.assessment-time input,
+#multistep-form-three > div.form-item input,
+#multistep-form-four > div.form-item input,
+#edit-expiration-month,
+#edit-expiration-year,
+#multistep-form-four h3 {
+  font-family: 'Proxima Nova Rg';
+  font-size: 14px !important;
+}
+.wrapper #edit-submit {
+  float: left !important;
+}
+.wrapper .form-actions .btn, .form-actions .btn-group {
+  padding: 5px 30px;
+}
+.timeslots > fieldset > legend > span {
+  font-family: 'Proxima Nova Rg';
+  font-size: 14px;
+}
+

@@ -18,10 +18,10 @@ function mydata_preprocess(&$variables){
 		if ($account) {
 			$username = $account->get('name')->value;
 			$account_array = $account->toArray();
-
 			$roles_data = $account->getRoles();
-			if(!empty($roles_data)){
-
+			if(in_array('parent_guardian_registering_athlete_', $roles_data) || in_array('athlete', $roles_data) ){
+				$variables['role_n'] = 'Athlete';
+			}else{
 				$roles_data = array_flip($roles_data);
 				unset($roles_data['authenticated']);
 				$roles_data = array_flip($roles_data);	
@@ -29,13 +29,10 @@ function mydata_preprocess(&$variables){
 				foreach ($roles_data  as $role ) {
 						$rol_label[] = user_role_load($role)->label();
 				}
-				$roles_name = implode(',', $rol_label);
-				
+				$variables['role_n']  = implode(',', $rol_label);	
 			}
 			//$roles = isset($account_array['roles'][0]['target_id']) ? $account_array['roles'][0]['target_id'] : null;
-			$variables['user_name'] = $username;
-			$variables['user_roles'] = !empty($roles_name) ? $roles_name : '';
-			
+			$variables['user_name'] = $username;	
 		}
 
 		$query = \Drupal::database()->select('user__user_picture', 'n');
@@ -54,20 +51,28 @@ function mydata_preprocess(&$variables){
 				$variables['user_img_url'] = $url_valid;
 			}
 		}
-        $query1 = \Drupal::database()->select('user__field_last_name', 'ufln');
-        $query1->addField('ufln', 'field_last_name_value');
-        $query1->condition('entity_id', $current_user,'=');
-        $results1 = $query1->execute()->fetchAssoc();
-//        echo '<pre>';print_r($results1);die;
-        $fname = isset($results1['field_last_name_value']) ? $results1['field_last_name_value'] : null;
-        $variables['fname'] = $fname;
 
+
+		//last name
+        $queryl = \Drupal::database()->select('user__field_last_name', 'ufln');
+        $queryl->addField('ufln', 'field_last_name_value');
+        $queryl->condition('entity_id', $current_user,'=');
+        $resultsl = $queryl->execute()->fetchAssoc();
+        $lname = isset($resultsl['field_last_name_value']) ? $resultsl['field_last_name_value'] : null;
+        $variables['lname'] = $lname;
+        // first name
+        $queryf = \Drupal::database()->select('user__field_first_name', 'ufln');
+        $queryf->addField('ufln', 'field_first_name_value');
+        $queryf->condition('entity_id', $current_user,'=');
+        $resultsf = $queryf->execute()->fetchAssoc();
+        $fname = isset($resultsf['field_first_name_value']) ? $resultsf['field_first_name_value'] : null;
+        $variables['fname'] = $fname;
+        //state
         $query2 = \Drupal::database()->select('user__field_state', 'ufs');
         $query2->addField('ufs', 'field_state_value');
         $query2->condition('entity_id', $current_user,'=');
         $results2 = $query2->execute()->fetchAssoc();
         $state = isset($results2['field_state_value']) ? $results2['field_state_value'] : null;
-        //echo '<pre>';print_r($results2);die;
         $variables['state'] = $state;
 	}
 }

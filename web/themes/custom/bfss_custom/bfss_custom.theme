@@ -2,6 +2,8 @@
 
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Render\Markup;
 
 function bfss_custom_preprocess_html(&$variables) {
     $variables['attributes']['class'][] = 'dashboard';
@@ -19,7 +21,7 @@ function bfss_custom_preprocess_html(&$variables) {
     if(isset($path_alias)) {
         $variables['attributes']['class'][] = \Drupal\Component\Utility\Html::cleanCssIdentifier($path_alias);
     }
-
+    
 }
 
 function bfss_custom_form_user_login_form_alter(&$form, $form_state) {
@@ -38,6 +40,7 @@ function bfss_custom_preprocess_page(&$variables) {
   }
   // if (\Drupal::routeMatch()->getRouteName() == 'user.login') {
   // }
+
 }
 
 function bfss_custom_preprocess_user(&$variables) {
@@ -47,3 +50,25 @@ function bfss_custom_preprocess_user(&$variables) {
   $variables['username'] = $account->getDisplayName();
 }
 
+
+// function bfss_custom_preprocess(&$variables, $hook)
+// {
+//     $query = \Drupal::entityQuery('node');
+//         $query->condition('status', 1);
+//         $query->condition('type', 'faq');
+//         $nids = $query->execute();
+//         if(!empty($nids)){
+//           $arr = [];
+//           foreach ($nids as $nid) {
+//             $node = Node::load($nid);
+//             $title = $node->title->value; 
+//             $body =  Markup::create($node->body->value);
+          
+//             $arr[] = [
+//               'que' => $title,
+//               'ans' => $body
+//             ];
+//           }
+//           $variables['custom_faq'] = !empty($arr) ? $arr : ''; 
+//         }
+// }

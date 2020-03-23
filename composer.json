@@ -36,6 +36,7 @@
         "drupal/paragraphs": "^1.10",
         "drupal/profile": "^1.0",
         "drupal/rabbit_hole": "^1.0@beta",
+        "drupal/recaptcha": "^2.5",
         "drupal/scss_compiler": "^1.0@RC",
         "drupal/social_media": "^1.8",
         "drupal/swiftmailer": "^1.0@beta",
