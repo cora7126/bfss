@@ -19,6 +19,8 @@ regions:
   page_top: 'Page top'
   page_bottom: 'Page bottom'
   disabled: 'disabled'
+  popupmessage: 'popupmessage'
+  monthform: 'monthform'
 
 libraries-extend:
   bootstrap/framework:

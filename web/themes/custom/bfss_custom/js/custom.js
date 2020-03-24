@@ -473,18 +473,18 @@ jQuery(".assessmen_tg.togle div.tog").click(function(){
 	   }
 	});
 
-   $(document).ready(function(){
-   $('.dropdown > a').click(function(e){
+   jQuery(document).ready(function(){
+   jQuery('.dropdown > a').click(function(e){
      e.preventDefault();
      e.stopPropagation();
-     $(this).siblings('.dropdown-menu').toggleClass('open');
-     $(this).find('.down-arrow').toggleClass('open-caret');
+     jQuery(this).siblings('.dropdown-menu').toggleClass('open');
+     jQuery(this).find('.down-arrow').toggleClass('open-caret');
 
    });
 
-   $(document).click(function(){
-       $('.dropdown-menu').removeClass('open');
-       $('.down-arrow').removeClass('open-caret');  
+   jQuery(document).click(function(){
+       jQuery('.dropdown-menu').removeClass('open');
+       jQuery('.down-arrow').removeClass('open-caret');  
      });
    });
    
@@ -516,3 +516,15 @@ jQuery(".assessmen_tg.togle div.tog").click(function(){
 //	console.log('here');
 //        jQuery('.js-text-full').removeAttr('value')
 //        });
+
+function loadModal(elem){
+	if(!elem){return false;}
+	jQuery(elem).fadeIn();
+	jQuery('body').addClass('modalActive');
+}
+
+function closeModal(elem){
+	if(!elem){return false;}
+	jQuery(elem).fadeOut();
+	jQuery('body').removeClass('modalActive');
+}

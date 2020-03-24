@@ -359,8 +359,11 @@
         {% endif %}
 
         {# Content #}
+
+
         {% block content %}
           <a id="main-content"></a>
+          <div class="container"> {{ page.monthform }}</div>
           {{ page.content }}
         {% endblock %}
       </section>
@@ -381,6 +384,7 @@
   {% block footer %}
     <footer class="footer {{ container }}" role="contentinfo">
       {{ page.footer }}
+      
     </footer>
   {% endblock %}
 {% endif %}

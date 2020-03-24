@@ -48,12 +48,21 @@ class UpcomingGroupAssessments extends BlockBase implements ContainerFactoryPlug
     global $base_url;
     $data = [];
     $element = 1;
+
     #get nodes by paginations
-    $nids =$this->assessmentService->getComingAssessments($element);
+      
+    if(isset($_GET['showdate'])){
+           $nids = $this->assessmentService->assessment_after_month_filter($element);
+    }else{
+          $nids = $this->assessmentService->getComingAssessments($element);
+    }
+    
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
     $res = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
     // $data['current_page'] = $res;
+    
+
     foreach($nids as $nid){
       $arr = $this->assessmentService->getNodeData($nid);
       if ($arr) {

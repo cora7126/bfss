@@ -7,12 +7,14 @@ namespace Drupal\bfss_assessors\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use \Drupal\node\Entity\Node;
 
 class IndividualEleteAssessment extends FormBase {
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
+    #individual-elete-assessment
     return 'individual_elete_assessment';
   }
 
@@ -165,7 +167,7 @@ class IndividualEleteAssessment extends FormBase {
     //UE Power (SPM Ball Throw)
     $form['ue_power'] = array(
       '#type' => 'fieldset',
-      '#title' => $this->t('10M/40M Sprint'),
+      '#title' => $this->t('UE Power (SSM Ball Throw)'),
       '#prefix' => '<div id="ue_power">',
       '#suffix' => '</div>',
     );
@@ -181,7 +183,7 @@ class IndividualEleteAssessment extends FormBase {
      //UE Power (SPM Ball Throw)
      $form['ue_power_spm'] = array(
       '#type' => 'fieldset',
-      '#title' => $this->t('10M/40M Sprint'),
+      '#title' => $this->t('UE Power (SPM Ball Throw)'),
       '#prefix' => '<div id="ue_power">',
       '#suffix' => '</div>',
     );
@@ -197,7 +199,7 @@ class IndividualEleteAssessment extends FormBase {
      $form['ue_power_rm'] = array(
       '#type' => 'fieldset',
       '#title' => $this->t('UE Power (RM Ball Throw)'),
-      '#prefix' => '<div id="ue_power">',
+      '#prefix' => '<div id="ue_power" 111>',
       '#suffix' => '</div>',
     );
     $form['ue_power_rm']['power_rm'] = array (
@@ -240,6 +242,17 @@ class IndividualEleteAssessment extends FormBase {
       ),
     );
 
+     //Hidden fields
+    $form['assessment_type'] = array(
+     '#type' => 'hidden',
+     '#value' => 'individual',
+    );
+
+    $form['form_type'] = array(
+     '#type' => 'hidden',
+     '#value' => 'elete',
+    );
+    //buttons
     $form['actions']['#type'] = 'actions';
     $form['actions']['draft'] = array(
       '#type' => 'submit',
@@ -268,6 +281,54 @@ class IndividualEleteAssessment extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+         //current user
+      $current_user = \Drupal::currentUser();
+      $user_id = $current_user->id();
+      $user = \Drupal\user\Entity\User::load($user_id);
 
+      $triggerElement = $form_state->getTriggeringElement();
+      $form_data = [];
+      foreach ($form_state->getValues() as $key => $value) {
+        $form_data[$key] = $value;
+      }
+        $node = Node::create([
+           'type' => 'athlete_assessment_info',
+           'title' => $form_data['starter_weight_rea_str'],
+        ]);  
+        $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
+        $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
+        $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
+        $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
+        $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
+        $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
+        $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
+        $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
+        $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
+        $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
+        $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
+        $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
+        //aditional fields for elete
+        $node->set('field_power_w_ssm_ipe', $form_data['power']);
+        $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
+        $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
+        $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
+        $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
+        //hidden fields
+        $node->set('field_assessment_type', $form_data['assessment_type']);
+        $node->set('field_form_type', $form_data['form_type']);
+          //user target id 
+        $node->set('field_user', ['target_id' => $user_id]);
+      if(isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-draft'){
+        // if "SAVE - INCOMPLETE" button trigger
+        $node->set('field_status', 'incomplete');
+      }
+
+      if (isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-submit') {
+        // if "SAVE - ALL FIELDS COMPLETED" trigger
+       $node->set('field_status', 'complete');
+      }
+      $node->setPublished(TRUE);
+      $node->save();
+      
    }
 }

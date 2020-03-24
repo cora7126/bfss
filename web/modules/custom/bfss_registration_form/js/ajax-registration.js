@@ -1,6 +1,7 @@
 (function ($, Drupal) {
   Drupal.behaviors.bfss_registration_form = {
     attach: function (context, settings) {
+      console.log("here");
       // trigger submit button
       $('select[name=user_type],select[name=field_program_term]').on('change', function (e) {
         e.preventDefault();

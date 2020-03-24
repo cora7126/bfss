@@ -130,3 +130,14 @@ bfss_assessment.scheduled_appointments:
     _title: "Scheduled Appointments"
   requirements:
     _permission: 'access content'
+
+bfss_assessment.month_form:
+  path: '/monthform'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\AssessmentPriceForm'
+    _title: 'MonthSelFm'
+  requirements:
+    _permission: 'access content'
+
+
+

@@ -137,6 +137,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     $form['#attached']['library'][] = 'core/jquery.ui';
     $form['#attached']['library'][] = 'bfss_registration_form/jquery-throbber';
     $form['#attached']['library'][] = 'bfss_registration_form/ajax-registration';
+  
 
     // Add wrapper for ajax
     $form['#prefix'] = '<div id="register-form-container">';
@@ -756,7 +757,7 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
-
+  $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
 
   $form_state->disableRedirect();
 }
@@ -1240,4 +1241,10 @@ function getStates() {
     'AA' => 'AA',
     'AP' => 'AP',
   ];
+}
+
+function bfss_registration_form_mail_alter(&$message) {
+ //print_r($message);
+// die;
+ // \Drupal::logger("message")->notice('@type', array('@type' => dpr($message['to'], TRUE)));
 }

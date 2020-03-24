@@ -29,3 +29,22 @@ bfss_assessors.ind_elete:
    _form: '\Drupal\bfss_assessors\Form\PrivateAssessmentElete'
  requirements:
    _permission: 'access content'
+
+bfss_assessors.assessment_event:
+ path: '/assessment-event'
+ defaults:
+   _controller: '\Drupal\bfss_assessors\Controller\AssessmentEvent::assessment_event'
+   _title: 'Assessment Event'
+   node_id: null
+ requirements:
+   _permission: 'access content'
+
+bfss_assessors.assessment_event:
+ path: '/assessment-event'
+ defaults:
+   _controller: '\Drupal\bfss_assessors\Controller\AssessmentEvent::assessment_event'
+   _title: 'Assessment Event'
+   node_id: null
+ requirements:
+   _permission: 'access content'
+

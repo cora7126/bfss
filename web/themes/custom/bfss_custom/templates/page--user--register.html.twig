@@ -122,6 +122,16 @@
     </div>
 {% endblock %}
 
+
+
+<div class="customModal requestCallback" id="requestCallbackModal">
+    <div class="customModalContent">
+        <div class="contentWrapper requestCallbackContent"> 
+        <span class="close_modal" onclick="closeModal('#requestCallbackModal');">x</span>
+            <div class="success-msg">{{ page.popupmessage }}</div>
+        </div>
+    </div>
+</div>
 {% if page.footer %}
     {% block footer %}
         <footer class="footer {{ container }}" role="contentinfo">
