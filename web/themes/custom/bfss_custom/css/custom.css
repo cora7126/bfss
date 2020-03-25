@@ -108,3 +108,5 @@ div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap
 	margin-right: 20px;
 	padding-top: 10px;
 }
+
+.form-type-date #edit-doj{width:100%;}
