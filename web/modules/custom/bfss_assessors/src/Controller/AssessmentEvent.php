@@ -36,6 +36,10 @@ class AssessmentEvent extends ControllerBase {
           // $Assess_type = '';
         	foreach ($booked_ids  as $key => $booked_id) {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+            $timestamp = $entity->time->value;
+            $assessment_title = $entity->assessment_title->value;
+            $booking_date = date("Y/m/d",$timestamp);
+            $booking_time = date("h:i:sa",$timestamp);
             if($entity->service->value == '199.99'){
             
                 $formtype = 'elete';
@@ -50,20 +54,25 @@ class AssessmentEvent extends ControllerBase {
             }
 
         		$result[] = array(
-        			'id' => $entity->id->value,
-        			'user_name' =>$entity->user_name->value,
-        			'service' =>$entity->service->value,
+        		  'id' => $entity->id->value,
+              'user_name' =>$entity->user_name->value,
+              'service' =>$entity->service->value,
               'nid' => $nid,
               'formtype' => $formtype,
               'Assess_type' => $Assess_type,
+              'booking_date'  => $booking_date,
+              'booking_time'  => $booking_time,
+              'assessment_title'  => $assessment_title,
 
         		);	
         	}
         } 
         $header = array(
-          array('data' => t('id'), 'field' => 'id'),
+          array('data' => t('Date'), 'field' => 'date'),
+          array('data' => t('Time'), 'field' => 'time'),
+          #array('data' => t('Event Name'), 'field' => 'assessment_title'),
           array('data' => t('Name'), 'field' => 'user_name'),
-          array('data' => t('service'), 'field' => 'service'),
+          #array('data' => t('service'), 'field' => 'service'),
         );
         $result = $this->_return_pager_for_array($result, 3);
       // Wrapper for rows
@@ -71,9 +80,11 @@ class AssessmentEvent extends ControllerBase {
         $url = 'starter-professional-assessments?nid='.$item['nid'].'&formtype='.$item['formtype'].'&Assess_type='.$item['Assess_type'];
         $user_name = Markup::create('<a href="'.$url.'">'.$item['user_name'].'</a>');
         $rows[] = array(
-          'id' => $item['id'],
+          'date' => $item['booking_date'],
+          'time' => $item['booking_time'],
+          #'assessment_title' => $item['assessment_title'],
           'user_name' => $user_name,
-          'service' => $item['service'],
+          #'service' => $item['service'],
 
         );
       }
