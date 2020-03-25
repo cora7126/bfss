@@ -436,7 +436,7 @@ class AthelticController extends ControllerBase {
     $data = [];
     $username = \Drupal::request()->get('username');
     $profileuser = $this->getUserNameValiditity($username);
-    // print_r($profileuser);die;
+  //  print '<pre>'; print_r($profileuser);die;
     #if username doesn't exist
     if (!$profileuser) {
       return [

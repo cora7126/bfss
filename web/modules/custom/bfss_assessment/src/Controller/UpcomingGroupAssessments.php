@@ -27,7 +27,7 @@ class UpcomingGroupAssessments extends ControllerBase {
       ->view($block);
     $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-    $block1 = \Drupal\block\Entity\Block::load('monthform_5');
+    $block1 = \Drupal\block\Entity\Block::load('monthform');
     $block_content1 = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block1);

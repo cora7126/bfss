@@ -1,6 +1,10 @@
 (function($) {
     $(document).ready(function() {
-
+		//month filter	    	
+    	 jQuery('.niceselect select').niceSelect();  
+    	   jQuery(".month_filter select").change(function(){
+  				jQuery('form#month-form').submit();
+  		});
         /*jQuery.ajax({
 url : 'http://5ppsystem.com/delete/parent/'+$id+'/'+$delta,
 dataType: 'json',
