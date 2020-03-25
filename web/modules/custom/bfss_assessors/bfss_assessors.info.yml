@@ -1,0 +1,4 @@
+name: BFSS Assessors
+description: 'Provides Assessors functionality'
+type: module
+core: 8.x

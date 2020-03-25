@@ -27,6 +27,9 @@ class test extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 	$current_user = \Drupal::currentUser()->id();
+  $roles_user = \Drupal::currentUser()->getRoles();
+
+
     $conn = Database::getConnection();
     $query1 = \Drupal::database()->select('user__field_first_name', 'ufln');
         $query1->addField('ufln', 'field_first_name_value');
@@ -70,14 +73,18 @@ class test extends FormBase {
 	  '#prefix'=>'<div class="left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Login Information</h3><div class=items_div>',
 	  '#attributes' => array('disabled'=>true),
       );
-    
+    if(in_array('assessors', $roles_user)){
+      $hd_title = "ASSESSORS\'s Information";
+    }else{
+      $hd_title = "ATHLETE\'s Information"; 
+    }
 	$form['email'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Email'),
       '#required' => TRUE,
       '#default_value' => $results4['mail'],
 	  '#prefix' => '',
-	  '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ATHLETE\'s Information</h3><div class=items_div>',
+	  '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>'.$hd_title.'</h3><div class=items_div>',
       );
         $form['fname'] = array(
       '#type' => 'textfield',
@@ -91,21 +98,22 @@ class test extends FormBase {
       // '#placeholder' => t('Bloggs'),
       '#default_value' => $results2['field_last_name_value'],
 	  '#attributes' => array('disabled'=>true),
-      ); 
-    $form['numberone'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => 'Phone Number',
-        '#required' => TRUE,
-         '#default_value' => $results5['field_mobile_value'],
-      ); 
-         
-       $form['date_joined'] = array (
-      '#type' => 'textfield',
-      '#placeholder' => t('Date joined'),
-	  '#suffix' => '</div></div>',
-      '#default_value' => substr($results3['field_date_value'],0,10),
-      '#attributes' => array('disabled'=>true),
       );
+      if(!in_array('assessors', $roles_user)){
+        $form['numberone'] = array(
+            '#type' => 'textfield',
+            '#placeholder' => 'Phone Number',
+            '#required' => TRUE,
+             '#default_value' => $results5['field_mobile_value'],
+          ); 
+        $form['date_joined'] = array (
+          '#type' => 'textfield',
+          '#placeholder' => t('Date joined'),
+           '#suffix' => '</div></div>',
+          '#default_value' => substr($results3['field_date_value'],0,10),
+          '#attributes' => array('disabled'=>true),
+        );
+    }
 	  $form['organizationType'] = array(
 		//'#title' => t('az'),
 		'#type' => 'select',
@@ -189,12 +197,14 @@ class test extends FormBase {
 	  '#prefix' => '<div class="add_pos_div">',
 	  '#suffix' => '<a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos"><i class="fa fa-trash"></i>Remove Position</a></div>',
       );
+    if(!in_array('assessors', $roles_user)){
 	  $form['stats_2'] = array (
       '#type' => 'textarea',
       '#placeholder' => t('Add all personal stats'),
-	  '#suffix' => "</div></div></div><a class='add_org popup_add_org edit-user-display'><i class='fa fa-plus'></i>Add Another Organization</a></div><div class ='right_section'><div class = 'athlete_right '><h3><div class='toggle_icon'><i class='fa fa-minus'></i><i class='fa fa-plus hide'></i></div>My Website Photo</h3><div class='edit_dropdown'><a class='drop' >Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div><img src= $url class='edit-profile-image' ><div class='items_div'><div class='popupimage' id='imagepopup'><div class='popup_header'><h3>Profile Photo <i class='fa fa-times right-icon imagepopup-modal-close spb_close' aria-hidden='true'></i></h3></div>",
+	     '#suffix' => "</div></div></div><a class='add_org popup_add_org edit-user-display'><i class='fa fa-plus'></i>Add Another Organization</a></div><div class ='right_section'><div class = 'athlete_right '><h3><div class='toggle_icon'><i class='fa fa-minus'></i><i class='fa fa-plus hide'></i></div>My Website Photo</h3><div class='edit_dropdown'><a class='drop' >Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div><img src= $url class='edit-profile-image' ><div class='items_div'><div class='popupimage' id='imagepopup'><div class='popup_header'><h3>Profile Photo <i class='fa fa-times right-icon imagepopup-modal-close spb_close' aria-hidden='true'></i></h3></div>",
       '#default_value' => '',
       );     
+    }
      /*Add another organization 1 END*/
      
 	  $form['image_athlete'] = [
@@ -328,10 +338,13 @@ class test extends FormBase {
     border-radius: 3px;'),
     ];
 	  //end change password
+      if(in_array('assessors', $roles_user)){
+        $cls = "assessors_sub";
+      }
     $form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
-		'#prefix' =>'<div id="athlete_submit" class="user-submit-button">',
+		'#prefix' =>'<div id="athlete_submit" class="user-submit-button '.$cls.'">',
 		'#suffix' => '</div>',
         //'#value' => t('Submit'),
     ];

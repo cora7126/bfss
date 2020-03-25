@@ -267,8 +267,6 @@ ul.menutoggle.open li a:hover{text-decoration:none;background-color:#f76907;colo
 span.navbar-toggler-icon{cursor:pointer;}
 /*******************/
 
-
-
 .bfss_manager_inner{border: 1px solid #aeaeae;padding: 20px 0px;}
 .bfss_manager_form{width: 80%;margin: auto;}
 .bfss_manager_black_layer h4{background: #000;color: #fff;margin: 0;padding: 10px 20px;}
@@ -291,6 +289,86 @@ select#zip{width:100%;}
 span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
 .calender_img a {text-decoration: none;}
 
+
+
+/************ SELECT MONTH CSS STARTS HERE **************/
+.month_filter{margin:0 0 30px;}
+.month_filter, .month_filter form{width:100%;float:left;display:block;}
+.month_filter form span#dateofshow{float:left;margin-right:15px;}
+.month_filter form span#dateofshow i{float:left;line-height:30px;font-size:18px;position:relative;top:1px;}
+.month_filter form span#dateofshow .js-form-item.form-type-select{float:left;margin:0;}
+.month_filter form .select-wrapper{height:30px;}
+.month_filter form .select-wrapper:after, .month_filter form .filter_btn{display:none;}
+.month_filter form .select-wrapper .form-select.form-control{cursor:pointer;color:#f76907;border-radius:0;border:0;outline:none;box-shadow:none;font-size:16px;padding:0;line-height:30px;height:30px;text-align:center;text-align-last:center;}
+.month_filter form .select-wrapper .form-select.form-control .list .option{font-size:14px;color:#000;border:1px solid transparent;}
+.month_filter form .select-wrapper .form-select.form-control .list .option:hover, .month_filter form .select-wrapper .form-select.form-control .list .option:focus{background-color:#f76907;border:1px solid #f76907;color:#fff;}
+.month_filter form .input-group .input-group-addon{display:none;}
+.month_filter form .form-actions.js-form-wrapper{float:left;}
+.month_filter form .form-actions.js-form-wrapper button{background-color:#f76907;border:1px solid #f76907;}
+
+
+/********************Nice select css start************************/
+.nice-select{-webkit-tap-highlight-color:transparent;background-color:#fff;border-radius:5px;border:solid 1px #e0e7ee;box-sizing:border-box;clear:both;cursor:pointer;display:block;float:left;font-family:inherit;font-size:14px;font-weight:normal;height:42px;line-height:40px;outline:none;padding-left:18px;padding-right:30px;position:relative;text-align:left !important;-webkit-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;white-space:nowrap;width:auto;}
+ .nice-select:hover{border-color:#d0dae5;}
+ .nice-select:active, .nice-select.open, .nice-select:focus{border-color:#88bfff;}
+ .nice-select.open:after{-webkit-transform:rotate(-135deg);-ms-transform:rotate(-135deg);transform:rotate(-135deg);}
+ .nice-select.open .list{opacity:1;pointer-events:auto;-webkit-transform:scale(1) translateY(0);-ms-transform:scale(1) translateY(0);transform:scale(1) translateY(0);}
+ .nice-select.disabled{border-color:#e7ecf2;color:#90a1b5;pointer-events:none;}
+ .nice-select.disabled:after{border-color:#cdd5de;}
+ .nice-select.wide{width:100%;}
+ .nice-select.wide .list{left:0 !important;right:0 !important;}
+ .nice-select.right{float:right;}
+ .nice-select.right .list{left:auto;right:0;}
+ .nice-select.small{font-size:12px;height:36px;line-height:34px;}
+ .nice-select.small:after{height:4px;width:4px;}
+ .nice-select.small .option{line-height:34px;min-height:34px;}
+ .nice-select .list{background-color:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(68, 88, 112, 0.11);box-sizing:border-box;margin-top:4px;opacity:0;overflow:hidden;padding:0;pointer-events:none;position:absolute;top:100%;left:0;-webkit-transform-origin:50% 0;-ms-transform-origin:50% 0;transform-origin:50% 0;-webkit-transform:scale(0.75) translateY(-21px);-ms-transform:scale(0.75) translateY(-21px);transform:scale(0.75) translateY(-21px);-webkit-transition:all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;transition:all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;z-index:9;}
+ .nice-select .list:hover .option:not(:hover){background-color:transparent !important;}
+ .nice-select .option{cursor:pointer;font-weight:400;line-height:40px;list-style:none;min-height:40px;outline:none;padding-left:18px;padding-right:29px;text-align:left;-webkit-transition:all 0.2s;transition:all 0.2s;}
+ .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus{background-color:#f6f7f9;}
+ .nice-select .option.selected{font-weight:bold;}
+ .nice-select .option.disabled{background-color:transparent;color:#90a1b5;cursor:default;}
+.no-csspointerevents .nice-select .list{display:none;}
+.no-csspointerevents .nice-select.open .list{display:block;}
+/********************Nice select css end************************/
+
+/*************** ASSESSORS CSS STARTS HERE ******************/
+.user_pro_row .userpr{width:100%;float:left;display:block;padding:0;margin:20px 0 10px;list-style-type:none;}
+.user_pro_row .userpr li{display:inline-block;font-size:14px;line-height:20px;margin-right:50px;}
+.user_pro_row .userpr li:last-child{margin-right:0;}
+.user_pro_row .userpr li i{color:#f76907;}
+.user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;}
+.user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:18px;}
+.user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:20px 40px;}
+.assessors_sub.user-submit-button{bottom:-60px;}
+
+#assessor_popup_form{background:rgba(0,0,0,.7);}
+#accessorform a.close{font-size:30px;}
+#assessor_popup_form .modal-dialog{max-width:700px;} 
+#assessor_popup_form .modal-dialog .modal-content{width:700px !important;}
+#assessor_popup_form .accessorform_inner{margin:0 50px;float:left;width:calc(100% - 100px);display:block;}
+.accessorform_inner h2{background:#000;color:#fff;margin:0;padding:10px 15px;font-size:14px;line-height:16px;border:1px solid #000;}
+.accessorform_inner .st_lk{border-left:1px solid #000;border-right:1px solid #000;width:100%;float:left;display:block;padding:15px 0 0;margin:0;text-align:center;}
+.accessorform_inner .st_lk li{display:inline-block;color:#f76907;font-size:14px;border-right:2px solid #f76907;padding:0 25px;line-height:16px;}
+.accessorform_inner .st_lk li:last-child{border:0;}
+.accessorform_inner form{width:100%;float:left;display:block;}
+.accessorform_inner form .form_fields_wrap{border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:15px 10px;width:100%;float:left;display:block;}
+.accessorform_inner form .form_fields_wrap .form-item.js-form-item.panel{border-radius:0;box-shadow:none;-webkit-box-shadow:none;border:0;}
+.accessorform_inner form .form_fields_wrap .form-item.js-form-item.panel .panel-body{padding:0;width:100%;float:left;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
+.sm_cls{width:calc(50% - 3.5px);float:left;display:block;margin:15px 3.5px 15px 0;}
+.sm_cls:nth-child(2n){margin:15px 0 15px 3.5px;}
+.sm_cls .form-item.js-form-item.panel{border-radius:0;box-shadow:none;-webkit-box-shadow:none;border:0;}
+.sm_cls .form-item.js-form-item.panel .panel-heading{margin:0 0 15px;border:0;border-radius:0;background:transparent;width:100%;float:left;display:block;padding:0;}
+.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{padding:0;font-size:14px;line-height:18px;width:100%;float:left;display:block;margin:0;}
+.sm_cls .form-item.js-form-item.panel .panel-body{padding:0;width:100%;float:left;display:block;}
+
+.accessorform_inner form .form-actions.js-form-wrapper{margin:20px 0 30px;width:100%;float:left;display:block;}
+.accessorform_inner form .form-actions.js-form-wrapper button{display:inline-block;height:40px;padding:10px 12px;font-size:14px;line-height:18px;margin:0;}
+.accessorform_inner form .form-actions.js-form-wrapper button#edit-draft{float:left;background:#F36900;border-color:#F36900;}
+.accessorform_inner form .form-actions.js-form-wrapper button#edit-submit{float:right;background:#105714;border-color:#105714;}
+.accessorform_inner form .form-control{margin:0;border-radius:0;}
+/******************* RESPONSIVE CSS STARTS HERE *********************/
+
 @media (max-width:767px){
 	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:190px;flex: 0 0 190px;max-width:190px;}
 	.top_right .calender_img, .top_right .athletic_profile, .dashboard .profile_img_section .profile-sec{width:95px;}
@@ -304,3 +382,5 @@ span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
 	.profile-right-modal .container{padding:0;}	
 	.custom-nav-box .header_rightbar .row{-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
 }
+
+/*************************** RESPONSIVE CSS ENDS HERE ****************/

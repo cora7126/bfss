@@ -1,0 +1,15 @@
+bfss_assessors:
+  version: 1.x
+  css:
+    layout:
+      css/custom_assessors.css: {}
+  js:
+    js/custom_assessors.js: {}
+
+bfss_assessors_message:
+  version: 1.x
+  css:
+    layout:
+     # css/custom_assessors.css: {}
+  js:
+    js/message.js: {}

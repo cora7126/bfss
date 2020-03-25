@@ -21,3 +21,5 @@ framework:
     bootstrap/assets/javascripts/bootstrap/transition.js: {}
     js/custom.js: {}
     js/multiform.js: {}
+    js/jquery.nice-select.js: {}
+    

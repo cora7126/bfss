@@ -83,6 +83,7 @@
       <div class="col-lg-10 col-md-12 header_rightbar">
          <div class="row">
             <div class="col-lg-4 col-md-3 col-sm-6 col-6 pr-0 pl-0 top_right">
+                 {% if user_role == 0 %}
               <div class="calender_img">
                 <a href="/appointments/scheduled">
                   <i class="fal fa-calendar-alt"></i>
@@ -91,12 +92,14 @@
                   </p>
                 </a>
                </div>
+               
               <div class="athletic_profile" data-toggle="modal" data-target="#myModal">
                 <i class="far fa-chart-network"></i>
                 <p>My Athletic <br>
                   Profile
                 </p>
               </div>
+              {% endif %}
             </div>
             <div class="col-lg-6 pl-0 pr-0 mobile_hide" >
 			        <div class="athletic_profile"></div>
@@ -137,6 +140,7 @@
                               <a href="#">
                                  <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
                               </a>
+                              {% if user_role == 0 %}
                               <a href="/bfss-manager">
                                  <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
                               </a>
@@ -146,6 +150,7 @@
                               <a href="/payment-receipts">
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
+                              {% endif %}
                               <a href="#">
                                  <a href='/user/logout'><p><i class="fas fa-power-off"></i>Sign Out</p></a>
                               </a>
@@ -295,6 +300,7 @@
                <li class="sub_menu active">
                   <a href="/dashboard" class="side_button"><i class="fas fa-home"></i><span class="side_menu_text dashboard">Dashboard</span></a>
                </li>
+               {% if user_role == 0 %}
                <li class="sub-menu-drop">
                   <!--  <button class="side_button">Calender-View & Book</button> -->
                   <nav>
@@ -338,6 +344,7 @@
                      </div>
                   </nav>
                </li>
+                {% endif %}
             </ul>
          </div>
       </div>

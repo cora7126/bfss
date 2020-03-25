@@ -13,11 +13,11 @@ use Drupal\file\Entity\File;
  */
 function acme_theme() {
   $theme['hello_page'] = [
-    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
     'template' => 'hello',
   ];
   $theme['upcoming_page'] = [
-    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
     'template' => 'upcoming',
   ];
 
@@ -47,6 +47,14 @@ function acme_theme() {
   $theme['athlete_form'] = [
     'variables' => ['themeName' => NULL],
     'template' => 'athForm',
+  ];
+  $theme['assessors_profile_dashboard_page'] = [
+    'variables' => ['name' => NULL,'event_listing_block' => NULL,'private_assessment_listing_block' => NULL],
+    'template' => 'assessors_profile_dashboard',
+  ];
+  $theme['assessment_events_page'] = [
+    'variables' => ['name' => NULL,'assessment_events_block' => NULL],
+    'template' => 'assessment_events',
   ];
 
   return $theme;

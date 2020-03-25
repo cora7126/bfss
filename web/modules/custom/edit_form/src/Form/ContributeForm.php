@@ -92,14 +92,15 @@ class ContributeForm extends FormBase {
     $query13 = \Drupal::database()->select('athlete_web', 'aweb');
     $query13->fields('aweb');
     $query13->condition('athlete_uid', $current_user, '=');
+    $query13->condition('athlete_web_type', 1, '=');
     $results13 = $query13->execute()->fetchAssoc();
     $query14 = \Drupal::database()->select('athlete_addweb', 'aaweb');
     $query14->fields('aaweb');
     $query14->condition('athlete_uid', $current_user, '=');
     $results14 = $query14->execute()->fetchAssoc();
-    $query_img = \Drupal::database()->select('user__user_picture', 'n');
-    $query_img->addField('n', 'user_picture_target_id');
-    $query_img->condition('entity_id', $current_user, '=');
+    $query_img = \Drupal::database()->select('athlete_prof_image', 'n');
+    $query_img->addField('n', 'athlete_target_image_id');
+    $query_img->condition('athlete_id', $current_user, '=');
     $results = $query_img->execute()->fetchAssoc();
     $query15 = \Drupal::database()->select('athlete_addschool', 'aas');
     $query15->fields('aas');
@@ -117,10 +118,10 @@ class ContributeForm extends FormBase {
     $query18->fields('md');
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
-    $img_id = $results['user_picture_target_id'];
+   // $img_id = 357;
+    $img_id = $results['athlete_target_image_id'];
     // echo "<pre>"; print_r($results8['field_state_value']);die;
     // $file = File::load($img_id);
-
 
     $form['prefix'] = "<div class=athlete_edit_class>";
     $form['suffix'] = "</div>";
@@ -228,7 +229,7 @@ class ContributeForm extends FormBase {
       '#type' => 'date',
       //'#type' => 'date_popup',
      // '#attributes' => ['class' => ['container-inline']],
-      '#attributes' => ['class' => ['date-popup']],
+     // '#attributes' => ['class' => ['date-popup']],
       '#required' => true,
       '#default_value' => substr($results3['field_date_value'], 0, 10),
       '#format' => 'm/d/Y',
@@ -776,6 +777,7 @@ class ContributeForm extends FormBase {
       '#attributes' => array('disabled' => true),
       '#default_value' => $results5['athlete_school_sport'],
       );
+	 // print '<pre>';print_r($results13);die;
     $form['name_web'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Pick a Name'),
@@ -1007,6 +1009,7 @@ class ContributeForm extends FormBase {
     $query_school->fields('ats');
     $query_school->condition('athlete_uid', $current_user, '=');
     $results_school = $query_school->execute()->fetchAll();
+	$count_school_num_results = count($results_school);
     $query_uni = \Drupal::database()->select('athlete_uni', 'au');
     $query_uni->fields('au');
     $query_uni->condition('athlete_uid', $current_user, '=');
@@ -1055,7 +1058,21 @@ class ContributeForm extends FormBase {
     $query_pic->condition('entity_id', $current_user, '=');
     $results_pic = $query_pic->execute()->fetchAll();
     $imgid = $form_state->getValue('image_athlete');
-    if (empty($results_pic)) {
+	
+	if (empty($results_pic)) {
+		$conn->insert('athlete_prof_image')->fields(array(
+        'athlete_id' => $current_user,
+        'athlete_target_image_id' => $imgid[0],
+        ))->execute();
+	}else{
+		if (!empty($imgid[0])) {
+        $conn->update('athlete_prof_image')->condition('athlete_id', $current_user, '=')->fields(array('athlete_target_image_id' => $imgid[0], ))->execute();
+      } else {
+        $conn->update('athlete_prof_image')->condition('athlete_id', $current_user, '=')->fields(array('athlete_target_image_id' => '240', ))->execute();
+      }
+	}	
+	
+    /*if (empty($results_pic)) {
       $conn->insert('user__user_picture')->fields(array(
         'entity_id' => $current_user,
         'bundle' => 'user',
@@ -1072,7 +1089,7 @@ class ContributeForm extends FormBase {
         $conn->update('user__user_picture')->condition('entity_id', $current_user, '=')->fields(array('user_picture_target_id' => '240', ))->execute();
       }
 
-    }
+    }*/
 
     $conn->update('user__field_first_name')->condition('entity_id', $current_user, '=')->fields(array('field_first_name_value' => $form_state->getValue('fname'), ))->execute();
 
@@ -1094,6 +1111,8 @@ class ContributeForm extends FormBase {
     if (empty($results_web)) {
         $conn->insert('user__field_date')->fields(array(
         'entity_id' => $current_user,
+        'revision_id' => $current_user,
+        'delta' => 0,
         'field_date_value' => $form_state->getValue('doj'),
         ))->execute();
     }
@@ -1176,18 +1195,28 @@ class ContributeForm extends FormBase {
         'athlete_social_2' => $form_state->getValue('youtube'),
         ))->execute();
     }
+	//print 'saddasadsasasd';die;
     if (empty($results_web)) {
       $conn->insert('athlete_web')->fields(array(
         'athlete_uid' => $current_user,
         'athlete_web_name' => $form_state->getValue('name_web'),
         'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+        'athlete_web_type' => 1,
         ))->execute();
     } else {
-      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->fields(array(
+      /*$conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->fields(array(
         'athlete_web_name' => $form_state->getValue('name_web'),
         'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-        ))->execute();
-
+        ))->execute();*/
+		
+			$num_updated = $conn->update('athlete_web')
+			->fields([
+			'athlete_web_name' =>  $form_state->getValue('name_web'),
+			'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+			])
+			->condition('athlete_uid', $current_user, '=')
+			->condition('athlete_web_type', 1, '=')
+			->execute();
     }
     if (empty($results_addweb)) {
       $conn->insert('athlete_addweb')->fields(array(
@@ -1213,10 +1242,11 @@ class ContributeForm extends FormBase {
         'athlete_clubweb_visibility' => $form_state->getValue('web_visible_3'),
         ))->execute();
     }
-    if (empty($results_school) && $seltype1 != 0 && $selname1 != 0) {
+	
+     if ($count_school_num_results==0 && $seltype1!=0 && $selname1!=""){
       $conn->insert('athlete_school')->fields(array(
         'athlete_uid' => $current_user,
-        'athlete_school_name' => $selnameval1,
+        'athlete_school_name' => $form_state->getValue('organizationName'),
         'athlete_school_coach' => $form_state->getValue('coach'),
         'athlete_school_sport' => $form_state->getValue('sport'),
         'athlete_school_pos' => $form_state->getValue('position'),
@@ -1225,10 +1255,12 @@ class ContributeForm extends FormBase {
         'athlete_school_stat' => $form_state->getValue('stats'),
         'athlete_school_type' => $seltypeval1,
         ))->execute();
-    } else
-      if ($seltype1 != 0 && $selname1 != 0) {
+    } else{
+		
+      if ($seltype1 != 0 && $selname1 != "") {
+		  //print '<pre>';print_r($results_school);die;
         $conn->update('athlete_school')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_school_name' => $selnameval1,
+          'athlete_school_name' =>$form_state->getValue('organizationName'),
           'athlete_school_coach' => $form_state->getValue('coach'),
           'athlete_school_sport' => $form_state->getValue('sport'),
           'athlete_school_pos' => $form_state->getValue('position'),
@@ -1238,7 +1270,8 @@ class ContributeForm extends FormBase {
           'athlete_school_type' => $seltypeval1,
           ))->execute();
       }
-    if (empty($results_club) && $seltype3 != 0 && $selname3 != 0) {
+  }
+    if (empty($results_club) && $seltype3 != 0 && $selname3 != "") {
       if (!empty($selnameval3) && !empty($seltypeval3)) {
         $conn->insert('athlete_club')->fields(array(
           'athlete_uid' => $current_user,
@@ -1265,7 +1298,7 @@ class ContributeForm extends FormBase {
           'athlete_school_type' => $seltypeval3,
           ))->execute();
       }
-    if (empty($results_uni) && $seltype2 != 0 && $selname2 != 0) {
+    if (empty($results_uni) && $seltype2 != 0 && $selname2 != "") {
       $conn->insert('athlete_uni')->fields(array(
         'athlete_uid' => $current_user,
         'athlete_uni_name' => $selnameval2,

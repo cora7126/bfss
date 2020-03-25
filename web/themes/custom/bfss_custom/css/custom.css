@@ -110,3 +110,5 @@ div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap
 }
 
 .form-type-date #edit-doj{width:100%;}
+.athlete_right .items_div{text-align:center}
+.right_section .items_div, .left_section .items_div{border:1px solid #c2c2c2;}
