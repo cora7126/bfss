@@ -49,7 +49,8 @@ class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginIn
     $data = [];
     $element = 1;
     #get nodes by paginations
-    $nids =$this->assessmentService->getComingAssessments($element);
+    //$nids =$this->assessmentService->getComingAssessments($element);
+    $nids = $this->assessmentService->assessment_after_month_filter($element);
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
     $res = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);

@@ -11,6 +11,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
+use Drupal\date_popup\DatePopup;
+use Drupal\date_popup\DatetimePopup;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -221,15 +223,23 @@ class ContributeForm extends FormBase {
       '#default_value' => $results7['athlete_state'],
       );
     $form['doj'] = array(
-      '#title' => 'Date of Birth',
+      //'#title' => 'Date of Birth',
+      '#placeholder' => 'Date of Birth',
       '#type' => 'date',
-      '#attributes' => ['class' => ['container-inline']],
+      //'#type' => 'date_popup',
+     // '#attributes' => ['class' => ['container-inline']],
+      '#attributes' => ['class' => ['date-popup']],
       '#required' => true,
       '#default_value' => substr($results3['field_date_value'], 0, 10),
       '#format' => 'm/d/Y',
       '#description' => t('i.e. 09/06/2016'),
       //'#attributes' => array('disabled' => true),
       );
+
+
+
+ 
+	  
     $form['grade'] = array(
       '#type' => 'textfield',
       //'#title' => ('Height'),
