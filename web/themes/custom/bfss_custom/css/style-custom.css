@@ -125,11 +125,17 @@ div.quick-link{margin:40px 0;}
 .calender_event_pop_up .details .body{width:55%;float:left;display:block;font-size:16px;}
 .calender_event_pop_up .details .date-location{width:45%;float:left;display:block;padding:0 25px;}
 .calender_event_pop_up .details .date-location p{margin:0;}
+
+
+.dashboard .profile_img_section .profile-sec{border-left:1px solid grey;margin:0;width:125px;background:#030000;text-align:center;height:100px;padding:10px 0px;position:relative;cursor:pointer;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;float:right;}
+.dashboard .profile_img_section .profile-sec img{width:100%;max-width:60px;}
+.chat-popup{position:absolute;z-index:9;width:250px;right:10px;border:1px solid #bebebe;top:80px;}
+.dashboard.modal-open .card #collapseTwo button.btn-success{background:#000;}
+
+
 /**************** DASHBOARD CSS ENDS HERE *******************/
 
-.col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section {
-    cursor: pointer;
-}
+.col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section{cursor:pointer;}
 nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padding:23.8px 10px;}
 .modal-header{padding:0px !important;}
 .modals-section img{width:96.5%;margin-left:15px;}
@@ -153,7 +159,6 @@ a.navbar-brand img{width:100%;}
 .calender_img p{color:#fff;margin-bottom:0px;line-height:14px;font-size:12px;padding-bottom:5px;}
 .athletic_profile p{color:#ffd537;margin-bottom:0px;line-height:14px;font-size:12px;padding-bottom:5px;}
 .bell-icon-sec{background:#030000;text-align:center;height:100px;padding:22px}
-.profile-sec{background:#030000;text-align:center;height:100px;padding:10px 0px;position:relative;cursor: pointer;}
 #sidenav{background-color:#000000;}
 ul.side_nav{padding:0px;}
 ul.side_nav li{border-bottom:1px solid #fff;line-height:50px;}
@@ -185,8 +190,8 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button{background-color:#555;color:white;padding:16px 20px;border:none;cursor:pointer;opacity:0.8;position:fixed;bottom:23px;right:28px;width:280px;}
 
-/* The popup chat - hidden by default */
-.chat-popup{/*display:none;*/position:absolute;z-index:9;width:250px;right:11px;border:1px solid #bebebe;}
+
+
 
 /* Add styles to the form container */
 .form-container{max-width:300px;padding:10px;background-color:white;}
@@ -286,3 +291,16 @@ select#zip{width:100%;}
 span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
 .calender_img a {text-decoration: none;}
 
+@media (max-width:767px){
+	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:190px;flex: 0 0 190px;max-width:190px;}
+	.top_right .calender_img, .top_right .athletic_profile, .dashboard .profile_img_section .profile-sec{width:95px;}
+}
+
+@media (min-width:768px) and (max-width:1023px){
+	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:250px;flex: 0 0 250px;max-width:250px;}
+}
+
+@media (max-width:1023px){
+	.profile-right-modal .container{padding:0;}	
+	.custom-nav-box .header_rightbar .row{-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
+}
