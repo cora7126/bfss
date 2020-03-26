@@ -23,3 +23,10 @@ framework:
     js/multiform.js: {}
     js/jquery.nice-select.js: {}
     
+    
+date-picker:
+  js:
+    js/site-datepicker.js : {}
+  dependencies:
+    - core/jquery
+    - core/jquery.ui.datepicker

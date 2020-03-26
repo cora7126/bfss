@@ -23,7 +23,7 @@ class PrivateAccessmentsBlock extends BlockBase {
    */
   public function build() {
 
-
+  
     	//assessment get by current assessors
     $uid = \Drupal::currentUser();
     $user = \Drupal\user\Entity\User::load($uid->id());
@@ -76,6 +76,7 @@ class PrivateAccessmentsBlock extends BlockBase {
               'booking_date'  => $booking_date,
               'booking_time'  => $booking_time,
               'assessment_title'  => $assessment_title,
+              'booked_id' => $booked_id,
 
         		);	
         	}
@@ -88,11 +89,15 @@ class PrivateAccessmentsBlock extends BlockBase {
           array('data' => t('Name'), 'field' => 'user_name'),
           #array('data' => t('service'), 'field' => 'service'),
         );
-        $result = $this->_return_pager_for_array($result, 3);
+        $result = $this->_return_pager_for_array($result, 10);
       // Wrapper for rows
       foreach ($result as $item) {
+        $nid = $item['nid'];
+        $type = $item['formtype'];
+        $Assesstype = $item['Assess_type'];
+        $booked_id = $item['booked_id'];
         $url = 'starter-professional-assessments?nid='.$item['nid'].'&formtype='.$item['formtype'].'&Assess_type='.$item['Assess_type'];
-        $user_name = Markup::create('<a href="'.$url.'">'.$item['user_name'].'</a>');
+        $user_name = Markup::create('<a class="form-modal-fn" data-nid="'.$nid.'" data-formtype="'.$type.'" data-Assesstype="'.$Assesstype.'" data-booked_id="'.$booked_id.'">'.$item['user_name'].'</a>');
         $rows[] = array(
          'date' => $item['booking_date'],
           'time' => $item['booking_time'],
