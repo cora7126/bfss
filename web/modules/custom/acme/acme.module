@@ -1,6 +1,8 @@
 <?php
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
 /**
  * @file
  * Contains acme.module..
@@ -111,9 +113,8 @@ function acme_user_login(\Drupal\user\UserInterface $account) {
     $query->condition('uid', $current_user,'=');
     $results = $query->execute()->fetchAssoc();
 //    echo '<pre>';print_r($current_user);
-//    echo '<pre>';print_r($results);die;
+    
     if(!empty($results['popup_flag']) && $results['popup_flag'] == 'filled'){
-//        echo 'herer';die;
         $current_request = \Drupal::service('request_stack')->getCurrentRequest();
         if (!$current_request->query->get('destination')) {
           $current_request->query->set(
@@ -121,5 +122,10 @@ function acme_user_login(\Drupal\user\UserInterface $account) {
             \Drupal\Core\Url::fromRoute('acme_hello')->toString()
           );
         }
-    }
+    }else{
+		$current_request = \Drupal::service('request_stack')->getCurrentRequest();
+		//print URL::fromUserInput('/dashboard/profile')->toString();die;
+		return new RedirectResponse(URL::fromUserInput('/dashboard/profile')->toString());
+		
+	}
 }

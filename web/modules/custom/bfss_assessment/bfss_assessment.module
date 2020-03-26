@@ -94,14 +94,29 @@ function bfss_assessment_user_login($account) {
     $current_user = \Drupal::currentUser();
     $roles = $current_user->getRoles();
     if(isset($roles) && in_array('athlete', $roles)){
-      if($account->getLastAccessedTime() == '0'){
-        $response = new RedirectResponse("/dashboard/profile");
+	//	print $account->getLastAccessedTime();die;
+	 $current_user = \Drupal::currentUser()->id();
+	$query = \Drupal::database()->select('mydata', 'md');
+    $query->fields('md');
+    $query->condition('uid', $current_user,'=');
+    $results = $query->execute()->fetchAssoc();
+	if(empty($results)){
+	//if(!empty($results['popup_flag']) && $results['popup_flag'] == 'filled'){
+     // if($account->getLastAccessedTime() == '0'){
+		 $response = new RedirectResponse("/dashboard/profile");
         $response->send();
         return;
+         
       }else{
-        $response = new RedirectResponse("/dashboard");
-        $response->send();
-        return;
+		if($results['popup_flag'] == ''){
+			$response = new RedirectResponse("/dashboard/profile");
+			$response->send();
+			return;
+		}else{
+			$response = new RedirectResponse("/dashboard/profile");
+			$response->send();
+			return;
+		}
       }
     }
 

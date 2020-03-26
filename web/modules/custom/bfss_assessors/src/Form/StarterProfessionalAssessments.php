@@ -25,6 +25,8 @@ class StarterProfessionalAssessments extends FormBase {
     $nid = $param['nid'];
     $formtype = $param['formtype'];
     $Assess_type = $param['Assess_type'];
+    $booked_id = $param['booked_id'];
+    
   if(isset($nid) && isset($formtype) && isset($Assess_type))
     {
             if($formtype == 'starter' && $Assess_type == 'individual'){
@@ -344,11 +346,15 @@ class StarterProfessionalAssessments extends FormBase {
              '#value' => $formtype_val,
             );
 
-            $form['athelete_nid'] = array(
+            $form['booked_id'] = array(
+             '#type' => 'hidden',
+             '#value' => $booked_id,
+            );
+            
+             $form['athelete_nid'] = array(
              '#type' => 'hidden',
              '#value' => $nid,
             );
-          
 
             $form['actions']['#type'] = 'actions';
             $form['actions']['draft'] = array(
@@ -379,24 +385,24 @@ class StarterProfessionalAssessments extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
         $param = \Drupal::request()->query->all();
         if(!empty($param)){
           $nid = $param['nid'];
           $formtype = $param['formtype'];
           $Assess_type = $param['Assess_type'];  
-        }
-        
-  		$triggerElement = $form_state->getTriggeringElement();
-      //current user
-      $current_user = \Drupal::currentUser();
-      $user_id = $current_user->id();
-      $user = \Drupal\user\Entity\User::load($user_id);
+        } 
+    		$triggerElement = $form_state->getTriggeringElement();
+        //current user
+        $current_user = \Drupal::currentUser();
+        $user_id = $current_user->id();
+        $user = \Drupal\user\Entity\User::load($user_id);
 
-	  	$form_data = [];
-	  	foreach ($form_state->getValues() as $key => $value) {
-	  	 	$form_data[$key] = $value;
-	  	}
+  	  	$form_data = [];
+  	  	foreach ($form_state->getValues() as $key => $value) {
+  	  	 	$form_data[$key] = $value;
+  	  	}
+        
+        //insert
         $node = Node::create([
            'type' => 'athlete_assessment_info',
            'title' => $form_data['starter_weight_rea_str'],
@@ -416,28 +422,25 @@ class StarterProfessionalAssessments extends FormBase {
         $node->set('field_assessment_type', $form_data['assessment_type']);
         $node->set('field_form_type', $form_data['form_type']);
         $node->set('field_athelete_nid', $form_data['athelete_nid']);
+        $node->set('field_booked_id', $form_data['booked_id']);
         //aditional fields for elete
         $node->set('field_power_w_ssm_ipe', $form_data['power']);
         $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
         $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
         $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
         $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-
         //user target id 
         $node->set('field_user', ['target_id' => $user_id]);
-	  	if(isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-draft'){
-	  		// if "SAVE - INCOMPLETE" button trigger
-        $node->set('field_status', 'incomplete');
-	  	}
-
-	  	if (isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-submit') {
-	  		// if "SAVE - ALL FIELDS COMPLETED" trigger
-          $node->set('field_status', 'complete');
-        
-	  	}
-
-	  	$node->setPublished(TRUE);
-      $node->save();
+  	  	if(isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-draft'){
+  	  		// if "SAVE - INCOMPLETE" button trigger
+          $node->set('field_status', 'incomplete');
+  	  	}
+  	  	if (isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-submit') {
+  	  		// if "SAVE - ALL FIELDS COMPLETED" trigger
+            $node->set('field_status', 'complete'); 
+  	  	}
+  	  	$node->setPublished(TRUE);
+        $node->save();
 
    }
 }

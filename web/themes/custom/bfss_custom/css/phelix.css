@@ -1,4 +1,6 @@
-@charset "UTF-8";
+@charset "utf-8";
+/* CSS Document */
+
 /**************************************************************************************************************************/
 /************************************** USER REGISTRATION AND LOGIN FORM CSS STARTS HERE **********************************/
 /**************************************************************************************************************************/
@@ -664,15 +666,6 @@ a.side_button:hover {
 
 .quick-link-sub-sec i {
   font-size: 50px !important;
-}
-
-.tab-main-sec .tab-nav {
-  border-top: none !important;
-  padding: 0 0 0 15px;
-}
-
-.month_filter {
-  margin: 0 0 19px !important;
 }
 
 .tab-nav ul li a {
