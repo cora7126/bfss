@@ -560,7 +560,12 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   width: 125px;
 }
 
-
+.profile-sec {
+  width: 125px;
+  text-align: center;
+  border-left: 1px solid grey;
+  margin: 0 auto;
+}
 
 .calender_img a:hover {
   text-decoration: none;
@@ -643,4 +648,42 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .timeslots > fieldset > legend > span {
   font-family: "Proxima Nova Rg";
   font-size: 14px;
+}
+
+#sidenav > ul li nav div a.drop,
+#sidenav > ul li nav div a.drop:hover,
+a.side_button,
+a.side_button:hover {
+  text-decoration: none;
+}
+
+.mob_bottom_margin .quick-link-sub-sec p,
+.quick-link-sub-sec p {
+  font-size: 14px !important;
+}
+
+.quick-link-sub-sec i {
+  font-size: 50px !important;
+}
+
+.tab-main-sec .tab-nav {
+  border-top: none !important;
+  padding: 0 0 0 15px;
+}
+
+.month_filter {
+  margin: 0 0 19px !important;
+}
+
+.tab-nav ul li a {
+  font-weight: normal !important;
+}
+
+#block-assessmentscustomview .col.assessment_inner,
+#block-upcominggroupassessments .col {
+  background: #f1f3f2 !important;
+}
+
+.timing span {
+  bottom: 10px !important;
 }
