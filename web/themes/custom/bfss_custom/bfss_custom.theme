@@ -33,13 +33,19 @@ function bfss_custom_form_user_login_form_alter(&$form, $form_state) {
 function bfss_custom_preprocess_page(&$variables) {
   $current_path = \Drupal::service('path.current')->getPath();
   $result = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $roles = $user->getRoles();
   if (\Drupal::currentUser()->isAnonymous()  && $current_path == '/dashboard') {
       $response = new RedirectResponse("/user/register");
       $response->send();
       return;
   }
-  // if (\Drupal::routeMatch()->getRouteName() == 'user.login') {
-  // }
+
+  if(in_array('assessors', $roles)){
+    $variables['user_role'] = 1;
+  }else{
+    $variables['user_role'] = 0;
+  }
 
 }
 

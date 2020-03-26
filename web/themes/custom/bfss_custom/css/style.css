@@ -1888,9 +1888,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 #edit-profile-class .user-form .panel-default{width:66%;}
 #edit-profile-class .user-form .panel-title img{display:none !important;}
 #edit-profile-class .user-form .panel-default a.panel-title{padding:10px 35px !important;}
- .dashboard .profile-sec img{width:100%;max-width:61px;}
-.dashboard .profile-sec{padding:26px 0px;}
-.dashboard.modal-open .card #collapseTwo button.btn-success{background:#000;}
+
 #edit-actions button.btn-success{background:#000;}
 .js-form-item-jodi input:focus{background:#90909033;}
 .edit_image{width:72px;height:72px;margin-right:12px;font-size:36px;padding-top:36px;border:2px solid;border-radius:50%;padding:12px;line-height:46px!important;color:#f76907;font-weight:300!important;}
@@ -2057,7 +2055,8 @@ div#edit-phone-section{margin-top:25px;}
   #edit-profile-class .user-form .panel-default{width:100%;}
 }
 
-@media (min-width:768px){.container{width:750px;}
+@media (min-width:768px){
+  .container{width:750px;}
   .navbar-right .dropdown-menu{right:0;left:auto;} 
   .navbar-right .dropdown-menu-left{left:0;right:auto;}
   .form-horizontal .control-label{padding-top:7px;margin-bottom:0;text-align:right;}
