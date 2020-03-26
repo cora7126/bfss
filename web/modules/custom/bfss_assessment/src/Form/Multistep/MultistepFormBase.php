@@ -96,9 +96,7 @@ abstract class MultistepFormBase extends FormBase {
                <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
                <h2><span>YOUR</span><br>'.$assessmentType.' Assessment  </h2>
             </div>
-            
-            <div class="dash-schedule">Schedule Your Private Assessment</div>
-      </div>
+         </div>
          ');
     $form['#suffix'] = $this->t('</div>');
     $form['heading'] = [

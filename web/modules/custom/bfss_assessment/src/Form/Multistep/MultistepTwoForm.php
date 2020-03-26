@@ -37,7 +37,22 @@ class MultistepTwoForm extends MultistepFormBase {
     }
     #add container class to form
     $form['#attributes']['class'][] = 'container';
-    $timings = $this->assessmentService->getSchedulesofAssessment($nid);
+
+    if($nid == '9999999999'){
+      //private
+      $query = \Drupal::entityQuery('node');
+      $query->condition('status', 1);
+      $query->condition('type', 'assessment');
+      $query->condition('field_type_of_assessment', 'private','=');
+      $private_nids = $query->execute();
+      $timings_private = [];
+      foreach ($private_nids as $private_nid) {
+        $timings_private[] = $this->assessmentService->getSchedulesofAssessment($private_nid);
+      }
+    }else{
+       $timings = $this->assessmentService->getSchedulesofAssessment($nid);
+    }
+
     #if older entites are not set
     if (!$this->store->get('service')) {
       goto returnForm;
@@ -48,58 +63,34 @@ class MultistepTwoForm extends MultistepFormBase {
     $form['heading']['#prefix'] = '<div class="two">';
     $form['heading']['#suffix'] = '</div>';
     $sortedTimings = [];
-
-    if(empty($timings)){
-      // $form['timing']['year'] = [
-      //   '#type' => 'select',
-      //   '#title' => $this->t('Year'),
-      //   '#options' => range(date('Y'), date('Y')+10),
-      //   '#default_value' => date('Y'),
-      // ];
-      // $form['timing']['month'] = [
-      //   '#type' => 'select',
-      //   '#title' => $this->t('Month'),
-      //   '#options' => range(01,12),
-      //   '#default_value' => date('m'),
-      // ];
-      // $form['timing']['day'] = [
-      //   '#type' => 'select',
-      //   '#title' => $this->t('Day'),
-      //   '#options' => range(01,31),
-      //   '#default_value' => date('d'),
-      // ];
-      // $form['timing']['hour'] = [
-      //   '#type' => 'select',
-      //   '#title' => $this->t('Hour'),
-      //   '#options' => range(01,12),
-      //   '#default_value' => date('h'),
-      // ];
-      // $form['timing']['minute'] = [
-      //   '#type' => 'select',
-      //   '#title' => $this->t('Minute'),
-      //   '#options' => range(00,60),
-      //   '#default_value' => date('i'),
-      // ];
-      // $form['timing']['am_pm'] = [
-      //   '#type' => 'select',
-      //   '#title' => $this->t('AM/PM'),
-      //   '#options' => ['am' => 'AM', 'pm' => 'PM'],
-      //   '#default_value' => date('a'),
-      // ];
-      $form['tim_date_priv'] = [
-        '#type' => 'datetime',
-        '#title' => $this->t('Scheduled'),
-        '#size' => 20,
-        // '#date_date_element' => 'date', // hide date element
-        // '#date_time_element' => 'time', // you can use text element here as well
-        // '#date_time_format' => 'H:i',
-        // '#default_value' => date('Y-m-d H:i:s'),
-        '#required' => true,
-      ];
-    }else{
+     
+ if($nid == '9999999999'){
+      foreach ($timings_private as $timings_pri) {
+           foreach ($timings_pri as $key => $value) {
+                $value = date('h:i a',$value);
+                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
+        }
+      }
+     
+        foreach ($sortedTimings as $key => $value) {
+          $maintitle = current(array_keys($value));
+            $form['time'.$key] = array(
+              '#type' => 'radios',
+              '#title' => $this->t(date('D, M d Y',$maintitle)),
+              '#options' => $value,
+              '#prefix' => '<div class="timeslots">',
+              '#suffix' => '</div>',
+            );
+            foreach ($value as $key1 => $value1) {
+              if ($key1 == $this->store->get('time')) {
+                $form['time'.$key]['#default_value'] = $this->store->get('time');
+              }
+            }
+        }
+ }else{
         foreach ($timings as $key => $value) {
-          $value = date('h:i a',$value);
-          $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
+                $value = date('h:i a',$value);
+                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
         }
         foreach ($sortedTimings as $key => $value) {
           $maintitle = current(array_keys($value));
@@ -116,7 +107,10 @@ class MultistepTwoForm extends MultistepFormBase {
               }
             }
         }
-    }
+ }
+
+        
+    
 
     $form['actions']['previous'] = array(
       '#type' => 'link',

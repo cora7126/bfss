@@ -1,0 +1,19 @@
+<?php
+
+function bfss_assessors_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  if($view->id() == 'assessment_for_assessor'){
+
+
+  //   foreach($view->result as $value){
+  //   	$nid = $value->nid;
+  //   	$output = '<a href="/starter-professional-assessments?nid='.$nid.'">click here</a>';
+  //   	$value->_entity->set('body', array(
+		// 'value' => $output,
+		// 'format' => 'full_html')
+  //   	);
+  //   }
+  }
+}
+
+
+?>

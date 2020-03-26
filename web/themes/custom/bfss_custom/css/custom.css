@@ -100,3 +100,15 @@ div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap
 .customModal .close_modal {border: 2px solid #ccc;border-radius: 50%;top: -19px;background: #fff;right: -17px;font-size: 18px;font-weight: 600;position: absolute;height: 35px;width: 35px;cursor: ointer;text-align: center;line-height: 30px;}
 .customModal .customModalContent p{color:green;font-size:24px;line-height:36px;}
 
+
+/* form */
+.edit_profile_form .form-inline .control-label {
+	font-size: :13px;
+	float: left;
+	margin-right: 20px;
+	padding-top: 10px;
+}
+
+.form-type-date #edit-doj{width:100%;}
+.athlete_right .items_div{text-align:center}
+.right_section .items_div, .left_section .items_div{border:1px solid #c2c2c2;}
