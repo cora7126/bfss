@@ -5,7 +5,8 @@ use Drupal\Core\Block\BlockBase;
 use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
-
+use Drupal\node\NodeInterface;
+Use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Provides a 'Events Listing' Block.
@@ -22,89 +23,72 @@ class Events extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
-
-    	//assessment get by current assessors
-    $uid = \Drupal::currentUser();
-    $user = \Drupal\user\Entity\User::load($uid->id());
-    $roles = $user->getRoles();
-    if(in_array('assessors', $roles)){
-      $current_assessors_id = $uid->id();
-    }else{
-       $current_assessors_id = '';
-    }
-    // 		//$current_assessors_id = 137;
-    	$query = \Drupal::entityQuery('node');
+ 
+   
+      //assessment get by current assessors
+        $ele = 1;
+        $uid = \Drupal::currentUser();
+        $user = \Drupal\user\Entity\User::load($uid->id());
+        $roles = $user->getRoles();
+        if(in_array('assessors', $roles)){
+            $current_assessors_id = $uid->id();
+        }else{
+            $current_assessors_id = '';
+        }
+     	
+    	  $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
         $query->condition('field_assessors', $current_assessors_id , '=');
-        $nids = $query->execute();
-        $booked_ids = [];
-        $data = [];
+        #$query->pager(10, (int) $ele);
+        $nids = $query->execute(); 
+  
         $result = array();
         foreach ($nids as $nid) {
-        	$booked_ids = \Drupal::entityQuery('bfsspayments')
-       		->condition('assessment', $nid,'IN')
-        	->execute();
-          // $formtype = '';
-          // $Assess_type = '';
-        	foreach ($booked_ids  as $key => $booked_id) {
-        		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-            $timestamp = $entity->time->value;
-            $assessment_title = $entity->assessment_title->value;
-            $booking_date = date("Y/m/d",$timestamp);
-            $booking_time = date("h:i:sa",$timestamp);
-            // echo "<pre>";
-            // print_r($booking_time);
-            // die;
-            if($entity->service->value == '199.99'){
-            
-                $formtype = 'elete';
-            }elseif($entity->service->value == '29.99'){
-                $formtype = 'starter';
-            }
+        	$node = Node::load($nid);
+          $title = $node->title->value;
+          $timeslots = $this->getSchedulesofAssessment_slots($nid);
+         
+          foreach ($timeslots as $timeslot) {
+            $booked_ids = \Drupal::entityQuery('bfsspayments')
+            ->condition('assessment',$nid,'IN')
+            ->condition('time',$timeslot,'=')
+            ->execute();
+            $attendees = count($booked_ids);
 
-            if(!empty($entity->assessment->value)){
-              $Assess_type = 'individual';
-            }else{
-              $Assess_type = 'private';
-            }
-
-        		$result[] = array(
-        			'id' => $entity->id->value,
-        			'user_name' =>$entity->user_name->value,
-        			'service' =>$entity->service->value,
+           $date = date('D, M d Y',$timeslot);
+           $time =  date('h:i a',$timeslot);
+           $result[] = [
+              'time' => $time,
+              'date' => $date,
+              'title' => $title,
+              'attendees' => $attendees,
+              'timeslot' => $timeslot,
               'nid' => $nid,
-              'formtype' => $formtype,
-              'Assess_type' => $Assess_type,
-              'booking_date'  => $booking_date,
-              'booking_time'  => $booking_time,
-              'assessment_title'  => $assessment_title,
-
-        		);	
-        	}
-        } 
-
+           ];
+          }
+        }
+       
+ 
         $header = array(
           array('data' => t('Date'), 'field' => 'date'),
           array('data' => t('Time'), 'field' => 'time'),
           array('data' => t('Event Name'), 'field' => 'assessment_title'),
-          #array('data' => t('Name'), 'field' => 'user_name'),
-          #array('data' => t('service'), 'field' => 'service'),
+          array('data' => t('Attendees'), 'field' => 'attendees'),
         );
-        $result = $this->_return_pager_for_array($result, 3);
-      // Wrapper for rows
-      foreach ($result as $item) {
-        $url = 'starter-professional-assessments?nid='.$item['nid'].'&formtype='.$item['formtype'].'&Assess_type='.$item['Assess_type'];
-        $user_name = Markup::create('<a href="'.$url.'">'.$item['user_name'].'</a>');
-        $rows[] = array(
-          'date' => $item['booking_date'],
-          'time' => $item['booking_time'],
-          'assessment_title' => $item['assessment_title'],
-          #'user_name' => $user_name,
-          #'service' => $item['service'],
-
-        );
+        $result = $this->_return_pager_for_array($result, 10);
+         // Wrapper for rows
+         foreach ($result as $item) {
+          $url = 'assessment-event?nid='.$item['nid'].'&timeslot='.$item['timeslot'];
+          $title = Markup::create('<a href="'.$url.'">'.$item['title'].'</a>');
+          $rows[] = array(
+            'date' => $item['date'],
+            'time' => $item['time'],
+            'assessment_title' => $title,
+            'attendees' => $item['attendees'],
+          );
       }
+
+
       $rows = $this->_records_nonsql_sort($rows, $header);
       // Create table and pager
       $element['table'] = array(
@@ -113,9 +97,10 @@ class Events extends BlockBase {
         '#rows' => $rows,
         '#empty' => t('There is no data available.'),
       );
-
+     
       $element['pager'] = array(
         '#type' => 'pager',
+         #'#element' => $ele,
       );
 
    return $element;
@@ -163,6 +148,33 @@ class Events extends BlockBase {
       // Return current group item
       $current_page_items = $chunks[$current_page];
       return $current_page_items;
+    }
+
+    public function getSchedulesofAssessment_slots($nid = null) {
+      $node = Node::load($nid);
+      $data = [];
+      if ($node instanceof NodeInterface) {
+        if ($node->hasField('field_schedules')) {
+          $field_schedules = $node->get('field_schedules')->getValue();
+          if ($field_schedules) {
+            foreach ( $field_schedules as $element ) {
+              if (isset($element['target_id'])) {
+                $pGraph = Paragraph::load($element['target_id'] );
+                if ($pGraph->hasField('field_timing')/* && $pGraph->hasField('field_duration')*/) {
+                  $timing = (int) $pGraph->get('field_timing')->value;
+                
+                  //if ($timing > time()) {
+                    $data[$timing] = $timing;
+                  //}
+                }
+              }
+            }
+          }
+        }
+      }
+    #sort them all
+    ksort($data);
+    return $data;
     }
 
 }

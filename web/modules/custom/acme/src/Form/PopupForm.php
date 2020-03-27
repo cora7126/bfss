@@ -30,6 +30,7 @@ class PopupForm extends FormBase {
     $query2->condition('entity_id', $current_user,'=');
     $results2 = $query2->execute()->fetchAssoc();
     $state = $results2['field_state_value'];
+	
     $query1 = \Drupal::database()->select('user__field_last_name', 'ufln');
     $query1->addField('ufln', 'field_last_name_value');
     $query1->condition('entity_id', $current_user,'=');
@@ -71,9 +72,11 @@ class PopupForm extends FormBase {
       '#placeholder' => t('Last name'),
       '#default_value' => $results1['field_last_name_value'],
       );
+	  $st=getStates();
     $form['state'] = array(
     '#type' => 'select',
-   '#options' => array(t('AL'), t('AK'), t('AZ'), t('AR'), t('CA'), t('CO'), t('CT'), t('DE'), t('DC'), t('FL'), t('GA'), t('HI'), t('ID'), t('IL'), t('IN'), t('IA'), t('KS'), t('KY'), t('LA'), t('ME'), t('MT'), t('NE'), t('NV'), t('NH'), t('NJ'), t('NM'), t('NY'), t('NC'), t('ND'), t('OH'), t('OR'), t('MD'), t('MA'), t('MI'), t('MN'), t('MS'), t('MO'), t('PA'), t('RI'), t('SC'), t('SD'), t('TN'), t('TX'), t('UT'), t('VT'), t('VA'), t('WA'), t('WV'), t('WI'), t('WY')),
+   '#options' => $st,
+   '#default_value' => $state,
       );
     $form['city'] = array(
       '#type' => 'textfield',
@@ -487,4 +490,112 @@ class PopupForm extends FormBase {
 	
        $form_state->setRedirect('acme_hello');
      }
+	 function getStates() {
+	return $st=array(
+      'AL'=>  t('AL'),
+      'AK'=>  t('AK'),
+      'AZ'=>  t('AZ'),
+       'AR'=> t('AR'),
+      'CA'=>  t('CA'),
+      'CO'=>   t('CO'),
+      'CT'=>    t('CT'),
+       'DE'=>    t('DE'),
+     'DC'=>      t('DC'),
+       'FL'=>    t('FL'),
+        'GA'=>     t('GA'),
+   'HI'=>     t('HI'),
+     'ID'=>    t('ID'),
+       'IL'=>   t('IL'),
+       'IN'=> t('IN'),
+       'IA'=> t('IA'),
+      'KS'=>  t('KS'),
+       'KY'=> t('KY'),
+       'LA'=> t('LA'),
+       'ME'=> t('ME'),
+       'MT'=> t('MT'),
+       'NE'=> t('NE'),
+       'NV'=> t('NV'),
+       'NH'=> t('NH'),
+       'NJ'=> t('NJ'),
+       'NM'=> t('NM'),
+       'NY'=> t('NY'),
+       'NC'=> t('NC'),
+        'ND'=>t('ND'),
+       'OH'=> t('OH'),
+        'OR'=>t('OR'),
+       'MD'=> t('MD'),
+       'MA'=> t('MA'),
+       'MI'=> t('MI'),
+        'MN'=>t('MN'),
+        'MS'=>t('MS'),
+       'MO'=> t('MO'),
+       'PA'=> t('PA'),
+       'RI'=> t('RI'),
+       'SC'=> t('SC'),
+        'SD'=>t('SD'),
+       'TN'=> t('TN'),
+        'TX'=>  t('TX'),
+         'UT'=> t('UT'),
+        'VT'=>  t('VT'),
+        'VA'=>  t('VA'),
+         'WA'=> t('WA'),
+         'WV'=> t('WV'),
+        'WI'=>  t('WI'),
+        'WY'=>  t('WY'));
+	
+  /*return [
+    'AL' => 'Alabama',
+    'AK' => 'Alaska',
+    'AZ' => 'Arizona',
+    'AR' => 'Arkansas',
+    'CA' => 'California',
+    'CO' => 'Colorado',
+    'CT' => 'Connecticut',
+    'DE' => 'Delaware',
+    'DC' => 'District of Columbia',
+    'FL' => 'Florida',
+    'GA' => 'Georgia',
+    'HI' => 'Hawaii',
+    'ID' => 'Idaho',
+    'IL' => 'Illinois',
+    'IN' => 'Indiana',
+    'IA' => 'Iowa',
+    'KS' => 'Kansas',
+    'KY' => 'Kentucky',
+    'LA' => 'Louisiana',
+    'ME' => 'Maine',
+    'MT' => 'Montana',
+    'NE' => 'Nebraska',
+    'NV' => 'Nevada',
+    'NH' => 'New Hampshire',
+    'NJ' => 'New Jersey',
+    'NM' => 'New Mexico',
+    'NY' => 'New York',
+    'NC' => 'North Carolina',
+    'ND' => 'North Dakota',
+    'OH' => 'Ohio',
+    'OK' => 'Oklahoma',
+    'OR' => 'Oregon',
+	'MD'=>'Maryland',
+	'MA'=>'Massachusetts',
+	'MI'=>'Michigan',
+	'MN'=>'Minnesota',
+	'MS'=>'Mississippi',
+	'MO'=>'Missouri',
+	'PA'=>'Pennsylvania',
+	'RI'=>'Rhode Island',
+	'SC'=>'South Carolina',
+	'SD'=>'South Dakota',
+	'TN'=>'Tennessee',
+	'TX'=>'Texas',
+	'UT'=>'Utah',
+	'VT'=>'Vermont',
+	'VA'=>'Virginia',
+	'WA'=>'Washington',
+	'WV'=>'West Virginia',
+	'WI'=>'Wisconsin',
+	'WY'=>'Wyoming',
+  ];*/
 }
+}
+

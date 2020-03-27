@@ -4,44 +4,54 @@ use Drupal\Core\Controller\ControllerBase;
 use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
-
+use Drupal\Core\Database\Database;
 
 class AssessmentEvent extends ControllerBase {
 	public function assessment_event() {
-		//assessment get by current assessors
+        $param = \Drupal::request()->query->all();
+        $booked_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('assessment',$param['nid'],'IN')
+        ->condition('time',$param['timeslot'],'=')
+        ->execute();
 
-    $uid = \Drupal::currentUser();
-    $user = \Drupal\user\Entity\User::load($uid->id());
-    $roles = $user->getRoles();
-    if(in_array('assessors', $roles)){
-      $current_assessors_id = $uid->id();
-    }else{
-       $current_assessors_id = '';
-    }
-    // print_r($uid->id());
-    // die;
-    		//$current_assessors_id = 137;
-    		$query = \Drupal::entityQuery('node');
-        $query->condition('type', 'assessment');
-        $query->condition('field_assessors', $current_assessors_id , '=');
-        $nids = $query->execute();
-        $booked_ids = [];
-        $data = [];
-        $result = array();
-        foreach ($nids as $nid) {
-        	$booked_ids = \Drupal::entityQuery('bfsspayments')
-       		->condition('assessment', $nid,'IN')
-        	->execute();
-          // $formtype = '';
-          // $Assess_type = '';
+          $result = array();
         	foreach ($booked_ids  as $key => $booked_id) {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+            $assess_id = $entity->assessment->value;
+            $user_id = $entity->user_id->value;
+
+            $query1 = \Drupal::entityQuery('node');
+            $query1->condition('type', 'athlete_assessment_info');
+            $query1->condition('field_booked_id',$booked_id, 'IN');
+            $nids1 = $query1->execute();
+
+            if(!empty($nids1)){
+          
+               foreach ($nids1 as $key => $value) {
+                 $assess_nid = $value;
+                 $node1 = Node::load($value);
+                 $field_status = $node1->field_status->value;
+                 
+              } 
+              $st = 1;
+            }else{
+               $assess_nid = '';
+               $field_status = 'No Show';
+               $st = 0;
+            }
+            
+            $query5 = \Drupal::database()->select('athlete_school', 'ats');
+            $query5->fields('ats');
+            $query5->condition('athlete_uid', $user_id,'=');
+            $results5 = $query5->execute()->fetchAssoc();            
+            $sport = $results5['athlete_school_sport'];
+
+            $entity->assessment->value;
             $timestamp = $entity->time->value;
             $assessment_title = $entity->assessment_title->value;
             $booking_date = date("Y/m/d",$timestamp);
             $booking_time = date("h:i:sa",$timestamp);
             if($entity->service->value == '199.99'){
-            
                 $formtype = 'elete';
             }elseif($entity->service->value == '29.99'){
                 $formtype = 'starter';
@@ -52,40 +62,46 @@ class AssessmentEvent extends ControllerBase {
             }else{
               $Assess_type = 'private';
             }
-
+            
         		$result[] = array(
+              'booked_id' => $booked_id,
         		  'id' => $entity->id->value,
-              'user_name' =>$entity->user_name->value,
-              'service' =>$entity->service->value,
+              'user_name' => $entity->user_name->value,
+              'service' => $entity->service->value,
               'nid' => $nid,
               'formtype' => $formtype,
               'Assess_type' => $Assess_type,
               'booking_date'  => $booking_date,
               'booking_time'  => $booking_time,
               'assessment_title'  => $assessment_title,
-
+              'status' => $field_status,
+              'sport' => $sport,
+              'st' => $st,
+              'assess_nid' => $assess_nid,
         		);	
         	}
-        } 
+        
         $header = array(
-          array('data' => t('Date'), 'field' => 'date'),
-          array('data' => t('Time'), 'field' => 'time'),
-          #array('data' => t('Event Name'), 'field' => 'assessment_title'),
           array('data' => t('Name'), 'field' => 'user_name'),
-          #array('data' => t('service'), 'field' => 'service'),
+          array('data' => t('sport'), 'field' => 'sport'),
+          array('data' => t('Status'), 'field' => 'status'),
         );
-        $result = $this->_return_pager_for_array($result, 3);
+        $result = $this->_return_pager_for_array($result, 10);
       // Wrapper for rows
       foreach ($result as $item) {
-        $url = 'starter-professional-assessments?nid='.$item['nid'].'&formtype='.$item['formtype'].'&Assess_type='.$item['Assess_type'];
-        $user_name = Markup::create('<a href="'.$url.'">'.$item['user_name'].'</a>');
+        $nid = $item['nid'];
+        $type = $item['formtype'];
+        $Assesstype = $item['Assess_type'];
+        $booked_id = $item['booked_id'];
+        $st = $item['st'];
+        $user_name = $item['user_name'];
+        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
+       
+        $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
         $rows[] = array(
-          'date' => $item['booking_date'],
-          'time' => $item['booking_time'],
-          #'assessment_title' => $item['assessment_title'],
           'user_name' => $user_name,
-          #'service' => $item['service'],
-
+          'sport' => $item['sport'],
+          'status' => $item['status'],
         );
       }
       $rows = $this->_records_nonsql_sort($rows, $header);
