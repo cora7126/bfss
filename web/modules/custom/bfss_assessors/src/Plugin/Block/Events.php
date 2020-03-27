@@ -26,6 +26,7 @@ class Events extends BlockBase {
  
    
       //assessment get by current assessors
+        $ele = 1;
         $uid = \Drupal::currentUser();
         $user = \Drupal\user\Entity\User::load($uid->id());
         $roles = $user->getRoles();
@@ -38,6 +39,7 @@ class Events extends BlockBase {
     	  $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
         $query->condition('field_assessors', $current_assessors_id , '=');
+        #$query->pager(10, (int) $ele);
         $nids = $query->execute(); 
   
         $result = array();
@@ -95,9 +97,10 @@ class Events extends BlockBase {
         '#rows' => $rows,
         '#empty' => t('There is no data available.'),
       );
-
+     
       $element['pager'] = array(
         '#type' => 'pager',
+         #'#element' => $ele,
       );
 
    return $element;

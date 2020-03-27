@@ -8,8 +8,10 @@ namespace Drupal\bfss_assessors\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use \Drupal\node\Entity\Node;
-
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
 class StarterProfessionalAssessments extends FormBase {
+
   /**
    * {@inheritdoc}
    */
@@ -26,7 +28,8 @@ class StarterProfessionalAssessments extends FormBase {
     $formtype = $param['formtype'];
     $Assess_type = $param['Assess_type'];
     $booked_id = $param['booked_id'];
-    
+    $st = $param['st'];
+    $assess_nid = $param['assess_nid'];
   if(isset($nid) && isset($formtype) && isset($Assess_type))
     {
             if($formtype == 'starter' && $Assess_type == 'individual'){
@@ -41,48 +44,77 @@ class StarterProfessionalAssessments extends FormBase {
             elseif($formtype == 'elete' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
              }
-          
+         
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
             <!-- Modal start-->
-                    <div class="modal fade" id="assessor_popup_form" role="dialog">
+                    <div id="assessor_popup_form" class="asse_frm" >
                     
-                                    <div class="modal-dialog">
+                                    <div class="">
                                       <!-- Modal content-->
-                                      <div class="modal-content">
+                                      <div>
                                         <div id="accessorform">
-                                        <a type="button" class="close" data-dismiss="modal">&times;</a>
                                             <div class="accessorform_inner">
-                                              <h2>'.$form_title.'</h2><ul class="st_lk">
+                                             <h2>'.$form_title.'</h2><ul class="st_lk">
                                               <li>EF-Equipment Failure</li>
                                               <li>Al-Athlete Injured</li>
                                               <li>ART-Athlete Refused Test</li>
                                               </ul>';
 
-                    $form['#suffix'] = '    </div>
+                    $form['#suffix'] = '  </div>
                                         </div>       
                                       </div>   
                                     </div>
                                 </div>
-            <!-- Modal end-->
-                        ';
+            <!-- Modal end-->';
+             $form['message'] = [
+              '#type' => 'markup',
+              '#markup' => '<div class="result_message"></div>',
+            ];
             $form['form_fields_wrap'] = array(
             '#type' => 'fieldset',
            # '#title' => $this->t(''),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
              );
-
+            if( !empty($assess_nid) ){
+            //default values here 
+            $node = Node::load($assess_nid);
+            $starter_weight_rea_str = $node->title->value;
+            $field_jump_height_in_reactive = $node->field_jump_height_in_reactive->value;
+            $field_rsi_reactive = $node->field_rsi_reactive->value;
+            $field_jump_height_in_elastic = $node->field_jump_height_in_elastic->value;
+            $field_peak_propulsive_elastic = $node->field_peak_propulsive_elastic->value;
+            $field_peak_power_w_elastic = $node->field_peak_power_w_elastic->value;
+            $field_jump_height_in_ballistic = $node->field_jump_height_in_ballistic->value;
+            $field_peak_propulsive_ballistic = $node->field_peak_propulsive_ballistic->value;
+            $field_peak_power_w_ballistic = $node->field_peak_power_w_ballistic->value;
+            $field_10m_time_sec_sprint = $node->field_10m_time_sec_sprint->value;
+            $field_40m_time_sec_sprint = $node->field_40m_time_sec_sprint->value;
+            $field_peak_force_n_maximal = $node->field_peak_force_n_maximal->value;
+            $field_rfd_100ms_n_maximal = $node->field_rfd_100ms_n_maximal->value;
+            $field_assessment_type = $node->field_assessment_type->value;
+            $field_form_type = $node->field_form_type->value;
+            $field_athelete_nid = $node->field_athelete_nid->value;
+            $field_booked_id = $node->field_booked_id->value;
+            $field_power_w_ssm_ipe = $node->field_power_w_ssm_ipe->value;
+            $field_power_w_spm_ipe = $node->field_power_w_spm_ipe->value;
+            $field_power_w_rm_ipe = $node->field_power_w_rm_ipe->value;
+            $field_repetitions_se_ipe = $node->field_repetitions_se_ipe->value;
+            $field_power_w_cfd_ipe = $node->field_power_w_cfd_ipe->value;
+            }
           	//Reactive Strength (CM Rebound Jump)
           	$form['form_fields_wrap']['reactive_strength'] = array(
         	  '#type' => 'fieldset',
         	  '#title' => $this->t('Reactive Strength (CM Rebound Jump)'),
+
         	  '#prefix' => '<div id="reactive_strength" class="sm_cls">',
         	  '#suffix' => '</div>',
         	   );
 
             $form['form_fields_wrap']['reactive_strength']['starter_weight_rea_str'] = array(
               '#type' => 'textfield',
+              '#default_value' => $starter_weight_rea_str,
               #'#title' => t('Weight (N) Calculated into Ibs'),
               '#required' => TRUE,
               '#attributes' => array(
@@ -93,7 +125,8 @@ class StarterProfessionalAssessments extends FormBase {
             $form['form_fields_wrap']['reactive_strength']['starter_jump_height_rea_str'] = array(
               '#type' => 'textfield',
               #'#title' => t('Jump Height (ln)'),
-              '#required' => TRUE,
+              '#default_value' => $field_jump_height_in_reactive,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Jump Height (ln)'),
               ),
@@ -101,7 +134,8 @@ class StarterProfessionalAssessments extends FormBase {
             $form['form_fields_wrap']['reactive_strength']['starter_rsi_rea_str'] = array (
               '#type' => 'textfield',
               #'#title' => t('RSI'),
-              '#required' => TRUE,
+              '#default_value' => $field_rsi_reactive,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('RSI'),
               ),
@@ -115,9 +149,10 @@ class StarterProfessionalAssessments extends FormBase {
         		  '#suffix' => '</div>',
         	);
             $form['form_fields_wrap']['elastic_strenght']['starter_jump_height_ela_str'] = array (
-              #'#type' => 'textfield',
-              '#title' => t('Jump Height (ln)'),
-              '#required' => TRUE,
+              '#type' => 'textfield',
+              '#default_value' => $field_jump_height_in_elastic,
+              #'#title' => t('Jump Height (ln)'),
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Jump Height (ln)'),
               ),
@@ -125,16 +160,16 @@ class StarterProfessionalAssessments extends FormBase {
 
             $form['form_fields_wrap']['elastic_strenght']['elastic_strenght']['starter_peak_pro_ela_str'] = array (
               '#type' => 'textfield',
-              #'#title' => t('Peak Propulslve Force (N)'),
-              '#required' => TRUE,
+              '#default_value' => $field_peak_propulsive_elastic,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Peak Propulslve Force (N)'),
               ),
             );
             $form['form_fields_wrap']['elastic_strenght']['starter_peak_power_ela_str'] = array (
               '#type' => 'textfield',
-              #'#title' => t('Peak Power (W)'),
-              '#required' => TRUE,
+              '#default_value' => $field_peak_power_w_elastic,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Peak Power (W)'),
               ),
@@ -149,8 +184,8 @@ class StarterProfessionalAssessments extends FormBase {
         	);
             $form['form_fields_wrap']['ballistic_strength']['starter_jump_height_ballistic'] = array (
               '#type' => 'textfield',
-              #'#title' => t('Jump Height (ln)'),
-              '#required' => TRUE,
+              '#default_value' => $field_jump_height_in_ballistic,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Jump Height (ln)'),
               ),
@@ -158,8 +193,8 @@ class StarterProfessionalAssessments extends FormBase {
 
             $form['form_fields_wrap']['ballistic_strength']['starter_peak_pro_ballistic'] = array (
               '#type' => 'textfield',
-              #'#title' => t('Peak Propulslve Force (N)'),
-              '#required' => TRUE,
+              '#default_value' => $field_peak_propulsive_ballistic,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Peak Propulslve Force (N)'),
               ),
@@ -167,8 +202,8 @@ class StarterProfessionalAssessments extends FormBase {
 
             $formv['ballistic_strength']['starter_peak_power_ballistic'] = array (
               '#type' => 'textfield',
-              #'#title' => t('Peak Power (W)'),
-              '#required' => TRUE,
+              '#default_value' => $field_peak_power_w_ballistic,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Peak Power (W)'),
               ),
@@ -184,8 +219,8 @@ class StarterProfessionalAssessments extends FormBase {
 
             $form['form_fields_wrap']['10m_40m_sprint'] ['starter_10m'] = array (
               '#type' => 'textfield',
-              #'#title' => t('10 M Time (sec)'),
-              '#required' => TRUE,
+              '#default_value' => $field_10m_time_sec_sprint,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('10 M Time (sec)'),
               ),
@@ -193,8 +228,8 @@ class StarterProfessionalAssessments extends FormBase {
 
             $form['form_fields_wrap']['10m_40m_sprint'] ['starter_40m'] = array (
               '#type' => 'textfield',
-              #'#title' => t('40 M Time (sec)'),
-              '#required' => TRUE,
+              '#default_value' => $field_40m_time_sec_sprint,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('40 M Time (sec)'),
               ),
@@ -210,8 +245,8 @@ class StarterProfessionalAssessments extends FormBase {
 
             $form['form_fields_wrap']['maximal_strength']['starter_peak_for_max'] = array (
               '#type' => 'textfield',
-              #'#title' => t('Peak Force (N)'),
-              '#required' => TRUE,
+              '#default_value' => $field_peak_force_n_maximal,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Peak Force (N)'),
               ),
@@ -219,8 +254,8 @@ class StarterProfessionalAssessments extends FormBase {
 
              $form['form_fields_wrap']['maximal_strength']['starter_rfd_max'] = array (
               '#type' => 'textfield',
-              #'#title' => t('RFD @ 100ms (N)'),
-              '#required' => TRUE,
+              '#default_value' => $field_rfd_100ms_n_maximal,
+              #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('RFD @ 100ms (N)'),
               ),
@@ -243,8 +278,8 @@ class StarterProfessionalAssessments extends FormBase {
 
                 $form['form_fields_wrap']['ue_power']['power'] = array (
                   '#type' => 'textfield',
-                  #'#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#default_value' => $field_power_w_ssm_ipe,
+                  #'#required' => $required,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -260,8 +295,8 @@ class StarterProfessionalAssessments extends FormBase {
                 
                 $form['form_fields_wrap']['ue_power_spm']['power_spm'] = array (
                   '#type' => 'textfield',
-                 # '#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#default_value' => $field_power_w_spm_ipe,
+                  #'#required' => $required,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -275,8 +310,8 @@ class StarterProfessionalAssessments extends FormBase {
                 );
                 $form['form_fields_wrap']['ue_power_rm']['power_rm'] = array (
                   '#type' => 'textfield',
-                  #'#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#default_value' => $field_power_w_rm_ipe,
+                  #'#required' => $required,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -292,8 +327,8 @@ class StarterProfessionalAssessments extends FormBase {
 
                  $form['form_fields_wrap']['strength_endurance']['repetitions'] = array (
                   '#type' => 'textfield',
-                  #'#title' => t('Repetitions (#)'),
-                  '#required' => $required,
+                  '#default_value' => $field_repetitions_se_ipe,
+                  #'#required' => $required,
                   '#attributes' => array(
                     'placeholder' => t('Repetitions (#)'),
                   ),
@@ -309,8 +344,8 @@ class StarterProfessionalAssessments extends FormBase {
 
                  $form['form_fields_wrap']['change_of_direction']['power_ch'] = array (
                   '#type' => 'textfield',
-                  #'#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#default_value' => $field_power_w_cfd_ipe,
+                  #'#required' => $required,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -356,16 +391,40 @@ class StarterProfessionalAssessments extends FormBase {
              '#value' => $nid,
             );
 
+
+
             $form['actions']['#type'] = 'actions';
             $form['actions']['draft'] = array(
               '#type' => 'submit',
               '#value' => $this->t('SAVE - INCOMPLETE'),
               '#button_type' => 'primary',
+               '#ajax' => [
+                  'callback' => '::submitForm', // don't forget :: when calling a class method.
+                  //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+                  'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggeringuse Drupal\Core\Ajax\HtmlCommand; element.
+                  'event' => 'click',
+                  'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+                  'progress' => [
+                    'type' => 'throbber',
+                    'message' => $this->t('Verifying entry...'),
+                  ],
+                ]
             );
             $form['actions']['submit'] = array(
               '#type' => 'submit',
               '#value' => $this->t('SAVE - ALL FIELDS COMPLETED'),
               '#button_type' => 'primary',
+               '#ajax' => [
+                  'callback' => '::submitForm', // don't forget :: when calling a class method.
+                  //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+                  'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+                  'event' => 'click',
+                  'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+                  'progress' => [
+                    'type' => 'throbber',
+                    'message' => $this->t('Verifying entry...'),
+                  ],
+                ]
             );
 
             return $form;
@@ -378,7 +437,7 @@ class StarterProfessionalAssessments extends FormBase {
    * {@inheritdoc}
    */
     public function validateForm(array &$form, FormStateInterface $form_state) {
-
+    
     }
 
   /**
@@ -386,12 +445,17 @@ class StarterProfessionalAssessments extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
         $param = \Drupal::request()->query->all();
+        $triggerElement = $form_state->getTriggeringElement();
         if(!empty($param)){
-          $nid = $param['nid'];
-          $formtype = $param['formtype'];
-          $Assess_type = $param['Assess_type'];  
+           $nid = $param['nid'];
+           $formtype = $param['formtype'];
+           $Assess_type = $param['Assess_type'];
+           $booked_id = $param['booked_id'];
+           $st = $param['st']; 
+           $assess_nid = $param['assess_nid'];
         } 
-    		$triggerElement = $form_state->getTriggeringElement();
+
+    		
         //current user
         $current_user = \Drupal::currentUser();
         $user_id = $current_user->id();
@@ -402,11 +466,16 @@ class StarterProfessionalAssessments extends FormBase {
   	  	 	$form_data[$key] = $value;
   	  	}
         
-        //insert
-        $node = Node::create([
-           'type' => 'athlete_assessment_info',
-           'title' => $form_data['starter_weight_rea_str'],
-        ]);  
+        if(!empty($assess_nid) && $st == 1){
+          //update here
+          $node = Node::load($assess_nid);
+        }else{
+          //insert insert here
+          $node = Node::create([
+             'type' => 'athlete_assessment_info',
+          ]); 
+        } 
+        $node->set('title', $form_data['starter_weight_rea_str']);
         $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
         $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
         $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
@@ -431,16 +500,73 @@ class StarterProfessionalAssessments extends FormBase {
         $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
         //user target id 
         $node->set('field_user', ['target_id' => $user_id]);
-  	  	if(isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-draft'){
-  	  		// if "SAVE - INCOMPLETE" button trigger
-          $node->set('field_status', 'incomplete');
-  	  	}
-  	  	if (isset($triggerElement['#id']) && $triggerElement['#id'] == 'edit-submit') {
-  	  		// if "SAVE - ALL FIELDS COMPLETED" trigger
-            $node->set('field_status', 'complete'); 
-  	  	}
-  	  	$node->setPublished(TRUE);
-        $node->save();
+  	  
+      if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-submit') !== false) { 
+            // if "SAVE - ALL FIELDS COMPLETED" trigger
+            $node->set('field_status', 'complete');
+           if (!$form_state->getValue('starter_jump_height_rea_str') || empty($form_state->getValue('starter_jump_height_rea_str'))) {
+              $message = '<p style="color:red;">"Jump Height (ln)" Required</p>';
+           }
+           elseif(!$form_state->getValue('starter_weight_rea_str') || empty($form_state->getValue('starter_weight_rea_str'))){
+            $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
+           }
+           elseif(!$form_state->getValue('starter_rsi_rea_str') || empty($form_state->getValue('starter_rsi_rea_str'))){
+             $message = '<p style="color:red;">"RSI" Required</p>';
+           }
+           elseif(!$form_state->getValue('starter_jump_height_ela_str') || empty($form_state->getValue('starter_jump_height_ela_str'))){
+             $message = '<p style="color:red;">"Jump Height (ln)" Required</p>';
+           }
+           elseif(!$form_state->getValue('starter_peak_pro_ela_str') || empty($form_state->getValue('starter_peak_pro_ela_str'))){
+             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required</p>';
+           }
+            elseif(!$form_state->getValue('starter_peak_power_ela_str') || empty($form_state->getValue('starter_peak_power_ela_str'))){
+             $message = '<p style="color:red;">"Peak Power (W)" Required</p>';
+           }
+            elseif(!$form_state->getValue('starter_jump_height_ballistic') || empty($form_state->getValue('starter_jump_height_ballistic'))){
+             $message = '<p style="color:red;">"Jump Height (ln)" Required</p>';
+           }
+            elseif(!$form_state->getValue('starter_peak_pro_ballistic') || empty($form_state->getValue('starter_peak_pro_ballistic'))){
+             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required</p>';
+           }
+            elseif(!$form_state->getValue('starter_10m') || empty($form_state->getValue('starter_10m'))){
+             $message = '<p style="color:red;">"10 M Time (sec)" Required</p>';
+           }
+            elseif(!$form_state->getValue('starter_40m') || empty($form_state->getValue('starter_40m'))){
+             $message = '<p style="color:red;">"40 M Time (sec)" Required</p>';
+           }
+           elseif(!$form_state->getValue('starter_peak_for_max') || empty($form_state->getValue('starter_peak_for_max'))){
+             $message = '<p style="color:red;">"Peak Force (N)" Required</p>';
+           }elseif(!$form_state->getValue('starter_rfd_max') || empty($form_state->getValue('starter_rfd_max'))){
+             $message = '<p style="color:red;">"RFD @ 100ms (N)" Required</p>';
+           }
+           else{
+             $message = 'Saved successfully!';
+              $node->setPublished(TRUE);
+              $node->save(); 
+           }
+      }
 
+      if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-draft') !== false ) {
+          // if "SAVE - INCOMPLETE" button trigger
+           if(!$form_state->getValue('starter_weight_rea_str') || empty($form_state->getValue('starter_weight_rea_str'))){
+              $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
+           }else{
+              $node->set('field_status', 'incomplete');
+              $message = 'Saved successfully!';
+              $node->setPublished(TRUE);
+              $node->save();
+           }  
+      }
+
+      // for success message show
+      $response = new AjaxResponse();
+      $response->addCommand(
+        new HtmlCommand(
+          '.result_message',
+          '<div class="success_message">'.$message.'</div>'
+        )
+      );
+      return $response;
    }
+
 }

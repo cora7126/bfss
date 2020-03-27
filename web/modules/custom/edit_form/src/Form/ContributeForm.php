@@ -127,7 +127,7 @@ class ContributeForm extends FormBase {
 		$cityresults1 = $cityquery1->execute()->fetchAssoc();
 		$city=$cityresults1['field_state_value'];
 	}else{
-		$city=$results18['field_city'];
+		$city=$results18['field_az'];
 	}
 	//print $city;die;
 	/* 

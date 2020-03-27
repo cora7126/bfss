@@ -24,12 +24,18 @@ class AssessmentEvent extends ControllerBase {
             $query1->condition('type', 'athlete_assessment_info');
             $query1->condition('field_booked_id',$booked_id, 'IN');
             $nids1 = $query1->execute();
+
             if(!empty($nids1)){
+          
                foreach ($nids1 as $key => $value) {
+                 $assess_nid = $value;
                  $node1 = Node::load($value);
                  $field_status = $node1->field_status->value;
+                 
               } 
+              $st = 1;
             }else{
+               $assess_nid = '';
                $field_status = 'No Show';
                $st = 0;
             }
@@ -70,11 +76,12 @@ class AssessmentEvent extends ControllerBase {
               'assessment_title'  => $assessment_title,
               'status' => $field_status,
               'sport' => $sport,
+              'st' => $st,
+              'assess_nid' => $assess_nid,
         		);	
         	}
         
         $header = array(
-          #array('data' => t('booked_id'), 'field' => 'booked_id'),
           array('data' => t('Name'), 'field' => 'user_name'),
           array('data' => t('sport'), 'field' => 'sport'),
           array('data' => t('Status'), 'field' => 'status'),
@@ -86,10 +93,12 @@ class AssessmentEvent extends ControllerBase {
         $type = $item['formtype'];
         $Assesstype = $item['Assess_type'];
         $booked_id = $item['booked_id'];
-        //$url = 'starter-professional-assessments?nid='.$item['nid'].'&formtype='.$item['formtype'].'&Assess_type='.$item['Assess_type'].'&booked_id='.$item['booked_id'].'&st='.$st;
-        $user_name = Markup::create('<a class="form-modal-fn" data-nid="'.$nid.'" data-formtype="'.$type.'" data-Assesstype="'.$Assesstype.'" data-booked_id="'.$booked_id.'">'.$item['user_name'].'</a>');
+        $st = $item['st'];
+        $user_name = $item['user_name'];
+        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
+       
+        $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
         $rows[] = array(
-          #'booked_id' => $item['booked_id'],
           'user_name' => $user_name,
           'sport' => $item['sport'],
           'status' => $item['status'],
