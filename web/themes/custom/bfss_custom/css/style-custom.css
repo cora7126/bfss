@@ -339,6 +339,19 @@ span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
 .user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;}
 .user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:18px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:20px 40px;}
+.user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#6d6e72;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#ffffff;font-weight:400;font-size:14px;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a:hover, .user_pro_block .block-bfss-assessors .table-responsive table thead th a:focus{text-decoration:none;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 10px;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#f76907;}
+.user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
+.user_pro_block .block-bfss-assessors .pager-nav .pagination > .active > a{background-color:#f76907;color:#fff;border-color:#f76907;}
+.user_pro_block .block-bfss-assessors .pager-nav .pagination li{margin:0 2px;}
+.user_pro_block .block-bfss-assessors .pager-nav .pagination li > a{color:#000;background-color:#F1F3F2;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-size:13px;text-transform:capitalize;}
+
+
 .assessors_sub.user-submit-button{bottom:-60px;}
 
 #assessor_popup_form{background:rgba(0,0,0,.7);}
@@ -361,10 +374,11 @@ span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
 .sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{padding:0;font-size:14px;line-height:18px;width:100%;float:left;display:block;margin:0;}
 .sm_cls .form-item.js-form-item.panel .panel-body{padding:0;width:100%;float:left;display:block;}
 
-.accessorform_inner form .form-actions.js-form-wrapper{margin:20px 0 30px;width:100%;float:left;display:block;}
-.accessorform_inner form .form-actions.js-form-wrapper button{display:inline-block;height:40px;padding:10px 12px;font-size:14px;line-height:18px;margin:0;}
-.accessorform_inner form .form-actions.js-form-wrapper button#edit-draft{float:left;background:#F36900;border-color:#F36900;}
-.accessorform_inner form .form-actions.js-form-wrapper button#edit-submit{float:right;background:#105714;border-color:#105714;}
+.drupal-assess-fm .modal-footer{margin:20px 50px 30px;width:calc(100% - 100px);float:left;display:block;padding:0;}
+.drupal-assess-fm .modal-footer .modal-buttons{margin:0;width:100%;float:left;display:block;}
+.drupal-assess-fm .modal-footer button{display:inline-block;height:40px;padding:10px 12px;font-size:14px;line-height:18px;margin:0;}
+.drupal-assess-fm .modal-footer button:first-child{float:left;background:#F36900;border-color:#F36900;}
+.drupal-assess-fm .modal-footer button:last-child{float:right;background:#105714;border-color:#105714;}
 .accessorform_inner form .form-control{margin:0;border-radius:0;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
@@ -383,4 +397,19 @@ span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
-#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn,{color: #f76907;cursor: pointer;}
+#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color: #f76907;cursor: pointer;}
+
+ul.dropdown-menu.open li.active {
+	text-decoration: none;
+	background-color: #f76907;
+	color: #fff;
+}
+
+ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important; }
+.result_message {
+    width: 100%;
+    text-align: center;
+    /* border: 1px solid #000; */
+    color: green;
+    font-size: 16px;
+}

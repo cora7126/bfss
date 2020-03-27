@@ -240,7 +240,7 @@ class IndividualEleteAssessment extends FormBase {
                 $form['form_fields_wrap']['elete']['ue_power']['power'] = array (
                   '#type' => 'textfield',
                   #'#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#required' => FALSE,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -257,7 +257,7 @@ class IndividualEleteAssessment extends FormBase {
                 $form['form_fields_wrap']['elete']['ue_power_spm']['power_spm'] = array (
                   '#type' => 'textfield',
                  # '#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#required' => FALSE,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -272,7 +272,7 @@ class IndividualEleteAssessment extends FormBase {
                 $form['form_fields_wrap']['elete']['ue_power_rm']['power_rm'] = array (
                   '#type' => 'textfield',
                   #'#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#required' => FALSE,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -289,7 +289,7 @@ class IndividualEleteAssessment extends FormBase {
                  $form['form_fields_wrap']['elete']['strength_endurance']['repetitions'] = array (
                   '#type' => 'textfield',
                   #'#title' => t('Repetitions (#)'),
-                  '#required' => $required,
+                  '#required' => FALSE,
                   '#attributes' => array(
                     'placeholder' => t('Repetitions (#)'),
                   ),
@@ -306,7 +306,7 @@ class IndividualEleteAssessment extends FormBase {
                  $form['form_fields_wrap']['elete']['change_of_direction']['power_ch'] = array (
                   '#type' => 'textfield',
                   #'#title' => t('Power (W)'),
-                  '#required' => $required,
+                  '#required' => FALSE,
                   '#attributes' => array(
                     'placeholder' => t('Power (W)'),
                   ),
@@ -316,46 +316,46 @@ class IndividualEleteAssessment extends FormBase {
 
              //hidden fields
 
-            if($formtype == 'elete'){  
-             $formtype_val = 'elete';
-            }elseif($formtype == 'starter'){
-             $formtype_val = 'starter';
-            }else{
-              $formtype_val = '';
-            }
+            // if($formtype == 'elete'){  
+            //  $formtype_val = 'elete';
+            // }elseif($formtype == 'starter'){
+            //  $formtype_val = 'starter';
+            // }else{
+            //   $formtype_val = '';
+            // }
 
-            if($Assess_type == 'individual'){  
-             $Assess_type_val = 'individual';
-            }elseif($Assess_type == 'private'){
-             $Assess_type_val = 'private';
-            }else{
-              $Assess_type_val = '';
-            }
+            // if($Assess_type == 'individual'){  
+            //  $Assess_type_val = 'individual';
+            // }elseif($Assess_type == 'private'){
+            //  $Assess_type_val = 'private';
+            // }else{
+            //   $Assess_type_val = '';
+            // }
 
             $form['assessment_type'] = array(
              '#type' => 'hidden',
-             '#value' => 'individual',
+             '#value' => '',
              '#prefix' => '<div id="assessment_type_hd">',
               '#suffix' => '</div>',
             );
 
             $form['form_type'] = array(
              '#type' => 'hidden',
-             '#value' => $formtype_val,
+             '#value' => '',
               '#prefix' => '<div id="form_type_hd">',
               '#suffix' => '</div>',
             );
 
             $form['booked_id'] = array(
             '#type' => 'hidden',
-            '#value' => $booked_id,
+            '#value' => '',
             '#prefix' => '<div id="booked_id_hd">',
             '#suffix' => '</div>',
             );
             
              $form['athelete_nid'] = array(
              '#type' => 'hidden',
-             '#value' => $nid,
+             '#value' => '',
              '#prefix' => '<div id="athelete_nid_hd">',
              '#suffix' => '</div>',
             );

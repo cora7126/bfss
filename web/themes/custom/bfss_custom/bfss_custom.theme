@@ -48,6 +48,25 @@ function bfss_custom_preprocess_page(&$variables) {
   }
   
  $variables['current_path'] = $current_path;
+	$current_user = \Drupal::currentUser()->id();
+	$query18 = \Drupal::database()->select('athlete_web', 'md');
+	$query18->fields('md');
+	$query18->condition('athlete_uid', $current_user, '=');
+	$query18->condition('athlete_web_type', 1, '=');
+	$results18 = $query18->execute()->fetchAssoc();
+	
+	if(empty($results18)){
+		$variables['athelete_pro'] = '#';
+		
+	}else{
+		if($results18['athlete_web_name'] == ''){
+			$variables['athelete_pro'] = '#';
+		}else{
+			$variables['athelete_pro'] = '/users/'.$results18['athlete_web_name'];
+			//print $results18['athlete_web_name'];die;
+		}
+	}
+ 
 }
 
 function bfss_custom_preprocess_user(&$variables) {

@@ -1,3 +1,6 @@
 .acme-hello-text {
     background-color: #dedede;
 }
+.datainfo{color:#000;text-decoration:none}
+.datainfo:hover{color:#ffd537;text-decoration:none}
+.quick-link-sub-sec:hover a{color:#ffd537}
