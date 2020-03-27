@@ -24,3 +24,6 @@ regions:
 libraries-extend:
   bootstrap/framework:
     - bfss_custom/framework
+    
+libraries:
+  - bfss_custom/date-picker

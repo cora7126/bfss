@@ -307,9 +307,9 @@
                      <div class="dropdown">
                         <a class="drop" href="#"><i class="fal fa-calendar-alt"></i><span class="side_menu_text">Calender-View & Book</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li><a href="/upcoming-group-assessments"> Upcoming Group Assessments </a></li>
-                           <li><a href="/assessment/type"> Book a Private Assessment</a></li>
-                           <li><a href="/appointments/scheduled">My Scheduled Assessment</a></li>
+                           <li {% if current_path == "/upcoming-group-assessments" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/upcoming-group-assessments"> Upcoming Group Assessments </a></li>
+                           <li {% if current_path == "/assessment/type" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/assessment/type"> Book a Private Assessment</a></li>
+                           <li {% if current_path == "/appointments/scheduled" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/appointments/scheduled">My Scheduled Assessment</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -324,8 +324,8 @@
                         <a class="drop" href="/bfssAthleteProfile"><i class="far fa-chart-network"></i><span class="side_menu_text">Athletic Profile</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
-                           <li><a href="/bfssAthleteProfile">Edit My Athletic Profile </a></li>
-                           <li><a href="#">View My Webpage</a></li>
+                           <li {% if current_path == "/bfssAthleteProfile" %} class="sub_menu active"{% else %}class=""{% endif %}><a class="side_button"  href="/bfssAthleteProfile"><span class="side_menu_text bfssAthleteProfile">Edit My Athletic Profile</span> </a></li>
+                           <li><a href="{{athelete_pro}}">View My Webpage</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -338,7 +338,7 @@
                      <div class="dropdown">
                         <a class="drop" href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li><a href="/faqs"> FAQs </a></li>
+                           <li {% if current_path == "/faqs" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/faqs"> FAQs </a></li>
                            <li><a href="#">Ticketing</a></li>
                         </ul>
                      </div>

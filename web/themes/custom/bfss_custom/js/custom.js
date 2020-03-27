@@ -181,7 +181,7 @@ var img = jQuery(this).children('img');
 					jQuery('span.changepassdiv-modal-close.spb_close').click();
 		});
         //$('#cssmenu').prepend('<div id="menu-button">Menu</div>');
-        $('#cssmenu #menu-button').on('click', function() {
+        jQuery('#cssmenu #menu-button').on('click', function() {
 
             if ($(window).width() < 420) {
                 $('body').toggleClass('open_left_side_mobile');
@@ -193,12 +193,12 @@ var img = jQuery(this).children('img');
             }
 
         });
-        $( window ).resize(function() {
-          if ($(window).width() < 420) {
-            $('body').removeClass('open_left_side');
+        jQuery( window ).resize(function() {
+          if (jQuery(window).width() < 420) {
+            jQuery('body').removeClass('open_left_side');
           }
           else{
-            $('body').removeClass('open_left_side_mobile');
+            jQuery('body').removeClass('open_left_side_mobile');
           }
         });
         /* 21-02-2020 */
@@ -381,9 +381,9 @@ var img = jQuery(this).children('img');
         }); */
         jQuery('#spb-imagepopup .imagepopup-modal').find('.spb-controls').children('.spb_close').html('submit').addClass('submit_btn');
         jQuery('#spb-changepassdiv .changepassdiv-modal').find('.spb-controls').children('.spb_close').hide();
-        $('#changepassdiv').find('#save_pass').addClass('change_password_button');
+        jQuery('#changepassdiv').find('#save_pass').addClass('change_password_button');
     });
-    var athelet = $(".dashboard .athelet_form_content").html();
+    var athelet = jQuery(".dashboard .athelet_form_content").html();
     // console.log("athelet", athelet);
     // $('.dashboard #athelets-modal .modal-body').html('');
     // $('.dashboard #athelets-modal .modal-body').html(athelet);
@@ -393,12 +393,12 @@ var img = jQuery(this).children('img');
             // keyboard: false
         // })
     // });
-    $(document).on("click", "#athelets-modal .fa-trash-alt", function(){
-        $(this).parents(".card").hide();
+    jQuery(document).on("click", "#athelets-modal .fa-trash-alt", function(){
+        jQuery(this).parents(".card").hide();
     });
-    var position_html = $(".position_div").html();
-    $(document).on("click", "#athelets-modal button.bg-transparent", function(){
-        $(this).parents(".card").find(".actions").before(position_html);
+    var position_html =jQuery(".position_div").html();
+    jQuery(document).on("click", "#athelets-modal button.bg-transparent", function(){
+        jQuery(this).parents(".card").find(".actions").before(position_html);
     });
    
 })(jQuery);
@@ -406,7 +406,7 @@ var img = jQuery(this).children('img');
     jQuery('.tab-main-sec').after(footer_content);
     
      jQuery(".athlete_form_submit .form-submit").click(function(){
-     $("#accordion").find('form').submit();
+     jQuery("#accordion").find('form').submit();
 });
      var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Edit Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>EDIT</span><br>Profile</h2></div></div>");
      jQuery('.edit-user .edit-form').before(header_html);
@@ -501,18 +501,18 @@ var img = jQuery(this).children('img');
 	   }
 	});
 
-   $(document).ready(function(){
-   $('.dropdown > a').click(function(e){
+   jQuery(document).ready(function(){
+   jQuery('.dropdown > a').click(function(e){
      e.preventDefault();
      e.stopPropagation();
-     $(this).siblings('.dropdown-menu').toggleClass('open');
-     $(this).find('.down-arrow').toggleClass('open-caret');
+     jQuery(this).siblings('.dropdown-menu').toggleClass('open');
+     jQuery(this).find('.down-arrow').toggleClass('open-caret');
 
    });
 
-   $(document).click(function(){
-       $('.dropdown-menu').removeClass('open');
-       $('.down-arrow').removeClass('open-caret');  
+  jQuery(document).click(function(){
+     jQuery('.dropdown-menu').removeClass('open');
+       jQuery('.down-arrow').removeClass('open-caret');  
      });
    });
    

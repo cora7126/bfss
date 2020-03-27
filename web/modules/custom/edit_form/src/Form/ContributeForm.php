@@ -118,6 +118,25 @@ class ContributeForm extends FormBase {
     $query18->fields('md');
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
+	
+
+	if(empty($results18)){
+		$cityquery1 = \Drupal::database()->select('user__field_state', 'ufln');
+		$cityquery1->addField('ufln', 'field_state_value');
+		$cityquery1->condition('entity_id', $current_user, '=');
+		$cityresults1 = $cityquery1->execute()->fetchAssoc();
+		$city=$cityresults1['field_state_value'];
+	}else{
+		$city=$results18['field_az'];
+	}
+	//print $city;die;
+	/* 
+	if($count_data_num_results>0){
+		
+	}else{
+		
+	} */
+	//print $count_data_num_results;die;
    // $img_id = 357;
     $img_id = $results['athlete_target_image_id'];
     // echo "<pre>"; print_r($results8['field_state_value']);die;
@@ -135,23 +154,28 @@ class ContributeForm extends FormBase {
       //'#default_values' => array(array('id')),
       '#default_value' => $results1['field_first_name_value'],
       '#prefix' => '<div class="left_section popup_left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information</h3><div class=items_div>',
+	  '#required' => TRUE,
       );
     $form['lname'] = array(
       '#type' => 'textfield',
       // '#title' => t('Mobile Number:'),
       '#placeholder' => t('Lastname'),
       '#default_value' => $results2['field_last_name_value'],
+	  '#required' => TRUE,
       );
     $form['email'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Preferred Contact Email'),
       '#default_value' => $results4['mail'],
+	  '#required' => TRUE,
       );
+	     $states = getStates();
     $form['az'] = array(
       //'#title' => t('az'),
       '#type' => 'select',
       //'#description' => 'Select the desired pizza crust size.',
-      '#options' => array(
+	  '#options'=>$states,
+      /*'#options' => array(
         t('AL'),
         t('AK'),
         t('AZ'),
@@ -201,13 +225,14 @@ class ContributeForm extends FormBase {
         t('WA'),
         t('WV'),
         t('WI'),
-        t('WY')),
-      '#default_value' => $results18['field_az'],
+        t('WY')),*/
+      '#default_value' => $city,
+	  '#required' => TRUE,
       );
     $form['city'] = array(
       '#type' => 'textfield',
       //'#title' => t('City'),
-      // '#required' => TRUE,
+       '#required' => TRUE,
       '#placeholder' => t('City'),
       '#default_value' => $results18['field_city'],
       );
@@ -222,14 +247,18 @@ class ContributeForm extends FormBase {
         t('Female'),
         t('Other')),
       '#default_value' => $results7['athlete_state'],
+	  '#required' => TRUE,
       );
+	//  print DatePopup::class;die;
     $form['doj'] = array(
       //'#title' => 'Date of Birth',
       '#placeholder' => 'Date of Birth',
-      '#type' => 'date',
+      '#type' => 'textfield',
       //'#type' => 'date_popup',
      // '#attributes' => ['class' => ['container-inline']],
-     // '#attributes' => ['class' => ['date-popup']],
+     //'#attributes' => ['class' => 'date_popup'],
+	 //'#attributes' => array('class' => 'date_popup'),
+	 '#attributes' => array('id' => array('datepicker')),
       '#required' => true,
       '#default_value' => substr($results3['field_date_value'], 0, 10),
       '#format' => 'm/d/Y',
@@ -237,27 +266,27 @@ class ContributeForm extends FormBase {
       //'#attributes' => array('disabled' => true),
       );
 
-
-
- 
 	  
     $form['grade'] = array(
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Grade'),
       '#default_value' => $results7['athlete_city'],
+	  '#required' => TRUE,
       );
     $form['gradyear'] = array(
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Graduation Year'),
       '#default_value' => $results7['athlete_year'],
+	  '#required' => TRUE,
       );
     $form['height'] = array(
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Height in Inches'),
       '#default_value' => $results7['field_height'],
+	  '#required' => TRUE,
       );
     $form['weight'] = array(
       '#type' => 'textfield',
@@ -265,6 +294,7 @@ class ContributeForm extends FormBase {
       '#placeholder' => t('Weight in Pounds'),
       '#default_value' => $results7['field_weight'],
       '#suffix' => '</div></div>',
+	  '#required' => TRUE,
       );
     $form['aboutme'] = array(
       '#type' => 'textarea',
@@ -1327,6 +1357,114 @@ class ContributeForm extends FormBase {
     // $form_state->setRedirect('acme_hello');
     // return;
   }
+}
+
+function getStates() {
+	return $st=array(
+      'AL'=>  t('AL'),
+      'AK'=>  t('AK'),
+      'AZ'=>  t('AZ'),
+       'AR'=> t('AR'),
+      'CA'=>  t('CA'),
+      'CO'=>   t('CO'),
+      'CT'=>    t('CT'),
+       'DE'=>    t('DE'),
+     'DC'=>      t('DC'),
+       'FL'=>    t('FL'),
+        'GA'=>     t('GA'),
+   'HI'=>     t('HI'),
+     'ID'=>    t('ID'),
+       'IL'=>   t('IL'),
+       'IN'=> t('IN'),
+       'IA'=> t('IA'),
+      'KS'=>  t('KS'),
+       'KY'=> t('KY'),
+       'LA'=> t('LA'),
+       'ME'=> t('ME'),
+       'MT'=> t('MT'),
+       'NE'=> t('NE'),
+       'NV'=> t('NV'),
+       'NH'=> t('NH'),
+       'NJ'=> t('NJ'),
+       'NM'=> t('NM'),
+       'NY'=> t('NY'),
+       'NC'=> t('NC'),
+        'ND'=>t('ND'),
+       'OH'=> t('OH'),
+        'OR'=>t('OR'),
+       'MD'=> t('MD'),
+       'MA'=> t('MA'),
+       'MI'=> t('MI'),
+        'MN'=>t('MN'),
+        'MS'=>t('MS'),
+       'MO'=> t('MO'),
+       'PA'=> t('PA'),
+       'RI'=> t('RI'),
+       'SC'=> t('SC'),
+        'SD'=>t('SD'),
+       'TN'=> t('TN'),
+        'TX'=>  t('TX'),
+         'UT'=> t('UT'),
+        'VT'=>  t('VT'),
+        'VA'=>  t('VA'),
+         'WA'=> t('WA'),
+         'WV'=> t('WV'),
+        'WI'=>  t('WI'),
+        'WY'=>  t('WY'));
+	
+  /*return [
+    'AL' => 'Alabama',
+    'AK' => 'Alaska',
+    'AZ' => 'Arizona',
+    'AR' => 'Arkansas',
+    'CA' => 'California',
+    'CO' => 'Colorado',
+    'CT' => 'Connecticut',
+    'DE' => 'Delaware',
+    'DC' => 'District of Columbia',
+    'FL' => 'Florida',
+    'GA' => 'Georgia',
+    'HI' => 'Hawaii',
+    'ID' => 'Idaho',
+    'IL' => 'Illinois',
+    'IN' => 'Indiana',
+    'IA' => 'Iowa',
+    'KS' => 'Kansas',
+    'KY' => 'Kentucky',
+    'LA' => 'Louisiana',
+    'ME' => 'Maine',
+    'MT' => 'Montana',
+    'NE' => 'Nebraska',
+    'NV' => 'Nevada',
+    'NH' => 'New Hampshire',
+    'NJ' => 'New Jersey',
+    'NM' => 'New Mexico',
+    'NY' => 'New York',
+    'NC' => 'North Carolina',
+    'ND' => 'North Dakota',
+    'OH' => 'Ohio',
+    'OK' => 'Oklahoma',
+    'OR' => 'Oregon',
+	'MD'=>'Maryland',
+	'MA'=>'Massachusetts',
+	'MI'=>'Michigan',
+	'MN'=>'Minnesota',
+	'MS'=>'Mississippi',
+	'MO'=>'Missouri',
+	'PA'=>'Pennsylvania',
+	'RI'=>'Rhode Island',
+	'SC'=>'South Carolina',
+	'SD'=>'South Dakota',
+	'TN'=>'Tennessee',
+	'TX'=>'Texas',
+	'UT'=>'Utah',
+	'VT'=>'Vermont',
+	'VA'=>'Virginia',
+	'WA'=>'Washington',
+	'WV'=>'West Virginia',
+	'WI'=>'Wisconsin',
+	'WY'=>'Wyoming',
+  ];*/
 }
 
 ?>
