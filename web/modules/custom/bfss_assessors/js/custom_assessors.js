@@ -7,9 +7,7 @@ jQuery(document).ready(function(){
  	var $formtype = jQuery(this).data('formtype');
  	var $Assess_type = jQuery(this).data('assesstype');
  	var $booked_id = jQuery(this).data('booked_id');
-	 console.log($formtype);	
-	// console.log($Assess_type);
-	// console.log("h21331");
+	 
  	if($formtype == 'starter' ){
      	jQuery('h2.el').css('display','none');
      	jQuery('h2.st').css('display','block');
@@ -28,6 +26,7 @@ jQuery(document).ready(function(){
 		 jQuery('div#form_type_hd input').val('starter');
 		 jQuery("div#for_elete input").prop('required',false);
 	}else if($formtype == 'elete'){
+		 jQuery('div#for_elete').css('display','block');
 		jQuery("div#for_elete input").prop('required',true);
 		 jQuery('div#form_type_hd input').val('elete');
 	}
@@ -38,9 +37,9 @@ jQuery(document).ready(function(){
 	}else if($Assess_type == 'private'){
 		 jQuery('div#assessment_type_hd input').val('private');
 	}
+
 	jQuery('div#athelete_nid_hd input').val($nid);
 	jQuery('div#booked_id_hd input').val($booked_id);
-	
 	jQuery("#assessor_popup_form").modal("show");
  
  });

@@ -82,8 +82,12 @@ class AssessmentEvent extends ControllerBase {
         $result = $this->_return_pager_for_array($result, 10);
       // Wrapper for rows
       foreach ($result as $item) {
-        $url = 'starter-professional-assessments?nid='.$item['nid'].'&formtype='.$item['formtype'].'&Assess_type='.$item['Assess_type'].'&booked_id='.$item['booked_id'].'&st='.$st;
-        $user_name = Markup::create('<a href="'.$url.'">'.$item['user_name'].'</a>');
+        $nid = $item['nid'];
+        $type = $item['formtype'];
+        $Assesstype = $item['Assess_type'];
+        $booked_id = $item['booked_id'];
+        //$url = 'starter-professional-assessments?nid='.$item['nid'].'&formtype='.$item['formtype'].'&Assess_type='.$item['Assess_type'].'&booked_id='.$item['booked_id'].'&st='.$st;
+        $user_name = Markup::create('<a class="form-modal-fn" data-nid="'.$nid.'" data-formtype="'.$type.'" data-Assesstype="'.$Assesstype.'" data-booked_id="'.$booked_id.'">'.$item['user_name'].'</a>');
         $rows[] = array(
           #'booked_id' => $item['booked_id'],
           'user_name' => $user_name,

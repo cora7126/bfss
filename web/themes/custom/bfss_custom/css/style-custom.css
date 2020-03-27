@@ -383,7 +383,4 @@ span.side_menu_text.dashboard {color: #fff;font-size: 14px;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
-#block-privateaccessmentsblock a.form-modal-fn {
-    color: #f76907;
-    cursor: pointer;
-}
+#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn,{color: #f76907;cursor: pointer;}

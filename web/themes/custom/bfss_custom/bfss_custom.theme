@@ -46,7 +46,8 @@ function bfss_custom_preprocess_page(&$variables) {
   }else{
     $variables['user_role'] = 0;
   }
-
+  
+ $variables['current_path'] = $current_path;
 }
 
 function bfss_custom_preprocess_user(&$variables) {
