@@ -41,7 +41,7 @@ class MultistepFourForm extends MultistepFormBase {
     $form['#attributes']['class'][] = 'parent';
     $form['instruction'] = [
       '#type' => 'markup',
-      '#markup' => $this->t('<h3>Please add your payment details to continue.</h3>'),
+      '#markup' => $this->t('<h3>Please add your payment details to continue.</h3><h3 class="cc-info">Credit card information</h3>'),
     ];
     #credit card
     $form['name_on_card'] = array(

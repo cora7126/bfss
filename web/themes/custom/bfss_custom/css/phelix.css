@@ -637,6 +637,10 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   font-size: 14px !important;
 }
 
+#edit-previous {
+  float: left;
+}
+
 .wrapper #edit-submit {
   float: left !important;
 }
@@ -658,8 +662,11 @@ a.side_button:hover {
 }
 
 .mob_bottom_margin .quick-link-sub-sec p,
-.quick-link-sub-sec p {
-  font-size: 14px !important;
+.quick-link-sub-sec p,
+#sidenav > ul > li nav div a span.side_menu_text,
+#sidenav > ul > li.sub_menu.active > a > span,
+#sidenav > ul > li nav div ul li a {
+  font-size: 16px !important;
 }
 
 .quick-link-sub-sec i {
@@ -686,4 +693,57 @@ a.side_button:hover {
 
 .timing span {
   bottom: 10px !important;
+}
+
+.sidenav ul.dropdown-menu.open li a {
+  padding: 10px 15px 10px 25px !important;
+}
+
+#sidenav ul li nav div ul li.sub_menu.active > a {
+  padding: 10px 15px 10px 15px !important;
+}
+
+.pop_img_sec h2 {
+  font-size: 18px !important;
+  margin-bottom: 0 !important;
+}
+
+.pop_img_sec p {
+  font-size: 14px !important;
+}
+
+#dateofshow {
+  margin-top: 25px;
+}
+
+.cc-info, #multistep-form-four > h3:nth-child(8) {
+  margin-top: 30px;
+}
+
+body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.region-content > div > div.container > div > p {
+  position: relative;
+  top: 20px;
+  font-size: 16px;
+}
+
+.container-inline.web_name {
+  width: unset !important;
+}
+
+.weblabel {
+  width: unset !important;
+}
+
+.container-inline.web_name input, #name_1, #name_2, #name_3, #name_4 {
+  width: 120px !important;
+}
+
+.right_section .athlete_right .previewdiv a {
+  line-height: unset;
+}
+
+#athlete_submit button {
+  border: 0;
+  background-color: #f76907;
+  color: white;
 }
