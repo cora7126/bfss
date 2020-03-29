@@ -314,6 +314,33 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
   background-color: #f76907;
   color: white;
 }
+#sidenav > ul > li > nav > div > a.drop.active {
+  border-radius: 0 !important;
+}
+.faq-text-area {
+  font-family: "Proxima Nova Rg";
+  font-size: 16px;
+  margin:30px 0;
+}
+.faqct li.a {
+  border: 1px solid grey;
+}
+body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.region-content > div > div > h2 > span {
+  font-family: "Proxima Nova Rg";
+}
+a.change_pass,
+a.change_pass:hover {
+  color: #f76907;
+}
+.right_section .athlete_right {
+  border: 0 !important;
+}
+.profile-image-text {
+  font-family: "Proxima Nova Rg";
+  font-size: 14px;
+  margin:20px 0 0 0;
+}
+
 
 
 
