@@ -55,7 +55,7 @@ class StarterProfessionalAssessments extends FormBase {
                                       <div>
                                         <div id="accessorform">
                                             <div class="accessorform_inner">
-                                             <h2>'.$form_title.'</h2><ul class="st_lk">
+                                             <h2>'.$form_title.$param['assess_nid'].'</h2><ul class="st_lk">
                                               <li>EF-Equipment Failure</li>
                                               <li>Al-Athlete Injured</li>
                                               <li>ART-Athlete Refused Test</li>
@@ -454,7 +454,12 @@ class StarterProfessionalAssessments extends FormBase {
            $st = $param['st']; 
            $assess_nid = $param['assess_nid'];
         } 
-
+        //check node already exist
+        $query1 = \Drupal::entityQuery('node');
+        $query1->condition('type', 'athlete_assessment_info');
+        $query1->condition('field_booked_id',$booked_id, 'IN');
+        $nids1 = $query1->execute();
+        	
     		
         //current user
         $current_user = \Drupal::currentUser();
@@ -471,9 +476,11 @@ class StarterProfessionalAssessments extends FormBase {
           $node = Node::load($assess_nid);
         }else{
           //insert insert here
-          $node = Node::create([
-             'type' => 'athlete_assessment_info',
-          ]); 
+        	if(empty($nids1)){
+	          $node = Node::create([
+	             'type' => 'athlete_assessment_info',
+	          ]); 
+      		}
         } 
         $node->set('title', $form_data['starter_weight_rea_str']);
         $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
@@ -538,11 +545,23 @@ class StarterProfessionalAssessments extends FormBase {
              $message = '<p style="color:red;">"Peak Force (N)" Required</p>';
            }elseif(!$form_state->getValue('starter_rfd_max') || empty($form_state->getValue('starter_rfd_max'))){
              $message = '<p style="color:red;">"RFD @ 100ms (N)" Required</p>';
+           }elseif(empty($form_state->getValue('power')) && $formtype == 'elete'){
+             $message = '<p style="color:red;">"Power (W)" Required</p>';
+           }elseif(empty($form_state->getValue('power_spm')) && $formtype == 'elete'){
+             $message = '<p style="color:red;">"Power (W)" Required</p>';
+           }elseif(empty($form_state->getValue('power_rm')) && $formtype == 'elete'){
+             $message = '<p style="color:red;">"Power (W)" Required</p>';
+           }elseif(empty($form_state->getValue('repetitions')) && $formtype == 'elete'){
+             $message = '<p style="color:red;">"Repetitions (#)" Required</p>';
+           }elseif(empty($form_state->getValue('power_ch')) && $formtype == 'elete'){
+             $message = '<p style="color:red;">"Power (W)" Required</p>';
            }
            else{
              $message = 'Saved successfully!';
+             
               $node->setPublished(TRUE);
-              $node->save(); 
+              $node->save(); 	
+              
            }
       }
 

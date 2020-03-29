@@ -19,14 +19,16 @@ class AssessmentEvent extends ControllerBase {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
             $assess_id = $entity->assessment->value;
             $user_id = $entity->user_id->value;
+            $timestamp = $entity->time->value;
+            $assessment_title = $entity->assessment_title->value;
 
+            //check athlete_assessment_info info node
             $query1 = \Drupal::entityQuery('node');
             $query1->condition('type', 'athlete_assessment_info');
             $query1->condition('field_booked_id',$booked_id, 'IN');
             $nids1 = $query1->execute();
-
+        
             if(!empty($nids1)){
-          
                foreach ($nids1 as $key => $value) {
                  $assess_nid = $value;
                  $node1 = Node::load($value);
@@ -39,16 +41,16 @@ class AssessmentEvent extends ControllerBase {
                $field_status = 'No Show';
                $st = 0;
             }
-            
+
+            //sport
             $query5 = \Drupal::database()->select('athlete_school', 'ats');
             $query5->fields('ats');
             $query5->condition('athlete_uid', $user_id,'=');
             $results5 = $query5->execute()->fetchAssoc();            
             $sport = $results5['athlete_school_sport'];
 
-            $entity->assessment->value;
-            $timestamp = $entity->time->value;
-            $assessment_title = $entity->assessment_title->value;
+      
+
             $booking_date = date("Y/m/d",$timestamp);
             $booking_time = date("h:i:sa",$timestamp);
             if($entity->service->value == '199.99'){
@@ -61,14 +63,13 @@ class AssessmentEvent extends ControllerBase {
               $Assess_type = 'individual';
             }else{
               $Assess_type = 'private';
-            }
+             }
             
         		$result[] = array(
               'booked_id' => $booked_id,
         		  'id' => $entity->id->value,
               'user_name' => $entity->user_name->value,
-              'service' => $entity->service->value,
-              'nid' => $nid,
+              'nid' => $param['nid'],
               'formtype' => $formtype,
               'Assess_type' => $Assess_type,
               'booking_date'  => $booking_date,

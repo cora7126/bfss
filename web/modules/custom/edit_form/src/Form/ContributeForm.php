@@ -43,6 +43,8 @@ class ContributeForm extends FormBase {
       $link = $link->toRenderable();
       $link['#attributes'] = ['target' => '__blank', 'class' => ['button', 'previewButton'], ];
     }
+	
+	
 
     $conn = Database::getConnection();
     $query1 = \Drupal::database()->select('user__field_first_name', 'ufln');
@@ -101,6 +103,8 @@ class ContributeForm extends FormBase {
     $query_img = \Drupal::database()->select('athlete_prof_image', 'n');
     $query_img->addField('n', 'athlete_target_image_id');
     $query_img->condition('athlete_id', $current_user, '=');
+	$query_img->orderBy('athlete_prof_id', 'DESC');
+	$query_img->range(0, 1);
     $results = $query_img->execute()->fetchAssoc();
     $query15 = \Drupal::database()->select('athlete_addschool', 'aas');
     $query15->fields('aas');
@@ -1138,11 +1142,15 @@ class ContributeForm extends FormBase {
     $query3->addField('ufln3', 'field_date_value');
     $query3->condition('entity_id', $current_user, '=');
     $results3 = $query3->execute()->fetchAssoc();
-    if (empty($results_web)) {
+	$lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    if (empty($results3)) {
+		
         $conn->insert('user__field_date')->fields(array(
         'entity_id' => $current_user,
+        'bundle' => 'user',
         'revision_id' => $current_user,
         'delta' => 0,
+        'langcode' => $lang_code,
         'field_date_value' => $form_state->getValue('doj'),
         ))->execute();
     }
