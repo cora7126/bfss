@@ -25,11 +25,27 @@ class PopupForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
   $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
-    $query2 = \Drupal::database()->select('user__field_state', 'ufs');
+    /*$query2 = \Drupal::database()->select('user__field_state', 'ufs');
     $query2->addField('ufs', 'field_state_value');
     $query2->condition('entity_id', $current_user,'=');
     $results2 = $query2->execute()->fetchAssoc();
-    $state = $results2['field_state_value'];
+    $state = $results2['field_state_value'];*/
+	
+	$query18 = \Drupal::database()->select('mydata', 'md');
+    $query18->fields('md');
+    $query18->condition('uid', $current_user, '=');
+    $results18 = $query18->execute()->fetchAssoc();
+	
+
+	if(empty($results18)){
+		$cityquery1 = \Drupal::database()->select('user__field_state', 'ufln');
+		$cityquery1->addField('ufln', 'field_state_value');
+		$cityquery1->condition('entity_id', $current_user, '=');
+		$cityresults1 = $cityquery1->execute()->fetchAssoc();
+		$state=$cityresults1['field_state_value'];
+	}else{
+		$state=$results18['field_az'];
+	}
 	
     $query1 = \Drupal::database()->select('user__field_last_name', 'ufln');
     $query1->addField('ufln', 'field_last_name_value');
@@ -82,7 +98,7 @@ class PopupForm extends FormBase {
       '#type' => 'textfield',
       '#required' => TRUE,
       '#placeholder' => t('City'),
-      '#default_value' => '',
+      '#default_value' => $results18['field_city'],
 	  '#suffix' => '</div></div>',
       );
 

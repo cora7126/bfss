@@ -74,9 +74,9 @@ class test extends FormBase {
 	  '#attributes' => array('disabled'=>true),
       );
     if(in_array('assessors', $roles_user)){
-      $hd_title = "ASSESSORS\'s Information";
+      $hd_title = "ASSESSORS&#39;s Information";
     }else{
-      $hd_title = "ATHLETE\'s Information"; 
+      $hd_title = "ATHLETE&#39;s Information"; 
     }
 	$form['email'] = array(
       '#type' => 'textfield',
@@ -111,7 +111,8 @@ class test extends FormBase {
           '#placeholder' => t('Date joined'),
            '#suffix' => '</div></div>',
           '#default_value' => substr($results3['field_date_value'],0,10),
-          '#attributes' => array('disabled'=>true),
+         // '#attributes' => array('disabled'=>true),
+		 '#attributes' => array('id' => array('datepicker')),
         );
     }
 	  $form['organizationType'] = array(
@@ -410,6 +411,32 @@ class test extends FormBase {
 					}
                 
 				}
+				
+				
+	$query3 = \Drupal::database()->select('user__field_date', 'ufln3');
+    
+    $query3->addField('ufln3', 'field_date_value');
+    $query3->condition('entity_id', $current_user, '=');
+    $results3 = $query3->execute()->fetchAssoc();
+	$lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    if (empty($results3)) {
+		
+        $conn->insert('user__field_date')->fields(array(
+        'entity_id' => $current_user,
+        'bundle' => 'user',
+        'revision_id' => $current_user,
+        'delta' => 0,
+        'langcode' => $lang_code,
+        'field_date_value' => $form_state->getValue('date_joined'),
+        ))->execute();
+    }
+    else {
+        $conn->update('user__field_date')->condition('entity_id', $current_user, '=')->fields(array(
+        'field_date_value' => $form_state->getValue('date_joined'),
+        ))->execute();
+    }
+	
+				
     if(empty($results)){
     $conn->insert('user__field_mobile')->fields(
             array(
