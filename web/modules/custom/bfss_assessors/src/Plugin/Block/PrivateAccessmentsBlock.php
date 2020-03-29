@@ -22,10 +22,7 @@ class PrivateAccessmentsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
-  
-    	//assessment get by current assessors
-    $ele = 1;
+    //assessment get by current assessors
     $uid = \Drupal::currentUser();
     $user = \Drupal\user\Entity\User::load($uid->id());
     $roles = $user->getRoles();
@@ -37,72 +34,71 @@ class PrivateAccessmentsBlock extends BlockBase {
 
     	  $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
-        $query->condition('field_assessors', $current_assessors_id , '=');
-        $query->pager(10, (int) $ele);
+        $query->condition('field_assessors', $current_assessors_id, '=');
+        $query->condition('field_type_of_assessment','private', '=');
         $nids = $query->execute();
-        $booked_ids = [];
-        $data = [];
+
         $result = array();
+
         foreach ($nids as $nid) {
         	$booked_ids = \Drupal::entityQuery('bfsspayments')
        		->condition('assessment', $nid,'IN')
         	->execute();
+          //print_r($booked_ids);
         	foreach ($booked_ids  as $key => $booked_id) {
-        		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-            $timestamp = $entity->time->value;
-            $assessment_title = $entity->assessment_title->value;
-            $booking_date = date("Y/m/d",$timestamp);
-            $booking_time = date("h:i:sa",$timestamp);
-            if($entity->service->value == '199.99'){
-            
-                $formtype = 'elete';
-            }elseif($entity->service->value == '29.99'){
-                $formtype = 'starter';
-            }
+            		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+                $timestamp = $entity->time->value;
+                $booking_date = date("Y/m/d",$timestamp);
+                $booking_time = date("h:i:sa",$timestamp);
 
-            if(!empty($entity->assessment->value)){
-              $Assess_type = 'individual';
-            }else{
-              $Assess_type = 'private';
-            }
+                $query1 = \Drupal::entityQuery('node');
+                $query1->condition('type', 'athlete_assessment_info');
+                $query1->condition('field_booked_id',$booked_id, 'IN');
+                $nids1 = $query1->execute();
 
-            $query1 = \Drupal::entityQuery('node');
-            $query1->condition('type', 'athlete_assessment_info');
-            $query1->condition('field_booked_id',$booked_id, 'IN');
-            
-            $nids1 = $query1->execute();
-           // print_r($nids1);
-            $st ='';
-            if(!empty($nids1)){
-              $st = 1;
-               foreach ($nids1 as $key => $value) {
-                $node1 = Node::load($value);
-                $field_status = $node1->field_status->value;
-                $assess_nid = $value;
-              } 
-            }else{
-               $field_status = 'No Show';
-               $st = 0;
-            }
 
-        		$result[] = array(
-              'id' => $entity->id->value,
-              'user_name' =>$entity->user_name->value,
-              'service' =>$entity->service->value,
-              'nid' => $nid,
-              'formtype' => $formtype,
-              'Assess_type' => $Assess_type,
-              'booking_date'  => $booking_date,
-              'booking_time'  => $booking_time,
-              'assessment_title'  => $assessment_title,
-              'booked_id' => $booked_id,
-              'st' =>  $st,
-              'assess_nid' => $assess_nid,
-        		);	
-        	}
+                  if($entity->service->value == '199.99'){
+                      $formtype = 'elete';
+                  }elseif($entity->service->value == '29.99'){
+                      $formtype = 'starter';
+                  }
+
+                  if(!empty($entity->assessment->value)){
+                    $Assess_type = 'individual';
+                  }else{
+                    $Assess_type = 'private';
+                  }
+
+                $st ='';
+                $assess_nid = '';
+                if(!empty($nids1)){
+                   $st = 1;
+                   foreach ($nids1 as $key => $value) {
+                    $node1 = Node::load($value);
+                    $field_status = $node1->field_status->value;
+                    $assess_nid = $value;
+                  } 
+                }else{
+                   $field_status = 'No Show';
+                   $st = 0;
+                }
+              	 $result[] = array(
+                  'id' => $entity->id->value,
+                  'user_name' =>$entity->user_name->value,
+                  'nid' => $nid,
+                  'formtype' => $formtype,
+                  'Assess_type' => $Assess_type,
+                  'booking_date'  => $booking_date,
+                  'booking_time'  => $booking_time,
+                  'booked_id' => $booked_id,
+                  'st' =>  $st,
+                  'assess_nid' => $assess_nid,
+                ); 
+        	}   
         } 
 
         $header = array(
+          #array('data' => t('id'), 'field' => 'id'),
           array('data' => t('Date'), 'field' => 'date'),
           array('data' => t('Time'), 'field' => 'time'),
           array('data' => t('Name'), 'field' => 'user_name'),
@@ -115,13 +111,14 @@ class PrivateAccessmentsBlock extends BlockBase {
         $Assesstype = $item['Assess_type'];
         $booked_id = $item['booked_id'];
         $st = $item['st'];
-         $user_name = $item['user_name'];
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$assess_nid;
+        $user_name = $item['user_name'];
+        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
        
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
         $rows[] = array(
-         'date' => $item['booking_date'],
+          #'id' => $item['booked_id'],
+          'date' => $item['booking_date'],
           'time' => $item['booking_time'],
           'user_name' => $user_name,
         );
@@ -137,7 +134,6 @@ class PrivateAccessmentsBlock extends BlockBase {
 
       $element['pager'] = array(
         '#type' => 'pager',
-        '#element' => $ele,
       );
 
    return $element;

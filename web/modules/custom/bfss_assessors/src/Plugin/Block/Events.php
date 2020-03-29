@@ -44,6 +44,7 @@ class Events extends BlockBase {
   
         $result = array();
         foreach ($nids as $nid) {
+        
         	$node = Node::load($nid);
           $title = $node->title->value;
           $timeslots = $this->getSchedulesofAssessment_slots($nid);

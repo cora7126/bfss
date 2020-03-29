@@ -297,34 +297,34 @@
                <li class="sub_menu">
                   <button class="side_button"><span class="side_menu_text">NAVIGATION</span></button> 
                </li>
-               <li class="sub_menu active">
-                  <a href="/dashboard" class="side_button"><i class="fas fa-home"></i><span class="side_menu_text dashboard">Dashboard</span></a>
+               <li {% if current_path == "/dashboard" %} class="sub_menu active"{% else %}class="sub_menu"{% endif %}>
+                  <a href="/dashboard" class="side_button menulink"><i class="fas fa-home"></i><span class="side_menu_text dashboard">Dashboard</span></a>
                </li>
                {% if user_role == 0 %}
-               <li class="sub-menu-drop">
+               <li class="sub-menu-drop ">
                   <!--  <button class="side_button">Calender-View & Book</button> -->
                   <nav>
-                     <div class="dropdown">
-                        <a class="drop" href="#"><i class="fal fa-calendar-alt"></i><span class="side_menu_text">Calender-View & Book</span><span class="down-arrow fa fa-angle-down"></span></a>
+                     <div class="dropdown ">
+                        <a {% if (current_path == '/upcoming-group-assessments') or (current_path == '/assessment/type') or (current_path == '/appointments/scheduled') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i><span class="side_menu_text">Calender-View & Book</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li {% if current_path == "/upcoming-group-assessments" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/upcoming-group-assessments"> Upcoming Group Assessments </a></li>
-                           <li {% if current_path == "/assessment/type" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/assessment/type"> Book a Private Assessment</a></li>
-                           <li {% if current_path == "/appointments/scheduled" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/appointments/scheduled">My Scheduled Assessment</a></li>
+                           <li ><a class="side_button" href="/upcoming-group-assessments"> Upcoming Group Assessments </a></li>
+                           <li><a class="side_button" href="/assessment/type"> Book a Private Assessment</a></li>
+                           <li><a class="side_button" href="/appointments/scheduled">My Scheduled Assessment</a></li>
                         </ul>
                      </div>
                   </nav>
                </li>
                <li class="sub_menu">
-                  <button class="side_button"><i class="far fa-chart-bar"></i><span class="side_menu_text">My Assessment Status</span></button>
+                  <button class="side_button menulink"><i class="far fa-chart-bar"></i><span class="side_menu_text">My Assessment Status</span></button>
                </li>
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
 
-                        <a class="drop" href="/bfssAthleteProfile"><i class="far fa-chart-network"></i><span class="side_menu_text">Athletic Profile</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-chart-network"></i><span class="side_menu_text">Athletic Profile</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
-                           <li {% if current_path == "/bfssAthleteProfile" %} class="sub_menu active"{% else %}class=""{% endif %}><a class="side_button"  href="/bfssAthleteProfile"><span class="side_menu_text bfssAthleteProfile">Edit My Athletic Profile</span> </a></li>
+                           <li><a class="side_button"  href="/bfssAthleteProfile"><span class="side_menu_text bfssAthleteProfile">Edit My Athletic Profile</span> </a></li>
                            <li><a href="{{athelete_pro}}">View My Webpage</a></li>
                         </ul>
                      </div>
@@ -336,9 +336,9 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a class="drop" href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li {% if current_path == "/faqs" %} class="sub_menu active"{% else %}class=""{% endif %}><a href="/faqs"> FAQs </a></li>
+                           <li ><a href="/faqs"> FAQs </a></li>
                            <li><a href="#">Ticketing</a></li>
                         </ul>
                      </div>
