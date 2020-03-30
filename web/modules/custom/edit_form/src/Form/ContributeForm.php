@@ -127,6 +127,33 @@ class ContributeForm extends FormBase {
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
 	
+	$delta0 = \Drupal::database()->select('athlete_web', 'md');
+	$delta0->fields('md');
+	$delta0->condition('athlete_uid', $current_user, '=');
+	$delta0->condition('delta', 0, '=');
+	$delta0->condition('athlete_web_type', 1, '=');
+	$results_delta0 = $delta0->execute()->fetchAssoc();
+	$deltaweb0=$results_delta0['athlete_web_name'];
+	$deltaweb0_visibility=$results_delta0['athlete_web_visibility'];
+	
+	$delta1 = \Drupal::database()->select('athlete_web', 'md');
+	$delta1->fields('md');
+	$delta1->condition('athlete_uid', $current_user, '=');
+	$delta1->condition('delta', 1, '=');
+	$delta1->condition('athlete_web_type', 1, '=');
+	$results_delta1 = $delta1->execute()->fetchAssoc();
+	$deltaweb1=$results_delta1['athlete_web_name'];
+	$deltaweb1_visibility=$results_delta1['athlete_web_visibility'];
+	
+	$delta2 = \Drupal::database()->select('athlete_web', 'md');
+	$delta2->fields('md');
+	$delta2->condition('athlete_uid', $current_user, '=');
+	$delta2->condition('delta', 2, '=');
+	$delta2->condition('athlete_web_type', 1, '=');
+	$results_delta2 = $delta2->execute()->fetchAssoc();
+	$deltaweb2=$results_delta2['athlete_web_name'];
+	$deltaweb2_visibility=$results_delta2['athlete_web_visibility'];
+	
 	
 	
 	$query_org = \Drupal::database()->select('athlete_orginfo', 'n');
@@ -577,6 +604,7 @@ class ContributeForm extends FormBase {
       $form['schoolname_1'] = array(
         //'#title' => t('az'),
         '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
         //'#description' => 'Select the desired pizza crust size.',
       /*  '#options' => array(
           t('Organization Name'),
@@ -672,6 +700,7 @@ class ContributeForm extends FormBase {
       $form['schoolname_1'] = array(
         //'#title' => t('az'),
         '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
         //'#description' => 'Select the desired pizza crust size.',
         /*'#options' => array(
           t('Organization Name'),
@@ -769,6 +798,7 @@ class ContributeForm extends FormBase {
         t('Organization Name 3'));*/
       $form['schoolname_2'] = array(
         '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
         /*'#options' => array(
           t('Organization Name'),
           t('Organization Name 1'),
@@ -850,19 +880,18 @@ class ContributeForm extends FormBase {
         //'#description' => 'Select the desired pizza crust size.',
         '#options' => $unitype,
         '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i><div class=items_div>',
-		 '#required' => TRUE,
         );
 
       $form['schoolname_2'] = array(
         //'#title' => t('az'),
         '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
         //'#description' => 'Select the desired pizza crust size.',
         /*'#options' => array(
           t('Organization Name'),
           t('Organization Name 1'),
           t('Organization Name 2'),
           t('Organization Name 3')),*/
-		   '#required' => TRUE,
         );
       $form['coach_2'] = array(
         '#type' => 'textfield',
@@ -950,7 +979,7 @@ class ContributeForm extends FormBase {
     $form['name_web'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Pick a Name'),
-      '#default_value' => $results13['athlete_web_name'],
+      '#default_value' => $deltaweb0,
       '#prefix' => '<div class="container-inline web_name webfield">',
       '#suffix' => '</div>',
       '#attributes' => array('id' => 'name_1'),
@@ -978,7 +1007,7 @@ class ContributeForm extends FormBase {
         t('Website Visibility'),
         t('On'),
         t('Off')),
-      '#default_value' => $results13['athlete_web_visibility'],
+      '#default_value' => $deltaweb0_visibility,
       '#suffix' => '',
       );
     if ($orgtype_2!='') {
@@ -998,7 +1027,7 @@ class ContributeForm extends FormBase {
       $form['name_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $results14['athlete_addweb_name'],
+        '#default_value' => $deltaweb1,
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -1026,7 +1055,7 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $results14['athlete_addweb_visibility'],
+        '#default_value' => $deltaweb1_visibility,
         '#suffix' => '</div></div>',
         );
     }
@@ -1047,7 +1076,7 @@ class ContributeForm extends FormBase {
       $form['name_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $results17['athlete_clubweb_name'],
+        '#default_value' => $deltaweb2,
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -1075,7 +1104,7 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $results17['athlete_clubweb_visibility'],
+        '#default_value' => $deltaweb2_visibility,
         '#suffix' => '</div></div></div>',
         );
     }

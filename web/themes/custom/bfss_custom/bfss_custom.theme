@@ -52,6 +52,8 @@ function bfss_custom_preprocess_page(&$variables) {
 	$query18 = \Drupal::database()->select('athlete_web', 'md');
 	$query18->fields('md');
 	$query18->condition('athlete_uid', $current_user, '=');
+	$query18->condition('delta', 0, '=');
+	$query18->condition('athlete_web_visibility', 1, '=');
 	$query18->condition('athlete_web_type', 1, '=');
 	$results18 = $query18->execute()->fetchAssoc();
 	
