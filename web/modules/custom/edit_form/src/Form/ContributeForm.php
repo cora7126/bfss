@@ -749,8 +749,8 @@ class ContributeForm extends FormBase {
 
     /*Add another organization 1 END*/
     /*Add another organization 1 start*/
-  
-      if ($orgtype_3=='') {
+	
+      if ($orgtype_3!='') {
       $unitype = array(
       ""=>t('Organization Type'),
       "1"=>t('School'),
@@ -936,7 +936,7 @@ class ContributeForm extends FormBase {
     $form['school_web'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('School'),
-      '#default_value' => $results5['athlete_school_name'],
+      '#default_value' => $orgname_1,
       '#attributes' => array('disabled' => true),
       '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website</h3><div class=items_div>',
       );
@@ -944,7 +944,7 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Sport'),
       '#attributes' => array('disabled' => true),
-      '#default_value' => $results5['athlete_school_sport'],
+      '#default_value' => $orgsport_1,
       );
 	 // print '<pre>';print_r($results13);die;
     $form['name_web'] = array(
@@ -981,18 +981,18 @@ class ContributeForm extends FormBase {
       '#default_value' => $results13['athlete_web_visibility'],
       '#suffix' => '',
       );
-    if (!empty($results12)) {
+    if ($orgtype_2!='') {
       $form['school_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('School'),
-        '#default_value' => $results6['athlete_uni_name'],
+        '#default_value' => $orgname_2,
         '#attributes' => array('disabled' => true),
         '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
         );
       $form['sport_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Sport'),
-        '#default_value' => $results6['athlete_uni_sport'],
+        '#default_value' => $orgsport_2,
         '#attributes' => array('disabled' => true),
         );
       $form['name_web2'] = array(
@@ -1030,18 +1030,18 @@ class ContributeForm extends FormBase {
         '#suffix' => '</div></div>',
         );
     }
-    if (!empty($results16)) {
+    if ($orgtype_3!='') {
       $form['school_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('School'),
-        '#default_value' => $results16['athlete_club_name'],
+        '#default_value' => $orgname_3,
         '#attributes' => array('disabled' => true),
         '#prefix' => '<div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
         );
       $form['sport_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Sport'),
-        '#default_value' => $results16['athlete_club_sport'],
+        '#default_value' => $orgsport_3,
         '#attributes' => array('disabled' => true),
         );
       $form['name_web3'] = array(
