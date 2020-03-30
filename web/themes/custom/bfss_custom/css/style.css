@@ -1993,7 +1993,7 @@ div#edit-phone-section{margin-top:25px;}
 .edit-user .spb-popup-main-wrapper.spb_top_center .image-widget .data{position:absolute;bottom:-5px;right:-4px;width:auto !important;background:unset;padding:10px 17px;display:block;top:unset;}
 #edit-form img.edit-profile-image{width:100%;margin:auto;padding:40px;}
 /*25-02-2020 end*/
-.right_side_section , .edit-user .region-content , .bfssAthleteProfile .region-content , .edit-parent .region-content,.faq-page .region-content{width:calc(100% - 19%);transition:width 0.5s;}
+.right_side_section , .edit-user .region-content , .payment-receipts .region-content, .bfssAthleteProfile .region-content , .edit-parent .region-content,.faq-page .region-content{width:calc(100% - 19%);transition:width 0.5s;}
 .edit-parent .region-content{min-height:calc(100vh - 102px);}
 .open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
 .region-content .edit-parent{padding:20px;}
