@@ -20,15 +20,21 @@ error :function (data){
 jQuery('.faqct li.q').on('click', function(){
   //gets next element
   //opens .a of selected question
-jQuery(this).next().slideToggle("500")
+  if (jQuery(this).next('li.a').is(':visible')){
+		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/o-arrow.png");
+	}else{
+		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
+	}
+jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
+
     //selects all other answers and slides up any open answer
-    .siblings('li.a').slideUp();
+    
   //Grab img from clicked question
-var img = jQuery(this).children('img');
+/*var img = jQuery(this).children('img');
   //Remove Rotate class from all images except the active
   jQuery('img').not(img).removeClass('rotate');
   //toggle rotate class
-  img.toggleClass('rotate');
+  img.toggleClass('rotate');*/
 });//End on click
 
 
@@ -434,10 +440,13 @@ var img = jQuery(this).children('img');
 //     
 //    //jQuery('.bfssathleteprofile .dialog-off-canvas-main-canvas .edit-form').before(athleteprofile_header);
 //    jQuery(athleteprofile_header).insertBefore( ".inner" );
+	
 
-    
     jQuery(document).on('click', '#edit-submit', function(){
         jQuery('.dashboard #athelets-modal').modal('hide');
+
+
+		
     })
     
  jQuery('.popup_form_id-modal spb_overlay').css('background','black');

@@ -56,7 +56,7 @@ class Events extends BlockBase {
             ->execute();
             $attendees = count($booked_ids);
 
-           $date = date('D, M d Y',$timeslot);
+           $date = date('M d Y',$timeslot);
            $time =  date('h:i a',$timeslot);
            $result[] = [
               'time' => $time,

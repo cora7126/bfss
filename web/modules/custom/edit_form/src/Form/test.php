@@ -202,7 +202,7 @@ class test extends FormBase {
 	  $form['stats_2'] = array (
       '#type' => 'textarea',
       '#placeholder' => t('Add all personal stats'),
-	     '#suffix' => "</div></div></div><a class='add_org popup_add_org edit-user-display'><i class='fa fa-plus'></i>Add Another Organization</a></div><div class ='right_section'><div class = 'athlete_right '><h3><div class='toggle_icon'><i class='fa fa-minus'></i><i class='fa fa-plus hide'></i></div>My Website Photo</h3><div class='edit_dropdown'><a class='drop' >Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div><img src= $url class='edit-profile-image' ><div class='items_div'><div class='popupimage' id='imagepopup'><div class='popup_header'><h3>Profile Photo <i class='fa fa-times right-icon imagepopup-modal-close spb_close' aria-hidden='true'></i></h3></div>",
+	     '#suffix' => "</div></div></div><a class='add_org popup_add_org edit-user-display'><i class='fa fa-plus'></i>Add Another Organization</a></div><div class ='right_section'><div class = 'athlete_right '><h3><div class='toggle_icon'><i class='fa fa-minus'></i><i class='fa fa-plus hide'></i></div>Profile Photo</h3><div class='edit_dropdown'><a class='drop' >Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div><div class='items_div'><img src= $url class='edit-profile-image' ><div class='popupimage' id='imagepopup'><div class='popup_header'><h3>Profile Photo <i class='fa fa-times right-icon imagepopup-modal-close spb_close' aria-hidden='true'></i></h3></div>",
       '#default_value' => '',
       );     
     }
@@ -224,6 +224,10 @@ class test extends FormBase {
                             '#suffix' =>'<div class="action_bttn"><span>Action</span><ul><li>Remove</li></ul></div></div></div>',
                           ];
         
+		$form['school_web12333'] = array (
+      '#type' => 'markup',
+	  '#prefix' => '</div></div><div class="items_div profiletext"><div class="profile-image-text">No longer need your account and want to deactivate it? You can request deactivating your account via our ticketing system.',
+      );
 	   $form['school_web'] = array (
       '#type' => 'textfield',
       '#placeholder' => t('School'),
