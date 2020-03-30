@@ -111,8 +111,7 @@ div.quick-link{margin:40px 0;}
 .simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
 
 /*************** MY AUTHENTIC PROFILE POP UP CSS STARTS HERE ****************************/
-.myathletic-menu .modal-dialog{max-width:800px;}
-.myathletic-menu .modal-dialog .modal-content{width:100% !important;}
+
 /*************** MY AUTHENTIC PROFILE POP UP CSS ENDS HERE ****************************/
 .calender_event_pop_up, .calender_event_pop_up .tophead, .calender_event_pop_up .ticketing, .calender_event_pop_up .details{width:100%;float:left;display:block;}
 .calender_event_pop_up .container{padding:0;}
@@ -147,7 +146,6 @@ nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padd
 .modals-bg h1{font-size:19px;font-weight:bold;margin-left:32px;}
 .modals-bg p{margin-left:32px;}
 .newzz{padding:0px !important;}
-.modal-content{width:670px !important;}
 .navbar{margin:0;position:relative;}
 .navbar:before{display:none;}
 .navbar .navbar-collapse.collapse{display:none !important;top:75px;background:#000;z-index:99;width:100%;left:0;position:absolute;}
@@ -218,7 +216,8 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
 
 /* -------profile-Modal-css-------Start---- */
 
-.profile-right-modal .modal-content{width:800px !important;padding:20px;}
+.modal .modal-dialog{max-width:700px;}
+.modal .modal-dialog .modal-content{width:100%;padding:0;overflow-y:auto;overflow-x:hidden;}
 .profile-right-modal .modal-body button.accordion{background-color:#000;color:#fff;}
 .profile-right-modal .accordion{background-color:#eee;color:#444;cursor:pointer;padding:8px 15px;width:100%;border:none;text-align:left;outline:none;font-size:15px;transition:0.4s;}
 .profile-right-modal .active, .accordion:hover{background-color:#ccc;}
@@ -356,9 +355,9 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 
 #assessor_popup_form{background:rgba(0,0,0,.7);}
 #accessorform a.close{font-size:30px;}
-#assessor_popup_form .modal-dialog{max-width:700px;} 
-#assessor_popup_form .modal-dialog .modal-content{width:700px !important;}
-#assessor_popup_form .accessorform_inner{margin:0 50px;float:left;width:calc(100% - 100px);display:block;}
+.drupal-assess-fm .modal-body.ui-dialog-content{overflow:visible !important;}
+.drupal-assess-fm .modal-body.ui-dialog-content .asse_frm{width:100%;float:left;display:block;}
+#assessor_popup_form .accessorform_inner{padding:50px;float:left;width:100%;display:block;background-color:#fff;}
 .accessorform_inner h2{background:#000;color:#fff;margin:0;padding:10px 15px;font-size:14px;line-height:16px;border:1px solid #000;}
 .accessorform_inner .st_lk{border-left:1px solid #000;border-right:1px solid #000;width:100%;float:left;display:block;padding:15px 0 0;margin:0;text-align:center;}
 .accessorform_inner .st_lk li{display:inline-block;color:#f76907;font-size:14px;border-right:2px solid #f76907;padding:0 25px;line-height:16px;}
@@ -370,16 +369,23 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .sm_cls{width:calc(50% - 3.5px);float:left;display:block;margin:15px 3.5px 15px 0;}
 .sm_cls:nth-child(2n){margin:15px 0 15px 3.5px;}
 .sm_cls .form-item.js-form-item.panel{border-radius:0;box-shadow:none;-webkit-box-shadow:none;border:0;}
-.sm_cls .form-item.js-form-item.panel .panel-heading{margin:0 0 15px;border:0;border-radius:0;background:transparent;width:100%;float:left;display:block;padding:0;}
-.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{padding:0;font-size:14px;line-height:18px;width:100%;float:left;display:block;margin:0;}
+.sm_cls .form-item.js-form-item.panel .panel-heading{margin:0;border:0;border-radius:0;background:transparent;width:100%;float:left;display:block;padding:0;}
+.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{height:40px;overflow:hidden;padding:0;font-size:14px;line-height:18px;width:100%;float:left;display:block;margin:0;}
 .sm_cls .form-item.js-form-item.panel .panel-body{padding:0;width:100%;float:left;display:block;}
 
-.drupal-assess-fm .modal-footer{margin:20px 50px 30px;width:calc(100% - 100px);float:left;display:block;padding:0;}
+
+.drupal-assess-fm .modal-footer{padding:0 50px 50px;width:100%;float:left;display:block;margin:0;}
 .drupal-assess-fm .modal-footer .modal-buttons{margin:0;width:100%;float:left;display:block;}
 .drupal-assess-fm .modal-footer button{display:inline-block;height:40px;padding:10px 12px;font-size:14px;line-height:18px;margin:0;}
 .drupal-assess-fm .modal-footer button:first-child{float:left;background:#F36900;border-color:#F36900;}
 .drupal-assess-fm .modal-footer button:last-child{float:right;background:#105714;border-color:#105714;}
-.accessorform_inner form .form-control{margin:0;border-radius:0;}
+.accessorform_inner form .form-control{margin:0;border-radius:0;color:#000;}
+
+.eventlisting_main.user_pro_block{padding:50px 0 0 0;}
+#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color:#f76907;cursor:pointer;}
+ul.dropdown-menu.open li.active{text-decoration:none;background-color:#f76907;color:#fff;}
+ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
+.result_message{width:100%;text-align:center;color:green;font-size:16px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media (max-width:767px){
@@ -397,19 +403,3 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
-#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color: #f76907;cursor: pointer;}
-
-ul.dropdown-menu.open li.active {
-	text-decoration: none;
-	background-color: #f76907;
-	color: #fff;
-}
-
-ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important; }
-.result_message {
-    width: 100%;
-    text-align: center;
-    /* border: 1px solid #000; */
-    color: green;
-    font-size: 16px;
-}
