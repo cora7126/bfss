@@ -92,8 +92,10 @@
 	  					</div>
 	  					BFSS ASSESSMENTS
 	  				</h3>
-	  				<div class="toggle-content image-include">
-	  					<img src="/modules/custom/bfss_assessment/img/assessment-table-static.jpg">
+	  				<div class="toggle-content image-include asseselst user_pro_block">
+
+	  					 {{ data.mydata.bfss_assessments }}
+	  				<!--  <img src="/modules/custom/bfss_assessment/img/assessment-table-static.jpg">  -->
 					</div>
 				</div>
 	  			<!-- toggler 2 -->
@@ -119,7 +121,8 @@
 	  					PERSONAL STATS
 	  				</h3>
 	  				<div class="toggle-content">
-	  					{% if data.org_info.sport %}
+	  					{{ data.athlete_school.athlete_school_stat|nl2br }}
+	  					<!-- {% if data.org_info.sport %}
 	  						<p>Here are my {{ data.org_info.sport }} Stats</p>
 	  					{% endif %}
 	  					{% if data.org_info.pos %}
@@ -130,7 +133,7 @@
 	  					{% endif %}
 	  					{% if data.org_info.pos2 %}
 	  						<p>{{ data.org_info.pos2 }}</p>
-	  					{% endif %}
+	  					{% endif %} -->
 
 					</div>
 				</div>

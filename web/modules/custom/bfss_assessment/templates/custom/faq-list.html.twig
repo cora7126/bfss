@@ -28,7 +28,7 @@ ul, li { list-style: none; }
 </div>
 <ul class="faq faqct">
 {% for faq in data %}
-  <li class="q"><div class="faq-left">{{ faq.que }}</div><div class="faq-right faq faqct"><img src="/modules/custom/bfss_assessment/img/o-arrow.png"/></div></li>
+  <li class="q"><div class="faq-left">{{ faq.que }}</div><div class="faq-right faq faqct"><img class="arrowimg" src="/modules/custom/bfss_assessment/img/o-arrow.png"/></div></li>
         <li class="a">{{ faq.ans }}</li>
 {% endfor %}
 </ul>

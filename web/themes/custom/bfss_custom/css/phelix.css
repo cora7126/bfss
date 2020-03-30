@@ -778,5 +778,6 @@ a.change_pass:hover {
 .profile-image-text {
   font-family: "Proxima Nova Rg";
   font-size: 14px;
-  margin: 20px 0 0 0;
+  margin: 10px 10px 0 10px;
+  text-align:justify
 }
