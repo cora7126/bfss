@@ -109,6 +109,8 @@ class AssessmentEvent extends ControllerBase {
       // Create table and pager
       $element['table'] = array(
         '#theme' => 'table',
+        '#prefix' => '<div class="block-bfss-assessors">',
+        '#suffix' => '</div>',
         '#header' => $header,
         '#rows' => $rows,
         '#empty' => t('There is no data available.'),
@@ -122,6 +124,8 @@ class AssessmentEvent extends ControllerBase {
           '#cache' => ['max-age' => 0,],
           '#theme' => 'assessment_events_page',
           '#name' => 'Shubham Rana',
+          // '#prefix' => '<div class="block-bfss-assessors">',
+          // '#suffix' => '</div>',
           '#assessment_events_block' => $element,
           '#attached' => [
             'library' => [
