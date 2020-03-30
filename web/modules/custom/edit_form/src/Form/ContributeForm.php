@@ -1217,6 +1217,30 @@ class ContributeForm extends FormBase {
     $query_web->condition('athlete_uid', $current_user, '=');
     $results_web = $query_web->execute()->fetchAll();
 	
+	
+	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
+    $query_web_type_delta0->fields('athw');
+    $query_web_type_delta0->condition('athlete_uid', $current_user, '=');
+    $query_web_type_delta0->condition('athlete_web_type', 1, '=');
+    $query_web_type_delta0->condition('delta', 0, '=');
+    $results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAll();
+	
+	
+	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
+    $query_web_type_delta1->fields('athw');
+    $query_web_type_delta1->condition('athlete_uid', $current_user, '=');
+    $query_web_type_delta1->condition('athlete_web_type', 1, '=');
+    $query_web_type_delta1->condition('delta', 1, '=');
+    $results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAll();
+	
+	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
+    $query_web_type_delta2->fields('athw');
+    $query_web_type_delta2->condition('athlete_uid', $current_user, '=');
+    $query_web_type_delta2->condition('athlete_web_type', 1, '=');
+    $query_web_type_delta2->condition('delta', 2, '=');
+    $results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAll();
+	
+	
     $query_addweb = \Drupal::database()->select('athlete_addweb', 'athaw');
     $query_addweb->fields('athaw');
     $query_addweb->condition('athlete_uid', $current_user, '=');
@@ -1305,6 +1329,52 @@ class ContributeForm extends FormBase {
         'athlete_web_visibility' => $form_state->getValue('youtube'),
         ))->execute();
     }
+	
+	if (empty($results_web_type_delta0)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+        'athlete_web_type' => 1,
+        'delta' => 0,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 0, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+        ))->execute();
+    }
+	
+	if (empty($results_web_type_delta1)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web2'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
+        'athlete_web_type' => 1,
+        'delta' => 1,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 1, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web2'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
+        ))->execute();
+    }
+	
+	if (empty($results_web_type_delta2)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web3'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
+        'athlete_web_type' => 1,
+        'delta' => 2,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 2, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web3'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
+        ))->execute();
+    }
+	
     if (empty($results_mydata)) {
       $conn->insert('mydata')->fields(array(
         'uid' => $current_user,
@@ -1366,29 +1436,7 @@ class ContributeForm extends FormBase {
         'athlete_social_2' => $form_state->getValue('youtube'),
         ))->execute();
     }
-	//print 'saddasadsasasd';die;
-    if (empty($results_web)) {
-      $conn->insert('athlete_web')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_web_name' => $form_state->getValue('name_web'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-        'athlete_web_type' => 1,
-        ))->execute();
-    } else {
-      /*$conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->fields(array(
-        'athlete_web_name' => $form_state->getValue('name_web'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-        ))->execute();*/
-		
-			$num_updated = $conn->update('athlete_web')
-			->fields([
-			'athlete_web_name' =>  $form_state->getValue('name_web'),
-			'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-			])
-			->condition('athlete_uid', $current_user, '=')
-			->condition('athlete_web_type', 1, '=')
-			->execute();
-    }
+	
     if (empty($results_addweb)) {
       $conn->insert('athlete_addweb')->fields(array(
         'athlete_uid' => $current_user,
