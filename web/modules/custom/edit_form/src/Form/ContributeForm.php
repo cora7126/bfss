@@ -167,14 +167,21 @@ class ContributeForm extends FormBase {
 		$type3=3;
 	}else{
 		$resultorginfo=json_decode($resultsorg['orgtype_text']);
-		$type1=$resultorginfo->type1;
-		$type2=$resultorginfo->type2;
-		$type3=$resultorginfo->type3;
+		//print '<pre>';print_r(($resultorginfo->type1));die;
+		$type1=$resultorginfo->type1->type1;
+		$id1=$resultorginfo->type1->id;
+		
+		$type2=$resultorginfo->type2->type1;
+		$id2=$resultorginfo->type2->id;
+		$type3=$resultorginfo->type3->type1;
+		$id3=$resultorginfo->type3->id;
+		
 		if($type1!=""){
 			if($type1==1){
 				$resulttype = \Drupal::database()->select('athlete_school', 'ats');
 				$resulttype->fields('ats');
 				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id1, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_1=$resulttype1['athlete_school_type'];
 				$orgname_1=$resulttype1['athlete_school_name'];
@@ -187,6 +194,7 @@ class ContributeForm extends FormBase {
 			}elseif($type1==2){
 				$resulttype = \Drupal::database()->select('athlete_club', 'ats');
 				$resulttype->fields('ats');
+				$resulttype->condition('id', $id1, '=');
 				$resulttype->condition('athlete_uid', $current_user, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_1=$resulttype1['athlete_school_type'];
@@ -200,6 +208,7 @@ class ContributeForm extends FormBase {
 			}elseif($type1==3){
 				$resulttype = \Drupal::database()->select('athlete_uni', 'ats');
 				$resulttype->fields('ats');
+				$resulttype->condition('id', $id1, '=');
 				$resulttype->condition('athlete_uid', $current_user, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_1=$resulttype1['athlete_uni_type'];
@@ -218,6 +227,7 @@ class ContributeForm extends FormBase {
 				$resulttype = \Drupal::database()->select('athlete_school', 'ats');
 				$resulttype->fields('ats');
 				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id2, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_2=$resulttype1['athlete_school_type'];
 				$orgname_2=$resulttype1['athlete_school_name'];
@@ -231,6 +241,7 @@ class ContributeForm extends FormBase {
 				$resulttype = \Drupal::database()->select('athlete_club', 'ats');
 				$resulttype->fields('ats');
 				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id2, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_2=$resulttype1['athlete_school_type'];
 				$orgname_2=$resulttype1['athlete_club_name'];
@@ -244,6 +255,7 @@ class ContributeForm extends FormBase {
 				$resulttype = \Drupal::database()->select('athlete_uni', 'ats');
 				$resulttype->fields('ats');
 				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id2, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_2=$resulttype1['athlete_uni_type'];
 				$orgname_2=$resulttype1['athlete_uni_name'];
@@ -261,6 +273,7 @@ class ContributeForm extends FormBase {
 				$resulttype = \Drupal::database()->select('athlete_school', 'ats');
 				$resulttype->fields('ats');
 				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id3, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_3=$resulttype1['athlete_school_type'];
 				$orgname_3=$resulttype1['athlete_school_name'];
@@ -274,6 +287,7 @@ class ContributeForm extends FormBase {
 				$resulttype = \Drupal::database()->select('athlete_club', 'ats');
 				$resulttype->fields('ats');
 				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id3, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_3=$resulttype1['athlete_school_type'];
 				$orgname_3=$resulttype1['athlete_club_name'];
@@ -287,6 +301,7 @@ class ContributeForm extends FormBase {
 				$resulttype = \Drupal::database()->select('athlete_uni', 'ats');
 				$resulttype->fields('ats');
 				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id3, '=');
 				$resulttype1 = $resulttype->execute()->fetchAssoc();
 				$orgtype_3=$resulttype1['athlete_uni_type'];
 				$orgname_3=$resulttype1['athlete_uni_name'];
@@ -1401,34 +1416,28 @@ class ContributeForm extends FormBase {
 	
 	/* for selection in Type 1 starts here ==== */
 	if($org_type1==1){
-		if ($count_school_num_results==0){
-			$conn->insert('athlete_school')->fields(array(
-			'athlete_uid' => $current_user,
-			'athlete_school_name' => $form_state->getValue('organizationName'),
-			'athlete_school_coach' => $form_state->getValue('coach'),
-			'athlete_school_sport' => $form_state->getValue('sport'),
-			'athlete_school_pos' => $form_state->getValue('position'),
-			'athlete_school_pos2' => $form_state->getValue('position2'),
-			'athlete_school_pos3' => $form_state->getValue('position3'),
-			'athlete_school_stat' => $form_state->getValue('stats'),
-			'athlete_school_type' => $org_type1,
-			))->execute();
-		} else{
-			//print '<pre>';print_r($results_school);die;
-			$conn->update('athlete_school')->condition('athlete_uid', $current_user, '=')->fields(array(
-			'athlete_school_name' =>$form_state->getValue('organizationName'),
-			'athlete_school_coach' => $form_state->getValue('coach'),
-			'athlete_school_sport' => $form_state->getValue('sport'),
-			'athlete_school_pos' => $form_state->getValue('position'),
-			'athlete_school_pos2' => $form_state->getValue('position2'),
-			'athlete_school_pos3' => $form_state->getValue('position3'),
-			'athlete_school_stat' => $form_state->getValue('stats'),
-			'athlete_school_type' => $org_type1,
-			))->execute();
-	}
+
+		$conn->insert('athlete_school')->fields(array(
+		'athlete_uid' => $current_user,
+		'athlete_school_name' => $form_state->getValue('organizationName'),
+		'athlete_school_coach' => $form_state->getValue('coach'),
+		'athlete_school_sport' => $form_state->getValue('sport'),
+		'athlete_school_pos' => $form_state->getValue('position'),
+		'athlete_school_pos2' => $form_state->getValue('position2'),
+		'athlete_school_pos3' => $form_state->getValue('position3'),
+		'athlete_school_stat' => $form_state->getValue('stats'),
+		'athlete_school_type' => $org_type1,
+		))->execute();
+		
+		$query_sch = \Drupal::database()->select('athlete_school', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id1 = $results['id'];
 		
 	}elseif($org_type1==2){
-		if ($count_club_num_results==0) {
         $conn->insert('athlete_club')->fields(array(
           'athlete_uid' => $current_user,
           'athlete_club_name' => $form_state->getValue('organizationName'),
@@ -1441,21 +1450,16 @@ class ContributeForm extends FormBase {
           'athlete_school_type' => $org_type1,
           ))->execute();
       
-    } else
-      if ($seltypeval3 != "") {
-        $conn->update('athlete_club')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_club_name' => $form_state->getValue('organizationName'),
-          'athlete_club_coach' => $form_state->getValue('coach'),
-          'athlete_club_sport' => $form_state->getValue('sport'),
-          'athlete_club_pos' => $form_state->getValue('position'),
-          'athlete_school_pos2' => $form_state->getValue('position2'),
-          'athlete_school_pos3' => $form_state->getValue('position3'),
-          'athlete_club_stat' => $form_state->getValue('stats'),
-          'athlete_school_type' => $org_type1,
-          ))->execute();
-      }
+	  
+		$query_sch = \Drupal::database()->select('athlete_club', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id1 = $results['id'];
+    
 	}elseif($org_type1==3){
-		if ($count_uni_num_results==0) {
       $conn->insert('athlete_uni')->fields(array(
         'athlete_uid' => $current_user,
         'athlete_uni_name' => $form_state->getValue('organizationName'),
@@ -1467,52 +1471,40 @@ class ContributeForm extends FormBase {
         'athlete_uni_stat' => $form_state->getValue('stats'),
         'athlete_uni_type' => $org_type1,
         ))->execute();
-    } else
-      if ($seltype2 != 0 ) {
-        $conn->update('athlete_uni')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_uni_name' => $form_state->getValue('organizationName'),
-          'athlete_uni_coach' => $form_state->getValue('coach'),
-          'athlete_uni_sport' => $form_state->getValue('sport'),
-          'athlete_uni_pos' => $form_state->getValue('position'),
-          'athlete_uni_pos2' => $form_state->getValue('position2'),
-          'athlete_uni_pos3' => $form_state->getValue('position3'),
-          'athlete_uni_stat' => $form_state->getValue('stats'),
-          'athlete_uni_type' => $org_type1,
-          ))->execute();
-      }
+		
+		$query_sch = \Drupal::database()->select('athlete_uni', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id1 = $results['id'];
+    
 	}
 	/* for selection in Type 1 ends here ==== */
 	
 	/* for selection in Type 2 starts here ==== */
 	if($org_type2==1){
-		if ($count_school_num_results==0){
-			$conn->insert('athlete_school')->fields(array(
-			'athlete_uid' => $current_user,
-			'athlete_school_name' => $form_state->getValue('schoolname_1'),
-			'athlete_school_coach' => $form_state->getValue('coach_1'),
-			'athlete_school_sport' => $form_state->getValue('sport_1'),
-			'athlete_school_pos' => $form_state->getValue('position_1'),
-			'athlete_school_pos2' => $form_state->getValue('position_12'),
-			'athlete_school_pos3' => $form_state->getValue('position_13'),
-			'athlete_school_stat' => $form_state->getValue('stats_1'),
-			'athlete_school_type' => $org_type2,
-			))->execute();
-		} else{
-			//print '<pre>';print_r($results_school);die;
-			$conn->update('athlete_school')->condition('athlete_uid', $current_user, '=')->fields(array(
-			'athlete_school_name' =>$form_state->getValue('schoolname_1'),
-			'athlete_school_coach' => $form_state->getValue('coach_1'),
-			'athlete_school_sport' => $form_state->getValue('sport_1'),
-			'athlete_school_pos' => $form_state->getValue('position_1'),
-			'athlete_school_pos2' => $form_state->getValue('position_12'),
-			'athlete_school_pos3' => $form_state->getValue('position_13'),
-			'athlete_school_stat' => $form_state->getValue('stats_1'),
-			'athlete_school_type' => $org_type2,
-			))->execute();
-	}
+		$conn->insert('athlete_school')->fields(array(
+		'athlete_uid' => $current_user,
+		'athlete_school_name' => $form_state->getValue('schoolname_1'),
+		'athlete_school_coach' => $form_state->getValue('coach_1'),
+		'athlete_school_sport' => $form_state->getValue('sport_1'),
+		'athlete_school_pos' => $form_state->getValue('position_1'),
+		'athlete_school_pos2' => $form_state->getValue('position_12'),
+		'athlete_school_pos3' => $form_state->getValue('position_13'),
+		'athlete_school_stat' => $form_state->getValue('stats_1'),
+		'athlete_school_type' => $org_type2,
+		))->execute();
 		
+		$query_sch = \Drupal::database()->select('athlete_school', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id2 = $results['id'];
 	}elseif($org_type2==2){
-		if ($count_club_num_results==0) {
         $conn->insert('athlete_club')->fields(array(
           'athlete_uid' => $current_user,
           'athlete_club_name' => $form_state->getValue('schoolname_1'),
@@ -1524,22 +1516,15 @@ class ContributeForm extends FormBase {
           'athlete_club_stat' => $form_state->getValue('stats_1'),
           'athlete_school_type' => $org_type2,
           ))->execute();
-      
-    } else
-      if ($seltypeval3 != "") {
-        $conn->update('athlete_club')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_club_name' => $form_state->getValue('schoolname_1'),
-          'athlete_club_coach' => $form_state->getValue('coach_1'),
-          'athlete_club_sport' => $form_state->getValue('sport_1'),
-          'athlete_club_pos' => $form_state->getValue('position_1'),
-          'athlete_school_pos2' => $form_state->getValue('position_12'),
-          'athlete_school_pos3' => $form_state->getValue('position_13'),
-          'athlete_club_stat' => $form_state->getValue('stats_1'),
-          'athlete_school_type' => $org_type2,
-          ))->execute();
-      }
+		$query_sch = \Drupal::database()->select('athlete_club', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id2 = $results['id'];
+    
 	}elseif($org_type2==3){
-		if ($count_uni_num_results==0) {
       $conn->insert('athlete_uni')->fields(array(
         'athlete_uid' => $current_user,
         'athlete_uni_name' => $form_state->getValue('schoolname_1'),
@@ -1551,52 +1536,39 @@ class ContributeForm extends FormBase {
         'athlete_uni_stat' => $form_state->getValue('stats_1'),
         'athlete_uni_type' => $org_type2,
         ))->execute();
-    } else
-      if ($seltype2 != 0 ) {
-        $conn->update('athlete_uni')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_uni_name' => $form_state->getValue('schoolname_1'),
-          'athlete_uni_coach' => $form_state->getValue('coach_1'),
-          'athlete_uni_sport' => $form_state->getValue('sport_1'),
-          'athlete_uni_pos' => $form_state->getValue('position_1'),
-          'athlete_uni_pos2' => $form_state->getValue('position_12'),
-          'athlete_uni_pos3' => $form_state->getValue('position_13'),
-          'athlete_uni_stat' => $form_state->getValue('stats_1'),
-          'athlete_uni_type' => $org_type2,
-          ))->execute();
-      }
+		$query_sch = \Drupal::database()->select('athlete_uni', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id2 = $results['id'];
 	}
 	/* for selection in Type 2 ends here ==== */
 	
 	/* for selection in Type 3 starts here ==== */
 	if($org_type3==1){
-		if ($count_school_num_results==0){
-			$conn->insert('athlete_school')->fields(array(
-			'athlete_uid' => $current_user,
-			'athlete_school_name' => $form_state->getValue('schoolname_2'),
-			'athlete_school_coach' => $form_state->getValue('coach_2'),
-			'athlete_school_sport' => $form_state->getValue('sport_2'),
-			'athlete_school_pos' => $form_state->getValue('position_2'),
-			'athlete_school_pos2' => $form_state->getValue('position_22'),
-			'athlete_school_pos3' => $form_state->getValue('position_23'),
-			'athlete_school_stat' => $form_state->getValue('stats_2'),
-			'athlete_school_type' => $org_type3,
-			))->execute();
-		} else{
-			//print '<pre>';print_r($results_school);die;
-			$conn->update('athlete_school')->condition('athlete_uid', $current_user, '=')->fields(array(
-			'athlete_school_name' =>$form_state->getValue('schoolname_2'),
-			'athlete_school_coach' => $form_state->getValue('coach_2'),
-			'athlete_school_sport' => $form_state->getValue('sport_2'),
-			'athlete_school_pos' => $form_state->getValue('position_2'),
-			'athlete_school_pos2' => $form_state->getValue('position_22'),
-			'athlete_school_pos3' => $form_state->getValue('position_23'),
-			'athlete_school_stat' => $form_state->getValue('stats_2'),
-			'athlete_school_type' => $org_type3,
-			))->execute();
-	}
+		
+		$conn->insert('athlete_school')->fields(array(
+		'athlete_uid' => $current_user,
+		'athlete_school_name' => $form_state->getValue('schoolname_2'),
+		'athlete_school_coach' => $form_state->getValue('coach_2'),
+		'athlete_school_sport' => $form_state->getValue('sport_2'),
+		'athlete_school_pos' => $form_state->getValue('position_2'),
+		'athlete_school_pos2' => $form_state->getValue('position_22'),
+		'athlete_school_pos3' => $form_state->getValue('position_23'),
+		'athlete_school_stat' => $form_state->getValue('stats_2'),
+		'athlete_school_type' => $org_type3,
+		))->execute();
+		$query_sch = \Drupal::database()->select('athlete_school', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id3 = $results['id'];
 		
 	}elseif($org_type3==2){
-		if ($count_club_num_results==0) {
         $conn->insert('athlete_club')->fields(array(
           'athlete_uid' => $current_user,
           'athlete_club_name' => $form_state->getValue('schoolname_2'),
@@ -1608,22 +1580,15 @@ class ContributeForm extends FormBase {
           'athlete_club_stat' => $form_state->getValue('stats_2'),
           'athlete_school_type' => $org_type3,
           ))->execute();
-      
-    } else
-      if ($seltypeval3 != "") {
-        $conn->update('athlete_club')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_club_name' => $form_state->getValue('schoolname_2'),
-          'athlete_club_coach' => $form_state->getValue('coach_2'),
-          'athlete_club_sport' => $form_state->getValue('sport_2'),
-          'athlete_club_pos' => $form_state->getValue('position_2'),
-          'athlete_school_pos2' => $form_state->getValue('position_22'),
-          'athlete_school_pos3' => $form_state->getValue('position_23'),
-          'athlete_club_stat' => $form_state->getValue('stats_2'),
-          'athlete_school_type' => $org_type3,
-          ))->execute();
-      }
+		
+		$query_sch = \Drupal::database()->select('athlete_club', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id3 = $results['id'];
 	}elseif($org_type3==3){
-		if ($count_uni_num_results==0) {
       $conn->insert('athlete_uni')->fields(array(
         'athlete_uid' => $current_user,
         'athlete_uni_name' => $form_state->getValue('schoolname_2'),
@@ -1635,19 +1600,13 @@ class ContributeForm extends FormBase {
         'athlete_uni_stat' => $form_state->getValue('stats_2'),
         'athlete_uni_type' => $org_type3,
         ))->execute();
-    } else
-      if ($seltype2 != 0 ) {
-        $conn->update('athlete_uni')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_uni_name' => $form_state->getValue('schoolname_1'),
-          'athlete_uni_coach' => $form_state->getValue('coach_2'),
-          'athlete_uni_sport' => $form_state->getValue('sport_2'),
-          'athlete_uni_pos' => $form_state->getValue('position_2'),
-          'athlete_uni_pos2' => $form_state->getValue('position_22'),
-          'athlete_uni_pos3' => $form_state->getValue('position_23'),
-          'athlete_uni_stat' => $form_state->getValue('stats_2'),
-          'athlete_uni_type' => $org_type3,
-          ))->execute();
-      }
+		$query_sch = \Drupal::database()->select('athlete_uni', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id3 = $results['id'];
 	}
 	/* for selection in Type 3 ends here ==== */
 	 
@@ -1658,7 +1617,14 @@ class ContributeForm extends FormBase {
     $query_orginfo->condition('athlete_id', $current_user, '=');
     $results_orginfo = $query_orginfo->execute()->fetchAll();
 	$count_school_num_results = count($results_orginfo);
-	$textdata=array('type1'=>$org_type1,'type2'=>$org_type2,'type3'=>$org_type3);
+	
+	
+	
+	
+	$type1_dt=array('type1'=>$org_type1,'id'=>$id1);
+	$type2_dt=array('type1'=>$org_type2,'id'=>$id2);
+	$type3_dt=array('type1'=>$org_type3,'id'=>$id3);
+	$textdata=array('type1'=>$type1_dt,'type2'=>$type2_dt,'type3'=>$type3_dt);
 	if($count_school_num_results==0){
 		
 		$conn->insert('athlete_orginfo')->fields(array(
@@ -1666,7 +1632,7 @@ class ContributeForm extends FormBase {
         'orgtype_text' => json_encode($textdata),
         ))->execute();
 	}else{
-		$conn->update('athlete_orginfo')->condition('athlete_id', $current_user, '=')->fields(array('orgtype_text' => $textdata, ))->execute();
+		$conn->update('athlete_orginfo')->condition('athlete_id', $current_user, '=')->fields(array('orgtype_text' => json_encode($textdata), ))->execute();
 	}
     
     drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
