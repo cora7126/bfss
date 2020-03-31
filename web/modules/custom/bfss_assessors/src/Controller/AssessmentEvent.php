@@ -9,6 +9,7 @@ use Drupal\Core\Database\Database;
 class AssessmentEvent extends ControllerBase {
 	public function assessment_event() {
         $param = \Drupal::request()->query->all();
+        $title = $param['title'];
         $booked_ids = \Drupal::entityQuery('bfsspayments')
         ->condition('assessment',$param['nid'],'IN')
         ->condition('time',$param['timeslot'],'=')
@@ -83,12 +84,38 @@ class AssessmentEvent extends ControllerBase {
         	}
         
         $header = array(
-          array('data' => t('Name'), 'field' => 'user_name'),
-          array('data' => t('sport'), 'field' => 'sport'),
-          array('data' => t('Status'), 'field' => 'status'),
+          array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
+          array('data' => Markup::create('Sport <span></span>'), 'field' => 'sport'),
+          array('data' => Markup::create('Status <span></span>'), 'field' => 'status'),
         );
-        $result = $this->_return_pager_for_array($result, 10);
+
+        if(!empty($_GET['par_page_item'])){
+          $parpage = $_GET['par_page_item'];
+        }else{
+          $parpage = 10;
+        }
+        //$result = $this->_return_pager_for_array($result, $parpage);
       // Wrapper for rows
+
+
+         $tb = '<div class="eventlisting_main user_pro_block">
+          <div class="wrapped_div_main">
+          <h2>Athletic Profile Assessments - Highland High School</h2>
+          <div class="block-bfss-assessors">
+          <div class="table-responsive">
+         <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
+            <thead>
+              <tr>
+                <th class="th-hd"><a><span></span> Name</a>
+                </th>
+                <th class="th-hd"><a><span></span> Position</a>
+                </th>
+                <th class="th-hd"><a><span></span> Office</a>
+                </th>
+              
+              </tr>
+            </thead>
+            <tbody>';
       foreach ($result as $item) {
         $nid = $item['nid'];
         $type = $item['formtype'];
@@ -99,34 +126,58 @@ class AssessmentEvent extends ControllerBase {
         $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
        
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
-        $rows[] = array(
-          'user_name' => $user_name,
-          'sport' => $item['sport'],
-          'status' => $item['status'],
-        );
+        // $rows[] = array(
+        //   'user_name' => $user_name,
+        //   'sport' => $item['sport'],
+        //   'status' => $item['status'],
+        // );
+         $tb .= '<tr>
+                <td>'.$user_name.'</td>
+                <td>'.$item['sport'].'</td>
+                <td>'.$item['status'].'</td>
+              </tr>';
       }
-      $rows = $this->_records_nonsql_sort($rows, $header);
+      $tb .= '</tbody>
+          </table>
+           </div>
+          </div>
+           </div>
+          </div>
+          ';
+
+      //$rows = $this->_records_nonsql_sort($rows, $header);
+
       // Create table and pager
-      $element['table'] = array(
-        '#theme' => 'table',
-        '#prefix' => '<div class="block-bfss-assessors">',
-        '#suffix' => '</div>',
-        '#header' => $header,
-        '#rows' => $rows,
-        '#empty' => t('There is no data available.'),
-      );
+        $out = array(
+          '#type' => 'markup',
+          '#markup' => 'This block list the article.',
+        );
+         $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
+         $element['#suffix'] = '</div>';
+        //$form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessors\Form\ParPageItemShow');
+        //$element['out'] = $form;
+        // $par_page_item = $_GET['par_page_item'];
+        $element['table'] = array(
+          '#theme' => 'table',
+          '#prefix' => '<div class="block-bfss-assessors">',
+          '#suffix' => '</div>',
+          '#header' => $header,
+          '#attributes'=>['id' => ['dtBasicExample']],
+          '#rows' => $rows,
+          '#empty' => t('There is no data available.'),
+        );
 
-      $element['pager'] = array(
-        '#type' => 'pager',
-      );
-
+        $element['pager'] = array(
+          '#type' => 'pager',
+        );
+       
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'assessment_events_page',
-          '#name' => 'Shubham Rana',
+          '#name' => 'G.K',
           // '#prefix' => '<div class="block-bfss-assessors">',
           // '#suffix' => '</div>',
-          '#assessment_events_block' => $element,
+          '#assessment_events_block' => Markup::create($tb),
           '#attached' => [
             'library' => [
               'acme/acme-styles', //include our custom library for this response

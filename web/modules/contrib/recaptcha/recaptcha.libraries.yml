@@ -1,0 +1,13 @@
+recaptcha:
+  js:
+    js/recaptcha.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+recaptcha.invisible:
+  js:
+    js/recaptcha.invisible.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

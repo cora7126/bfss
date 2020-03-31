@@ -71,15 +71,15 @@ class Events extends BlockBase {
        
  
         $header = array(
-          array('data' => t('Date'), 'field' => 'date'),
-          array('data' => t('Time'), 'field' => 'time'),
-          array('data' => t('Event Name'), 'field' => 'assessment_title'),
-          array('data' => t('Attendees'), 'field' => 'attendees'),
+          array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
+          array('data' => Markup::create('Time <span></span>'), 'field' => 'time'),
+          array('data' => Markup::create('Event Name <span></span>'), 'field' => 'assessment_title'),
+          array('data' => Markup::create('Attendees <span></span>'), 'field' => 'attendees'),
         );
         $result = $this->_return_pager_for_array($result, 10);
          // Wrapper for rows
          foreach ($result as $item) {
-          $url = 'assessment-event?nid='.$item['nid'].'&timeslot='.$item['timeslot'];
+          $url = 'assessment-event?nid='.$item['nid'].'&timeslot='.$item['timeslot'].'&title='.$item['title'];
           $title = Markup::create('<a href="'.$url.'">'.$item['title'].'</a>');
           $rows[] = array(
             'date' => $item['date'],

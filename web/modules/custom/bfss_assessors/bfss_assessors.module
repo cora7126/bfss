@@ -16,4 +16,8 @@ function bfss_assessors_views_pre_render(\Drupal\views\ViewExecutable $view) {
 }
 
 
+ function bfss_assessors_page_attachments(array &$attachments){
+    $attachments['#attached']['library'][] = 'bfss_assessors/bfss_assessors_cutsom';
+ }
+
 ?>
