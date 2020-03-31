@@ -30,6 +30,9 @@ class StarterProfessionalAssessments extends FormBase {
     $booked_id = $param['booked_id'];
     $st = $param['st'];
     $assess_nid = $param['assess_nid'];
+    $first_name = $param['first_name'];
+    $last_name = $param['last_name'];
+    $sport = $param['sport'];
   if(isset($nid) && isset($formtype) && isset($Assess_type))
     {
             if($formtype == 'starter' && $Assess_type == 'individual'){
@@ -55,6 +58,7 @@ class StarterProfessionalAssessments extends FormBase {
                                       <div>
                                         <div id="accessorform">
                                             <div class="accessorform_inner">
+                                           <div class="usrinfo"><h3>'.$first_name.' '.$last_name.'</h3><ul><li>'.$sport.'</li><li>'.$param['postion'].'</li></ul></div>
                                              <h2>'.$form_title.'</h2><ul class="st_lk">
                                               <li>EF-Equipment Failure</li>
                                               <li>Al-Athlete Injured</li>

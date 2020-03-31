@@ -8,8 +8,9 @@
 			<div>
 				{% if data.latest_timing %}
 					<span class="timing-date">
-					{{ data.latest_timing|date("M d") }}
-					</span>
+					{{ data.latest_timing|date("M") }}</span>
+					<span class="timing-info">{{ data.latest_timing|date("d") }}</span>
+					
 				{% endif %}
 			</div>
 			<div>
@@ -22,7 +23,7 @@
 	</div>
 	<div class="ticketing">
 		<div class="share">
-		<span><i class="fas fa-share-alt"></i>  Share</span>
+		<span><i class="fas fa-share"></i>  Share</span>
 		</div>
 		<div class="ticket">
 		<span><i class="fa fa-ticket" aria-hidden="true"></i>   TICKETING</span>

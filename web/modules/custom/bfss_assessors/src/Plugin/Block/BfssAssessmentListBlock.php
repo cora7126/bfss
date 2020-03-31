@@ -104,10 +104,10 @@ class BfssAssessmentListBlock extends BlockBase {
 
         $header = array(
           #array('data' => t('id'), 'field' => 'id'),
-          array('data' => t('Date'), 'field' => 'date'),
-          array('data' => t('Program'), 'field' => 'program'),
-          array('data' => t('Sport'), 'field' => 'sport'),
-          array('data' => t('Location'), 'field' => 'location'),
+          array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
+          array('data' => Markup::create('Program <span></span>'), 'field' => 'program'),
+          array('data' => Markup::create('Sport <span></span>'), 'field' => 'sport'),
+          array('data' => Markup::create('Location <span></span>'), 'field' => 'location'),
         );
         $result = $this->_return_pager_for_array($result, 10);
       // Wrapper for rows

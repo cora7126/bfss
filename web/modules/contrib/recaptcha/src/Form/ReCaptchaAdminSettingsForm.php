@@ -101,9 +101,40 @@ class ReCaptchaAdminSettingsForm extends ConfigFormBase {
       '#options' => [
         '' => $this->t('Normal (default)'),
         'compact' => $this->t('Compact'),
+		'invisible' => $this->t('Invisible'),
       ],
       '#title' => $this->t('Size'),
       '#type' => 'select',
+    ];
+	$form['widget']['recaptcha_size_container_notice'] = [
+      '#type' => 'container',
+      '#states' => array(
+        'visible' => array(
+          ':input[name="recaptcha_size"]' => array('value' => 'invisible'),
+        ),
+      ),
+    ];
+    $link_to_captcha_settings = Url::fromRoute('captcha_settings')->toString();
+    $message = t('Uncheck <em>Add a description to the CAPTCHA</em> in <a href=":link_to_captcha_settings">CAPTCHA settings</a> or a fieldset with a description will be displayed to users.', [':link_to_captcha_settings' => $link_to_captcha_settings]);
+    $form['widget']['recaptcha_size_container_notice']['invisible'] = [
+      '#type' => 'markup',
+      '#markup' => '<p>' . $message . '</p>',
+    ];
+    $form['widget']['recaptcha_badge'] = [
+      '#default_value' => $config->get('widget.badge'),
+      '#description' => $this->t('Reposition the reCAPTCHA badge. "Inline" allows you to control the CSS.'),
+      '#options' => [
+        'bottomright' => $this->t('Bottom Right (default)'),
+        'bottomleft' => $this->t('Bottom Left'),
+        'inline' => $this->t('Inline'),
+      ],
+      '#title' => $this->t('Badge'),
+      '#type' => 'select',
+      '#states' => array(
+       'visible' => array(
+          ':input[name="recaptcha_size"]' => array('value' => 'invisible'),
+        ),
+      ),
     ];
     $form['widget']['recaptcha_tabindex'] = [
       '#default_value' => $config->get('widget.tabindex'),
@@ -113,12 +144,12 @@ class ReCaptchaAdminSettingsForm extends ConfigFormBase {
       '#type' => 'number',
       '#min' => -1,
     ];
-    $form['widget']['recaptcha_noscript'] = [
+   /* $form['widget']['recaptcha_noscript'] = [
       '#default_value' => $config->get('widget.noscript'),
       '#description' => $this->t('If JavaScript is a requirement for your site, you should <strong>not</strong> enable this feature. With this enabled, a compatibility layer will be added to the captcha to support non-js users.'),
       '#title' => $this->t('Enable fallback for browsers with JavaScript disabled'),
       '#type' => 'checkbox',
-    ];
+    ];*/
 
     return parent::buildForm($form, $form_state);
   }
@@ -136,8 +167,9 @@ class ReCaptchaAdminSettingsForm extends ConfigFormBase {
       ->set('widget.theme', $form_state->getValue('recaptcha_theme'))
       ->set('widget.type', $form_state->getValue('recaptcha_type'))
       ->set('widget.size', $form_state->getValue('recaptcha_size'))
+	  ->set('widget.badge', $form_state->getValue('recaptcha_badge'))
       ->set('widget.tabindex', $form_state->getValue('recaptcha_tabindex'))
-      ->set('widget.noscript', $form_state->getValue('recaptcha_noscript'))
+      //->set('widget.noscript', $form_state->getValue('recaptcha_noscript'))
       ->save();
 
     parent::submitForm($form, $form_state);
