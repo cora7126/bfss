@@ -133,7 +133,6 @@ div.quick-link{margin:40px 0;}
 .chat-popup{position:absolute;z-index:9;width:250px;right:10px;border:1px solid #bebebe;top:80px;}
 .dashboard.modal-open .card #collapseTwo button.btn-success{background:#000;}
 
-
 /**************** DASHBOARD CSS ENDS HERE *******************/
 
 .col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section{cursor:pointer;}
@@ -350,12 +349,28 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 10px;text-transform:capitalize;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#f76907;position:relative;padding-right:30px;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination > .active > a{background-color:#f76907;color:#fff;border-color:#f76907;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li{margin:0 2px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a{color:#000;background-color:#F1F3F2;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-size:13px;text-transform:capitalize;}
 .toggle-content.image-include.asseselst.user_pro_block .block-bfss-assessors {border-bottom:0px solid #000;border-left:0px solid #000;border-right:0px solid #000;}
+
+
+.table-responsive .dataTables_length{display:inline-block;float:left;margin:0 0 15px;}
+.table-responsive .dataTables_filter{display:inline-block;float:right;margin:0 0 15px;}
+.table-responsive .dataTables_length label{margin:0;}
+.table-responsive .dataTables_length label select{height:25px;border:1px solid #ddd;-moz-appearance:none;-webkit-appearance:none;appearance:none;margin-right:3px;padding-right: 10px;background:#fff url("../images/select_bg.png") no-repeat right 5px center/8px auto;}
+.table-responsive .dataTables_filter label{font-size:0;margin:0;}
+.table-responsive .dataTables_filter label input{font-size:13px;height:25px;border:1px solid #ddd;}
+.table-responsive .dataTables_info{float:left;color:#000;font-size:12px;font-weight:600;padding-left:10px;}
+.dataTables_paginate.paging_simple_numbers{display:inline-block;float:right;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button{background-color:#F1F3F2;color:#000;font-size:12px;height:30px;display:block;float:left;text-align:center;padding:8px 10px;line-height:14px;margin:0 2px;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button.disabled{opacity:.7;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button.current{color:#fff;background-color:#f76907;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button:focus{outline:none;text-decoration:none;}
+
 
 .assessors_sub.user-submit-button{bottom:-60px;}
 

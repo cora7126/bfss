@@ -23,6 +23,7 @@ class PrivateAccessmentsBlock extends BlockBase {
    */
   public function build() {
     //assessment get by current assessors
+    $ele = 4;
     $uid = \Drupal::currentUser();
     $user = \Drupal\user\Entity\User::load($uid->id());
     $roles = $user->getRoles();
@@ -119,12 +120,14 @@ class PrivateAccessmentsBlock extends BlockBase {
 
         $header = array(
           #array('data' => t('id'), 'field' => 'id'),
-          array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
-          array('data' => Markup::create('Time <span></span>'), 'field' => 'time'),
-          array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
-          array('data' => Markup::create('Location <span></span>'), 'field' => 'location'),
+          'date' => array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
+          'time' => array('data' => Markup::create('Time <span></span>'), 'field' => 'time'),
+          'user_name' => array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
+          'location' => array('data' => Markup::create('Location <span></span>'), 'field' => 'location'),
         );
-        $result = $this->_return_pager_for_array($result, 10);
+
+
+        $result = $this->_return_pager_for_array($result, 5, $ele);
       // Wrapper for rows
       foreach ($result as $item) {
         $nid = $item['nid'];
@@ -146,7 +149,9 @@ class PrivateAccessmentsBlock extends BlockBase {
           'location' => $item['address_1'],
         );
       }
+      if($header['date_e']['specifier'] == 'date_e' || $header['time_e']['specifier'] == 'time_e' ||$header['assessment_title_e']['specifier'] == 'assessment_title_e' || $header['attendees_e']['specifier'] == 'attendees_e'){
       $rows = $this->_records_nonsql_sort($rows, $header);
+      }
       // Create table and pager
       $element['table'] = array(
         '#theme' => 'table',
@@ -157,6 +162,7 @@ class PrivateAccessmentsBlock extends BlockBase {
 
       $element['pager'] = array(
         '#type' => 'pager',
+        '#element' => $ele,
       );
 
    return $element;
@@ -194,11 +200,11 @@ class PrivateAccessmentsBlock extends BlockBase {
      *
      * @return array
      */
-    function _return_pager_for_array($items, $num_page) {
+    function _return_pager_for_array($items,$num_page,$ele) {
       // Get total items count
       $total = count($items);
       // Get the number of the current page
-      $current_page = pager_default_initialize($total, $num_page);
+      $current_page = pager_default_initialize($total, $num_page,$ele);
       // Split an array into chunks
       $chunks = array_chunk($items, $num_page);
       // Return current group item

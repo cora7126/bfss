@@ -26,7 +26,7 @@ class Events extends BlockBase {
  
    
       //assessment get by current assessors
-        $ele = 1;
+        $ele = 5;
         $uid = \Drupal::currentUser();
         $user = \Drupal\user\Entity\User::load($uid->id());
         $roles = $user->getRoles();
@@ -71,26 +71,31 @@ class Events extends BlockBase {
        
  
         $header = array(
-          array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
-          array('data' => Markup::create('Time <span></span>'), 'field' => 'time'),
-          array('data' => Markup::create('Event Name <span></span>'), 'field' => 'assessment_title'),
-          array('data' => Markup::create('Attendees <span></span>'), 'field' => 'attendees'),
+        'date_e' => array('data' => Markup::create('Date <span></span>'), 'field' => 'date_e','specifier' => 'date_e'),
+        'time_e' =>array('data' => Markup::create('Time <span></span>'), 'field' => 'time_e','specifier' => 'time_e'),
+        'assessment_title_e' =>array('data' => Markup::create('Event Name <span></span>'), 'field' => 'assessment_title_e','specifier' => 'assessment_title_e'),
+        'attendees_e' => array('data' => Markup::create('Attendees <span></span>'), 'field' => 'attendees_e','specifier' => 'attendees_e'),
         );
-        $result = $this->_return_pager_for_array($result, 10);
+        //print_r($header);
+  
+          $result = $this->_return_pager_for_array($result, 10,$ele);  
+        
+        
          // Wrapper for rows
          foreach ($result as $item) {
           $url = 'assessment-event?nid='.$item['nid'].'&timeslot='.$item['timeslot'].'&title='.$item['title'];
           $title = Markup::create('<a href="'.$url.'">'.$item['title'].'</a>');
           $rows[] = array(
-            'date' => $item['date'],
-            'time' => $item['time'],
-            'assessment_title' => $title,
-            'attendees' => $item['attendees'],
+            'date_e' => $item['date'],
+            'time_e' => $item['time'],
+            'assessment_title_e' => $title,
+            'attendees_e' => $item['attendees'],
           );
       }
 
-
-      $rows = $this->_records_nonsql_sort($rows, $header);
+      //print_r($_GET);
+        $rows = $this->_records_nonsql_sort($rows, $header);
+      
       // Create table and pager
       $element['table'] = array(
         '#theme' => 'table',
@@ -101,7 +106,7 @@ class Events extends BlockBase {
      
       $element['pager'] = array(
         '#type' => 'pager',
-         #'#element' => $ele,
+         '#element' => $ele,
       );
 
    return $element;
@@ -139,11 +144,11 @@ class Events extends BlockBase {
      *
      * @return array
      */
-    function _return_pager_for_array($items, $num_page) {
+    function _return_pager_for_array($items, $num_page,$ele) {
       // Get total items count
       $total = count($items);
       // Get the number of the current page
-      $current_page = pager_default_initialize($total, $num_page);
+      $current_page = pager_default_initialize($total, $num_page,$ele);
       // Split an array into chunks
       $chunks = array_chunk($items, $num_page);
       // Return current group item

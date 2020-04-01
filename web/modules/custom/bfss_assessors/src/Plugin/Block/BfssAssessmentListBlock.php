@@ -101,51 +101,100 @@ class BfssAssessmentListBlock extends BlockBase {
                 ); 
         	}   
         } 
-
+        /**************drupal table start*****************/
         $header = array(
-          #array('data' => t('id'), 'field' => 'id'),
           array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
           array('data' => Markup::create('Program <span></span>'), 'field' => 'program'),
           array('data' => Markup::create('Sport <span></span>'), 'field' => 'sport'),
           array('data' => Markup::create('Location <span></span>'), 'field' => 'location'),
         );
         $result = $this->_return_pager_for_array($result, 10);
-      // Wrapper for rows
-      foreach ($result as $item) {
+        // Wrapper for rows
+        foreach ($result as $item) {
 
-        $nid = $item['nid'];
-        $type = $item['formtype'];
-        $Assesstype = $item['Assess_type'];
-        $booked_id = $item['booked_id'];
-        $st = $item['st'];
-        $user_name = $item['user_name'];
-        // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
-      
-        $formtype = Markup::create('<p><a style="color:#f4650f;">'.ucfirst($item['formtype']).'</a></p>');
-        $rows[] = array(
-          #'id' => $item['booked_id'],
-          'date' => $item['booking_date'],
-          'program' => $formtype,
-          'sport' => $item['sport'],
-          'location' => $item['address_1'],
+          $nid = $item['nid'];
+          $type = $item['formtype'];
+          $Assesstype = $item['Assess_type'];
+          $booked_id = $item['booked_id'];
+          $st = $item['st'];
+          $user_name = $item['user_name'];
+          // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
+          $formtype = Markup::create('<p><a style="color:#f4650f;">'.ucfirst($item['formtype']).'</a></p>');
+          $rows[] = array(
+            'date' => $item['booking_date'],
+            'program' => $formtype,
+            'sport' => $item['sport'],
+            'location' => $item['address_1'],
+          );
+        }
+        $rows = $this->_records_nonsql_sort($rows, $header);
+        // Create table and pager
+        $element['table'] = array(
+          '#theme' => 'table',
+          '#prefix' => '<div class="">',
+          '#suffix' => '</div>',
+          '#header' => $header,
+          '#rows' => $rows,
+          '#empty' => t('There is no data available.'),
         );
-      }
-      $rows = $this->_records_nonsql_sort($rows, $header);
-      // Create table and pager
-      $element['table'] = array(
-        '#theme' => 'table',
-        '#prefix' => '<div class="">',
-        '#suffix' => '</div>',
-        '#header' => $header,
-        '#rows' => $rows,
-        '#empty' => t('There is no data available.'),
-      );
 
-      $element['pager'] = array(
-        '#type' => 'pager',
-      );
+        $element['pager'] = array(
+          '#type' => 'pager',
+        );
+        //return $element;
+        /**************drupal table end*****************/
 
-   return $element;
+      /**********For JS Library start********/
+        $tb = '<div class="eventlisting_main user_pro_block">
+          <div class="wrapped_div_main">
+          <div class="block-bfss-assessors">
+          <div class="table-responsive">
+         <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
+            <thead>
+              <tr>
+                <th class="th-hd"><a><span></span> Date</a></th>
+                <th class="th-hd"><a><span></span> Program</a></th>
+                <th class="th-hd"><a><span></span> Sport</a></th>
+                 <th class="th-hd"><a><span></span> Location</a></th>
+              </tr>
+            </thead>
+            <tbody>';
+             foreach ($result as $item) {
+                $nid = $item['nid'];
+                $type = $item['formtype'];
+                $Assesstype = $item['Assess_type'];
+                $booked_id = $item['booked_id'];
+                $st = $item['st'];
+                $user_name = $item['user_name'];
+                // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
+              
+                $formtype = Markup::create('<p><a style="color:#f4650f;">'.ucfirst($item['formtype']).'</a></p>');
+                $rows[] = array(
+                  #'id' => $item['booked_id'],
+                  'date' => $item['booking_date'],
+                  'program' => $formtype,
+                  'sport' => $item['sport'],
+                  'location' => $item['address_1'],
+                );
+                $tb .= '<tr>
+                <td>'.$item['booking_date'].'</td>
+                <td>'.$formtype.'</td>
+                <td>'.$item['sport'].'</td>
+                <td>'.$item['address_1'].'</td>
+              </tr>';
+              }
+             
+              $tb .= '</tbody>
+          </table>
+           </div>
+          </div>
+           </div>
+          </div>';
+        return [
+            '#markup' => $tb,
+        ];
+        /**********For JS Library end********/
+         
   }
 
 

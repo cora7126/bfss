@@ -49,6 +49,7 @@ class AssessmentEvent extends ControllerBase {
             $query5->condition('athlete_uid', $user_id,'=');
             $results5 = $query5->execute()->fetchAssoc();            
             $sport = $results5['athlete_school_sport'];
+            $postion = $results5['athlete_school_pos'];
 
       
 
@@ -80,6 +81,9 @@ class AssessmentEvent extends ControllerBase {
               'sport' => $sport,
               'st' => $st,
               'assess_nid' => $assess_nid,
+              'first_name' =>$entity->first_name->value,
+              'last_name' =>$entity->last_name->value,
+              'postion' => $postion,
         		);	
         	}
         
@@ -123,7 +127,7 @@ class AssessmentEvent extends ControllerBase {
         $booked_id = $item['booked_id'];
         $st = $item['st'];
         $user_name = $item['user_name'];
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
+        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
        
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
         // $rows[] = array(
