@@ -586,7 +586,7 @@ class StarterProfessionalAssessments extends FormBase {
            }else{
               $node->set('field_status', 'incomplete');
               $message = 'Saved successfully!';
-              $node->setPublished(TRUE);
+              $node->setPublished(FALSE);
               $node->save();
            }  
       }
