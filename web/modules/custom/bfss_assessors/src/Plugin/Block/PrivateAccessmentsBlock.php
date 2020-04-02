@@ -23,6 +23,7 @@ class PrivateAccessmentsBlock extends BlockBase {
    */
   public function build() {
     //assessment get by current assessors
+    $ele = 4;
     $uid = \Drupal::currentUser();
     $user = \Drupal\user\Entity\User::load($uid->id());
     $roles = $user->getRoles();
@@ -46,16 +47,31 @@ class PrivateAccessmentsBlock extends BlockBase {
         	->execute();
           //print_r($booked_ids);
         	foreach ($booked_ids  as $key => $booked_id) {
-            		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-                $timestamp = $entity->time->value;
-                $booking_date = date("Y/m/d",$timestamp);
-                $booking_time = date("h:i:sa",$timestamp);
+            	 $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+               // echo "<pre>";
+               // print_r($entity);
+               // die;
 
+                $address_1 = $entity->address_1->value;
+                $timestamp = $entity->time->value;
+                $booking_date = date("M d Y",$timestamp);
+                $booking_time = date("h:i a",$timestamp);
+                $user_id = $entity->user_id->value;
                 $query1 = \Drupal::entityQuery('node');
                 $query1->condition('type', 'athlete_assessment_info');
                 $query1->condition('field_booked_id',$booked_id, 'IN');
                 $nids1 = $query1->execute();
 
+                //sport
+                $query5 = \Drupal::database()->select('athlete_school', 'ats');
+  	            $query5->fields('ats');
+  	            $query5->condition('athlete_uid', $user_id,'=');
+  	            $results5 = $query5->execute()->fetchAssoc();
+                // echo "<pre>";
+                // print_r($results5);
+
+  	            $sport = $results5['athlete_school_sport'];
+                $postion = $results5['athlete_school_pos'];
 
                   if($entity->service->value == '199.99'){
                       $formtype = 'elete';
@@ -85,6 +101,8 @@ class PrivateAccessmentsBlock extends BlockBase {
               	 $result[] = array(
                   'id' => $entity->id->value,
                   'user_name' =>$entity->user_name->value,
+                  'first_name' =>$entity->first_name->value,
+                  'last_name' =>$entity->last_name->value,
                   'nid' => $nid,
                   'formtype' => $formtype,
                   'Assess_type' => $Assess_type,
@@ -93,17 +111,23 @@ class PrivateAccessmentsBlock extends BlockBase {
                   'booked_id' => $booked_id,
                   'st' =>  $st,
                   'assess_nid' => $assess_nid,
+                  'address_1' => $address_1,
+                  'sport' => $sport,
+                  'postion' => $postion,
                 ); 
         	}   
         } 
 
         $header = array(
           #array('data' => t('id'), 'field' => 'id'),
-          array('data' => t('Date'), 'field' => 'date'),
-          array('data' => t('Time'), 'field' => 'time'),
-          array('data' => t('Name'), 'field' => 'user_name'),
+          'date' => array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
+          'time' => array('data' => Markup::create('Time <span></span>'), 'field' => 'time'),
+          'user_name' => array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
+          'location' => array('data' => Markup::create('Location <span></span>'), 'field' => 'location'),
         );
-        $result = $this->_return_pager_for_array($result, 10);
+
+
+        $result = $this->_return_pager_for_array($result, 5, $ele);
       // Wrapper for rows
       foreach ($result as $item) {
         $nid = $item['nid'];
@@ -112,7 +136,8 @@ class PrivateAccessmentsBlock extends BlockBase {
         $booked_id = $item['booked_id'];
         $st = $item['st'];
         $user_name = $item['user_name'];
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
+
+        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
        
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
@@ -121,9 +146,12 @@ class PrivateAccessmentsBlock extends BlockBase {
           'date' => $item['booking_date'],
           'time' => $item['booking_time'],
           'user_name' => $user_name,
+          'location' => $item['address_1'],
         );
       }
+      if($header['date_e']['specifier'] == 'date_e' || $header['time_e']['specifier'] == 'time_e' ||$header['assessment_title_e']['specifier'] == 'assessment_title_e' || $header['attendees_e']['specifier'] == 'attendees_e'){
       $rows = $this->_records_nonsql_sort($rows, $header);
+      }
       // Create table and pager
       $element['table'] = array(
         '#theme' => 'table',
@@ -134,6 +162,7 @@ class PrivateAccessmentsBlock extends BlockBase {
 
       $element['pager'] = array(
         '#type' => 'pager',
+        '#element' => $ele,
       );
 
    return $element;
@@ -171,11 +200,11 @@ class PrivateAccessmentsBlock extends BlockBase {
      *
      * @return array
      */
-    function _return_pager_for_array($items, $num_page) {
+    function _return_pager_for_array($items,$num_page,$ele) {
       // Get total items count
       $total = count($items);
       // Get the number of the current page
-      $current_page = pager_default_initialize($total, $num_page);
+      $current_page = pager_default_initialize($total, $num_page,$ele);
       // Split an array into chunks
       $chunks = array_chunk($items, $num_page);
       // Return current group item

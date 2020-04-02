@@ -44,6 +44,13 @@ class ContributeForm extends FormBase {
       $link['#attributes'] = ['target' => '__blank', 'class' => ['button', 'previewButton'], ];
     }
 	
+	$vid = 'sports';
+$terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+$sports_arr=array();
+foreach ($terms as $term) {
+ $sports_arr[$term->tid] = $term->name;
+}
+	
 	
 
     $conn = Database::getConnection();
@@ -110,10 +117,12 @@ class ContributeForm extends FormBase {
     $query15->fields('aas');
     $query15->condition('athlete_uid', $current_user, '=');
     $results15 = $query15->execute()->fetchAssoc();
+	
     $query16 = \Drupal::database()->select('athlete_club', 'aclub');
     $query16->fields('aclub');
     $query16->condition('athlete_uid', $current_user, '=');
     $results16 = $query16->execute()->fetchAssoc();
+	
     $query17 = \Drupal::database()->select('athlete_clubweb', 'aclubw');
     $query17->fields('aclubw');
     $query17->condition('athlete_uid', $current_user, '=');
@@ -123,7 +132,222 @@ class ContributeForm extends FormBase {
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
 	
+	$delta0 = \Drupal::database()->select('athlete_web', 'md');
+	$delta0->fields('md');
+	$delta0->condition('athlete_uid', $current_user, '=');
+	$delta0->condition('delta', 0, '=');
+	$delta0->condition('athlete_web_type', 1, '=');
+	$results_delta0 = $delta0->execute()->fetchAssoc();
+	$deltaweb0=$results_delta0['athlete_web_name'];
+	$deltaweb0_visibility=$results_delta0['athlete_web_visibility'];
+	
+	$delta1 = \Drupal::database()->select('athlete_web', 'md');
+	$delta1->fields('md');
+	$delta1->condition('athlete_uid', $current_user, '=');
+	$delta1->condition('delta', 1, '=');
+	$delta1->condition('athlete_web_type', 1, '=');
+	$results_delta1 = $delta1->execute()->fetchAssoc();
+	$deltaweb1=$results_delta1['athlete_web_name'];
+	$deltaweb1_visibility=$results_delta1['athlete_web_visibility'];
+	
+	$delta2 = \Drupal::database()->select('athlete_web', 'md');
+	$delta2->fields('md');
+	$delta2->condition('athlete_uid', $current_user, '=');
+	$delta2->condition('delta', 2, '=');
+	$delta2->condition('athlete_web_type', 1, '=');
+	$results_delta2 = $delta2->execute()->fetchAssoc();
+	$deltaweb2=$results_delta2['athlete_web_name'];
+	$deltaweb2_visibility=$results_delta2['athlete_web_visibility'];
+	
+	
+	
+	$query_org = \Drupal::database()->select('athlete_orginfo', 'n');
+    $query_org->fields('n');
+    $query_org->condition('athlete_id', $current_user, '=');
+	$resultsorg = $query_org->execute()->fetchAssoc();
+	
+	$orgtype_1='';
+	$orgname_1='';
+	$orgcoach_1='';
+	$orgsport_1='';
+	$orgpos_1='';
+	$orgpos2_1='';
+	$orgpos3_1='';
+	$orgstats_1='';
+	
+	$orgtype_2='';
+	$orgname_2='';
+	$orgcoach_2='';
+	$orgsport_2='';
+	$orgpos_2='';
+	$orgpos2_2='';
+	$orgpos3_2='';
+	$orgstats_2='';
+	
+	$orgtype_3='';
+	$orgname_3='';
+	$orgcoach_3='';
+	$orgsport_3='';
+	$orgpos_3='';
+	$orgpos2_3='';
+	$orgpos3_3='';
+	$orgstats_3='';
+	
+	if(empty($results18)){
+		$type1=1;
+		$type2=2;
+		$type3=3;
+	}else{
+		$resultorginfo=json_decode($resultsorg['orgtype_text']);
+		//print '<pre>';print_r(($resultorginfo->type1));die;
+		$type1=$resultorginfo->type1->type1;
+		$id1=$resultorginfo->type1->id;
+		
+		$type2=$resultorginfo->type2->type1;
+		$id2=$resultorginfo->type2->id;
+		$type3=$resultorginfo->type3->type1;
+		$id3=$resultorginfo->type3->id;
+		
+		if($type1!=""){
+			if($type1==1){
+				$resulttype = \Drupal::database()->select('athlete_school', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id1, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_1=$resulttype1['athlete_school_type'];
+				$orgname_1=$resulttype1['athlete_school_name'];
+				$orgcoach_1=$resulttype1['athlete_school_coach'];
+				$orgsport_1=$resulttype1['athlete_school_sport'];
+				$orgpos_1=$resulttype1['athlete_school_pos'];
+				$orgpos2_1=$resulttype1['athlete_school_pos2'];
+				$orgpos3_1=$resulttype1['athlete_school_pos3'];
+				$orgstats_1=$resulttype1['athlete_school_stat'];
+			}elseif($type1==2){
+				$resulttype = \Drupal::database()->select('athlete_club', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('id', $id1, '=');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_1=$resulttype1['athlete_school_type'];
+				$orgname_1=$resulttype1['athlete_club_name'];
+				$orgcoach_1=$resulttype1['athlete_club_coach'];
+				$orgsport_1=$resulttype1['athlete_club_sport'];
+				$orgpos_1=$resulttype1['athlete_club_pos'];
+				$orgpos2_1=$resulttype1['athlete_school_pos2'];
+				$orgpos3_1=$resulttype1['athlete_school_pos3'];
+				$orgstats_1=$resulttype1['athlete_club_stat'];
+			}elseif($type1==3){
+				$resulttype = \Drupal::database()->select('athlete_uni', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('id', $id1, '=');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_1=$resulttype1['athlete_uni_type'];
+				$orgname_1=$resulttype1['athlete_uni_name'];
+				$orgcoach_1=$resulttype1['athlete_uni_coach'];
+				$orgsport_1=$resulttype1['athlete_uni_sport'];
+				$orgpos_1=$resulttype1['athlete_uni_pos'];
+				$orgpos2_1=$resulttype1['athlete_uni_pos2'];
+				$orgpos3_1=$resulttype1['athlete_uni_pos3'];
+				$orgstats_1=$resulttype1['athlete_uni_stat'];
+			}
+		}
+		
+		if($type2!=""){
+			if($type2==1){
+				$resulttype = \Drupal::database()->select('athlete_school', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id2, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_2=$resulttype1['athlete_school_type'];
+				$orgname_2=$resulttype1['athlete_school_name'];
+				$orgcoach_2=$resulttype1['athlete_school_coach'];
+				$orgsport_2=$resulttype1['athlete_school_sport'];
+				$orgpos_2=$resulttype1['athlete_school_pos'];
+				$orgpos2_2=$resulttype1['athlete_school_pos2'];
+				$orgpos3_2=$resulttype1['athlete_school_pos3'];
+				$orgstats_2=$resulttype1['athlete_school_stat'];
+			}elseif($type2==2){
+				$resulttype = \Drupal::database()->select('athlete_club', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id2, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_2=$resulttype1['athlete_school_type'];
+				$orgname_2=$resulttype1['athlete_club_name'];
+				$orgcoach_2=$resulttype1['athlete_club_coach'];
+				$orgsport_2=$resulttype1['athlete_club_sport'];
+				$orgpos_2=$resulttype1['athlete_club_pos'];
+				$orgpos2_2=$resulttype1['athlete_school_pos2'];
+				$orgpos3_2=$resulttype1['athlete_school_pos3'];
+				$orgstats_2=$resulttype1['athlete_club_stat'];
+			}elseif($type2==3){
+				$resulttype = \Drupal::database()->select('athlete_uni', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id2, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_2=$resulttype1['athlete_uni_type'];
+				$orgname_2=$resulttype1['athlete_uni_name'];
+				$orgcoach_2=$resulttype1['athlete_uni_coach'];
+				$orgsport_2=$resulttype1['athlete_uni_sport'];
+				$orgpos_2=$resulttype1['athlete_uni_pos'];
+				$orgpos2_2=$resulttype1['athlete_uni_pos2'];
+				$orgpos3_2=$resulttype1['athlete_uni_pos3'];
+				$orgstats_2=$resulttype1['athlete_uni_stat'];
+			}
+		}
+		
+		if($type3!=""){
+			if($type3==1){
+				$resulttype = \Drupal::database()->select('athlete_school', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id3, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_3=$resulttype1['athlete_school_type'];
+				$orgname_3=$resulttype1['athlete_school_name'];
+				$orgcoach_3=$resulttype1['athlete_school_coach'];
+				$orgsport_3=$resulttype1['athlete_school_sport'];
+				$orgpos_3=$resulttype1['athlete_school_pos'];
+				$orgpos2_3=$resulttype1['athlete_school_pos2'];
+				$orgpos3_3=$resulttype1['athlete_school_pos3'];
+				$orgstats_3=$resulttype1['athlete_school_stat'];
+			}elseif($type3==2){
+				$resulttype = \Drupal::database()->select('athlete_club', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id3, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_3=$resulttype1['athlete_school_type'];
+				$orgname_3=$resulttype1['athlete_club_name'];
+				$orgcoach_3=$resulttype1['athlete_club_coach'];
+				$orgsport_3=$resulttype1['athlete_club_sport'];
+				$orgpos_3=$resulttype1['athlete_club_pos'];
+				$orgpos2_3=$resulttype1['athlete_school_pos2'];
+				$orgpos3_3=$resulttype1['athlete_school_pos3'];
+				$orgstats_3=$resulttype1['athlete_club_stat'];
+			}elseif($type3==3){
+				$resulttype = \Drupal::database()->select('athlete_uni', 'ats');
+				$resulttype->fields('ats');
+				$resulttype->condition('athlete_uid', $current_user, '=');
+				$resulttype->condition('id', $id3, '=');
+				$resulttype1 = $resulttype->execute()->fetchAssoc();
+				$orgtype_3=$resulttype1['athlete_uni_type'];
+				$orgname_3=$resulttype1['athlete_uni_name'];
+				$orgcoach_3=$resulttype1['athlete_uni_coach'];
+				$orgsport_3=$resulttype1['athlete_uni_sport'];
+				$orgpos_3=$resulttype1['athlete_uni_pos'];
+				$orgpos2_3=$resulttype1['athlete_uni_pos2'];
+				$orgpos3_3=$resulttype1['athlete_uni_pos3'];
+				$orgstats_3=$resulttype1['athlete_uni_stat'];
+			}
+		}
+	}
 
+	//print $orgsport_1;die;
 	if(empty($results18)){
 		$cityquery1 = \Drupal::database()->select('user__field_state', 'ufln');
 		$cityquery1->addField('ufln', 'field_state_value');
@@ -179,57 +403,6 @@ class ContributeForm extends FormBase {
       '#type' => 'select',
       //'#description' => 'Select the desired pizza crust size.',
 	  '#options'=>$states,
-      /*'#options' => array(
-        t('AL'),
-        t('AK'),
-        t('AZ'),
-        t('AR'),
-        t('CA'),
-        t('CO'),
-        t('CT'),
-        t('DE'),
-        t('DC'),
-        t('FL'),
-        t('GA'),
-        t('HI'),
-        t('ID'),
-        t('IL'),
-        t('IN'),
-        t('IA'),
-        t('KS'),
-        t('KY'),
-        t('LA'),
-        t('ME'),
-        t('MT'),
-        t('NE'),
-        t('NV'),
-        t('NH'),
-        t('NJ'),
-        t('NM'),
-        t('NY'),
-        t('NC'),
-        t('ND'),
-        t('OH'),
-        t('OR'),
-        t('MD'),
-        t('MA'),
-        t('MI'),
-        t('MN'),
-        t('MS'),
-        t('MO'),
-        t('PA'),
-        t('RI'),
-        t('SC'),
-        t('SD'),
-        t('TN'),
-        t('TX'),
-        t('UT'),
-        t('VT'),
-        t('VA'),
-        t('WA'),
-        t('WV'),
-        t('WI'),
-        t('WY')),*/
       '#default_value' => $city,
 	  '#required' => TRUE,
       );
@@ -321,21 +494,18 @@ class ContributeForm extends FormBase {
       '#default_value' => $results10['athlete_social_2'],
       );
     $orgtype = array(
-      t('Organization Type'),
-      t('School'),
-      t('Club'),
-      t('University'));
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
     $form['organizationType'] = array(
       //'#title' => t('az'),
       '#type' => 'select',
       //'#description' => 'Select the desired pizza crust size.',
-      '#options' => array(
-        t('Organization Type'),
-        t('School'),
-        t('Club'),
-        t('University')),
+	   '#required' => TRUE,
+      '#options' => $orgtype,
       '#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
-      '#default_value' => array_search($results5['athlete_school_type'], $orgtype),
+      '#default_value' => $orgtype_1,
       );
       
     
@@ -343,34 +513,34 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Orginization Name'),
       //'#description' => 'Select the desired pizza crust size.',
-      
+       '#required' => TRUE,
       //'#default_value' => array_search($results5['athlete_school_name'], $orgname),
-      '#default_value' => $results5['athlete_school_name'],
+      '#default_value' => $orgname_1,
       );
       
       
     $form['coach'] = array(
       '#type' => 'textfield',
       '#placeholder' => t("Coach's Last Name"),
-      '#default_value' => $results5['athlete_school_coach'],
+      '#default_value' => $orgcoach_1,
       );
     $form['sport'] = array(
-      '#type' => 'textfield',
-      '#placeholder' => t('Sport'),
-      '#default_value' => $results5['athlete_school_sport'],
+      '#type' => 'select',
+      //'#placeholder' => t('Sport'),
+	  '#options'=>$sports_arr,
+      '#default_value' => $orgsport_1,
       );
     $form['position'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Position'),
-      '#default_value' => $results5['athlete_school_pos'],
+      '#default_value' => $orgpos_1,
       '#prefix' => '<div class="add_pos_div_first">',
       '#suffix' => '',
       );
-    if (empty($results5['athlete_school_pos2'])) {
+    if ($orgpos2_1=='') {
       $form['position2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Position'),
-        '#default_value' => $results5['athlete_school_pos2'],
         '#attributes' => array('style' => 'display:none'),
         // '#prefix' => '<div class ="pos_first_1"',
         // '#suffix' => '</div>',
@@ -379,17 +549,16 @@ class ContributeForm extends FormBase {
       $form['position2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Position'),
-        '#default_value' => $results5['athlete_school_pos2'],
+        '#default_value' => $orgpos2_1,
         '#attributes' => array('class' => 'pos_show_first_1', 'style' => 'display:block'),
         // '#prefix' => '<div class =pos_first_1',
         // '#suffix' => '</div>',
         );
     }
-    if (empty($results5['athlete_school_pos3'])) {
+    if ($orgpos3_1=='') {
       $form['position3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Position'),
-        '#default_value' => $results5['athlete_school_pos3'],
         '#attributes' => array('class' => 'pos_hidden_first_2', 'style' => 'display:none'),
         // '#prefix' => '<div class ="pos_first_2"',
         // '#suffix' => '</div>',
@@ -398,7 +567,7 @@ class ContributeForm extends FormBase {
       $form['position3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Position'),
-        '#default_value' => $results5['athlete_school_pos3'],
+        '#default_value' => $orgpos3_1,
         '#attributes' => array('class' => 'pos_show_first_2', 'style' => 'display:block'),
         // '#prefix' => '<div class =pos_first_2',
         // '#suffix' => '</div>',
@@ -410,67 +579,70 @@ class ContributeForm extends FormBase {
       '#placeholder' => t('Add all personal stats'),
       '#prefix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a>',
       '#suffix' => '</div></div>',
-      '#default_value' => $results5['athlete_school_stat'],
+      '#default_value' => $orgstats_1,
       );
 
     /*Add another organization 1 start*/
-    if (!empty($results12)) {
-      $orgtype2 = array(
-        t('Organization Type'),
-        t('SCHOOL'),
-        t('CLUB'),
-        t('UNIVERSITY'));
-      $form['education_1'] = array(
+	//print '<pre>';print_r($results12);die;
+	//print $results12['athlete_uni_type'];die;
+      // for type 2
+	  
+	  if ($orgtype_2!='') { //uni
+	//print '<pre>';print_r($results12);die;
+	//print $results12['athlete_uni_type'];die;
+      $orgtype2 =  array(
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
+      $form['education_1'] = array( // uni
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
-        '#options' => array(
-          t('Organization Type'),
-          t('SCHOOL'),
-          t('CLUB'),
-          t('UNIVERSITY')),
+        '#options' => $orgtype2,
         '#prefix' => '</div><div class="org_notempty"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_uni" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
-        '#default_value' => array_search($results12['athlete_uni_type'], $orgtype2),
-        '#required' => true,
+        '#default_value' => $orgtype_2,
         );
-      $orgname2 = array(
+      /*$orgname2 = array(
         t('Organization Name'),
         t('Organization Name 1'),
         t('Organization Name 2'),
-        t('Organization Name 3'));
+        t('Organization Name 3'));*/
       $form['schoolname_1'] = array(
         //'#title' => t('az'),
-        '#type' => 'select',
+        '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
         //'#description' => 'Select the desired pizza crust size.',
-        '#options' => array(
+      /*  '#options' => array(
           t('Organization Name'),
           t('Organization Name 1'),
           t('Organization Name 2'),
-          t('Organization Name 3')),
-        '#default_value' => array_search($results12['athlete_uni_name'], $orgname2),
-        '#required' => true,
+          t('Organization Name 3')),*/
+        //'#default_value' => array_search($results12['athlete_uni_name'], $orgname2),
+        '#default_value' => $orgname_2,
         );
       $form['coach_1'] = array(
         '#type' => 'textfield',
         '#placeholder' => t("Coache's Last Name"),
-        '#default_value' => $results12['athlete_uni_coach'],
+        '#default_value' => $orgcoach_2,
         );
       $form['sport_1'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
-        '#default_value' => $results12['athlete_uni_sport'],
+        '#type' => 'select',
+        //'#placeholder' => t('Sport'),
+		'#options'=>$sports_arr,
+        '#default_value' => $orgsport_2,
         );
       $form['position_1'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Position'),
-        '#default_value' => $results12['athlete_uni_pos'],
+        '#default_value' => $orgpos_2,
         '#prefix' => '<div class="add_pos_div_second">',
         '#suffix' => '',
         );
-      if (empty($results6['athlete_uni_pos2'])) {
+      if ($orgpos2_2=='') {
         $form['position_12'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results6['athlete_uni_pos2'],
+          '#default_value' => $orgpos2_2,
           '#attributes' => array('class' => 'pos_hidden_second_1', 'style' => 'display:none'),
           // '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
           // '#suffix' => '</div>',
@@ -479,17 +651,17 @@ class ContributeForm extends FormBase {
         $form['position_12'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results6['athlete_uni_pos2'],
+          '#default_value' => $orgpos2_2,
           '#attributes' => array('class' => 'pos_show_first_1', 'style' => 'display:block'),
           // '#prefix' => '<div class =pos_show_first_1',
           // '#suffix' => '</div>',
           );
       }
-      if (empty($results6['athlete_uni_pos3'])) {
+      if ($orgpos3_2=='') {
         $form['position_13'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results6['athlete_uni_pos3'],
+          '#default_value' => $orgpos3_2,
           '#attributes' => array('class' => 'pos_hidden_first_2', 'style' => 'display:none'),
           // '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
           // '#suffix' => '</div>',
@@ -498,7 +670,7 @@ class ContributeForm extends FormBase {
         $form['position_13'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results6['athlete_uni_pos3'],
+          '#default_value' => $orgpos3_2,
           '#attributes' => array('class' => 'pos_show_first_2', 'style' => 'display:block'),
           // '#prefix' => '<div class =pos_show_first_2',
           // '#suffix' => '</div>',
@@ -509,42 +681,42 @@ class ContributeForm extends FormBase {
         '#placeholder' => t('Add all personal stats'),
         '#prefix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div>',
         '#suffix' => '</div></div>',
-        '#default_value' => $results12['athlete_uni_stat'],
+        '#default_value' => $orgstats_2,
         );
     } else {
 
       $orgtype2 = array(
-        t('Organization Type'),
-        t('SCHOOL'),
-        t('CLUB'),
-        t('UNIVERSITY'));
-      $form['education_1'] = array(
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
+      $form['education_1'] = array( //uni
         //'#title' => t('az'),
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
-        '#options' => array(
-          t('Organization Type'),
-          t('SCHOOL'),
-          t('CLUB'),
-          t('UNIVERSITY')),
+        '#options' => $orgtype2,
         '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i><div class=items_div>',
         // '#default_value' => array_search($results12['athlete_uni_type'],$orgtype2),
+
         );
-      $orgname2 = array(
+      /*$orgname2 = array(
         t('Organization Name'),
         t('Organization Name 1'),
         t('Organization Name 2'),
-        t('Organization Name 3'));
+        t('Organization Name 3'));*/
       $form['schoolname_1'] = array(
         //'#title' => t('az'),
-        '#type' => 'select',
+        '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
         //'#description' => 'Select the desired pizza crust size.',
-        '#options' => array(
+        /*'#options' => array(
           t('Organization Name'),
           t('Organization Name 1'),
           t('Organization Name 2'),
-          t('Organization Name 3')),
+          t('Organization Name 3')),*/
         // '#default_value' => array_search($results12['athlete_uni_name'],$orgname2),
+        '#default_value' => $results12['athlete_uni_name'],
+
         );
       $form['coach_1'] = array(
         '#type' => 'textfield',
@@ -552,7 +724,8 @@ class ContributeForm extends FormBase {
         // '#default_value' => $results12['athlete_uni_coach'],
         );
       $form['sport_1'] = array(
-        '#type' => 'textfield',
+        '#type' => 'select',
+		'#options'=>$sports_arr,
         '#placeholder' => t('Sport'),
         // '#default_value' => $results12['athlete_uni_sport'],
         );
@@ -609,63 +782,61 @@ class ContributeForm extends FormBase {
         // '#default_value' => $results12['athlete_uni_stat'],
         );
     }
+    
 
     /*Add another organization 1 END*/
     /*Add another organization 1 start*/
-    if (!empty($results16)) {
+	
+      if ($orgtype_3!='') {
       $unitype = array(
-        t('Organization Type'),
-        t('SCHOOL'),
-        t('CLUB'),
-        t('UNIVERSITY'));
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
       $form['education_2'] = array(
         '#type' => 'select',
-        '#required' => true,
-        '#options' => array(
-          t('Organization Type'),
-          t('SCHOOL'),
-          t('CLUB'),
-          t('UNIVERSITY')),
+        '#options' => $unitype,
         '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
-        '#default_value' => array_search($results12['athlete_uni_type'], $unitype),
+        '#default_value' => $orgtype_3,
         );
-      $uniname = array(
+      /*$uniname = array(
         t('Organization Name'),
         t('Organization Name 1'),
         t('Organization Name 2'),
-        t('Organization Name 3'));
+        t('Organization Name 3'));*/
       $form['schoolname_2'] = array(
-        '#type' => 'select',
-        '#required' => true,
-        '#options' => array(
+        '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
+        /*'#options' => array(
           t('Organization Name'),
           t('Organization Name 1'),
           t('Organization Name 2'),
-          t('Organization Name 3')),
-        '#default_value' => array_search($results12['athlete_uni_name'], $uniname),
+          t('Organization Name 3')),*/
+        '#default_value' => $orgname_3,
         );
       $form['coach_2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t("Coache's Last Name"),
-        '#default_value' => $results16['athlete_club_coach'],
+        '#default_value' => $orgcoach_3,
         );
       $form['sport_2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
-        '#default_value' => $results16['athlete_club_sport'],
+        '#type' => 'select',
+		'#options'=>$sports_arr,
+        //'#placeholder' => t('Sport'),
+        '#default_value' => $orgsport_3,
         );
       $form['position_2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Position'),
-        '#default_value' => $results16['athlete_club_pos'],
+        '#default_value' => $orgpos_3,
         '#prefix' => '<div class="add_pos_div_third">',
         '#suffix' => '',
         );
-      if (empty($results16['athlete_school_pos2'])) {
+      if ($orgpos2_3=='') {
         $form['position_22'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results16['athlete_school_pos2'],
+          '#default_value' => $orgpos2_3,
           '#attributes' => array('class' => 'pos_hidden_third_1', 'style' => 'display:none'),
           // '#prefix' => '<div class ="pos_hidden_first_1 hidpos"',
           // '#suffix' => '</div>',
@@ -674,17 +845,17 @@ class ContributeForm extends FormBase {
         $form['position_22'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results16['athlete_school_pos2'],
+          '#default_value' => $orgpos2_3,
           '#attributes' => array('class' => 'pos_show_first_1', 'style' => 'display:block'),
           // '#prefix' => '<div class =pos_show_first_1',
           // '#suffix' => '</div>',
           );
       }
-      if (empty($results16['athlete_school_pos3'])) {
+      if ($orgpos3_3=='') {
         $form['position_23'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results16['athlete_school_pos3'],
+          '#default_value' => $orgpos3_3,
           '#attributes' => array('class' => 'pos_hidden_first_2', 'style' => 'display:none'),
           // '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
           // '#suffix' => '</div>',
@@ -693,7 +864,7 @@ class ContributeForm extends FormBase {
         $form['position_23'] = array(
           '#type' => 'textfield',
           '#placeholder' => t('Position'),
-          '#default_value' => $results16['athlete_school_pos3'],
+          '#default_value' => $orgpos3_3,
           '#attributes' => array('class' => 'pos_show_first_2', 'style' => 'display:block'),
           // '#prefix' => '<div class =pos_show_first_2',
           // '#suffix' => '</div>',
@@ -703,31 +874,33 @@ class ContributeForm extends FormBase {
         '#type' => 'textarea',
         '#placeholder' => t('Add all personal stats'),
         '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div>',
-        '#default_value' => '',
+        '#default_value' => $orgstats_3,
         '#prefix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
         );
     } else {
-      $form['education_2'] = array(
+		$unitype = array(
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
+      $form['education_2'] = array( // club
         //'#title' => t('az'),
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
-        '#options' => array(
-          t('Organization Type'),
-          t('SCHOOL'),
-          t('CLUB'),
-          t('UNIVERSITY')),
+        '#options' => $unitype,
         '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i><div class=items_div>',
         );
 
       $form['schoolname_2'] = array(
         //'#title' => t('az'),
-        '#type' => 'select',
+        '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
         //'#description' => 'Select the desired pizza crust size.',
-        '#options' => array(
+        /*'#options' => array(
           t('Organization Name'),
           t('Organization Name 1'),
           t('Organization Name 2'),
-          t('Organization Name 3')),
+          t('Organization Name 3')),*/
         );
       $form['coach_2'] = array(
         '#type' => 'textfield',
@@ -735,8 +908,9 @@ class ContributeForm extends FormBase {
         '#default_value' => '',
         );
       $form['sport_2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
+        '#type' => 'select',
+        //'#placeholder' => t('Sport'),
+		'#options'=>$sports_arr,
         '#default_value' => '',
         );
       $form['position_2'] = array(
@@ -801,7 +975,7 @@ class ContributeForm extends FormBase {
     $form['school_web'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('School'),
-      '#default_value' => $results5['athlete_school_name'],
+      '#default_value' => $orgname_1,
       '#attributes' => array('disabled' => true),
       '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website</h3><div class=items_div>',
       );
@@ -809,13 +983,13 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Sport'),
       '#attributes' => array('disabled' => true),
-      '#default_value' => $results5['athlete_school_sport'],
+      '#default_value' => $orgsport_1,
       );
 	 // print '<pre>';print_r($results13);die;
     $form['name_web'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Pick a Name'),
-      '#default_value' => $results13['athlete_web_name'],
+      '#default_value' => $deltaweb0,
       '#prefix' => '<div class="container-inline web_name webfield">',
       '#suffix' => '</div>',
       '#attributes' => array('id' => 'name_1'),
@@ -843,27 +1017,27 @@ class ContributeForm extends FormBase {
         t('Website Visibility'),
         t('On'),
         t('Off')),
-      '#default_value' => $results13['athlete_web_visibility'],
+      '#default_value' => $deltaweb0_visibility,
       '#suffix' => '',
       );
-    if (!empty($results12)) {
+    if ($orgtype_2!='') {
       $form['school_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('School'),
-        '#default_value' => $results6['athlete_uni_name'],
+        '#default_value' => $orgname_2,
         '#attributes' => array('disabled' => true),
         '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
         );
       $form['sport_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Sport'),
-        '#default_value' => $results6['athlete_uni_sport'],
+        '#default_value' => $orgsport_2,
         '#attributes' => array('disabled' => true),
         );
       $form['name_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $results14['athlete_addweb_name'],
+        '#default_value' => $deltaweb1,
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -891,28 +1065,28 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $results14['athlete_addweb_visibility'],
+        '#default_value' => $deltaweb1_visibility,
         '#suffix' => '</div></div>',
         );
     }
-    if (!empty($results16)) {
+    if ($orgtype_3!='') {
       $form['school_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('School'),
-        '#default_value' => $results16['athlete_club_name'],
+        '#default_value' => $orgname_3,
         '#attributes' => array('disabled' => true),
         '#prefix' => '<div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
         );
       $form['sport_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Sport'),
-        '#default_value' => $results16['athlete_club_sport'],
+        '#default_value' => $orgsport_3,
         '#attributes' => array('disabled' => true),
         );
       $form['name_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $results17['athlete_clubweb_name'],
+        '#default_value' => $deltaweb2,
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -940,7 +1114,7 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $results17['athlete_clubweb_visibility'],
+        '#default_value' => $deltaweb2_visibility,
         '#suffix' => '</div></div></div>',
         );
     }
@@ -1005,95 +1179,140 @@ class ContributeForm extends FormBase {
   public function submitForm(array & $form, FormStateInterface $form_state) {
     $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
+	
+	$org_type1= $form_state->getValue('organizationType'); // school
+	$org_type2= $form_state->getValue('education_1'); // club
+	$org_type3= $form_state->getValue('education_2'); //uni
+	
+	
+	
     $seltype1 = $form_state->getValue('organizationType');
     $selname1 = $form_state->getValue('organizationName');
     $seltype2 = $form_state->getValue('education_1');
-    $selname2 = $form_state->getValue('schoolname_1');
-    $seltype3 = $form_state->getValue('education_2');
-    $selname3 = $form_state->getValue('schoolname_2');
+    $selnameval2 = $form_state->getValue('schoolname_1');
+    $seltypeval3 = $form_state->getValue('education_2');
+    $selnameval3 = $form_state->getValue('schoolname_2');
     $selstate = $form_state->getValue('az');
     $seltypeval1 = $form['organizationType']['#options'][$seltype1];
     $selnameval1 = $form['organizationName']['#options'][$selname1];
     $seltypeval2 = $form['education_1']['#options'][$seltype2];
-    $selnameval2 = $form['schoolname_1']['#options'][$selname2];
-    $seltypeval3 = $form['education_2']['#options'][$seltype3];
-    $selnameval3 = $form['schoolname_2']['#options'][$selname3];
+
+
     $statevalue = $form['az']['#options'][$selstate];
     $query_info = \Drupal::database()->select('athlete_info', 'ai');
     $query_info->fields('ai');
     $query_info->condition('athlete_uid', $current_user, '=');
     $results_info = $query_info->execute()->fetchAll();
+	
     $query_about = \Drupal::database()->select('athlete_about', 'aa');
     $query_about->fields('aa');
     $query_about->condition('athlete_uid', $current_user, '=');
     $results_about = $query_about->execute()->fetchAll();
+	
     $query_social = \Drupal::database()->select('athlete_social', 'ascc');
     $query_social->fields('ascc');
     $query_social->condition('athlete_uid', $current_user, '=');
     $results_social = $query_social->execute()->fetchAll();
+	
     $query_web = \Drupal::database()->select('athlete_web', 'aw');
     $query_web->fields('aw');
     $query_web->condition('athlete_uid', $current_user, '=');
     $results_web = $query_web->execute()->fetchAll();
+	
     $query_addweb = \Drupal::database()->select('athlete_addweb', 'aaw');
     $query_addweb->fields('aaw');
     $query_addweb->condition('athlete_uid', $current_user, '=');
     $results_addweb = $query_addweb->execute()->fetchAll();
+	
     $query_school = \Drupal::database()->select('athlete_school', 'ats');
     $query_school->fields('ats');
     $query_school->condition('athlete_uid', $current_user, '=');
     $results_school = $query_school->execute()->fetchAll();
+	
 	$count_school_num_results = count($results_school);
     $query_uni = \Drupal::database()->select('athlete_uni', 'au');
     $query_uni->fields('au');
     $query_uni->condition('athlete_uid', $current_user, '=');
     $results_uni = $query_uni->execute()->fetchAll();
+	$count_uni_num_results = count($results_uni);
+	
     $query_fname = \Drupal::database()->select('user__field_first_name', 'uffn');
     $query_fname->fields('uffn');
     $query_fname->condition('entity_id', $current_user, '=');
     $results_fname = $query_fname->execute()->fetchAll();
+	
     $query_lname = \Drupal::database()->select('user__field_last_name', 'ufln2');
     $query_lname->addField('ufln2', 'field_last_name_value');
     $query_lname->condition('entity_id', $current_user, '=');
     $results_lname = $query_lname->execute()->fetchAssoc();
+	
     $query_mail = \Drupal::database()->select('users_field_data', 'ufln4');
     $query_mail->addField('ufln4', 'mail');
     $query_mail->condition('uid', $current_user, '=');
     $results_mail = $query_mail->execute()->fetchAssoc();
+	
     $query_web = \Drupal::database()->select('athlete_web', 'athw');
     $query_web->fields('athw');
     $query_web->condition('athlete_uid', $current_user, '=');
     $results_web = $query_web->execute()->fetchAll();
+	
+	
+	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
+    $query_web_type_delta0->fields('athw');
+    $query_web_type_delta0->condition('athlete_uid', $current_user, '=');
+    $query_web_type_delta0->condition('athlete_web_type', 1, '=');
+    $query_web_type_delta0->condition('delta', 0, '=');
+    $results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAll();
+	
+	
+	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
+    $query_web_type_delta1->fields('athw');
+    $query_web_type_delta1->condition('athlete_uid', $current_user, '=');
+    $query_web_type_delta1->condition('athlete_web_type', 1, '=');
+    $query_web_type_delta1->condition('delta', 1, '=');
+    $results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAll();
+	
+	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
+    $query_web_type_delta2->fields('athw');
+    $query_web_type_delta2->condition('athlete_uid', $current_user, '=');
+    $query_web_type_delta2->condition('athlete_web_type', 1, '=');
+    $query_web_type_delta2->condition('delta', 2, '=');
+    $results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAll();
+	
+	
     $query_addweb = \Drupal::database()->select('athlete_addweb', 'athaw');
     $query_addweb->fields('athaw');
     $query_addweb->condition('athlete_uid', $current_user, '=');
     $results_addweb = $query_addweb->execute()->fetchAll();
+	
     $query_clubweb = \Drupal::database()->select('athlete_clubweb', 'athawa');
     $query_clubweb->fields('athawa');
     $query_clubweb->condition('athlete_uid', $current_user, '=');
     $results_clubweb = $query_clubweb->execute()->fetchAll();
+	
     $query_club = \Drupal::database()->select('athlete_club', 'athawac');
     $query_club->fields('athawac');
     $query_club->condition('athlete_uid', $current_user, '=');
     $results_club = $query_club->execute()->fetchAll();
+	
+	$count_club_num_results = count($results_club);
+	
     $query_mydata = \Drupal::database()->select('mydata', 'md');
     $query_mydata->fields('md');
     $query_mydata->condition('uid', $current_user, '=');
     $results_mydata = $query_mydata->execute()->fetchAll();
-    // $query_img = \Drupal::database()->select('user__user_picture', 'n');
-    // $query_img->addField('n', 'user_picture_target_id');
-    // $query_img->condition('entity_id', $current_user,'=');
-    // $results = $query_img->execute()->fetchAssoc();
-    // $img_id = $results['user_picture_target_id'];
-    // print_r($form_state->getValue('image_athlete'));die;
+
     $imgid = $form_state->getValue('image_athlete');
-    $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
-    $query_pic->fields('uup');
-    $query_pic->condition('entity_id', $current_user, '=');
-    $results_pic = $query_pic->execute()->fetchAll();
-    $imgid = $form_state->getValue('image_athlete');
+
 	
-	if (empty($results_pic)) {
+	
+	
+	$query_pic = \Drupal::database()->select('athlete_prof_image', 'uup');
+    $query_pic->fields('uup');
+    $query_pic->condition('athlete_id', $current_user, '=');
+    $results_pic = $query_pic->execute()->fetchAll();
+	$count_pic = count($results_pic);
+	if ($count_pic==0) {
 		$conn->insert('athlete_prof_image')->fields(array(
         'athlete_id' => $current_user,
         'athlete_target_image_id' => $imgid[0],
@@ -1106,24 +1325,6 @@ class ContributeForm extends FormBase {
       }
 	}	
 	
-    /*if (empty($results_pic)) {
-      $conn->insert('user__user_picture')->fields(array(
-        'entity_id' => $current_user,
-        'bundle' => 'user',
-        'deleted' => '0',
-        'revision_id' => $current_user,
-        'langcode' => 'en',
-        'delta' => '0',
-        'user_picture_target_id' => $imgid[0],
-        ))->execute();
-    } else {
-      if (!empty($imgid[0])) {
-        $conn->update('user__user_picture')->condition('entity_id', $current_user, '=')->fields(array('user_picture_target_id' => $imgid[0], ))->execute();
-      } else {
-        $conn->update('user__user_picture')->condition('entity_id', $current_user, '=')->fields(array('user_picture_target_id' => '240', ))->execute();
-      }
-
-    }*/
 
     $conn->update('user__field_first_name')->condition('entity_id', $current_user, '=')->fields(array('field_first_name_value' => $form_state->getValue('fname'), ))->execute();
 
@@ -1132,11 +1333,6 @@ class ContributeForm extends FormBase {
     $conn->update('user__field_state')->condition('entity_id', $current_user, '=')->fields(array('field_state_value' => $statevalue, ))->execute();
 
 
-    $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
-      'field_az' => $az,
-      'field_city' => $city,
-      ))->execute();
-    
     $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
     
     $query3->addField('ufln3', 'field_date_value');
@@ -1172,6 +1368,52 @@ class ContributeForm extends FormBase {
         'athlete_web_visibility' => $form_state->getValue('youtube'),
         ))->execute();
     }
+	
+	if (empty($results_web_type_delta0)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+        'athlete_web_type' => 1,
+        'delta' => 0,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 0, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+        ))->execute();
+    }
+	
+	if (empty($results_web_type_delta1)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web2'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
+        'athlete_web_type' => 1,
+        'delta' => 1,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 1, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web2'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
+        ))->execute();
+    }
+	
+	if (empty($results_web_type_delta2)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web3'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
+        'athlete_web_type' => 1,
+        'delta' => 2,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 2, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web3'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
+        ))->execute();
+    }
+	
     if (empty($results_mydata)) {
       $conn->insert('mydata')->fields(array(
         'uid' => $current_user,
@@ -1233,29 +1475,7 @@ class ContributeForm extends FormBase {
         'athlete_social_2' => $form_state->getValue('youtube'),
         ))->execute();
     }
-	//print 'saddasadsasasd';die;
-    if (empty($results_web)) {
-      $conn->insert('athlete_web')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_web_name' => $form_state->getValue('name_web'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-        'athlete_web_type' => 1,
-        ))->execute();
-    } else {
-      /*$conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->fields(array(
-        'athlete_web_name' => $form_state->getValue('name_web'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-        ))->execute();*/
-		
-			$num_updated = $conn->update('athlete_web')
-			->fields([
-			'athlete_web_name' =>  $form_state->getValue('name_web'),
-			'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
-			])
-			->condition('athlete_uid', $current_user, '=')
-			->condition('athlete_web_type', 1, '=')
-			->execute();
-    }
+	
     if (empty($results_addweb)) {
       $conn->insert('athlete_addweb')->fields(array(
         'athlete_uid' => $current_user,
@@ -1281,86 +1501,227 @@ class ContributeForm extends FormBase {
         ))->execute();
     }
 	
-     if ($count_school_num_results==0 && $seltype1!=0 && $selname1!=""){
-      $conn->insert('athlete_school')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_school_name' => $form_state->getValue('organizationName'),
-        'athlete_school_coach' => $form_state->getValue('coach'),
-        'athlete_school_sport' => $form_state->getValue('sport'),
-        'athlete_school_pos' => $form_state->getValue('position'),
-        'athlete_school_pos2' => $form_state->getValue('position2'),
-        'athlete_school_pos3' => $form_state->getValue('position3'),
-        'athlete_school_stat' => $form_state->getValue('stats'),
-        'athlete_school_type' => $seltypeval1,
-        ))->execute();
-    } else{
+	/* for selection in Type 1 starts here ==== */
+	if($org_type1==1){
+
+		$conn->insert('athlete_school')->fields(array(
+		'athlete_uid' => $current_user,
+		'athlete_school_name' => $form_state->getValue('organizationName'),
+		'athlete_school_coach' => $form_state->getValue('coach'),
+		'athlete_school_sport' => $form_state->getValue('sport'),
+		'athlete_school_pos' => $form_state->getValue('position'),
+		'athlete_school_pos2' => $form_state->getValue('position2'),
+		'athlete_school_pos3' => $form_state->getValue('position3'),
+		'athlete_school_stat' => $form_state->getValue('stats'),
+		'athlete_school_type' => $org_type1,
+		))->execute();
 		
-      if ($seltype1 != 0 && $selname1 != "") {
-		  //print '<pre>';print_r($results_school);die;
-        $conn->update('athlete_school')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_school_name' =>$form_state->getValue('organizationName'),
-          'athlete_school_coach' => $form_state->getValue('coach'),
-          'athlete_school_sport' => $form_state->getValue('sport'),
-          'athlete_school_pos' => $form_state->getValue('position'),
-          'athlete_school_pos2' => $form_state->getValue('position2'),
-          'athlete_school_pos3' => $form_state->getValue('position3'),
-          'athlete_school_stat' => $form_state->getValue('stats'),
-          'athlete_school_type' => $seltypeval1,
-          ))->execute();
-      }
-  }
-    if (empty($results_club) && $seltype3 != 0 && $selname3 != "") {
-      if (!empty($selnameval3) && !empty($seltypeval3)) {
+		$query_sch = \Drupal::database()->select('athlete_school', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id1 = $results['id'];
+		
+	}elseif($org_type1==2){
         $conn->insert('athlete_club')->fields(array(
           'athlete_uid' => $current_user,
-          'athlete_club_name' => $selnameval3,
-          'athlete_club_coach' => $form_state->getValue('coach_2'),
-          'athlete_club_sport' => $form_state->getValue('sport_2'),
-          'athlete_club_pos' => $form_state->getValue('position_2'),
-          'athlete_school_pos2' => $form_state->getValue('position_22'),
-          'athlete_school_pos3' => $form_state->getValue('position_23'),
-          'athlete_club_stat' => $form_state->getValue('stats_2'),
-          'athlete_school_type' => $seltypeval3,
+          'athlete_club_name' => $form_state->getValue('organizationName'),
+          'athlete_club_coach' => $form_state->getValue('coach'),
+          'athlete_club_sport' => $form_state->getValue('sport'),
+          'athlete_club_pos' => $form_state->getValue('position'),
+          'athlete_school_pos2' => $form_state->getValue('position2'),
+          'athlete_school_pos3' => $form_state->getValue('position3'),
+          'athlete_club_stat' => $form_state->getValue('stats'),
+          'athlete_school_type' => $org_type1,
           ))->execute();
-      }
-    } else
-      if ($seltype3 != 0 && $selname3 != 0) {
-        $conn->update('athlete_club')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_club_name' => $selnameval3,
-          'athlete_club_coach' => $form_state->getValue('coach_2'),
-          'athlete_club_sport' => $form_state->getValue('sport_2'),
-          'athlete_club_pos' => $form_state->getValue('position_2'),
-          'athlete_school_pos2' => $form_state->getValue('position_22'),
-          'athlete_school_pos3' => $form_state->getValue('position_23'),
-          'athlete_club_stat' => $form_state->getValue('stats_2'),
-          'athlete_school_type' => $seltypeval3,
-          ))->execute();
-      }
-    if (empty($results_uni) && $seltype2 != 0 && $selname2 != "") {
+      
+	  
+		$query_sch = \Drupal::database()->select('athlete_club', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id1 = $results['id'];
+    
+	}elseif($org_type1==3){
       $conn->insert('athlete_uni')->fields(array(
         'athlete_uid' => $current_user,
-        'athlete_uni_name' => $selnameval2,
+        'athlete_uni_name' => $form_state->getValue('organizationName'),
+        'athlete_uni_coach' => $form_state->getValue('coach'),
+        'athlete_uni_sport' => $form_state->getValue('sport'),
+        'athlete_uni_pos' => $form_state->getValue('position'),
+        'athlete_uni_pos2' => $form_state->getValue('position2'),
+        'athlete_uni_pos3' => $form_state->getValue('position3'),
+        'athlete_uni_stat' => $form_state->getValue('stats'),
+        'athlete_uni_type' => $org_type1,
+        ))->execute();
+		
+		$query_sch = \Drupal::database()->select('athlete_uni', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id1 = $results['id'];
+    
+	}
+	/* for selection in Type 1 ends here ==== */
+	
+	/* for selection in Type 2 starts here ==== */
+	if($org_type2==1){
+		$conn->insert('athlete_school')->fields(array(
+		'athlete_uid' => $current_user,
+		'athlete_school_name' => $form_state->getValue('schoolname_1'),
+		'athlete_school_coach' => $form_state->getValue('coach_1'),
+		'athlete_school_sport' => $form_state->getValue('sport_1'),
+		'athlete_school_pos' => $form_state->getValue('position_1'),
+		'athlete_school_pos2' => $form_state->getValue('position_12'),
+		'athlete_school_pos3' => $form_state->getValue('position_13'),
+		'athlete_school_stat' => $form_state->getValue('stats_1'),
+		'athlete_school_type' => $org_type2,
+		))->execute();
+		
+		$query_sch = \Drupal::database()->select('athlete_school', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id2 = $results['id'];
+	}elseif($org_type2==2){
+        $conn->insert('athlete_club')->fields(array(
+          'athlete_uid' => $current_user,
+          'athlete_club_name' => $form_state->getValue('schoolname_1'),
+          'athlete_club_coach' => $form_state->getValue('coach_1'),
+          'athlete_club_sport' => $form_state->getValue('sport_1'),
+          'athlete_club_pos' => $form_state->getValue('position_1'),
+          'athlete_school_pos2' => $form_state->getValue('position_12'),
+          'athlete_school_pos3' => $form_state->getValue('position_13'),
+          'athlete_club_stat' => $form_state->getValue('stats_1'),
+          'athlete_school_type' => $org_type2,
+          ))->execute();
+		$query_sch = \Drupal::database()->select('athlete_club', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id2 = $results['id'];
+    
+	}elseif($org_type2==3){
+      $conn->insert('athlete_uni')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_uni_name' => $form_state->getValue('schoolname_1'),
         'athlete_uni_coach' => $form_state->getValue('coach_1'),
         'athlete_uni_sport' => $form_state->getValue('sport_1'),
         'athlete_uni_pos' => $form_state->getValue('position_1'),
         'athlete_uni_pos2' => $form_state->getValue('position_12'),
         'athlete_uni_pos3' => $form_state->getValue('position_13'),
         'athlete_uni_stat' => $form_state->getValue('stats_1'),
-        'athlete_uni_type' => $seltypeval2,
+        'athlete_uni_type' => $org_type2,
         ))->execute();
-    } else
-      if ($seltype2 != 0 && $selname2 != 0) {
-        $conn->update('athlete_uni')->condition('athlete_uid', $current_user, '=')->fields(array(
-          'athlete_uni_name' => $selnameval2,
-          'athlete_uni_coach' => $form_state->getValue('coach_1'),
-          'athlete_uni_sport' => $form_state->getValue('sport_1'),
-          'athlete_uni_pos' => $form_state->getValue('position_1'),
-          'athlete_uni_pos2' => $form_state->getValue('position_12'),
-          'athlete_uni_pos3' => $form_state->getValue('position_13'),
-          'athlete_uni_stat' => $form_state->getValue('stats_1'),
-          'athlete_uni_type' => $seltypeval2,
+		$query_sch = \Drupal::database()->select('athlete_uni', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id2 = $results['id'];
+	}
+	/* for selection in Type 2 ends here ==== */
+	
+	/* for selection in Type 3 starts here ==== */
+	if($org_type3==1){
+		
+		$conn->insert('athlete_school')->fields(array(
+		'athlete_uid' => $current_user,
+		'athlete_school_name' => $form_state->getValue('schoolname_2'),
+		'athlete_school_coach' => $form_state->getValue('coach_2'),
+		'athlete_school_sport' => $form_state->getValue('sport_2'),
+		'athlete_school_pos' => $form_state->getValue('position_2'),
+		'athlete_school_pos2' => $form_state->getValue('position_22'),
+		'athlete_school_pos3' => $form_state->getValue('position_23'),
+		'athlete_school_stat' => $form_state->getValue('stats_2'),
+		'athlete_school_type' => $org_type3,
+		))->execute();
+		$query_sch = \Drupal::database()->select('athlete_school', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id3 = $results['id'];
+		
+	}elseif($org_type3==2){
+        $conn->insert('athlete_club')->fields(array(
+          'athlete_uid' => $current_user,
+          'athlete_club_name' => $form_state->getValue('schoolname_2'),
+          'athlete_club_coach' => $form_state->getValue('coach_2'),
+          'athlete_club_sport' => $form_state->getValue('sport_2'),
+          'athlete_club_pos' => $form_state->getValue('position_2'),
+          'athlete_school_pos2' => $form_state->getValue('position_22'),
+          'athlete_school_pos3' => $form_state->getValue('position_23'),
+          'athlete_club_stat' => $form_state->getValue('stats_2'),
+          'athlete_school_type' => $org_type3,
           ))->execute();
-      }
+		
+		$query_sch = \Drupal::database()->select('athlete_club', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id3 = $results['id'];
+	}elseif($org_type3==3){
+      $conn->insert('athlete_uni')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_uni_name' => $form_state->getValue('schoolname_2'),
+        'athlete_uni_coach' => $form_state->getValue('coach_2'),
+        'athlete_uni_sport' => $form_state->getValue('sport_2'),
+        'athlete_uni_pos' => $form_state->getValue('position_2'),
+        'athlete_uni_pos2' => $form_state->getValue('position_22'),
+        'athlete_uni_pos3' => $form_state->getValue('position_23'),
+        'athlete_uni_stat' => $form_state->getValue('stats_2'),
+        'athlete_uni_type' => $org_type3,
+        ))->execute();
+		$query_sch = \Drupal::database()->select('athlete_uni', 'n');
+		$query_sch->addField('n', 'id');
+		$query_sch->condition('athlete_uid', $current_user, '=');
+		$query_sch->orderBy('id', 'DESC');
+		$query_sch->range(0, 1);
+		$results = $query_sch->execute()->fetchAssoc();
+		$id3 = $results['id'];
+	}
+	/* for selection in Type 3 ends here ==== */
+	 
+	 
+	
+	$query_orginfo= \Drupal::database()->select('athlete_orginfo', 'orginfo');
+    $query_orginfo->fields('orginfo');
+    $query_orginfo->condition('athlete_id', $current_user, '=');
+    $results_orginfo = $query_orginfo->execute()->fetchAll();
+	$count_school_num_results = count($results_orginfo);
+	
+	
+	
+	
+	$type1_dt=array('type1'=>$org_type1,'id'=>$id1);
+	$type2_dt=array('type1'=>$org_type2,'id'=>$id2);
+	$type3_dt=array('type1'=>$org_type3,'id'=>$id3);
+	$textdata=array('type1'=>$type1_dt,'type2'=>$type2_dt,'type3'=>$type3_dt);
+	if($count_school_num_results==0){
+		
+		$conn->insert('athlete_orginfo')->fields(array(
+        'athlete_id' => $current_user,
+        'orgtype_text' => json_encode($textdata),
+        ))->execute();
+	}else{
+		$conn->update('athlete_orginfo')->condition('athlete_id', $current_user, '=')->fields(array('orgtype_text' => json_encode($textdata), ))->execute();
+	}
+    
     drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
     // $form_state->setRedirect('acme_hello');
     // return;
@@ -1419,60 +1780,6 @@ function getStates() {
          'WV'=> t('WV'),
         'WI'=>  t('WI'),
         'WY'=>  t('WY'));
-	
-  /*return [
-    'AL' => 'Alabama',
-    'AK' => 'Alaska',
-    'AZ' => 'Arizona',
-    'AR' => 'Arkansas',
-    'CA' => 'California',
-    'CO' => 'Colorado',
-    'CT' => 'Connecticut',
-    'DE' => 'Delaware',
-    'DC' => 'District of Columbia',
-    'FL' => 'Florida',
-    'GA' => 'Georgia',
-    'HI' => 'Hawaii',
-    'ID' => 'Idaho',
-    'IL' => 'Illinois',
-    'IN' => 'Indiana',
-    'IA' => 'Iowa',
-    'KS' => 'Kansas',
-    'KY' => 'Kentucky',
-    'LA' => 'Louisiana',
-    'ME' => 'Maine',
-    'MT' => 'Montana',
-    'NE' => 'Nebraska',
-    'NV' => 'Nevada',
-    'NH' => 'New Hampshire',
-    'NJ' => 'New Jersey',
-    'NM' => 'New Mexico',
-    'NY' => 'New York',
-    'NC' => 'North Carolina',
-    'ND' => 'North Dakota',
-    'OH' => 'Ohio',
-    'OK' => 'Oklahoma',
-    'OR' => 'Oregon',
-	'MD'=>'Maryland',
-	'MA'=>'Massachusetts',
-	'MI'=>'Michigan',
-	'MN'=>'Minnesota',
-	'MS'=>'Mississippi',
-	'MO'=>'Missouri',
-	'PA'=>'Pennsylvania',
-	'RI'=>'Rhode Island',
-	'SC'=>'South Carolina',
-	'SD'=>'South Dakota',
-	'TN'=>'Tennessee',
-	'TX'=>'Texas',
-	'UT'=>'Utah',
-	'VT'=>'Vermont',
-	'VA'=>'Virginia',
-	'WA'=>'Washington',
-	'WV'=>'West Virginia',
-	'WI'=>'Wisconsin',
-	'WY'=>'Wyoming',
-  ];*/
 }
 
 ?>

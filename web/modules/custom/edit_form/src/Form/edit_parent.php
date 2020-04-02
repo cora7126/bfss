@@ -239,7 +239,7 @@ class edit_parent extends FormBase {
 	$form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
-		'#prefix' =>'</div></div><a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a><div id="athlete_submit">',
+		'#prefix' =>'</div></div><a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Parent/Guardian</a><div id="athlete_submit">',
 		'#suffix' => '</div>',
         //'#value' => t('Submit'),
     ];	

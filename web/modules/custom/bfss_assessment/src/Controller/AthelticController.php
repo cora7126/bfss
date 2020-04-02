@@ -268,6 +268,21 @@ class AthelticController extends ControllerBase {
     }
   }
 
+
+    public function Bfss_assessments(&$data, $preview =false) {
+
+    $block = \Drupal\block\Entity\Block::load('bfssassessmentlistblock');
+    if ($block) {
+      $block_content = \Drupal::entityManager()->getViewBuilder('block')->view($block);
+      if ($block_content) {
+        $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
+        $data['mydata']['bfss_assessments'] = $assessments_block;
+      }
+    } 
+      //$data['mydata']['bfss_assessments'] = 'field_youtube1';
+    
+  }
+
   private function getYouTubeXMLUrl( $url, $return_id_only = false ) {
       $xml_youtube_url_base = 'https://www.youtube.com/feeds/videos.xml';
       $preg_entities        = [
@@ -401,6 +416,8 @@ class AthelticController extends ControllerBase {
 
     }
 
+   // $data['mydata']['field_youtube1'] = 'field_youtube1';
+
     if ($val = $req->get('btnId')) {
       $pr = $name = $type = '';
       if ($val == 1) {
@@ -449,6 +466,7 @@ class AthelticController extends ControllerBase {
     $data['username'] = $username;
     
     $this->YoutubeUrl($data);
+    $this->Bfss_assessments($data);
     $this->InstagramUrl($data);
     $this->getShareBlock($data);
     #data on username
@@ -478,6 +496,7 @@ class AthelticController extends ControllerBase {
     $this->atheleteUserId = \Drupal::currentUser()->id();
     $data = $this->getBasicData();
     $this->YoutubeUrl($data);
+    $this->Bfss_assessments($data);
     $this->InstagramUrl($data);
     $this->getShareBlock($data);
     #update data with new things

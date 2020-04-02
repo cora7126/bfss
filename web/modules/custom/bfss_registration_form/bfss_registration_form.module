@@ -538,27 +538,37 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
         //      if ($is_over_16_years == 'yes' || ($is_over_16_years == 'no' && in_array($parent_permission, ['yes']))) {
         //      if ($parent_permission_show == 'show' || ($is_over_16_years == 'no' && $parent_permission == 'yes')) {
         //      if ($parent_permission_show == 'show') {
+			//print $is_over_16_years.'<br/>';
+		//	print $parent_permission.'<br/>';
+		
+			
         $form['step_4']['cck'] = [
           '#title' => t('Credit Card Information'),
           '#type' => 'fieldset',
+		  //'#access' => $value,
           '#attributes' => [
             'class' => ['fieldset-cck'],
           ],
         ];
 
+
+		
+		
         $form['step_4']['cck']['cck_name'] = [
           '#title' => t('Credit Card Name'),
           '#title_display' => 'invisible',
           '#placeholder' => t('Credit Card Name'),
-          '#required' => TRUE,
+          //'#required' => TRUE,
           '#type' => 'textfield',
         ];
+		
+		
 
         $form['step_4']['cck']['cck_number'] = [
           '#title' => t('Credit Card Number'),
           '#title_display' => 'invisible',
           '#placeholder' => t('Credit Card Number'),
-          '#required' => TRUE,
+          //'#required' => TRUE,
           '#type' => 'textfield',
         ];
 
@@ -578,7 +588,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#title' => t('Month'),
           '#title_display' => 'invisible',
           '#type' => 'select',
-          '#required' => TRUE,
+          //'#required' => TRUE,
           '#options' => $month_options,
         ];
 
@@ -586,7 +596,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#title' => t('Year'),
           '#title_display' => 'invisible',
           '#type' => 'select',
-          '#required' => TRUE,
+          //'#required' => TRUE,
           '#options' => $year_options,
         ];
 
@@ -594,7 +604,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#title' => t('CSV'),
           '#title_display' => 'invisible',
           '#placeholder' => t('CSV'),
-          '#required' => TRUE,
+         // '#required' => TRUE,
           '#type' => 'textfield',
         ];
 
@@ -653,7 +663,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
         $form['step_4']['cck']['billing_info']['bi_postal_code'] = [
           '#title' => t('Billing Postal Code'),
           '#title_display' => 'invisible',
-          '#placeholder' => t('Billing Postal Code'),
+          '#placeholder' => t('Zip/Post Code'),
           '#type' => 'textfield',
           '#default_value' => $form_state->getValue('bi_postal_code', ''),
         ];
@@ -914,7 +924,15 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
 
       if ($is_over_16_years == 'no' && $parent_permission == 'no') {
         $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
-      }
+		 $form['step_4']['cck']['#access']=false;
+		$form['step_4']['cck']['cck_name']['#access']=false;
+		$form['step_4']['cck']['cck_number']['#access']=false;
+		$form['step_4']['cck']['cck_month']['#access']=false;
+		$form['step_4']['cck']['cck_year']['#access']=false;
+		$form['step_4']['cck']['cck_csv']['#access']=false; 
+      }else{
+		//$form_state->set('cck', 'show');
+	  }
 
       $form_state->setRebuild();
 
@@ -935,20 +953,29 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
         if (strpos($te_name, 'op') !== FALSE && 1) {
 
           if ($is_over_16_years == 'no' && $parent_permission == 'no') {
-            $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
+            //$form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
             //          $form_state->setRebuild();
             //          return FALSE;
-          }
+          }else{
+			$form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
+		  }
         }
 
         //@todo: better to use this library https://github.com/inacho/php-credit-card-validator
-
+$is_over_16_years = $form_state->getValue('is_over_16_years');
+			//  check parent permissions
+			$parent_permission = $form_state->getValue('parent_permission');
         //  validate credit card number
         $credit_card_number = $form_state->getValue('cck_number');
         $luhn_check = !luhn_check($credit_card_number);
         $is_cck_number = $credit_card_number == '4111111111111111'; //  @todo: should be replaced
         if (!$luhn_check && !$is_cck_number) {
-          $form_state->setErrorByName('cck_number', t('Please set valid Credit Card Number.'));
+			
+			 if ($is_over_16_years == 'no' && $parent_permission == 'no') {
+				
+			 }else{
+				$form_state->setErrorByName('cck_number', t('Please set valid Credit Card Number.'));
+			 }
           //        $form_state->setRebuild();
         }
 
@@ -961,7 +988,11 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
 
         if ($expires < $now) {
           // expired
-          $form_state->setErrorByName('cck_month', t('Please set valid Credit Card Expiration Date.'));
+		  if ($is_over_16_years == 'no' && $parent_permission == 'no') {
+          
+		  }else{
+			$form_state->setErrorByName('cck_month', t('Please set valid Credit Card Expiration Date.'));
+		}
           //        $form_state->setRebuild();
         }
 
@@ -1101,6 +1132,7 @@ function _get_role_options() {
   //  remove unnecessary roles
   unset($roles['administrator']);
   unset($roles['authenticated']);
+  unset($roles['assessors']);
   array_unshift($roles, t('Account Options'));
   return $roles;
 }

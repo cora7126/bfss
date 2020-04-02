@@ -1932,7 +1932,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .athlete_right .previewdiv a{color:#f76907;border:1px solid #f76907;font-size:14px;padding:8px 25px;height:40px;line-height:16px;}
 .right_section .athlete_right .previewdiv a:hover, .right_section .athlete_right .previewdiv a:focus{outline:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;background-color:#f76907;color:#fff;}
 .right_section .athlete_right .previewdiv a span{display:none;}
-.right_section .athlete_right button{border-radius:2px;border:2px solid #f76907;margin:15px;color:#f76907;}
+.right_section .athlete_right button{/* border-radius:2px; */border-radius:0px !important;border:2px solid #dc3545;margin:15px;color:#f76907;}
 .right_section .items_div ,.left_section .items_div{display:inline-block;width:100%;padding:30px 0;}
 #athlete_submit{display:inline-block;width:100%;padding-top:20px;}
 #athlete_submit button{border-radius:2px;border:2px solid #f76907;padding:8px 15px;color:#f76907;background-color:#fff;font-size:15px;}
@@ -1943,7 +1943,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .preview{width:100%;margin:0 auto;display:table;text-align:center;}
 .right_section .preview img{display:table;max-width:initial;height:auto;}
 .toggle_icon{display:inline-block;}
-.left_section .right-icon , .right_section .right-icon{position:absolute;right:10px;top:10px;color:#f76907;cursor:pointer;}
+.left_section .right-icon , .right_section .right-icon{position:absolute;right:0px;top:10px;color:#f76907;cursor:pointer;}
 .right-icon.delete_icon{right:20px;}
 /*.left_section a.add_org{text-decoration:none;}
 */
@@ -1987,13 +1987,13 @@ div#edit-phone-section{margin-top:25px;}
 .edit-user-display{display:none;}
 .edit-user .spb-popup-main-wrapper.spb_top_center{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);padding:38px 0 45px 0;width:255px;}
 #spb-imagepopup .spb-popup-main-wrapper.spb_top_center .spb-controls{bottom:2px;left:38%;right:unset;}
-.spb_close.submit_btn{padding:8px 14px;color:#fff;background:green;border-radius:2px;font-size:14px;border:none;line-height:normal;text-transform:uppercase;margin:0;}
+.spb_close.submit_btn{padding:8px 14px;color:#fff;background:green;/* border-radius:2px; */font-size:14px;border:none;line-height:normal;text-transform:uppercase;margin:0;}
 #spb-changepassdiv .spb-controls{top:7px;}
 .edit-user .right_section .image-widget .data{border:none;}
 .edit-user .spb-popup-main-wrapper.spb_top_center .image-widget .data{position:absolute;bottom:-5px;right:-4px;width:auto !important;background:unset;padding:10px 17px;display:block;top:unset;}
 #edit-form img.edit-profile-image{width:100%;margin:auto;padding:40px;}
 /*25-02-2020 end*/
-.right_side_section , .edit-user .region-content , .bfssAthleteProfile .region-content , .edit-parent .region-content,.faq-page .region-content{width:calc(100% - 19%);transition:width 0.5s;}
+.right_side_section , .edit-user .region-content , .payment-receipts .region-content, .bfssAthleteProfile .region-content , .edit-parent .region-content,.faq-page .region-content{width:calc(100% - 19%);transition:width 0.5s;}
 .edit-parent .region-content{min-height:calc(100vh - 102px);}
 .open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
 .region-content .edit-parent{padding:20px;}
@@ -2008,7 +2008,7 @@ div#edit-phone-section{margin-top:25px;}
 .right_section .athlete_right .popup_header h3{padding:15px;}
 .right_section .athlete_right .popupimage .form-item input{padding:0;border:0;box-shadow:0 0 0;}
 .popup_header{margin-bottom:15px;}
-.right_section .athlete_right .popup_header h3 i{padding-right:0;top:50%;-webkit-transform:translate(0,-50%);-moz-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%);background:none;border:0;padding:0;}
+.right_section .athlete_right .popup_header h3 i{padding-right:0;top:15%;-webkit-transform:translate(0,-50%);-moz-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%);background:none;border:0;padding:0;}
 #spb-imagepopup .imagepopup-modal .spb-popup-main-wrapper.spb_top_center .spb-controls,#spb-changepassdiv .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center .spb-controls{bottom:10px;left:auto;right:15px;top:auto;}
 .right_section .popupimage .image-widget .data button{padding:6px 16px;font-size:14px;line-height:normal;}
 .edit-user .spb-popup-main-wrapper.spb_top_center .popupimage .image-widget .data{bottom:10px;right:100px;width:auto !important;background:unset;padding:0;display:block;top:unset;}

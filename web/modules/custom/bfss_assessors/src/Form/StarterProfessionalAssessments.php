@@ -30,6 +30,9 @@ class StarterProfessionalAssessments extends FormBase {
     $booked_id = $param['booked_id'];
     $st = $param['st'];
     $assess_nid = $param['assess_nid'];
+    $first_name = $param['first_name'];
+    $last_name = $param['last_name'];
+    $sport = $param['sport'];
   if(isset($nid) && isset($formtype) && isset($Assess_type))
     {
             if($formtype == 'starter' && $Assess_type == 'individual'){
@@ -55,7 +58,8 @@ class StarterProfessionalAssessments extends FormBase {
                                       <div>
                                         <div id="accessorform">
                                             <div class="accessorform_inner">
-                                             <h2>'.$form_title.$param['assess_nid'].'</h2><ul class="st_lk">
+                                           <div class="usrinfo"><h3>'.$first_name.' '.$last_name.'</h3><ul><li>'.$sport.'</li><li>'.$param['postion'].'</li></ul></div>
+                                             <h2>'.$form_title.'</h2><ul class="st_lk">
                                               <li>EF-Equipment Failure</li>
                                               <li>Al-Athlete Injured</li>
                                               <li>ART-Athlete Refused Test</li>
@@ -511,54 +515,64 @@ class StarterProfessionalAssessments extends FormBase {
       if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-submit') !== false) { 
             // if "SAVE - ALL FIELDS COMPLETED" trigger
             $node->set('field_status', 'complete');
-           if (!$form_state->getValue('starter_jump_height_rea_str') || empty($form_state->getValue('starter_jump_height_rea_str'))) {
-              $message = '<p style="color:red;">"Jump Height (ln)" Required</p>';
+           if (!is_numeric($form_state->getValue('starter_jump_height_rea_str')) || empty($form_state->getValue('starter_jump_height_rea_str'))) {
+              $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
            }
-           elseif(!$form_state->getValue('starter_weight_rea_str') || empty($form_state->getValue('starter_weight_rea_str'))){
-            $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
+           elseif(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))){
+            $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required or Numeric</p>';
            }
-           elseif(!$form_state->getValue('starter_rsi_rea_str') || empty($form_state->getValue('starter_rsi_rea_str'))){
-             $message = '<p style="color:red;">"RSI" Required</p>';
+           elseif(!is_numeric($form_state->getValue('starter_rsi_rea_str')) || empty($form_state->getValue('starter_rsi_rea_str'))){
+             $message = '<p style="color:red;">"RSI" Required or Numeric</p>';
            }
-           elseif(!$form_state->getValue('starter_jump_height_ela_str') || empty($form_state->getValue('starter_jump_height_ela_str'))){
-             $message = '<p style="color:red;">"Jump Height (ln)" Required</p>';
+           elseif(!is_numeric($form_state->getValue('starter_jump_height_ela_str')) || empty($form_state->getValue('starter_jump_height_ela_str'))){
+             $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
            }
-           elseif(!$form_state->getValue('starter_peak_pro_ela_str') || empty($form_state->getValue('starter_peak_pro_ela_str'))){
-             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required</p>';
+           elseif(!is_numeric($form_state->getValue('starter_peak_pro_ela_str')) || empty($form_state->getValue('starter_peak_pro_ela_str'))){
+             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required or Numeric</p>';
            }
-            elseif(!$form_state->getValue('starter_peak_power_ela_str') || empty($form_state->getValue('starter_peak_power_ela_str'))){
-             $message = '<p style="color:red;">"Peak Power (W)" Required</p>';
+            elseif(!is_numeric($form_state->getValue('starter_peak_power_ela_str')) || empty($form_state->getValue('starter_peak_power_ela_str'))){
+             $message = '<p style="color:red;">"Peak Power (W)" Required or Numeric</p>';
            }
-            elseif(!$form_state->getValue('starter_jump_height_ballistic') || empty($form_state->getValue('starter_jump_height_ballistic'))){
-             $message = '<p style="color:red;">"Jump Height (ln)" Required</p>';
+            elseif(!is_numeric($form_state->getValue('starter_jump_height_ballistic')) || empty($form_state->getValue('starter_jump_height_ballistic'))){
+             $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
            }
-            elseif(!$form_state->getValue('starter_peak_pro_ballistic') || empty($form_state->getValue('starter_peak_pro_ballistic'))){
-             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required</p>';
+            elseif(!is_numeric($form_state->getValue('starter_peak_pro_ballistic')) || empty($form_state->getValue('starter_peak_pro_ballistic'))){
+             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required or Numeric</p>';
            }
-            elseif(!$form_state->getValue('starter_10m') || empty($form_state->getValue('starter_10m'))){
-             $message = '<p style="color:red;">"10 M Time (sec)" Required</p>';
+            elseif(!is_numeric($form_state->getValue('starter_10m')) || empty($form_state->getValue('starter_10m'))){
+             $message = '<p style="color:red;">"10 M Time (sec)" Required or Numeric</p>';
            }
-            elseif(!$form_state->getValue('starter_40m') || empty($form_state->getValue('starter_40m'))){
-             $message = '<p style="color:red;">"40 M Time (sec)" Required</p>';
+            elseif(!is_numeric($form_state->getValue('starter_40m')) || empty($form_state->getValue('starter_40m'))){
+             $message = '<p style="color:red;">"40 M Time (sec)" Required or Numeric</p>';
            }
-           elseif(!$form_state->getValue('starter_peak_for_max') || empty($form_state->getValue('starter_peak_for_max'))){
-             $message = '<p style="color:red;">"Peak Force (N)" Required</p>';
-           }elseif(!$form_state->getValue('starter_rfd_max') || empty($form_state->getValue('starter_rfd_max'))){
-             $message = '<p style="color:red;">"RFD @ 100ms (N)" Required</p>';
-           }elseif(empty($form_state->getValue('power')) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Power (W)" Required</p>';
-           }elseif(empty($form_state->getValue('power_spm')) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Power (W)" Required</p>';
-           }elseif(empty($form_state->getValue('power_rm')) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Power (W)" Required</p>';
-           }elseif(empty($form_state->getValue('repetitions')) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Repetitions (#)" Required</p>';
-           }elseif(empty($form_state->getValue('power_ch')) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Power (W)" Required</p>';
+           elseif(!is_numeric($form_state->getValue('starter_peak_for_max')) || empty($form_state->getValue('starter_peak_for_max'))){
+             $message = '<p style="color:red;">"Peak Force (N)" Required or Numeric</p>';
+           }elseif(!is_numeric($form_state->getValue('starter_rfd_max')) || empty($form_state->getValue('starter_rfd_max'))){
+             $message = '<p style="color:red;">"RFD @ 100ms (N)" Required or Numeric</p>';
+           }
+           elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'elete' ){
+
+           
+             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
+            
+
+           }
+           elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'elete'){
+           
+             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
+            }
+           elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'elete'){
+            
+              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>'; 
+           
+           }
+            elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'elete'){
+             $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';   
+           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){  
+             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
            }
            else{
              $message = 'Saved successfully!';
-             
               $node->setPublished(TRUE);
               $node->save(); 	
               
@@ -567,12 +581,12 @@ class StarterProfessionalAssessments extends FormBase {
 
       if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-draft') !== false ) {
           // if "SAVE - INCOMPLETE" button trigger
-           if(!$form_state->getValue('starter_weight_rea_str') || empty($form_state->getValue('starter_weight_rea_str'))){
+           if(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))){
               $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
            }else{
               $node->set('field_status', 'incomplete');
               $message = 'Saved successfully!';
-              $node->setPublished(TRUE);
+              $node->setPublished(FALSE);
               $node->save();
            }  
       }

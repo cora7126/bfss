@@ -4,12 +4,12 @@
 /**************** DASHBOARD CSS STARTS HERE *******************/
 .left_side_section{background:#000;border-right:1px solid grey;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
 .dashboard footer.footer{display:none;}
-.dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;}
+.dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;font-family:montserrat, sans-serif !important}
 .dash-main-right h1 i{color:#f76907;}
 .dash-main-right h1 span{padding:0 5px 0 7px;display:inline-block;}
 .dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #343434;}
 .dash-sub-main img{width:72px;height:72px;margin-right:15px;}
-.dash-sub-main h2 span{font-size:13px;font-weight:600;}
+.dash-sub-main h2 span{font-size:13px;font-weight:600;text-transform:uppercase;}
 .dash-sub-main h2{font-size:25px;}
 .dashboard ul.side_nav{list-style-type:none;}
 
@@ -55,7 +55,7 @@ div.quick-link{margin:40px 0;}
 
 .tab-nav ul{list-style-type:none;padding:10px 0 0;}
 .tab-nav ul li{display:inline-block;padding-right:20px;}
-.tab-nav ul li a{color:#808080;font-size:14px;font-weight:600;}
+.tab-nav ul li a{color:#808080;font-size:14px;font-weight:600;font-family:montserrat, sans-serif}
 .tab-nav ul li a:hover{text-decoration:none;color:#4c4c4c;}
 
 
@@ -111,20 +111,19 @@ div.quick-link{margin:40px 0;}
 .simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
 
 /*************** MY AUTHENTIC PROFILE POP UP CSS STARTS HERE ****************************/
-.myathletic-menu .modal-dialog{max-width:800px;}
-.myathletic-menu .modal-dialog .modal-content{width:100% !important;}
+
 /*************** MY AUTHENTIC PROFILE POP UP CSS ENDS HERE ****************************/
 .calender_event_pop_up, .calender_event_pop_up .tophead, .calender_event_pop_up .ticketing, .calender_event_pop_up .details{width:100%;float:left;display:block;}
 .calender_event_pop_up .container{padding:0;}
 .calender_event_pop_up .tophead .image{width:55%;float:left;display:block;}
-.calender_event_pop_up .tophead .title-timing{width:45%;float:left;display:block;padding:40px;}
-.calender_event_pop_up .tophead .title-timing h2{margin:25px 0 0;font-size:24px;font-weight:700;}
-.calender_event_pop_up .tophead .title-timing .loca{font-size:14px;}
-.calender_event_pop_up .ticketing{border-top:1px solid #aaa;border-bottom:1px solid #aaa;border-left:0;border-right:0;}
+.calender_event_pop_up .tophead .title-timing{width:45%;float:left;display:block;padding:38px;}
+.calender_event_pop_up .tophead .title-timing h2{margin:25px 0 0;font-size:25px;font-weight:700;}
+.calender_event_pop_up .tophead .title-timing .loca{font-size:15px;}
+/*.calender_event_pop_up .ticketing{border-top:1px solid #aaa;border-bottom:1px solid #aaa;border-left:0;border-right:0;}*/
 .calender_event_pop_up .ticketing .share{display:inline-block;float:left;}
 .calender_event_pop_up .ticketing .ticket{display:inline-block;float:right;padding:0;}
 .calender_event_pop_up .details{padding:20px;}
-.calender_event_pop_up .details .body{width:55%;float:left;display:block;font-size:16px;}
+.calender_event_pop_up .details .body{width:55%;float:left;display:block;font-size:19px;}
 .calender_event_pop_up .details .date-location{width:45%;float:left;display:block;padding:0 25px;}
 .calender_event_pop_up .details .date-location p{margin:0;}
 
@@ -133,7 +132,6 @@ div.quick-link{margin:40px 0;}
 .dashboard .profile_img_section .profile-sec img{width:100%;max-width:60px;}
 .chat-popup{position:absolute;z-index:9;width:250px;right:10px;border:1px solid #bebebe;top:80px;}
 .dashboard.modal-open .card #collapseTwo button.btn-success{background:#000;}
-
 
 /**************** DASHBOARD CSS ENDS HERE *******************/
 
@@ -147,7 +145,6 @@ nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padd
 .modals-bg h1{font-size:19px;font-weight:bold;margin-left:32px;}
 .modals-bg p{margin-left:32px;}
 .newzz{padding:0px !important;}
-.modal-content{width:670px !important;}
 .navbar{margin:0;position:relative;}
 .navbar:before{display:none;}
 .navbar .navbar-collapse.collapse{display:none !important;top:75px;background:#000;z-index:99;width:100%;left:0;position:absolute;}
@@ -218,7 +215,8 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
 
 /* -------profile-Modal-css-------Start---- */
 
-.profile-right-modal .modal-content{width:800px !important;padding:20px;}
+.modal .modal-dialog{max-width:700px;}
+.modal .modal-dialog .modal-content{width:100%;padding:0;overflow-y:auto;overflow-x:hidden;}
 .profile-right-modal .modal-body button.accordion{background-color:#000;color:#fff;}
 .profile-right-modal .accordion{background-color:#eee;color:#444;cursor:pointer;padding:8px 15px;width:100%;border:none;text-align:left;outline:none;font-size:15px;transition:0.4s;}
 .profile-right-modal .active, .accordion:hover{background-color:#ccc;}
@@ -270,14 +268,16 @@ span.navbar-toggler-icon{cursor:pointer;}
 .bfss_manager_form{width: 80%;margin: auto;}
 .bfss_manager_black_layer h4{background: #000;color: #fff;margin: 0;padding: 10px 20px;}
 .full_inputs input{width: 100%;height: 30px;padding: 0 15px;border: 1px solid #aeaeae;margin: 12px 0px;}
-.half_inputs select{width: 100%;height: 30px;margin: 12px 0px;}
+.half_inputs select{width: 100%;height: 30px;/* margin: 12px 0px; */}
+.half_inputs input{width: 100%;height: 30px;/* margin: 12px 0px; */}
+.half_inputs_feild input{width: 100%;height: 30px;/* margin: 12px 0px; */}
 .half_inputs{display: grid;grid-template-columns: 1fr 1fr;grid-gap: 20px;}
 .half_inputs_feild{display: grid;grid-template-columns: 1fr 20% 20%;grid-gap: 20px;}
-.half_inputs_feild select{width: 100%;height: 30px;margin: 12px 0px;}
+.half_inputs_feild select{width: 100%;height: 30px;/* margin: 12px 0px; */}
 .number input[type="number"]{width: 100%;height: 30px;padding: 0 15px;border: 1px solid #aeaeae;margin: 12px 0px;}
-.bfss_manager{margin:40px 0 30px;}
+.bfss_manager{margin:10px 0 30px;}
 select#zip{width:100%;}
-.bfss_manager_page{display: grid;grid-template-columns: 1fr 30%;grid-gap: 20px;grid-gap: 30px;}
+.bfss_manager_page{display: grid;grid-template-columns: 1fr 30%;grid-gap: 20px;grid-gap: 30px;padding:20px}
 
 .bfss_manager_inner_sec{margin:30px 0px;}
 .left_manager_inner{border: 1px solid #aeaeae;}
@@ -336,32 +336,61 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .user_pro_row .userpr li{display:inline-block;font-size:14px;line-height:20px;margin-right:50px;}
 .user_pro_row .userpr li:last-child{margin-right:0;}
 .user_pro_row .userpr li i{color:#f76907;}
-.user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;}
-.user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:18px;}
+.user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;padding: 0 1rem;}
+.user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin: 30px 0 12px;font-size:14px;line-height:18px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:20px 40px;}
-.user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;}
+.user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#6d6e72;}
-.user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;}
-.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#ffffff;font-weight:400;font-size:14px;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;text-transform:capitalize;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#ffffff;font-weight:400;font-size:14px;display:block;line-height:14px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a:hover, .user_pro_block .block-bfss-assessors .table-responsive table thead th a:focus{text-decoration:none;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 10px;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#f76907;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a span{float:right;text-align:center;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a span.icon{display:none;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before{content:"\e253";}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{content:"\e252";}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 10px;text-transform:capitalize;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#f76907;position:relative;padding-right:30px;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination > .active > a{background-color:#f76907;color:#fff;border-color:#f76907;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li{margin:0 2px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a{color:#000;background-color:#F1F3F2;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-size:13px;text-transform:capitalize;}
+.toggle-content.image-include.asseselst.user_pro_block .block-bfss-assessors {border-bottom:0px solid #000;border-left:0px solid #000;border-right:0px solid #000;}
+
+
+.table-responsive .dataTables_length{display:inline-block;float:left;margin:0 0 15px;}
+.table-responsive .dataTables_filter{display:inline-block;float:right;margin:0 0 15px;}
+.table-responsive .dataTables_length label{margin:0;}
+.table-responsive .dataTables_length label select{height:25px;border:1px solid #ddd;-moz-appearance:none;-webkit-appearance:none;appearance:none;margin-right:3px;padding-right: 10px;background:#fff url("../images/select_bg.png") no-repeat right 5px center/8px auto;}
+.table-responsive .dataTables_filter label{font-size:0;margin:0;}
+.table-responsive .dataTables_filter label input{font-size:13px;height:25px;border:1px solid #ddd;}
+.table-responsive .dataTables_info{float:left;color:#000;font-size:12px;font-weight:600;padding-left:10px;}
+.dataTables_paginate.paging_simple_numbers{display:inline-block;float:right;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button{background-color:#F1F3F2;color:#000;font-size:12px;height:30px;display:block;float:left;text-align:center;padding:8px 10px;line-height:14px;margin:0 2px;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button.disabled{opacity:.7;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button.current{color:#fff;background-color:#f76907;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button:focus{outline:none;text-decoration:none;}
 
 
 .assessors_sub.user-submit-button{bottom:-60px;}
 
+.drupal-assess-fm .modal-header{position:relative;}
+.drupal-assess-fm .modal-header button.close{position:absolute !important;padding:0;margin:0;right:0;top:0;}
 #assessor_popup_form{background:rgba(0,0,0,.7);}
 #accessorform a.close{font-size:30px;}
-#assessor_popup_form .modal-dialog{max-width:700px;} 
-#assessor_popup_form .modal-dialog .modal-content{width:700px !important;}
-#assessor_popup_form .accessorform_inner{margin:0 50px;float:left;width:calc(100% - 100px);display:block;}
-.accessorform_inner h2{background:#000;color:#fff;margin:0;padding:10px 15px;font-size:14px;line-height:16px;border:1px solid #000;}
+.drupal-assess-fm .modal-body.ui-dialog-content{overflow:visible !important;}
+.drupal-assess-fm .modal-body.ui-dialog-content .asse_frm{width:100%;float:left;display:block;}
+#assessor_popup_form .accessorform_inner{padding:25px 50px;float:left;width:100%;display:block;background-color:#fff;}
+.usrinfo{width:100%;float:left;display:block;margin:0 0 20px;}
+.usrinfo h3{width:100%;float:left;display:block;color:#f76907;text-transform:capitalize;font-weight:700;margin:0 0 5px;font-size:22px;line-height:22px;}
+.usrinfo ul{width:100%;float:left;display:block;padding:0;margin:0;list-style-type:none;}
+.usrinfo ul li{display:inline-block;float:left;margin:0 6px 0 0;padding:0 6px 0 0;border-right:1px solid #000;font-size:14px;line-height:14px;}
+.usrinfo ul li:last-child{border:none;}
+.accessorform_inner h2{background:#000;color:#fff;margin:0;padding:12px 15px;font-size:13px;line-height:13px;border:1px solid #000;width:100%;float:left;display:block;font-weight:600;}
 .accessorform_inner .st_lk{border-left:1px solid #000;border-right:1px solid #000;width:100%;float:left;display:block;padding:15px 0 0;margin:0;text-align:center;}
-.accessorform_inner .st_lk li{display:inline-block;color:#f76907;font-size:14px;border-right:2px solid #f76907;padding:0 25px;line-height:16px;}
+.accessorform_inner .st_lk li{display:inline-block;color:#f76907;font-size:13px;border-right:2px solid #f76907;padding:0 25px;line-height:13px;font-weight: 600;}
 .accessorform_inner .st_lk li:last-child{border:0;}
 .accessorform_inner form{width:100%;float:left;display:block;}
 .accessorform_inner form .form_fields_wrap{border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:15px 10px;width:100%;float:left;display:block;}
@@ -370,16 +399,23 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .sm_cls{width:calc(50% - 3.5px);float:left;display:block;margin:15px 3.5px 15px 0;}
 .sm_cls:nth-child(2n){margin:15px 0 15px 3.5px;}
 .sm_cls .form-item.js-form-item.panel{border-radius:0;box-shadow:none;-webkit-box-shadow:none;border:0;}
-.sm_cls .form-item.js-form-item.panel .panel-heading{margin:0 0 15px;border:0;border-radius:0;background:transparent;width:100%;float:left;display:block;padding:0;}
-.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{padding:0;font-size:14px;line-height:18px;width:100%;float:left;display:block;margin:0;}
+.sm_cls .form-item.js-form-item.panel .panel-heading{margin:0;border:0;border-radius:0;background:transparent;width:100%;float:left;display:block;padding:0;}
+.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{height:40px;overflow:hidden;padding:0;font-size:13px;line-height:18px;width:100%;float:left;display:block;margin:0;}
 .sm_cls .form-item.js-form-item.panel .panel-body{padding:0;width:100%;float:left;display:block;}
 
-.drupal-assess-fm .modal-footer{margin:20px 50px 30px;width:calc(100% - 100px);float:left;display:block;padding:0;}
+
+.drupal-assess-fm .modal-footer{padding:0 50px 25px;width:100%;float:left;display:block;margin:0;}
 .drupal-assess-fm .modal-footer .modal-buttons{margin:0;width:100%;float:left;display:block;}
 .drupal-assess-fm .modal-footer button{display:inline-block;height:40px;padding:10px 12px;font-size:14px;line-height:18px;margin:0;}
 .drupal-assess-fm .modal-footer button:first-child{float:left;background:#F36900;border-color:#F36900;}
 .drupal-assess-fm .modal-footer button:last-child{float:right;background:#105714;border-color:#105714;}
-.accessorform_inner form .form-control{margin:0;border-radius:0;}
+.accessorform_inner form .form-control{margin:0;border-radius:0;color:#000;font-size:13px;padding:10px;}
+
+.eventlisting_main.user_pro_block{padding:50px 0 0 0;}
+#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color:#f76907;cursor:pointer;}
+ul.dropdown-menu.open li.active{text-decoration:none;background-color:#f76907;color:#fff;}
+ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
+.result_message{width:100%;text-align:center;color:green;font-size:16px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media (max-width:767px){
@@ -397,19 +433,41 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
-#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color: #f76907;cursor: pointer;}
 
-ul.dropdown-menu.open li.active {
-	text-decoration: none;
-	background-color: #f76907;
-	color: #fff;
+/******************MY Assessments Page Strat here************************/
+.myassess_main_pxl.user_pro_block .block-bfss-assessors{
+    border-bottom: 0px solid #000;
+    border-left: 0px solid #000;
+    border-right: 0px solid #000;
 }
 
-ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important; }
-.result_message {
-    width: 100%;
-    text-align: center;
-    /* border: 1px solid #000; */
-    color: green;
-    font-size: 16px;
+.centeralizeRow span{font-size: 110px;font-weight: bold;color:#f76907;margin-right:30px;}
+.centeralizeRow{max-width: 450px;margin:0 auto;display: flex;align-items: center;}
+.centeralizeRow h4, .infoRow h4{font-size: 22px;color: #fff;margin-bottom:15px;max-width: 250px;}
+.centeralizeRow.white h4{color: #000;}
+.strengthRow{width: 100%;background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;padding: 30px 0;}
+.strengthRow p{
+    font-size: 18px;
+    color: #fff;
 }
+
+.infoRow .sideIcon{max-width: 50px;float: right;}
+.infoRow span{font-size: 60px;font-weight: bold;color:#f76907;margin-right:40px;}
+
+.accelaration{margin-top: 15px;}
+.accelaration .row{display: flex;justify-content: space-between;margin-bottom: 15px;}
+.accelaration .row::before,.accelaration .row::after{display: none;}
+.accelaration .row > div{width:calc(50% - 8px);display: flex;align-items: center;justify-content: space-between;padding: 20px 40px;background: #e6e8e9;}
+.accelaration .row > .leftBg{background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;}
+.accelaration .centeralizeRow{max-width: 100%;margin:0;}
+.centeralizeRow.large span{font-size: 120px;}
+.centeralizeRow.small span{font-size: 60px;}
+.centeralizeRow.small h4{font-size:18px;}
+.centeralizeRow.whiteDesc p{color:#fff;}
+.centeralizeRow p {font-size: 16px;}
+
+
+.myassess_main_pxl .myassess_records {padding: 0;}
+.myassess_main_pxl .myassess_records table thead{background:#000!important;}
+.myassess_main_pxl .myassess_records table thead th a span::before,.myassess_main_pxl .myassess_records table thead th a span::after{color:#fff!important;}
+/******************MY Assessments Page End here***********************/

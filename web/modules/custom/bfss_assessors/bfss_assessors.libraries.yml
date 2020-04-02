@@ -13,3 +13,13 @@ bfss_assessors_message:
      # css/custom_assessors.css: {}
   js:
     js/message.js: {}
+
+bfss_assessors_cutsom:
+  version: 1.x
+  css:
+    layout:
+    css/dataTables.jqueryui.min.css: {}
+    css/custom_assessors.css: {}
+  js:
+    js/bfss_assessors_cutsom.js: {}
+    js/jquery.dataTables.min.js: {}
