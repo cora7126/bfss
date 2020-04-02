@@ -36,15 +36,25 @@ class FirstLoginSubscriber implements EventSubscriberInterface
     $routeName = $routeMatch->getRouteName();
 
     \Drupal::logger('user')->info($routeName);
-
-    if ($current_user->isAuthenticated()) {
-      //	logic for "first login" redirect
+	
+    if ($current_user->isAuthenticated()) { 
+      //	logic for "first login" redirect 
+	 
       if (!empty($_SESSION['user_first_login']) && $routeName != 'user.logout' && $routeName != 'bfss_registration_form.complete_registration_page') {
+		 
         $event->setResponse(new RedirectResponse(\Drupal\Core\Url::fromRoute('bfss_registration_form.complete_registration_page', ['user' => $current_user->id()])->toString()));
       }
 
-      if ($routeName == 'bfss_registration_form.complete_registration_page' && !isset($_SESSION['user_first_login'])) {
+      if ($routeName == 'bfss_registration_form.complete_registration_page' && !isset($_SESSION['user_first_login'])) { 
+		
         $event->setResponse(new RedirectResponse(\Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => $current_user->id()])->toString()));
+		/*$user = \Drupal::currentUser();
+
+		\Drupal::logger('user')->notice('Session closed for %name.', array('%name' => $user->getAccountName()));
+
+		\Drupal::moduleHandler()->invokeAll('user_logout', array($user));
+		\Drupal::service('session_manager')->destroy();
+		$user->setAccount(new AnonymousUserSession());*/
       }
 
     } else {

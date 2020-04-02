@@ -8,8 +8,9 @@
 			<div>
 				{% if data.latest_timing %}
 					<span class="timing-date">
-					{{ data.latest_timing|date("M d") }}
-					</span>
+					{{ data.latest_timing|date("M") }}</span>
+					<span class="timing-info">{{ data.latest_timing|date("d") }}</span>
+					
 				{% endif %}
 			</div>
 			<div>
@@ -22,10 +23,10 @@
 	</div>
 	<div class="ticketing">
 		<div class="share">
-		<span>Share</span>
+		<span><i class="fas fa-share"></i>  Share</span>
 		</div>
 		<div class="ticket">
-		<span>TICKETING</span>
+		<span><i class="fa fa-ticket" aria-hidden="true"></i>   TICKETING</span>
 		</div>
 	</div>
 	<div class="details">
@@ -39,7 +40,8 @@
 				<p>DATE AND TIME</p>
 				{% if data.latest_timing %}
 					<span class="timing-date">
-						{{ data.latest_timing|date("F, M d, Y h:i A") }}
+						{{ data.latest_timing|date("F,") }}<br/>
+						{{ data.latest_timing|date("M d, Y h:i A") }}
 					</span>
 				{% endif %}
 				<p>UNTIL</p>

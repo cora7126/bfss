@@ -1,6 +1,8 @@
 (function($) {
     $(document).ready(function() {
+		
 		//month filter	    	
+		//alert();
     	 jQuery('.niceselect select').niceSelect();  
     	   jQuery(".month_filter select").change(function(){
   				jQuery('form#month-form').submit();
@@ -20,15 +22,21 @@ error :function (data){
 jQuery('.faqct li.q').on('click', function(){
   //gets next element
   //opens .a of selected question
-jQuery(this).next().slideToggle("500")
+  if (jQuery(this).next('li.a').is(':visible')){
+		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/o-arrow.png");
+	}else{
+		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
+	}
+jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
+
     //selects all other answers and slides up any open answer
-    .siblings('li.a').slideUp();
+    
   //Grab img from clicked question
-var img = jQuery(this).children('img');
+/*var img = jQuery(this).children('img');
   //Remove Rotate class from all images except the active
   jQuery('img').not(img).removeClass('rotate');
   //toggle rotate class
-  img.toggleClass('rotate');
+  img.toggleClass('rotate');*/
 });//End on click
 
 
@@ -153,6 +161,10 @@ var img = jQuery(this).children('img');
 		jQuery('.last_delete').on('click',function(){
 			jQuery('.last_athlete').hide();
 			jQuery('.popup_add_org').show();
+			//var get=jQuery(this)next().children().find('input').attr('id');
+			//alert(get);
+			//jQuery(this).find('select').removeAttr('required');
+			//alert();
 			counter_click--;
 		});
 		//Remove Add org button
@@ -410,6 +422,15 @@ var img = jQuery(this).children('img');
 });
      var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Edit Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>EDIT</span><br>Profile</h2></div></div>");
      jQuery('.edit-user .edit-form').before(header_html);
+	 
+	 var header_html='';
+	  var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Payment/Receipts</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Manage </span><br>Payment/Receipts</h2></div></div>");
+     jQuery('.payment-receipts #block-paymentreceipts--2').before(header_html);
+	 
+	 
+	  var header_html='';
+	  var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Parent/Guardian Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Edit</span><br>Parent/Guardian</h2></div></div>");
+     jQuery('.edit-parent #edit-parent').before(header_html);
 
      var image_action = jQuery("<div class='edit_dropdown'><a class='drop'>Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div>");
      jQuery('#edit-profile-class .field-group-format-toggler').after(image_action);
@@ -434,16 +455,44 @@ var img = jQuery(this).children('img');
 //     
 //    //jQuery('.bfssathleteprofile .dialog-off-canvas-main-canvas .edit-form').before(athleteprofile_header);
 //    jQuery(athleteprofile_header).insertBefore( ".inner" );
+	
 
-    
     jQuery(document).on('click', '#edit-submit', function(){
         jQuery('.dashboard #athelets-modal').modal('hide');
+
+
+		
     })
     
  jQuery('.popup_form_id-modal spb_overlay').css('background','black');
  
  var counter_click = 0;
  jQuery(document).on('click', '.bfssAthleteProfile .popup_add_org', function(){
+	 console.log(counter_click);
+	 if($("#edit-education-2").is(":hidden")){
+			$("#edit-education-2").prop('required',false);
+			$("#edit-schoolname-2").prop('required',false);
+			$("#edit-position-2").prop('required',false);
+	}else{
+		//alert('dddd');
+		
+	}
+	
+     if(counter_click == 0){
+        jQuery(this).siblings('.previous_athlete').css('display', 'block');
+        counter_click++
+    }else if(counter_click == 1){
+        jQuery(this).siblings('.last_athlete').css('display', 'block');
+		$("#edit-education-2").prop('required',true);
+			$("#edit-schoolname-2").prop('required',true);
+			$("#edit-position-2").prop('required',true);
+		jQuery(this).hide();
+        counter_click++
+    }
+ });
+ 
+ jQuery(document).on('click', '#popup_form_id .popup_add_org', function(){
+	 //alert();
 	 console.log(counter_click);
      if(counter_click == 0){
         jQuery(this).siblings('.previous_athlete').css('display', 'block');

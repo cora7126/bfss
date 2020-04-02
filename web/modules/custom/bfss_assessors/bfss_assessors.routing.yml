@@ -15,5 +15,13 @@ bfss_assessors.assessment_event:
  requirements:
     _role: 'assessors'
 
+bfss_assessors.par_page_item:
+ path: '/parpageitem'
+ defaults:
+   _title: 'par_page_item'
+   _form: '\Drupal\bfss_assessors\Form\ParPageItemShow'
+ requirements:
+    _role: 'assessors'
+
 
 
