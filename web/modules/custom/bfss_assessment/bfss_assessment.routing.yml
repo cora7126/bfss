@@ -154,3 +154,20 @@ bfss_assessment.bfss_faq:
     _title: "FAQ"
   requirements:
     _permission: 'access content'
+
+bfss_assessment.myassessments:
+  path: '/my_assessments'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\MyAssessments::my_assessments'
+    _title: "My Assessments"
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.pdf_download:
+  path: '/pdf-download'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\ReportsInPDF::get_reports'
+    _title: "PDF Download"
+  requirements:
+    _permission: 'access content'
+

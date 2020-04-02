@@ -12,6 +12,8 @@ namespace Drupal\bfss_registration_form\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+//use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\RedirectCommand;
 
 class CompleteRegistrationForm extends FormBase {
 
@@ -86,12 +88,12 @@ class CompleteRegistrationForm extends FormBase {
       '#attributes' => [
         'class' => ['btn-send-code']
       ],
-      '#ajax' => [
+     /*'#ajax' => [
         'callback' => [$this, 'sendCode'],
         'wrapper' => 'send-code-wrapper'
       ],
       '#prefix' => '<div id="send-code-wrapper" class="send-code-wrapper">',
-      '#sufffix' => '</div>',
+      '#sufffix' => '</div>',*/
     ];
 
     $form['additional_info'] = [
@@ -207,9 +209,24 @@ class CompleteRegistrationForm extends FormBase {
       //  @todo:  save phone field here
       \Drupal::messenger()->addStatus($this->t('Phone successfully confirmed'));
     }
+	/*$dest_url = "/user/";
+	$url = Url::fromUri('internal:' . $dest_url);
+	$form_state->setRedirectUrl($url);*/
+	
+	//return new RedirectResponse(Url::fromUri('/node/add'));
+	
+	
+    $response = new \Drupal\Core\Ajax\AjaxResponse();
+
+    //$response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('.resend-message', $this->t('<div class="alert alert-success alert-dismissible">Code successfully sent</div>')));
+
+ //   $response->addCommand(new \Drupal\Core\Ajax\SettingsCommand(['bfss_registration_form' => ['code_sent' => 1]], TRUE), TRUE);
 
     $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => \Drupal::currentUser()->id()])->toString();
-
+	// $response = new AjaxResponse();
+    $url = '/user/logout/';
+    $response->addCommand(new RedirectCommand($url));
+    return $response;
   }
 
   /**
@@ -219,7 +236,11 @@ class CompleteRegistrationForm extends FormBase {
    * @return array
    */
   function ajaxSubmit(array &$form, FormStateInterface $form_state) {
-    return $form;
+	  $response = new \Drupal\Core\Ajax\AjaxResponse();
+	  $url = '/user/logout/';
+    $response->addCommand(new RedirectCommand($url));
+    return $response;
+   // return $form;
   }
 
   /**
@@ -228,7 +249,7 @@ class CompleteRegistrationForm extends FormBase {
    *
    * @return array
    */
-  function sendCode(array &$form, FormStateInterface $form_state) {
+ /* function sendCode(array &$form, FormStateInterface $form_state) {
 
     $response = new \Drupal\Core\Ajax\AjaxResponse();
 
@@ -237,6 +258,6 @@ class CompleteRegistrationForm extends FormBase {
     $response->addCommand(new \Drupal\Core\Ajax\SettingsCommand(['bfss_registration_form' => ['code_sent' => 1]], TRUE), TRUE);
 
     return $response;
-  }
+  }*/
 
 }

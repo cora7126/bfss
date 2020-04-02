@@ -101,19 +101,25 @@ class PopupForm extends FormBase {
       '#default_value' => $results18['field_city'],
 	  '#suffix' => '</div></div>',
       );
-
+	 $orgtype = array(
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
      $form['organization_type'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('Organization Type'), t('Organization Type 1'), t('Organization Type 2'), t('Organization Type 3')),
+    '#options' => $orgtype,
 	'#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="far fa-trash-alt right-icon delete_icon" aria-hidden="true"></i></h3><div class=items_div>',
       );
-     $form['organization_name'] = array(
-    //'#title' => t('az'),
-    '#type' => 'select',
-    //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('Organization Name'), t('Organization Name 1'), t('Organization Name 2'), t('Organization Name 3')),
+    $form['organizationName'] = array(
+      '#type' => 'textfield',
+      '#placeholder' => t('Orginization Name'),
+      //'#description' => 'Select the desired pizza crust size.',
+       '#required' => TRUE,
+      //'#default_value' => array_search($results5['athlete_school_name'], $orgname),
+      '#default_value' => $orgname_1,
       );
      $form['coach_lname'] = array (
       '#type' => 'textfield',
@@ -126,6 +132,7 @@ class PopupForm extends FormBase {
       //'#title' => ('Height'),
       '#placeholder' => t('Sport'),
       '#default_value' => '',
+	   '#required' => TRUE,
       );
      $form['position'] = array (
       '#type' => 'textfield',
@@ -134,6 +141,7 @@ class PopupForm extends FormBase {
       '#default_value' => '',
 	  '#prefix' => '<div class="add_pos_div">',
 	  '#suffix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a>',
+	   '#required' => TRUE,
       );
 	  $form['position2'] = array (
 		  '#type' => 'textfield',
@@ -154,20 +162,30 @@ class PopupForm extends FormBase {
 		  // '#prefix' => '<div class ="pos_first_2"',
 		   '#suffix' => '</div></div></div></div>',
 		  );
-	  
+	  $orgtype = array(
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
 	  $form['education_1'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- Organization Type ---'), t('Public'), t('Private'), t('Other')),
+    '#options' => $orgtype,
 	'#prefix' => '<div class="athlete_school popup-athlete-school-hide previous_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i  class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i><div class=items_div>',
       );
-     $form['schoolname_1'] = array(
-    //'#title' => t('az'),
-    '#type' => 'select',
-    //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- Organization Name ---'), t('A'), t('B'), t('C')),
-      );
+      $form['schoolname_1'] = array(
+        //'#title' => t('az'),
+        '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
+        //'#description' => 'Select the desired pizza crust size.',
+      /*  '#options' => array(
+          t('Organization Name'),
+          t('Organization Name 1'),
+          t('Organization Name 2'),
+          t('Organization Name 3')),*/
+        //'#default_value' => array_search($results12['athlete_uni_name'], $orgname2),
+        );
      $form['coach_1'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
@@ -204,19 +222,28 @@ class PopupForm extends FormBase {
 		  // '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
 		  // '#suffix' => '</div>',
 		  );
+		  $orgtype = array(
+      ""=>t('Organization Type'),
+      "1"=>t('School'),
+      "2"=>t('Club'),
+      "3"=>t('University'));
 	  $form['education_2'] = array(
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- Organization Type ---'), t('Public'), t('Private'), t('Other')),
+    '#options' => $orgtype,
 	'#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i><div class=items_div>',
       );
      $form['schoolname_2'] = array(
-    //'#title' => t('az'),
-    '#type' => 'select',
-    //'#description' => 'Select the desired pizza crust size.',
-    '#options' => array(t('--- Organization Name ---'), t('A'), t('B'), t('C')),
-      );
+        '#type' => 'textfield',
+		'#placeholder' => t('Orginization Name'),
+        /*'#options' => array(
+          t('Organization Name'),
+          t('Organization Name 1'),
+          t('Organization Name 2'),
+          t('Organization Name 3')),*/
+        '#default_value' => $orgname_3,
+        );
      $form['coach_2'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
