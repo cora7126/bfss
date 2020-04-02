@@ -97,7 +97,7 @@ div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap
 
 .block-bfss-assessment .assessment_block, .block-bfss-assessment .assessment_block span{font-family:Montserrat;font-weight:normal;}
 .block-bfss-assessment .assessment_block h2{font-family:Montserrat;font-weight:bold;}
-.dash-main-right h1, .dash-main-right h2, .quick-link{font-family:Proxima Nova Rg;font-weight:normal;}
+.dash-main-right h1, .dash-main-right h2, .quick-link{font-family:montserrat, sans-serif;font-weight:normal;}
 
 
 /***popup***/
@@ -128,3 +128,5 @@ div#sidenav .drop.active i{color:#fff !important;}
 
 #drupal-modal--content{max-height:auto !important;}
 .timing-info{margin-top:-10px !important}
+
+.form-control{font-family:montserrat, sans-serif !important}

@@ -4,7 +4,7 @@
 /**************** DASHBOARD CSS STARTS HERE *******************/
 .left_side_section{background:#000;border-right:1px solid grey;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
 .dashboard footer.footer{display:none;}
-.dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;}
+.dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;font-family:montserrat, sans-serif !important}
 .dash-main-right h1 i{color:#f76907;}
 .dash-main-right h1 span{padding:0 5px 0 7px;display:inline-block;}
 .dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #343434;}
@@ -55,7 +55,7 @@ div.quick-link{margin:40px 0;}
 
 .tab-nav ul{list-style-type:none;padding:10px 0 0;}
 .tab-nav ul li{display:inline-block;padding-right:20px;}
-.tab-nav ul li a{color:#808080;font-size:14px;font-weight:600;}
+.tab-nav ul li a{color:#808080;font-size:14px;font-weight:600;font-family:montserrat, sans-serif}
 .tab-nav ul li a:hover{text-decoration:none;color:#4c4c4c;}
 
 
@@ -268,10 +268,12 @@ span.navbar-toggler-icon{cursor:pointer;}
 .bfss_manager_form{width: 80%;margin: auto;}
 .bfss_manager_black_layer h4{background: #000;color: #fff;margin: 0;padding: 10px 20px;}
 .full_inputs input{width: 100%;height: 30px;padding: 0 15px;border: 1px solid #aeaeae;margin: 12px 0px;}
-.half_inputs select{width: 100%;height: 30px;margin: 12px 0px;}
+.half_inputs select{width: 100%;height: 30px;/* margin: 12px 0px; */}
+.half_inputs input{width: 100%;height: 30px;/* margin: 12px 0px; */}
+.half_inputs_feild input{width: 100%;height: 30px;/* margin: 12px 0px; */}
 .half_inputs{display: grid;grid-template-columns: 1fr 1fr;grid-gap: 20px;}
 .half_inputs_feild{display: grid;grid-template-columns: 1fr 20% 20%;grid-gap: 20px;}
-.half_inputs_feild select{width: 100%;height: 30px;margin: 12px 0px;}
+.half_inputs_feild select{width: 100%;height: 30px;/* margin: 12px 0px; */}
 .number input[type="number"]{width: 100%;height: 30px;padding: 0 15px;border: 1px solid #aeaeae;margin: 12px 0px;}
 .bfss_manager{margin:10px 0 30px;}
 select#zip{width:100%;}
@@ -334,8 +336,8 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .user_pro_row .userpr li{display:inline-block;font-size:14px;line-height:20px;margin-right:50px;}
 .user_pro_row .userpr li:last-child{margin-right:0;}
 .user_pro_row .userpr li i{color:#f76907;}
-.user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;}
-.user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:18px;}
+.user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;padding: 0 1rem;}
+.user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin: 30px 0 12px;font-size:14px;line-height:18px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:20px 40px;}
 .user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#6d6e72;}
@@ -431,3 +433,41 @@ ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
+
+/******************MY Assessments Page Strat here************************/
+.myassess_main_pxl.user_pro_block .block-bfss-assessors{
+    border-bottom: 0px solid #000;
+    border-left: 0px solid #000;
+    border-right: 0px solid #000;
+}
+
+.centeralizeRow span{font-size: 110px;font-weight: bold;color:#f76907;margin-right:30px;}
+.centeralizeRow{max-width: 450px;margin:0 auto;display: flex;align-items: center;}
+.centeralizeRow h4, .infoRow h4{font-size: 22px;color: #fff;margin-bottom:15px;max-width: 250px;}
+.centeralizeRow.white h4{color: #000;}
+.strengthRow{width: 100%;background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;padding: 30px 0;}
+.strengthRow p{
+    font-size: 18px;
+    color: #fff;
+}
+
+.infoRow .sideIcon{max-width: 50px;float: right;}
+.infoRow span{font-size: 60px;font-weight: bold;color:#f76907;margin-right:40px;}
+
+.accelaration{margin-top: 15px;}
+.accelaration .row{display: flex;justify-content: space-between;margin-bottom: 15px;}
+.accelaration .row::before,.accelaration .row::after{display: none;}
+.accelaration .row > div{width:calc(50% - 8px);display: flex;align-items: center;justify-content: space-between;padding: 20px 40px;background: #e6e8e9;}
+.accelaration .row > .leftBg{background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;}
+.accelaration .centeralizeRow{max-width: 100%;margin:0;}
+.centeralizeRow.large span{font-size: 120px;}
+.centeralizeRow.small span{font-size: 60px;}
+.centeralizeRow.small h4{font-size:18px;}
+.centeralizeRow.whiteDesc p{color:#fff;}
+.centeralizeRow p {font-size: 16px;}
+
+
+.myassess_main_pxl .myassess_records {padding: 0;}
+.myassess_main_pxl .myassess_records table thead{background:#000!important;}
+.myassess_main_pxl .myassess_records table thead th a span::before,.myassess_main_pxl .myassess_records table thead th a span::after{color:#fff!important;}
+/******************MY Assessments Page End here***********************/

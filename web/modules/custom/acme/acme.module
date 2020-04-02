@@ -59,6 +59,10 @@ function acme_theme() {
     'template' => 'assessment_events',
   ];
 
+  $theme['my_assessments_page'] = [
+    'variables' => ['name' => NULL,'my_assessments_block' => NULL,'my_assessments_records_block' => NULL],
+    'template' => 'my_assessments',
+  ];
   return $theme;
 }
 

@@ -183,7 +183,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   font-size: 42px;
   line-height: 45px;
   font-weight: normal;
-  font-family: lato;
+  /*font-family: lato;*/
   margin-left: -3px;
 }
 
@@ -541,7 +541,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .dash-main-right h1,
 .dash-main-right a,
 .main_header h1 a {
-  font-family: lato !important;
+  font-family: montserrat, sans-serif !important;
   font-weight: inherit !important;
 }
 
@@ -692,7 +692,7 @@ a.side_button:hover {
 }
 
 .timing span {
-  bottom: 10px !important;
+  /* bottom: 10px !important; */
 }
 
 .sidenav ul.dropdown-menu.open li a {
