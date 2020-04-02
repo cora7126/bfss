@@ -44,7 +44,12 @@ class ContributeForm extends FormBase {
       $link['#attributes'] = ['target' => '__blank', 'class' => ['button', 'previewButton'], ];
     }
 	
-	
+	$vid = 'sports';
+$terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+$sports_arr=array();
+foreach ($terms as $term) {
+ $sports_arr[$term->tid] = $term->name;
+}
 	
 	
 
@@ -342,7 +347,7 @@ class ContributeForm extends FormBase {
 		}
 	}
 
-
+	//print $orgsport_1;die;
 	if(empty($results18)){
 		$cityquery1 = \Drupal::database()->select('user__field_state', 'ufln');
 		$cityquery1->addField('ufln', 'field_state_value');
@@ -520,8 +525,9 @@ class ContributeForm extends FormBase {
       '#default_value' => $orgcoach_1,
       );
     $form['sport'] = array(
-      '#type' => 'textfield',
-      '#placeholder' => t('Sport'),
+      '#type' => 'select',
+      //'#placeholder' => t('Sport'),
+	  '#options'=>$sports_arr,
       '#default_value' => $orgsport_1,
       );
     $form['position'] = array(
@@ -620,8 +626,9 @@ class ContributeForm extends FormBase {
         '#default_value' => $orgcoach_2,
         );
       $form['sport_1'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
+        '#type' => 'select',
+        //'#placeholder' => t('Sport'),
+		'#options'=>$sports_arr,
         '#default_value' => $orgsport_2,
         );
       $form['position_1'] = array(
@@ -717,7 +724,8 @@ class ContributeForm extends FormBase {
         // '#default_value' => $results12['athlete_uni_coach'],
         );
       $form['sport_1'] = array(
-        '#type' => 'textfield',
+        '#type' => 'select',
+		'#options'=>$sports_arr,
         '#placeholder' => t('Sport'),
         // '#default_value' => $results12['athlete_uni_sport'],
         );
@@ -812,8 +820,9 @@ class ContributeForm extends FormBase {
         '#default_value' => $orgcoach_3,
         );
       $form['sport_2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
+        '#type' => 'select',
+		'#options'=>$sports_arr,
+        //'#placeholder' => t('Sport'),
         '#default_value' => $orgsport_3,
         );
       $form['position_2'] = array(
@@ -899,8 +908,9 @@ class ContributeForm extends FormBase {
         '#default_value' => '',
         );
       $form['sport_2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
+        '#type' => 'select',
+        //'#placeholder' => t('Sport'),
+		'#options'=>$sports_arr,
         '#default_value' => '',
         );
       $form['position_2'] = array(

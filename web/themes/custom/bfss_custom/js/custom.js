@@ -1,6 +1,8 @@
 (function($) {
     $(document).ready(function() {
+		
 		//month filter	    	
+		//alert();
     	 jQuery('.niceselect select').niceSelect();  
     	   jQuery(".month_filter select").change(function(){
   				jQuery('form#month-form').submit();
@@ -159,6 +161,10 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 		jQuery('.last_delete').on('click',function(){
 			jQuery('.last_athlete').hide();
 			jQuery('.popup_add_org').show();
+			//var get=jQuery(this)next().children().find('input').attr('id');
+			//alert(get);
+			//jQuery(this).find('select').removeAttr('required');
+			//alert();
 			counter_click--;
 		});
 		//Remove Add org button
@@ -462,6 +468,31 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
  
  var counter_click = 0;
  jQuery(document).on('click', '.bfssAthleteProfile .popup_add_org', function(){
+	 console.log(counter_click);
+	 if($("#edit-education-2").is(":hidden")){
+			$("#edit-education-2").prop('required',false);
+			$("#edit-schoolname-2").prop('required',false);
+			$("#edit-position-2").prop('required',false);
+	}else{
+		//alert('dddd');
+		
+	}
+	
+     if(counter_click == 0){
+        jQuery(this).siblings('.previous_athlete').css('display', 'block');
+        counter_click++
+    }else if(counter_click == 1){
+        jQuery(this).siblings('.last_athlete').css('display', 'block');
+		$("#edit-education-2").prop('required',true);
+			$("#edit-schoolname-2").prop('required',true);
+			$("#edit-position-2").prop('required',true);
+		jQuery(this).hide();
+        counter_click++
+    }
+ });
+ 
+ jQuery(document).on('click', '#popup_form_id .popup_add_org', function(){
+	 //alert();
 	 console.log(counter_click);
      if(counter_click == 0){
         jQuery(this).siblings('.previous_athlete').css('display', 'block');
