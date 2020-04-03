@@ -22,6 +22,7 @@ framework:
     js/custom.js: {}
     js/multiform.js: {}
     js/jquery.nice-select.js: {}
+    js/jquery.circles-progressbar.js: {}
     
     
 date-picker:

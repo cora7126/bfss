@@ -88,26 +88,83 @@ foreach ($terms as $term) {
       '#required' => TRUE,
       '#placeholder' => t('First name'),
       '#default_value' => $results3['field_first_name_value'],
+	  '#attributes' => array('readonly' => 'readonly'),
 	  '#prefix'=>'<div class="left_section popup_left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information<i class="fa fa-info right-icon" aria-hidden="true"></i></h3><div class=items_div>',
       );
     $form['lname'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Last name'),
+	  '#attributes' => array('readonly' => 'readonly'),
       '#default_value' => $results1['field_last_name_value'],
       );
 	  $st=getStates();
     $form['state'] = array(
     '#type' => 'select',
    '#options' => $st,
-   '#default_value' => $state,
+   //'#default_value' => $state,
       );
     $form['city'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#placeholder' => t('City'),
-      '#default_value' => $results18['field_city'],
-	  '#suffix' => '</div></div>',
+      //'#default_value' => $results18['field_city'],
+	//  '#suffix' => '</div></div>',
       );
+	  
+	  $form['sex'] = array(
+      //'#title' => t('az'),
+      '#type' => 'select',
+      //'#description' => 'Select the desired pizza crust size.',
+      '#options' => array(
+        t('Gender'),
+        t('Male'),
+        t('Female'),
+        t('Other')),
+      //'#default_value' => $results7['athlete_state'],
+	  '#required' => TRUE,
+      );
+	//  print DatePopup::class;die;
+    $form['doj'] = array(
+      //'#title' => 'Date of Birth',
+      '#placeholder' => 'DOB: (MM/DD/YY)',
+      '#type' => 'textfield',
+      //'#type' => 'date_popup',
+     // '#attributes' => ['class' => ['container-inline']],
+     //'#attributes' => ['class' => 'date_popup'],
+	 //'#attributes' => array('class' => 'date_popup'),
+	 '#attributes' => array('id' => array('datepicker')),
+      '#required' => true,
+      '#default_value' => substr($results3['field_date_value'], 0, 10),
+      '#format' => 'm/d/Y',
+      '#description' => t('i.e. 09/06/2016'),
+	  '#required' => TRUE,
+      //'#attributes' => array('disabled' => true),
+      );
+
+    $form['gradyear'] = array(
+      '#type' => 'textfield',
+      //'#title' => ('Height'),
+      '#placeholder' => t('Graduation Year'),
+     // '#default_value' => $results7['athlete_year'],
+	  '#required' => TRUE,
+      );
+    $form['height'] = array(
+      '#type' => 'textfield',
+      //'#title' => ('Height'),
+      '#placeholder' => t('Height in Inches'),
+      //'#default_value' => $results7['field_height'],
+	  '#required' => TRUE,
+      );
+    $form['weight'] = array(
+      '#type' => 'textfield',
+      //'#title' => ('Height'),
+      '#placeholder' => t('Weight in Pounds'),
+      //'#default_value' => $results7['field_weight'],
+      '#suffix' => '</div></div>',
+	  '#required' => TRUE,
+      );
+	  
+	  
 	 $orgtype = array(
       ""=>t('Organization Type'),
       "1"=>t('School'),
@@ -169,8 +226,16 @@ foreach ($terms as $term) {
 		  '#default_value' => '',
 		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
 		  // '#prefix' => '<div class ="pos_first_2"',
-		   '#suffix' => '</div></div></div></div>',
+		//   '#suffix' => '</div></div></div></div>',
 		  );
+		  
+		$form['stats'] = array(
+      '#type' => 'textarea',
+      '#placeholder' => t('Add all personal stats'),
+      //'#prefix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a>',
+      '#suffix' => '</div></div></div></div>',
+      //'#default_value' => $orgstats_1,
+      );
 	  $orgtype = array(
       ""=>t('Organization Type'),
       "1"=>t('School'),
@@ -212,7 +277,7 @@ foreach ($terms as $term) {
       '#placeholder' => t('Position'),
       '#default_value' => '',
 	  '#prefix' => '<div class="add_pos_div_third">',
-	  '#suffix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div></div></div>',
+	  '#suffix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a>',
       );
 	   $form['position_12'] = array (
 		  '#type' => 'textfield',
@@ -229,8 +294,16 @@ foreach ($terms as $term) {
 		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
 		  // '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
 		  // '#suffix' => '</div>',
-		  //'#suffix' => '</div></div></div></div>',
+		//  '#suffix' => '</div></div></div>',
 		  );
+		  
+		  $form['stats_1'] = array(
+        '#type' => 'textarea',
+        '#placeholder' => t('Add all personal stats'),
+        //'#prefix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div>',
+        '#suffix' => '</div></div></div>',
+        //'#default_value' => $orgstats_2,
+        );
 		  $orgtype = array(
       ""=>t('Organization Type'),
       "1"=>t('School'),
@@ -270,7 +343,7 @@ foreach ($terms as $term) {
       '#placeholder' => t('Position'),
       '#default_value' => '',
 	  '#prefix' => '<div class="add_pos_div_second">',
-	  '#suffix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div></div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div><div class ="right_section">',
+	  '#suffix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a>',
 	 
       );
 	  
@@ -289,8 +362,16 @@ foreach ($terms as $term) {
 		  '#default_value' => $results16['athlete_school_pos3'],
 		  '#attributes' => array('class' =>'pos_hidden_first_2','style'=>'display:none'),
 		  // '#prefix' => '<div class ="pos_hidden_first_2 hidpos"',
-		  // '#suffix' => '</div>',
+		//   '#suffix' => '</div></div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div><div class ="right_section">',
 		  );
+		  $form['stats_2'] = array(
+        '#type' => 'textarea',
+        '#placeholder' => t('Add all personal stats'),
+       // '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div>',
+        '#default_value' => $orgstats_3,
+        //'#prefix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
+		 '#suffix' => '</div></div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div><div class ="right_section">',
+        );
      $form['instagram'] = array (
       '#type' => 'textfield',
       //'#title' => ('Height'),
@@ -351,7 +432,7 @@ foreach ($terms as $term) {
     $bloggs=$field['lname'];
     $az=$field['state'];
     $city=$field['city'];
-    $gender=$field['birth_gender'];
+    $gender=$field['sex'];
     $dob=$field['field_dob'];
     $height = $field['height'];
     $weight = $field['weight'];
@@ -393,6 +474,30 @@ foreach ($terms as $term) {
 
     $conn->update('user__field_last_name')->condition('entity_id', $current_user, '=')->fields(array('field_last_name_value' => $form_state->getValue('lname'), ))->execute();
 	 $conn->update('user__field_state')->condition('entity_id', $current_user, '=')->fields(array('field_state_value' => $az, ))->execute();
+	 
+	 $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
+    
+    $query3->addField('ufln3', 'field_date_value');
+    $query3->condition('entity_id', $current_user, '=');
+    $results3 = $query3->execute()->fetchAssoc();
+	$lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    if (empty($results3)) {
+		
+        $conn->insert('user__field_date')->fields(array(
+        'entity_id' => $current_user,
+        'bundle' => 'user',
+        'revision_id' => $current_user,
+        'delta' => 0,
+        'langcode' => $lang_code,
+        'field_date_value' => $form_state->getValue('doj'),
+        ))->execute();
+    }
+    else {
+        $conn->update('user__field_date')->condition('entity_id', $current_user, '=')->fields(array(
+        'field_date_value' => $form_state->getValue('doj'),
+        ))->execute();
+    }
+	 
 	/* BASIC INFORMATION UPDATE END */
 
 	/* ==== SOCIAL ACCOUNT INFO ===*/
@@ -407,8 +512,11 @@ foreach ($terms as $term) {
 	/* ATHLETE INFO DETAIL ====*/
 	 $conn->insert('athlete_info')->fields(array(
         'athlete_uid' => $current_user,
-        'athlete_state' => $statevalue,
-        'athlete_city' => $city,
+         'athlete_state' => $az,
+        'athlete_city' => $form_state->getValue('city'),
+        'athlete_year' => $form_state->getValue('gradyear'),
+        'field_height' => $form_state->getValue('height'),
+        'field_weight' => $form_state->getValue('weight'),
         'popup_flag' => $popupFlag,
         ))->execute();
 	/* ATHLETE INFO DETAIL ====*/
@@ -491,7 +599,7 @@ foreach ($terms as $term) {
 		'athlete_school_pos' => $form_state->getValue('position'),
 		'athlete_school_pos2' => $form_state->getValue('position2'),
 		'athlete_school_pos3' => $form_state->getValue('position3'),
-		//'athlete_school_stat' => $form_state->getValue('stats'),
+		'athlete_school_stat' => $form_state->getValue('stats'),
 		'athlete_school_type' => $org_type1,
 		))->execute();
 		
@@ -512,7 +620,7 @@ foreach ($terms as $term) {
           'athlete_club_pos' => $form_state->getValue('position'),
           'athlete_school_pos2' => $form_state->getValue('position2'),
           'athlete_school_pos3' => $form_state->getValue('position3'),
-          //'athlete_club_stat' => $form_state->getValue('stats'),
+          'athlete_club_stat' => $form_state->getValue('stats'),
           'athlete_school_type' => $org_type1,
           ))->execute();
       
@@ -534,7 +642,7 @@ foreach ($terms as $term) {
         'athlete_uni_pos' => $form_state->getValue('position'),
         'athlete_uni_pos2' => $form_state->getValue('position2'),
         'athlete_uni_pos3' => $form_state->getValue('position3'),
-        //'athlete_uni_stat' => $form_state->getValue('stats'),
+        'athlete_uni_stat' => $form_state->getValue('stats'),
         'athlete_uni_type' => $org_type1,
         ))->execute();
 		
@@ -559,7 +667,7 @@ foreach ($terms as $term) {
 		'athlete_school_pos' => $form_state->getValue('position_1'),
 		'athlete_school_pos2' => $form_state->getValue('position_12'),
 		'athlete_school_pos3' => $form_state->getValue('position_13'),
-		//'athlete_school_stat' => $form_state->getValue('stats_1'),
+		'athlete_school_stat' => $form_state->getValue('stats_1'),
 		'athlete_school_type' => $org_type2,
 		))->execute();
 		
@@ -579,7 +687,7 @@ foreach ($terms as $term) {
           'athlete_club_pos' => $form_state->getValue('position_1'),
           'athlete_school_pos2' => $form_state->getValue('position_12'),
           'athlete_school_pos3' => $form_state->getValue('position_13'),
-         // 'athlete_club_stat' => $form_state->getValue('stats_1'),
+          'athlete_club_stat' => $form_state->getValue('stats_1'),
           'athlete_school_type' => $org_type2,
           ))->execute();
 		$query_sch = \Drupal::database()->select('athlete_club', 'n');
@@ -599,7 +707,7 @@ foreach ($terms as $term) {
         'athlete_uni_pos' => $form_state->getValue('position_1'),
         'athlete_uni_pos2' => $form_state->getValue('position_12'),
         'athlete_uni_pos3' => $form_state->getValue('position_13'),
-       // 'athlete_uni_stat' => $form_state->getValue('stats_1'),
+        'athlete_uni_stat' => $form_state->getValue('stats_1'),
         'athlete_uni_type' => $org_type2,
         ))->execute();
 		$query_sch = \Drupal::database()->select('athlete_uni', 'n');
@@ -623,7 +731,7 @@ foreach ($terms as $term) {
 		'athlete_school_pos' => $form_state->getValue('position_2'),
 		'athlete_school_pos2' => $form_state->getValue('position_22'),
 		'athlete_school_pos3' => $form_state->getValue('position_23'),
-		//'athlete_school_stat' => $form_state->getValue('stats_2'),
+		'athlete_school_stat' => $form_state->getValue('stats_2'),
 		'athlete_school_type' => $org_type3,
 		))->execute();
 		$query_sch = \Drupal::database()->select('athlete_school', 'n');
@@ -643,7 +751,7 @@ foreach ($terms as $term) {
           'athlete_club_pos' => $form_state->getValue('position_2'),
           'athlete_school_pos2' => $form_state->getValue('position_22'),
           'athlete_school_pos3' => $form_state->getValue('position_23'),
-          //'athlete_club_stat' => $form_state->getValue('stats_2'),
+          'athlete_club_stat' => $form_state->getValue('stats_2'),
           'athlete_school_type' => $org_type3,
           ))->execute();
 		
@@ -663,7 +771,7 @@ foreach ($terms as $term) {
         'athlete_uni_pos' => $form_state->getValue('position_2'),
         'athlete_uni_pos2' => $form_state->getValue('position_22'),
         'athlete_uni_pos3' => $form_state->getValue('position_23'),
-       // 'athlete_uni_stat' => $form_state->getValue('stats_2'),
+        'athlete_uni_stat' => $form_state->getValue('stats_2'),
         'athlete_uni_type' => $org_type3,
         ))->execute();
 		$query_sch = \Drupal::database()->select('athlete_uni', 'n');

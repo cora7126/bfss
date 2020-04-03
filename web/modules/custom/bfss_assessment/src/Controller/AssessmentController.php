@@ -95,7 +95,7 @@ class AssessmentController extends ControllerBase {
   public function assessmentDone() {
     return [
       '#theme' => 'assessment_success',
-      '#message' => $this->t('Thank you for your booking your private assessment with BFSS. An email with the details of your booking has been sent to you.'),
+      '#message' => $this->t('Thank you for your booking your assessment with BFSS. An email with the details of your booking has been sent to you.'),
       '#attached' =>[
         'library' => [
           'bfss_assessment/assessment_mulitform_lib',

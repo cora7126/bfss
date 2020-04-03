@@ -57,14 +57,41 @@ class MonthSelectForm extends FormBase {
       $Y =  $date_arr[0];
       $month_crr = $M.'/'.$Y;  
     }
+	
+	global $base_url;
+
+	$monthcrr = str_replace("/", "-", $month_crr);
+	$prev_month_ts = strtotime('01-'.$monthcrr.' -1 month');
+	$next_month_ts = strtotime('01-'.$monthcrr.' +1 month');
+	$getlastmonth=date('m/Y',$prev_month_ts);
+	$getnextmonth=date('m/Y',$next_month_ts);
+	
+	if(isset($_GET['showdate'])){
+		$valueinfo=$_GET['showdate'];
+		global $base_url;
+		//print '01/'.$month_crr;die;
+		$monthcrr = str_replace("/", "-", $month_crr);
+		$prev_month_ts = strtotime('01-'.$monthcrr.' -1 month');
+		$next_month_ts = strtotime('01-'.$monthcrr.' +1 month');
+		$getlastmonth=date('m/Y',$prev_month_ts);
+		$getnextmonth=date('m/Y',$next_month_ts);
+		//echo $getnextmonth;die;
+		
+		//print $getlastmonth;die;
+		$getlastval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getlastmonth.'"><i class="fal fa-angle-left mr-2"></i></a>';
+		$getnextval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getnextmonth.'"><i class="fal fa-angle-right ml-2"></i></a>';
+	}else{
+		$getlastval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getlastmonth.'"><i class="fal fa-angle-left mr-2"></i></a>';
+		$getnextval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getnextmonth.'"><i class="fal fa-angle-right ml-2"></i></a>';
+	}
     $form['showdate'] = [
       '#type' => 'select',
       '#options' => $month,
       '#default_value' => $month_crr,
       //'#required' => TRUE,
       //'#title' => $this->t('Date of Show:'),
-      '#prefix' => '<div class="box niceselect"><span id="dateofshow"><i class="fal fa-angle-left mr-2"></i>',
-      '#suffix' => '<i class="fal fa-angle-right ml-2"></i></span></div>',
+      '#prefix' => '<div class="box niceselect"><span id="dateofshow">'.$getlastval,
+      '#suffix' => $getnextval.'</span></div>',
       ];
 
 
