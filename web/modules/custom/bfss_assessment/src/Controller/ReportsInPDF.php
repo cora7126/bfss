@@ -23,7 +23,7 @@ class ReportsInPDF extends ControllerBase {
   
     $stylesheet = file_get_contents($path);
    
-    $mpdf = new \Mpdf\Mpdf(['tempDir' => 'sites/default/files/tmp']); 
+    $mpdf = new \Mpdf\Mpdf(['tempDir' => 'modules/custom/bfss_assessment/pdftemp']); 
     $mpdf->WriteHTML($stylesheet,\Mpdf\HTMLParserMode::HEADER_CSS);
 
     $mpdf->imageVars['myvariable'] = file_get_contents($logo);
@@ -33,13 +33,33 @@ class ReportsInPDF extends ControllerBase {
               <table>
                       <tr>
                         <th>Date</th>
+                        <td>'.$param['date'].'</td>
+                      </tr>
+
+                       <tr>
                         <th>Location</th>
+                        <td>'.$param['location'].'</td>
+                      </tr>
+
+                       <tr>
                         <th>Status</th>
+                         <td>'.$param['status'].'</td>
                       </tr>
                       <tr>
-                        <td>'.$param['date'].'</td>
-                        <td>'.$param['location'].'</td>
-                        <td>'.$param['status'].'</td>
+                        <th>User Name</th>
+                         <td>'.$param['user_name'].'</td>
+                      </tr>
+                      <tr>
+                        <th>Assessment Type</th>
+                         <td>'.$param['type'].'</td>
+                      </tr>
+                       <tr>
+                        <th>Sport</th>
+                         <td>'.$param['sport'].'</td>
+                      </tr>
+                      <tr>
+                        <th>Time</th>
+                         <td>'.$param['time'].'</td>
                       </tr>
               </table>
             </div>';
