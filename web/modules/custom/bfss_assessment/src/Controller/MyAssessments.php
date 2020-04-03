@@ -102,6 +102,8 @@ class MyAssessments extends ControllerBase {
                   'address_1' => $address_1,
                   'sport' => $sport,
                   'status' => $field_status,
+                  'time' => $booking_time,
+                  
                 ); 
           }   
         } 
@@ -130,10 +132,19 @@ class MyAssessments extends ControllerBase {
             'Assesstype' => $Assesstype,
             'type' => $type,
             'status' => $item['status'],
-            'location' =>$item['address_1'],
+            'location' => $item['address_1'],
+            'sport' => $item['sport'],
+            'time' => $item['time'],
           ];
+
           $url = '/pdf-download?'.http_build_query($pdf_arr);
-          $formtype = Markup::create('<p><a href="'.$url.'">'.ucfirst($item['formtype']).'</a></p>');
+          if($item['status'] == 'Upcoming'){
+            $urlhtml = '';  
+          }else{
+            $urlhtml = '<a href="'.$url.'">';  
+          }
+          
+          $formtype = Markup::create('<p>'.$urlhtml.ucfirst($item['formtype']).'</a></p>');
           $rows[] = array(
             'date' => $item['booking_date'],
             'program' => $formtype,

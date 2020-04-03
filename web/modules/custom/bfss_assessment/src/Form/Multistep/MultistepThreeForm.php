@@ -10,6 +10,7 @@ namespace Drupal\bfss_assessment\Form\Multistep;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\user\Entity\User;
+use Drupal\Core\Database\Database;
 
 class MultistepThreeForm extends MultistepFormBase {
 
@@ -41,23 +42,36 @@ class MultistepThreeForm extends MultistepFormBase {
     $user = User::load(\Drupal::currentUser()->id());
     $name = $user->get('name')->value;
     $mail = $user->get('mail')->value;
-
+	$current_user = \Drupal::currentUser()->id();
+	$conn = Database::getConnection();
+    $query18 = \Drupal::database()->select('mydata', 'md');
+    $query18->fields('md');
+    $query18->condition('uid', $current_user, '=');
+    $results18 = $query18->execute()->fetchAssoc();
+    $query2 = \Drupal::database()->select('user__field_last_name', 'ufln2');
+    $query2->addField('ufln2', 'field_last_name_value');
+    $query2->condition('entity_id', $current_user, '=');
+    $results2 = $query2->execute()->fetchAssoc();
+	
     #add container class to form
     $form['#attributes']['class'][] = 'container';
     $form['first_name'] = array(
       '#type' => 'textfield',
       '#placeholder' => $this->t('First Name'),
-      '#default_value' => $this->store->get('first_name') ? $this->store->get('first_name') : '',
+      //'#default_value' => $this->store->get('first_name') ? $this->store->get('first_name') : '',
+      '#default_value' => $results18['field_jodi'],
       '#required' => true,
     );
     if ($name) {
       $form['first_name']['#disabled'] = false;
-      $form['first_name']['#default_value'] = $name;
+      //$form['first_name']['#default_value'] = $name;
+      $form['first_name']['#default_value'] =$results18['field_jodi'];
     }
     $form['last_name'] = array(
       '#type' => 'textfield',
       '#placeholder' => $this->t('Last Name'),
-      '#default_value' => $this->store->get('last_name') ? $this->store->get('last_name') : '',
+      //'#default_value' => $this->store->get('last_name') ? $this->store->get('last_name') : '',
+      '#default_value' =>  $results2['field_last_name_value'],
     );
     $form['phone'] = array(
       '#type' => 'textfield',

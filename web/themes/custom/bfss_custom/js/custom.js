@@ -1,6 +1,6 @@
 (function($) {
     $(document).ready(function() {
-		
+		jQuery('#basic0_circle_progressbar').circlesProgress({'progress':'48','borderSize':'0','innerColor':'#f56907'});
 		//month filter	    	
 		//alert();
     	 jQuery('.niceselect select').niceSelect();  
@@ -156,14 +156,16 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 		jQuery('.previous_delete').on('click',function(){
 			jQuery('.previous_athlete').hide();
 			jQuery('.popup_add_org').show();
+			var get=jQuery(this).next().children().find('input').attr('id');
+			jQuery("#"+get).removeAttr('required');
 			counter_click--;
 		});
 		jQuery('.last_delete').on('click',function(){
 			jQuery('.last_athlete').hide();
 			jQuery('.popup_add_org').show();
-			//var get=jQuery(this)next().children().find('input').attr('id');
+			var get=jQuery(this).next().children().find('input').attr('id');
 			//alert(get);
-			//jQuery(this).find('select').removeAttr('required');
+			jQuery("#"+get).removeAttr('required');
 			//alert();
 			counter_click--;
 		});
@@ -468,22 +470,18 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
  
  var counter_click = 0;
  jQuery(document).on('click', '.bfssAthleteProfile .popup_add_org', function(){
-	 console.log(counter_click);
-	 if($("#edit-education-2").is(":hidden")){
-			$("#edit-education-2").prop('required',false);
-			$("#edit-schoolname-2").prop('required',false);
-			$("#edit-position-2").prop('required',false);
-	}else{
-		//alert('dddd');
-		
-	}
-	
+	 console.log(counter_click);	
      if(counter_click == 0){
         jQuery(this).siblings('.previous_athlete').css('display', 'block');
+			$("#edit-education-1").prop('required',true);
+			$("#edit-sport-1").prop('required',true);
+			$("#edit-schoolname-1").prop('required',true);
+			$("#edit-position-1").prop('required',true);
         counter_click++
     }else if(counter_click == 1){
         jQuery(this).siblings('.last_athlete').css('display', 'block');
-		$("#edit-education-2").prop('required',true);
+			$("#edit-education-2").prop('required',true);
+			$("#edit-sport-2").prop('required',true);
 			$("#edit-schoolname-2").prop('required',true);
 			$("#edit-position-2").prop('required',true);
 		jQuery(this).hide();

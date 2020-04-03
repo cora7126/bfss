@@ -219,6 +219,10 @@ foreach ($terms as $term) {
 				$orgname_1=$resulttype1['athlete_school_name'];
 				$orgcoach_1=$resulttype1['athlete_school_coach'];
 				$orgsport_1=$resulttype1['athlete_school_sport'];
+				$orgsport_1_id=$orgsport_1;
+				$orgsport_1=$sports_arr[$orgsport_1];
+				
+				
 				$orgpos_1=$resulttype1['athlete_school_pos'];
 				$orgpos2_1=$resulttype1['athlete_school_pos2'];
 				$orgpos3_1=$resulttype1['athlete_school_pos3'];
@@ -233,6 +237,9 @@ foreach ($terms as $term) {
 				$orgname_1=$resulttype1['athlete_club_name'];
 				$orgcoach_1=$resulttype1['athlete_club_coach'];
 				$orgsport_1=$resulttype1['athlete_club_sport'];
+				$orgsport_1_id=$orgsport_1;
+				$orgsport_1=$sports_arr[$orgsport_1];
+				
 				$orgpos_1=$resulttype1['athlete_club_pos'];
 				$orgpos2_1=$resulttype1['athlete_school_pos2'];
 				$orgpos3_1=$resulttype1['athlete_school_pos3'];
@@ -247,6 +254,9 @@ foreach ($terms as $term) {
 				$orgname_1=$resulttype1['athlete_uni_name'];
 				$orgcoach_1=$resulttype1['athlete_uni_coach'];
 				$orgsport_1=$resulttype1['athlete_uni_sport'];
+				$orgsport_1_id=$orgsport_1;
+				$orgsport_1=$sports_arr[$orgsport_1];
+				
 				$orgpos_1=$resulttype1['athlete_uni_pos'];
 				$orgpos2_1=$resulttype1['athlete_uni_pos2'];
 				$orgpos3_1=$resulttype1['athlete_uni_pos3'];
@@ -265,6 +275,9 @@ foreach ($terms as $term) {
 				$orgname_2=$resulttype1['athlete_school_name'];
 				$orgcoach_2=$resulttype1['athlete_school_coach'];
 				$orgsport_2=$resulttype1['athlete_school_sport'];
+				$orgsport_2_id=$orgsport_2;
+				$orgsport_2=$sports_arr[$orgsport_2];
+				
 				$orgpos_2=$resulttype1['athlete_school_pos'];
 				$orgpos2_2=$resulttype1['athlete_school_pos2'];
 				$orgpos3_2=$resulttype1['athlete_school_pos3'];
@@ -279,6 +292,9 @@ foreach ($terms as $term) {
 				$orgname_2=$resulttype1['athlete_club_name'];
 				$orgcoach_2=$resulttype1['athlete_club_coach'];
 				$orgsport_2=$resulttype1['athlete_club_sport'];
+				$orgsport_2_id=$orgsport_2;
+				$orgsport_2=$sports_arr[$orgsport_2];
+				
 				$orgpos_2=$resulttype1['athlete_club_pos'];
 				$orgpos2_2=$resulttype1['athlete_school_pos2'];
 				$orgpos3_2=$resulttype1['athlete_school_pos3'];
@@ -293,6 +309,9 @@ foreach ($terms as $term) {
 				$orgname_2=$resulttype1['athlete_uni_name'];
 				$orgcoach_2=$resulttype1['athlete_uni_coach'];
 				$orgsport_2=$resulttype1['athlete_uni_sport'];
+				$orgsport_2_id=$orgsport_2;
+				$orgsport_2=$sports_arr[$orgsport_2];
+				
 				$orgpos_2=$resulttype1['athlete_uni_pos'];
 				$orgpos2_2=$resulttype1['athlete_uni_pos2'];
 				$orgpos3_2=$resulttype1['athlete_uni_pos3'];
@@ -311,6 +330,9 @@ foreach ($terms as $term) {
 				$orgname_3=$resulttype1['athlete_school_name'];
 				$orgcoach_3=$resulttype1['athlete_school_coach'];
 				$orgsport_3=$resulttype1['athlete_school_sport'];
+				$orgsport_3_id=$orgsport_3;
+				$orgsport_3=$sports_arr[$orgsport_3];
+				
 				$orgpos_3=$resulttype1['athlete_school_pos'];
 				$orgpos2_3=$resulttype1['athlete_school_pos2'];
 				$orgpos3_3=$resulttype1['athlete_school_pos3'];
@@ -325,6 +347,9 @@ foreach ($terms as $term) {
 				$orgname_3=$resulttype1['athlete_club_name'];
 				$orgcoach_3=$resulttype1['athlete_club_coach'];
 				$orgsport_3=$resulttype1['athlete_club_sport'];
+				$orgsport_3_id=$orgsport_3;
+				$orgsport_3=$sports_arr[$orgsport_3];
+				
 				$orgpos_3=$resulttype1['athlete_club_pos'];
 				$orgpos2_3=$resulttype1['athlete_school_pos2'];
 				$orgpos3_3=$resulttype1['athlete_school_pos3'];
@@ -339,6 +364,9 @@ foreach ($terms as $term) {
 				$orgname_3=$resulttype1['athlete_uni_name'];
 				$orgcoach_3=$resulttype1['athlete_uni_coach'];
 				$orgsport_3=$resulttype1['athlete_uni_sport'];
+				$orgsport_3_id=$orgsport_3;
+				$orgsport_3=$sports_arr[$orgsport_3];
+				
 				$orgpos_3=$resulttype1['athlete_uni_pos'];
 				$orgpos2_3=$resulttype1['athlete_uni_pos2'];
 				$orgpos3_3=$resulttype1['athlete_uni_pos3'];
@@ -383,6 +411,7 @@ foreach ($terms as $term) {
       '#default_value' => $results1['field_first_name_value'],
       '#prefix' => '<div class="left_section popup_left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information</h3><div class=items_div>',
 	  '#required' => TRUE,
+	  '#attributes' => array('readonly' => 'readonly'),
       );
     $form['lname'] = array(
       '#type' => 'textfield',
@@ -390,6 +419,7 @@ foreach ($terms as $term) {
       '#placeholder' => t('Lastname'),
       '#default_value' => $results2['field_last_name_value'],
 	  '#required' => TRUE,
+	  '#attributes' => array('readonly' => 'readonly'),
       );
     $form['email'] = array(
       '#type' => 'textfield',
@@ -413,17 +443,26 @@ foreach ($terms as $term) {
       '#placeholder' => t('City'),
       '#default_value' => $results18['field_city'],
       );
-
+		$array=array('1'=>'Male','2'=>'Female','3'=>'Other');
+		$namesex=$array[$results18['field_birth_gender']];
+	 $form['sextype'] = array(
+      '#type' => 'textfield',
+      //'#title' => t('City'),
+       '#required' => TRUE,
+      '#default_value' => $namesex,
+	  '#attributes' => array('readonly' => 'readonly'),
+      );
+	
     $form['sex'] = array(
       //'#title' => t('az'),
-      '#type' => 'select',
+      '#type' => 'hidden',
       //'#description' => 'Select the desired pizza crust size.',
-      '#options' => array(
+     /* '#options' => array(
         t('Gender'),
         t('Male'),
         t('Female'),
-        t('Other')),
-      '#default_value' => $results7['athlete_state'],
+        t('Other')),*/
+      '#default_value' => $results18['field_birth_gender'],
 	  '#required' => TRUE,
       );
 	//  print DatePopup::class;die;
@@ -431,11 +470,13 @@ foreach ($terms as $term) {
       //'#title' => 'Date of Birth',
       '#placeholder' => 'Date of Birth',
       '#type' => 'textfield',
+	  //'#attributes' => array('readonly' => 'readonly'),
       //'#type' => 'date_popup',
      // '#attributes' => ['class' => ['container-inline']],
      //'#attributes' => ['class' => 'date_popup'],
 	 //'#attributes' => array('class' => 'date_popup'),
-	 '#attributes' => array('id' => array('datepicker')),
+	 '#attributes' => array('readonly' => 'readonly'),
+	 //'#attributes' => array('readonly' => 'readonly','id' => array('datepicker')),
       '#required' => true,
       '#default_value' => substr($results3['field_date_value'], 0, 10),
       '#format' => 'm/d/Y',
@@ -524,11 +565,12 @@ foreach ($terms as $term) {
       '#placeholder' => t("Coach's Last Name"),
       '#default_value' => $orgcoach_1,
       );
+	 
     $form['sport'] = array(
       '#type' => 'select',
       //'#placeholder' => t('Sport'),
 	  '#options'=>$sports_arr,
-      '#default_value' => $orgsport_1,
+      '#default_value' => $orgsport_1_id,
       );
     $form['position'] = array(
       '#type' => 'textfield',
@@ -629,7 +671,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
         //'#placeholder' => t('Sport'),
 		'#options'=>$sports_arr,
-        '#default_value' => $orgsport_2,
+        '#default_value' => $orgsport_2_id,
         );
       $form['position_1'] = array(
         '#type' => 'textfield',
@@ -823,7 +865,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
 		'#options'=>$sports_arr,
         //'#placeholder' => t('Sport'),
-        '#default_value' => $orgsport_3,
+        '#default_value' => $orgsport_3_id,
         );
       $form['position_2'] = array(
         '#type' => 'textfield',
