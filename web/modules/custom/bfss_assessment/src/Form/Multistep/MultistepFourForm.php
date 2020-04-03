@@ -23,7 +23,85 @@ class MultistepFourForm extends MultistepFormBase {
    * {@inheritdoc}.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+	
+	$month_options = [];
+        for ($m = 1; $m <= 12; ++$m) {
+          $time = mktime(0, 0, 0, $m, 1);
+          $month_options[date('m', $time)] = date('F', $time);
+        }
 
+        $year_options = [];
+
+        for ($i = date("Y"); $i < date("Y") + 10; $i++) {
+          $year_options[$i] = $i;
+        }
+    		 $states = [
+        'AL' => 'AL',
+        'AK' => 'AK',
+        'AS' => 'AS',
+        'AZ' => 'AZ',
+        'AR' => 'AR',
+        'CA' => 'CA',
+        'CO' => 'CO',
+        'CT' => 'CT',
+        'DE' => 'DE',
+        'DC' => 'DC',
+        'FM' => 'FM',
+        'FL' => 'FL',
+        'GA' => 'GA',
+        'GU' => 'GU',
+        'HI' => 'HI',
+        'ID' => 'ID',
+        'IL' => 'IL',
+        'IN' => 'IN',
+        'IA' => 'IA',
+        'KS' => 'KS',
+        'KY' => 'KY',
+        'LA' => 'LA',
+        'ME' => 'ME',
+        'MH' => 'MH',
+        'MD' => 'MD',
+        'MA' => 'MA',
+        'MI' => 'MI',
+        'MN' => 'MN',
+        'MS' => 'MS',
+        'MO' => 'MO',
+        'MT' => 'MT',
+        'NE' => 'NE',
+        'NV' => 'NV',
+        'NH' => 'NH',
+        'NJ' => 'NJ',
+        'NM' => 'NM',
+        'NY' => 'NY',
+        'NC' => 'NC',
+        'ND' => 'ND',
+        'MP' => 'MP',
+        'OH' => 'OH',
+        'OK' => 'OK',
+        'OR' => 'OR',
+        'PW' => 'PW',
+        'PA' => 'PA',
+        'PR' => 'PR',
+        'RI' => 'RI',
+        'SC' => 'SC',
+        'SD' => 'SD',
+        'TN' => 'TN',
+        'TX' => 'TX',
+        'UT' => 'UT',
+        'VT' => 'VT',
+        'VI' => 'VI',
+        'VA' => 'VA',
+        'WA' => 'WA',
+        'WV' => 'WV',
+        'WI' => 'WI',
+        'WY' => 'WY',
+        'AE' => 'AE',
+        'AA' => 'AA',
+        'AP' => 'AP',
+       ];
+  		 
+  		 $country=array('usa'=>'USA','canada'=>'Canada');
+	
     $form = parent::buildForm($form, $form_state);
     #if not avail
     if(!$this->store->get('assessment')) {
@@ -58,7 +136,7 @@ class MultistepFourForm extends MultistepFormBase {
       '#required' => true,
     );
 
-    $form['expiration_month'] = array(
+   /* $form['expiration_month'] = array(
       '#type' => 'number',
       '#placeholder' => $this->t('Expiration Month'),
       '#default_value' => $this->store->get('expiration_month') ? $this->store->get('expiration_month') : '',
@@ -66,9 +144,30 @@ class MultistepFourForm extends MultistepFormBase {
       '#min' => 1,
       '#max' => 12,
       '#required' => true,
+    );*/
+	$form['expiration_month'] = array(
+      '#type' => 'select',
+	  '#options'=>$month_options,
+      //'#placeholder' => $this->t('Expiration Month'),
+      '#default_value' => $this->store->get('expiration_month') ? $this->store->get('expiration_month') : '',
+      '#prefix' => $this->t('<div class="expiration">'),
+      //'#min' => 1,
+      //'#max' => 12,
+      '#required' => true,
+    );
+	
+	 $form['expiration_year'] = array(
+      '#type' => 'select',
+	  '#options'=>$year_options,
+      //'#placeholder' => $this->t('Expiration Year'),
+      '#default_value' => $this->store->get('expiration_year') ? $this->store->get('expiration_year') : '',
+      '#suffix' => $this->t('</div>'),
+      //'#min' => date('Y'),
+     // '#max' => 50 + (int) date('Y'),
+      '#required' => true,
     );
 
-    $form['expiration_year'] = array(
+    /*$form['expiration_year'] = array(
       '#type' => 'number',
       '#placeholder' => $this->t('Expiration Year'),
       '#default_value' => $this->store->get('expiration_year') ? $this->store->get('expiration_year') : '',
@@ -76,7 +175,7 @@ class MultistepFourForm extends MultistepFormBase {
       '#min' => date('Y'),
       '#max' => 50 + (int) date('Y'),
       '#required' => true,
-    );
+    );*/
 
     $form['cvv'] = array(
       '#type' => 'number',
@@ -107,25 +206,41 @@ class MultistepFourForm extends MultistepFormBase {
       '#required' => true,
     );
 
-    $form['state'] = array(
+   /* $form['state'] = array(
       '#type' => 'textfield',
       '#placeholder' => $this->t('State'),
       '#default_value' => $this->store->get('state') ? $this->store->get('state') : '',
       '#required' => true,
-    );
+    );*/ 
 
     $form['zip'] = array(
       '#type' => 'number',
-      '#placeholder' => $this->t('ZIP'),
+      '#placeholder' => $this->t('ZIP/Post Code'),
       '#default_value' => $this->store->get('zip') ? $this->store->get('zip') : '',
       '#required' => true,
     );
 
-    $form['country'] = array(
+    /*$form['country'] = array(
       '#type' => 'textfield',
       '#placeholder' => $this->t('Country'),
       '#default_value' => $this->store->get('country') ? $this->store->get('country') : '',
       '#required' => true,
+    );*/
+	$form['state'] = array(
+      '#type' => 'select',
+	  '#options'=>$states,
+      '#placeholder' => $this->t('State'),
+	   '#prefix' => $this->t('<div class="expiration">'),
+      '#default_value' => $this->store->get('state') ? $this->store->get('state') : '',
+      '#required' => true,
+    );
+	$form['country'] = array(
+      '#type' => 'select',
+	  '#options'=>$country,
+      '#placeholder' => $this->t('Country'),
+      '#default_value' => $this->store->get('country') ? $this->store->get('country') : '',
+      '#required' => true,
+	  '#suffix' => $this->t('</div>'),
     );
 
 
