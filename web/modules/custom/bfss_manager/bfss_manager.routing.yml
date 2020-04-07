@@ -1,0 +1,7 @@
+bfss_manager_defaultprofile:
+  path: /bfssmanager_dashboard
+  defaults:
+    _controller: Drupal\bfss_manager\Controller\DefaultController::dashboard
+    _title: 'BFSS Manager'
+  requirements:
+   _role: 'bfss_manager'

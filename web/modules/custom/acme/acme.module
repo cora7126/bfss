@@ -15,7 +15,7 @@ use Drupal\Core\Url;
  */
 function acme_theme() {
   $theme['hello_page'] = [
-    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
+    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'rolename' => NULL],
     'template' => 'hello',
   ];
   $theme['upcoming_page'] = [
@@ -62,6 +62,23 @@ function acme_theme() {
   $theme['my_assessments_page'] = [
     'variables' => ['name' => NULL,'my_assessments_block' => NULL,'my_assessments_records_block' => NULL],
     'template' => 'my_assessments',
+  ];
+  $theme['term_conditions_of_funds_page'] = [
+    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'template' => 'term_conditions_of_funds',
+  ];
+  $theme['search_athlete_page'] = [
+    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'template' => 'search_athlete',
+  ];
+  $theme['bfss_funds_page'] = [
+    'variables' => ['name' => NULL,'bfss_payment_pending_block' => NULL,'bfss_payment_paid_block' => NULL],
+    'template' => 'bfss_funds',
+  ];
+
+  $theme['athletes_follow_page'] = [
+    'variables' => ['name' => NULL,'athletes_follow_block' => NULL],
+    'template' => 'athletes_follow',
   ];
   return $theme;
 }

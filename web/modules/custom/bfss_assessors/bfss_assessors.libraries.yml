@@ -8,9 +8,6 @@ bfss_assessors:
 
 bfss_assessors_message:
   version: 1.x
-  css:
-    layout:
-     # css/custom_assessors.css: {}
   js:
     js/message.js: {}
 
