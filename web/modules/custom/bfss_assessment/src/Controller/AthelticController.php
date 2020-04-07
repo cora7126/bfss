@@ -493,7 +493,13 @@ class AthelticController extends ControllerBase {
    *url bfss_assessment.preview_atheltic_profile
    */
   public function previewProfile() {
-    $this->atheleteUserId = \Drupal::currentUser()->id();
+    if(isset($_GET['uid'])){
+      $this->atheleteUserId = $_GET['uid'];
+    }else{
+      $this->atheleteUserId = \Drupal::currentUser()->id();
+    }
+      
+    
     $data = $this->getBasicData();
     $this->YoutubeUrl($data);
     $this->Bfss_assessments($data);
