@@ -7,6 +7,7 @@
     	   jQuery(".month_filter select").change(function(){
   				jQuery('form#month-form').submit();
   		});
+
         /*jQuery.ajax({
 url : 'http://5ppsystem.com/delete/parent/'+$id+'/'+$delta,
 dataType: 'json',
@@ -604,3 +605,14 @@ function closeModal(elem){
 	jQuery(elem).fadeOut();
 	jQuery('body').removeClass('modalActive');
 }
+function unfollow_athlete(){
+	if(confirm('You are sure , you want to unfollow these athletes!'))
+	{
+	 //alert("confirm ok");
+	 document.getElementById('athletes-unfollow-form').removeAttribute('onsubmit').submit();// Form submission
+	}
+	else{
+		document.getElementById('athletes-unfollow-form').attr('onsubmit','return false;');
+	    return false;                   
+	} 
+} 

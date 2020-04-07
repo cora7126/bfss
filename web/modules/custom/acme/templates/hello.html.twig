@@ -32,6 +32,44 @@
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
                <div class="col-lg-8 ">
                   <h1>Quick links</h1>
+                  {% if rolename == 'coach' %}
+                  <div class="row">
+                     <div class="col-md-3 mob_bottom_margin">
+                        <div class="quick-link-sub-sec">
+                           <i class="fal fa-hands-usd"></i>
+                           <p><a class="datainfo" href="/bfss-funds">Funds from<br>
+                              BFSS</a>
+                           </p>
+                        </div>
+                     </div>
+                     <div class="col-md-3 mob_bottom_margin">
+                        <div class="quick-link-sub-sec">
+                           <i class="fas fa-star"></i>
+                           <p><a href="/athletes-follow">Athletes<br>
+                              | Follow</a>
+                           </p>
+                        </div>
+                     </div>
+                    
+                     <div class="col-md-3">
+                        <div class="quick-link-sub-sec">
+                           <i class="fas fa-lightbulb-on"></i>
+                           <p><a class="datainfo" href="/faqs">Frequently Asked<br>
+                              Questions</a>
+                           </p>
+                        </div>
+                     </div>
+
+                      <div class="col-md-3 mob_bottom_margin">
+                           <a href='#' class="atheltic_link">
+                              <div class="quick-link-sub-sec">
+                           <i class="far fa-ticket-alt"></i>
+                              <p>Support<br />Ticket</p>
+                        </div>
+                           </a>
+                     </div>
+                  </div>
+                  {% else %}
                   <div class="row">
                      <div class="col-md-3 mob_bottom_margin">
                         <div class="quick-link-sub-sec">
@@ -66,8 +104,38 @@
                         </div>
                      </div>
                   </div>
+                  {% endif %}
+                  
+                 
                </div>
                <div class="col-lg-4">
+                  {% if rolename == 'coach' %}
+                  <div class="my-assessment">
+                     <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i>FUNDS RAISED</button>
+                     <div class="panel">
+                        <div class="panel_row">                           
+                           <h3>James Walker</h3>
+                           <p>+$10 Pending</p>
+                        </div>
+                        <div class="panel_row">    
+                           <h3>Tom Twyford</h3>
+                           <p>+ $25 Pending</p>
+                        </div>
+                        <div class="panel_row">    
+                           <h3>Charles Argyle</h3>
+                           <p>+ $25 Pending</p>
+                        </div>
+                         <div class="panel_row">    
+                           <h3>Tom Twyford</h3>
+                           <p>+ $25 Pending</p>
+                        </div>
+                         <div class="panel_row">    
+                           <h3>Charles Argyle</h3>
+                           <p>+ $10 Pending</p>
+                        </div>
+                     </div>
+                  </div>
+                  {% else %}
                   <div class="my-assessment">
                      <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i> MY ASSESSMENTS</button>
                      <div class="panel">
@@ -84,7 +152,10 @@
                            <p>March 29,2019</p>
                         </div>
                      </div>
-                  </div>
+                  </div>  
+                  {% endif %}
+               
+
                </div>
             </div>
          </div>
