@@ -16,7 +16,7 @@ function bfss_assessment_theme() {
         for ($i = date("Y"); $i < date("Y") + 10; $i++) {
           $year_options[$i] = $i;
         }
-    		 $states = [
+    	$states = [
         'AL' => 'AL',
         'AK' => 'AK',
         'AS' => 'AS',
@@ -80,8 +80,7 @@ function bfss_assessment_theme() {
         'AA' => 'AA',
         'AP' => 'AP',
        ];
-  		 
-  		 $country=array('usa'=>'USA','canada'=>'Canada');
+  		$country=array('usa'=>'USA','canada'=>'Canada');
 		
 return [
     'page_assessment' => [
@@ -172,6 +171,7 @@ function bfss_assessment_entity_view_mode_alter(&$view_mode, Drupal\Core\Entity\
  * Implements hook_user_login().
  */
 function bfss_assessment_user_login($account) {
+	
     $current_user = \Drupal::currentUser();
     $roles = $current_user->getRoles();
     if(isset($roles) && in_array('athlete', $roles)){
@@ -207,5 +207,15 @@ function bfss_assessment_user_login($account) {
         return;
     }
 	
+	if(isset($roles) && in_array('coach', $roles)){
+		$response = new RedirectResponse("/dashboard");
+        $response->send();
+        return;
+	}
+	if(isset($roles) && in_array('bfss_manager', $roles)){
+        $response = new RedirectResponse("/bfssmanager_dashboard");
+        $response->send();
+        return;
+    }
 
 }

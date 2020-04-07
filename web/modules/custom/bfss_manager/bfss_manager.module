@@ -1,0 +1,24 @@
+<?php
+use Drupal\Core\Database\Database;
+use Drupal\file\Entity\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+/**
+ * @file
+ * Contains bfss_manager.module..
+ */
+
+
+/**
+ * Implements hook_theme()
+ * @return mixed
+ */
+function bfss_manager_theme() {
+  
+  $theme['bfssmanager_profile_dashboard_page'] = [
+    'variables' => ['name' => NULL,'event_listing_block' => NULL,'private_assessment_listing_block' => NULL],
+    'template' => 'bfssmanager_profile_dashboard',
+  ];
+
+  return $theme;
+}

@@ -1,0 +1,39 @@
+bfss_coach.term_conditions_of_funds:
+  path: '/term-conditions-of-funds' 
+  defaults: 
+    _controller: '\Drupal\bfss_coach\Controller\TermsConditionsOfFunds::content' 
+    _title: 'Terms Conditions Of Funds'
+  requirements: 
+    _permission: 'access content' 
+
+bfss_coach.search_athlete:
+  path: '/search-athlete' 
+  defaults: 
+    _controller: '\Drupal\bfss_coach\Controller\SearchAthlete::content' 
+    _title: 'Search Athlete'
+  requirements: 
+    _permission: 'access content' 
+
+bfss_coach.bfss_funds:
+  path: '/bfss-funds' 
+  defaults: 
+    _controller: '\Drupal\bfss_coach\Controller\Bfss_Funds::content' 
+    _title: 'Bfss Funds'
+  requirements: 
+    _permission: 'access content' 
+
+bfss_coach.athletes_follow:
+  path: '/athletes-follow' 
+  defaults: 
+    _controller: '\Drupal\bfss_coach\Controller\AthletesFollow::content' 
+    _title: 'Athletes Follow'
+  requirements: 
+    _permission: 'access content'
+
+bfss_coach.athletes_unfollow_form:
+ path: '/athletes-unfollow-form'
+ defaults:
+   _title: 'Athletes Unfollow'
+   _form: '\Drupal\bfss_coach\Form\AthletesUnfollowForm'
+ requirements:
+   _permission: 'access content'

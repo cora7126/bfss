@@ -7,11 +7,10 @@ use Drupal\Core\Controller\ControllerBase;
 class DefaultController extends ControllerBase {
 
   public function dashboard() {
-
     //get current user 
-
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
     $roles = $user->getRoles();
+
     // the {name} in the route gets captured as $name variable
     // in the function called
 	 #ATTACH BLOCK
@@ -44,6 +43,12 @@ class DefaultController extends ControllerBase {
         ];
 
       }else{
+
+
+        if(in_array('coach', $roles)){
+            $rolename = 'coach';
+        }
+        
         $block = \Drupal\block\Entity\Block::load('assessmentscustomview');
         $block_content = \Drupal::entityManager()
           ->getViewBuilder('block')
@@ -61,6 +66,7 @@ class DefaultController extends ControllerBase {
           '#name' => 'Shubham Rana',
           '#assessments_block' => $assessments_block,
           '#month_block' => $assessments_block1,
+          '#rolename' => $rolename,
           '#attached' => [
             'library' => [
               'acme/acme-styles', //include our custom library for this response
@@ -69,7 +75,6 @@ class DefaultController extends ControllerBase {
         ];
       }
     
-  
   }
   
 public function userform()

@@ -1,0 +1,5 @@
+name: BFSS Manager Dashboard Module
+type: module
+description: BFSS Manager dashboard with custom functionality.
+core: 8.x
+package: Custom

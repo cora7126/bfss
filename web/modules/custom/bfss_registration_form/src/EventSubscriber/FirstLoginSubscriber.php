@@ -36,11 +36,21 @@ class FirstLoginSubscriber implements EventSubscriberInterface
     $routeName = $routeMatch->getRouteName();
 
     \Drupal::logger('user')->info($routeName);
+	$roles = $current_user->getRoles();
 	
     if ($current_user->isAuthenticated()) { 
       //	logic for "first login" redirect 
+	  if(isset($roles) && in_array('bfss_manager', $roles)){
+        //$response = new RedirectResponse("/bfssmanager_dashboard");
+        //$response->send();
+        //return;
+		//print 'dfsssdf';die;
+		//$event->setResponse(new RedirectResponse(\Drupal\Core\Url::fromRoute('bfss_manager_defaultprofile')->toString()));
+		return;
+		
+    }
 	 
-      if (!empty($_SESSION['user_first_login']) && $routeName != 'user.logout' && $routeName != 'bfss_registration_form.complete_registration_page') {
+       if (!empty($_SESSION['user_first_login']) && $routeName != 'user.logout' && $routeName != 'bfss_registration_form.complete_registration_page') {
 		 
         $event->setResponse(new RedirectResponse(\Drupal\Core\Url::fromRoute('bfss_registration_form.complete_registration_page', ['user' => $current_user->id()])->toString()));
       }

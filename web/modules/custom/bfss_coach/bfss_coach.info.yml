@@ -1,0 +1,4 @@
+name: BFSS COACH
+description: 'This module provide coaches functionality'
+type: module
+core: 8.x

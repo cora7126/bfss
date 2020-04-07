@@ -1133,6 +1133,7 @@ function _get_role_options() {
   unset($roles['administrator']);
   unset($roles['authenticated']);
   unset($roles['assessors']);
+  unset($roles['bfss_manager']);
   array_unshift($roles, t('Account Options'));
   return $roles;
 }
