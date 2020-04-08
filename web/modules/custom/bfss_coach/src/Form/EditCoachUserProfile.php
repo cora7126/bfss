@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\edit_form\Form\ContributeForm.
+ * Contains \Drupal\bfss_coach\Form\EditCoachUserProfile.
  */
 
-namespace Drupal\edit_form\Form;
+namespace Drupal\bfss_coach\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
@@ -14,12 +14,12 @@ use Drupal\file\Entity\File;
 /**
  * Contribute form.
  */
-class test extends FormBase {
+class EditCoachUserProfile extends FormBase {
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-     return 'edit_form';
+     return 'edit_coach_profile';
   }
 
   /**
@@ -75,8 +75,6 @@ class test extends FormBase {
       );
     if(in_array('assessors', $roles_user)){
       $hd_title = "ASSESSORS&#39;s Information";
-    }elseif(in_array('coach', $roles_user)){
-      $hd_title = "COACHES&#39;s Information";
     }else{
       $hd_title = "ATHLETE&#39;s Information"; 
     }
@@ -101,35 +99,6 @@ class test extends FormBase {
       '#default_value' => $results2['field_last_name_value'],
 	  '#attributes' => array('disabled'=>true),
       );
-    // for coach
-      if(in_array('coach', $roles_user)){
-      $states = $this->getStates();
-      $form['az'] = array(
-        //'#title' => t('az'),
-        '#type' => 'select',
-        //'#description' => 'Select the desired pizza crust size.',
-      '#options'=>$states,
-      '#default_value' => $city,
-      #'#required' => TRUE,
-        );
-      $form['city'] = array(
-        '#type' => 'textfield',
-        //'#title' => t('City'),
-        # '#required' => TRUE,
-        '#placeholder' => t('City'),
-        '#default_value' => $results18['field_city'],
-      );
-      $gender_arr =  array('' => 'Select Gender','male' => 'Male','female' => 'Female','other' => 'Other');
-      $form['sextype'] = array(
-      '#type' => 'select',
-       #'#title' => t('City'),
-      #'#required' => TRUE,
-      '#options' => $gender_arr,
-      '#default_value' => $namesex,
-      #'#attributes' => array('readonly' => 'readonly'),
-      );
-    }
-
       if(!in_array('assessors', $roles_user)){
         $form['numberone'] = array(
             '#type' => 'textfield',
@@ -146,7 +115,6 @@ class test extends FormBase {
 		 '#attributes' => array('id' => array('datepicker')),
         );
     }
-  
 	  $form['organizationType'] = array(
 		//'#title' => t('az'),
 		'#type' => 'select',
@@ -402,13 +370,13 @@ class test extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-     $current_user = \Drupal::currentUser()->id();
+    $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
-     $query = \Drupal::database()->select('user__field_mobile', 'ufm');
+    $query = \Drupal::database()->select('user__field_mobile', 'ufm');
 		$query->fields('ufm');
 		$query->condition('entity_id', $current_user,'=');
 		$results = $query->execute()->fetchAll(); 
-	$query_pic = \Drupal::database()->select('user__user_picture', 'uup');
+	  $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
 		$query_pic->fields('uup');
 		$query_pic->condition('entity_id', $current_user,'=');
 		$results_pic = $query_pic->execute()->fetchAll();	
@@ -471,24 +439,7 @@ class test extends FormBase {
         'field_date_value' => $form_state->getValue('date_joined'),
         ))->execute();
     }
-	  //coach fields insert and update code start from here
-    $query_mydata = \Drupal::database()->select('mydata', 'md');
-    $query_mydata->fields('md');
-    $query_mydata->condition('uid', $current_user, '=');
-    $results_mydata = $query_mydata->execute()->fetchAll();
-    if (empty($results_mydata)) {
-        $conn->insert('mydata')->fields(array(
-          'uid' => $current_user,
-          'field_az' => $form_state->getValue('az'),
-          'field_city' => $form_state->getValue('city'),
-          ))->execute();
-      } else {
-        $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
-          'field_az' => $form_state->getValue('az'),
-          'field_city' => $form_state->getValue('city'),
-          ))->execute();
-      } 
-    //coach fields insert and update code end from here
+	
 				
     if(empty($results)){
     $conn->insert('user__field_mobile')->fields(
@@ -526,60 +477,5 @@ class test extends FormBase {
     }
 	$form_state->setRedirect('acme_hello');
   }
-
-
-  public function getStates() {
-      return $st=array(
-          'AL'=>  t('AL'),
-          'AK'=>  t('AK'),
-          'AZ'=>  t('AZ'),
-          'AR'=> t('AR'),
-          'CA'=>  t('CA'),
-          'CO'=>   t('CO'),
-          'CT'=>    t('CT'),
-          'DE'=>    t('DE'),
-          'DC'=>      t('DC'),
-          'FL'=>    t('FL'),
-          'GA'=>     t('GA'),
-          'HI'=>     t('HI'),
-          'ID'=>    t('ID'),
-           'IL'=>   t('IL'),
-           'IN'=> t('IN'),
-           'IA'=> t('IA'),
-          'KS'=>  t('KS'),
-           'KY'=> t('KY'),
-           'LA'=> t('LA'),
-           'ME'=> t('ME'),
-           'MT'=> t('MT'),
-           'NE'=> t('NE'),
-           'NV'=> t('NV'),
-           'NH'=> t('NH'),
-           'NJ'=> t('NJ'),
-           'NM'=> t('NM'),
-           'NY'=> t('NY'),
-           'NC'=> t('NC'),
-            'ND'=>t('ND'),
-           'OH'=> t('OH'),
-            'OR'=>t('OR'),
-           'MD'=> t('MD'),
-           'MA'=> t('MA'),
-           'MI'=> t('MI'),
-            'MN'=>t('MN'),
-            'MS'=>t('MS'),
-           'MO'=> t('MO'),
-           'PA'=> t('PA'),
-           'RI'=> t('RI'),
-           'SC'=> t('SC'),
-            'SD'=>t('SD'),
-           'TN'=> t('TN'),
-            'TX'=>  t('TX'),
-             'UT'=> t('UT'),
-            'VT'=>  t('VT'),
-            'VA'=>  t('VA'),
-             'WA'=> t('WA'),
-             'WV'=> t('WV'),
-            'WI'=>  t('WI'),
-            'WY'=>  t('WY'));
-    }
 }
 ?>
