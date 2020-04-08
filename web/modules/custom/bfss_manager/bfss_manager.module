@@ -16,7 +16,7 @@ use Drupal\Core\Url;
 function bfss_manager_theme() {
   
   $theme['bfssmanager_profile_dashboard_page'] = [
-    'variables' => ['name' => NULL,'event_listing_block' => NULL,'private_assessment_listing_block' => NULL],
+    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
     'template' => 'bfssmanager_profile_dashboard',
   ];
 

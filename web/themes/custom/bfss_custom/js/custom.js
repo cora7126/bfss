@@ -470,8 +470,13 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
  jQuery('.popup_form_id-modal spb_overlay').css('background','black');
  
  var counter_click = 0;
+ 
  jQuery(document).on('click', '.bfssAthleteProfile .popup_add_org', function(){
-	 console.log(counter_click);	
+	if(counter_click < 0){
+		counter_click = 0
+	}
+	 console.log(counter_click);
+	// console.log("i");	
      if(counter_click == 0){
         jQuery(this).siblings('.previous_athlete').css('display', 'block');
 			$("#edit-education-1").prop('required',true);
@@ -492,6 +497,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
  
  jQuery(document).on('click', '#popup_form_id .popup_add_org', function(){
 	 //alert();
+	 //console.log("2");
 	 console.log(counter_click);
      if(counter_click == 0){
         jQuery(this).siblings('.previous_athlete').css('display', 'block');
@@ -502,8 +508,11 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
         counter_click++
     }
  });
+
+
   jQuery(document).on('click', '.edit-parent .popup_add_org', function(){
 	 console.log(counter_click);
+	 //console.log("3");
      if(counter_click == 0){
         jQuery(this).siblings('.first-parent-guardian').css('display', 'block');
         counter_click++
