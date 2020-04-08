@@ -51,7 +51,15 @@ class AthletesFollow extends ControllerBase {
             	$user = User::load($athlete_user_id);
             	$firstname = $user->field_first_name->value;
             	$lastname = $user->field_last_name->value;
-
+            	
+            	if(!empty($firstname)){
+            		$firstname = '<a href="/preview/profile?uid='.$athlete_user_id.'">'.$firstname.'</a>';
+            	}
+            	
+            	if(!empty($lastname)){
+            		$lastname = '<a href="/preview/profile?uid='.$athlete_user_id.'">'.$lastname.'</a>';
+            	}
+            	
             	$query5 = \Drupal::database()->select('athlete_school', 'ats');
 	            $query5->fields('ats');
 	            $query5->condition('athlete_uid', $athlete_user_id,'=');

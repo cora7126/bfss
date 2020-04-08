@@ -37,3 +37,11 @@ bfss_coach.athletes_unfollow_form:
    _form: '\Drupal\bfss_coach\Form\AthletesUnfollowForm'
  requirements:
    _permission: 'access content'
+
+bfss_coach.edit_coach_profile:
+ path: '/edit-coach-profile'
+ defaults:
+   _title: 'Edit Coach Profile'
+   _form: '\Drupal\bfss_coach\Form\EditCoachUserProfile'
+ requirements:
+   _permission: 'access content'
