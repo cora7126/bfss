@@ -192,7 +192,9 @@ foreach ($terms as $term) {
 	$orgpos2_3='';
 	$orgpos3_3='';
 	$orgstats_3='';
-	
+	// echo "<pre>";
+	// print_r($results18);
+	// die;
 	if(empty($results18)){
 		$type1=1;
 		$type2=2;
