@@ -1,0 +1,111 @@
+<?php
+//module name - bfss_coach
+function bfss_coach_schema() {
+  $schema['bfss_coach'] = array(
+     'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'coach_uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      //one
+      'field_organization_type_one'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_organization_name_one'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_coach_title_one'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+        ),
+      'field_sport_one'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => TRUE,
+      ),
+      'field_year_one'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+
+      //tow
+      'field_organization_type_two'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_organization_name_two'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_coach_title_two'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+        ),
+      'field_sport_two'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => TRUE,
+      ),
+      'field_year_two'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+
+      //three
+      'field_organization_type_three'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_organization_name_three'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'field_coach_title_three'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+        ),
+      'field_sport_three'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => TRUE,
+      ),
+      'field_year_three'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      //social media
+	   'field_instagram'=>array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'field_youtube'=>array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+	  
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

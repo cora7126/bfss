@@ -222,11 +222,18 @@ class CompleteRegistrationForm extends FormBase {
 
  //   $response->addCommand(new \Drupal\Core\Ajax\SettingsCommand(['bfss_registration_form' => ['code_sent' => 1]], TRUE), TRUE);
 
-    $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => \Drupal::currentUser()->id()])->toString();
-	// $response = new AjaxResponse();
-    $url = '/user/logout/';
-    $response->addCommand(new RedirectCommand($url));
-    return $response;
+
+    $current_user = \Drupal::currentUser()->id();
+    $roles_user = \Drupal::currentUser()->getRoles();
+     if(in_array('coach', $roles_user)){
+     $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('bfss_coach.edit_coach_profile')->toString();
+     }else{
+          $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => \Drupal::currentUser()->id()])->toString();
+          $url = '/user/logout/';
+          $response->addCommand(new RedirectCommand($url));
+          return $response;
+     }
+
   }
 
   /**
@@ -236,11 +243,20 @@ class CompleteRegistrationForm extends FormBase {
    * @return array
    */
   function ajaxSubmit(array &$form, FormStateInterface $form_state) {
-	  $response = new \Drupal\Core\Ajax\AjaxResponse();
-	  $url = '/user/logout/';
-    $response->addCommand(new RedirectCommand($url));
-    return $response;
-   // return $form;
+    $current_user = \Drupal::currentUser()->id();
+    $roles_user = \Drupal::currentUser()->getRoles();
+    if(in_array('coach', $roles_user)){
+        $response = new \Drupal\Core\Ajax\AjaxResponse();
+        $url = '/dashboard/edit-coach-profile';
+        $response->addCommand(new RedirectCommand($url));
+        return $response;
+    }else{
+         $response = new \Drupal\Core\Ajax\AjaxResponse();
+          $url = '/user/logout/';
+          $response->addCommand(new RedirectCommand($url));
+          return $response;
+    }  
+   
   }
 
   /**
