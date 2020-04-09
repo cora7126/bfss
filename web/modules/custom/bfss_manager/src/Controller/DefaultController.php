@@ -28,11 +28,13 @@ class DefaultController extends ControllerBase {
       ->getViewBuilder('block')
       ->view($block1);
     $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+	
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'bfssmanager_profile_dashboard_page',
           '#assessments_block' => $assessments_block,
           '#month_block' => $assessments_block1,
+          '#rolename' => $roles[1],
           '#attached' => [
             'library' => [
               'acme/acme-styles', //include our custom library for this response

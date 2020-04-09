@@ -8,6 +8,12 @@
   				jQuery('form#month-form').submit();
   		});
 
+    	   jQuery(document).ready(function() { 
+			  jQuery('.org_name_tabs input[name=orgname]').change(function(){
+			        jQuery('form#org-tab-form-plx').submit();
+			   });
+  			});
+
         /*jQuery.ajax({
 url : 'http://5ppsystem.com/delete/parent/'+$id+'/'+$delta,
 dataType: 'json',
@@ -20,6 +26,10 @@ error :function (data){
 
 });*/
 
+jQuery('#edit-coach-profile-form-modal').modal({
+    backdrop: 'static',
+    keyboard: false
+});
 jQuery('.faqct li.q').on('click', function(){
   //gets next element
   //opens .a of selected question
