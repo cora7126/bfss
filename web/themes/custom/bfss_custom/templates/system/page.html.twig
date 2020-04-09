@@ -307,8 +307,8 @@
                <li class="sub_menu">
                   <button class="side_button"><span class="side_menu_text">NAVIGATION</span></button> 
                </li>
-               <li {% if current_path == "/dashboard" %} class="sub_menu active"{% else %}class="sub_menu"{% endif %}>
-                  <a href="/dashboard" class="side_button menulink"><i class="fas fa-home"></i><span class="side_menu_text dashboard">Dashboard</span></a>
+               <li {% if (current_path == '/dashboard') or (current_path == '/bfssmanager_dashboard') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %}>
+                  <a href="{{ current_path }}" class="side_button menulink"><i class="fas fa-home"></i><span class="side_menu_text dashboard">Dashboard</span></a>
                </li>
                {% if user_role == 0 %}
                <li class="sub-menu-drop ">
@@ -391,6 +391,60 @@
                      </div>
                   </nav>
                </li>
+			   {% elseif user_role == 3 %}
+			   <li class="sub_menu">
+                  <a href="/search-athlete" class="side_button menulink my_assess"><i class="far fa-search"></i><span class="side_menu_text">Pending Assessments</span></a>
+               </li>
+               
+               <li class="sub-menu-drop">
+                  <nav>
+                     <div class="dropdown">
+                        <a  class="drop">
+                          <i class="fal fa-users"></i><span class="side_menu_text funds_dropdown">Users</span><span class="down-arrow fa fa-angle-down"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                           <li><a class="side_button"  href="/bfss-funds"><span class="side_menu_text bfssAthleteProfile">View/Edit Active</span> </a></li>
+                           <li><a href="/term-conditions-of-funds">View / Edit Deactivated</a></li>
+                           <li><a href="/term-conditions-of-funds">Search Athletes</a></li>
+                        </ul>
+                     </div>
+                  </nav>
+               </li>
+               <!-- <li class="sub_menu"> -->
+               <!-- <button class="side_button"><i class="far fa-cogs"></i></i>Support</button> -->
+               <!-- </li> -->
+              
+               <li class="sub-menu-drop">
+                  <nav>
+                     <div class="dropdown">
+                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <ul class="dropdown-menu">
+                           <li ><a href="/faqs"> View / Edit </a></li>
+                           <li><a href="#">Add New</a></li>
+                           <li><a href="#">Pending Approval</a></li>
+                        </ul>
+                     </div>
+                  </nav>
+               </li>
+			   
+			   <li class="sub-menu-drop">
+                  <nav>
+                     <div class="dropdown">
+                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-calendar"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <ul class="dropdown-menu">
+                           <li ><a href="/faqs"> Group Assessments </a></li>
+                           <li><a href="#">Private Assessments</a></li>
+ 
+                        </ul>
+                     </div>
+                  </nav>
+               </li>
+			   
+			   <li class="sub_menu">
+                  <a href="/search-athlete" class="side_button menulink my_assess"><i class="far fa-ticket"></i><span class="side_menu_text">Ticketing</span></a>
+               </li>
+			   
                 {% endif %}
             </ul>
          </div>

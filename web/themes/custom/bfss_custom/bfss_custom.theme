@@ -45,6 +45,8 @@ function bfss_custom_preprocess_page(&$variables) {
     $variables['user_role'] = 1;
   }elseif(in_array('coach', $roles)){
      $variables['user_role'] = 2;
+  }elseif(in_array('bfss_manager', $roles)){
+     $variables['user_role'] = 3;
   }else{
     $variables['user_role'] = 0;
   }

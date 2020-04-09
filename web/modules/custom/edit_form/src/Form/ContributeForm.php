@@ -131,7 +131,8 @@ foreach ($terms as $term) {
     $query18->fields('md');
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
-	
+ //    echo "<pre>";
+	// print_r($results18);
 	$delta0 = \Drupal::database()->select('athlete_web', 'md');
 	$delta0->fields('md');
 	$delta0->condition('athlete_uid', $current_user, '=');
@@ -192,7 +193,9 @@ foreach ($terms as $term) {
 	$orgpos2_3='';
 	$orgpos3_3='';
 	$orgstats_3='';
-	
+	// echo "<pre>";
+	// print_r($results18);
+	// die;
 	if(empty($results18)){
 		$type1=1;
 		$type2=2;
