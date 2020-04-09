@@ -7,54 +7,121 @@ use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Database\Database;
-
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
 class Bfss_Funds extends ControllerBase {
 	  public function content() {
-	   
-	  	$booked_ids = \Drupal::entityQuery('bfsspayments')
-			->condition('payment_status','pending', '=')
-        	->execute();
-        $TableRowsPending = [];
-    	foreach ($booked_ids as $booked_id) {
-    		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-    		$user_id = $entity->user_id->value;
-    		//print_r($user_id);
-    		$timestamp = $entity->time->value;
-    		
-    		$booking_date = date("Y/m/d",$timestamp);
-    		$firstname = $entity->first_name->value;
-    		
-    		if(!empty($firstname)){
-				$firstname = '<a href="/preview/profile?uid='.$user_id.'">'.$firstname.'</a>';	
-			}
-			$lastname = $entity->last_name->value;
-			if(!empty($lastname)){
-				$lastname = '<a href="/preview/profile?uid='.$user_id.'">'.$lastname.'</a>';	
-			}
-    		
+	    $current_user = \Drupal::currentUser()->id(); 
+        $param = \Drupal::request()->query->all();
 
-    		$price = $entity->service->value;
-    		$payment_status = $entity->payment_status->value;
-    		
 
-    		$query5 = \Drupal::database()->select('athlete_school', 'ats');
-            $query5->fields('ats');
-            $query5->condition('athlete_uid', $user_id,'=');
-            $results5 = $query5->execute()->fetchAssoc();            
-            $sport = $results5['athlete_school_sport'];
+        $query_bfss_coach = \Drupal::database()->select('bfss_coach', 'bc');
+        $query_bfss_coach->fields('bc');
+        $query_bfss_coach->condition('coach_uid',$current_user, '=');
+        $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
 
-    		$TableRowsPending[] = [
-		    		'booking_date'	=> $booking_date,
-		    		'firstname'	=> $firstname,
-		    		'lastname'	=> $lastname,
-		    		'sport'	=> $sport,
-		    		'price'	=> $price,
-		    		'payment_status'=> $payment_status,
-    		];
-    		
-    	}
+        $orgname1 = $results_bfss_coach[0]->field_organization_name_one;
+        $orgname2 = $results_bfss_coach[0]->field_organization_name_two;
+        $orgname3 = $results_bfss_coach[0]->field_organization_name_three;
 
+       
+        if(!empty($param['orgname'])){
+            $orgname = $param['orgname'];
+        }else{
+            $orgname = $orgname1; 
+        }
+        #GET ATHLETE IDS
+        $athlete_uids = $this->get_uids_by_orgname($orgname);
+       
+        foreach ($athlete_uids as $athlete_uid) {
+    	  	$booked_ids = \Drupal::entityQuery('bfsspayments')
+                ->condition('user_id',$athlete_uid->athlete_uid, '=')
+    			->condition('payment_status','pending', '=')
+            	->execute();
+            $TableRowsPending = [];
+        	foreach ($booked_ids as $booked_id) {
+        		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+        		$user_id = $entity->user_id->value;
+
+        		$timestamp = $entity->time->value;
+        		
+        		$booking_date = date("Y/m/d",$timestamp);
+        		$firstname = $entity->first_name->value;
+        		
+        		if(!empty($firstname)){
+    				$firstname = '<a href="/preview/profile?uid='.$user_id.'">'.$firstname.'</a>';	
+    			}
+    			$lastname = $entity->last_name->value;
+    			if(!empty($lastname)){
+    				$lastname = '<a href="/preview/profile?uid='.$user_id.'">'.$lastname.'</a>';	
+    			}
+        		
+
+        		$price = $entity->service->value;
+        		$payment_status = $entity->payment_status->value;
+        		
+
+        		$query5 = \Drupal::database()->select('athlete_school', 'ats');
+                $query5->fields('ats');
+                $query5->condition('athlete_uid', $user_id,'=');
+                $results5 = $query5->execute()->fetchAssoc();            
+                $sport = $results5['athlete_school_sport'];
+
+        		$TableRowsPending[] = [
+    		    		'booking_date'	=> $booking_date,
+    		    		'firstname'	=> $firstname,
+    		    		'lastname'	=> $lastname,
+    		    		'sport'	=> $sport,
+    		    		'price'	=> $price,
+    		    		'payment_status'=> $payment_status,
+        		];
+        		
+        	}
+        }
+
+        $arrradios = [
+            'orgname1' => $orgname1,
+            'orgname2' => $orgname2,
+            'orgname3' => $orgname3,
+        ];
+
+        $radios = '<div class="org-radio">';
+        foreach (array_unique($arrradios) as $arrradio) {
+        if(!empty($arrradio)){ 
+            if(!empty($param['orgname']) ){
+                if($param['orgname']==$arrradio){
+                    $checked = 'checked=checked';
+                    $cls = 'active';
+                }else{
+                    $checked = '';
+                    $cls = ''; 
+                }
+                 $ck = '';
+            }else{
+                 if($arrradio==$orgname1){
+                    $ck = 'checked=checked';
+                }else{
+                    $ck = '';
+                }
+            }
+                $radios .= '<input type="radio" class="tabs-orgs '.$cls.'" name="orgname" value="'.$arrradio.'" '.$checked.' '.$ck.'>'.$arrradio;
+            }  
+        }
+        $radios .= '</div>';
+       
 	  	$tb1 = '<div class="search_athlete_main user_pro_block">
+          <div class="org_name_tabs">'.$tabs.'
+          <form class="org-tab-form" action="/bfss-funds" method="get" id="org-tab-form-plx" accept-charset="UTF-8">
+            '.$radios.'
+            <input type="submit" name="org-submit" style="display:none;">
+          </form>
+          </div>
+          <div class="paid-unpaid">
+          <ul>
+          <li><i class="fal fa-money-bill-wave"></i> Pending</li>
+          <li><i class="far fa-usd-circle"></i> Paid</li>
+          </ul>
+          </div>
           <div class="wrapped_div_main">
            <h2>BFSS Payments Pending</h2>
           <div class="block-bfss-assessors">
@@ -96,45 +163,47 @@ class Bfss_Funds extends ControllerBase {
 	
 
 
+        foreach ($athlete_uids as $athlete_uid) {
+    	    $booked_ids_paid = \Drupal::entityQuery('bfsspayments')
+    			->condition('payment_status','paid', '=')
+                 ->condition('user_id',$athlete_uid->athlete_uid, '=')
+            	->execute();
+            $TableRowsPaid = [];
+        	foreach ($booked_ids_paid as $booked_id) {
+        		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+        		$timestamp = $entity->time->value;
+        		$booking_date = date("Y/m/d",$timestamp);
+        		$firstname = $entity->first_name->value;
+        		$lastname = $entity->last_name->value;
+        		$user_id = $entity->user_id->value;
+        		if(!empty($firstname)){
+    				$firstname = '<a href="/preview/profile?uid='.$user_id.'">'.$firstname.'</a>';	
+    			}
+    			if(!empty($lastname)){
+    				$lastname = '<a href="/preview/profile?uid='.$user_id.'">'.$lastname.'</a>';	
+    			}
+        		$price = $entity->service->value;
+        		$payment_status = $entity->payment_status->value;
+        		$created = date("Y/m/d",$entity->created->value);
+        		
 
-	    $booked_ids_paid = \Drupal::entityQuery('bfsspayments')
-			->condition('payment_status','paid', '=')
-        	->execute();
-        $TableRowsPaid = [];
-    	foreach ($booked_ids_paid as $booked_id) {
-    		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-    		$timestamp = $entity->time->value;
-    		$booking_date = date("Y/m/d",$timestamp);
-    		$firstname = $entity->first_name->value;
-    		$lastname = $entity->last_name->value;
-    		$user_id = $entity->user_id->value;
-    		if(!empty($firstname)){
-				$firstname = '<a href="/preview/profile?uid='.$user_id.'">'.$firstname.'</a>';	
-			}
-			if(!empty($lastname)){
-				$lastname = '<a href="/preview/profile?uid='.$user_id.'">'.$lastname.'</a>';	
-			}
-    		$price = $entity->service->value;
-    		$payment_status = $entity->payment_status->value;
-    		$created = date("Y/m/d",$entity->created->value);
-    		
+        		$query5 = \Drupal::database()->select('athlete_school', 'ats');
+                $query5->fields('ats');
+                $query5->condition('athlete_uid', $user_id,'=');
+                $results5 = $query5->execute()->fetchAssoc();            
+                $sport = $results5['athlete_school_sport'];
 
-    		$query5 = \Drupal::database()->select('athlete_school', 'ats');
-            $query5->fields('ats');
-            $query5->condition('athlete_uid', $user_id,'=');
-            $results5 = $query5->execute()->fetchAssoc();            
-            $sport = $results5['athlete_school_sport'];
-
-    		$TableRowsPaid[] = [
-		    		'booking_date'	=> $booking_date,
-		    		'firstname'	=> $firstname,
-		    		'lastname'	=> $lastname,
-		    		'sport' => $sport,
-		    		'price'	=> $price,
-		    		'payment_status'=> $created,
-    		];
-    		
-    	}
+        		$TableRowsPaid[] = [
+    		    		'booking_date'	=> $booking_date,
+    		    		'firstname'	=> $firstname,
+    		    		'lastname'	=> $lastname,
+    		    		'sport' => $sport,
+    		    		'price'	=> $price,
+    		    		'payment_status'=> $created,
+        		];
+        		
+        	}
+        }
 	    $tb2 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
            <h2>BFSS Payments Paid</h2>
@@ -186,4 +255,36 @@ class Bfss_Funds extends ControllerBase {
 	      ]
 	    ];
   	}
+
+    public function get_uids_by_orgname($orgname){
+        $athlete_uids = [];
+        $athlete_club = \Drupal::database()->select('athlete_club', 'n');
+        $athlete_club->addField('n', 'athlete_uid');
+        $athlete_club->condition('athlete_club_name', $orgname, '=');
+        $athlete_club->orderBy('athlete_uid', 'DESC');
+        $athlete_club_rels = $athlete_club->execute()->fetchAll();
+        foreach ($athlete_club_rels as $athlete_club_rel) {
+            $athlete_uids[] = $athlete_club_rel;
+        }
+
+        $athlete_uni = \Drupal::database()->select('athlete_uni', 'n');
+        $athlete_uni->addField('n', 'athlete_uid');
+        $athlete_uni->condition('athlete_uni_name', $orgname, '=');
+        $athlete_uni->orderBy('athlete_uid', 'DESC');
+        $athlete_uni_rels = $athlete_uni->execute()->fetchAll();
+        foreach ($athlete_uni_rels as $athlete_uni_rel) {
+          $athlete_uids[] = $athlete_uni_rel;
+        }
+    
+        $athlete_school = \Drupal::database()->select('athlete_school', 'n');
+        $athlete_school->addField('n', 'athlete_uid');
+        $athlete_school->condition('athlete_school_name', $orgname, '=');
+        $athlete_school->orderBy('athlete_uid', 'DESC');
+        $athlete_school_rels = $athlete_school->execute()->fetchAll();
+        foreach ($athlete_school_rels as $athlete_school_rel) {
+           $athlete_uids[] = $athlete_school_rel;
+        }
+        return $athlete_uids;
+    }
+
 }

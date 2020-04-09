@@ -2002,6 +2002,7 @@ div#edit-phone-section{margin-top:25px;}
 .remove_pos_first , .remove_pos_second , .remove_pos_third{font-size:12px;margin-left:15px;color:#f76907 ! important;display:none;cursor:pointer;}
 .parent_hide{display:none;}
 .user-submit-button{position:absolute;bottom:20px;}
+#edit-form .user-submit-button{position:absolute;bottom:-20px;}
 .change_pass{padding:0 15px;}
 .edit-user .imagepopup-modal .spb-popup-main-wrapper.spb_top_center,.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center{padding-top:0;}
  .edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center{padding-bottom:15px;}
