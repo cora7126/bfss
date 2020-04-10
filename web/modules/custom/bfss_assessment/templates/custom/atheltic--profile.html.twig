@@ -1,7 +1,7 @@
 <!-- <pre>
 	{{ dump(data) }}
 </pre>
-	 -->
+-->
  <!-- Modal START-->
   <div class="modal fade" id="social_share_us" role="dialog">
 	    <div class="modal-dialog">
@@ -37,12 +37,9 @@
 		                  	</div>
 		                  	<div class="star_icon">
 		                  		<span class="hd_line">
-		                  			{% if logged_in %}
-		                  			<i class="fa fa-star"></i>
-		                  			{% else %}
-		                  			<i class="fa fa-star-o"></i>
-		                  			{% endif %}
-		                  			COACHES FOLLOWS THIS ATHLES
+		                  		<div class="follow-unfollow">
+		                  		 {{ data.mydata.follow_unfollow }}
+		                  		</div>
 		                  		</span>
 		                  	</div>
 		              	</div> 

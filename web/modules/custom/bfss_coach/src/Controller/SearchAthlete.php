@@ -29,7 +29,7 @@ class SearchAthlete extends ControllerBase {
 			$results_fname = $query_fname->execute()->fetchAll();
 			$firstname = isset($results_fname[0]->field_first_name_value)?$results_fname[0]->field_first_name_value:'';
 			if(!empty($firstname)){
-				$firstname = '<a href="/preview/profile?uid='.$athlete_user_id.'">'.$firstname.'</a>';	
+				$firstname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$firstname.'</a>';	
 			}
 			
 			    	
@@ -39,7 +39,7 @@ class SearchAthlete extends ControllerBase {
 			$results_lname = $query_lname->execute()->fetchAssoc();
 			$lastname = $results_lname['field_last_name_value'];
 			if(!empty($lastname)){
-				$lastname = '<a href="/preview/profile?uid='.$athlete_user_id.'">'.$lastname.'</a>';	
+				$lastname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$lastname.'</a>';	
 			}
 			
 			

@@ -317,6 +317,19 @@ class AthelticController extends ControllerBase {
       }
     }
   }
+
+  public function follow_unfollow(&$data) {
+
+     $uid = \Drupal::currentUser()->id();
+     $user = \Drupal\user\Entity\User::load($uid);
+     $roles = $user->getRoles();
+     $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\FollowUnfollowForm');
+
+     $data['mydata']['follow_unfollow'] = $form;
+     
+    
+     
+  }
   public function updateInfoForTmeplate(&$data, $username = null) {
     if ($username) {
       if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
@@ -469,6 +482,7 @@ class AthelticController extends ControllerBase {
     $this->Bfss_assessments($data);
     $this->InstagramUrl($data);
     $this->getShareBlock($data);
+    $this->follow_unfollow($data);
     #data on username
     $this->updateInfoForTmeplate($data, $username);
     // echo "<pre>";
@@ -505,6 +519,7 @@ class AthelticController extends ControllerBase {
     $this->Bfss_assessments($data);
     $this->InstagramUrl($data);
     $this->getShareBlock($data);
+    $this->follow_unfollow($data);
     #update data with new things
     $this->updateTempInfoForTmeplate($data, $username);
     #send the output

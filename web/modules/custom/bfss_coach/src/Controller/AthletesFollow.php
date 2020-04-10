@@ -53,11 +53,11 @@ class AthletesFollow extends ControllerBase {
             	$lastname = $user->field_last_name->value;
             	
             	if(!empty($firstname)){
-            		$firstname = '<a href="/preview/profile?uid='.$athlete_user_id.'">'.$firstname.'</a>';
+            		$firstname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$firstname.'</a>';
             	}
             	
             	if(!empty($lastname)){
-            		$lastname = '<a href="/preview/profile?uid='.$athlete_user_id.'">'.$lastname.'</a>';
+            		$lastname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$lastname.'</a>';
             	}
             	
             	$query5 = \Drupal::database()->select('athlete_school', 'ats');
@@ -71,7 +71,7 @@ class AthletesFollow extends ControllerBase {
 
             	$tb1 .=  '<tr>
                 <td>
-                <input class="form-checkbox" type="checkbox" name="items_selected[]" value="'.$athlete_user_id.'"></td>
+                <input class="form-checkbox" type="checkbox" name="items_selected[]" value="'.$athlete_user_id.'"><span class="unfollow-checkbox"></span></td>
                 <td>'.$firstname.'</td>
                 <td>'.$lastname.'</td>
                 <td>'.$school_name.'</td>
@@ -80,7 +80,7 @@ class AthletesFollow extends ControllerBase {
         		</tr>';
             }
             
-            $tb1 .= '<input type="submit" name="follow_submit" value="unfollow" onclick="unfollow_athlete();" >
+            $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="follow_submit" value="unfollow" onclick="unfollow_athlete();" ></div>
 
             </tbody>
 	          </table>
