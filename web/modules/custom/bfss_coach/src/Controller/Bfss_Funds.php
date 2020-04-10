@@ -49,11 +49,11 @@ class Bfss_Funds extends ControllerBase {
         		$firstname = $entity->first_name->value;
         		
         		if(!empty($firstname)){
-    				$firstname = '<a href="/preview/profile?uid='.$user_id.'">'.$firstname.'</a>';	
+    				$firstname = '<a href="/preview/profile?uid='.$user_id.'" target="_blank">'.$firstname.'</a>';	
     			}
     			$lastname = $entity->last_name->value;
     			if(!empty($lastname)){
-    				$lastname = '<a href="/preview/profile?uid='.$user_id.'">'.$lastname.'</a>';	
+    				$lastname = '<a href="/preview/profile?uid='.$user_id.'" target="_blank">'.$lastname.'</a>';	
     			}
         		
 
@@ -104,7 +104,7 @@ class Bfss_Funds extends ControllerBase {
                     $ck = '';
                 }
             }
-                $radios .= '<input type="radio" class="tabs-orgs '.$cls.'" name="orgname" value="'.$arrradio.'" '.$checked.' '.$ck.'>'.$arrradio;
+                $radios .= '<div class="orgradios"><input type="radio" class="tabs-orgs '.$cls.'" name="orgname" value="'.$arrradio.'" '.$checked.' '.$ck.'><span>'.$arrradio.'</span></div>';
             }  
         }
         $radios .= '</div>';
@@ -177,10 +177,10 @@ class Bfss_Funds extends ControllerBase {
         		$lastname = $entity->last_name->value;
         		$user_id = $entity->user_id->value;
         		if(!empty($firstname)){
-    				$firstname = '<a href="/preview/profile?uid='.$user_id.'">'.$firstname.'</a>';	
+    				$firstname = '<a href="/preview/profile?uid='.$user_id.'" target="_blank">'.$firstname.'</a>';	
     			}
     			if(!empty($lastname)){
-    				$lastname = '<a href="/preview/profile?uid='.$user_id.'">'.$lastname.'</a>';	
+    				$lastname = '<a href="/preview/profile?uid='.$user_id.'" target="_blank">'.$lastname.'</a>';	
     			}
         		$price = $entity->service->value;
         		$payment_status = $entity->payment_status->value;
