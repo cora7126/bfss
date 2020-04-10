@@ -14,6 +14,11 @@
 			   });
   			});
 
+    	    jQuery('#edit-follow-unfollow-follow').on('change',function(){
+           		// jQuery('#follow-unfollow-form').submit();
+           		jQuery('#follow-unfollow-form button').trigger('click');
+             });
+
         /*jQuery.ajax({
 url : 'http://5ppsystem.com/delete/parent/'+$id+'/'+$delta,
 dataType: 'json',

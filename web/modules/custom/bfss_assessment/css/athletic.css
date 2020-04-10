@@ -55,8 +55,7 @@ span.sub_title{display: block;margin: auto;width: 100%;font-size: 18px;}
 .toggle-content p{margin: 0;font-size: 12px;font-weight: 600;}
 .toggler-wrap .toggle-content{line-height: 20px;padding: 20px;font-size: 12px;font-weight: 600;}
 .region.region-content{max-width: 1170px;margin: auto;}
-.hd_line .fa-star-o{min-height: 85%;background-image: url("../img/star-o-icon.png");background-repeat: no-repeat;background-size: 100%;
-    background-position: center;width: 20px;height: 20px;margin-right: 10px;}
+
 .fa-star-o:before{width: 20px;height: 20px;color: transparent;}
 .atheltic-profile{padding: 30px 0px;}
 .fa-star:before{margin-right: 10px;}

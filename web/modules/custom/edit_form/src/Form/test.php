@@ -35,6 +35,8 @@ class test extends FormBase {
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
   
+
+
     $conn = Database::getConnection();
     $query1 = \Drupal::database()->select('user__field_first_name', 'ufln');
         $query1->addField('ufln', 'field_first_name_value');
@@ -127,15 +129,18 @@ class test extends FormBase {
     }
     // for coach
     if(in_array('coach', $roles_user)){
+
       $states = $this->getStates();
       $form['az'] = array(
       '#type' => 'select',
       '#options'=>$states,
-      '#default_value' => $city,
+      '#default_value' => $results18['field_az'],
+      '#required' => TRUE,
         );
       $form['city'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('City'),
+        '#required' => TRUE,
         '#default_value' => $results18['field_city'],
       );
       $gender_arr =  array('' => 'Select Gender','male' => 'Male','female' => 'Female','other' => 'Other');
@@ -143,6 +148,7 @@ class test extends FormBase {
       '#type' => 'select',
       '#suffix' => '</div></div>',
       '#options' => $gender_arr,
+      '#required' => TRUE,
       '#default_value' => $results18['field_birth_gender'],
       );
     
@@ -178,6 +184,7 @@ class test extends FormBase {
           
         $form['coachtitle1'] = array(
           '#type' => 'textfield',
+          '#required' => TRUE,
           '#placeholder' => t("Coach Title"),
           '#default_value' => $results_bfss_coach[0]->field_coach_title_one,
           );
@@ -187,6 +194,7 @@ class test extends FormBase {
         $form['sport1'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Sport'),
+        '#required' => TRUE,
         #'#options'=>$sports_arr,
         '#default_value' => $results_bfss_coach[0]->field_sport_one,
           );
@@ -194,6 +202,7 @@ class test extends FormBase {
         $form['year1'] = array(
           '#type' => 'textfield',
           '#placeholder' => t("Year"),
+          '#required' => TRUE,
           '#default_value' => $results_bfss_coach[0]->field_year_one,
           '#suffix' => '</div>',
           );
@@ -320,6 +329,7 @@ $form['image_athlete'] = [
 </div>',
  ];
 
+if(in_array('coach', $roles_user)){
 	$form['instagram_account'] = array(
 	'#type' => 'textfield',
 	'#placeholder' => t('TEAM Instagram Account(Optional)'),
@@ -333,15 +343,13 @@ $form['image_athlete'] = [
 	);
 
 
-
 	$form['youtube_account'] = array(
 	  '#type' => 'textfield',
 	  '#placeholder' => t('TEAM Youtube/Video Channel(Optional)'),
-
 	  '#default_value' => isset($results_bfss_coach[0]->field_youtube)?$results_bfss_coach[0]->field_youtube:'',
 	);
 	 
-    
+}
 
 
     if ($orgtype_2!='') {

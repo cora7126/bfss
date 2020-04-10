@@ -19,7 +19,9 @@ div.quick-link{margin:40px 0;}
 .quick-link h1{font-size:14px;margin:0 0 8px;font-weight:600;text-transform:uppercase;}
 .quick-link-sub-sec{text-align:center;padding:10px;background:#fffcd7;border:1px solid #6b6b6b;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-align-content:center;-webkit-align-content:center;align-content:center;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
 .quick-link-sub-sec i{font-size:40px;color:#f76907;margin-bottom:10px;}
-.quick-link-sub-sec p{margin-bottom:0px;font-size:12px;color:#000;font-weight:600;width:100%;}
+div.mob_bottom_margin .quick-link-sub-sec p, .quick-link-sub-sec p{margin-bottom:0;font-size:12px !important;color:#000;font-weight:600;width:100%;line-height:16px;}
+div.mob_bottom_margin .quick-link-sub-sec p a, .quick-link-sub-sec p a{color:#000;text-decoration:none;font-size:12px !important;font-weight:600;line-height:16px;}
+div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-link-sub-sec:hover p a{color:#fff !important;}
 /* ---------Quick Link sec CSS ENDS HERE *******************/
 
 /* ---------Quick-Link-ACCORDIAN CSS STARTS HERE *******************/
@@ -49,7 +51,7 @@ div.quick-link{margin:40px 0;}
 .search_icon_field > i{position:absolute;color:#000;right:5px;top:6px;opacity:.6;font-weight:600;}
 .search_icon_field > i:first-child{left:5px;right:auto;}
 .dashboard .search_icon a{line-height:48px;color:#909090;}
-#date-picker-example{display:inline-block;border-color:transparent;border-radius:0;padding:0;text-align:center;box-shadow:0;outline:0;position:relative;top:-1px;}
+#date-picker-example{display:inline-block;border-color:transparent;border-radius:0;padding:0;text-align:center;box-shadow:none;outline:0;position:relative;top:0;height:24px;}
 #date-picker-example:hover, #date-picker-example:focus{outline:none;box-shadow:none;}
 .tab-main-sec .tab-nav{border-top:1px solid #9090906b;padding:0;}
 
@@ -167,12 +169,17 @@ div.quick-link{margin:40px 0;}
 
 /**************** EDIT COACH PROFILE CSS ENDS HERE *******************/
 
-/**************** EDIT COACH PROFILE CSS ENDS HERE *******************/
-.search_athlete_main.user_pro_block .block-bfss-assessors{border:0;padding:20px 10px;}
-.search_athlete_main.user_pro_block .block-bfss-assessors .table-responsive > input[type="submit"]{border:0;background:none;color:#f76907;position:absolute;left:150px;font-size:13px;text-transform:capitalize;}
-.search_athlete_main.user_pro_block .block-bfss-assessors .dataTables_wrapper table{margin:0 0 30px;}
-/**************** EDIT COACH PROFILE CSS ENDS HERE *******************/
-
+/**************** ATHLETES FOLLOW CSS STARTS HERE *******************/
+.athletes_follow_dv, .athletes-unfollow-form, .wrapped_div_main{width:100%;float:left;display:block;}
+.athletes_follow_dv .search_athlete_main{padding:0;}
+.athletes_follow_dv .search_athlete_main .block-bfss-assessors{border:0;padding:20px 10px;}
+.athletes_follow_dv .search_athlete_main .block-bfss-assessors .dataTables_wrapper table{margin:0 0 30px;}
+.athletes_follow_dv .search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;}
+.athletes_follow_dv .search_athlete_main .unfollow-sub i{color:#f76907;font-size:14px;line-height:22px;position:relative;top:1px;}
+.athletes_follow_dv .search_athlete_main .unfollow-sub input[type="submit"]{border:0;background:none;color:#f76907;font-size:13px;text-transform:capitalize;line-height:22px;font-weight:500;}
+/**************** ATHLETES FOLLOW CSS ENDS HERE *******************/
+.submit-follow-label i{color:#fc6703;font-size:20px;}
+.dashboard .region-footer .footer_bt{padding:0 15px;}
 .col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section{cursor:pointer;}
 nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padding:23.8px 10px;}
 .modal-header{padding:0px !important;}
@@ -332,7 +339,7 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .month_filter{margin:5px 0 0;}
 .month_filter, .month_filter form{width:100%;float:left;display:block;}
 .month_filter form span#dateofshow{float:left;margin-right:15px;}
-.month_filter form span#dateofshow i{float:left;line-height:30px;font-size:18px;position:relative;top:1px;}
+.month_filter form span#dateofshow i{float:left;line-height:30px;font-size:18px;position:relative;top:1px;color:#ccc;}
 .month_filter form span#dateofshow .js-form-item.form-type-select{float:left;margin:0;}
 .month_filter form .select-wrapper{height:30px;}
 .month_filter form .select-wrapper:after, .month_filter form .filter_btn{display:none;}
@@ -374,47 +381,74 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .user_pro_row .userpr li{display:inline-block;font-size:14px;line-height:20px;margin-right:50px;}
 .user_pro_row .userpr li:last-child{margin-right:0;}
 .user_pro_row .userpr li i{color:#f76907;}
-.user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;padding: 0 1rem;}
+.user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;padding: 0 15px;}
 .user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin: 30px 0 12px;font-size:14px;line-height:18px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:20px 40px;}
 .user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#A8A9AD;}
-.user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;text-transform:capitalize;}
-.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#ffffff;font-weight:400;font-size:14px;display:block;line-height:14px;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;text-transform:capitalize;border:0;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#ffffff;font-weight:400;font-size:13px;display:block;line-height:14px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a:hover, .user_pro_block .block-bfss-assessors .table-responsive table thead th a:focus{text-decoration:none;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span{float:right;text-align:center;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span.icon{display:none;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before{content:"\e253";}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{content:"\e252";}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 10px;text-transform:capitalize;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#f76907;position:relative;padding-right:30px;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 12px;text-transform:capitalize;position:relative;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#f76907;position:relative;padding-right:30px;font-size:13px;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination > .active > a{background-color:#f76907;color:#fff;border-color:#f76907;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li{margin:0 2px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a{color:#000;background-color:#F1F3F2;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-size:13px;text-transform:capitalize;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox{margin:0;position:absolute;opacity:0;height:14px;width:14px;display:block;cursor:pointer;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td .unfollow-checkbox{border:2px solid #777;height:14px;width:14px;display:block;text-align:center;cursor:pointer;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td .unfollow-checkbox:before{display:none;content:"\f00c";font-family: "Font Awesome 5 Pro";font-weight:900;color:#fff;font-size:9px;position:relative;top:.5px;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox:checked ~ .unfollow-checkbox{background:#f76907;border:0;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox:checked ~ .unfollow-checkbox:before{display:block;}
 .toggle-content.image-include.asseselst.user_pro_block .block-bfss-assessors{border-bottom:0px solid #000;border-left:0px solid #000;border-right:0px solid #000;}
 
 
-.table-responsive .dataTables_length{display:inline-block;float:left;margin:0 0 15px;}
-.table-responsive .dataTables_filter{display:inline-block;float:right;margin:0 0 15px;}
-.table-responsive .dataTables_length label{margin:0;}
-.table-responsive .dataTables_length label select{height:25px;border:1px solid #ddd;-moz-appearance:none;-webkit-appearance:none;appearance:none;margin-right:3px;padding-right: 10px;background:#fff url("../images/select_bg.png") no-repeat right 5px center/8px auto;}
-.table-responsive .dataTables_filter label{font-size:0;margin:0;}
-.table-responsive .dataTables_filter label input{font-size:13px;height:25px;border:1px solid #ddd;}
-.table-responsive .dataTables_info{float:left;color:#000;font-size:12px;font-weight:600;padding-left:10px;}
-.dataTables_paginate.paging_simple_numbers, {display:inline-block;float:right;}
-.dataTables_paginate.paging_simple_numbers a.paginate_button{background-color:#F1F3F2;color:#000;font-size:12px;height:30px;display:block;float:left;text-align:center;padding:8px 10px;line-height:14px;margin:0 2px;}
+div.dataTables_wrapper .dataTables_length{display:inline-block;float:left;margin:0 0 15px;}
+div.dataTables_wrapper .dataTables_filter{display:inline-block;float:right;margin:0 0 15px;}
+div.dataTables_wrapper .dataTables_length label{margin:0;line-height:12px;font-size:12px;}
+div.dataTables_wrapper .dataTables_length label select{height:25px;border:1px solid #ddd;-moz-appearance:none;-webkit-appearance:none;appearance:none;margin-right:3px;padding:5px 15px 5px 5px;background:#fff url("../images/select_bg.png") no-repeat right 5px center/8px auto;}
+div.dataTables_wrapper .dataTables_filter label{font-size:0;margin:0;}
+div.dataTables_wrapper .dataTables_filter label input{font-size:13px;height:25px;border:1px solid #ddd;padding:0 10px;line-height:14px;display:block;font-weight:400;}
+div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;font-weight:600;padding-left:10px;}
+.dataTables_paginate.paging_simple_numbers{display:inline-block;float:right;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button{background-color:#F1F3F2 !important;color:#000 !important;font-size:12px;height:30px;display:block;float:left;text-align:center;padding:7px 10px;line-height:14px;margin:0 2px;cursor:pointer;}
 .dataTables_paginate.paging_simple_numbers a.paginate_button.disabled{opacity:.7;}
-.dataTables_paginate.paging_simple_numbers a.paginate_button.current{color:#fff !important;background:#f76907;border-color:#f76907;}
-.dataTables_paginate.paging_simple_numbers a.paginate_button:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button:focus{outline:none;text-decoration:none;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button.current, .dataTables_paginate.paging_simple_numbers a.paginate_button:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button:focus, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:focus{outline:none;text-decoration:none;color:#fff !important;background:#f76907 !important;border-color:#f76907 !important;}
 .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.disabled:active{background-color: #F1F3F2 !important;color:#000 !important;}
-
-
 .assessors_sub.user-submit-button{bottom:-60px;}
+/*************** ASSESSORS CSS ENDS HERE ******************/
 
+/*************** ASSESSORS CSS ENDS HERE ******************/
+.payment_pending_dv, .org_name_tabs, .org-tab-form, .org-radio, .paid-unpaid, .paid-unpaid ul{width:100%;float:left;display:block;}
+.payment_pending_dv{margin:35px 0 0;}
+.org_name_tabs .orgradios{display:inline-block;float:left;position:relative;margin-right:5px;}
+.org_name_tabs .orgradios input.tabs-orgs{width:100%;height:100%;position:absolute;opacity:0;margin:0;cursor:pointer;}
+.org_name_tabs .orgradios span{border:1px solid #f76907;color:#f76907;height:36px;padding:8px 10px;font-weight:400;font-size:14px;display:block;line-height:16px;min-width:130px;text-align:center;cursor:pointer;}
+.org_name_tabs .orgradios input.tabs-orgs:checked ~ span{background:#f76907;color:#fff;}
+.paid-unpaid ul{list-style-type:none;padding:0;margin:15px 0 0;}
+.paid-unpaid ul li{display:inline-block;float:left;min-width:120px;color:#000;font-size:14px;line-height:14px;font-weight:500;}
+.paid-unpaid ul li i{color:#f76907;margin-right:5px;}
+.search_athlete_main.user_pro_block .block-bfss-assessors{border:0;padding:30px 10px;}
+.search_athlete_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 30px;}
+/*************** ASSESSORS CSS ENDS HERE ******************/
+
+/*************** EDIT FOLLOW UNFOLLOW CSS STARTS HERE ******************/
+#edit-follow-unfollow .control-label{position:relative;padding:0;}
+#edit-follow-unfollow .control-label .form-checkbox{position:absolute;left:20px;width:20px;height:20px;top:-4px;opacity:0;cursor:pointer;}
+#edit-follow-unfollow .control-label .form-checkbox:checked ~ span i:before{content:"\f005";}
+#edit-follow-unfollow .control-label span{color:#000;font-size:13px;}
+#edit-follow-unfollow .control-label span i{color:#fc6703;font-size:20px;}
+/*************** EDIT FOLLOW UNFOLLOW CSS ENDS HERE ******************/
+
+#block-upcominggroupassessments .container{padding:0;margin:0 -10px;}
+#follow-unfollow-form .submit-follow-btn{display:none;}
 .drupal-assess-fm .modal-header{position:relative;}
 .drupal-assess-fm .modal-header button.close{position:absolute !important;padding:0;margin:0;right:0;top:0;}
 #assessor_popup_form{background:rgba(0,0,0,.7);}
