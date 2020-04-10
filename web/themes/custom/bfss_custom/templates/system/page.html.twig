@@ -105,7 +105,7 @@
                 <a href="/athletes-follow">
                   <i class="fas fa-star"></i>
                 <p>Athletes<br>
-                | Follow
+                I Follow
                 </p>
                 </a>
               </div>
@@ -308,7 +308,7 @@
                   <button class="side_button"><span class="side_menu_text">NAVIGATION</span></button> 
                </li>
                <li {% if (current_path == '/dashboard') or (current_path == '/bfssmanager_dashboard') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %}>
-                  <a href="{{ current_path }}" class="side_button menulink"><i class="fas fa-home"></i><span class="side_menu_text dashboard">Dashboard</span></a>
+                  <a href="/dashboard" class="side_button menulink"><i class="fas fa-home"></i><span class="side_menu_text dashboard">Dashboard</span></a>
                </li>
                {% if user_role == 0 %}
                <li class="sub-menu-drop ">
@@ -356,14 +356,14 @@
                </li>
                {% elseif user_role == 2 %}
             
-               <li class="sub_menu">
+               <li {% if (current_path == '/search-athlete') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
                   <a href="/search-athlete" class="side_button menulink my_assess"><i class="far fa-search"></i><span class="side_menu_text">Search</span></a>
                </li>
                
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a  class="drop">
+                        <a {% if (current_path == '/bfss-funds') or (current_path == '/term-conditions-of-funds') %} class="drop active" {% else %} class="drop" {% endif %}>
                           <i class="fal fa-hands-usd"></i><span class="side_menu_text funds_dropdown">Funds</span><span class="down-arrow fa fa-angle-down"></span>
                         </a>
 
@@ -377,8 +377,8 @@
                <!-- <li class="sub_menu"> -->
                <!-- <button class="side_button"><i class="far fa-cogs"></i></i>Support</button> -->
                <!-- </li> -->
-              <li class="sub_menu">
-                  <a href="/athletes-follow" class="side_button menulink my_assess"><i class="fas fa-star"></i><span class="side_menu_text">Athletes | Follow</span></a>
+              <li {% if (current_path == '/athletes-follow') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %}>
+                  <a href="/athletes-follow" class="side_button menulink my_assess"><i class="fas fa-star"></i><span class="side_menu_text">Athletes I Follow</span></a>
                </li>
                <li class="sub-menu-drop">
                   <nav>

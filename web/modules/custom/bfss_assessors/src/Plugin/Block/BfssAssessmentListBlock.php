@@ -22,11 +22,20 @@ class BfssAssessmentListBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    $param = \Drupal::request()->query->all();
     //assessment get by current assessors
-    $uid = \Drupal::currentUser();
-    $user = \Drupal\user\Entity\User::load($uid->id());
+    $uid = \Drupal::currentUser()->id();
+    $user = \Drupal\user\Entity\User::load($uid);
     $roles = $user->getRoles();
-   
+
+    if(in_array('athlete', $roles)){
+      $athlete_uid = $uid;
+    }elseif(in_array('coach', $roles)){
+      if(isset($param['uid'])){
+        $athlete_uid = $param['uid'];
+      }
+    }
+    
 
     	  $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
@@ -37,7 +46,7 @@ class BfssAssessmentListBlock extends BlockBase {
         foreach ($nids as $nid) {
         	$booked_ids = \Drupal::entityQuery('bfsspayments')
        		->condition('assessment', $nid,'IN')
-          ->condition('user_id',$uid->id(),'IN')
+          ->condition('user_id',$athlete_uid,'IN')
         	->execute();
         	foreach ($booked_ids  as $key => $booked_id) {
             		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
@@ -56,7 +65,7 @@ class BfssAssessmentListBlock extends BlockBase {
                  //sport
                 $query5 = \Drupal::database()->select('athlete_school', 'ats');
                 $query5->fields('ats');
-                $query5->condition('athlete_uid', $uid->id(),'=');
+                $query5->condition('athlete_uid', $athlete_uid,'=');
                 $results5 = $query5->execute()->fetchAssoc();            
                 $sport = $results5['athlete_school_sport'];
 
