@@ -102,7 +102,7 @@ class AssessmentEvent extends ControllerBase {
       // Wrapper for rows
 
 
-         $tb = '<div class="eventlisting_main user_pro_block">
+         $tb = '
           <div class="wrapped_div_main">
           <h2>Athletic Profile Assessments - Highland High School</h2>
           <div class="block-bfss-assessors">
@@ -146,7 +146,7 @@ class AssessmentEvent extends ControllerBase {
            </div>
           </div>
            </div>
-          </div>
+          
           ';
 
       //$rows = $this->_records_nonsql_sort($rows, $header);

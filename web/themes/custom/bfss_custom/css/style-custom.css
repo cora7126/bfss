@@ -1,11 +1,13 @@
 @charset "utf-8";
 /* CSS Document */
 
+.edit-user div.main_header{margin:0 0 20px;}
+.edit_header h2{font-size:30px;line-height:26px;padding:0 0 3px 10px;font-family:montserrat, Sans-Serif;font}
 /**************** DASHBOARD CSS STARTS HERE *******************/
 .left_side_section{background:#000;border-right:1px solid grey;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
 .dashboard footer.footer{display:none;}
 .dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;font-family:montserrat, sans-serif !important}
-.dash-main-right h1 i{color:#f76907;}
+.dash-main-right h1 i{color:#EB6E06;}
 .dash-main-right h1 span{padding:0 5px 0 7px;display:inline-block;}
 .dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #343434;}
 .dash-sub-main img{width:72px;height:72px;margin-right:15px;}
@@ -18,7 +20,7 @@
 div.quick-link{margin:40px 0;}
 .quick-link h1{font-size:14px;margin:0 0 8px;font-weight:600;text-transform:uppercase;}
 .quick-link-sub-sec{text-align:center;padding:10px;background:#fffcd7;border:1px solid #6b6b6b;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-align-content:center;-webkit-align-content:center;align-content:center;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
-.quick-link-sub-sec i{font-size:40px;color:#f76907;margin-bottom:10px;}
+.quick-link-sub-sec i{font-size:40px;color:#EB6E06;margin-bottom:10px;}
 div.mob_bottom_margin .quick-link-sub-sec p, .quick-link-sub-sec p{margin-bottom:0;font-size:12px !important;color:#000;font-weight:600;width:100%;line-height:16px;}
 div.mob_bottom_margin .quick-link-sub-sec p a, .quick-link-sub-sec p a{color:#000;text-decoration:none;font-size:12px !important;font-weight:600;line-height:16px;}
 div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-link-sub-sec:hover p a{color:#fff !important;}
@@ -30,7 +32,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .active, .accordion:hover{background-color:#ccc;}
 
 .dashboard .my-assessment button.accordion{background-color:#000;color:#fff;position:relative;}
-.dashboard .my-assessment button.accordion i{color:#f76907;font-size:16px;pointer-events:none;font-weight:400;}
+.dashboard .my-assessment button.accordion i{color:#EB6E06;font-size:16px;pointer-events:none;font-weight:400;}
 .dashboard .my-assessment button.accordion i:first-child{padding-right:15px;}
 .dashboard .my-assessment{position:relative;}
 .dashboard .my-assessment .panel{display:block;padding:0;position:absolute;width:100%;border:none;background-color:white;overflow:hidden;border:1px solid #949494;}
@@ -144,9 +146,9 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 #edit-coach-profile-form-modal .left_section.popup_left_section{width:70%;float:left;padding-right:20px;}
 #edit-coach-profile-form-modal .right_section{width:30%;float:left;}
 #edit-coach-profile-form-modal .edit-coach-form-popup{width:100%;float:left;display:block;}
-#edit-coach-profile-form-modal .left_section .athlete_left, #edit-coach-profile-form-modal .right_section .athlete_right{border:0;}
 #edit-coach-profile-form-modal .left_section .athlete_left h3, #edit-coach-profile-form-modal .right_section .athlete_right h3{height:40px;padding:11px 15px;font-size:13px;font-weight:500;}
 #edit-coach-profile-form-modal .left_section .athlete_left h3 i, #edit-coach-profile-form-modal .right_section .athlete_right h3 i{top:12px;}
+#edit-coach-profile-form-modal .left_section .athlete_left h3 > i, #edit-coach-profile-form-modal .right_section .athlete_right h3 > i{padding:0;right:15px;}	
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div, #edit-coach-profile-form-modal .right_section .athlete_right .items_div{padding:35px 15px;}
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div .form-item, #edit-coach-profile-form-modal .right_section .athlete_right .items_div .form-item{margin:0 0 40px;padding:0;float:left;width:100%;display:block;}
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div .form-item:last-child, #edit-coach-profile-form-modal .right_section .athlete_right .items_div .form-item:last-child{margin:0;}
@@ -165,7 +167,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 #edit-coach-profile-form-modal .left_section a.add_org.popup_add_org i{padding-right:5px;font-size:10px;position:relative;top:-0.5px;}
 #edit-coach-profile-form-modal .left_section #athlete_submit{padding:30px 0 0;}
 #edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit{text-transform:uppercase;width:100%;background-color:#a8a9ad;height:45px;    font-size:18px !important;font-weight:500;}
-#edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:hover, #edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:focus{background-color:#f76907;}
+#edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:hover, #edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:focus{background-color:#EB6E06;}
 
 /**************** EDIT COACH PROFILE CSS ENDS HERE *******************/
 
@@ -175,9 +177,14 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors{border:0;padding:20px 10px;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors .dataTables_wrapper table{margin:0 0 30px;}
 .athletes_follow_dv .search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;}
-.athletes_follow_dv .search_athlete_main .unfollow-sub i{color:#f76907;font-size:14px;line-height:22px;position:relative;top:1px;}
-.athletes_follow_dv .search_athlete_main .unfollow-sub input[type="submit"]{border:0;background:none;color:#f76907;font-size:13px;text-transform:capitalize;line-height:22px;font-weight:500;}
+.athletes_follow_dv .search_athlete_main .unfollow-sub i{color:#EB6E06;font-size:14px;line-height:22px;position:relative;top:1px;}
+.athletes_follow_dv .search_athlete_main .unfollow-sub input[type="submit"]{border:0;background:none;color:#EB6E06;font-size:13px;text-transform:capitalize;line-height:22px;font-weight:500;}
 /**************** ATHLETES FOLLOW CSS ENDS HERE *******************/
+.eventlisting_main.user_pro_block{padding:40px 0 0 0;}
+.private_assess_listing_main.user_pro_block{padding:0;}
+.eventlisting_main.user_pro_block h2, .private_assess_listing_main.user_pro_block h2{margin:0;}
+
+
 .submit-follow-label i{color:#fc6703;font-size:20px;}
 .dashboard .region-footer .footer_bt{padding:0 15px;}
 .col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section{cursor:pointer;}
@@ -207,15 +214,15 @@ a.navbar-brand img{width:100%;}
 ul.side_nav{padding:0px;}
 ul.side_nav li{border-bottom:1px solid #fff;line-height:50px;}
 button.side_button{background:transparent;color:#fff;font-size:14px;text-transform:capitalize;border:none;cursor:pointer;text-decoration:none;}
-div#sidenav ul li i{color:#f76907;font-size:15px;margin-right:15px;}
+div#sidenav ul li i{color:#EB6E06;font-size:15px;margin-right:15px;}
 ul.side_nav .sub_menu{padding:0px 10px;}
 li.sub_menu button{padding:0px;}
 li.sub-menu-drop .drop{padding:0px 10px !important;}
 li.sub_menu button:focus{outline:none !important;}
-li.sub_menu.active{background-color:#f76907;}
+li.sub_menu.active{background-color:#EB6E06;}
 li.sub_menu.active i{color:#fff !important;}
 ul.dropdown-menu.open li a{padding:0px 0px 0px 20px;}
-ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;color:#fff;}
+ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#EB6E06;color:#fff;}
 .dropdown{position:relative;display:inline-block;width:100%;}
 .dropdown .drop{background-color:#2f2f2f;}
 .dropdown .drop{background-color:transparent;color:#fff;padding:0px;border-radius:6px;position:relative;display:inline-block;font-size:14px;}
@@ -229,6 +236,7 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
  .open li a:hover{background-color:#3498db;color:#fff;}
  .open-caret{transform:rotate(180deg);transition:all .25s ease-out;}
 
+
 /* -------profile-pop-css----------- */
 
 /* Button used to open the chat form - fixed at the bottom of the page */
@@ -236,7 +244,7 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
 
 /* Add styles to the form container */
 .form-container{max-width:300px;padding:10px;background-color:white;}
-.pop_img_sec img{width:100%;border:2px solid #f76907;}
+.pop_img_sec img{width:100%;border:2px solid #EB6E06;}
 /* Full-width textarea */
 .form-container textarea{width:100%;padding:15px;margin:5px 0 22px 0;border:none;background:#f1f1f1;resize:none;min-height:200px;}
 /* When the textarea gets focus, do something */
@@ -251,11 +259,11 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
 .pop_img_sec h2{font-size:20px;text-align:left;}
 .pop_img_sec p{font-size:16px;text-align:left;}
 .pop_text_sec{text-align:left;}
-.pop_text_sec a p{margin-bottom:0px;line-height:35px;font-size:13px;color:#f76907;font-weight:600;}
+.pop_text_sec a p{margin-bottom:0px;line-height:35px;font-size:13px;color:#EB6E06;font-weight:500;}
 .pop_text_sec a p i{color:#000;margin-right:6px;}
 .pop_text_sec a:hover{text-decoration:none;}
 .pop_text_sec a p:hover{color:#000;}
- .pop_text_sec a i:hover{color:#f76907;}
+ .pop_text_sec a i:hover{color:#EB6E06;}
 /* -------profile-pop-css-----End------ */
 
 /* -------profile-Modal-css-------Start---- */
@@ -275,12 +283,12 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#f76907;c
 .profile-right-modal .modal-header{border-bottom:none;}
 .profile-right-modal .modal-footer button{width:100%;background-color:#115719;}
 .social-club-sec{margin-top:25px;}
-.social-club-sec a{color:#f76907;font-size:14px;font-weight:600;}
-.social-club-sec a:hover{text-decoration:none;color:#f76907;}
+.social-club-sec a{color:#EB6E06;font-size:14px;font-weight:600;}
+.social-club-sec a:hover{text-decoration:none;color:#EB6E06;}
 .social-club-sec a i{margin-right:5px;font-size:12px;}
 .social-club-sec textarea{width:100%;margin-bottom:15px;padding:5px;}
 .social-club-sec h3{line-height:0px;margin-bottom:12px;}
- .profile-right-modal button.accordion i{float:right;line-height:22px;color:#f76907;}
+ .profile-right-modal button.accordion i{float:right;line-height:22px;color:#EB6E06;}
 h3.add-organization{margin-top:12px;}
 
 /* -------profile-Modal-css-------End---- */
@@ -290,7 +298,7 @@ h3.add-organization{margin-top:12px;}
 .profile-card .card{padding:5px;background-color:#e7e7e7;border-radius:unset;border:1px solid #8a8a8a;}
 .card-sub{display:flex;}
 .card-sub h1{font-size:14px;width:85%;margin-bottom:0px;font-weight:600;}
-.card-sub p{width:15%;font-size:10px;text-align:center;background:#f76907;line-height:15px;padding:3px;color:#fff;margin-bottom:0px;}
+.card-sub p{width:15%;font-size:10px;text-align:center;background:#EB6E06;line-height:15px;padding:3px;color:#fff;margin-bottom:0px;}
 .card-sub p span{font-size:15px;font-weight:600;}
 .time-sec{font-size:10px;margin-bottom:3px;margin-top:2px;color:#58595b;}
 .card-img-sec ul li{display:inline-block;font-size:10px;padding-right:8px;margin-bottom:0px;}
@@ -305,7 +313,7 @@ h3.add-organization{margin-top:12px;}
 .menutoggle li{width:100%;float:left;display:block;margin:10px 0px 0px 0px;text-align:center;}
 .menutoggle li a{color:#555;font-size:14px;line-height:18px;}
 .menutoggle{position:absolute;margin:0;list-style-type:none;z-index:99;background:#e7e7e7;padding:25px;right:0;width:70%;top:70px;display:none;}
-ul.menutoggle.open li a:hover{text-decoration:none;background-color:#f76907;color:#fff;padding:10px 30px 10px 30px;}
+ul.menutoggle.open li a:hover{text-decoration:none;background-color:#EB6E06;color:#fff;padding:10px 30px 10px 30px;}
 span.navbar-toggler-icon{cursor:pointer;}
 /*******************/
 
@@ -328,7 +336,7 @@ select#zip{width:100%;}
 .left_manager_inner{border: 1px solid #aeaeae;}
 .left_manager_inner ul{margin: 0;list-style: none;padding:0;}
 .left_manager_inner p{margin: 0;color: #868383;}
-.left_manager_inner ul li a{width: 100%;text-decoration: none;color: #f76907;}
+.left_manager_inner ul li a{width: 100%;text-decoration: none;color: #EB6E06;}
 .left_manager_inner li{padding: 10px 15px;border-top: 1px solid #aeaeae;}
 span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .calender_img a {text-decoration: none;}
@@ -343,12 +351,12 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .month_filter form span#dateofshow .js-form-item.form-type-select{float:left;margin:0;}
 .month_filter form .select-wrapper{height:30px;}
 .month_filter form .select-wrapper:after, .month_filter form .filter_btn{display:none;}
-.month_filter form .select-wrapper .form-select.form-control{cursor:pointer;color:#f76907;border-radius:0;border:0;outline:none;box-shadow:none;font-size:16px;padding:0;line-height:30px;height:30px;text-align:center;text-align-last:center;}
+.month_filter form .select-wrapper .form-select.form-control{cursor:pointer;color:#EB6E06;border-radius:0;border:0;outline:none;box-shadow:none;font-size:16px;padding:0;line-height:30px;height:30px;text-align:center;text-align-last:center;}
 .month_filter form .select-wrapper .form-select.form-control .list .option{font-size:14px;color:#000;border:1px solid transparent;}
-.month_filter form .select-wrapper .form-select.form-control .list .option:hover, .month_filter form .select-wrapper .form-select.form-control .list .option:focus{background-color:#f76907;border:1px solid #f76907;color:#fff;}
+.month_filter form .select-wrapper .form-select.form-control .list .option:hover, .month_filter form .select-wrapper .form-select.form-control .list .option:focus{background-color:#EB6E06;border:1px solid #EB6E06;color:#fff;}
 .month_filter form .input-group .input-group-addon{display:none;}
 .month_filter form .form-actions.js-form-wrapper{float:left;}
-.month_filter form .form-actions.js-form-wrapper button{background-color:#f76907;border:1px solid #f76907;}
+.month_filter form .form-actions.js-form-wrapper button{background-color:#EB6E06;border:1px solid #EB6E06;}
 
 
 /********************Nice select css start************************/
@@ -377,17 +385,17 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 /********************Nice select css end************************/
 
 /*************** ASSESSORS CSS STARTS HERE ******************/
-.user_pro_row .userpr{width:100%;float:left;display:block;padding:0;margin:20px 0 10px;list-style-type:none;}
+.user_pro_row .userpr{width:100%;float:left;display:block;padding:0;margin:20px 0 0;list-style-type:none;}
 .user_pro_row .userpr li{display:inline-block;font-size:14px;line-height:20px;margin-right:50px;}
 .user_pro_row .userpr li:last-child{margin-right:0;}
-.user_pro_row .userpr li i{color:#f76907;}
+.user_pro_row .userpr li i{color:#EB6E06;}
 .user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;padding: 0 15px;}
 .user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin: 30px 0 12px;font-size:14px;line-height:18px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:20px 40px;}
 .user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#A8A9AD;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;text-transform:capitalize;border:0;}
-.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#ffffff;font-weight:400;font-size:13px;display:block;line-height:14px;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#000;font-weight:400;font-size:13px;display:block;line-height:14px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a:hover, .user_pro_block .block-bfss-assessors .table-responsive table thead th a:focus{text-decoration:none;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span{float:right;text-align:center;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span.icon{display:none;}
@@ -395,17 +403,18 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{content:"\e252";}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 12px;text-transform:capitalize;position:relative;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#f76907;position:relative;padding-right:30px;font-size:13px;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#EB6E06;position:relative;padding-right:30px;font-size:13px;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
-.user_pro_block .block-bfss-assessors .pager-nav .pagination > .active > a{background-color:#f76907;color:#fff;border-color:#f76907;}
+.user_pro_block .block-bfss-assessors .pager-nav .pagination > .active > a{background-color:#EB6E06;color:#fff;border-color:#EB6E06;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li{margin:0 2px;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a{color:#000;background-color:#F1F3F2;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-size:13px;text-transform:capitalize;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox{margin:0;position:absolute;opacity:0;height:14px;width:14px;display:block;cursor:pointer;}
+.user_pro_block .block-bfss-assessors .pager-nav .pagination li > a:hover, .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a:focus{background:#EB6E06;color:#fff;border-color:#EB6E06;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox{margin:0;position:absolute;opacity:0;height:14px;width:14px;display:block;cursor:pointer;z-index:9;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td .unfollow-checkbox{border:2px solid #777;height:14px;width:14px;display:block;text-align:center;cursor:pointer;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td .unfollow-checkbox:before{display:none;content:"\f00c";font-family: "Font Awesome 5 Pro";font-weight:900;color:#fff;font-size:9px;position:relative;top:.5px;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox:checked ~ .unfollow-checkbox{background:#f76907;border:0;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox:checked ~ .unfollow-checkbox{background:#EB6E06;border:0;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox:checked ~ .unfollow-checkbox:before{display:block;}
 .toggle-content.image-include.asseselst.user_pro_block .block-bfss-assessors{border-bottom:0px solid #000;border-left:0px solid #000;border-right:0px solid #000;}
 
@@ -416,12 +425,12 @@ div.dataTables_wrapper .dataTables_length label{margin:0;line-height:12px;font-s
 div.dataTables_wrapper .dataTables_length label select{height:25px;border:1px solid #ddd;-moz-appearance:none;-webkit-appearance:none;appearance:none;margin-right:3px;padding:5px 15px 5px 5px;background:#fff url("../images/select_bg.png") no-repeat right 5px center/8px auto;}
 div.dataTables_wrapper .dataTables_filter label{font-size:0;margin:0;}
 div.dataTables_wrapper .dataTables_filter label input{font-size:13px;height:25px;border:1px solid #ddd;padding:0 10px;line-height:14px;display:block;font-weight:400;}
-div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;font-weight:600;padding-left:10px;}
+div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;font-weight:400;padding-left:0;}
 .dataTables_paginate.paging_simple_numbers{display:inline-block;float:right;}
 .dataTables_paginate.paging_simple_numbers a.paginate_button{background-color:#F1F3F2 !important;color:#000 !important;font-size:12px;height:30px;display:block;float:left;text-align:center;padding:7px 10px;line-height:14px;margin:0 2px;cursor:pointer;}
 .dataTables_paginate.paging_simple_numbers a.paginate_button.disabled{opacity:.7;}
-.dataTables_paginate.paging_simple_numbers a.paginate_button.current, .dataTables_paginate.paging_simple_numbers a.paginate_button:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button:focus, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:focus{outline:none;text-decoration:none;color:#fff !important;background:#f76907 !important;border-color:#f76907 !important;}
-.dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.disabled:active{background-color: #F1F3F2 !important;color:#000 !important;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button.disabled:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button.disabled:focus{background-color:#F1F3F2 !important;color:#000 !important;opacity:.7;border-color:#F1F3F2 !important;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button.current, .dataTables_paginate.paging_simple_numbers a.paginate_button:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button:focus, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:focus{outline:none;text-decoration:none;color:#fff !important;background:#EB6E06 !important;border-color:#EB6E06 !important;}
 .assessors_sub.user-submit-button{bottom:-60px;}
 /*************** ASSESSORS CSS ENDS HERE ******************/
 
@@ -430,11 +439,11 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 .payment_pending_dv{margin:35px 0 0;}
 .org_name_tabs .orgradios{display:inline-block;float:left;position:relative;margin-right:5px;}
 .org_name_tabs .orgradios input.tabs-orgs{width:100%;height:100%;position:absolute;opacity:0;margin:0;cursor:pointer;}
-.org_name_tabs .orgradios span{border:1px solid #f76907;color:#f76907;height:36px;padding:8px 10px;font-weight:400;font-size:14px;display:block;line-height:16px;min-width:130px;text-align:center;cursor:pointer;}
-.org_name_tabs .orgradios input.tabs-orgs:checked ~ span{background:#f76907;color:#fff;}
+.org_name_tabs .orgradios span{border:1px solid #EB6E06;color:#EB6E06;height:36px;padding:8px 10px;font-weight:400;font-size:14px;display:block;line-height:16px;min-width:130px;text-align:center;cursor:pointer;}
+.org_name_tabs .orgradios input.tabs-orgs:checked ~ span{background:#EB6E06;color:#fff;}
 .paid-unpaid ul{list-style-type:none;padding:0;margin:15px 0 0;}
 .paid-unpaid ul li{display:inline-block;float:left;min-width:120px;color:#000;font-size:14px;line-height:14px;font-weight:500;}
-.paid-unpaid ul li i{color:#f76907;margin-right:5px;}
+.paid-unpaid ul li i{color:#EB6E06;margin-right:5px;}
 .search_athlete_main.user_pro_block .block-bfss-assessors{border:0;padding:30px 10px;}
 .search_athlete_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 30px;}
 /*************** ASSESSORS CSS ENDS HERE ******************/
@@ -457,13 +466,13 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 .drupal-assess-fm .modal-body.ui-dialog-content .asse_frm{width:100%;float:left;display:block;}
 #assessor_popup_form .accessorform_inner{padding:25px 50px;float:left;width:100%;display:block;background-color:#fff;}
 .usrinfo{width:100%;float:left;display:block;margin:0 0 20px;}
-.usrinfo h3{width:100%;float:left;display:block;color:#f76907;text-transform:capitalize;font-weight:700;margin:0 0 5px;font-size:22px;line-height:22px;}
+.usrinfo h3{width:100%;float:left;display:block;color:#EB6E06;text-transform:capitalize;font-weight:700;margin:0 0 5px;font-size:22px;line-height:22px;}
 .usrinfo ul{width:100%;float:left;display:block;padding:0;margin:0;list-style-type:none;}
 .usrinfo ul li{display:inline-block;float:left;margin:0 6px 0 0;padding:0 6px 0 0;border-right:1px solid #000;font-size:14px;line-height:14px;}
 .usrinfo ul li:last-child{border:none;}
 .accessorform_inner h2{background:#000;color:#fff;margin:0;padding:12px 15px;font-size:13px;line-height:13px;border:1px solid #000;width:100%;float:left;display:block;font-weight:600;}
 .accessorform_inner .st_lk{border-left:1px solid #000;border-right:1px solid #000;width:100%;float:left;display:block;padding:15px 0 0;margin:0;text-align:center;}
-.accessorform_inner .st_lk li{display:inline-block;color:#f76907;font-size:13px;border-right:2px solid #f76907;padding:0 25px;line-height:13px;font-weight: 600;}
+.accessorform_inner .st_lk li{display:inline-block;color:#EB6E06;font-size:13px;border-right:2px solid #EB6E06;padding:0 25px;line-height:13px;font-weight: 600;}
 .accessorform_inner .st_lk li:last-child{border:0;}
 .accessorform_inner form{width:100%;float:left;display:block;}
 .accessorform_inner form .form_fields_wrap{border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:15px 10px;width:100%;float:left;display:block;}
@@ -484,9 +493,9 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 .drupal-assess-fm .modal-footer button:last-child{float:right;background:#105714;border-color:#105714;}
 .accessorform_inner form .form-control{margin:0;border-radius:0;color:#000;font-size:13px;padding:10px;}
 
-.eventlisting_main.user_pro_block{padding:50px 0 0 0;}
-#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color:#f76907;cursor:pointer;}
-ul.dropdown-menu.open li.active{text-decoration:none;background-color:#f76907;color:#fff;}
+
+#block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color:#EB6E06;cursor:pointer;}
+ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;color:#fff;}
 ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 .result_message{width:100%;text-align:center;color:green;font-size:16px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
@@ -514,7 +523,7 @@ ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
     border-right: 0px solid #000;
 }
 
-.centeralizeRow span{font-size: 110px;font-weight: bold;color:#f76907;margin-right:30px;}
+.centeralizeRow span{font-size: 110px;font-weight: bold;color:#EB6E06;margin-right:30px;}
 .centeralizeRow{max-width: 450px;margin:0 auto;display: flex;align-items: center;}
 .centeralizeRow h4, .infoRow h4{font-size: 22px;color: #fff;margin-bottom:15px;max-width: 250px;}
 .centeralizeRow.white h4{color: #000;}
@@ -525,41 +534,44 @@ ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 }
 
 .infoRow .sideIcon{max-width: 50px;float: right;}
-.infoRow span{font-size: 60px;font-weight: bold;color:#f76907;margin-right:40px;}
+.infoRow span{font-size: 60px;font-weight: bold;color:#EB6E06;margin-right:40px;}
 
 .accelaration{margin-top: 15px;}
 .accelaration .row{display: flex;justify-content: space-between;margin-bottom: 15px;}
-.accelaration .row::before,.accelaration .row::after{display: none;}
-.accelaration .row > div{width:calc(50% - 8px);display: flex;align-items: center;justify-content: space-between;padding: 20px 40px;background: #e6e8e9;}
+.accelaration .row::before,.accelaration .row::after{display:none;}
+.accelaration .row > div{width:calc(50% - 8px);display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#e6e8e9;}
 .accelaration .row > .leftBg{background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;}
-.accelaration .centeralizeRow{max-width: 100%;margin:0;}
-.centeralizeRow.large span{font-size: 120px;}
-.centeralizeRow.small span{font-size: 60px;}
+.accelaration .centeralizeRow{max-width:100%;margin:0;}
+.centeralizeRow.large span{font-size:120px;}
+.centeralizeRow.small span{font-size:60px;}
 .centeralizeRow.small h4{font-size:18px;}
 .centeralizeRow.whiteDesc p{color:#fff;}
-.centeralizeRow p {font-size: 16px;}
+.centeralizeRow p{font-size:16px;}
 
 a.side_button.menulink.my_assess{color: #fff;}
 .myassess_main_pxl .myassess_records {padding: 0;}
-.myassess_main_pxl .myassess_records table thead{background:#000!important;}
-.myassess_main_pxl .myassess_records table thead th a span::before,.myassess_main_pxl .myassess_records table thead th a span::after{color:#fff!important;}
+.myassess_main_pxl .myassess_records table thead{background:#000 !important;}
+.myassess_main_pxl .myassess_records table thead th a span::before, .myassess_main_pxl .myassess_records table thead th a span::after{color:#fff !important;}
 /******************MY Assessments Page End here***********************/
 
 .assessment-payment #multistep-form-four select{height:calc(1.5em + .75rem + 2px);color:#555555;font-size:14px}
 .assessment-payment #multistep-form-four #edit-state{height:calc(1.5em + .75rem + 2px);color:#555555;font-size:14px}
 
 /********************my assessment score bar start here**********/
-
-
+.change_pass{padding:0 15px;font-size:14px;}
+a.change_pass, a.change_pass:hover{color:#f76907;}
+.faq-text-area{font-size:16px;margin:30px 0;padding:0 15px;font-family:'montserrat, Sans-Serif';}
+#edit-form .assessor-btn.user-submit-button{position:relative;bottom:0;left:15px;padding:0;}
+.right_section .athlete_right .changepassdiv-modal .change_password_button{float:right;margin-right:15px;color:#fff;font-size:13px;text-transform:uppercase;background:#EB6E06 !important;display:block;height:32px;line-height:14px;}
 .bgGray{background:#ebebeb;}
-.noBorder{border:none!important;}
-.noSpace{padding:0!important;}
-.scoreChartBlock svg {background: #ddd;border-radius: 50%;margin-right: 20px;}
-.scoreChartBlock .row::after,.scoreChartBlock .row::before{display: none;}
-.align-items-start{align-items: flex-start!important;}
-.scoreChartBlock .row{display: flex;justify-content: space-between;}
-.scoreChartBlock .row > div{flex-wrap: wrap;width: calc(50% - 7px);margin-bottom: 14px;border:1px solid;padding: 10px 16px;align-items: center;justify-content: center;display: flex;}
-.scoreChartBlock .row > div span{font-size: 53px;font-weight: 1000;color:#fc6703;margin-right:20px;display: block;line-height: 60px;}
+.noBorder{border:0 !important;}
+.noSpace{padding:0 !important;}
+.scoreChartBlock svg {background:#ddd;border-radius:50%;margin-right:20px;}
+.scoreChartBlock .row::after,.scoreChartBlock .row::before{display:none;}
+.align-items-start{align-items:flex-start !important;}
+.scoreChartBlock .row{display:flex;justify-content:space-between;}
+.scoreChartBlock .row > div{flex-wrap:wrap;width:calc(50% - 7px);margin-bottom:14px;border:1px solid;padding:10px 16px;align-items:center;justify-content: center;display:flex;}
+.scoreChartBlock .row > div span{font-size:54px;font-weight:900;color:#fc6703;margin-right:20px;display:block;line-height:60px;}
 .scoreChartBlock .row h4{font-size: 12px;text-transform: uppercase;max-width: 145px;font-weight: 700;line-height: 17px;}
 .scoreChartBlock .row h6{margin-top: 11px;font-size: 18px;color:#a8a9ad;}
 .circleScore span {font-size: 63px!important;margin-right: 0!important;margin-bottom: 5px;}
@@ -569,10 +581,10 @@ a.side_button.menulink.my_assess{color: #fff;}
 .twoColInside{flex-direction: column;justify-content: space-between!important;} 
 /********************my assessment score bar end here**********/
 
-.athletes_follow .fas.fa-star {font-size: 40px;color: #f76907;padding: 10px 0;}
-.athletes_follow p {color: #fff;margin-bottom: 0px;line-height: 14px;font-size: 12px;padding-bottom: 5px;}
-span.side_menu_text.funds_dropdown {color: #fff;cursor: pointer;}
-
-.col-lg-12.col-md-12.terms-funds {padding-top: 30px;}
-.col-lg-12.col-md-12.terms-funds p{font-size: 16px;}
-i.fas.fa-star.edit_image_follow { width: 72px;height: 72px;margin-right: 12px;font-size: 36px;border: 2px solid;border-radius: 50%;padding: 12px;line-height: 46px !important;color: #f76907;}
+.athletes_follow .fas.fa-star{font-size:40px;color:#EB6E06;padding:10px 0;}
+.athletes_follow p {color:#fff;margin-bottom:0;line-height:14px;font-size:12px;padding-bottom:5px;}
+span.side_menu_text.funds_dropdown {color:#fff;cursor:pointer;}
+.col-lg-12.col-md-12.terms-funds{padding-top:30px;}
+.col-lg-12.col-md-12.terms-funds p{font-size:16px;}
+i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-size:36px;border:2px solid;border-radius:50%;padding:12px;line-height:46px !important;color:#EB6E06;}
+.accordion_tabs_block .user_pro_block .block-bfss-assessors{padding:0;}

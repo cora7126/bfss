@@ -15,6 +15,11 @@ function mydata_preprocess(&$variables){
 	$current_user = \Drupal::currentUser()->id();
 	if ($current_user) {
 		$account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+
+			$account1 = \Drupal\user\Entity\User::load(347);
+			// echo "<pre>";
+			// print_r($account1);
+			// die;
 		if ($account) {
 			$username = $account->get('name')->value;
 			$account_array = $account->toArray();
@@ -74,6 +79,8 @@ function mydata_preprocess(&$variables){
         $results2 = $query2->execute()->fetchAssoc();
         $state = isset($results2['field_state_value']) ? $results2['field_state_value'] : null;
         $variables['state'] = $state;
-	}
+        //
+        $variables['field_state'] = $account->get('field_state')->value;
+	}	
 }
 
