@@ -448,13 +448,13 @@ foreach ($terms as $term) {
       );
 		$array=array('1'=>'Male','2'=>'Female','3'=>'Other');
 		$namesex=$array[$results18['field_birth_gender']];
-	 $form['sextype'] = array(
+	 /*$form['sextype'] = array(
       '#type' => 'textfield',
       //'#title' => t('City'),
        '#required' => TRUE,
       '#default_value' => $namesex,
 	  '#attributes' => array('readonly' => 'readonly'),
-      );
+      );*/
 	
     $form['sex'] = array(
       //'#title' => t('az'),
@@ -468,6 +468,21 @@ foreach ($terms as $term) {
       '#default_value' => $results18['field_birth_gender'],
 	  '#required' => TRUE,
       );
+	  $arr=array(
+        t('Gender'),
+        t('Male'),
+        t('Female'),
+        t('Other'));
+	  if($results18['field_birth_gender']!=''){
+		  $form['sextext'] = array(
+		  //'#title' => t('az'),
+		  '#type' => 'textfield',
+		  '#default_value' => $arr[$results18['field_birth_gender']],
+		  '#attributes' => array('readonly' => 'readonly'),
+		  //'#required' => TRUE,
+		  );
+	  }
+	  
 	//  print DatePopup::class;die;
     $form['doj'] = array(
       //'#title' => 'Date of Birth',
@@ -1019,7 +1034,7 @@ foreach ($terms as $term) {
 
     $form['school_web'] = array(
       '#type' => 'textfield',
-      '#placeholder' => t('School'),
+      '#placeholder' => t('Organization'),
       '#default_value' => $orgname_1,
       '#attributes' => array('disabled' => true),
       '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website</h3><div class=items_div>',

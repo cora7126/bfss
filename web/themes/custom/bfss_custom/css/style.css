@@ -63,6 +63,7 @@
 *, *:after, *:before{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
 body{margin:0;font-family:'Open Sans', sans-serif;}
+.clear{clear:both;}
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary{display:block;}
 audio,canvas,progress,video{display:inline-block;vertical-align:baseline;}
 audio:not([controls]){display:none;height:0;}
@@ -1960,7 +1961,6 @@ input#name_1{width:70%;}
  .right_section .athlete_right .edit_dropdown button{border-radius:2px;border:2px solid #f76907;color:#fff !important;margin:5px auto;display:table;}
 /*Registration form*/
 
-div#edit-phone-section{margin-top:25px;}
 /*End*/
 /* FAQ PAGE */
 .faq-page{margin-top:0;}
@@ -2003,7 +2003,7 @@ div#edit-phone-section{margin-top:25px;}
 .parent_hide{display:none;}
 .user-submit-button{position:absolute;bottom:20px;}
 #edit-form .user-submit-button{position:absolute;bottom:-20px;}
-.change_pass{padding:0 15px;}
+
 .edit-user .imagepopup-modal .spb-popup-main-wrapper.spb_top_center,.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center{padding-top:0;}
  .edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center{padding-bottom:15px;}
 .right_section .athlete_right .popup_header h3{padding:15px;}

@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
-
+use \Drupal\user\Entity\User;
 /**
  * Contribute form.
  */
@@ -29,6 +29,8 @@ class test extends FormBase {
 
 
   	$current_user = \Drupal::currentUser()->id();
+    $userdt = User::load($current_user);
+    $field_state =  $userdt->get('field_state')->value;
     $roles_user = \Drupal::currentUser()->getRoles();
     $query18 = \Drupal::database()->select('mydata', 'md');
     $query18->fields('md');
@@ -81,7 +83,7 @@ class test extends FormBase {
 	  '#attributes' => array('disabled'=>true),
       );
     if(in_array('assessors', $roles_user)){
-      $hd_title = "ASSESSORS&#39;s Information";
+      $hd_title = "ASSESSORS&#39; Information";
     }elseif(in_array('coach', $roles_user)){
       $hd_title = "COACHES&#39;s Information";
     }else{
@@ -92,24 +94,45 @@ class test extends FormBase {
       '#placeholder' => t('Email'),
       '#required' => TRUE,
       '#default_value' => $results4['mail'],
+      '#attributes' => array('disabled'=>true),
 	  '#prefix' => '',
 	  '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>'.$hd_title.'</h3><div class=items_div>',
       );
-        $form['fname'] = array(
+
+      $form['fname'] = array(
       '#type' => 'textfield',
       '#default_value' => $results1['field_first_name_value'],
       '#attributes' => array('disabled'=>true),
 	  
       );
-	  $form['lname'] = array(
+	 if(in_array('assessors', $roles_user)){
+
+      $form['city_state'] = array(
+      '#type' => 'textfield',
+      '#default_value' => 'Gilbert, '.$field_state,
+      '#attributes' => array('disabled'=>true),
+      );
+
+
+     $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => 'save',
+        '#prefix' =>'<div id="athlete_submit" class="assessor-btn user-submit-button">',
+        '#suffix' => '</div>',
+            //'#value' => t('Submit'),
+        ];
+    
+    }
+    if(!in_array('assessors', $roles_user)){
+
+       $form['lname'] = array(
       '#type' => 'textfield',
      // '#title' => t('Mobile Number:'),
       // '#placeholder' => t('Bloggs'),
       '#default_value' => $results2['field_last_name_value'],
-	  '#attributes' => array('disabled'=>true),
+    '#attributes' => array('disabled'=>true),
       );
 
-    if(!in_array('assessors', $roles_user)){
         $form['numberone'] = array(
             '#type' => 'textfield',
             '#placeholder' => 'Phone Number',
@@ -296,7 +319,7 @@ class test extends FormBase {
          
     }
     /* Organization END */
-
+if(!in_array('assessors', $roles_user)){
 $form['submit'] = ['#type' => 'submit', '#value' => 'save', '#prefix' => '<div id="athlete_submit">','#suffix' => '</div></div>
 <div class ="right_section">
 <div class = "athlete_right">
@@ -328,7 +351,7 @@ $form['image_athlete'] = [
               </div>
 </div>',
  ];
-
+}
 if(in_array('coach', $roles_user)){
 	$form['instagram_account'] = array(
 	'#type' => 'textfield',
@@ -449,8 +472,51 @@ if(in_array('coach', $roles_user)){
         '#default_value' => $deltaweb2_visibility,
         '#suffix' => '</div></div></div>',
         );
+
+
     }
+
+       //CHANGE PASSWORD FIELDS
+     $form['pass_label'] = array(
+      '#type' => 'label',
+      '#value' => t('Your password must be at least 8 characters long and contain at least one number and one character'),
+    '#prefix' => '</div>
+<div class="clear"></div>
+    <div id="changepassdiv" class="changePassword_popup">
+      <div class="popup_header change_password_header">
+          <h3>Change Password <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true"></i></h3>
+      </div>',
+      );
+    $form['current_pass'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('Old Password'),
+      );
+    $form['newpass'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('New Password'),
+      );
+    $form['newpassconfirm'] = array(
+      '#type' => 'password',
+      '#placeholder' => t('Confirm New Password'),
+      );
+    
+    $form['pass_error'] = array(
+      '#type' => 'label',
+      '#value' => t('Incorrect entry,please try again.'),
+    '#suffix' => '<span class="passerror"> Need more help? Click here </span>',
+      );
+    $form['changebutton'] = [
+        '#type' => 'label',
+        '#title' => 'update',
+    '#prefix' =>'',
+    '#suffix' => '</div>',
+    '#attributes' => array('id'=>'save_pass','style'=>'cursor:pointer; background:green;padding: 5px;
+    border-radius: 3px;'),
+    ];
+    //end change password
     // $form['#theme'] = 'athlete_form';
+  
+   
     return $form;
   }
 
@@ -476,7 +542,7 @@ if(in_array('coach', $roles_user)){
 		$query_pic->fields('uup');
 		$query_pic->condition('entity_id', $current_user,'=');
 		$results_pic = $query_pic->execute()->fetchAll();	
-                $imgid = $form_state->getValue('image_athlete');
+    $imgid = $form_state->getValue('image_athlete');
 				if(empty($results_pic)){
           if(isset($imgid[0])){
 					 $conn->insert('user__user_picture')->fields(
@@ -513,30 +579,38 @@ if(in_array('coach', $roles_user)){
 					}
                 
 			}
-				
+
 		//joining date	
-    if(!in_array('coach', $roles_user)){
-  	  $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
-      $query3->addField('ufln3', 'field_date_value');
-      $query3->condition('entity_id', $current_user, '=');
-      $results3 = $query3->execute()->fetchAssoc();
-      $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
-        if (empty($results3)) {
-    		
-            $conn->insert('user__field_date')->fields(array(
-            'entity_id' => $current_user,
-            'bundle' => 'user',
-            'revision_id' => $current_user,
-            'delta' => 0,
-            'langcode' => $lang_code,
-            'field_date_value' => $form_state->getValue('date_joined'),
-            ))->execute();
+
+       if(in_array('coach', $roles_user) || in_array('assessors', $roles_user)){
+         // for assessors or coach here
+        }else{
+             $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
+          $query3->addField('ufln3', 'field_date_value');
+          $query3->condition('entity_id', $current_user, '=');
+          $results3 = $query3->execute()->fetchAssoc();
+          $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+            if (empty($results3)) {
+            
+                $conn->insert('user__field_date')->fields(array(
+                'entity_id' => $current_user,
+                'bundle' => 'user',
+                'revision_id' => $current_user,
+                'delta' => 0,
+                'langcode' => $lang_code,
+                'field_date_value' => $form_state->getValue('date_joined'),
+                ))->execute();
+            }
+            else {
+                $conn->update('user__field_date')->condition('entity_id', $current_user, '=')->fields(array(
+                'field_date_value' => $form_state->getValue('date_joined'),
+                ))->execute();
+            }
         }
-        else {
-            $conn->update('user__field_date')->condition('entity_id', $current_user, '=')->fields(array(
-            'field_date_value' => $form_state->getValue('date_joined'),
-            ))->execute();
-        }
+
+    if(!in_array('coach', $roles_user) || !in_array('assessors', $roles_user)){
+
+  	  
       }
 
 
@@ -605,10 +679,16 @@ if(in_array('coach', $roles_user)){
       }
 		
     //mobile field
+
     $query = \Drupal::database()->select('user__field_mobile', 'ufm');
     $query->fields('ufm');
     $query->condition('entity_id', $current_user,'=');
-    $results = $query->execute()->fetchAll(); 		
+    $results = $query->execute()->fetchAll(); 	
+
+
+   if(in_array('coach', $roles_user) || in_array('assessors', $roles_user)){
+     // for assessors or coach here
+    }else{	
     if(empty($results)){
     $conn->insert('user__field_mobile')->fields(
             array(
@@ -637,6 +717,7 @@ if(in_array('coach', $roles_user)){
   		'field_first_name_value' => $form_state->getValue('fname'),
   	])
   	->execute();
+  }
 
     //email
     $conn->update('users_field_data')
