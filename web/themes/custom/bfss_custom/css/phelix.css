@@ -220,7 +220,8 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .user_form_content .registration-area form .form-item.js-form-item {
   margin: 0 0 15px;
 }
-
+.user_form_content .registration-area form #edit-pass.form-item.js-form-item{margin:0;}
+.user_form_content .registration-area form .form-item.js-form-item #edit-send-code.btn-send-code{display:none !important}
 .user_form_content .registration-area form .form-item.js-form-item:empty {
   margin: 0;
 }
@@ -752,11 +753,7 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
   border-radius: 0 !important;
 }
 
-.faq-text-area {
-  font-family: "Proxima Nova Rg";
-  font-size: 16px;
-  margin: 30px 0;
-}
+
 
 .faqct li.a {
   border: 1px solid grey;
@@ -766,18 +763,16 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
   font-family: "Proxima Nova Rg";
 }
 
-a.change_pass,
-a.change_pass:hover {
-  color: #f76907;
-}
-
-.right_section .athlete_right {
-  border: 0 !important;
-}
-
 .profile-image-text {
   font-family: "Proxima Nova Rg";
   font-size: 14px;
   margin: 10px 10px 0 10px;
   text-align:justify
 }
+
+/************************** COMPLETE REGISTRATION FORM CSS STARTS HERE **************************/
+.complete-registration-form #edit-actions #edit-submit.btn-set-password{font-family:montserrat, Sans-Serif;font-size:20px !important;line-height:26px;}
+.complete-registration-form #edit-additional-info a{display:block;clear:both;}
+.complete-registration-form #edit-additional-info a:hover, .complete-registration-form #edit-additional-info a:focus{color:#EB6E06;}
+.complete-registration-form #edit-additional-info #edit-resend-message{margin:0;}
+/************************** COMPLETE REGISTRATION FORM CSS STARTS HERE **************************/

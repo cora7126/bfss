@@ -109,28 +109,16 @@ div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap
 
 
 /* form */
-.edit_profile_form .form-inline .control-label {
-	font-size: :13px;
-	float: left;
-	margin-right: 20px;
-	padding-top: 10px;
-}
-
+.edit_profile_form .form-inline .control-label{font-size:13px;float:left;margin-right:20px;padding-top:10px;}
 .form-type-date #edit-doj{width:100%;}
 .athlete_right .items_div{text-align:center}
-.right_section .items_div, .left_section .items_div{border:1px solid #c2c2c2;}
 .side_nav .drop.active{background:#f76907}
 .menulink{font-size:16px !important;}
-
 div#sidenav .drop.active i{color:#fff !important;}
-
 .profiletext{border:0px !important;padding:18px 0px !important;}
-
 #drupal-modal--content{max-height:auto !important;}
-.timing-info{margin-top:-10px !important}
-
+.timing-info{margin-top:-10px !important;}
 .form-control{font-family:montserrat, sans-serif !important}
-
 /* Palvi CSS */
 .bfssmanager-dashboard div#upcoming_bk{grid-template-columns:.5fr .5fr .5fr !important;/* margin:0 -15px; !important */;grid-gap:2px !important}
 .bfssmanager-dashboard #block-upcominggroupassessments .col{width:100% !important;margin:0 !important}

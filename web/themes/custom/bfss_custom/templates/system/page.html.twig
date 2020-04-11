@@ -140,30 +140,39 @@
                                     <img src="/themes/custom/bfss_custom/images/DefaultProfile.png">
                                   {% endif %}
                                  </div>
-                                 <div class="col-md-8">
+                                  {% if user_role == 1 %}
+                                   <div class="col-md-8">
+                                    <h2>Assessor</h2>
+                                    <p>Gilbert, {{field_state}}</p>
+                                 </div>
+                                  {% else %}
+                                  <div class="col-md-8">
                                     <h2>{{fname}} {{lname}}</h2>
                                     <p>{{role_n}}</p>
                                  </div>
+                                  {% endif %}
+                                 
+
                               </div>
                            </div>
                            <div class="pop_text_sec">
-                              <a href="#">
+                              
                                  <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
-                              </a>
+                              
                               {% if user_role == 0 %}
                               <a href="/bfss-manager">
                                  <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
                               </a>
-                              <a href="#" data-toggle="modal" data-target="#my-profile-Modal">
+                              
                                   <a href='/edit/parent'><p><i class="fas fa-user"></i>Parent / Guardian</p></a>
-                              </a>
+                              
                               <a href="/payment-receipts">
                                  <p><i class="fas fa-credit-card"></i>Payment / Receipts</p>
                               </a>
                               {% endif %}
-                              <a href="#">
+                              
                                  <a href='/user/logout'><p><i class="fas fa-power-off"></i>Sign Out</p></a>
-                              </a>
+                              
                             <!--   <button type="button" class="btn cancel" onclick="closeForm()">Close</button> -->
                            </div>
                         </div>
@@ -317,9 +326,9 @@
                      <div class="dropdown ">
                         <a {% if (current_path == '/upcoming-group-assessments') or (current_path == '/assessment/type') or (current_path == '/appointments/scheduled') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i><span class="side_menu_text">Calender-View & Book</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li ><a class="side_button" href="/upcoming-group-assessments"> Upcoming Group Assessments </a></li>
-                           <li><a class="side_button" href="/assessment/type"> Book a Private Assessment</a></li>
-                           <li><a class="side_button" href="/appointments/scheduled">My Scheduled Assessment</a></li>
+                           <li ><a class="side_button " href="/upcoming-group-assessments"> Upcoming Group Assessments </a></li>
+                           <li><a class="side_button " href="/assessment/type"> Book a Private Assessment</a></li>
+                           <li><a class="side_button " href="/appointments/scheduled">My Scheduled Assessment</a></li>
                         </ul>
                      </div>
                   </nav>
