@@ -77,7 +77,7 @@ class EditCoachUserProfile extends FormBase {
     <div class="modal-dialog">
       <div class="modal-content">  
         <!-- Modal body -->
-        <div class="modal-body"><p class="wlcm_cont">Welcome '.$fname.',to continue you must complete all the required fields below.<p>';
+        <div class="modal-body"><p class="wlcm_cont">Welcome '.$fname.', to continue you must complete all the required fields below.<p>';
     $form['suffix'] = ' </div>
       </div>
     </div>
@@ -148,13 +148,14 @@ class EditCoachUserProfile extends FormBase {
         );
       $form['city'] = array(
         '#type' => 'textfield',
-        '#placeholder' => t('City'),
+        '#placeholder' => t('City (Organization)'),
         '#default_value' => $results18['field_city'],
       );
       $gender_arr =  array('' => 'Select Gender','male' => 'Male','female' => 'Female','other' => 'Other');
       $form['sextype'] = array(
-      '#type' => 'select',
+      '#type' => 'textfield',
       '#suffix' => '</div></div>',
+      '#placeholder' => t("Your Athlete's Gender"),
       '#options' => $gender_arr,
       '#default_value' => $results18['field_birth_gender'],
       );
@@ -171,7 +172,9 @@ class EditCoachUserProfile extends FormBase {
           ""=>t('Organization Type'),
           "school"=>t('School'),
           "club"=>t('Club'),
-          "university"=>t('University'));
+          "university"=>t('University'),
+          "Organization Type 4"=> t("Organization Type 4 "), 
+        );
         $form['organizationType1'] = array(
           '#type' => 'select',
          '#required' => TRUE,
@@ -215,14 +218,15 @@ class EditCoachUserProfile extends FormBase {
           ""=>t('Organization Type'),
           "school"=>t('School'),
           "club"=>t('Club'),
-          "university"=>t('University')
+          "university"=>t('University'),
+          "Organization Type 4"=> t("Organization Type 4 "), 
         );
 
 
       $form['organizationType2'] = array( //uni
         '#type' => 'select',
         '#options' => $orgtype2,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i></h3><div class=items_div>',
         '#default_value' => isset($results_bfss_coach[0]->field_organization_type_two)?$results_bfss_coach[0]->field_organization_type_two:'',
         );
 
@@ -259,14 +263,15 @@ class EditCoachUserProfile extends FormBase {
           ""=>t('Organization Type'),
           "school"=>t('School'),
           "club"=>t('Club'),
-          "university"=>t('University')
+          "university"=>t('University'),
+          "Organization Type 4"=> t("Organization Type 4 "), 
         );
 
 
           $form['organizationType3'] = array( // club
             '#type' => 'select',
             '#options' => $orgtype3,
-            '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i><div class=items_div>',
+            '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i></h3><div class=items_div>',
             '#default_value' => isset($results_bfss_coach[0]->field_organization_type_three)?$results_bfss_coach[0]->field_organization_type_three:'',
             );
 

@@ -21,7 +21,8 @@ class SearchAthlete extends ControllerBase {
 	    $data_user = [];
 	    foreach ($athlete_user_ids as $athlete_user_id) {
 	    	$data['mydata'] = $this->getUserInfo('mydata','','uid',$athlete_user_id);
-
+	    	// echo "<pre>";
+	    	// print_r($data['mydata']);
 			$userdata =	User::load($athlete_user_id);
 	   		$query_fname = \Drupal::database()->select('user__field_first_name', 'uffn');
 			$query_fname->fields('uffn');
@@ -51,6 +52,7 @@ class SearchAthlete extends ControllerBase {
 	   		$data_user[] = [
 	   			'firstname' => $firstname,
 	   			'lastname' => $lastname,
+	   			'organization' => $data['mydata']['field_organization_name'],
 	   			'state' => $userdata->field_state->value,
 	   			'city' => $data['mydata']['field_city'],
 	   		];
@@ -68,6 +70,8 @@ class SearchAthlete extends ControllerBase {
                 <th class="th-hd"><a><span></span>First Name</a>
                 </th>
                 <th class="th-hd"><a><span></span>Last Name</a>
+                </th> 
+                 <th class="th-hd"><a><span></span>Organization</a>
                 </th>  
                  <th class="th-hd"><a><span></span>State</a>
                 </th>  
@@ -81,6 +85,7 @@ class SearchAthlete extends ControllerBase {
         		 $tb .= '<tr>
                 <td>'.$value['firstname'].'</td>
                 <td>'.$value['lastname'].'</td>
+                 <td>'.$value['organization'].'</td>
                 <td>'.$value['state'].'</td>
                 <td>'.$value['city'].'</td>
               </tr>';
