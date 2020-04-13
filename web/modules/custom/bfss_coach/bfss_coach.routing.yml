@@ -54,3 +54,11 @@ bfss_coach.ajaxlink:
     _title: 'Athletes Follow'
   requirements: 
     _permission: 'access content'
+
+bfss_coach.coach_edit_form:
+  path: '/coach-edit-form' 
+  defaults: 
+    _controller: '\Drupal\bfss_coach\Controller\CoachEditProfile::content' 
+    _title: 'Edit Profile'
+  requirements: 
+    _permission: 'access content'

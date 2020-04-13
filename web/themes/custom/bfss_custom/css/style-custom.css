@@ -2,7 +2,7 @@
 /* CSS Document */
 
 .edit-user div.main_header{margin:0 0 20px;}
-.edit_header h2{font-size:30px;line-height:26px;padding:0 0 3px 10px;font-family:montserrat, Sans-Serif;font}
+.edit_header h2{font-size:30px;line-height:26px;padding:0 0 3px 10px;font-family:montserrat, Sans-Serif;}
 /**************** DASHBOARD CSS STARTS HERE *******************/
 .left_side_section{background:#000;border-right:1px solid grey;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
 .dashboard footer.footer{display:none;}
@@ -38,7 +38,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment .panel{display:block;padding:0;position:absolute;width:100%;border:none;background-color:white;overflow:hidden;border:1px solid #949494;}
 .dashboard .my-assessment .panel .panel_row{width:100%;float:left;display:block;padding:15px;border-bottom:1px solid #ccc;}
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
-/* .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} */
+ .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
 .dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:.6;}
 /* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
@@ -255,7 +255,7 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#EB6E06;c
 .form-container .cancel{background-color:red;padding:4px 15px;float:right;}
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover{opacity:1;}
-.pop_img_sec{border-bottom:1px solid #9b9b9b;padding-bottom:8px;margin-bottom:10px;}
+.pop_img_sec{border-bottom:1px solid #9b9b9b;padding-bottom:16px;margin-bottom:10px;}
 .pop_img_sec h2{font-size:20px;text-align:left;}
 .pop_img_sec p{font-size:16px;text-align:left;}
 .pop_text_sec{text-align:left;}
@@ -269,7 +269,7 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#EB6E06;c
 /* -------profile-Modal-css-------Start---- */
 
 .modal .modal-dialog{max-width:700px;}
-.modal .modal-dialog .modal-content{width:100%;padding:0;overflow-y:auto;overflow-x:hidden;}
+.modal .modal-dialog .modal-content{width:100%;padding:0;/* overflow-y:auto;overflow-x:hidden; */}
 .profile-right-modal .modal-body button.accordion{background-color:#000;color:#fff;}
 .profile-right-modal .accordion{background-color:#eee;color:#444;cursor:pointer;padding:8px 15px;width:100%;border:none;text-align:left;outline:none;font-size:15px;transition:0.4s;}
 .profile-right-modal .active, .accordion:hover{background-color:#ccc;}
@@ -394,8 +394,8 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border-bottom:1px solid #000;border-left:1px solid #000;border-right:1px solid #000;padding:20px 40px;}
 .user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#A8A9AD;}
-.user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;text-transform:capitalize;border:0;}
-.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#000;font-weight:400;font-size:13px;display:block;line-height:14px;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th{padding:15px 12px;text-transform:capitalize;border:0;white-space:nowrap;}
+.user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#000;font-weight:400;font-size:13px;display:block;line-height:14px;white-space:nowrap;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a:hover, .user_pro_block .block-bfss-assessors .table-responsive table thead th a:focus{text-decoration:none;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span{float:right;text-align:center;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span.icon{display:none;}
@@ -498,23 +498,7 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;color:#fff;}
 ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 .result_message{width:100%;text-align:center;color:green;font-size:16px;}
-/******************* RESPONSIVE CSS STARTS HERE *********************/
 
-@media (max-width:767px){
-	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:190px;flex: 0 0 190px;max-width:190px;}
-	.top_right .calender_img, .top_right .athletic_profile, .dashboard .profile_img_section .profile-sec{width:95px;}
-}
-
-@media (min-width:768px) and (max-width:1023px){
-	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:250px;flex: 0 0 250px;max-width:250px;}
-}
-
-@media (max-width:1023px){
-	.profile-right-modal .container{padding:0;}	
-	.custom-nav-box .header_rightbar .row{-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
-}
-
-/*************************** RESPONSIVE CSS ENDS HERE ****************/
 
 /******************MY Assessments Page Strat here************************/
 .myassess_main_pxl.user_pro_block .block-bfss-assessors{
@@ -560,7 +544,7 @@ a.side_button.menulink.my_assess{color: #fff;}
 /********************my assessment score bar start here**********/
 .change_pass{padding:0 15px;font-size:14px;}
 a.change_pass, a.change_pass:hover{color:#f76907;}
-.faq-text-area{font-size:16px;margin:30px 0;padding:0 15px;font-family:'montserrat, Sans-Serif';}
+.faq-text-area{font-size:16px;margin:30px 0;padding:0 15px;font-family:'montserrat, Sans-Serif';text-align:justify}
 #edit-form .assessor-btn.user-submit-button{position:relative;bottom:0;left:15px;padding:0;}
 .right_section .athlete_right .changepassdiv-modal .change_password_button{float:right;margin-right:15px;color:#fff;font-size:13px;text-transform:uppercase;background:#EB6E06 !important;display:block;height:32px;line-height:14px;}
 .bgGray{background:#ebebeb;}
@@ -588,3 +572,36 @@ span.side_menu_text.funds_dropdown {color:#fff;cursor:pointer;}
 .col-lg-12.col-md-12.terms-funds p{font-size:16px;}
 i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-size:36px;border:2px solid;border-radius:50%;padding:12px;line-height:46px !important;color:#EB6E06;}
 .accordion_tabs_block .user_pro_block .block-bfss-assessors{padding:0;}
+
+
+/******************* RESPONSIVE CSS STARTS HERE *********************/
+
+@media(min-width:100px) and (max-width:579px) {	
+	#block-assessmentscustomview .col.assessment_inner{width:100% !important;margin:5px 0;}
+}
+
+@media(min-width:580px) and (max-width:767px) {
+	#block-assessmentscustomview .col.assessment_inner{width:calc(50% - 20px) !important;}
+}	
+
+@media (max-width:767px) {
+	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:190px;flex: 0 0 190px;max-width:190px;}
+	.top_right .calender_img, .top_right .athletic_profile{width:95px;}
+	.faq-text-area{font-size:14px;line-height:18px;}
+	.athletes_follow_dv .search_athlete_main .unfollow-sub{margin:0 0 10px;position:relative;left:0;}
+	.atheltic-profile .user-data .col-6.user-info, .atheltic-profile .user-data .col-6.user-stats{flex:0 0 100%;max-width:100%;}
+	body.dashboard .table-responsive{border:0 !important;}
+	div.dataTables_wrapper .dataTables_length label{font-size:0;}
+	div.dataTables_wrapper .dataTables_length label select{font-size:12px;}
+}
+
+@media (min-width:768px) and (max-width:1023px) {
+	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:250px;flex: 0 0 250px;max-width:250px;}
+}
+
+@media (max-width:1023px) {
+	.profile-right-modal .container{padding:0;}	
+	.custom-nav-box .header_rightbar .row{-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
+}
+
+/*************************** RESPONSIVE CSS ENDS HERE ****************/

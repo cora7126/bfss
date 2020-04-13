@@ -158,7 +158,33 @@ class AssessmentController extends ControllerBase {
       // dpm($value);
     // }
     // $data = [];
-    return [
+	
+	
+	$block = \Drupal\block\Entity\Block::load('upcominggroupassessments');
+    $block_content = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block);
+    $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
+
+    $block1 = \Drupal\block\Entity\Block::load('monthform');
+    $block_content1 = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block1);
+    $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+	
+	return [
+      '#cache' => ['max-age' => 0,],
+      '#theme' => 'scheduled__appointments',
+      '#assessments_block' => $assessments_block,
+      '#month_block' => $assessments_block1,
+      '#attached' => [
+        'library' => [
+          'acme/acme-styles', //include our custom library for this response
+        ]
+      ]
+    ];
+	
+    /* return [
       '#theme' => 'scheduled__appointments',
       '#data' => $data,
       '#attached' =>[
@@ -167,7 +193,7 @@ class AssessmentController extends ControllerBase {
           'bfss_assessment/upcoming_appointment',
         ],
       ],
-    ];
+    ]; */
   }
 
 }
