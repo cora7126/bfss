@@ -60,7 +60,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<p>Isometric <br> Mid-Thigh Pull</p>
 							</div>
 						</div>
-						<img src="/modules/custom/bfss_assessment/img/run.svg" class="sideIcon" alt="">
+						<img src="/modules/custom/bfss_assessment/img/builder.png" class="sideIcon" alt="">
 					</div>
 				</div>
 				<div class="row">
@@ -74,7 +74,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<p>Squat Jump</p>
 							</div>
 						</div>
-						<img src="/modules/custom/bfss_assessment/img/run.svg" class="sideIcon" alt="">
+						<img src="/modules/custom/bfss_assessment/img/arrows_data.png" class="sideIcon" alt="">
 					</div>
 					<div class="infoRow leftBg">
 						<div class="centeralizeRow small whiteDesc">
@@ -86,7 +86,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<p>Countermovement Jump</p>
 							</div>
 						</div>
-						<img src="/modules/custom/bfss_assessment/img/run.svg" class="sideIcon" alt="">
+						<img src="/modules/custom/bfss_assessment/img/jump.png" class="sideIcon" alt="">
 					</div>
 				</div>
 			</section>

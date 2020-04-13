@@ -327,8 +327,15 @@ $form['submit'] = ['#type' => 'submit', '#value' => 'save', '#prefix' => '<div i
        <div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a>
         <ul class="dropdown-menu" style="padding:0"></ul>
        </div>
-<div class=items_div>',
+<div class=items_div>
+<img src='.$url.' class="edit-profile-image" >
+<div class="popupimage" id="imagepopup">
+ <div class="popup_header">
+       <h3>Profile Photo <i class="fa fa-times right-icon imagepopup-modal-close spb_close" aria-hidden="true"></i></h3>
+  </div>',
+//'#value' => t('Submit'),
 ];
+
 $form['image_athlete'] = [
 '#type' => 'managed_file',
 '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg'],
@@ -338,17 +345,13 @@ $form['image_athlete'] = [
 '#upload_location' => 'public://',
 '#required' => false,
 '#default_value' => array($img_id), 
-'#prefix' => '</div>', 
+'#prefix' => '</div></div>', 
 '#suffix' => '<div class="action_bttn">
                 <span>Action</span><ul><li>Remove</li></ul>
               </div>
 </div>',
  ];
 }
-$form['test'] = array(
-    '#type' => 'markup',
-    '#markup' => '</div></div><div class="profile-image-text">No longer need your account and want to deactivate it? You can request deactivating your account via our ticketing system.</div>',
-  );
 if(in_array('coach', $roles_user)){
 	$form['instagram_account'] = array(
 	'#type' => 'textfield',
@@ -473,6 +476,7 @@ if(in_array('coach', $roles_user)){
 
     }
 
+
  //CHANGE PASSWORD FIELDS
      $form['pass_label'] = array(
       '#type' => 'label',
@@ -506,8 +510,6 @@ if(in_array('coach', $roles_user)){
     border-radius: 3px;'),
     ];
     //end change password
-    // $form['#theme'] = 'athlete_form';
-  
    
     return $form;
   }
