@@ -80,6 +80,10 @@ function acme_theme() {
     'variables' => ['name' => NULL,'athletes_follow_block' => NULL],
     'template' => 'athletes_follow',
   ];
+  $theme['edit_form_coach_page'] = [
+    'variables' => ['name' => NULL,'edit_form_coach_block' => NULL],
+    'template' => 'edit_form_coach',
+  ];
   return $theme;
 }
 

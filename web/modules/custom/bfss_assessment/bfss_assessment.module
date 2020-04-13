@@ -134,10 +134,15 @@ return [
         ],
         'template'=>'custom/payment-receipts',
     ],
-    'scheduled__appointments' => [
+    /*'scheduled__appointments' => [
       'variables' => [
           'data'=> null,
         ],
+        'template'=>'custom/scheduled--appointments',
+    ],*/
+	'scheduled__appointments' => [
+        'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
+		//'template' => 'upcoming',
         'template'=>'custom/scheduled--appointments',
     ],
   ];
