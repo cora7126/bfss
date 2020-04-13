@@ -63,7 +63,11 @@ class MultistepTwoForm extends MultistepFormBase {
     $form['heading']['#prefix'] = '<div class="two">';
     $form['heading']['#suffix'] = '</div>';
     $sortedTimings = [];
-     
+     $form['test'] = array(
+		'#type' => 'markup',
+		'#markup' => '&nbsp;',
+		'#prefix' => "<p class='service-top-head'>Below is a list of available time slots and days for your assessment. Click on a time slot to proceed with booking.</p>",
+	  );
  if($nid == '9999999999'){
       foreach ($timings_private as $timings_pri) {
            foreach ($timings_pri as $key => $value) {
@@ -71,7 +75,7 @@ class MultistepTwoForm extends MultistepFormBase {
                 $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
         }
       }
-     
+		
         foreach ($sortedTimings as $key => $value) {
           $maintitle = current(array_keys($value));
             $form['time'.$key] = array(

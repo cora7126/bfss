@@ -7,6 +7,7 @@ framework:
       css/style.css: {}
       css/scott.css: {}
       css/phelix.css: {}
+      css/customcss2.css: {}
   js:
     bootstrap/assets/javascripts/bootstrap/affix.js: {}
     bootstrap/assets/javascripts/bootstrap/alert.js: {}

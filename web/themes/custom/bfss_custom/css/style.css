@@ -1928,7 +1928,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .left_section .athlete_left .add_pos_div a.add_pos i{padding-right:5px;}
 .left_section .athlete_left a.remove_pos{position:absolute;left:130px;padding:0px 0px 0px 16px;bottom:5px;display:none;cursor:pointer;}
 .left_section .athlete_left .remove_pos i{padding-right:5px;}
- .right_section .athlete_right label.control-label{padding-left:15px;color:#555555;font-weight:normal;padding-right:19px;word-break:break-word;font-size:13px;}
+ .right_section .athlete_right label.control-label{padding-left:15px;color:#555555;font-weight:normal;padding-right:19px;word-break:break-word;font-size:13px;text-align:justify}
 .right_section .athlete_right .previewdiv{width:100%;float:left;display:block;padding:20px 15px;}
 .right_section .athlete_right .previewdiv a{color:#f76907;border:1px solid #f76907;font-size:14px;padding:8px 25px;height:40px;line-height:16px;}
 .right_section .athlete_right .previewdiv a:hover, .right_section .athlete_right .previewdiv a:focus{outline:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;background-color:#f76907;color:#fff;}

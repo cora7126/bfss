@@ -53,6 +53,14 @@ class MultistepThreeForm extends MultistepFormBase {
     $query2->condition('entity_id', $current_user, '=');
     $results2 = $query2->execute()->fetchAssoc();
 	
+	$time = $this->store->get('time');
+	$timefetch= date('H:i a',$time);
+	$datefetch= date('M d,Y',$time);
+	$form['timeinfo'] = array(
+		'#type' => 'markup',
+		'#markup' => '&nbsp;',
+		'#prefix' => "<p class='service-top-head'>You selected a private assessment at ".$timefetch." on ".$datefetch.". Please make sure your details below are correct to proceed with booking.</p>",
+	  );
     #add container class to form
     $form['#attributes']['class'][] = 'container';
     $form['first_name'] = array(
