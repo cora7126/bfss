@@ -38,7 +38,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment .panel{display:block;padding:0;position:absolute;width:100%;border:none;background-color:white;overflow:hidden;border:1px solid #949494;}
 .dashboard .my-assessment .panel .panel_row{width:100%;float:left;display:block;padding:15px;border-bottom:1px solid #ccc;}
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
-/* .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} */
+ .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
 .dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:.6;}
 /* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
@@ -255,7 +255,7 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#EB6E06;c
 .form-container .cancel{background-color:red;padding:4px 15px;float:right;}
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover{opacity:1;}
-.pop_img_sec{border-bottom:1px solid #9b9b9b;padding-bottom:8px;margin-bottom:10px;}
+.pop_img_sec{border-bottom:1px solid #9b9b9b;padding-bottom:16px;margin-bottom:10px;}
 .pop_img_sec h2{font-size:20px;text-align:left;}
 .pop_img_sec p{font-size:16px;text-align:left;}
 .pop_text_sec{text-align:left;}
@@ -269,7 +269,7 @@ ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#EB6E06;c
 /* -------profile-Modal-css-------Start---- */
 
 .modal .modal-dialog{max-width:700px;}
-.modal .modal-dialog .modal-content{width:100%;padding:0;overflow-y:auto;overflow-x:hidden;}
+.modal .modal-dialog .modal-content{width:100%;padding:0;/* overflow-y:auto;overflow-x:hidden; */}
 .profile-right-modal .modal-body button.accordion{background-color:#000;color:#fff;}
 .profile-right-modal .accordion{background-color:#eee;color:#444;cursor:pointer;padding:8px 15px;width:100%;border:none;text-align:left;outline:none;font-size:15px;transition:0.4s;}
 .profile-right-modal .active, .accordion:hover{background-color:#ccc;}
@@ -560,7 +560,7 @@ a.side_button.menulink.my_assess{color: #fff;}
 /********************my assessment score bar start here**********/
 .change_pass{padding:0 15px;font-size:14px;}
 a.change_pass, a.change_pass:hover{color:#f76907;}
-.faq-text-area{font-size:16px;margin:30px 0;padding:0 15px;font-family:'montserrat, Sans-Serif';}
+.faq-text-area{font-size:16px;margin:30px 0;padding:0 15px;font-family:'montserrat, Sans-Serif';text-align:justify}
 #edit-form .assessor-btn.user-submit-button{position:relative;bottom:0;left:15px;padding:0;}
 .right_section .athlete_right .changepassdiv-modal .change_password_button{float:right;margin-right:15px;color:#fff;font-size:13px;text-transform:uppercase;background:#EB6E06 !important;display:block;height:32px;line-height:14px;}
 .bgGray{background:#ebebeb;}
