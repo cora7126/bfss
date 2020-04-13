@@ -476,16 +476,12 @@ if(in_array('coach', $roles_user)){
 
     }
 
-       //CHANGE PASSWORD FIELDS
+
+ //CHANGE PASSWORD FIELDS
      $form['pass_label'] = array(
       '#type' => 'label',
       '#value' => t('Your password must be at least 8 characters long and contain at least one number and one character'),
-    '#prefix' => '</div>
-<div class="clear"></div>
-    <div id="changepassdiv" class="changePassword_popup">
-      <div class="popup_header change_password_header">
-          <h3>Change Password <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true"></i></h3>
-      </div>',
+    '#prefix' => '</div><div id="changepassdiv" class="changePassword_popup"><div class="popup_header change_password_header"><h3>Change Password <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true"></i></h3></div>',
       );
     $form['current_pass'] = array(
       '#type' => 'password',
@@ -514,8 +510,6 @@ if(in_array('coach', $roles_user)){
     border-radius: 3px;'),
     ];
     //end change password
-    // $form['#theme'] = 'athlete_form';
-  
    
     return $form;
   }

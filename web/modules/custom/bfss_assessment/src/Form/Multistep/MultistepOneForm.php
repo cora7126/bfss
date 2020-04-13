@@ -91,7 +91,7 @@ class MultistepOneForm extends MultistepFormBase {
       '#options' => $options,
       "#empty_option"=>t('Select Service'),
       '#default_value' => $this->store->get('service') ? $this->store->get('service') : null,
-      '#prefix' => "<p class='service-top-head'> Please select Service</p>",
+      '#prefix' => "<p class='service-top-head'> Please select service</p>",
       '#required' => true,
 
     );

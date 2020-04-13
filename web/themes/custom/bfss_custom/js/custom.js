@@ -220,7 +220,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
         //$('#cssmenu').prepend('<div id="menu-button">Menu</div>');
         jQuery('#cssmenu #menu-button').on('click', function() {
 
-            if ($(window).width() < 420) {
+            if ($(window).width() < 767) {
                 $('body').toggleClass('open_left_side_mobile');
                 $('body').removeClass('open_left_side');
             }
@@ -231,7 +231,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 
         });
         jQuery( window ).resize(function() {
-          if (jQuery(window).width() < 420) {
+          if (jQuery(window).width() < 767) {
             jQuery('body').removeClass('open_left_side');
           }
           else{
@@ -270,7 +270,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
         // });
         
             /* var athleteprofile_header = "<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000'>Atheltic Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='far fa-chart-network edit_image'></i></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Atheltic</span><br>Profile</h2></div></div>"; */
-            var athleteprofile_header = "<div class='dash-main-right'><h1><i class='fas fa-home'></i> &gt; <a href='/dashboard' class='edit_dash' style='margin-right:5px;color: #333333;'>Dashboard</a> &gt; Athletic Profile</h1><div class='dash-sub-main'><i class='far fa-chart-network edit_image'></i><h2><span>Athletic</span><br>Profile</h2></div></div>";
+            var athleteprofile_header = "<div class='dash-main-right'><h1><i class='fas fa-home'></i> &gt; <a href='/dashboard' class='edit_dash' style='margin-right:5px;color: #333333;'>Dashboard</a> &gt; Athletic Profile</h1><div class='dash-sub-main'><i class='far fa-chart-network edit_image'></i><h2><span>Edit</span><br> Athletic Profile</h2></div></div>";
      
  
     jQuery(athleteprofile_header).insertBefore( ".bfssAthleteProfile .edit-form" );
@@ -471,11 +471,14 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
             
             //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu ,.right_section .edit_dropdown ul.dropdown-menu').toggle();
             jQuery('.bfssAthleteProfile .right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
+            jQuery('.edit-user .right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
             jQuery('#edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span').toggleClass('edit_open');
         //}
         
 
      });
+	 
+	
      
 //     var athleteprofile_header = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='margin-right:5px;font-weight: bold;'>Dashboard</span><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='font-weight: bold;'>Atheltic Profile</span></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='far fa-chart-network edit_image'></i></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Atheltic</span><br>Profile</h2></div></div>");
 //     
@@ -647,4 +650,34 @@ function unfollow_athlete(){
 		document.getElementById('athletes-unfollow-form').attr('onsubmit','return false;');
 	    return false;                   
 	} 
-} 
+}
+jQuery(function(){
+	jQuery('.my-assessment .panel_row h3').each(function( index ) {
+		//alert( jQuery( this ).text() );
+		if(jQuery( this ).text()=="Starter Assessment"){
+			jQuery(this).css('color', '#EB6E06');
+		}
+	});
+	jQuery('.passerror').remove();
+	
+	jQuery('#spb-imagepopup .submit_btn').on('click', function(){
+		var imgpopup=jQuery("#imagepopup img").attr("src");
+		//alert(imgpopup);
+		jQuery('.athlete_right .profile-image-text').remove();
+		if (typeof imgpopup === "undefined") {
+			jQuery('.athlete_right img').attr('src','');
+		}
+		else if(imgpopup!=''){
+			jQuery('.athlete_right img').attr('src',imgpopup);
+			
+			jQuery('.athlete_right img').next().append('<div class="profile-image-text">No longer need your account and want to deactivate it? You can request deactivating your account via our ticketing system.</div>');
+		}else{
+			jQuery('.athlete_right img').attr('src','');
+		}
+	});
+	
+	if(jQuery(".edit-user .edit-profile-image").attr('src')!=''){
+		jQuery('.athlete_right .edit-profile-image').next().append('<div class="profile-image-text">No longer need your account and want to deactivate it? You can request deactivating your account via our ticketing system.</div>');
+	}
+	
+});

@@ -49,7 +49,7 @@ class changepass extends FormBase {
 	  $form['pass_error'] = array(
       '#type' => 'label',
       '#value' => t('Incorrect enrty,please try again.'),
-	  '#suffix' => '<span class=passerror> Need more help? Click here </span>',
+	  //'#suffix' => '<span class=passerror> Need more help? Click here </span>',
       );
     $form['submit'] = [
         '#type' => 'submit',

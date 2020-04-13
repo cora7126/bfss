@@ -439,6 +439,7 @@ foreach ($terms as $term) {
       '#default_value' => $city,
 	  '#required' => TRUE,
       );
+	  //print '<pre>';print_r($results18);die;
     $form['city'] = array(
       '#type' => 'textfield',
       //'#title' => t('City'),
@@ -448,40 +449,49 @@ foreach ($terms as $term) {
       );
 		$array=array('1'=>'Male','2'=>'Female','3'=>'Other');
 		$namesex=$array[$results18['field_birth_gender']];
-	 /*$form['sextype'] = array(
-      '#type' => 'textfield',
-      //'#title' => t('City'),
-       '#required' => TRUE,
-      '#default_value' => $namesex,
-	  '#attributes' => array('readonly' => 'readonly'),
-      );*/
+		
 	
-    $form['sex'] = array(
+    $form['sextype'] = array(
       //'#title' => t('az'),
-      '#type' => 'hidden',
+      '#type' => 'select',
       //'#description' => 'Select the desired pizza crust size.',
-     /* '#options' => array(
+      '#options' => array(
         t('Gender'),
         t('Male'),
         t('Female'),
-        t('Other')),*/
+        t('Other')),
       '#default_value' => $results18['field_birth_gender'],
-	  '#required' => TRUE,
+	   '#attributes' => array('disabled' => 'disabled'),
+	 // '#required' => TRUE,
       );
+	  
+	  $form['sex'] = array(
+      //'#title' => t('az'),
+      '#type' => 'hidden',
+      '#default_value' => $results18['field_birth_gender'],
+	   //'#attributes' => array('disabled' => 'disabled'),
+	 // '#required' => TRUE,
+      );
+	  
 	  $arr=array(
         t('Gender'),
         t('Male'),
         t('Female'),
         t('Other'));
-	  if($results18['field_birth_gender']!=''){
+	  /*if($results18['field_birth_gender']!=''){
+		  $def_gender=$arr[$results18['field_birth_gender']];
+		  }else{
+			$def_gender='';
+		  }
 		  $form['sextext'] = array(
 		  //'#title' => t('az'),
+		  '#placeholder' => 'Gender',
 		  '#type' => 'textfield',
-		  '#default_value' => $arr[$results18['field_birth_gender']],
+		  '#default_value' => $def_gender,
 		  '#attributes' => array('readonly' => 'readonly'),
 		  //'#required' => TRUE,
-		  );
-	  }
+		  );*/
+	  
 	  
 	//  print DatePopup::class;die;
     $form['doj'] = array(
@@ -507,7 +517,7 @@ foreach ($terms as $term) {
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Grade'),
-      '#default_value' => $results7['athlete_city'],
+      '#default_value' => $results18['field_grade'],
 	  '#required' => TRUE,
       );
     $form['gradyear'] = array(
@@ -595,7 +605,7 @@ foreach ($terms as $term) {
       '#placeholder' => t('Position'),
       '#default_value' => $orgpos_1,
       '#prefix' => '<div class="add_pos_div_first">',
-      '#suffix' => '',
+      '#suffix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>&nbsp;&nbsp;Remove Position</a>',
       );
     if ($orgpos2_1=='') {
       $form['position2'] = array(
@@ -637,7 +647,7 @@ foreach ($terms as $term) {
     $form['stats'] = array(
       '#type' => 'textarea',
       '#placeholder' => t('Add all personal stats'),
-      '#prefix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a>',
+      //'#prefix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>Remove Position</a>',
       '#suffix' => '</div></div>',
       '#default_value' => $orgstats_1,
       );
@@ -696,7 +706,7 @@ foreach ($terms as $term) {
         '#placeholder' => t('Position'),
         '#default_value' => $orgpos_2,
         '#prefix' => '<div class="add_pos_div_second">',
-        '#suffix' => '',
+        '#suffix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>&nbsp;&nbsp;Remove Position</a></div>',
         );
       if ($orgpos2_2=='') {
         $form['position_12'] = array(
@@ -739,7 +749,7 @@ foreach ($terms as $term) {
       $form['stats_1'] = array(
         '#type' => 'textarea',
         '#placeholder' => t('Add all personal stats'),
-        '#prefix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div>',
+       // '#prefix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div>',
         '#suffix' => '</div></div>',
         '#default_value' => $orgstats_2,
         );
@@ -794,7 +804,7 @@ foreach ($terms as $term) {
         '#placeholder' => t('Position'),
         // '#default_value' => $results12['athlete_uni_pos'],
         '#prefix' => '<div class="add_pos_div_second">',
-        '#suffix' => '',
+        '#suffix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>&nbsp;&nbsp;Remove Position</a></div>',
         );
       if (empty($results6['athlete_uni_pos2'])) {
         $form['position_12'] = array(
@@ -837,7 +847,7 @@ foreach ($terms as $term) {
       $form['stats_1'] = array(
         '#type' => 'textarea',
         '#placeholder' => t('Add all personal stats'),
-        '#prefix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div>',
+        //'#prefix' => '<a class="add_pos_second"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_second"><i class="fa fa-trash"></i>Remove Position</a></div>',
         '#suffix' => '</div></div>',
         // '#default_value' => $results12['athlete_uni_stat'],
         );
@@ -890,7 +900,7 @@ foreach ($terms as $term) {
         '#placeholder' => t('Position'),
         '#default_value' => $orgpos_3,
         '#prefix' => '<div class="add_pos_div_third">',
-        '#suffix' => '',
+        '#suffix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>&nbsp;&nbsp;Remove Position</a></div>',
         );
       if ($orgpos2_3=='') {
         $form['position_22'] = array(
@@ -935,7 +945,7 @@ foreach ($terms as $term) {
         '#placeholder' => t('Add all personal stats'),
         '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div>',
         '#default_value' => $orgstats_3,
-        '#prefix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
+        //'#prefix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
         );
     } else {
 		$unitype = array(
@@ -978,7 +988,7 @@ foreach ($terms as $term) {
         '#placeholder' => t('Position'),
         '#default_value' => '',
         '#prefix' => '<div class="add_pos_div_third">',
-        '#suffix' => '',
+        '#suffix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>&nbsp;&nbsp;Remove Position</a></div>',
         );
       if (empty($results16['athlete_school_pos2'])) {
         $form['position_22'] = array(
@@ -1023,7 +1033,7 @@ foreach ($terms as $term) {
         '#placeholder' => t('Add all personal stats'),
         '#suffix' => '</div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div>',
         '#default_value' => '',
-        '#prefix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
+        //'#prefix' => '<a class="add_pos_third"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos_third"><i class="fa fa-trash"></i>Remove Position</a></div>',
         );
     }
     /*Add another organization 1 END*/
@@ -1034,7 +1044,7 @@ foreach ($terms as $term) {
 
     $form['school_web'] = array(
       '#type' => 'textfield',
-      '#placeholder' => t('Organization'),
+      '#placeholder' => t('Organization Name'),
       '#default_value' => $orgname_1,
       '#attributes' => array('disabled' => true),
       '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website</h3><div class=items_div>',
@@ -1197,9 +1207,9 @@ foreach ($terms as $term) {
     if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
       $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
     }
-    if (!$form_state->getValue('sex') || empty($form_state->getValue('sex'))) {
+    /* if (!$form_state->getValue('sex') || empty($form_state->getValue('sex'))) {
       $form_state->setErrorByName('sex', $this->t('Gender should not be empty.'));
-    }
+    } */
     if (!$form_state->getValue('city') || empty($form_state->getValue('city'))) {
       $form_state->setErrorByName('city', $this->t('City should not be empty.'));
     }
@@ -1224,9 +1234,9 @@ foreach ($terms as $term) {
     //    if (!$form_state->getValue('aboutme') || strlen($form_state->getValue('aboutme')) <= 15000 ) {
     //        $form_state->setErrorByName('aboutme', $this->t('Should be a less than 1000 character.'));
     //    }
-    if (!$form_state->getValue('coach') || empty($form_state->getValue('coach'))) {
+    /* if (!$form_state->getValue('coach') || empty($form_state->getValue('coach'))) {
       $form_state->setErrorByName('coach', $this->t("Coach's last name should not be empty."));
-    }
+    } */
     if (!$form_state->getValue('sport') || empty($form_state->getValue('sport'))) {
       $form_state->setErrorByName('sport', $this->t("Sport should not be empty."));
     }
@@ -1479,11 +1489,16 @@ foreach ($terms as $term) {
         'uid' => $current_user,
         'field_az' => $form_state->getValue('az'),
         'field_city' => $form_state->getValue('city'),
+        'field_birth_gender' => $form_state->getValue('sex'),
+        'field_grade' => $form_state->getValue('grade'),
         ))->execute();
     } else {
+		
       $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
         'field_az' => $form_state->getValue('az'),
         'field_city' => $form_state->getValue('city'),
+        'field_birth_gender' => $form_state->getValue('sex'),
+        'field_grade' => $form_state->getValue('grade'),
         ))->execute();
     }
 

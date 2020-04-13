@@ -91,10 +91,10 @@ abstract class MultistepFormBase extends FormBase {
     $form['#prefix'] = $this->t('
       <div class="wrapper">
       <div class="dash-main-right">
-            <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold; color: #333333;">Dashboard</a> > Your '.$assessmentType.' Assessment</h1>
+            <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold; color: #333333;">Dashboard</a> > Your Scheduled Assessment</h1>
             <div class="dash-sub-main">
                <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
-               <h2><span>YOUR</span><br>'.$assessmentType.' Assessment  </h2>
+               <h2><span>YOUR</span><br> Scheduled Assessment  </h2>
             </div>
          </div>
          ');
@@ -104,23 +104,23 @@ abstract class MultistepFormBase extends FormBase {
       '#markup' => $this->t('
         <div class="main-head">
           <div class="first">
-            <h6>1. Assessment Type</h6>
+            <h6>1.&nbsp;&nbsp;Assessment Type</h6>
             <div class="bar"></div>
           </div>
           <div class="second">
-            <h6>2. Time</h6>
+            <h6>2.&nbsp;&nbsp;Time</h6>
             <div class="bar"></div>
           </div>
           <div class="third">
-            <h6>3. Details</h6>
+            <h6>3.&nbsp;&nbsp;Details</h6>
             <div class="bar"></div>
           </div>
           <div class="fourth">
-            <h6>4. Payment</h6>
+            <h6>4.&nbsp;&nbsp;Payment</h6>
             <div class="bar"></div>
           </div>
           <div class="fifth">
-            <h6>5. Done</h6>
+            <h6>5.&nbsp;&nbsp;Done</h6>
             <div class="bar"></div>
           </div>
         </div>

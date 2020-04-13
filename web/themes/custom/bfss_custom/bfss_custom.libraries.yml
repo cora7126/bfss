@@ -3,10 +3,12 @@ framework:
     base:
       'https://fonts.googleapis.com/css?family=Montserrat&display=swap' : { type: external }
     theme:
+      #css/responsive.css: {}
       css/custom.css: {}
       css/style.css: {}
       css/scott.css: {}
       css/phelix.css: {}
+      css/customcss2.css: {}  
   js:
     bootstrap/assets/javascripts/bootstrap/affix.js: {}
     bootstrap/assets/javascripts/bootstrap/alert.js: {}
@@ -24,6 +26,7 @@ framework:
     js/multiform.js: {}
     js/jquery.nice-select.js: {}
     js/jquery.circles-progressbar.js: {}
+    js/custom-jquery.js: {}
     
     
 date-picker:
