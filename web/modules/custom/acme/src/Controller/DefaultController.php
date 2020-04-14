@@ -32,7 +32,7 @@ class DefaultController extends ControllerBase {
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'assessors_profile_dashboard_page',
-          '#name' => 'Shubham Rana',
+          '#name' => '',
           '#event_listing_block' => $assessments_block1,
           '#private_assessment_listing_block' => $assessments_block2,
           '#attached' => [
@@ -42,9 +42,7 @@ class DefaultController extends ControllerBase {
           ]
         ];
 
-      }else{
-
-
+      }elseif( in_array('coach', $roles) || in_array('athlete', $roles) || in_array('parent_guardian_registering_athlete_', $roles) ){
         if(in_array('coach', $roles)){
             $rolename = 'coach';
         }
@@ -67,6 +65,21 @@ class DefaultController extends ControllerBase {
           '#assessments_block' => $assessments_block,
           '#month_block' => $assessments_block1,
           '#rolename' => $rolename,
+          '#attached' => [
+            'library' => [
+              'acme/acme-styles', //include our custom library for this response
+            ]
+          ]
+        ];
+      }elseif(in_array('administrator', $roles)){
+        $assessments_block = "listing here";
+        return [
+          '#cache' => ['max-age' => 0,],
+          '#theme' => 'admin_profile_dashboard_page',
+          '#name' => '',
+          '#admin_profile_block' => $assessments_block,
+          #'#month_block' => $assessments_block1,
+          #'#rolename' => $rolename,
           '#attached' => [
             'library' => [
               'acme/acme-styles', //include our custom library for this response

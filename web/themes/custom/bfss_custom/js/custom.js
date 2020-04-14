@@ -220,7 +220,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
         //$('#cssmenu').prepend('<div id="menu-button">Menu</div>');
         jQuery('#cssmenu #menu-button').on('click', function() {
 
-            if ($(window).width() < 767) {
+            if ($(window).width() < 1023) {
                 $('body').toggleClass('open_left_side_mobile');
                 $('body').removeClass('open_left_side');
             }
@@ -231,7 +231,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 
         });
         jQuery( window ).resize(function() {
-          if (jQuery(window).width() < 767) {
+          if (jQuery(window).width() < 1023) {
             jQuery('body').removeClass('open_left_side');
           }
           else{
