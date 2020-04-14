@@ -669,7 +669,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
         '#options' => $orgtype2,
-        '#prefix' => '</div><div class="org_notempty"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_uni" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '</div><div class="org_notempty"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i></h3><div class=items_div>',
         '#default_value' => $orgtype_2,
         );
       /*$orgname2 = array(
@@ -765,7 +765,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
         '#options' => $orgtype2,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i></h3><div class=items_div>',
         // '#default_value' => array_search($results12['athlete_uni_type'],$orgtype2),
 
         );
@@ -866,7 +866,7 @@ foreach ($terms as $term) {
       $form['education_2'] = array(
         '#type' => 'select',
         '#options' => $unitype,
-        '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i></h3><div class=items_div>',
         '#default_value' => $orgtype_3,
         );
       /*$uniname = array(
@@ -958,7 +958,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
         '#options' => $unitype,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i></h3><div class=items_div>',
         );
 
       $form['schoolname_2'] = array(
