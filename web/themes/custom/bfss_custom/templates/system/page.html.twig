@@ -76,7 +76,6 @@
               <div id="cssmenu">
                <div id="menu-button">
                       <span class=" toggle_icon fa fa-bars"></span>
-
             </div>
             </div>
             <div class="dashboard-menu">
@@ -91,7 +90,7 @@
       <div class="col-lg-10 col-md-12 header_rightbar">
          <div class="row">
             <div class="col-lg-6 col-md-3 col-sm-6 col-6 pr-0 pl-0 top_right">
-
+				
             {% if user_role == 0 %}
               <div class="calender_img">
                 <a href="/appointments/scheduled">
@@ -107,6 +106,31 @@
                 <p>My Athletic <br>
                   Profile
                 </p>
+              </div>
+            {% elseif user_role == 3 %}<!--BFSS MANAGER--> 
+            	<div class="calender_img athletes_follow">
+                <a href="#">
+                  <i class="fal fa-search"></i>
+                <p>Search<br>
+                Users
+                </p>
+                </a>
+              </div>
+              <div class="calender_img athletes_follow">
+                <a href="#">
+                  <i class="fal fa-alarm-clock"></i>
+                <p>Pending<br>
+                Assessments
+                </p>
+                </a>
+              </div>
+              <div class="calender_img athletes_follow">
+                <a href="#">
+                 <i class="fal fa-map-marker-plus"></i>
+                <p>Add New<br>
+                Organization
+                </p>
+                </a>
               </div>
             {% elseif user_role == 4 %} 
               <div class="calender_img athletes_follow">
@@ -214,100 +238,7 @@
                   </div>
                </div>
             </div>
-            <!-------Modal Pop start------>
-            <div class="profile-right-modal">
-               <div class="container">
-                  <!-- The Modal -->
-                  <div class="modal fade" id="my-profile-Modal">
-                     <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                           <!-- Modal Header -->
-                           <div class="modal-header">
-                              <h4 class="modal-title">Welcome Jodi,to continue you must complete all the required
-                                 fields below.
-                              </h4>
-                              <!--  <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                           </div>
-                           <!-- Modal body -->
-                           <div class="modal-body">
-                              <div class="row">
-                                 <div class="col-md-7">
-                                    <button class="accordion">ATHLETE'S INFORMATION <i class="fas fa-info"></i></button>
-                                    <div class="panel">
-                                       <input type="text" name="name" placeholder="Jodi">
-                                       <input type="text" name="name" placeholder="Blogs">
-                                       <div class="form-group">
-                                          <select class="form-control" id="sel1">
-                                             <option>AZ</option>
-                                             <option>AB</option>
-                                             <option>AC</option>
-                                             <option>AD</option>
-                                          </select>
-                                       </div>
-                                       <input type="text" name="name" placeholder="City">
-                                       <div class="form-group">
-                                          <select class="form-control" id="sel1">
-                                             <option>Birth Gender</option>
-                                             <option>Male</option>
-                                             <option>Female</option>
-                                          </select>
-                                       </div>
-                                       <input type="text" name="name" placeholder="DOB:MM/DD/YYYY">
-                                       <input type="text" name="name" placeholder="Height in Inches">
-                                       <input type="text" name="name" placeholder="Weight in Pounds">
-                                    </div>
-                                    <!-------SOCIAL/CLUB/UNIVERSITY---SEC--- START-->
-                                    <div class="social-club-sec">
-                                       <button class="accordion">SOCIAL/CLUB/UNIVERSITY <i class="far fa-trash-alt"></i></button>
-                                       <div class="panel">
-                                          <div class="form-group">
-                                             <select class="form-control" id="sel1">
-                                                <option>Organization Type</option>
-                                                <option>ABCD</option>
-                                                <option>ABCD</option>
-                                                <option>ABCD</option>
-                                             </select>
-                                          </div>
-                                          <div class="form-group">
-                                             <select class="form-control" id="sel1">
-                                                <option>Organization Name</option>
-                                                <option>ABCD</option>
-                                                <option>ABCD</option>
-                                                <option>ABCD</option>
-                                                <option>ABCD</option>
-                                             </select>
-                                          </div>
-                                          <input type="text" name="name" placeholder="Coach's Last Name(Optional)">
-                                          <input type="text" name="name" placeholder="Sports">
-                                          <input type="text" name="name" placeholder="Position">
-                                          <h3><a href="#"><i class="fal fa-plus"></i>Additional Position</a></h3>
-                                          <textarea placeholder="Your Stats" rows="4"></textarea>
-                                       </div>
-                                       <h3 class="add-organization"><a href="#"><i class="fal fa-plus"></i>Add Another Organization</a></h3>
-                                    </div>
-                                    <!-------SOCIAL/CLUB/UNIVERSITY---SEC--- END-->
-                                 </div>
-                                 <div class="col-md-5">
-                                    <div class="socila-media-sec">
-                                       <button class="accordion">SOCIAL MEDIA <i class="fas fa-info"></i></button>
-                                       <div class="panel">
-                                          <input type="text" name="name" placeholder="Your Instagram Account(Optional)">
-                                          <input type="text" name="name" placeholder="Your Youtube / Vimeo Channel(Optional)">
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Modal footer -->
-                           <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!-------Modal Pop End------>
+            
             <!----------- profile pop up -----End--------- -->
          </div>
       </div>
@@ -416,7 +347,7 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-chart-network"></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-school"></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
                            <li><a class="side_button"  href="#">View / Edit</a></li>
@@ -427,10 +358,24 @@
                   </nav>
                </li>
 
+
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-chart-network"></i><span class="side_menu_text">Assessments</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-calendar-alt"></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
+
+                        <ul class="dropdown-menu">
+                           <li><a class="side_button"  href="#">Group Assessments</a></li>
+                           <li><a class="side_button"  href="#">Private Assessments</a></li>
+                        </ul>
+                     </div>
+                  </nav>
+               </li>
+
+               <li class="sub-menu-drop">
+                  <nav>
+                     <div class="dropdown">
+                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-chart-bar"></i><span class="side_menu_text">Assessments</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
                            <li><a class="side_button"  href="#">Pending Assessments</a></li>
@@ -440,11 +385,33 @@
                </li>
 
                 <li {% if (current_path == '/editable-templates') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
-                  <a href="#" class="side_button menulink my_assess"><i class="far fa-search"></i><span class="side_menu_text">Editable Templates</span></a>
+                  <a href="#" class="side_button menulink my_assess"><i class="far fa-edit"></i><span class="side_menu_text">Editable Templates</span></a>
                </li>
 
+                <li class="sub-menu-drop">
+                  <nav>
+                     <div class="dropdown">
+                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-hand-holding-usd"></i><span class="side_menu_text">Revenue</span><span class="down-arrow fa fa-angle-down"></span></a>
+
+                        <ul class="dropdown-menu">
+                           	<li><a class="side_button"  href="#">Managers Pending Payment</a></li>
+                            <li><a class="side_button"  href="#">Managers Paid</a></li>
+                            <li><a class="side_button"  href="#">Organizations Pending Payment</a></li>
+                            <li><a class="side_button"  href="#">Organizations Paid</a></li>
+                        </ul>
+                     </div>
+                  </nav>
+               	</li>
+
+               	<li {% if (current_path == '/editable-templates') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
+                  <a href="#" class="side_button menulink my_assess"><i class="far fa-lightbulb-on"></i><span class="side_menu_text">FAQ's</span></a>
+               </li>
+
+               <li {% if (current_path == '/editable-templates') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
+                  <a href="#" class="side_button menulink my_assess"><i class="far fa-ticket-alt"></i><span class="side_menu_text">Ticketing</span></a>
+               </li>
             
-              {% elseif user_role == 2 %}
+              {% elseif user_role == 2 %}<!--FOR COACH-->
             
                <li {% if (current_path == '/search-athlete') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
                   <a href="/search-athlete" class="side_button menulink my_assess"><i class="far fa-search"></i><span class="side_menu_text">Search</span></a>
@@ -481,22 +448,22 @@
                      </div>
                   </nav>
                </li>
-			   {% elseif user_role == 3 %}
+			   {% elseif user_role == 3 %}<!--FOR BFSSS MANAGER-->
 			   <li class="sub_menu">
-                  <a href="/search-athlete" class="side_button menulink my_assess"><i class="far fa-search"></i><span class="side_menu_text">Pending Assessments</span></a>
+                  <a href="#" class="side_button menulink my_assess"><i class="fal fa-chart-bar"></i><span class="side_menu_text">Pending Assessments</span></a>
                </li>
                
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a  class="drop">
-                          <i class="fal fa-users"></i><span class="side_menu_text funds_dropdown">Users</span><span class="down-arrow fa fa-angle-down"></span>
+                        <a  {% if (current_path == '/view-edit-active') or (current_path == '/view-edit-deactive') or (current_path == '/search-athlete') %} class="drop active" {% else %} class="drop" {% endif %}>
+                          <i class="fal fa-user"></i><span class="side_menu_text funds_dropdown">Users</span><span class="down-arrow fa fa-angle-down"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                           <li><a class="side_button"  href="/bfss-funds"><span class="side_menu_text bfssAthleteProfile">View/Edit Active</span> </a></li>
-                           <li><a href="/term-conditions-of-funds">View / Edit Deactivated</a></li>
-                           <li><a href="/term-conditions-of-funds">Search Athletes</a></li>
+                           <li><a class="side_button"  href="/view-edit-active"><span class="side_menu_text bfssAthleteProfile">View/Edit Active</span> </a></li>
+                           <li><a href="/view-edit-deactive">View / Edit Deactivated</a></li>
+                           <li><a href="/search-athlete">Search Athletes</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -508,7 +475,7 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-school"></i></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li ><a href="/faqs"> View / Edit </a></li>
                            <li><a href="#">Add New</a></li>
@@ -521,7 +488,7 @@
 			   <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-calendar"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li ><a href="/faqs"> Group Assessments </a></li>
                            <li><a href="#">Private Assessments</a></li>
@@ -532,7 +499,7 @@
                </li>
 			   
 			   <li class="sub_menu">
-                  <a href="/search-athlete" class="side_button menulink my_assess"><i class="far fa-ticket"></i><span class="side_menu_text">Ticketing</span></a>
+                  <a href="/search-athlete" class="side_button menulink my_assess"><i class="fal fa-ticket-alt"></i><span class="side_menu_text">Ticketing</span></a>
                </li>
 			   
                 {% endif %}
@@ -557,6 +524,7 @@
         {# Content #}
         {% block content %}
           <a id="main-content"></a>
+		  
           {{ page.content }}
         {% endblock %}
       </section>

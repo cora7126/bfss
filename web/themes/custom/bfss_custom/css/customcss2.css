@@ -12,3 +12,14 @@
   .assessment_inner .top-head{margin-bottom:15px !important}
   .timing span{bottom:-5px !important}
   .textdata{margin:10px 0;font-size:15px;}
+  
+  .right_side_section, .edit-user .region-content, .payment-receipts .region-content, .add-organization .region-content, .edit-parent .region-content, .faq-page .region-content{
+	width:calc(100% - 19%);
+	transition:width 0.5s
+  }
+  .customselectcss{padding:0px !important;}
+  .messages__wrapper{display:block !important;margin-top:15px;padding:0 22px;}
+  .alert-dismissible{padding-right:0rem !important}
+  .alert{padding:.75rem 1.25rem !important}
+  .alert-dismissible .close{padding: 0px !important}
+  .close span{top: 0px !important;font-size:15px !important}

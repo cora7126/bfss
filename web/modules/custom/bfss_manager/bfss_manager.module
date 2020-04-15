@@ -20,5 +20,15 @@ function bfss_manager_theme() {
     'template' => 'bfssmanager_profile_dashboard',
   ];
 
+  $theme['view_edit_active_page'] = [
+    'variables' => ['name' => NULL,'view_edit_active_block' => NULL],
+    'template' => 'view_edit_active',
+  ];
+
+  $theme['view_edit_deactive_page'] = [
+    'variables' => ['name' => NULL,'view_edit_deactive_block' => NULL],
+    'template' => 'view_edit_deactive',
+  ];
+
   return $theme;
 }

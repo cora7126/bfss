@@ -193,6 +193,9 @@ foreach ($terms as $term) {
 	$orgpos2_3='';
 	$orgpos3_3='';
 	$orgstats_3='';
+	$orgsport_1_id='';
+	$orgsport_2_id='';
+	$orgsport_3_id='';
 	// echo "<pre>";
 	// print_r($results18);
 	// die;
@@ -447,8 +450,8 @@ foreach ($terms as $term) {
       '#placeholder' => t('City'),
       '#default_value' => $results18['field_city'],
       );
-		$array=array('1'=>'Male','2'=>'Female','3'=>'Other');
-		$namesex=$array[$results18['field_birth_gender']];
+		/*$array=array('1'=>'Male','2'=>'Female','3'=>'Other');
+		$namesex=$array[$results18['field_birth_gender']];*/
 		
 	
     $form['sextype'] = array(

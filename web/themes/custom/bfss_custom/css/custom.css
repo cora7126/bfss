@@ -14,7 +14,6 @@ p.note{margin-left:1%;background-color:#cecece;width:50%;padding-left:4px;color:
 .assessment_inner img{border:10px solid #fff;border-top:15px solid #fff;box-shadow:0px 0px 6px #6b6b6b;}
 .timing-date{background:#f76907;color:#fff;flex-wrap:wrap;justify-content:space-around;align-items:center;padding:2px 7px;font-weight:500;}
 .timing-info{background:#f76907;color:#fff;flex-wrap:wrap;justify-content:space-around;align-items:center;padding:2px 7px;font-weight:500;}
-.timing h2{font-size:25px;font-weight:600;margin:0;}
 .assessment_inner .node-body{padding:0 0 20px;color:#000;font-size:12px;}
 .upcoming-group-assessments .col.assessment_inner{width:unset!important;}
 .categories-tags ul{display:flex;flex-wrap:wrap;padding:0;text-align:left;position:relative;list-style:none;}
@@ -70,13 +69,12 @@ p.note{margin-left:1%;background-color:#cecece;width:50%;padding-left:4px;color:
 .close{position:relative!important;z-index:1!important;margin-right:10px;}
 .categories-tags ul li:nth-of-type(2){margin-left:10px;}
 
- html .container{max-width:100%!important;}
-html body{margin-top:0!important;padding:0 !important;}
+
 .weblabel{padding:13px 0px 0px 15px !important;float:left;width:42%;}
 .container-inline.web_name.webfield div.form-item{padding-left:0;}
 .container-inline.web_name.webfield{width:58%;float:right;}
 button:focus{outline:unset!important;}
-.timing h2{margin:0;}
+
 
 .footer_bt .trm_pr, .address_em{list-style:none;display:flex;flex-wrap:wrap;justify-content:start;font-size:15px;padding:0;margin:0;}
 .footer_bt .trm_pr li, .address_em li{margin-right:15px;color:#717071;font-family:'Proxima Nova Rg';font-size:12px;}
@@ -88,7 +86,6 @@ button:focus{outline:unset!important;}
 button:focus{outline:unset!important;}
 div#drupal-modal{background-color:rgba(0, 0, 0, 0.68)!important;}
 .ui-dialog-content{padding:0!important;margin-top:-1px;overflow:hidden!important;}
-div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap:10px;}
 .scheduled_appointment.container:before, .scheduled_appointment.container:after{content:unset!important;}
 .scheduled_appointment .row{display:grid;grid-template-columns:1fr 1fr 1fr;grid-gap:20px;column-gap:20px;}
 .scheduled_appointment .row:before{content:unset!important;}
@@ -96,7 +93,7 @@ div#upcoming_bk{display:grid;grid-template-columns:1fr 1fr 1fr;margin:0;grid-gap
 .container.scheduled_appointment{max-width:1170px !important;margin:auto;border:none;background:transparent !important;padding:0 40px 0;}
 
 .block-bfss-assessment .assessment_block, .block-bfss-assessment .assessment_block span{font-family:Montserrat;font-weight:normal;}
-.block-bfss-assessment .assessment_block h2{font-family:Montserrat;font-weight:bold;}
+
 .dash-main-right h1, .dash-main-right h2, .quick-link{font-family:montserrat, sans-serif;font-weight:normal;}
 
 
@@ -119,8 +116,3 @@ div#sidenav .drop.active i{color:#fff !important;}
 #drupal-modal--content{max-height:auto !important;}
 .timing-info{margin-top:-10px !important;}
 .form-control{font-family:montserrat, sans-serif !important}
-/* Palvi CSS */
-.bfssmanager-dashboard div#upcoming_bk{grid-template-columns:.5fr .5fr .5fr !important;/* margin:0 -15px; !important */;grid-gap:2px !important}
-.bfssmanager-dashboard #block-upcominggroupassessments .col{width:100% !important;margin:0 !important}
-.bfssmanager-dashboard .timing h2{font-size:15px !important}
-/* Palvi CSS end*/
