@@ -1,6 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 
+html .container{max-width:100% !important;}
+html body{margin-top:0 !important;padding:0 !important;}
+.row{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
 .edit-user div.main_header{margin:0 0 20px;}
 .edit_header h2{font-size:30px;line-height:26px;padding:0 0 3px 10px;font-family:montserrat, Sans-Serif;}
 /**************** DASHBOARD CSS STARTS HERE *******************/
@@ -48,14 +51,14 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .tab-main-sec .tab-main-sec-heading h2 span:after{content:" ";height:3px;background:transparent url("../images/grey-dot.png") repeat-x left center/5px 5px;width:100%;display:block;position:absolute;left:0;bottom:-8px;opacity:.6;}
 .tab-main-sec .tab-main-sec-heading h2 i{color:#4c4c4c;font-size:20px;line-height:20px;position:relative;top:2px;}
 .dashboard .search_icon{text-align:right;}
-.dashboard .search_icon a{line-height:20px;color:#000;opacity:.6;}
+.dashboard .search_icon a{line-height:26px;color:#000;opacity:.6;}
 .search_icon_field{display:inline-block;height:25px;border:1px solid #ced4da;margin:0;padding:0 20px;position:relative;width:112px;border-radius:5px;}
 .search_icon_field > i{position:absolute;color:#000;right:5px;top:6px;opacity:.6;font-weight:600;}
 .search_icon_field > i:first-child{left:5px;right:auto;}
-.dashboard .search_icon a{line-height:48px;color:#909090;}
 #date-picker-example{display:inline-block;border-color:transparent;border-radius:0;padding:0;text-align:center;box-shadow:none;outline:0;position:relative;top:0;height:24px;}
 #date-picker-example:hover, #date-picker-example:focus{outline:none;box-shadow:none;}
-.tab-main-sec .tab-nav{border-top:1px solid #9090906b;padding:0;}
+.tab-main-sec .tab-nav{border:0;padding:0;}
+
 
 .tab-nav ul{list-style-type:none;padding:10px 0 0;}
 .tab-nav ul li{display:inline-block;padding-right:20px;}
@@ -79,15 +82,14 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .bfss-main .content-bfss p .switch .slider.round::before{border-radius:50%;}
 
 /* --------- DASHBOARD ASSESMENT BLOCK CSS STARTS HERE *******************/
-.assessment_block .timing h2{color:#000;}
-.block-assessments-view-block{width:100%;float:left;display:block;}
-#block-assessmentscustomview .container{padding:0 !important;}
-#block-assessmentscustomview .assessment_block{margin:0;width:100%;float:left;}
-#block-assessmentscustomview .col.assessment_inner{padding:5px;background:#fffcd7;margin:5px 10px;width:calc(33.3% - 20px) !important;border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset;
-    flex-basis:unset;-ms-flex-positive:unset;flex-grow:unset;}
-#block-assessmentscustomview .assessment_block .timing h2{font-size:16px;padding-right:25px;}
+.assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;}
+.block-bfss-assessment{width:100%;float:left;display:block;}
+.block-bfss-assessment .container{padding:0;margin:0;}
+.block-bfss-assessment .container .assessment_block{margin:0;width:100%;float:left;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
+.block-bfss-assessment .container .assessment_block .col.assessment_inner{padding:5px;background:#f1f3f2;margin:5px 7.5px;width:calc(33.3% - 15px);border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset; flex-basis:unset;-ms-flex-positive:unset;flex-grow:unset;}
 
-#block-upcominggroupassessments .col{width: 24%;display: inline-block; margin: 10px; padding:10px; background-color:#fffcd7; cursor: pointer;}
+
+
 /* --------- DASHBOARD DETAILS POPUP CSS STARTS HERE *******************/
 
 .dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{max-height:84vh;margin:8vh 0;border:none;padding:30px 50px 50px;}
@@ -341,7 +343,6 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .calender_img a {text-decoration: none;}
 
 /************ SELECT MONTH CSS STARTS HERE **************/
-.month_filter{margin:5px 0 0;}
 .month_filter, .month_filter form{width:100%;float:left;display:block;}
 .month_filter form span#dateofshow{float:left;margin-right:15px;}
 .month_filter form span#dateofshow i{float:left;line-height:30px;font-size:18px;position:relative;top:1px;color:#ccc;}
@@ -399,7 +400,7 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before{content:"\e253";}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{content:"\e252";}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 12px;text-transform:capitalize;position:relative;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td{color:#000;font-size:13px;padding:15px 12px;text-transform:capitalize;position:relative;vertical-align:middle;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#EB6E06;position:relative;padding-right:30px;font-size:13px;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
@@ -453,7 +454,7 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 #edit-follow-unfollow .control-label span i{color:#fc6703;font-size:20px;}
 /*************** EDIT FOLLOW UNFOLLOW CSS ENDS HERE ******************/
 
-#block-upcominggroupassessments .container{padding:0;margin:0 -10px;}
+
 #follow-unfollow-form .submit-follow-btn{display:none;}
 .drupal-assess-fm .modal-header{position:relative;}
 .drupal-assess-fm .modal-header button.close{position:absolute !important;padding:0;margin:0;right:0;top:0;}
@@ -496,7 +497,8 @@ ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;co
 ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 .result_message{width:100%;text-align:center;color:green;font-size:16px;}
 
-
+i.fas.edit_image_solid, i.far.edit_image_solid,i.fal.edit_image_solid {width: 72px;height: 72px;margin-right: 12px;font-size: 36px;border: 2px solid;border-radius: 50%;padding: 15px;line-height: 46px !important;color: #EB6E06;
+}
 /******************MY Assessments Page Strat here************************/
 .myassess_main_pxl.user_pro_block .block-bfss-assessors{border-bottom:1;border-left:1;border-right:1;}
 .centeralizeRow span{font-size:110px;font-weight:bold;color:#EB6E06;margin-right:30px;}
@@ -558,23 +560,33 @@ span.side_menu_text.funds_dropdown {color:#fff;cursor:pointer;}
 .col-lg-12.col-md-12.terms-funds{padding-top:30px;}
 .col-lg-12.col-md-12.terms-funds p{font-size:16px;}
 i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-size:36px;border:2px solid;border-radius:50%;padding:12px;line-height:46px !important;color:#EB6E06;}
+.accordion_tabs_block .eventlisting_main.user_pro_block{padding:0;margin:0;}
 .accordion_tabs_block .user_pro_block .block-bfss-assessors{padding:0;}
 .left_section .athlete_left h3 >  i, .right_section .athlete_right h3 > i{padding:0;right:15px;top:13px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
-	#block-assessmentscustomview .col.assessment_inner{width:100% !important;margin:5px 0;}
+	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:100%;margin:5px 0;}
 	.scoreChartBlock .row > div{width:100%;}
 	.smallScores{margin:0 0 15px;}
-	.user-info .item_image{height:100%;}
+	.user-info .item_image, .user-info .bio_data{height:100%;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%;}
+	.user-info .bio_data{padding:0;}
 	.user-info .item_image .image{min-height:180px;}
+	.social_icons_top, .social_icons_top .icons_only, .social_icons_top .star_icon{width:100%;float:left;display:block;}
+	.social_icons_top .icons_only{border-right:0;border-bottom:1px solid #f56907;text-align:center;padding:0 0 10px;}
+	.social_icons_top .star_icon{margin:0;}
+	.social_icons_top .star_icon .follow-unfollow{width:100%;float:left;text-align:center;}
 }
 
 @media(min-width:580px) and (max-width:767px) {
-	#block-assessmentscustomview .col.assessment_inner{width:calc(50% - 20px) !important;}
+	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:calc(50% - 15px);}
 }	
 
 @media (max-width:767px) {
+	div.dataTables_wrapper .dataTables_info{width:100%;margin:0 0 10px;padding:0;}
+	.dataTables_paginate.paging_simple_numbers{width:100%;text-align:center;}
+	.dataTables_paginate.paging_simple_numbers a.paginate_button{display:inline-block;float:none;}
+	div.dataTables_wrapper .dataTables_filter label input{max-width:145px;float:right;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
@@ -610,7 +622,20 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 	div#drupal-modal{z-index:99999;}
 	#drupal-modal .modal-dialog.js-drupal-dialog{margin:15px;}
 	#block-upcominggroupassessments div.container{margin:0;}
-	.toggler-wrap .toggle-content{margin:0 0 10px;}
+	.toggler-wrap .toggle-content{margin:0 0 10px;padding:20px 15px;}
+	.org_name_tabs .orgradios span{font-size:13px;min-width:1px;}
+	.search_athlete_main.user_pro_block .block-bfss-assessors{padding:15px 0;}
+	.payment_pending_dv .search_athlete_main.user_pro_block{margin:0;}
+	.dashboard .region-footer .footer_bt, .user_pro_block{padding:0;}
+	body.dashboard .dash-main-right h1{padding:15px;}
+	.user-info .bio_data{font-size:16px;line-height:18px;margin:10px 0 0;}
+	.toggle-content iframe{width:100%;}
+	.space{padding:15px 0;}
+	.social_icons_top{margin:0;}	
+	.user-stats h6{line-height:15px;margin:5px 0 10px;}
+	.user-stats{margin-top:20px;}
+	.dashboard .tab-nav ul{text-align:center;}
+	.dashboard .tab-nav ul li{padding:0 5px;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/

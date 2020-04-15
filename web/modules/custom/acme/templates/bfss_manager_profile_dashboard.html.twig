@@ -36,42 +36,42 @@
                   <div class="row">
                      <div class="col-md-3 mob_bottom_margin">
                         <div class="quick-link-sub-sec">
-                           <i class="fal fa-user"></i>
-                           <p><a class="datainfo" href="/appointments/scheduled">View / Edit <br>
+                           <i class="fas fa-user"></i>
+                           <p><a class="datainfo" href="#">View / Edit <br>
                               Users</a>
                            </p>
                         </div>
                      </div>
                      <div class="col-md-3 mob_bottom_margin">
                         <div class="quick-link-sub-sec">
-                           <i class="far fa-clock"></i>
+                           <i class="fas fa-alarm-clock"></i>
                            <p>Pending <br>
                               Assessments
                            </p>
                         </div>
                      </div>
                      <div class="col-md-3 mob_bottom_margin">
-                           <a href='/bfssAthleteProfile' class="atheltic_link">
+                           <a href='#' class="atheltic_link">
                               <div class="quick-link-sub-sec">
-                           <i class="far fa-search"></i>
-                              <p>Search <br />Athletes</p>
+                           <i class="fas fa-search"></i>
+                              <p>Search <br/>Athletes</p>
                         </div>
                            </a>
                      </div>
                      <div class="col-md-3">
                         <div class="quick-link-sub-sec">
                            <i class="fas fa-map-marker-plus"></i>
-                           <p><a class="datainfo" href="/add_organization">Add New<br>
+                           <p><a class="datainfo" href="#">Add New<br>
                               Organizations</a>
                            </p>
                         </div>
                      </div>
                   </div>
-				  
-				  <div class="row  mt-5">
+              
+              <div class="row  mt-5">
                      <div class="col-md-3 mob_bottom_margin">
                         <div class="quick-link-sub-sec">
-                           <i class="fal fa-calendar-alt"></i>
+                           <i class="fas fa-school"></i>
                            <p><a class="datainfo" href="/appointments/scheduled">View / Edit <br>
                               Organizations</a>
                            </p>
@@ -79,35 +79,31 @@
                      </div>
                      <div class="col-md-3 mob_bottom_margin">
                         <div class="quick-link-sub-sec">
-                           <i class="far fa-chart-bar"></i>
+                           <i class="fas fa-running"></i>
                            <p>Private <br>
                               Assessments
                            </p>
                         </div>
                      </div>
                      <div class="col-md-3 mob_bottom_margin">
-                           <a href='/bfssAthleteProfile' class="atheltic_link">
+                           <a href='#' class="atheltic_link">
                               <div class="quick-link-sub-sec">
-                           <i class="far fa-users"></i>
+                          <i class="fas fa-users"></i>
                               <p>Group <br />Assessments</p>
                         </div>
                            </a>
                      </div>
                      <div class="col-md-3">
                         <div class="quick-link-sub-sec">
-                           <i class="fas fa-ticket"></i>
+                           <i class="fas fa-ticket-alt"></i>
                            <p><a class="datainfo" href="/faqs">Ticketing<br>
                               Systems</a>
                            </p>
                         </div>
                      </div>
-                  </div>
-                  
-                  
-                 
+                  </div> 
                </div>
                <div class="col-lg-3">
-                  {% if rolename == 'bfss_manager' %}
                   <div class="my-assessment">
                      <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i>Pending Approval</button>
                      <div class="panel">
@@ -122,32 +118,9 @@
                         </div>
                          <div class="panel_row">    
                            <h3>EI Monte Community College EI Monte, CA</h3>
-                           
                         </div>
-                         
                      </div>
                   </div>
-                  {% else %}
-                  <div class="my-assessment">
-                     <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i> MY ASSESSMENTS</button>
-                     <div class="panel">
-                        <div class="panel_row">                           
-                           <h3>Elite Assessment</h3>
-                           <p>December 29,2019</p>
-                        </div>
-                        <div class="panel_row">    
-                           <h3>Starter Assessment</h3>
-                           <p>September 29,2019</p>
-                        </div>
-                        <div class="panel_row">    
-                           <h3>Starter Assessment</h3>
-                           <p>March 29,2019</p>
-                        </div>
-                     </div>
-                  </div>  
-                  {% endif %}
-               
-
                </div>
             </div>
          </div>
@@ -170,7 +143,7 @@
                      </div>   
                      </div>
                   </div>
-				  <hr/>
+              <hr/>
                   <div class="tab-nav">
                      <ul class="mb-4">
                         <li><a href="javascript:void(0);">Categories </a> </li>
@@ -180,7 +153,7 @@
                      </ul>
                   </div>
                   <!-- ---------Profile Card---HTML----Start-->
-               {{ assessments_block }}
+               {{ bfss_manager_profile_dashboard_block }}
           <!-- ---------Profile Card---HTML----End-->
           
                </div>

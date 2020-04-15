@@ -18,9 +18,15 @@ function acme_theme() {
     'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'rolename' => NULL],
     'template' => 'hello',
   ];
+
   $theme['assessors_profile_dashboard_page'] = [
     'variables' => ['name' => NULL,'event_listing_block' => NULL,'private_assessment_listing_block' => NULL],
     'template' => 'assessors_profile_dashboard',
+  ];
+
+  $theme['bfss_manager_profile_dashboard_page'] = [
+    'variables' => ['name' => NULL,'bfss_manager_profile_dashboard_block' => NULL,'month_block' => NULL],
+    'template' => 'bfss_manager_profile_dashboard',
   ];
 
 

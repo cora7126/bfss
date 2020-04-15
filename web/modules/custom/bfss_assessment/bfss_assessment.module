@@ -218,7 +218,7 @@ function bfss_assessment_user_login($account) {
         return;
 	}
 	if(isset($roles) && in_array('bfss_manager', $roles)){
-        $response = new RedirectResponse("/bfssmanager_dashboard");
+        $response = new RedirectResponse("/dashboard");
         $response->send();
         return;
     }
