@@ -1,0 +1,7 @@
+bfss_organizations.add_organizations:
+ path: '/add-organizations'
+ defaults:
+   _title: 'Add Organizations'
+   _form: '\Drupal\bfss_organizations\Form\AddOrganizations'
+ requirements:
+   _permission: 'access content'
