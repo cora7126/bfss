@@ -125,7 +125,7 @@
                 </a>
               </div>
               <div class="calender_img athletes_follow">
-                <a href="#">
+                <a href="/add-organizations">
                  <i class="fal fa-map-marker-plus"></i>
                 <p>Add New<br>
                 Organization
@@ -150,7 +150,7 @@
                 </a>
               </div>
               <div class="calender_img athletes_follow">
-                <a href="#">
+                <a href="/add-organizations">
                  <i class="fal fa-map-marker-plus"></i>
                 <p>Add New<br>
                 Organization
@@ -475,11 +475,11 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-school"></i></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/view-edit-organizations') or (current_path == '/add-organizations') or (current_path == '/pending-approval')%} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-school"></i></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                           <li ><a href="/faqs"> View / Edit </a></li>
-                           <li><a href="#">Add New</a></li>
-                           <li><a href="#">Pending Approval</a></li>
+                           <li ><a href="/view-edit-organizations"> View / Edit </a></li>
+                           <li><a href="/add-organizations">Add New</a></li>
+                           <li><a href="/pending-approval">Pending Approval</a></li>
                         </ul>
                      </div>
                   </nav>
