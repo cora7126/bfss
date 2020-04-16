@@ -4,7 +4,8 @@ bfss_coach.term_conditions_of_funds:
     _controller: '\Drupal\bfss_coach\Controller\TermsConditionsOfFunds::content' 
     _title: 'Terms Conditions Of Funds'
   requirements: 
-    _permission: 'access content' 
+    #_permission: 'access content' 
+    _role: 'coach'
 
 bfss_coach.search_athlete:
   path: '/search-athlete' 
@@ -20,7 +21,8 @@ bfss_coach.bfss_funds:
     _controller: '\Drupal\bfss_coach\Controller\Bfss_Funds::content' 
     _title: 'Bfss Funds'
   requirements: 
-    _permission: 'access content' 
+    #_permission: 'access content' 
+    _role: 'coach'
 
 bfss_coach.athletes_follow:
   path: '/athletes-follow' 
@@ -28,7 +30,8 @@ bfss_coach.athletes_follow:
     _controller: '\Drupal\bfss_coach\Controller\AthletesFollow::content' 
     _title: 'Athletes Follow'
   requirements: 
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'coach'
 
 bfss_coach.athletes_unfollow_form:
  path: '/athletes-unfollow-form'
@@ -36,7 +39,8 @@ bfss_coach.athletes_unfollow_form:
    _title: 'Athletes Unfollow'
    _form: '\Drupal\bfss_coach\Form\AthletesUnfollowForm'
  requirements:
-   _permission: 'access content'
+   #_permission: 'access content'
+   _role: 'coach'
 
 bfss_coach.edit_coach_profile:
  path: '/dashboard/edit-coach-profile'
@@ -44,16 +48,8 @@ bfss_coach.edit_coach_profile:
    _title: 'Edit Coach Profile'
    _form: '\Drupal\bfss_coach\Form\EditCoachUserProfile'
  requirements:
-   _permission: 'access content'
-
-
-bfss_coach.ajaxlink:
-  path: '/custom_ajax_link/{name}' 
-  defaults: 
-    _controller: '\Drupal\bfss_coach\Controller\CustomAjaxLinkController::customAjaxLinkAlert' 
-    _title: 'Athletes Follow'
-  requirements: 
-    _permission: 'access content'
+   #_permission: 'access content'
+   _role: 'coach'
 
 bfss_coach.coach_edit_form:
   path: '/coach-edit-form' 
@@ -61,4 +57,5 @@ bfss_coach.coach_edit_form:
     _controller: '\Drupal\bfss_coach\Controller\CoachEditProfile::content' 
     _title: 'Edit Profile'
   requirements: 
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'coach'
