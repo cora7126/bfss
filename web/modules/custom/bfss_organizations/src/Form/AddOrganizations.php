@@ -43,7 +43,7 @@ class AddOrganizations extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'request_rental_verification_form';
+    return 'add_organizations_form';
   }
 
   /**
@@ -89,6 +89,7 @@ class AddOrganizations extends FormBase {
       $form['resident'][$i]['state'] = [
         '#placeholder' => t('State'),
         '#type' => 'select',
+         '#required' => TRUE,
         '#options' => $states,
         '#default_value' => '',
       ];
@@ -97,6 +98,7 @@ class AddOrganizations extends FormBase {
       $form['resident'][$i]['type'] = [
         '#placeholder' => t('Type'),
         '#type' => 'select',
+         '#required' => TRUE,
         '#options' => $types,
         '#default_value' => '',
       ];
@@ -104,35 +106,35 @@ class AddOrganizations extends FormBase {
       $form['resident'][$i]['organization_name'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Organization Name'),
-        #'#required' => TRUE,
+        '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['address_1'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Address 1'),
-        #'#required' => TRUE,
+        '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['address_2'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Address 2'),
-        #'#required' => TRUE,
+        '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['city'] = [
         '#type' => 'textfield',
         '#title' => $this->t('City'),
-        #'#required' => TRUE,
+        '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['zip'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Zip'),
-        #'#required' => TRUE,
+        '#required' => TRUE,
         '#default_value' => '',
       ];
 
@@ -206,12 +208,41 @@ class AddOrganizations extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    echo "<pre>";
-    print_r($form_state->getValues());
-    die;
-     foreach ($form_state->getValues() as $key => $value) {
-      drupal_set_message($key . ': ' . $value);
+            if(!empty($form_state->getValues('resident')['resident'])){
+                $data=[];
+             foreach($form_state->getValues('resident')['resident'] as $values) {   
+              if(!empty($values['organization_name'])){
+                $data[] = [
+                    'address_1' => $values['address_1'],
+                    'address_2' => $values['address_2'],
+                    'city' => $values['city'],
+                    'state' => $values['state'],
+                    'zip' => $values['zip'],
+                    'organization_name' => $values['organization_name'],
+                    'type' => $values['type'],
+                  ]; 
+              }
+                 
+             }
+        
+            foreach ($data as $key => $value) {
+              $node = Node::create([
+                     'type' => 'bfss_organizations',
+              ]);
+              $node->field_address_1->value = $value['address_1'];
+              $node->field_address_2->value = $value['address_2'];
+              $node->field_city->value = $value['city'];
+              $node->field_state->value = $value['state'];
+              $node->field_zip->value = $value['zip'];
+              $node->field_organization_name->value = $value['organization_name'];
+              $node->field_type->value = $value['type'];
+              $node->title->value = $value['type'].'-'.$value['organization_name'];
+              $node->setPublished(FALSE);
+              $node->save();
+            }
+              
     }
+        
   }
 
   /**
