@@ -32,10 +32,10 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<span>14.1</span>
 							</div>
 							<div class="rightText">
-								<h4>MY REACTIVE STRENGTH (IN)</h4>
+								<h4>MY REACTIVE STRENGTH (IN) <img src="/modules/custom/bfss_assessment/img/coin.png" class="sideIcon" alt=""></h4>
 								<p>Rebound Jump Test (RSI)</p>
 							</div>
-							<img src="/modules/custom/bfss_assessment/img/coin.png" class="sideIcon" alt="">
+							
 						</div>
 					</div>
 				</div>

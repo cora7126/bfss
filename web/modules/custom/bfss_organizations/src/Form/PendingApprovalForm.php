@@ -26,11 +26,11 @@ class PendingApprovalForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $param = \Drupal::request()->query->all();
 
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'bfss_organizations');
     $query->condition('status', 0, '=');
-   # $query->condition('field_type_of_assessment','private', '=');
     $nids = $query->execute();
     $form['#tree'] = TRUE;
 
@@ -70,6 +70,7 @@ class PendingApprovalForm extends FormBase {
           #'#title' => $this->t('Organization Name'),
           #'#required' => TRUE,
           '#default_value' => $field_organization_name,
+          '#attributes' => array('readonly' => 'readonly'),
         ];
 
 
@@ -78,6 +79,7 @@ class PendingApprovalForm extends FormBase {
          '#placeholder' => t('City'),
           #'#required' => TRUE,
           '#default_value' => $field_city,
+          '#attributes' => array('readonly' => 'readonly'),
         ];
         $states = $this->get_state();
         $form['resident'][$i]['state'] = [
@@ -86,6 +88,7 @@ class PendingApprovalForm extends FormBase {
           # '#required' => TRUE,
           '#options' => $states,
           '#default_value' => $field_state,
+           '#attributes' => array('readonly' => 'readonly'),
         ];
     
 
@@ -95,13 +98,14 @@ class PendingApprovalForm extends FormBase {
             '#type' => 'textfield',
             #'#required' => TRUE,
             '#default_value' => $field_type,
+            '#attributes' => array('readonly' => 'readonly'),
         ];
 
-        $url_approve = "/approve-organization-popup";
-        $url_edit = "/edit-organization-popup";
+        $url_approve = "/approve-organization-popup?nid=".$nid;
+        $url_edit = "/edit-organization-popup?nid=".$nid;
         $form['resident'][$i]['html_links'] = array(
          '#type' => 'markup',
-         '#markup' => '<div><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url_approve.'">APPROVE</a></p><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url_edit.'">EDIT</a></p></div>',
+         '#markup' => '<div><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-approve-org&quot;}" data-dialog-type="modal" href="'.$url_approve.'">APPROVE</a></p><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-edit-org&quot;}" data-dialog-type="modal" href="'.$url_edit.'">EDIT</a></p></div>',
         );
       }
     }

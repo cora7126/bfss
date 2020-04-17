@@ -1,6 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
-
+body a{color:#EB6E06;}
+body a:hover, body a:focus{text-decoration:underline;color:#EB6E06;}
 html .container{max-width:100% !important;}
 html body{margin-top:0 !important;padding:0 !important;}
 .row{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
@@ -26,7 +27,7 @@ div.quick-link{margin:40px 0;}
 .quick-link-sub-sec i{font-size:40px;color:#EB6E06;margin-bottom:10px;}
 div.mob_bottom_margin .quick-link-sub-sec p, .quick-link-sub-sec p{margin-bottom:0;font-size:12px !important;color:#000;font-weight:600;width:100%;line-height:16px;}
 div.mob_bottom_margin .quick-link-sub-sec p a, .quick-link-sub-sec p a{color:#000;text-decoration:none;font-size:12px !important;font-weight:600;line-height:16px;}
-div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-link-sub-sec:hover p a{color:#fff !important;}
+div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-link-sub-sec:hover p a{color:#ffd537 !important;}
 /* ---------Quick Link sec CSS ENDS HERE *******************/
 
 /* ---------Quick-Link-ACCORDIAN CSS STARTS HERE *******************/
@@ -185,7 +186,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .eventlisting_main.user_pro_block{padding:40px 0 0 0;}
 .private_assess_listing_main.user_pro_block{padding:0;}
 .eventlisting_main.user_pro_block h2, .private_assess_listing_main.user_pro_block h2{margin:0;}
-.submit-follow-label i{color:#fc6703;font-size:20px;}
+.submit-follow-label i{color:#fc6703;font-size:18px;}
 .dashboard .region-footer .footer_bt{padding:0 15px;}
 .col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section{cursor:pointer;}
 nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padding:23.8px 10px;}
@@ -260,7 +261,7 @@ a.drop:hover{text-decoration:none;}
 .pop_img_sec p{font-size:16px;text-align:left;}
 .pop_text_sec{text-align:left;}
 .pop_text_sec a p{margin-bottom:0px;line-height:35px;font-size:13px;color:#EB6E06;font-weight:500;}
-.pop_text_sec a p i{color:#000;margin-right:6px;}
+.pop_text_sec a p i{color:#000;margin-right:6px;width:20px;display:inline-block;}
 .pop_text_sec a:hover{text-decoration:none;}
 .pop_text_sec a p:hover{color:#000;}
  .pop_text_sec a i:hover{color:#EB6E06;}
@@ -497,10 +498,12 @@ ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;co
 ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 .result_message{width:100%;text-align:center;color:green;font-size:16px;}
 
-i.fas.edit_image_solid, i.far.edit_image_solid,i.fal.edit_image_solid {width: 72px;height: 72px;margin-right: 12px;font-size: 36px;border: 2px solid;border-radius: 50%;padding: 15px;line-height: 46px !important;color: #EB6E06;
-}
+i.fas.edit_image_solid, i.far.edit_image_solid, i.fal.edit_image_solid{width:72px;height:72px;margin-right:12px;font-size:36px;border:2px solid;border-radius: 50%;padding:15px;line-height:46px !important;color:#EB6E06;}
 /******************MY Assessments Page Strat here************************/
-.myassess_main_pxl.user_pro_block .block-bfss-assessors{border-bottom:1;border-left:1;border-right:1;}
+.wrapper #multistep-form-three div.js-form-item.form-item-first-name{margin:0 10px 15px 0 !important;}
+.wrapper #multistep-form-three div.js-form-item.form-item-last-name{margin:0 0 15px 10px !important;}
+.wrapper #multistep-form-three div.js-form-item.form-item-first-name, .wrapper #multistep-form-three div.js-form-item.form-item-last-name{float:left;width: calc(49.5% - 10px);padding:0;}
+.myassess_main_pxl.user_pro_block .block-bfss-assessors{border:0;}
 .centeralizeRow span{font-size:110px;font-weight:bold;color:#EB6E06;margin-right:30px;}
 .centeralizeRow{max-width:450px;margin:0 auto;display:flex;align-items:center;}
 .centeralizeRow h4, .infoRow h4{font-size:22px;color:#fff;margin-bottom:15px;max-width:250px;}
@@ -511,9 +514,9 @@ i.fas.edit_image_solid, i.far.edit_image_solid,i.fal.edit_image_solid {width: 72
 .infoRow .sideIcon{max-width:50px;float:right;}
 .infoRow span{font-size:60px;font-weight:bold;color:#EB6E06;margin-right:40px;}
 
-.accelaration{margin-top: 15px;}
-.accelaration .row{display: flex;justify-content: space-between;margin-bottom: 15px;}
-.accelaration .row::before,.accelaration .row::after{display:none;}
+.accelaration{margin-top:15px;}
+.accelaration .row{display:flex;justify-content:space-between;margin-bottom:15px;}
+.accelaration .row::before, .accelaration .row::after{display:none;}
 .accelaration .row > div{width:calc(50% - 8px);display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#e6e8e9;}
 .accelaration .row > .leftBg{background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;}
 .accelaration .centeralizeRow{max-width:100%;margin:0;}
@@ -523,8 +526,8 @@ i.fas.edit_image_solid, i.far.edit_image_solid,i.fal.edit_image_solid {width: 72
 .centeralizeRow.whiteDesc p{color:#fff;}
 .centeralizeRow p{font-size:16px;}
 
-a.side_button.menulink.my_assess{color: #fff;}
-.myassess_main_pxl .myassess_records {padding: 0;}
+a.side_button.menulink.my_assess{color:#fff;}
+.myassess_main_pxl .myassess_records{padding:0;}
 /******************MY Assessments Page End here***********************/
 
 .assessment-payment #multistep-form-four select{height:calc(1.5em + .75rem + 2px);color:#555555;font-size:14px}
@@ -532,7 +535,7 @@ a.side_button.menulink.my_assess{color: #fff;}
 
 /********************my assessment score bar start here**********/
 .change_pass{padding:0 15px;font-size:14px;}
-a.change_pass, a.change_pass:hover{color:#f76907;}
+a.change_pass, a.change_pass:hover{color:#EB6E06;}
 .faq-text-area{font-size:16px;margin:30px 0;padding:0 15px;font-family:'montserrat, Sans-Serif';text-align:justify}
 #edit-form .assessor-btn.user-submit-button{position:relative;bottom:0;left:15px;padding:0;}
 .right_section .athlete_right .changepassdiv-modal .change_password_button{float:right;margin-right:15px;color:#fff;font-size:13px;text-transform:uppercase;background:#EB6E06 !important;display:block;height:32px;line-height:14px;}
@@ -563,17 +566,15 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 .accordion_tabs_block .eventlisting_main.user_pro_block{padding:0;margin:0;}
 .accordion_tabs_block .user_pro_block .block-bfss-assessors{padding:0;}
 .left_section .athlete_left h3 >  i, .right_section .athlete_right h3 > i{padding:0;right:15px;top:13px;}
+.centeralizeRow .rightText h4{float:left;position:relative;padding-right:55px;}
+.centeralizeRow .rightText h4 img{position:absolute;top:0;right:0;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
 	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:100%;margin:5px 0;}
 	.scoreChartBlock .row > div{width:100%;}
 	.smallScores{margin:0 0 15px;}
-	.user-info .item_image, .user-info .bio_data{height:100%;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%;}
-	.user-info .bio_data{padding:0;}
-	.user-info .item_image .image{min-height:180px;}
-	.social_icons_top, .social_icons_top .icons_only, .social_icons_top .star_icon{width:100%;float:left;display:block;}
-	.social_icons_top .icons_only{border-right:0;border-bottom:1px solid #f56907;text-align:center;padding:0 0 10px;}
+	.social_icons_top{width:100%;float:left;}
 	.social_icons_top .star_icon{margin:0;}
 	.social_icons_top .star_icon .follow-unfollow{width:100%;float:left;text-align:center;}
 	.dashboard .profile_img_section .profile-sec .col-md-4{width:50px;padding:0;}
@@ -589,6 +590,7 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 	.dataTables_paginate.paging_simple_numbers{width:100%;text-align:center;}
 	.dataTables_paginate.paging_simple_numbers a.paginate_button{display:inline-block;float:none;}
 	div.dataTables_wrapper .dataTables_filter label input{max-width:145px;float:right;}
+	.centeralizeRow .rightText h4 img{max-width:50px;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
@@ -597,8 +599,11 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 
 @media (max-width:1023px) {
 	.profile-right-modal .container{padding:0;}	
+	.user-info .item_image, .user-info .bio_data{height:100%;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%;}
+	.user-info .bio_data{padding:0;}
+	.user-info .item_image .image{min-height:180px;}	
 	.custom-nav-box .header_rightbar .row{-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
-	 .custom-nav-box .header_rightbar .profile_img_section{width:60px;flex:0 0 60px;max-width:60px;}
+	.custom-nav-box .header_rightbar .profile_img_section{width:60px;flex:0 0 60px;max-width:60px;}
 	.top_right .calender_img, .top_right .athletic_profile{width:95px;}
 	.faq-text-area{font-size:14px;line-height:18px;}
 	.athletes_follow_dv .search_athlete_main .unfollow-sub{margin:0 0 10px;position:relative;left:0;}
@@ -643,6 +648,7 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 	.search_athlete_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 20px;}
 	.user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
 	.eventlisting_main.user_pro_block{padding-top:25px;}
+	.bfss-main{width:100%;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
