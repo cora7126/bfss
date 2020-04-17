@@ -576,6 +576,8 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 	.social_icons_top .icons_only{border-right:0;border-bottom:1px solid #f56907;text-align:center;padding:0 0 10px;}
 	.social_icons_top .star_icon{margin:0;}
 	.social_icons_top .star_icon .follow-unfollow{width:100%;float:left;text-align:center;}
+	.dashboard .profile_img_section .profile-sec .col-md-4{width:50px;padding:0;}
+	.dashboard .profile_img_section .profile-sec .col-md-8{width:calc(100% - 65px);}
 }
 
 @media(min-width:580px) and (max-width:767px) {
@@ -596,7 +598,7 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 @media (max-width:1023px) {
 	.profile-right-modal .container{padding:0;}	
 	.custom-nav-box .header_rightbar .row{-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
-	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:190px;flex: 0 0 190px;max-width:190px;}
+	 .custom-nav-box .header_rightbar .profile_img_section{width:60px;flex:0 0 60px;max-width:60px;}
 	.top_right .calender_img, .top_right .athletic_profile{width:95px;}
 	.faq-text-area{font-size:14px;line-height:18px;}
 	.athletes_follow_dv .search_athlete_main .unfollow-sub{margin:0 0 10px;position:relative;left:0;}
@@ -636,6 +638,11 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 	.user-stats{margin-top:20px;}
 	.dashboard .tab-nav ul{text-align:center;}
 	.dashboard .tab-nav ul li{padding:0 5px;}
+	.dashboard .dropdown .dropdown-menu{margin-top:0;}
+	div.quick-link{margin:25px 0;}
+	.search_athlete_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 20px;}
+	.user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
+	.eventlisting_main.user_pro_block{padding-top:25px;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
