@@ -730,8 +730,12 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
   border: 0;
   background-color: #f76907;
   color: white;
+  box-shadow:none;
+  outline:0;
 }
-
+#athlete_submit button:hover, #athlete_submit button:focus{
+  box-shadow:none;
+  outline:0;}
 #sidenav > ul > li > nav > div > a.drop.active {
   border-radius: 0 !important;
 }

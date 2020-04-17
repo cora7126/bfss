@@ -649,6 +649,7 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 	.user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
 	.eventlisting_main.user_pro_block{padding-top:25px;}
 	.bfss-main{width:100%;}
+	.bfssAthleteProfile .left_section .athlete_left:last-child, .bfssAthleteProfile .right_section .athlete_right:last-child{margin-bottom:0;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
