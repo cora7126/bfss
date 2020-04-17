@@ -44,13 +44,13 @@ class ApproveOrganizationPopup extends FormBase {
                   <p>checked the spelling and did a search for this organization in</p>
                   <p>the system before continuing?</p></div>',
     ];
-    $form['resident']['actions'] = [
+    $form['actions'] = [
       '#type' => 'actions',
     ];
 
-    $form['resident']['actions']['submit'] = [
+    $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Save'),
+      '#value' => $this->t('YES, APPROVE'),
       '#attributes' => [
         'class' => ['btn button--primary'],
       ]
