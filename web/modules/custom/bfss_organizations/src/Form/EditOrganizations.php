@@ -100,7 +100,7 @@ class EditOrganizations extends FormBase {
                 '#default_value' => $field_state,
               ];
 
-              $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club'];
+              $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club', 'university' => 'University'];
               $form['resident'][$i]['type'] = [
                 '#placeholder' => t('Type'),
                 '#type' => 'select',

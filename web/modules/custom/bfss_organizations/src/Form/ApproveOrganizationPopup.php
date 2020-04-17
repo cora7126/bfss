@@ -10,6 +10,8 @@ use Drupal\Core\Ajax\AlertCommand;
 use \Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 Use Drupal\paragraphs\Entity\Paragraph;
+
+use Drupal\Core\Ajax\HtmlCommand;
 /**
  * Class ApproveOrganizationPopup.
  */
@@ -26,12 +28,16 @@ class ApproveOrganizationPopup extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
+    $param = \Drupal::request()->query->all();
+    $nid = $param['nid'];
     $form['resident'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'resident-details'],
     ];
-
+    $form['message'] = [
+              '#type' => 'markup',
+              '#markup' => '<div class="result_message"></div>',
+            ];
     $form['resident'] = [
           '#type' => 'fieldgroup',
           '#title' => 'APPROVE ORGANIZATION',
@@ -48,12 +54,28 @@ class ApproveOrganizationPopup extends FormBase {
       '#type' => 'actions',
     ];
 
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('YES, APPROVE'),
-      '#attributes' => [
-        'class' => ['btn button--primary'],
-      ]
+    // $form['actions']['submit'] = [
+    //   '#type' => 'submit',
+    //   '#value' => $this->t('YES, APPROVE'),
+    //   '#attributes' => [
+    //     'class' => ['btn button--primary'],
+    //   ]
+    // ];
+     $form['actions']['submit'] = [
+              '#type' => 'submit',
+              '#value' => $this->t('YES, APPROVE'),
+              '#button_type' => 'primary',
+               '#ajax' => [
+                  'callback' => '::submitForm', // don't forget :: when calling a class method.
+                  //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+                  'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+                  'event' => 'click',
+                  'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+                  'progress' => [
+                    'type' => 'throbber',
+                    'message' => $this->t('Verifying entry...'),
+                  ],
+                ]
     ];
     return $form;
      
@@ -70,8 +92,23 @@ class ApproveOrganizationPopup extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-   
-        
+    $param = \Drupal::request()->query->all();
+    if(isset($param['nid'])){
+      $node = Node::load($param['nid']); 
+      $node->setPublished(TRUE); 
+      $node->save();
+
+      // for success message show
+      $message = 'Successfully Approved!';
+      $response = new AjaxResponse();
+      $response->addCommand(
+        new HtmlCommand(
+          '.result_message',
+          '<div class="success_message">'.$message.'</div>'
+        )
+      );
+      return $response;
+    }            
   }
 
 }

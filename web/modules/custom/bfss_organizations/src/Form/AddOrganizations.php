@@ -94,7 +94,7 @@ class AddOrganizations extends FormBase {
         '#default_value' => '',
       ];
 
-      $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club'];
+      $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
       $form['resident'][$i]['type'] = [
         '#placeholder' => t('Type'),
         '#type' => 'select',
@@ -105,35 +105,40 @@ class AddOrganizations extends FormBase {
 
       $form['resident'][$i]['organization_name'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Organization Name'),
+        '#placeholder' => t('Organization Name'),
+        #'#title' => $this->t('Organization Name'),
         '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['address_1'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Address 1'),
+        '#placeholder' => t('Address 1'),
+        #'#title' => $this->t('Address 1'),
         '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['address_2'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Address 2'),
+        '#placeholder' => t('Address 2'),
+        #'#title' => $this->t('Address 2'),
         '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['city'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('City'),
+        '#placeholder' => t('City'),
+        #'#title' => $this->t('City'),
         '#required' => TRUE,
         '#default_value' => '',
       ];
 
       $form['resident'][$i]['zip'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Zip'),
+        '#placeholder' => t('Zip'),
+        #'#title' => $this->t('Zip'),
         '#required' => TRUE,
         '#default_value' => '',
       ];

@@ -21,4 +21,11 @@ jQuery('.dashboard-menu span').on('click',function(){
 		//}
 
 	});
+
+	// jQuery('.drupal-approve-org').on('click',' button.ui-dialog-titlebar-close',function(){
+	// 	location.reload();
+	// });
+	// jQuery('.drupal-edit-org ').on('click','button.ui-dialog-titlebar-close',function(){
+	// 	location.reload();
+	// });
 });

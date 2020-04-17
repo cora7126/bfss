@@ -1800,7 +1800,7 @@ foreach ($terms as $term) {
 		$conn->update('athlete_orginfo')->condition('athlete_id', $current_user, '=')->fields(array('orgtype_text' => json_encode($textdata), ))->execute();
 	}
     
-    drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
+    //drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
     // $form_state->setRedirect('acme_hello');
     // return;
   }
