@@ -2080,8 +2080,8 @@ input#name_1{width:70%;}
 
 @media(max-width:1023px){
   .dashboard .profile-sec{padding:18.5px 0px;}
-  .header_rightbar{max-width:72% !important;width:72% !important;flex:0 0 72% !important;}
-  .header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;}
+  .header_rightbar{max-width:60px !important;width:60px !important;flex:0 0 60px !important;height:100%;position:static !important;padding:0 15px 0 0 !important;}
+  .header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;height:100%;}
   .dashboard .navbar .navbar-brand{max-width:80px;padding-top:15px;}
   .edit-user .spb-popup-main-wrapper.spb_top_center .preview{padding-top:15px;}
   .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:calc(100% - 28%);transition:width 0.5s;}

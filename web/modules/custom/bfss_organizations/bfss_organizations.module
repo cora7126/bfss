@@ -28,5 +28,10 @@ function bfss_organizations_theme() {
     'variables' => ['name' => NULL,'edit_organizations_block' => NULL],
     'template' => 'edit_organizations',
   ];
+
+  $theme['pending_approval_page'] = [
+    'variables' => ['name' => NULL,'pending_approval_block' => NULL],
+    'template' => 'pending_approval',
+  ];
   return $theme;
 }

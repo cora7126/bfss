@@ -21,3 +21,27 @@ bfss_organizations.edit_organizations:
    _controller: '\Drupal\bfss_organizations\Controller\EditOrganizations::edit_organizations'
  requirements:
    _permission: 'access content'
+
+bfss_organizations.pending_organizations:
+ path: '/pending-approval'
+ defaults:
+   _title: 'Pending Approval'
+   _controller: '\Drupal\bfss_organizations\Controller\PendingApproval::pending_approval'
+ requirements:
+   _permission: 'access content'
+
+bfss_organizations.approve_organization_popup:
+ path: '/approve-organization-popup'
+ defaults:
+   _title: 'Approve Organization Popup'
+   _form: '\Drupal\bfss_organizations\Form\ApproveOrganizationPopup'
+ requirements:
+   _permission: 'access content'
+
+bfss_organizations.edit_organization_popup:
+ path: '/edit-organization-popup'
+ defaults:
+   _title: 'Edit Organization Popup'
+   _form: '\Drupal\bfss_organizations\Form\EditOrganizationPopup'
+ requirements:
+   _permission: 'access content'
