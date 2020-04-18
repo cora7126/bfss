@@ -1050,8 +1050,10 @@ foreach ($terms as $term) {
 		];
     $form['image_athlete'] = [
     '#type' => 'managed_file',
-    '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg'],
-    'file_validate_size' => [25600000], ],
+    '#upload_validators' => [
+    		'file_validate_extensions' => ['gif png jpg jpeg'],
+    		//'file_validate_size' => [25600000], 
+		],
     '#theme' => 'image_widget', 
     '#preview_image_style' => 'medium', 
     '#upload_location' => 'public://',
