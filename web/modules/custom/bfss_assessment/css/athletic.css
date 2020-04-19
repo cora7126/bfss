@@ -6,17 +6,17 @@
 .item_image a{font-size: 17px;}
 .item_image a:hover{text-decoration: none;color: #fff;}
 .col-6.item_image{padding: 0;}
-.coch_info{display: flex;flex-wrap: wrap;}
-.item_image img{width: 100%}
-.item_image a{font-size: 20px;background: #f56907;color: #fff;text-align: center;padding: 10px 7px;font-weight: normal;width: 100%;display: block;}
-.space{padding: 40px 0;}
-.social_icons_top{display: flex;align-items: center;}
-.icons_only{border-right: 1px solid #f56907;}
-.icons_only i{margin-right: 20px;font-size: 18px;}
-.icons_only a:hover{color: #f56907!important;}
+.coch_info{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
+.item_image img{width:100%;}
+.item_image a{font-size:20px;background:#f56907;color:#fff;text-align:center;padding:10px 7px;font-weight:normal;width:100%;display:block;}
+.space{padding:40px 0;}
+.social_icons_top{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;}
+.icons_only i{font-size:18px;width:24px;}
+.icons_only a{margin-right:10px;float:left;}
+.icons_only a:hover{color:#f56907 !important;}
 a:focus{color: #ccc!important;text-decoration: none!important;}
 
-.star_icon{margin-left: 20px;}
+
 .social_icons_top{padding: 10px 0;margin-bottom: 20px;}
 .icons_only, .star_icon .fa{color: #f56907;font-size: 20px;}
 .sub_title_jodi{font-size: 20px;}

@@ -18,6 +18,23 @@ function acme_theme() {
     'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'rolename' => NULL],
     'template' => 'hello',
   ];
+
+  $theme['assessors_profile_dashboard_page'] = [
+    'variables' => ['name' => NULL,'event_listing_block' => NULL,'private_assessment_listing_block' => NULL],
+    'template' => 'assessors_profile_dashboard',
+  ];
+
+  $theme['bfss_manager_profile_dashboard_page'] = [
+    'variables' => ['name' => NULL,'bfss_manager_profile_dashboard_block' => NULL,'month_block' => NULL],
+    'template' => 'bfss_manager_profile_dashboard',
+  ];
+
+
+  $theme['admin_profile_dashboard_page'] = [
+    'variables' => ['name' => NULL,'admin_profile_block' => NULL],
+    'template' => 'admin_profile_dashboard',
+  ];
+
   $theme['upcoming_page'] = [
     'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
     'template' => 'upcoming',
@@ -50,10 +67,7 @@ function acme_theme() {
     'variables' => ['themeName' => NULL],
     'template' => 'athForm',
   ];
-  $theme['assessors_profile_dashboard_page'] = [
-    'variables' => ['name' => NULL,'event_listing_block' => NULL,'private_assessment_listing_block' => NULL],
-    'template' => 'assessors_profile_dashboard',
-  ];
+
   $theme['assessment_events_page'] = [
     'variables' => ['name' => NULL,'assessment_events_block' => NULL],
     'template' => 'assessment_events',

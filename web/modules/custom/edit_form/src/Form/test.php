@@ -320,37 +320,39 @@ class test extends FormBase {
     }
     /* Organization END */
 if(!in_array('assessors', $roles_user)){
-$form['submit'] = ['#type' => 'submit', '#value' => 'save', '#prefix' => '<div id="athlete_submit">','#suffix' => '</div></div>
-<div class ="right_section">
-<div class = "athlete_right">
-                <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Profile Photo</h3>
-       <div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a>
-        <ul class="dropdown-menu" style="padding:0"></ul>
-       </div>
-<div class=items_div>
-<img src='.$url.' class="edit-profile-image" >
-<div class="popupimage" id="imagepopup">
- <div class="popup_header">
-       <h3>Profile Photo <i class="fa fa-times right-icon imagepopup-modal-close spb_close" aria-hidden="true"></i></h3>
-  </div>',
-//'#value' => t('Submit'),
+
+
+
+$form['html_image_athlete'] = [
+  '#type' => 'markup',
+  '#markup' => '</div>
+  <div class ="right_section">
+    <div class = "athlete_right">
+      <h3><div class="toggle_icon">
+          <i class="fa fa-minus"></i><i class="fa fa-plus hide"></i>
+        </div>My Website Photo
+      </h3>
+      <div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul>
+      </div>
+      <div class=items_div>',
 ];
 
-$form['image_athlete'] = [
-'#type' => 'managed_file',
-'#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg'],
-'file_validate_size' => [25600000], ],
-'#theme' => 'image_widget',
-'#preview_image_style' => 'medium', 
-'#upload_location' => 'public://',
-'#required' => false,
-'#default_value' => array($img_id), 
-'#prefix' => '</div></div>', 
-'#suffix' => '<div class="action_bttn">
-                <span>Action</span><ul><li>Remove</li></ul>
-              </div>
-</div>',
- ];
+ $form['image_athlete'] = [
+    '#type' => 'managed_file',
+    '#upload_validators' => [
+        'file_validate_extensions' => ['gif png jpg jpeg'],
+        //'file_validate_size' => [25600000], 
+    ],
+    '#theme' => 'image_widget', 
+    '#preview_image_style' => 'medium', 
+    '#upload_location' => 'public://',
+    '#required' => false,
+    '#default_value' => array($img_id),
+    '#prefix' => '</div>',
+    '#suffix' => '<div class="action_bttn">
+            <span>Action</span><ul><li>Remove</li></ul>
+    </div></div></div>',
+    ];
 }
 if(in_array('coach', $roles_user)){
 	$form['instagram_account'] = array(
@@ -358,7 +360,7 @@ if(in_array('coach', $roles_user)){
 	'#placeholder' => t('TEAM Instagram Account(Optional)'),
 	'#default_value' => isset($results_bfss_coach[0]->field_instagram)?$results_bfss_coach[0]->field_instagram:'',
 
-	'#prefix' => '</div>
+	'#prefix' => '
 	</div></div>
 	<div class = "athlete_right">
 	<h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
@@ -509,8 +511,16 @@ if(in_array('coach', $roles_user)){
     '#attributes' => array('id'=>'save_pass','style'=>'cursor:pointer; background:green;padding: 5px;
     border-radius: 3px;'),
     ];
+
     //end change password
-   
+     if(!in_array('assessors', $roles_user)){
+   $form['submit'] = ['#type' => 'submit', 
+      '#value' => 'save', 
+      '#prefix' => '</div></div><div id="athlete_submit">',
+      '#suffix' => '</div>',
+      //'#value' => t('Submit'),
+    ];
+  }
     return $form;
   }
 

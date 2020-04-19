@@ -674,22 +674,9 @@ a.side_button:hover {
   font-size: 50px !important;
 }
 
-.tab-main-sec .tab-nav {
-  border-top: none !important;
-  padding: 0 0 0 15px;
-}
-
-.month_filter {
-  margin: 0 0 19px !important;
-}
 
 .tab-nav ul li a {
   font-weight: normal !important;
-}
-
-#block-assessmentscustomview .col.assessment_inner,
-#block-upcominggroupassessments .col {
-  background: #f1f3f2 !important;
 }
 
 .timing span {
@@ -711,10 +698,6 @@ a.side_button:hover {
 
 .pop_img_sec p {
   font-size: 14px !important;
-}
-
-#dateofshow {
-  margin-top: 10px;
 }
 
 .cc-info, #multistep-form-four > h3:nth-child(8) {
@@ -747,8 +730,13 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
   border: 0;
   background-color: #f76907;
   color: white;
+  box-shadow:none;
+  outline:0;
+  width:auto;
 }
-
+#athlete_submit button:hover, #athlete_submit button:focus{
+  box-shadow:none;
+  outline:0;}
 #sidenav > ul > li > nav > div > a.drop.active {
   border-radius: 0 !important;
 }

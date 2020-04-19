@@ -5,3 +5,27 @@ bfss_manager_defaultprofile:
     _title: 'BFSS Manager'
   requirements:
    _role: 'bfss_manager'
+   
+bfss_manager_defaultprofile.organization_info:
+  path: /add_organization
+  defaults:
+    _form: '\Drupal\bfss_manager\Form\AddOrganizationForm'
+    _title: 'Add Organization'
+  requirements:
+    _access: 'TRUE'  
+
+bfss_manager.view_edit_active:
+  path: '/view-edit-active'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\ViewEditActive::view_edit_active'
+    _title: 'View Edit Active'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_manager.view_edit_deactive:
+  path: '/view-edit-deactive'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\ViewEditDeactive::view_edit_deactive'
+    _title: 'View Edit Deactive'
+  requirements:
+    _access: 'TRUE' 

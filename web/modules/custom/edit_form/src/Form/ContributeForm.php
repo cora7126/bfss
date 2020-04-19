@@ -193,6 +193,9 @@ foreach ($terms as $term) {
 	$orgpos2_3='';
 	$orgpos3_3='';
 	$orgstats_3='';
+	$orgsport_1_id='';
+	$orgsport_2_id='';
+	$orgsport_3_id='';
 	// echo "<pre>";
 	// print_r($results18);
 	// die;
@@ -447,8 +450,8 @@ foreach ($terms as $term) {
       '#placeholder' => t('City'),
       '#default_value' => $results18['field_city'],
       );
-		$array=array('1'=>'Male','2'=>'Female','3'=>'Other');
-		$namesex=$array[$results18['field_birth_gender']];
+		/*$array=array('1'=>'Male','2'=>'Female','3'=>'Other');
+		$namesex=$array[$results18['field_birth_gender']];*/
 		
 	
     $form['sextype'] = array(
@@ -669,7 +672,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
         '#options' => $orgtype2,
-        '#prefix' => '</div><div class="org_notempty"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_uni" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '</div><div class="org_notempty"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i></h3><div class=items_div>',
         '#default_value' => $orgtype_2,
         );
       /*$orgname2 = array(
@@ -765,7 +768,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
         '#options' => $orgtype2,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i></h3><div class=items_div>',
         // '#default_value' => array_search($results12['athlete_uni_type'],$orgtype2),
 
         );
@@ -866,7 +869,7 @@ foreach ($terms as $term) {
       $form['education_2'] = array(
         '#type' => 'select',
         '#options' => $unitype,
-        '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_club" class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i></h3><div class=items_div>',
         '#default_value' => $orgtype_3,
         );
       /*$uniname = array(
@@ -958,7 +961,7 @@ foreach ($terms as $term) {
         '#type' => 'select',
         //'#description' => 'Select the desired pizza crust size.',
         '#options' => $unitype,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i><div class=items_div>',
+        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i></h3><div class=items_div>',
         );
 
       $form['schoolname_2'] = array(
@@ -1037,10 +1040,28 @@ foreach ($terms as $term) {
         );
     }
     /*Add another organization 1 END*/
-    $form['submit'] = ['#type' => 'submit', '#value' => 'save', '#prefix' => '<div id="athlete_submit">', '#suffix' => '</div></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
-      //'#value' => t('Submit'),
-      ];
-    $form['image_athlete'] = ['#type' => 'managed_file', '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg'], 'file_validate_size' => [25600000], ], '#theme' => 'image_widget', '#preview_image_style' => 'medium', '#upload_location' => 'public://', '#required' => false, '#default_value' => array($img_id), '#prefix' => '</div>', '#suffix' => '<div class="action_bttn"><span>Action</span><ul><li>Remove</li></ul></div></div></div>', ];
+    // $form['submit'] = ['#type' => 'submit', '#value' => 'save', '#prefix' => '<div id="athlete_submit">', '#suffix' => '</div>',
+    //   //'#value' => t('Submit'),
+    //   ];
+
+    $form['html_image_athlete'] = [
+  		'#type' => 'markup',
+  		'#markup' => '</div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+		];
+    $form['image_athlete'] = [
+    '#type' => 'managed_file',
+    '#upload_validators' => [
+    		'file_validate_extensions' => ['gif png jpg jpeg'],
+    		//'file_validate_size' => [25600000], 
+		],
+    '#theme' => 'image_widget', 
+    '#preview_image_style' => 'medium', 
+    '#upload_location' => 'public://',
+    '#required' => false,
+    '#default_value' => array($img_id),
+    '#prefix' => '</div>',
+    '#suffix' => '<div class="action_bttn"><span>Action</span><ul><li>Remove</li></ul></div></div></div>',
+    ];
 
     $form['school_web'] = array(
       '#type' => 'textfield',
@@ -1187,8 +1208,12 @@ foreach ($terms as $term) {
         '#default_value' => $deltaweb2_visibility,
         '#suffix' => '</div></div></div>',
         );
-    }
 
+
+    }
+    $form['submit'] = ['#type' => 'submit', '#value' => 'save', '#prefix' => '<div id="athlete_submit" class="athlete_submit">', '#suffix' => '</div>',
+      //'#value' => t('Submit'),
+      ];
     // $form['#theme'] = 'athlete_form';
     return $form;
   }
@@ -1797,7 +1822,7 @@ foreach ($terms as $term) {
 		$conn->update('athlete_orginfo')->condition('athlete_id', $current_user, '=')->fields(array('orgtype_text' => json_encode($textdata), ))->execute();
 	}
     
-    drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
+    //drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
     // $form_state->setRedirect('acme_hello');
     // return;
   }
@@ -1805,56 +1830,56 @@ foreach ($terms as $term) {
 
 function getStates() {
 	return $st=array(
-      'AL'=>  t('AL'),
-      'AK'=>  t('AK'),
-      'AZ'=>  t('AZ'),
-       'AR'=> t('AR'),
-      'CA'=>  t('CA'),
-      'CO'=>   t('CO'),
-      'CT'=>    t('CT'),
-       'DE'=>    t('DE'),
-     'DC'=>      t('DC'),
-       'FL'=>    t('FL'),
-        'GA'=>     t('GA'),
-   'HI'=>     t('HI'),
-     'ID'=>    t('ID'),
-       'IL'=>   t('IL'),
-       'IN'=> t('IN'),
-       'IA'=> t('IA'),
-      'KS'=>  t('KS'),
-       'KY'=> t('KY'),
-       'LA'=> t('LA'),
-       'ME'=> t('ME'),
-       'MT'=> t('MT'),
-       'NE'=> t('NE'),
-       'NV'=> t('NV'),
-       'NH'=> t('NH'),
-       'NJ'=> t('NJ'),
-       'NM'=> t('NM'),
-       'NY'=> t('NY'),
-       'NC'=> t('NC'),
-        'ND'=>t('ND'),
-       'OH'=> t('OH'),
-        'OR'=>t('OR'),
-       'MD'=> t('MD'),
-       'MA'=> t('MA'),
-       'MI'=> t('MI'),
-        'MN'=>t('MN'),
-        'MS'=>t('MS'),
-       'MO'=> t('MO'),
-       'PA'=> t('PA'),
-       'RI'=> t('RI'),
-       'SC'=> t('SC'),
-        'SD'=>t('SD'),
-       'TN'=> t('TN'),
-        'TX'=>  t('TX'),
-         'UT'=> t('UT'),
-        'VT'=>  t('VT'),
-        'VA'=>  t('VA'),
-         'WA'=> t('WA'),
-         'WV'=> t('WV'),
-        'WI'=>  t('WI'),
-        'WY'=>  t('WY'));
+  'AL'=>  t('AL'),
+  'AK'=>  t('AK'),
+  'AZ'=>  t('AZ'),
+   'AR'=> t('AR'),
+  'CA'=>  t('CA'),
+  'CO'=>   t('CO'),
+  'CT'=>    t('CT'),
+   'DE'=>    t('DE'),
+ 	'DC'=>      t('DC'),
+   'FL'=>    t('FL'),
+    'GA'=>     t('GA'),
+		'HI'=>     t('HI'),
+ 'ID'=>    t('ID'),
+   'IL'=>   t('IL'),
+   'IN'=> t('IN'),
+   'IA'=> t('IA'),
+  'KS'=>  t('KS'),
+   'KY'=> t('KY'),
+   'LA'=> t('LA'),
+   'ME'=> t('ME'),
+   'MT'=> t('MT'),
+   'NE'=> t('NE'),
+   'NV'=> t('NV'),
+   'NH'=> t('NH'),
+   'NJ'=> t('NJ'),
+   'NM'=> t('NM'),
+   'NY'=> t('NY'),
+   'NC'=> t('NC'),
+    'ND'=>t('ND'),
+   'OH'=> t('OH'),
+    'OR'=>t('OR'),
+   'MD'=> t('MD'),
+   'MA'=> t('MA'),
+   'MI'=> t('MI'),
+    'MN'=>t('MN'),
+    'MS'=>t('MS'),
+   'MO'=> t('MO'),
+   'PA'=> t('PA'),
+   'RI'=> t('RI'),
+   'SC'=> t('SC'),
+    'SD'=>t('SD'),
+   'TN'=> t('TN'),
+    'TX'=>  t('TX'),
+     'UT'=> t('UT'),
+    'VT'=>  t('VT'),
+    'VA'=>  t('VA'),
+     'WA'=> t('WA'),
+     'WV'=> t('WV'),
+    'WI'=>  t('WI'),
+    'WY'=>  t('WY'));
 }
 
 ?>

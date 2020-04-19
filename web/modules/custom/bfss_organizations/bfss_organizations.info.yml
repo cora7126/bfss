@@ -1,0 +1,4 @@
+name: BFSS Organizations
+description: 'Provides Organizations functionality'
+type: module
+core: 8.x
