@@ -1,0 +1,37 @@
+<?php
+use Drupal\Core\Database\Database;
+use Drupal\file\Entity\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+/**
+ * @file
+ * Contains bfss_organizations.module..
+ */
+
+
+/**
+ * Implements hook_theme()
+ * @return mixed
+ */
+function bfss_organizations_theme() {
+  $theme['add_organization_page'] = [
+    'variables' => ['name' => NULL,'add_organization_block' => NULL],
+    'template' => 'add_organization',
+  ];
+
+  $theme['view_edit_organizations_page'] = [
+    'variables' => ['name' => NULL,'view_edit_organizations_block' => NULL],
+    'template' => 'view_edit_organizations',
+  ];
+
+  $theme['edit_organizations_page'] = [
+    'variables' => ['name' => NULL,'edit_organizations_block' => NULL],
+    'template' => 'edit_organizations',
+  ];
+
+  $theme['pending_approval_page'] = [
+    'variables' => ['name' => NULL,'pending_approval_block' => NULL],
+    'template' => 'pending_approval',
+  ];
+  return $theme;
+}

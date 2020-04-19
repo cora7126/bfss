@@ -43,7 +43,7 @@ class Bfss_Funds extends ControllerBase {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
         		$user_id = $entity->user_id->value;
 
-        		$timestamp = $entity->time->value;
+        		$timestamp = intval($entity->time->value);
         		
         		$booking_date = date("Y/m/d",$timestamp);
         		$firstname = $entity->first_name->value;
@@ -87,6 +87,8 @@ class Bfss_Funds extends ControllerBase {
 
         $radios = '<div class="org-radio">';
         foreach (array_unique($arrradios) as $arrradio) {
+            $cls = '';
+            $checked = '';
         if(!empty($arrradio)){ 
             if(!empty($param['orgname']) ){
                 if($param['orgname']==$arrradio){
@@ -110,7 +112,7 @@ class Bfss_Funds extends ControllerBase {
         $radios .= '</div>';
        
 	  	$tb1 = '<div class="search_athlete_main user_pro_block">
-          <div class="org_name_tabs">'.$tabs.'
+          <div class="org_name_tabs">
           <form class="org-tab-form" action="/bfss-funds" method="get" id="org-tab-form-plx" accept-charset="UTF-8">
             '.$radios.'
             <input type="submit" name="org-submit" style="display:none;">
@@ -171,7 +173,7 @@ class Bfss_Funds extends ControllerBase {
             $TableRowsPaid = [];
         	foreach ($booked_ids_paid as $booked_id) {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-        		$timestamp = $entity->time->value;
+        		$timestamp = intval($entity->time->value);
         		$booking_date = date("Y/m/d",$timestamp);
         		$firstname = $entity->first_name->value;
         		$lastname = $entity->last_name->value;

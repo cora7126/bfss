@@ -779,6 +779,7 @@ $databases['default']['default'] = array (
 $settings['config_sync_directory'] = 'sites/default/files/config_2RrciJktdxW87ebUQLPunOlhNelI9tOkfP86OAm9IIqEV5THiX7bLIVUh-r5Q02Pe_4tGyhc8w/sync';
 
 //$settings['rebuild_access'] = TRUE;
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-  include $app_root . '/' . $site_path . '/settings.local.php';
-}
+// if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+//   include $app_root . '/' . $site_path . '/settings.local.php';
+// }
+//$config['system.logging']['error_level'] = 'verbose';

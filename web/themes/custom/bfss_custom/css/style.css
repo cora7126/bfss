@@ -805,6 +805,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,.input-group-lg > tex
 .form-group-lg textarea.form-control,.form-group-lg select[multiple].form-control{height:auto;}
 .form-group-lg .form-control-static{height:46px;min-height:38px;padding:11px 16px;font-size:18px;line-height:1.3333333;}
 .has-feedback{position:relative;}
+a#edit-organizations-plx{color:#000;padding:26px 25px 0px 25px;background:#EB6E06;background-color:#ec7108;font-size:15px;cursor:pointer;}
  .has-feedback .form-control{padding-right:42.5px;}
 .form-control-feedback{position:absolute;top:0;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center;pointer-events:none;}
 .input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback,.input-group-lg > .input-group-addon + .form-control-feedback,.input-group-lg > .input-group-btn > .btn + .form-control-feedback,.input-group-lg + .form-control-feedback,.form-group-lg .form-control + .form-control-feedback{width:46px;height:46px;line-height:46px;}
@@ -1933,16 +1934,16 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .athlete_right .previewdiv a{color:#f76907;border:1px solid #f76907;font-size:14px;padding:8px 25px;height:40px;line-height:16px;}
 .right_section .athlete_right .previewdiv a:hover, .right_section .athlete_right .previewdiv a:focus{outline:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;background-color:#f76907;color:#fff;}
 .right_section .athlete_right .previewdiv a span{display:none;}
-.right_section .athlete_right button{/* border-radius:2px; */border-radius:0px !important;border:2px solid #dc3545;margin:15px;color:#f76907;}
+.right_section .athlete_right button{border-radius:0;border:2px solid #f76907;margin:0;background-color:#f76907;}
 .right_section .items_div ,.left_section .items_div{display:inline-block;width:100%;padding:30px 0;}
-#athlete_submit{display:inline-block;width:100%;padding-top:20px;}
-#athlete_submit button{border-radius:2px;border:2px solid #f76907;padding:8px 15px;color:#f76907;background-color:#fff;font-size:15px;}
+#athlete_submit, #athlete_submit1{display:inline-block;width:100%;padding-top:20px;}
+#athlete_submit button, #athlete_submit1 button{border-radius:2px;border:2px solid #f76907;padding:8px 15px;color:#f76907;background-color:#fff;font-size:15px;}
 #edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
-.right_section .image-widget .data{position:absolute;top:59px;right:0;width:auto !important;background:white;padding:7px 8px;display:none;border:1px solid #ccc;border-top:none;border-right:none;}
-.right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{display:table;margin:0px auto 0;color:#fff !important;}
+.right_section .image-widget .data{position:absolute;top:60px;right:15px;width:auto !important;background:white;padding:0;display:none;border:0;}
+.right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{display:table;margin:0px auto 0;color:#fff !important;font-size:14px;}
 .right_section .image-widget .data span , #edit-user-picture-wrapper .image-widget .data span{display:none;}
-.right_section .preview{width:100%;margin:0 auto;display:table;text-align:center;}
-.right_section .preview img{display:table;max-width:initial;height:auto;}
+.right_section .preview{width:100%;float:left;display:block;flex:0 0 100%;max-width:100%;}
+.right_section .preview img{margin:0 auto;}
 .toggle_icon{display:inline-block;}
 .left_section .right-icon , .right_section .right-icon{position:absolute;right:0px;top:10px;color:#f76907;cursor:pointer;}
 .right-icon.delete_icon{right:20px;}
@@ -2080,8 +2081,8 @@ input#name_1{width:70%;}
 
 @media(max-width:1023px){
   .dashboard .profile-sec{padding:18.5px 0px;}
-  .header_rightbar{max-width:72% !important;width:72% !important;flex:0 0 72% !important;}
-  .header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;}
+  .header_rightbar{max-width:60px !important;width:60px !important;flex:0 0 60px !important;height:100%;position:static !important;padding:0 15px 0 0 !important;}
+  .header_leftbar{max-width:28% !important;width:28% !important;flex:0 0 28% !important;height:100%;}
   .dashboard .navbar .navbar-brand{max-width:80px;padding-top:15px;}
   .edit-user .spb-popup-main-wrapper.spb_top_center .preview{padding-top:15px;}
   .right_side_section, .edit-user .region-content, .bfssAthleteProfile .region-content, .edit-parent .region-content, .faq-page .region-content{width:calc(100% - 28%);transition:width 0.5s;}
@@ -2115,11 +2116,3 @@ input#name_1{width:70%;}
 /*****************************************************************************/
 /*********************** RESPONSIVE CSS ENDS HERE **************************/
 /*****************************************************************************/
-
-
-
-
-
-
-
-  

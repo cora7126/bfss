@@ -3,11 +3,23 @@
 		jQuery('#basic0_circle_progressbar').circlesProgress({'progress':'48','borderSize':'0','innerColor':'#f56907'});
 		//month filter	    	
 		//alert();
-    	 jQuery('.niceselect select').niceSelect();  
+    	 jQuery('.niceselect select').niceSelect();
+    	
+    	jQuery(document).on('click','a.paginate_button',function(){
+ 				jQuery(document).find('.niceselect select').niceSelect(); 
+		});
     	   jQuery(".month_filter select").change(function(){
   				jQuery('form#month-form').submit();
   		});
 
+    	   jQuery(window).scroll(function(){
+   				var st = jQuery(this).scrollTop();
+   				if (st > 170){
+      				 jQuery('body').addClass('fixed');
+   				} else {
+       			jQuery('body').removeClass('fixed');
+   				}
+			});
     	   jQuery(document).ready(function() { 
 			  jQuery('.org_name_tabs input[name=orgname]').change(function(){
 			        jQuery('form#org-tab-form-plx').submit();
@@ -220,7 +232,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
         //$('#cssmenu').prepend('<div id="menu-button">Menu</div>');
         jQuery('#cssmenu #menu-button').on('click', function() {
 
-            if ($(window).width() < 767) {
+            if ($(window).width() < 1023) {
                 $('body').toggleClass('open_left_side_mobile');
                 $('body').removeClass('open_left_side');
             }
@@ -231,7 +243,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 
         });
         jQuery( window ).resize(function() {
-          if (jQuery(window).width() < 767) {
+          if (jQuery(window).width() < 1023) {
             jQuery('body').removeClass('open_left_side');
           }
           else{
@@ -521,6 +533,21 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
     }
  });
  
+ jQuery(document).on('click', '.add-organization .popup_add_org', function(){
+	if(counter_click < 0){
+		counter_click = 0
+	}
+	if(counter_click == 0){
+        jQuery(this).siblings('.previous_athlete').css('display', 'block');
+        counter_click++
+    }else if(counter_click == 1){
+        jQuery(this).siblings('.last_athlete').css('display', 'block');
+		jQuery(this).hide();
+        counter_click++
+    }
+	
+ });
+ 
  jQuery(document).on('click', '#popup_form_id .popup_add_org', function(){
 	 //alert();
 	 //console.log("2");
@@ -640,6 +667,7 @@ function closeModal(elem){
 	jQuery(elem).fadeOut();
 	jQuery('body').removeClass('modalActive');
 }
+
 function unfollow_athlete(){
 	if(confirm('You are sure , you want to unfollow these athletes!'))
 	{
@@ -651,6 +679,32 @@ function unfollow_athlete(){
 	    return false;                   
 	} 
 }
+
+function deactivate_users(){
+	if(confirm('You are sure , you want to deactivate!'))
+	{
+	 //alert("confirm ok");
+	 document.getElementById('view-edit-active-form').removeAttribute('onsubmit').submit();// Form submission
+	}
+	else{
+		document.getElementById('view-edit-active-form').attr('onsubmit','return false;');
+	    return false;                   
+	} 
+}
+
+function activate_users(){
+	if(confirm('You are sure , you want to activate!'))
+	{
+	 //alert("confirm ok");
+	 document.getElementById('view-edit-deactive-form').removeAttribute('onsubmit').submit();// Form submission
+	}
+	else{
+		document.getElementById('view-edit-deactive-form').attr('onsubmit','return false;');
+	    return false;                   
+	} 
+}
+
+
 jQuery(function(){
 	jQuery('.my-assessment .panel_row h3').each(function( index ) {
 		//alert( jQuery( this ).text() );

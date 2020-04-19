@@ -1,0 +1,47 @@
+bfss_organizations.add_organizations:
+ path: '/add-organizations'
+ defaults:
+   _title: 'Add Organizations'
+   _controller: '\Drupal\bfss_organizations\Controller\AddOrganizations::Add_Organizations'
+ requirements:
+   _permission: 'access content'
+
+bfss_organizations.view_edit_organizations:
+ path: '/view-edit-organizations'
+ defaults:
+   _title: 'View Edit Organizations'
+   _controller: '\Drupal\bfss_organizations\Controller\ViewEditOrganizations::view_edit_organizations'
+ requirements:
+   _permission: 'access content'
+
+bfss_organizations.edit_organizations:
+ path: '/edit-organizations'
+ defaults:
+   _title: 'Edit Organizations'
+   _controller: '\Drupal\bfss_organizations\Controller\EditOrganizations::edit_organizations'
+ requirements:
+   _permission: 'access content'
+
+bfss_organizations.pending_organizations:
+ path: '/pending-approval'
+ defaults:
+   _title: 'Pending Approval'
+   _controller: '\Drupal\bfss_organizations\Controller\PendingApproval::pending_approval'
+ requirements:
+   _permission: 'access content'
+
+bfss_organizations.approve_organization_popup:
+ path: '/approve-organization-popup'
+ defaults:
+   _title: 'Approve Organization Popup'
+   _form: '\Drupal\bfss_organizations\Form\ApproveOrganizationPopup'
+ requirements:
+   _permission: 'access content'
+
+bfss_organizations.edit_organization_popup:
+ path: '/edit-organization-popup'
+ defaults:
+   _title: 'Edit Organization Popup'
+   _form: '\Drupal\bfss_organizations\Form\EditOrganizationPopup'
+ requirements:
+   _permission: 'access content'
