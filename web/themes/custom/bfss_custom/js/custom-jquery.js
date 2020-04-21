@@ -1,26 +1,26 @@
 jQuery(document).ready(function() {
 
 
-jQuery('.dashboard-menu span').on('click',function(){
-	 jQuery(".top_right").toggleClass("toggle2");
-	 jQuery('.dashboard-menu span').toggleClass("tgl-cls");
-	 console.log("hr1");
-});
- 
-
-	i = 0;
-	jQuery('#edit-organizations-plx').on('click',function(){
-		var arr = [];
-		jQuery('.edit-ckeckbox-plx:checked').each(function () {
-			arr[i++] = $(this).val();
-		});
-		console.log(jQuery.isEmptyObject(arr));
-		//if(jQuery.isEmptyObject(arr) == false){
-			var arrStr = encodeURIComponent(JSON.stringify(arr));
-			window.location.href = "http://5ppsystem.com/edit-organizations?nids="+arrStr;
-		//}
-
+	jQuery('.dashboard-menu span').on('click',function(){
+		 jQuery(".top_right").toggleClass("toggle2");
+		 jQuery('.dashboard-menu span').toggleClass("tgl-cls");
+		 console.log("hr1");
 	});
+	 
+
+		i = 0;
+		jQuery('#edit-organizations-plx').on('click',function(){
+			var arr = [];
+			jQuery('.edit-ckeckbox-plx:checked').each(function () {
+				arr[i++] = $(this).val();
+			});
+			console.log(jQuery.isEmptyObject(arr));
+			//if(jQuery.isEmptyObject(arr) == false){
+				var arrStr = encodeURIComponent(JSON.stringify(arr));
+				window.location.href = "http://5ppsystem.com/edit-organizations?nids="+arrStr;
+			//}
+
+		});
 
 	// jQuery('.drupal-approve-org').on('click',' button.ui-dialog-titlebar-close',function(){
 	// 	location.reload();
@@ -28,4 +28,41 @@ jQuery('.dashboard-menu span').on('click',function(){
 	// jQuery('.drupal-edit-org ').on('click','button.ui-dialog-titlebar-close',function(){
 	// 	location.reload();
 	// });
+		// var names = 'Harry,John,Clark,Peter,Rohn,Alice';
+		// var nameArr = names.split(',');
+	 //  	var companies = [
+  //                   {"companyName":"Aperture Science"},
+  //                   {"companyName":"MomCorp"},
+  //                   {"companyName":"Wayne Enterprises"},
+  //                   {"companyName":"Umbrella Corp"},
+  //                   {"companyName":"Gringotts"},
+  //                   {"companyName":"Globex"}
+  //                 ];
+
+  //       jQuery("#companyPicker").fuzzyComplete(companies);
+
+  		//daynamic data
+		//  var orgNames = jQuery('textarea:input[name=search_org]').val();
+		//  var orgNamesArr = orgNames.split(',');
+		//  console.log(orgNamesArr);
+		//  //static data
+		//  var names = 'Harry,John,Clark,Peter,Rohn,Alice';
+		//  var nameArr = names.split(',');
+
+
+		// jQuery("#country").autosuggest({
+		// 			sugggestionsArray: nameArr
+		// 		});
+		// console.log(orgNamesArr);
+
+		jQuery( "#country" ).keydown(function() {
+  					//alert( "Handler for .keydown() called." );
+  						 var orgNames = jQuery('textarea:input[name=search_org]').val();
+						 var orgNamesArr = orgNames.split(',');
+						 jQuery("#country").autosuggest({
+					sugggestionsArray: nameArr
+				});
+			});
+		
+       
 });
