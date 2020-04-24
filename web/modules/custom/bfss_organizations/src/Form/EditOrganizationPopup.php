@@ -42,10 +42,21 @@ class EditOrganizationPopup extends FormBase {
         $title = $node->title->value;
     }
 
+        $form['left_section_start'] = [
+            '#type' => 'markup',
+            '#markup' => '<div class="left_section popup_left_section">
+              <div class="athlete_left">
+                              <h3><div class="toggle_icon">
+                                  <i class="fa fa-minus"></i><i class="fa fa-plus hide"></i>
+                                </div>EDIT ORGANIZATION
+                              </h3>
+                        <div class="items_div">',
+        ];
+
        $form['resident'] = [
-          '#type' => 'fieldgroup',
-          '#title' => 'EDIT ORGANIZATION',
-          // '#attributes' => ['id' => 'edit-resident'],
+          '#type' => 'container',
+          //'#title' => 'EDIT ORGANIZATION',
+          '#attributes' => ['id' => 'edit-resident'],
         ];
         
         $form['message'] = [
@@ -112,6 +123,11 @@ class EditOrganizationPopup extends FormBase {
                     'message' => $this->t('Verifying entry...'),
                   ],
                 ]
+    ];
+     $form['left_section_end'] = [
+            '#type' => 'markup',
+            '#markup' => '</div>
+            </div></div>',
     ];
     return $form;
      

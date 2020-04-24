@@ -54,15 +54,29 @@ jQuery(document).ready(function() {
 		// 			sugggestionsArray: nameArr
 		// 		});
 		// console.log(orgNamesArr);
+		 //jQuery('textarea:input[name=search_org]').hide();
+		// jQuery( ".orgNames_searchs" ).keydown(function() {
+  // 						 var orgNames = jQuery('textarea:input[name=search_org]').val();
+		// 				 var orgNamesArr = orgNames.split(',');
+		// 				 var lg = jQuery('.orgNames_searchs').val().length;
+		// 					if (lg != 0) {
+  //     							 jQuery(".orgNames_searchs").autosuggest({
+		// 								sugggestionsArray: orgNamesArr
+		// 						});
+		// 					}else{
+		// 						 //jQuery('.jquery-autosuggest-suggestions').hide();
+		// 					}		
+		// 	});
 
-		jQuery( "#country" ).keydown(function() {
-  					//alert( "Handler for .keydown() called." );
-  						 var orgNames = jQuery('textarea:input[name=search_org]').val();
-						 var orgNamesArr = orgNames.split(',');
-						 jQuery("#country").autosuggest({
-					sugggestionsArray: nameArr
-				});
+		jQuery("input#edit-orgnames-search").click(function(){
+			   var orgNames = jQuery('textarea:input[name=search_org]').val();
+			var orgNamesArr = orgNames.split(',');
+			var lg = jQuery('.orgNames_searchs').val().length;
+										
+			jQuery(".orgNames_searchs").autosuggest({
+					sugggestionsArray: orgNamesArr
 			});
+		});
 		
        
 });

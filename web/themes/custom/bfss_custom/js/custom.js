@@ -484,6 +484,9 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
             //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu ,.right_section .edit_dropdown ul.dropdown-menu').toggle();
             jQuery('.bfssAthleteProfile .right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
             jQuery('.edit-user .right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
+            jQuery('.coach-edit-form .right_section .image-widget .data ').toggle();
+
+
             jQuery('#edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span').toggleClass('edit_open');
         //}
         

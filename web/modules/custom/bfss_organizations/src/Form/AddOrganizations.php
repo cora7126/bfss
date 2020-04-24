@@ -58,13 +58,10 @@ class AddOrganizations extends FormBase {
     #$form['#attached']['library'][] = 'renter_landlord_reference/request_form';
 
     // $form['#attributes']['class'][] = 'card';
+    $form['#prefix'] = '<div class="main_section_plx">';
+    $form['#suffix'] = '</div>';
 
-    $form['loader-container'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'id' => 'loader-container',
-      ],
-    ];
+  
 
     // $form['loader-container']['loader'] = [
     //   '#markup' => '<div class="ajax-progress ajax-progress-throbber"><div class="throbber">&nbsp;<h1>Please wait</h1></div></div>',
@@ -236,14 +233,29 @@ class AddOrganizations extends FormBase {
       '#default_value' => '',
        '#rows' => 4,
       '#cols' => 5,
-      '#prefix' => '<div id="edit-output">',
+      '#prefix' => '<div id="edit-output" class="orgtextarea">',
       '#suffix' => '</div>',
     ];
-  $out =  Markup::create('<input type="text" name="country" id="country" autocomplete="off" class="form-control">');
-   $form['companyPicker'] = [
-  '#type' => 'markup',
-      '#markup' => $out,
+
+
+    $form['orgNames_search'] = [
+      '#placeholder' => t('Search'),
+      '#type' => 'textfield', 
+      // '#default_value' => '',
+      //  '#rows' => 4,
+      // '#cols' => 5,
+       '#attributes' => [
+        'class' => ['orgNames_searchs'],
+      ],
+      '#prefix' => '<div id="orgNames_search" class="orgNames_search">',
+      '#suffix' => '</div>',
     ];
+
+  // $out =  Markup::create('<input type="text" name="orgNames_search" id="orgNames_search" autocomplete="off" class="form-control orgNames_search">');
+  //  $form['companyPicker'] = [
+  // '#type' => 'markup',
+  //     '#markup' => $out,
+  //   ];
 
 // $form['hidden_org_name'] = [
 //   '#type' => 'textarea',
@@ -370,7 +382,7 @@ public function test(array &$form, FormStateInterface $form_state) {
               $node->field_organization_name->value = $value['organization_name'];
               $node->field_type->value = $value['type'];
               $node->title->value = $value['type'].'-'.$value['organization_name'];
-              $node->setPublished(FALSE);
+              $node->setPublished(TRUE);
               $node->save();
             }
               

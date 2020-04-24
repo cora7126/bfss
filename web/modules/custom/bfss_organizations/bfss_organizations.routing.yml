@@ -45,3 +45,11 @@ bfss_organizations.edit_organization_popup:
    _form: '\Drupal\bfss_organizations\Form\EditOrganizationPopup'
  requirements:
    _permission: 'access content'
+
+bfss_organizations.search_organization:
+ path: '/search-organization'
+ defaults:
+   _title: 'Search Organization'
+   _form: '\Drupal\bfss_organizations\Form\OrganizationSearchForm'
+ requirements:
+   _permission: 'access content'

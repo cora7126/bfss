@@ -30,6 +30,17 @@ class ApproveOrganizationPopup extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $param = \Drupal::request()->query->all();
     $nid = $param['nid'];
+
+     $form['left_section_start'] = [
+            '#type' => 'markup',
+            '#markup' => '<div class="left_section popup_left_section">
+              <div class="athlete_left">
+                              <h3><div class="toggle_icon">
+                                  <i class="fa fa-minus"></i><i class="fa fa-plus hide"></i>
+                                </div>APPROVE ORGANIZATION
+                              </h3>
+                        <div class="items_div">',
+        ];
     $form['resident'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'resident-details'],
@@ -38,11 +49,7 @@ class ApproveOrganizationPopup extends FormBase {
               '#type' => 'markup',
               '#markup' => '<div class="result_message"></div>',
             ];
-    $form['resident'] = [
-          '#type' => 'fieldgroup',
-          '#title' => 'APPROVE ORGANIZATION',
-          // '#attributes' => ['id' => 'edit-resident'],
-    ];
+  
     $form['resident']['html_links'] = [
      '#type' => 'markup',
      '#markup' => '<div><p>You are about to approve this organization and add it to the</p>
@@ -76,6 +83,11 @@ class ApproveOrganizationPopup extends FormBase {
                     'message' => $this->t('Verifying entry...'),
                   ],
                 ]
+    ];
+     $form['left_section_end'] = [
+            '#type' => 'markup',
+            '#markup' => '</div>
+            </div></div>',
     ];
     return $form;
      
