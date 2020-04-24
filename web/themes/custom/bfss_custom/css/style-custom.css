@@ -1,5 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
+html body{font-family:montserrat, Sans-Serif;}
 body a{color:#EB6E06;}
 body a:hover, body a:focus{text-decoration:underline;color:#EB6E06;}
 html .container{max-width:100% !important;}
@@ -7,19 +8,21 @@ html body{margin-top:0 !important;padding:0 !important;}
 .row{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
 .edit-user div.main_header{margin:0 0 20px;}
 .edit_header h2{font-size:30px;line-height:26px;padding:0 0 3px 10px;font-family:montserrat, Sans-Serif;}
+.form-item input:hover, .form-item input:focus{outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
 /**************** DASHBOARD CSS STARTS HERE *******************/
-.left_side_section{background:#000;border-right:1px solid grey;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
+.left_side_section{background:#000;border-right:1px solid #ced4da;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
 .dashboard footer.footer{display:none;}
 .dash-main-right h1{font-size:15px;padding:15px 20px;margin-bottom:0;color:#000;font-family:montserrat, sans-serif !important}
 .dash-main-right h1 i{color:#EB6E06;}
 .dash-main-right h1 span{padding:0 5px 0 7px;display:inline-block;}
-.dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #343434;}
+.dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #ced4da;}
 .dash-sub-main img{width:72px;height:72px;margin-right:15px;}
 .dash-sub-main h2 span{font-size:13px;font-weight:600;text-transform:uppercase;}
 .dash-sub-main h2{font-size:25px;}
 .dashboard ul.side_nav{list-style-type:none;}
 
-
+.dash-sub-main i.edit_image_solid{width:72px;height:72px;margin-right:12px;border:2px solid #EB6E06;border-radius:50%;padding:13.5px;}
+.dash-sub-main i.edit_image_solid::before{width:45px;height:45px;display:block;overflow:hidden;line-height:45px;text-align:center;color:#EB6E06;font-size:32px;}
 /* ---------Quick Link sec CSS STARTS HERE *******************/
 div.quick-link{margin:40px 0;}
 .quick-link h1{font-size:14px;margin:0 0 8px;font-weight:600;text-transform:uppercase;}
@@ -40,7 +43,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment button.accordion i:first-child{padding-right:15px;}
 .dashboard .my-assessment{position:relative;}
 .dashboard .my-assessment .panel{display:block;padding:0;position:absolute;width:100%;border:none;background-color:white;overflow:hidden;border:1px solid #949494;}
-.dashboard .my-assessment .panel .panel_row{width:100%;float:left;display:block;padding:15px;border-bottom:1px solid #ccc;}
+.dashboard .my-assessment .panel .panel_row{width:100%;float:left;display:block;padding:15px;border-bottom:1px solid #ced4da;}
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
  .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
@@ -135,7 +138,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .calender_event_pop_up .details .date-location p{margin:0;}
 
 
-.dashboard .profile_img_section .profile-sec{border-left:1px solid grey;margin:0;width:125px;background:#030000;text-align:center;height:100px;padding:10px 0px;position:relative;cursor:pointer;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;float:right;}
+.dashboard .profile_img_section .profile-sec{border-left:1px solid #ced4da;margin:0;width:125px;background:#030000;text-align:center;height:100px;padding:10px 0px;position:relative;cursor:pointer;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;float:right;}
 .dashboard .profile_img_section .profile-sec img{width:100%;max-width:60px;}
 .chat-popup{position:absolute;z-index:9;width:250px;right:10px;border:1px solid #bebebe;top:80px;}
 .dashboard.modal-open .card #collapseTwo button.btn-success{background:#000;}
@@ -342,7 +345,7 @@ select#zip{width:100%;}
 .left_manager_inner li{padding: 10px 15px;border-top: 1px solid #aeaeae;}
 span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .calender_img a {text-decoration: none;}
-
+div.orgtextarea textarea{display:none;}
 /************ SELECT MONTH CSS STARTS HERE **************/
 .month_filter, .month_filter form{width:100%;float:left;display:block;}
 .month_filter form span#dateofshow{float:left;margin-right:15px;}
@@ -498,9 +501,9 @@ ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;co
 ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 .result_message{width:100%;text-align:center;color:green;font-size:16px;}
 
-i.fas.edit_image_solid, i.far.edit_image_solid, i.fal.edit_image_solid{width:72px;height:72px;margin-right:12px;font-size:36px;border:2px solid;border-radius: 50%;padding:15px;line-height:46px !important;color:#EB6E06;}
+
 /******************MY Assessments Page Strat here************************/
-.wrapper #multistep-form-three div.js-form-item.form-item-first-name{margin:0 10px 15px 0 !important;}
+.wrapper #multistep-form-three div.js-form-itiem.form-item-first-name{margin:0 10px 15px 0 !important;}
 .wrapper #multistep-form-three div.js-form-item.form-item-last-name{margin:0 0 15px 10px !important;}
 .wrapper #multistep-form-three div.js-form-item.form-item-first-name, .wrapper #multistep-form-three div.js-form-item.form-item-last-name{float:left;width: calc(49.5% - 10px);padding:0;}
 .myassess_main_pxl.user_pro_block .block-bfss-assessors{border:0;}
@@ -568,6 +571,50 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 .left_section .athlete_left h3 >  i, .right_section .athlete_right h3 > i{padding:0;right:15px;top:13px;}
 .centeralizeRow .rightText h4{float:left;position:relative;padding-right:55px;}
 .centeralizeRow .rightText h4 img{position:absolute;top:0;right:0;}
+
+/**************** BFSS MANAGER CSS STARTS HERE *******************/
+.edit-approve-btn{width:100%;float:left;display:block;padding:0 15px;margin:10px 0 0;}
+.edit-approve-btn p{display:inline-block;float:left;margin:0;}
+.edit-approve-btn p a{display:block;width:120px;background:#EB6E06;color:#fff;border:1px solid #EB6E06;text-align:center;padding:5px 0;height:45px;line-height:33px;font-size:14px;}
+.edit-approve-btn p:first-child{margin-right:12px;}
+.edit-approve-btn p a:hover, .edit-approve-btn p a:focus{text-decoration:none;}
+.edit-approve-btn p:first-child a{background:#165616;border-color:#165616;}
+.main_section_plx .pending-organizations-form .left_section .athlete_left select{background-color:#e9ecef;}
+.edit_organizations, .main_section_plx, .main_section_plx form{float:left;display:block;width:100%;}
+.main_section_plx form{padding:20px 5px;}
+.main_section_plx form .left_section{width:calc(100% - 36rem);float:left;padding:0 20px 0 0;}
+.main_section_plx form .right_section{width:36rem;float:left;}
+.edit-sub{width:100%;float:left;display:block;margin:0 0 15px;text-align:right;}
+a#edit-organizations-plx, .drupal-approve-org .modal-footer .modal-buttons button.button, .drupal-edit-org .modal-footer .modal-buttons button.button{color:#fff;padding:5px 0;background:#EB6E06;font-size:14px;cursor:pointer;line-height:23px;height:35px;border:1px solid #EB6E06;display:inline-block;width:100px;text-align:center;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}
+
+.drupal-approve-org{max-width:450px;margin:0 auto;}
+.drupal-approve-org .approve-organization-popup .items_div, .drupal-edit-org .edit-organization-popup .items_div{padding:20px 15px;}
+.drupal-approve-org .approve-organization-popup .left_section .athlete_left, .drupal-edit-org .edit-organization-popup .left_section .athlete_left{margin:0;border-bottom:0;}
+.drupal-approve-org .approve-organization-popup .form-group.js-form-wrapper.form-wrapper, .drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper{margin:0;}
+.drupal-approve-org .approve-organization-popup .form-group.js-form-wrapper.form-wrapper p{font-size:13px;font-weight:500;margin:0 0 .5rem;}
+.drupal-approve-org .approve-organization-popup .form-group.js-form-wrapper.form-wrapper p:last-child{margin:0;}
+.drupal-approve-org .modal-footer, .drupal-edit-org .modal-footer{padding:0 15px 20px;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
+.drupal-approve-org .modal-header .close, .drupal-edit-org .modal-header .close{right:0;top:7px;padding:0;margin:0;position:absolute !important;opacity:1;}
+.drupal-approve-org .modal-header .close span, .drupal-edit-org .modal-header .close span{color:#EB6E06;font-size:32px !important;position:relative !important;opacity:1;text-shadow:none;}
+
+.drupal-approve-org .modal-footer .modal-buttons, .drupal-edit-org .modal-footer .modal-buttons{margin:0;}
+.drupal-approve-org .modal-footer .modal-buttons button.button, .drupal-edit-org .modal-footer .modal-buttons button.button{padding:5px 30px;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-weight:700;width:auto;}
+.drupal-approve-org .modal-footer .modal-buttons button.button:focus, .drupal-approve-org .modal-footer .modal-buttons button.button:hover, .drupal-edit-org .modal-footer .modal-buttons button.button:hover, .drupal-edit-org .modal-footer .modal-buttons button.button:focus, .drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper select:hover, .drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper select:focus{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:0;}
+.main_section_plx form .right_section .items_div .input-group .select-wrapper{display:block;width:calc(100% - 40px);float:left;}
+.main_section_plx form .right_section .items_div .input-group .input-group-addon{float:right;width:40px;background:transparent;}
+.main_section_plx form .right_section .items_div .input-group .input-group-addon .glyphicon{top:6px;}
+
+.drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper input{color:#000;}
+.drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper .form-item.js-form-item{padding:0;margin:0 0 30px;}
+.drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper .form-item.js-form-item:last-child{margin:0;}
+.drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper .form-item.js-form-item.form-item-city{width:70%;float:left;padding-right:10px;}
+.drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper .form-item.js-form-item.form-item-state{width:30%;float:left;}
+
+body .jquery-autosuggest-suggestions{border:1px solid #ced4da;padding:10px 5px;}
+body div.jquery-autosuggest-suggestions div{border:0;margin:0 0 7px;font-size:14px;line-height:20px;}
+/**************** BFSS MANAGER CSS ENDS HERE *******************/
+
+
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

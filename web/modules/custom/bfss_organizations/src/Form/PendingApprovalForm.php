@@ -10,6 +10,8 @@ use Drupal\Core\Ajax\AlertCommand;
 use \Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 Use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Ajax\InvokeCommand;
 /**
  * Class PendingApprovalForm.
  */
@@ -30,21 +32,30 @@ class PendingApprovalForm extends FormBase {
 
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'bfss_organizations');
+    $query->condition('field_user_role', 'coach', 'CONTAINS');
     $query->condition('status', 0, '=');
     $nids = $query->execute();
+
+    // print_r($nids);
+    // die;
     $form['#tree'] = TRUE;
+    $form['#prefix'] = '<div class="main_section_plx">';
+    $form['#suffix'] = '</div>';
+   
 
-    $form['loader-container'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'id' => 'loader-container',
-      ],
+    $form['left_section_start'] = [
+            '#type' => 'markup',
+            '#markup' => '<div class="left_section popup_left_section">',
     ];
-
     $form['resident'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'resident-details'],
+      '#prefix' => '',
+      '#suffix' =>'',
     ];
+
+     
+  
     foreach ($nids as $i => $nid) {
       if(isset($nid)){
         $node = Node::load($nid);
@@ -57,12 +68,20 @@ class PendingApprovalForm extends FormBase {
         $field_type = $node->field_type->value;
         $title = $node->title->value;
     
-            
-        $form['resident'][$i] = [
-          '#type' => 'fieldgroup',
-          '#title' => 'ORGANIZATION APPROVE',
-          // '#attributes' => ['id' => 'edit-resident'],
-        ];
+        $form['resident'][$i]['left_start'] = [
+            '#type' => 'markup',
+            '#markup' => ' <div class="athlete_left">
+                              <h3><div class="toggle_icon">
+                                  <i class="fa fa-minus"></i><i class="fa fa-plus hide"></i>
+                                </div>ORGANIZATION APPROVAL
+                              </h3>
+                        <div class="items_div">',
+        ];   
+        // $form['resident'][$i] = [
+        //   '#type' => 'fieldgroup',
+        //   '#title' => 'ORGANIZATION APPROVE',
+        //   // '#attributes' => ['id' => 'edit-resident'],
+        // ];
 
         $form['resident'][$i]['organization_name'] = [
           '#type' => 'textfield',
@@ -105,10 +124,75 @@ class PendingApprovalForm extends FormBase {
         $url_edit = "/edit-organization-popup?nid=".$nid;
         $form['resident'][$i]['html_links'] = array(
          '#type' => 'markup',
-         '#markup' => '<div><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-approve-org&quot;}" data-dialog-type="modal" href="'.$url_approve.'">APPROVE</a></p><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-edit-org&quot;}" data-dialog-type="modal" href="'.$url_edit.'">EDIT</a></p></div>',
+         '#markup' => '<div class="edit-approve-btn"><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-approve-org&quot;}" data-dialog-type="modal" href="'.$url_approve.'">APPROVE</a></p><p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-edit-org&quot;}" data-dialog-type="modal" href="'.$url_edit.'">EDIT</a></p></div>',
         );
+
+          $form['resident'][$i]['left_end'] = [
+            '#type' => 'markup',
+            '#markup' => '</div>
+            </div>',
+        ]; 
       }
     }
+   $form['left_section_end'] = [
+      '#type' => 'markup',
+      '#markup' => '</div>
+      <div class="right_section"><!--RIGHT SECTION START-->
+                      <div class="athlete_right">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ORGANIZATION SEARCH</h3>
+                        <div class="items_div" style="">
+      ',
+    ];
+
+     $states = $this->get_state();
+      $form['search_state'] = [
+      '#type' => 'select',
+       '#placeholder' => t('State'),
+      '#options' => $states,
+      '#ajax' => [
+        'callback' => '::myAjaxCallback', // don't forget :: when calling a class method.
+        //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+        'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+        'event' => 'change',
+        'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+        // 'progress' => [
+        //   'type' => 'throbber',
+        //   'message' => $this->t('Verifying entry...'),
+        // ],
+      ]
+    ];
+
+    $form['search_org'] = [
+      '#placeholder' => t('Search'),
+      '#type' => 'textarea', 
+      '#default_value' => '',
+       '#rows' => 4,
+      '#cols' => 5,
+      '#prefix' => '<div id="edit-output" class="orgtextarea">',
+      '#suffix' => '</div>',
+    ];
+
+
+    $form['orgNames_search'] = [
+      '#placeholder' => t('Search'),
+      '#type' => 'textfield', 
+      // '#default_value' => '',
+      //  '#rows' => 4,
+      // '#cols' => 5,
+       '#attributes' => [
+        'class' => ['orgNames_searchs'],
+      ],
+      '#prefix' => '<div id="orgNames_search" class="orgNames_search">',
+      '#suffix' => '</div>',
+    ];
+   
+
+    $form['right_section_end'] = [
+      '#type' => 'markup',
+      '#markup' => '</div>
+        </div>
+      </div><!--RIGHT SECTION END-->',
+    ];
     // $form['actions'] = [
     //   '#type' => 'actions',
     // ];
@@ -140,7 +224,42 @@ class PendingApprovalForm extends FormBase {
         
   }
 
+public function myAjaxCallback(array &$form, FormStateInterface $form_state) {
+  if ($selectedValue = $form_state->getValue('search_state')) {
+      $selectedText = $form['search_state']['#options'][$selectedValue];
+      $orgNames = $this->Get_Org_Name($selectedText);
+      $form['search_org']['#value'] = $orgNames;
+      //$a = $this->test();
+  }
+   
+    $ajax_response = new AjaxResponse();
+    $ajax_response->addCommand(new InvokeCommand(NULL, 'myTest', ['some Var']));
+    
+  return $form['search_org']; 
+}
 
+
+public function test(array &$form, FormStateInterface $form_state) {
+    $ajax_response = new AjaxResponse();
+    $ajax_response->addCommand(new InvokeCommand(NULL, 'myTest', ['some Var']));
+    return $ajax_response;
+   }
+
+  public function Get_Org_Name($state){
+    if(isset($state)){
+      $query = \Drupal::entityQuery('node');
+      $query->condition('type', 'bfss_organizations');
+      $query->condition('field_state', $state, 'IN');
+      $nids = $query->execute();
+      $org_name=[];
+      foreach($nids as $nid){
+        $node = Node::load($nid);
+        $org_name[]= $node->field_organization_name->value;
+      }
+      $result = implode(",",$org_name);
+    }
+    return $result;
+  }
   public function get_state(){
     $states = [
         '' => 'State',

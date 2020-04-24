@@ -805,8 +805,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,.input-group-lg > tex
 .form-group-lg textarea.form-control,.form-group-lg select[multiple].form-control{height:auto;}
 .form-group-lg .form-control-static{height:46px;min-height:38px;padding:11px 16px;font-size:18px;line-height:1.3333333;}
 .has-feedback{position:relative;}
-a#edit-organizations-plx{color:#000;padding:26px 25px 0px 25px;background:#EB6E06;background-color:#ec7108;font-size:15px;cursor:pointer;}
- .has-feedback .form-control{padding-right:42.5px;}
+.has-feedback .form-control{padding-right:42.5px;}
 .form-control-feedback{position:absolute;top:0;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center;pointer-events:none;}
 .input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback,.input-group-lg > .input-group-addon + .form-control-feedback,.input-group-lg > .input-group-btn > .btn + .form-control-feedback,.input-group-lg + .form-control-feedback,.form-group-lg .form-control + .form-control-feedback{width:46px;height:46px;line-height:46px;}
 .input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback,.input-group-sm > .input-group-addon + .form-control-feedback,.input-group-sm > .input-group-btn > .btn + .form-control-feedback,.input-group-sm + .form-control-feedback,.form-group-sm .form-control + .form-control-feedback{width:30px;height:30px;line-height:30px;}
@@ -1922,7 +1921,8 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#f76907;padding-right:15px;font-weight: 400;}
 .left_section .athlete_left , .right_section .athlete_right{border:1px solid #ccc;padding-bottom:0px;margin-bottom:30px;position:relative;}
 .left_section .athlete_left .form-item , .right_section .athlete_right .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
-.left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;}
+.left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;}
+.right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
 .left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;}
 .left_section .athlete_left .add_pos_div{position:relative;padding-bottom:30px;}
 .left_section .athlete_left .add_pos_div a.add_pos{padding:0px 0px 0px 16px;position:absolute;bottom:5px;margin-bottom:0;left:0;cursor:pointer;}
