@@ -200,7 +200,7 @@ class ManagerAssessorAccount extends FormBase {
         if ($i > 0) {
           $form['resident'][$i]['actions']['remove_item'] = [
             '#type' => 'submit',
-            '#value' => $this->t('Remove'),
+            '#value' => Markup::create('<i class="fas fa-trash"></i>'),
             '#name' => 'resident_remove_' . $i,
             '#submit' => ['::removeRenter'],
             // Since we are removing a name, don't validate until later.
@@ -210,7 +210,7 @@ class ManagerAssessorAccount extends FormBase {
               'wrapper'  => 'resident-details',
             ],
             '#attributes' => [
-              'class' => ['btn btn-colored btn-raised btn-danger remove-resident-btn']
+              'class' => ['delete_item_plx']
             ]
           ];
         }
@@ -223,7 +223,7 @@ class ManagerAssessorAccount extends FormBase {
 
     $form['resident']['actions']['add_item'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add another'),
+      '#value' => Markup::create('<p><i class="fa fa-plus"></i>Add another<p>'),
       '#submit' => ['::addRenter'],
       '#limit_validation_errors' => [],
       '#ajax' => [
@@ -232,7 +232,7 @@ class ManagerAssessorAccount extends FormBase {
         'disable-refocus' => TRUE
       ],
       '#attributes' => [
-        'class' => ['btn btn-colored btn-raised add-resident-btn']
+        'class' => ['add_item_plx']
       ],
       '#prefix' => '',
       '#suffix' => '</div>
@@ -313,14 +313,14 @@ class ManagerAssessorAccount extends FormBase {
     
     $username = $form_state->getValue('username');
     $associated_email = $form_state->getValue('associated_email');
-
+    $username = $first_name.rand();
     $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    //$language = 'en';
+    $password = $this->random_password(8);
     $user = \Drupal\user\Entity\User::create();
-    $user->setPassword('Admin@123');
+    $user->setPassword($password);
     $user->enforceIsNew();
     $user->setEmail($manager_email);
-    $user->setUsername($first_name);//This username must be unique and accept only a-Z,0-9, - _ @ .
+    $user->setUsername($username);//This username must be unique and accept only a-Z,0-9, - _ @ .
     $user->set('field_first_name',$first_name);
     $user->set('field_last_name',$first_name);
     $user->set('field_mobile',$phone);
@@ -333,7 +333,7 @@ class ManagerAssessorAccount extends FormBase {
     $user->activate();
     //Save user account
     $user->save();
-
+    $uid = $user->id();
 
     if(!empty($form_state->getValues('resident')['resident'])){
                 $data=[];
@@ -367,19 +367,20 @@ class ManagerAssessorAccount extends FormBase {
 
             $node->set('field_coverage_z', $coverage_zone_name);
             $node->set('field_manager_cover_area', $paragraph_items);
-            $node->title->value = '22222';
+
+            //aditional user info 
+            $node->set('field_associated_assess_username', $username);
+            $node->set('field_associated_assess_email', $associated_email);
+            $node->set('field_city_manager', $manager_city);
+            $node->set('field_zip_code', $zip);
+            $node->set('field_a', $address_1);
+            $node->set('field_address__2', $address_2);
+            $node->field_user_manger[] = ['target_id' => $uid];
+            $node->title->value = '(Manager : )'.$username.'-'.$associated_email;
             $node->save();
 
-            // foreach ($data as $key => $value) {
-            //   $node = Node::create([
-            //          'type' => 'manager_cover_area',
-            //   ]);
-            //   $node->field_cover_city->value = $value['cover_area_state'];
-            //   $node->field_cover_area_state->value = $value['cover_area_city'];
-            //   $node->setPublished(TRUE);
-            //   $node->save();
-            // }
-              
+            _user_mail_notify('register_no_approval_required', $user);
+
     }
         
   }
@@ -509,6 +510,11 @@ class ManagerAssessorAccount extends FormBase {
         'AP' => 'AP',
        ];
        return $states;
+  }
+  function random_password( $length = 8 ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+    $password = substr( str_shuffle( $chars ), 0, $length );
+    return $password;
   }
 
 }

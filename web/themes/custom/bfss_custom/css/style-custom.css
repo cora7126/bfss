@@ -9,6 +9,10 @@ html body{margin-top:0 !important;padding:0 !important;}
 .edit-user div.main_header{margin:0 0 20px;}
 .edit_header h2{font-size:30px;line-height:26px;padding:0 0 3px 10px;font-family:montserrat, Sans-Serif;}
 .form-item input:hover, .form-item input:focus{outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+.modal-header .close{z-index:1;opacity:1;}
+.close span{font-size:30px;color:#EB6E06;text-shadow:none;}
+button.save-button-plx:hover, button.save-button-plx:focus{box-shadow:none;outline:0;}
+button.save-button-plx{font-size:14px;background-color:#f76907;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;height:40px;}
 /**************** DASHBOARD CSS STARTS HERE *******************/
 .left_side_section{background:#000;border-right:1px solid #ced4da;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
 .dashboard footer.footer{display:none;}
@@ -69,7 +73,9 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .tab-nav ul li a{color:#808080;font-size:14px;font-weight:600;font-family:montserrat, sans-serif}
 .tab-nav ul li a:hover{text-decoration:none;color:#4c4c4c;}
 
-
+.lft_sect{width:100%;float:left;display:block;}
+.right_section .athlete_right .edit_dropdown{width:90px;font-size:13px;overflow:hidden;}
+.coach-edit-profile-form .right_section .athlete_right:first-child h3{padding-right:100px;}
 /* --------- BFSS MANAGER CSS STARTS HERE *******************/
 .bfss-main{width:65%;float:left;display:block;margin:3rem 0;}
 .bfss-main h3{width:100%;float:left;display:block;background-color:#000;margin:0;color:#fff;font-size:14px;padding:15px;line-height:16px;border:1px solid #000;}
@@ -219,13 +225,13 @@ ul.side_nav{padding:0px;}
 ul.side_nav li{border-bottom:1px solid #fff;line-height:50px;}
 button.side_button{background:transparent;color:#fff;font-size:14px;text-transform:capitalize;border:none;cursor:pointer;text-decoration:none;}
 div#sidenav ul li i{color:#EB6E06;font-size:15px;margin-right:15px;}
-ul.side_nav .sub_menu{padding:0px 10px;}
-li.sub_menu button{padding:0px;}
-li.sub-menu-drop .drop{padding:0px 10px !important;}
+ul.side_nav .sub_menu{padding:0 15px;}
+li.sub_menu button{padding:0;}
+li.sub-menu-drop .drop{padding:0 15px !important;}
 li.sub_menu button:focus{outline:none !important;}
 li.sub_menu.active{background-color:#EB6E06;}
 li.sub_menu.active i{color:#fff !important;}
-ul.dropdown-menu.open li a{padding:0px 0px 0px 20px;}
+ul.dropdown-menu.open li a{padding:0 0 0 20px;}
 ul.dropdown-menu.open li a:hover{text-decoration:none;background-color:#EB6E06;color:#fff;}
 .dropdown{position:relative;display:inline-block;width:100%;}
 .dropdown .drop{background-color:#2f2f2f;}
@@ -461,7 +467,7 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 
 #follow-unfollow-form .submit-follow-btn{display:none;}
 .drupal-assess-fm .modal-header{position:relative;}
-.drupal-assess-fm .modal-header button.close{position:absolute !important;padding:0;margin:0;right:0;top:0;}
+.drupal-assess-fm .modal-header button.close{position:absolute;padding:0;margin:0;right:15px;top:20px;}
 #assessor_popup_form{background:rgba(0,0,0,.7);}
 #accessorform a.close{font-size:30px;}
 .drupal-assess-fm .modal-body.ui-dialog-content{overflow:visible !important;}
@@ -599,7 +605,7 @@ a#edit-organizations-plx, .drupal-approve-org .modal-footer .modal-buttons butto
 
 .drupal-approve-org .modal-footer .modal-buttons, .drupal-edit-org .modal-footer .modal-buttons{margin:0;}
 .drupal-approve-org .modal-footer .modal-buttons button.button, .drupal-edit-org .modal-footer .modal-buttons button.button{padding:5px 30px;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-weight:700;width:auto;}
-.drupal-approve-org .modal-footer .modal-buttons button.button:focus, .drupal-approve-org .modal-footer .modal-buttons button.button:hover, .drupal-edit-org .modal-footer .modal-buttons button.button:hover, .drupal-edit-org .modal-footer .modal-buttons button.button:focus, .drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper select:hover, .drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper select:focus{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:0;}
+.main_section_plx select:hover, .main_section_plx select:focus, .main_section_plx button:hover, .main_section_plx button:focus{-webkit-box-shadow:none !important;-moz-box-shadow:none !important;box-shadow:none !important;outline:0 !important;}
 .main_section_plx form .right_section .items_div .input-group .select-wrapper{display:block;width:calc(100% - 40px);float:left;}
 .main_section_plx form .right_section .items_div .input-group .input-group-addon{float:right;width:40px;background:transparent;}
 .main_section_plx form .right_section .items_div .input-group .input-group-addon .glyphicon{top:6px;}
@@ -612,6 +618,19 @@ a#edit-organizations-plx, .drupal-approve-org .modal-footer .modal-buttons butto
 
 body .jquery-autosuggest-suggestions{border:1px solid #ced4da;padding:10px 5px;}
 body div.jquery-autosuggest-suggestions div{border:0;margin:0 0 7px;font-size:14px;line-height:20px;}
+
+/**************** BFSS MANAGER ADD NEW ORGANISSATION CSS STARTS HERE ********************/
+button.btn.btn-success.add_item_plx{background:transparent;color:#EB6E06;border:0;padding:0;margin:0;position:relative;top:-15px;}
+button.btn.btn-success.add_item_plx p{margin:0;font-size:14px;line-height:20px;}
+button.btn.btn-success.add_item_plx p i{margin-right:10px;}
+button.btn.btn-success.add_item_plx p:empty-child{display:none;}
+.main_section_plx .add-organizations-form #edit-actions.form-actions.js-form-wrapper{margin:30px 0 0;}
+.main_section_plx .add-organizations-form #edit-actions.form-actions.js-form-wrapper, .add_org_submit{width:100%;float:left;display:block;}
+.main_section_plx .add-organizations-form #edit-actions .add_org_submit button{background-color:#EB6E06;text-transform:uppercase;padding:9px 20px;height:40px;font-size:14px;border-color:#EB6E06;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;line-height:20px;}
+.main_section_plx .athlete_left .delete_item_plx.cancel.button{margin:0 15px;padding:0;}
+.main_section_plx .athlete_left .delete_item_plx.cancel.button:hover, .main_section_plx .athlete_left .delete_item_plx.cancel.button:focus{background:transparent;border-color:#fff;}
+.main_section_plx .athlete_left .delete_item_plx.cancel.button i{font-size:18px;color:#EB6E06;}
+.tab-main-sec-heading.private-assess{padding-top:20px;}
 /**************** BFSS MANAGER CSS ENDS HERE *******************/
 
 
@@ -697,6 +716,7 @@ body div.jquery-autosuggest-suggestions div{border:0;margin:0 0 7px;font-size:14
 	.eventlisting_main.user_pro_block{padding-top:25px;}
 	.bfss-main{width:100%;}
 	.bfssAthleteProfile .left_section .athlete_left:last-child, .bfssAthleteProfile .right_section .athlete_right:last-child{margin-bottom:0;}
+	.main_section_plx form .left_section, .main_section_plx form .right_section{width:100%;padding:0;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/

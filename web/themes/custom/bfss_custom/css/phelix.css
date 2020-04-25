@@ -733,6 +733,7 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
   box-shadow:none;
   outline:0;
   width:auto;
+  text-transform:uppercase;
 }
 #athlete_submit button:hover, #athlete_submit button:focus{
   box-shadow:none;

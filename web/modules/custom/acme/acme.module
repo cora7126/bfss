@@ -41,6 +41,11 @@ function acme_theme() {
     'template' => 'upcoming',
   ];
 
+  $theme['private_assessments_page'] = [
+    'variables' => ['name' => NULL,'private_assessments_block' => NULL,'month_block' => NULL],
+    'template' => 'private_assessments',
+  ];
+
   $theme['faq_page'] = [
     'variables' => ['name' => NULL,'assessments_block' => NULL],
     'template' => 'faqlist',

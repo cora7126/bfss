@@ -216,9 +216,11 @@
                               </div>
                            </div>
                            <div class="pop_text_sec">
-                              
-                                 <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
-                              
+                              {% if user_role == 2 %}
+                                 <a href='/coach-edit-form'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
+                              {% else %}
+                               <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
+                              {% endif %}
                               {% if user_role == 0 %}
                               <a href="/bfss-manager">
                                  <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
@@ -367,8 +369,8 @@
                         <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-calendar-alt"></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
-                           <li><a class="side_button"  href="#">Group Assessments</a></li>
-                           <li><a class="side_button"  href="#">Private Assessments</a></li>
+                           <li><a class="side_button"  href="/upcoming-group-assessments">Group Assessments</a></li>
+                           <li><a class="side_button"  href="/private-assessments">Private Assessments</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -493,7 +495,7 @@
                         <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li ><a href="/upcoming-group-assessments"> Group Assessments </a></li>
-                           <li><a href="#">Private Assessments</a></li>
+                           <li><a href="/private-assessments">Private Assessments</a></li>
  
                         </ul>
                      </div>

@@ -8,15 +8,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\bfss_assessment\AssessmentService;
 
 /**
- * Provides a 'Upcoming Group Assessments' Block.
+ * Provides a 'Private Assessments Block pxl' Block.
  *
  * @Block(
- *   id = "upcoming_group_assessments",
- *   admin_label = @Translation("Upcoming GroupA ssessments"),
- *   category = @Translation("Upcoming Group Assessments"),
+ *   id = "private_assessments_pxl",
+ *   admin_label = @Translation("Private Assessments Block pxl"),
+ *   category = @Translation("Private Assessments Block pxl"),
  * )
  */
-class UpcomingGroupAssessments extends BlockBase implements ContainerFactoryPluginInterface {
+class PrivateAssessmentsBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
   * Drupal\bfss_assessment\AssessmentService definition.
@@ -50,7 +50,7 @@ class UpcomingGroupAssessments extends BlockBase implements ContainerFactoryPlug
     $element = 1;
     #get nodes by paginations
     //$nids =$this->assessmentService->getComingAssessments($element);
-    $nids = $this->assessmentService->assessment_after_month_filter_upcoming($element);
+    $nids = $this->assessmentService->assessment_after_month_filter_private($element);
  
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
