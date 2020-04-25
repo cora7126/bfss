@@ -29,3 +29,20 @@ bfss_manager.view_edit_deactive:
     _title: 'View Edit Deactive'
   requirements:
     _access: 'TRUE' 
+
+bfss_manager.pending_assessments:
+  path: '/pending-assessments'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\PendingAssessments::pending_assessments'
+    _title: 'Pending Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+
+bfss_manager.add_group_assessments:
+  path: '/add-group-assessments'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\AddGroupAssessments::add_group_assessments'
+    _title: 'Add Group Assessments'
+  requirements:
+    _access: 'TRUE' 

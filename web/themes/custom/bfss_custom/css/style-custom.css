@@ -11,8 +11,8 @@ html body{margin-top:0 !important;padding:0 !important;}
 .form-item input:hover, .form-item input:focus{outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
 .modal-header .close{z-index:1;opacity:1;}
 .close span{font-size:30px;color:#EB6E06;text-shadow:none;}
-button.save-button-plx:hover, button.save-button-plx:focus{box-shadow:none;outline:0;}
-button.save-button-plx{font-size:14px;background-color:#f76907;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;height:40px;}
+#edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus{box-shadow:none;outline:0;}
+#edit-actions button.save-button-plx{font-size:14px;background-color:#f76907;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;height:40px;margin:10;}
 /**************** DASHBOARD CSS STARTS HERE *******************/
 .left_side_section{background:#000;border-right:1px solid #ced4da;width:19%;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
 .dashboard footer.footer{display:none;}
@@ -188,7 +188,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .athletes_follow_dv .search_athlete_main{padding:0;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors{border:0;padding:20px 10px;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors .dataTables_wrapper table{margin:0 0 30px;}
-.athletes_follow_dv .search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;}
+.athletes_follow_dv .search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;top:30px;}
 .athletes_follow_dv .search_athlete_main .unfollow-sub i{color:#EB6E06;font-size:14px;line-height:22px;position:relative;top:1px;}
 .athletes_follow_dv .search_athlete_main .unfollow-sub input[type="submit"]{border:0;background:none;color:#EB6E06;font-size:13px;text-transform:capitalize;line-height:22px;font-weight:500;}
 /**************** ATHLETES FOLLOW CSS ENDS HERE *******************/
