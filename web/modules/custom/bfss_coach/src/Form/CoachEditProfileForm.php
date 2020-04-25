@@ -108,12 +108,20 @@ class CoachEditProfileForm extends FormBase {
       $url = $file->url();
     }
 
+
+
     $form['#tree'] = TRUE;
+
+    $form['left_section_'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="left_section">',
+    ];
+
     $form['username'] = [
     '#type' => 'textfield',
     '#required' => TRUE,
     '#default_value' => $results4['name'],
-    '#prefix'=>'<div class="left_section popup_left_section"> <!--left_section START -->
+    '#prefix'=>'<div class="lft_sect"> <!--left_section START -->
                   <div class="athlete_left">
                     <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Login Information</h3>
                     <div class=items_div>',
@@ -188,7 +196,7 @@ class CoachEditProfileForm extends FormBase {
 
      $form['left_section_start'] = [
       '#type' => 'markup',
-      '#markup' => '<div class="left_section">',
+      '#markup' => '<div class="lft_sect">',
     ];
     $form['resident'] = [
       '#type' => 'container',
@@ -258,7 +266,7 @@ class CoachEditProfileForm extends FormBase {
         if ($i > 0) {
           $form['resident'][$i]['actions']['remove_item'] = [
             '#type' => 'submit',
-            '#value' => $this->t('Remove Organization'),
+            '#value' => Markup::create('<i class="fas fa-trash"></i>'),
             '#name' => 'resident_remove_' . $i,
             '#submit' => ['::removeRenter'],
             // Since we are removing a name, don't validate until later.
@@ -268,7 +276,7 @@ class CoachEditProfileForm extends FormBase {
               'wrapper'  => 'resident-details',
             ],
             '#attributes' => [
-              'class' => ['btn btn-colored btn-raised btn-danger remove-resident-btn']
+              'class' => ['delete_item_plx']
             ]
           ];
         }
@@ -281,7 +289,7 @@ class CoachEditProfileForm extends FormBase {
 
     $form['resident']['actions']['add_item'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add Another Title, Sport or Organization'),
+      '#value' => Markup::create('<p><i class="fa fa-plus"></i>Add another organization<p>'),
       '#submit' => ['::addRenter'],
       '#limit_validation_errors' => [],
       '#ajax' => [
@@ -290,7 +298,7 @@ class CoachEditProfileForm extends FormBase {
         'disable-refocus' => TRUE
       ],
       '#attributes' => [
-        'class' => ['btn btn-colored btn-raised add-resident-btn']
+        'class' => ['add_item_plx']
       ],
       '#prefix' => '',
       '#suffix' => '</div><!--LEFT SECTION END-->'
@@ -300,7 +308,10 @@ class CoachEditProfileForm extends FormBase {
 */
 
 
-
+  $form['left_section_1'] = [
+      '#type' => 'markup',
+      '#markup' => '</div>',
+    ];
 
 /*
 *RIGHT SECTION
@@ -362,7 +373,7 @@ $form['html_image_athlete_start'] = [
 $form['html_image_athlete_end'] = [
   '#type' => 'markup',
   '#markup' => '
-  </div>',
+ ',
 ];
 //   $form['image_athlete'] = [
 //     '#type' => 'managed_file',
@@ -425,7 +436,8 @@ $form['html_image_athlete_end'] = [
      $form['pass_label'] = array(
       '#type' => 'label',
       '#value' => t('Your password must be at least 8 characters long and contain at least one number and one character'),
-      '#prefix' => '<div id="changepassdiv" class="changePassword_popup">
+      '#prefix' => '<div class="athlete_right">
+      <div id="changepassdiv" class="changePassword_popup">
                       <div class="popup_header change_password_header">
                           <h3>Change Password <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true"></i></h3>
                       </div>',
@@ -452,10 +464,13 @@ $form['html_image_athlete_end'] = [
         '#type' => 'label',
         '#title' => 'update',
     '#prefix' =>'',
-    '#suffix' => '</div>',
+    '#suffix' => '</div>
+      </div>
+     </div><!--right section end-->',
     '#attributes' => array('id'=>'save_pass','style'=>'cursor:pointer; background:green;padding: 5px;
     border-radius: 3px;'),
     ];
+
     //end change password
    $form['submit'] = [
       '#type' => 'submit',

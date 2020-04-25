@@ -63,9 +63,6 @@ p.note{margin-left:1%;background-color:#cecece;width:50%;padding-left:4px;color:
 
 .date-and-time div.location{background-image:url(../img/icon_time.png)!important;background-repeat:no-repeat!important;background-position:top left!important;/* margin-top:-25px; */padding-top:15px;font-size:19px;}
 .row.details .col-half{width:49%;}
-
-.close span{position:absolute!important;right:15px!important;top:9px!important;font-size:23px!important;}
-.close{position:relative!important;z-index:1!important;margin-right:10px;}
 .categories-tags ul li:nth-of-type(2){margin-left:10px;}
 
 

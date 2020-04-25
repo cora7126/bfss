@@ -162,7 +162,7 @@ class AddOrganizations extends FormBase {
       if ($i > 0) {
         $form['resident'][$i]['actions']['remove_item'] = [
           '#type' => 'submit',
-          '#value' => $this->t('Remove Organization'),
+          '#value' => Markup::create('<i class="fas fa-trash"></i>'),
           '#name' => 'resident_remove_' . $i,
           '#submit' => ['::removeRenter'],
           // Since we are removing a name, don't validate until later.
@@ -172,7 +172,7 @@ class AddOrganizations extends FormBase {
             'wrapper'  => 'resident-details',
           ],
           '#attributes' => [
-            'class' => ['btn btn-colored btn-raised btn-danger remove-resident-btn']
+            'class' => ['delete_item_plx']
           ]
         ];
       }
@@ -185,7 +185,7 @@ class AddOrganizations extends FormBase {
 
     $form['resident']['actions']['add_item'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add another organization'),
+      '#value' =>  Markup::create('<p><i class="fa fa-plus"></i>Add another organization<p>'),
       '#submit' => ['::addRenter'],
       '#limit_validation_errors' => [],
       '#ajax' => [
@@ -194,7 +194,7 @@ class AddOrganizations extends FormBase {
         'disable-refocus' => TRUE
       ],
       '#attributes' => [
-        'class' => ['btn btn-colored btn-raised add-resident-btn']
+        'class' => ['add_item_plx']
       ],
       '#prefix' => '',
       '#suffix' => '</div><!--LEFT SECTION END-->'
@@ -295,7 +295,7 @@ class AddOrganizations extends FormBase {
         // '#attributes' => [
         //   'class' => ['btn button--primary'],
         // ],
-        '#prefix' => ' <div id="athlete_submit" class="athlete_submit">',
+        '#prefix' => ' <div class="add_org_submit">',
         '#suffix' => '</div>'
        
       ];

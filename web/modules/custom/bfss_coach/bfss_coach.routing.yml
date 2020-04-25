@@ -57,5 +57,5 @@ bfss_coach.coach_edit_form:
     _controller: '\Drupal\bfss_coach\Controller\CoachEditProfile::content' 
     _title: 'Edit Profile'
   requirements: 
-    #_permission: 'access content'
-    _role: 'coach'
+    _permission: 'access content'
+    #_role: 'coach'
