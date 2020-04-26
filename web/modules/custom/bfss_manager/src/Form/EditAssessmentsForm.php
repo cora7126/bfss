@@ -14,10 +14,11 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Ajax\InvokeCommand;
 use \Drupal\user\Entity\User;
 use Drupal\file\Entity\File;
+use Drupal\Core\Datetime\DrupalDateTime;
 /**
- * Class AddGroupAssessmentsForm.
+ * Class EditAssessmentsForm.
  */
-class AddGroupAssessmentsForm extends FormBase {
+class EditAssessmentsForm extends FormBase {
 
   /**
    * Drupal\Core\Entity\EntityTypeManagerInterface definition.
@@ -47,7 +48,7 @@ class AddGroupAssessmentsForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'add_group_assessments';
+    return 'edit_assessments';
   }
 
   /**
@@ -55,14 +56,25 @@ class AddGroupAssessmentsForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $session = $this->getRequest()->getSession();
+    $param = \Drupal::request()->query->all();
+    if(isset($param['nid'])){
 
+    
+    $node = Node::load($param['nid']);
+    $title =  $node->title->value;
+    $body =  $node->body->value;
+    $location =  $node->field_location->value;
+    $type =  $node->field_type_of_assessment->value;
+    $schedules =  $node->get('field_schedules')->getValue(); 
+   
+    
     $form['#tree'] = TRUE;
 
     $form['#prefix'] = '<div class="main_section_plx left_full_width_plx">';
     $form['#suffix'] = '</div>';
  
     
-  
+    
     
     $form['left_section_start'] = [
       '#type' => 'markup',
@@ -74,7 +86,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Assessment Title'),
         '#required' => TRUE,
-        '#default_value' => '',
+        '#default_value' => $title,
         '#prefix' => '<div class="athlete_left">
                         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Assessment Informations</h3>
                        <div class="items_div" style="">',
@@ -86,7 +98,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#type' => 'textarea',
         '#placeholder' => t('Assessment Body'),
         '#required' => TRUE,
-        '#default_value' => '',
+        '#default_value' => $body,
         '#prefix' => '',
     ]; 
 
@@ -98,7 +110,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#options' => $types,
         '#placeholder' => t('Type of Assessment'),
         '#required' => TRUE,
-        '#default_value' => '',
+        '#default_value' => $type,
         '#prefix' => '',
         '#suffix' => '',
     ];
@@ -107,7 +119,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#type' => 'textarea',
         '#placeholder' => t('Location'),
         '#required' => TRUE,
-        '#default_value' => '',
+        '#default_value' => $location,
         '#prefix' => '',
         '#suffix' => '</div>
         </div><div class="athlete_left schedule_plx">
@@ -121,44 +133,90 @@ class AddGroupAssessmentsForm extends FormBase {
       '#suffix' => '',
     ];
 
-    for ($i = 0; $i <= $this->residentCount; $i++) {
-      //$states = $this->get_state();
-      $form['resident'][$i]['field_duration'] = [
-        '#placeholder' => t('Duration'),
-        '#type' => 'number',
-        '#required' => TRUE,
-      ];
+    foreach ($schedules as $key => $value) {
+          //$target_id[] = $value['target_id'];
+          if(isset($value['target_id'])){
+            $pGraph = Paragraph::load($value['target_id']);
+            // print_r($pGraph->field_timing->value);
+            // die;
 
-      $form['resident'][$i]['field_timing'] = [
-        '#type' => 'datetime',
-        '#placeholder' => t('Timing'),
-        '#required' => TRUE,
-        '#default_value' => '',
-      ];
-
-
-      $form['resident'][$i]['actions'] = [
-        '#type' => 'actions',
-      ];
-
-        if ($i > 0) {
-          $form['resident'][$i]['actions']['remove_item'] = [
-            '#type' => 'submit',
-            '#value' => Markup::create('<i class="fas fa-trash"></i>'),
-            '#name' => 'resident_remove_' . $i,
-            '#submit' => ['::removeRenter'],
-            // Since we are removing a name, don't validate until later.
-            '#limit_validation_errors' => [],
-            '#ajax' => [
-              'callback' => '::renterAjaxCallback',
-              'wrapper'  => 'resident-details',
-            ],
-            '#attributes' => [
-              'class' => ['delete_item_plx']
-            ]
+          $form['resident'][$i]['field_duration'] = [
+            '#placeholder' => t('Duration'),
+            '#type' => 'number',
+            '#required' => TRUE,
+            '#default_value' => $pGraph->field_duration->value,
           ];
-        }
+
+          $form['resident'][$i]['field_timing'] = [
+            '#type' => 'datetime',
+            '#placeholder' => t('Timing'),
+            '#required' => TRUE,
+            '#default_value' => DrupalDateTime::createFromTimestamp($pGraph->field_timing->value),
+          ];
+
+
+          $form['resident'][$i]['actions'] = [
+            '#type' => 'actions',
+          ];
+
+                if ($i > 0) {
+                  $form['resident'][$i]['actions']['remove_item'] = [
+                    '#type' => 'submit',
+                    '#value' => Markup::create('<i class="fas fa-trash"></i>'),
+                    '#name' => 'resident_remove_' . $i,
+                    '#submit' => ['::removeRenter'],
+                    // Since we are removing a name, don't validate until later.
+                    '#limit_validation_errors' => [],
+                    '#ajax' => [
+                      'callback' => '::renterAjaxCallback',
+                      'wrapper'  => 'resident-details',
+                    ],
+                    '#attributes' => [
+                      'class' => ['delete_item_plx']
+                    ]
+                  ];
+                }
+          }
     }
+
+    // for ($i = 0; $i <= $this->residentCount; $i++) {
+    //   //$states = $this->get_state();
+    //   $form['resident'][$i]['field_duration'] = [
+    //     '#placeholder' => t('Duration'),
+    //     '#type' => 'number',
+    //     '#required' => TRUE,
+    //   ];
+
+    //   $form['resident'][$i]['field_timing'] = [
+    //     '#type' => 'datetime',
+    //     '#placeholder' => t('Timing'),
+    //     '#required' => TRUE,
+    //     '#default_value' => DrupalDateTime::createFromTimestamp('537140520'),
+    //   ];
+
+
+    //   $form['resident'][$i]['actions'] = [
+    //     '#type' => 'actions',
+    //   ];
+
+    //     if ($i > 0) {
+    //       $form['resident'][$i]['actions']['remove_item'] = [
+    //         '#type' => 'submit',
+    //         '#value' => Markup::create('<i class="fas fa-trash"></i>'),
+    //         '#name' => 'resident_remove_' . $i,
+    //         '#submit' => ['::removeRenter'],
+    //         // Since we are removing a name, don't validate until later.
+    //         '#limit_validation_errors' => [],
+    //         '#ajax' => [
+    //           'callback' => '::renterAjaxCallback',
+    //           'wrapper'  => 'resident-details',
+    //         ],
+    //         '#attributes' => [
+    //           'class' => ['delete_item_plx']
+    //         ]
+    //       ];
+    //     }
+    // }
 
     
     $form['resident']['actions'] = [
@@ -220,8 +278,14 @@ class AddGroupAssessmentsForm extends FormBase {
       '#suffix' => '</div>'
      
     ];
- 
     return $form;
+    }else{
+      $form['left_section_end'] = [
+        '#type' => 'markup',
+        '#markup' => '<p>You can not edit.</p>',
+      ];
+      return $form;
+    }
   }
 
 
@@ -240,7 +304,7 @@ class AddGroupAssessmentsForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
 
-  
+    
     $img_id = isset($form_state->getValue('image')[0]) ? $form_state->getValue('image')[0] : '';
     // print_r($img_id);
     // die;

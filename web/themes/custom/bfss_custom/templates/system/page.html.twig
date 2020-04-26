@@ -492,8 +492,10 @@
 			   <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
+                      <a {% if (current_path == '/add-assessments') or (current_path == '/upcoming-group-assessments') or (current_path == '/private-assessments') or (current_path == '/edit-assessments') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
+                           <li ><a href="/add-assessments"> Add Assessments </a></li>
+                            <li ><a href="/edit-assessments"> Edit Assessments </a></li>
                            <li ><a href="/upcoming-group-assessments"> Group Assessments </a></li>
                            <li><a href="/private-assessments">Private Assessments</a></li>
  
