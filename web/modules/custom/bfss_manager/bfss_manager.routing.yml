@@ -71,3 +71,30 @@ bfss_manager.edit_assessments_data:
     _title: 'Edit-Assessments'
   requirements:
     _access: 'TRUE' 
+
+
+bfss_manager.delete_assessments_data:
+  path: '/delete-assessments-data/{nid}'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\Deleteassessment::content'
+    _title: 'delete-Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+# bfss_manager.delete_assessment1:
+#   path: '/delete-assessment'
+#   defaults:
+#     _controller: 'Drupal\bfss_manager\Controller\DeleteAssessment::content'
+#     _title: 'delete-Assessments'
+#   requirements:
+#     _access: 'TRUE' 
+
+
+
+# bfss_manager.delete_assessment:
+#   path: '/delete-assessment'
+#   defaults:
+#     _controller: '\Drupal\bfss_manager\Controller\DeleteAssessment::delete_assessment'
+#     _title: 'Delete Assessment'
+#   requirements:
+#     _access: 'TRUE'

@@ -44,6 +44,10 @@ class EditAssessments extends ControllerBase {
             </th>
             <th class="th-hd"><a><span></span> Location</a>
             </th>
+            <th class="th-hd"><a><span></span> Edit</a>
+            </th>
+            <th class="th-hd"><a><span></span> DELETE</a>
+            </th>
           
           </tr>
         </thead>
@@ -52,10 +56,14 @@ class EditAssessments extends ControllerBase {
         foreach ($data as $key => $value) {
           $url= '/edit-assessments-data?nid='.$value['nid'];
           $title = Markup::create('<p><a href="'.$url.'" target="_blank">'.$value['title'].'</a></p>');
+          $Edit = Markup::create('<p><a href="'.$url.'" target="_blank">EDIT</a></p>');
+          $Delete = Markup::create('<p><a class="delete-assess" data-nid="'.$value['nid'].'">DELETE</a></p>');
           $tb .= '<tr>
                 <td>'.$title.'</td>
                 <td>'.$value['type'].'</td>
                 <td>'.$value['location'].'</td>
+                <td>'.$Edit.'</td>
+                <td>'.$Delete.'</td>
               </tr>';
         }
         

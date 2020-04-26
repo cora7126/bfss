@@ -57,10 +57,14 @@ class EditAssessmentsForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $session = $this->getRequest()->getSession();
     $param = \Drupal::request()->query->all();
-    if(isset($param['nid'])){
-
-    
+    if(isset($param['nid'])){ 
     $node = Node::load($param['nid']);
+    // echo "<pre>";
+    // print_r();
+    // die;
+    // if(){
+    // }
+    $img_id = isset($node->get('field_image')->getValue()[0]['target_id']) ? $node->get('field_image')->getValue()[0]['target_id'] : '';
     $title =  $node->title->value;
     $body =  $node->body->value;
     $location =  $node->field_location->value;
@@ -115,17 +119,54 @@ class EditAssessmentsForm extends FormBase {
         '#suffix' => '',
     ];
 
-  $form['location'] = [
+
+    $form['location'] = [
         '#type' => 'textarea',
         '#placeholder' => t('Location'),
         '#required' => TRUE,
         '#default_value' => $location,
         '#prefix' => '',
-        '#suffix' => '</div>
-        </div><div class="athlete_left schedule_plx">
+        '#suffix' => '</div></div>
+        <div class="athlete_left schedule_plx">
                         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHEDULES</h3>
                        <div class="items_div" style="">',
       ];
+
+
+      foreach ($schedules as $key => $value) {
+          //$target_id[] = $value['target_id'];
+        if(isset($value['target_id'])){
+            $pGraph = Paragraph::load($value['target_id']);
+            // print_r($pGraph->field_timing->value);
+            // die;
+
+          $form['update'][$key]['field_duration'] = [
+            '#placeholder' => t('Duration'),
+            '#type' => 'number',
+            '#required' => TRUE,
+            '#default_value' => $pGraph->field_duration->value,
+          ];
+
+          $form['update'][$key]['field_timing'] = [
+            '#type' => 'datetime',
+            '#placeholder' => t('Timing'),
+            '#required' => TRUE,
+            '#default_value' => DrupalDateTime::createFromTimestamp($pGraph->field_timing->value),
+          ];
+        }
+      }
+
+      $form['schedules_st'] = [
+        '#type' => 'markup',
+        '#markup' => '</div></div>
+        <div class="athlete_left schedule_plx">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ADD SCHEDULES</h3>
+                       <div class="items_div" style="">',
+      ];
+
+      
+
+      
     $form['resident'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'resident-details'],
@@ -133,90 +174,46 @@ class EditAssessmentsForm extends FormBase {
       '#suffix' => '',
     ];
 
-    foreach ($schedules as $key => $value) {
-          //$target_id[] = $value['target_id'];
-          if(isset($value['target_id'])){
-            $pGraph = Paragraph::load($value['target_id']);
-            // print_r($pGraph->field_timing->value);
-            // die;
+   
 
-          $form['resident'][$i]['field_duration'] = [
-            '#placeholder' => t('Duration'),
-            '#type' => 'number',
-            '#required' => TRUE,
-            '#default_value' => $pGraph->field_duration->value,
+    for ($i = 0; $i <= $this->residentCount; $i++) {
+      //$states = $this->get_state();
+      $form['resident'][$i]['field_duration'] = [
+        '#placeholder' => t('Duration'),
+        '#type' => 'number',
+        '#required' => TRUE,
+      ];
+
+      $form['resident'][$i]['field_timing'] = [
+        '#type' => 'datetime',
+        '#placeholder' => t('Timing'),
+        '#required' => TRUE,
+        '#default_value' => '',
+      ];
+
+
+      $form['resident'][$i]['actions'] = [
+        '#type' => 'actions',
+      ];
+
+        if ($i > 0) {
+          $form['resident'][$i]['actions']['remove_item'] = [
+            '#type' => 'submit',
+            '#value' => Markup::create('<i class="fas fa-trash"></i>'),
+            '#name' => 'resident_remove_' . $i,
+            '#submit' => ['::removeRenter'],
+            // Since we are removing a name, don't validate until later.
+            '#limit_validation_errors' => [],
+            '#ajax' => [
+              'callback' => '::renterAjaxCallback',
+              'wrapper'  => 'resident-details',
+            ],
+            '#attributes' => [
+              'class' => ['delete_item_plx']
+            ]
           ];
-
-          $form['resident'][$i]['field_timing'] = [
-            '#type' => 'datetime',
-            '#placeholder' => t('Timing'),
-            '#required' => TRUE,
-            '#default_value' => DrupalDateTime::createFromTimestamp($pGraph->field_timing->value),
-          ];
-
-
-          $form['resident'][$i]['actions'] = [
-            '#type' => 'actions',
-          ];
-
-                if ($i > 0) {
-                  $form['resident'][$i]['actions']['remove_item'] = [
-                    '#type' => 'submit',
-                    '#value' => Markup::create('<i class="fas fa-trash"></i>'),
-                    '#name' => 'resident_remove_' . $i,
-                    '#submit' => ['::removeRenter'],
-                    // Since we are removing a name, don't validate until later.
-                    '#limit_validation_errors' => [],
-                    '#ajax' => [
-                      'callback' => '::renterAjaxCallback',
-                      'wrapper'  => 'resident-details',
-                    ],
-                    '#attributes' => [
-                      'class' => ['delete_item_plx']
-                    ]
-                  ];
-                }
-          }
+        }
     }
-
-    // for ($i = 0; $i <= $this->residentCount; $i++) {
-    //   //$states = $this->get_state();
-    //   $form['resident'][$i]['field_duration'] = [
-    //     '#placeholder' => t('Duration'),
-    //     '#type' => 'number',
-    //     '#required' => TRUE,
-    //   ];
-
-    //   $form['resident'][$i]['field_timing'] = [
-    //     '#type' => 'datetime',
-    //     '#placeholder' => t('Timing'),
-    //     '#required' => TRUE,
-    //     '#default_value' => DrupalDateTime::createFromTimestamp('537140520'),
-    //   ];
-
-
-    //   $form['resident'][$i]['actions'] = [
-    //     '#type' => 'actions',
-    //   ];
-
-    //     if ($i > 0) {
-    //       $form['resident'][$i]['actions']['remove_item'] = [
-    //         '#type' => 'submit',
-    //         '#value' => Markup::create('<i class="fas fa-trash"></i>'),
-    //         '#name' => 'resident_remove_' . $i,
-    //         '#submit' => ['::removeRenter'],
-    //         // Since we are removing a name, don't validate until later.
-    //         '#limit_validation_errors' => [],
-    //         '#ajax' => [
-    //           'callback' => '::renterAjaxCallback',
-    //           'wrapper'  => 'resident-details',
-    //         ],
-    //         '#attributes' => [
-    //           'class' => ['delete_item_plx']
-    //         ]
-    //       ];
-    //     }
-    // }
 
     
     $form['resident']['actions'] = [
@@ -251,7 +248,7 @@ class EditAssessmentsForm extends FormBase {
       '#preview_image_style' => 'medium',
       '#upload_location' => 'public://',
       '#required' => FALSE,
-      '#default_value' => '',
+      '#default_value' => [$img_id],
       '#prefix' => '<div class="imgupload">',
       '#suffix' => '</div>',
       '#attributes' => [
@@ -303,13 +300,9 @@ class EditAssessmentsForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-
-    
-    $img_id = isset($form_state->getValue('image')[0]) ? $form_state->getValue('image')[0] : '';
-    // print_r($img_id);
-    // die;
+    $data=[];
     if(!empty($form_state->getValues('resident')['resident'])){
-                $data=[];
+               
                foreach($form_state->getValues('resident')['resident'] as $values) {   
                 if(!empty($values['field_timing'])){
                   $data[] = [
@@ -318,38 +311,47 @@ class EditAssessmentsForm extends FormBase {
                     ]; 
                 }    
                }
-    
-
-            $paragraph_items = []; 
-            foreach($data as $ar){
-              $paragraph = Paragraph::create([
-                'type' => 'assessment_schedules',
-                'field_duration' => $ar['field_duration'],
-                'field_timing' => $ar['field_timing'],
-              ]);
-              $paragraph->save();
-              $paragraph_items[] = [
-                  'target_id' => $paragraph->id(),
-                  'target_revision_id' => $paragraph->getRevisionId(),
-              ];
-            }
-
-            $node = Node::create([
-                         'type' => 'assessment',
-            ]);
-
-            $node->set('field_schedules', $paragraph_items);
-            //aditional user info 
-            $node->title->value = $form_state->getValue('title');
-            $node->body->value = $form_state->getValue('body');
-            $node->field_location->value = $form_state->getValue('location');
-            $node->field_type_of_assessment->value = $form_state->getValue('type');
-            $node->field_image[] = ['target_id' => $img_id, 'alt'=> 'img'];
-            $node->save();
-
-            //drupal_set_message(t('Successfully inserted Assessment.'), 'success');
-
     }
+
+    if(!empty($form_state->getValue('update'))){
+      foreach($form_state->getValue('update') as $values) {   
+        if(!empty($values['field_timing'])){
+          $data[] = [
+              'field_duration' => $values['field_duration'],
+              'field_timing' => $values['field_timing']->getTimestamp(),
+            ]; 
+        }    
+      }
+    }
+
+
+      $paragraph_items = []; 
+      foreach($data as $ar){
+        $paragraph = Paragraph::create([
+          'type' => 'assessment_schedules',
+          'field_duration' => $ar['field_duration'],
+          'field_timing' => $ar['field_timing'],
+        ]);
+        $paragraph->save();
+        $paragraph_items[] = [
+            'target_id' => $paragraph->id(),
+            'target_revision_id' => $paragraph->getRevisionId(),
+        ];
+      }
+      $param = \Drupal::request()->query->all();
+      if(isset($param['nid'])){
+
+        $node = Node::load($param['nid']);
+
+        $node->set('field_schedules', $paragraph_items);
+        //aditional user info 
+        $node->title->value = $form_state->getValue('title');
+        $node->body->value = $form_state->getValue('body');
+        $node->field_location->value = $form_state->getValue('location');
+        $node->field_type_of_assessment->value = $form_state->getValue('type');
+        //$node->field_image[] = ['target_id' => $img_id, 'alt'=> 'img'];
+        $node->save();
+      }    
         
   }
 

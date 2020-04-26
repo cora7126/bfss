@@ -77,6 +77,26 @@ jQuery(document).ready(function() {
 					sugggestionsArray: orgNamesArr
 			});
 		});
+
+
+		jQuery('a.delete-assess').on('click',function(){
+			var $nid = jQuery(this).data("nid");
+			console.log(jQuery(this).data("nid"));
+			if(confirm('Are you sure you want to delete this?')){
+				jQuery.ajax({
+					url : 'http://5ppsystem.com/delete-assessments-data/'+$nid,
+					dataType: 'json',
+					cache: false,
+					success: function(data){
+						console.log(data);
+					},
+					error :function (data){
+						console.log(data);
+					}
+				});
+				//jQuery(this).parents('.athlete_left').remove();
+			}
+		});
 		
        
 });
