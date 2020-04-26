@@ -39,10 +39,35 @@ bfss_manager.pending_assessments:
     _access: 'TRUE' 
 
 
-bfss_manager.add_group_assessments:
-  path: '/add-group-assessments'
+bfss_manager.add_assessments:
+  path: '/add-assessments'
   defaults:
     _controller: 'Drupal\bfss_manager\Controller\AddGroupAssessments::add_group_assessments'
-    _title: 'Add Group Assessments'
+    _title: 'Add Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_manager.edit_assessments:
+  path: '/edit-assessments'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\EditAssessments::edit_assessments'
+    _title: 'Edit Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_manager.edit_assessments_form:
+  path: '/edit-assessments-form'
+  defaults:
+    _form: '\Drupal\bfss_manager\Form\EditAssessmentsForm'
+    _title: 'Edit-Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+
+bfss_manager.edit_assessments_data:
+  path: '/edit-assessments-data'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\EditAssessmentsFormController::edit_assessments_form_controller'
+    _title: 'Edit-Assessments'
   requirements:
     _access: 'TRUE' 

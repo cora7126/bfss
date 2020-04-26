@@ -41,5 +41,16 @@ function bfss_manager_theme() {
     'template' => 'add_group_assessments',
   ];
 
+
+  $theme['edit_assessments_page'] = [
+    'variables' => ['name' => NULL,'edit_assessments_block' => NULL],
+    'template' => 'edit_assessments',
+  ];
+
+   $theme['edit_assessments_data_page'] = [
+    'variables' => ['name' => NULL,'edit_assessments_data_block' => NULL],
+    'template' => 'edit_assessments_data',
+  ];
+
   return $theme;
 }
