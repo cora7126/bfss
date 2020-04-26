@@ -1,8 +1,6 @@
 .faq-text-area{text-align:justify;font-family:montserrat, sans-serif !important}
 
-#multistep-form-one{margin-top:20px;float:left;width:100%}
-.left_section .athlete_left h3 i, .right_section .athlete_right h3 i{font-weight:700 !important}
-.popup_header.change_password_header{padding:0px !important;}
+#multistep-form-one{margin-top:20px;float:left;width:100%;}
 .upcoming-group-assessments #drupal-modal--content{max-height:795px !important;width:760px !important;}
 #edit-form .items_div{border:1px solid #c2c2c2;}
 .modal .modal-dialog .modal-content{overflow-x:none !important;overflow-y:none !important}
@@ -11,9 +9,8 @@
 .textdata{margin:10px 0;font-size:15px;}
 .right_side_section, .edit-user .region-content, .payment-receipts .region-content, .add-organization .region-content, .edit-parent .region-content, .faq-page .region-content{
   width:calc(100% - 19%);transition:width 0.5s}
-  .customselectcss{padding:0px !important;}
+  .customselectcss{padding:0 !important;}
   .messages__wrapper{display:block !important;margin-top:15px;padding:0 22px;}
-  .alert-dismissible{padding-right:0rem !important}
+  .alert-dismissible{padding-right:0 !important}
   .alert{padding:.75rem 1.25rem !important}
   .alert-dismissible .close{padding: 0px !important}
-  .close span{top: 0px !important;font-size:15px !important}

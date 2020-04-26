@@ -30,5 +30,27 @@ function bfss_manager_theme() {
     'template' => 'view_edit_deactive',
   ];
 
+
+  $theme['pending_assessments_page'] = [
+    'variables' => ['name' => NULL,'pending_assessments_block' => NULL],
+    'template' => 'pending_assessments',
+  ];
+
+  $theme['add_group_assessments_page'] = [
+    'variables' => ['name' => NULL,'add_group_assessments_block' => NULL],
+    'template' => 'add_group_assessments',
+  ];
+
+
+  $theme['edit_assessments_page'] = [
+    'variables' => ['name' => NULL,'edit_assessments_block' => NULL],
+    'template' => 'edit_assessments',
+  ];
+
+   $theme['edit_assessments_data_page'] = [
+    'variables' => ['name' => NULL,'edit_assessments_data_block' => NULL],
+    'template' => 'edit_assessments_data',
+  ];
+
   return $theme;
 }

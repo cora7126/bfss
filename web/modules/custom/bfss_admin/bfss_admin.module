@@ -1,0 +1,24 @@
+<?php
+use Drupal\Core\Database\Database;
+use Drupal\file\Entity\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+/**
+ * @file
+ * Contains bfss_admin.module..
+ */
+
+
+/**
+ * Implements hook_theme()
+ * @return mixed
+ */
+function bfss_admin_theme() {
+  
+  $theme['manager_assessor_account_page'] = [
+    'variables' => ['name' => NULL,'manager_assessor_account_block' => NULL],
+    'template' => 'manager_assessor_account',
+  ];
+
+  return $theme;
+}

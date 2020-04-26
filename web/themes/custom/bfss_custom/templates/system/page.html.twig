@@ -57,8 +57,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="/themes/custom/bfss_custom/js/jquery.autosuggest.js?q93fq4"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
 
 {% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
@@ -214,9 +216,11 @@
                               </div>
                            </div>
                            <div class="pop_text_sec">
-                              
-                                 <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
-                              
+                              {% if user_role == 2 %}
+                                 <a href='/coach-edit-form'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
+                              {% else %}
+                               <a href='/edit/user'><p><i class="far fa-edit"></i>Edit Account Profile</p></a>
+                              {% endif %}
                               {% if user_role == 0 %}
                               <a href="/bfss-manager">
                                  <p><i class="fas fa-user-tie"></i>BFSS Manager</p>
@@ -365,8 +369,8 @@
                         <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-calendar-alt"></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
-                           <li><a class="side_button"  href="#">Group Assessments</a></li>
-                           <li><a class="side_button"  href="#">Private Assessments</a></li>
+                           <li><a class="side_button"  href="/upcoming-group-assessments">Group Assessments</a></li>
+                           <li><a class="side_button"  href="/private-assessments">Private Assessments</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -488,10 +492,12 @@
 			   <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
+                      <a {% if (current_path == '/add-assessments') or (current_path == '/upcoming-group-assessments') or (current_path == '/private-assessments') or (current_path == '/edit-assessments') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="fal fa-calendar-alt"></i></i><span class="side_menu_text">My Events Calendar</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
+                           <li ><a href="/add-assessments"> Add Assessments </a></li>
+                            <li ><a href="/edit-assessments"> Edit Assessments </a></li>
                            <li ><a href="/upcoming-group-assessments"> Group Assessments </a></li>
-                           <li><a href="#">Private Assessments</a></li>
+                           <li><a href="/private-assessments">Private Assessments</a></li>
  
                         </ul>
                      </div>

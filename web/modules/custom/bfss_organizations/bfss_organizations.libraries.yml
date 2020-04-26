@@ -1,0 +1,9 @@
+add_organization:
+  version: 1.x
+  css:
+    layout:
+      #css/athletic.css: {}
+     # css/instagram.css: {}
+  js:
+    js/add_organization.js: {}
+    

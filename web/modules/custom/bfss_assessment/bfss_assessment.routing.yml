@@ -113,6 +113,14 @@ bfss_assessment.upcoming_group:
   requirements:
     _permission: 'access content'
 
+bfss_assessment.private_assessments_listing:
+  path: '/private-assessments'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\PrivateAssessments::private_assessments'
+    _title: 'Private Assessments'
+  requirements:
+    _permission: 'access content'
+
 bfss_assessment.private_assessment:
   path: '/private-assessment'
   defaults:

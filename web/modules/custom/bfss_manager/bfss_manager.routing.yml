@@ -29,3 +29,72 @@ bfss_manager.view_edit_deactive:
     _title: 'View Edit Deactive'
   requirements:
     _access: 'TRUE' 
+
+bfss_manager.pending_assessments:
+  path: '/pending-assessments'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\PendingAssessments::pending_assessments'
+    _title: 'Pending Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+
+bfss_manager.add_assessments:
+  path: '/add-assessments'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\AddGroupAssessments::add_group_assessments'
+    _title: 'Add Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_manager.edit_assessments:
+  path: '/edit-assessments'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\EditAssessments::edit_assessments'
+    _title: 'Edit Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_manager.edit_assessments_form:
+  path: '/edit-assessments-form'
+  defaults:
+    _form: '\Drupal\bfss_manager\Form\EditAssessmentsForm'
+    _title: 'Edit-Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+
+bfss_manager.edit_assessments_data:
+  path: '/edit-assessments-data'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\EditAssessmentsFormController::edit_assessments_form_controller'
+    _title: 'Edit-Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+
+bfss_manager.delete_assessments_data:
+  path: '/delete-assessments-data/{nid}'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\Deleteassessment::content'
+    _title: 'delete-Assessments'
+  requirements:
+    _access: 'TRUE' 
+
+# bfss_manager.delete_assessment1:
+#   path: '/delete-assessment'
+#   defaults:
+#     _controller: 'Drupal\bfss_manager\Controller\DeleteAssessment::content'
+#     _title: 'delete-Assessments'
+#   requirements:
+#     _access: 'TRUE' 
+
+
+
+# bfss_manager.delete_assessment:
+#   path: '/delete-assessment'
+#   defaults:
+#     _controller: '\Drupal\bfss_manager\Controller\DeleteAssessment::delete_assessment'
+#     _title: 'Delete Assessment'
+#   requirements:
+#     _access: 'TRUE'
