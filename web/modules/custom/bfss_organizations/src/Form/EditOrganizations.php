@@ -66,7 +66,10 @@ class EditOrganizations extends FormBase {
       ],
     ];
 
-    
+    $form['left_section_start'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="left_section">',
+    ];
     $form['resident'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'resident-details'],
@@ -85,11 +88,11 @@ class EditOrganizations extends FormBase {
               $title = $node->title->value;
 
 
-              $form['resident'][$i] = [
-                '#type' => 'fieldgroup',
-                '#title' => 'Organization - '.$field_organization_name,
-                // '#attributes' => ['id' => 'edit-resident'],
-              ];
+              // $form['resident'][$i] = [
+              //   '#type' => 'fieldgroup',
+              //   '#title' => 'Organization - '.$field_organization_name,
+              //   // '#attributes' => ['id' => 'edit-resident'],
+              // ];
 
               $states = $this->get_state();
               $form['resident'][$i]['state'] = [
@@ -98,6 +101,10 @@ class EditOrganizations extends FormBase {
                  '#required' => TRUE,
                 '#options' => $states,
                 '#default_value' => $field_state,
+                '#prefix' => '<div class="athlete_left">
+                                <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Organization - '.$field_organization_name.'</h3>
+                                <div class="items_div" style="">',
+                 '#suffix' => ''
               ];
 
               $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club', 'university' => 'University'];
@@ -111,37 +118,39 @@ class EditOrganizations extends FormBase {
 
               $form['resident'][$i]['organization_name'] = [
                 '#type' => 'textfield',
-                '#title' => $this->t('Organization Name'),
+                '#placeholder' => t('Organization Name'),
+                #'#title' => $this->t('Organization Name'),
                 '#required' => TRUE,
                 '#default_value' => $field_organization_name,
               ];
 
               $form['resident'][$i]['address_1'] = [
                 '#type' => 'textfield',
-                '#title' => $this->t('Address 1'),
+                '#placeholder' => t('Address 1'),
                 '#required' => TRUE,
                 '#default_value' => $field_address_1,
               ];
 
               $form['resident'][$i]['address_2'] = [
                 '#type' => 'textfield',
-                '#title' => $this->t('Address 2'),
+                '#placeholder' => t('Address 2'),
                 '#required' => TRUE,
                 '#default_value' => $field_address_2,
               ];
 
               $form['resident'][$i]['city'] = [
                 '#type' => 'textfield',
-                '#title' => $this->t('City'),
+                '#placeholder' => t('City'),
                 '#required' => TRUE,
                 '#default_value' => $field_city,
               ];
 
               $form['resident'][$i]['zip'] = [
                 '#type' => 'textfield',
-                '#title' => $this->t('Zip'),
+                '#placeholder' => t('Zip'),
                 '#required' => TRUE,
                 '#default_value' => $field_zip,
+                 '#suffix' => '</div></div>'
               ];
 
               $form['resident'][$i]['nid'] = [
@@ -158,7 +167,10 @@ class EditOrganizations extends FormBase {
 
           // }
 
-
+           $form['left_section_end'] = [
+          '#type' => 'markup',
+          '#markup' => '</div>',
+           ];
 
 
             $form['actions'] = [
@@ -169,7 +181,7 @@ class EditOrganizations extends FormBase {
               '#type' => 'submit',
               '#value' => $this->t('Save'),
               '#attributes' => [
-                'class' => ['btn button--primary'],
+                'class' => ['save-button-plx'],
               ]
             ];
       return $form;

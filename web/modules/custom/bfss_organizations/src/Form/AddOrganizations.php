@@ -10,6 +10,8 @@ use Drupal\Core\Ajax\AlertCommand;
 use \Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 Use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Ajax\InvokeCommand;
 /**
  * Class AddOrganizations.
  */
@@ -56,19 +58,19 @@ class AddOrganizations extends FormBase {
     #$form['#attached']['library'][] = 'renter_landlord_reference/request_form';
 
     // $form['#attributes']['class'][] = 'card';
+    $form['#prefix'] = '<div class="main_section_plx">';
+    $form['#suffix'] = '</div>';
 
-    $form['loader-container'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'id' => 'loader-container',
-      ],
-    ];
+  
 
     // $form['loader-container']['loader'] = [
     //   '#markup' => '<div class="ajax-progress ajax-progress-throbber"><div class="throbber">&nbsp;<h1>Please wait</h1></div></div>',
     // ];
 
-
+    $form['left_section_start'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="left_section">',
+    ];
 
     
     $form['resident'] = [
@@ -78,9 +80,19 @@ class AddOrganizations extends FormBase {
 
     for ($i = 0; $i <= $this->residentCount; $i++) {
       $form['resident'][$i] = [
-        '#type' => 'fieldgroup',
-        '#title' => $this->t('ADD NEW ORGANIZATION'),
+       '#type' => 'container',
+        #'#title' => $this->t('ADD NEW ORGANIZATION'),
         // '#attributes' => ['id' => 'edit-resident'],
+        '#attributes' => [
+                 'class' => [
+                            'accommodation',
+                  ],
+        ],
+        '#prefix' => '
+                        <div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ADD NEW ORGANIZATION</h3><div class="items_div" style="">',
+        '#suffix' => '</div>
+              </div>
+         '
       ];
 
      
@@ -150,7 +162,7 @@ class AddOrganizations extends FormBase {
       if ($i > 0) {
         $form['resident'][$i]['actions']['remove_item'] = [
           '#type' => 'submit',
-          '#value' => $this->t('Remove Organization'),
+          '#value' => Markup::create('<i class="fas fa-trash"></i>'),
           '#name' => 'resident_remove_' . $i,
           '#submit' => ['::removeRenter'],
           // Since we are removing a name, don't validate until later.
@@ -160,19 +172,20 @@ class AddOrganizations extends FormBase {
             'wrapper'  => 'resident-details',
           ],
           '#attributes' => [
-            'class' => ['btn btn-colored btn-raised btn-danger remove-resident-btn']
+            'class' => ['delete_item_plx']
           ]
         ];
       }
     }
 
+    
     $form['resident']['actions'] = [
       '#type' => 'actions',
     ];
 
     $form['resident']['actions']['add_item'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add another organization'),
+      '#value' =>  Markup::create('<p><i class="fa fa-plus"></i>Add another organization<p>'),
       '#submit' => ['::addRenter'],
       '#limit_validation_errors' => [],
       '#ajax' => [
@@ -181,10 +194,96 @@ class AddOrganizations extends FormBase {
         'disable-refocus' => TRUE
       ],
       '#attributes' => [
-        'class' => ['btn btn-colored btn-raised add-resident-btn']
-      ]
+        'class' => ['add_item_plx']
+      ],
+      '#prefix' => '',
+      '#suffix' => '</div><!--LEFT SECTION END-->'
     ];
 
+    $form['left_section_end'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="right_section"><!--RIGHT SECTION START-->
+                      <div class="athlete_right">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ORGANIZATION SEARCH</h3>
+                        <div class="items_div" style="">
+      ',
+    ];
+
+     $states = $this->get_state();
+  $form['search_state'] = [
+  '#type' => 'select',
+   '#placeholder' => t('State'),
+  '#options' => $states,
+  '#ajax' => [
+    'callback' => '::myAjaxCallback', // don't forget :: when calling a class method.
+    //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+    'event' => 'change',
+    'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+    // 'progress' => [
+    //   'type' => 'throbber',
+    //   'message' => $this->t('Verifying entry...'),
+    // ],
+  ]
+];
+
+    $form['search_org'] = [
+      '#placeholder' => t('Search'),
+      '#type' => 'textarea', 
+      '#default_value' => '',
+       '#rows' => 4,
+      '#cols' => 5,
+      '#prefix' => '<div id="edit-output" class="orgtextarea">',
+      '#suffix' => '</div>',
+    ];
+
+
+    $form['orgNames_search'] = [
+      '#placeholder' => t('Search'),
+      '#type' => 'textfield', 
+      // '#default_value' => '',
+      //  '#rows' => 4,
+      // '#cols' => 5,
+       '#attributes' => [
+        'class' => ['orgNames_searchs'],
+      ],
+      '#prefix' => '<div id="orgNames_search" class="orgNames_search">',
+      '#suffix' => '</div>',
+    ];
+
+  // $out =  Markup::create('<input type="text" name="orgNames_search" id="orgNames_search" autocomplete="off" class="form-control orgNames_search">');
+  //  $form['companyPicker'] = [
+  // '#type' => 'markup',
+  //     '#markup' => $out,
+  //   ];
+
+// $form['hidden_org_name'] = [
+//   '#type' => 'textarea',
+//   #'#title' => t('Address'),
+//   '#rows' => 4,
+//   '#cols' => 5,
+//  // '#required' => TRUE,
+// ];
+
+
+
+
+ // $form['output'] = [
+ //      '#type' => 'textfield',
+ //      '#size' => '60',
+ //      '#disabled' => TRUE,
+ //      '#value' => 'Hello, Drupal!!1',      
+ //      '#prefix' => '<div id="edit-output">',
+ //      '#suffix' => '</div>',
+ //    ];
+     
+
+    $form['right_section_end'] = [
+      '#type' => 'markup',
+      '#markup' => '</div>
+        </div>
+      </div><!--RIGHT SECTION END-->',
+    ];
 
       $form['actions'] = [
         '#type' => 'actions',
@@ -193,13 +292,54 @@ class AddOrganizations extends FormBase {
       $form['actions']['submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Save'),
-        '#attributes' => [
-          'class' => ['btn button--primary'],
-        ]
+        // '#attributes' => [
+        //   'class' => ['btn button--primary'],
+        // ],
+        '#prefix' => ' <div class="add_org_submit">',
+        '#suffix' => '</div>'
+       
       ];
-
+      $form['#attached']['library'][] = 'bfss_organizations/add_organization';
     return $form;
   }
+
+public function myAjaxCallback(array &$form, FormStateInterface $form_state) {
+  if ($selectedValue = $form_state->getValue('search_state')) {
+      $selectedText = $form['search_state']['#options'][$selectedValue];
+      $orgNames = $this->Get_Org_Name($selectedText);
+      $form['search_org']['#value'] = $orgNames;
+      //$a = $this->test();
+  }
+   
+    $ajax_response = new AjaxResponse();
+    $ajax_response->addCommand(new InvokeCommand(NULL, 'myTest', ['some Var']));
+    
+  return $form['search_org']; 
+}
+
+
+public function test(array &$form, FormStateInterface $form_state) {
+    $ajax_response = new AjaxResponse();
+    $ajax_response->addCommand(new InvokeCommand(NULL, 'myTest', ['some Var']));
+    return $ajax_response;
+   }
+
+  public function Get_Org_Name($state){
+    if(isset($state)){
+      $query = \Drupal::entityQuery('node');
+      $query->condition('type', 'bfss_organizations');
+      $query->condition('field_state', $state, 'IN');
+      $nids = $query->execute();
+      $org_name=[];
+      foreach($nids as $nid){
+        $node = Node::load($nid);
+        $org_name[]= $node->field_organization_name->value;
+      }
+      $result = implode(",",$org_name);
+    }
+    return $result;
+  }
+
 
   /**
    * {@inheritdoc}
@@ -242,7 +382,7 @@ class AddOrganizations extends FormBase {
               $node->field_organization_name->value = $value['organization_name'];
               $node->field_type->value = $value['type'];
               $node->title->value = $value['type'].'-'.$value['organization_name'];
-              $node->setPublished(FALSE);
+              $node->setPublished(TRUE);
               $node->save();
             }
               

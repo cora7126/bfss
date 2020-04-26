@@ -1,0 +1,7 @@
+bfss_admin.manager_assessor_account:
+  path: '/manager-assessor-account'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\ManagerAssessorAccount::manager_assessor_account'
+    _title: 'Create Manager/Assessor Account'
+  requirements:
+    _access: 'TRUE'

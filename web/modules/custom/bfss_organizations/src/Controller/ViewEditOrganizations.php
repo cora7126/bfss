@@ -48,12 +48,13 @@ class ViewEditOrganizations extends ControllerBase {
             </thead>
             <tbody>';
 
-        	$query = \Drupal::entityQuery('node');
+    	$query = \Drupal::entityQuery('node');
 			$query->condition('type', 'bfss_organizations');
+      $query->condition('status', 1, 'IN');
 			$nids = $query->execute();
 			foreach ($nids as $nid) {
 				$node = Node::load($nid);
-				print_r($node->type->value);
+				//print_r($node->type->value);
 				$tb1 .=  '<tr>
 		            <td><input class="form-checkbox edit-ckeckbox-plx" type="checkbox" name="items_selected[]" value="'.$nid.'"><span class="unfollow-checkbox"></span></td>
 		            <td>'.$node->field_organization_name->value.'</td>

@@ -1,4 +1,5 @@
 <?php
+
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,6 +39,11 @@ function acme_theme() {
   $theme['upcoming_page'] = [
     'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
     'template' => 'upcoming',
+  ];
+
+  $theme['private_assessments_page'] = [
+    'variables' => ['name' => NULL,'private_assessments_block' => NULL,'month_block' => NULL],
+    'template' => 'private_assessments',
   ];
 
   $theme['faq_page'] = [
