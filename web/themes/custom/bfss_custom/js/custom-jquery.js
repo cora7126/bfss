@@ -1,6 +1,8 @@
 jQuery(document).ready(function() {
 
 
+ 	jQuery('#select_faqs_by_user').niceSelect();
+	
 	jQuery('.dashboard-menu span').on('click',function(){
 		 jQuery(".top_right").toggleClass("toggle2");
 		 jQuery('.dashboard-menu span').toggleClass("tgl-cls");
@@ -88,10 +90,13 @@ jQuery(document).ready(function() {
 					dataType: 'json',
 					cache: false,
 					success: function(data){
-						console.log(data);
+						//console.log(data);
+						if(data){
+							location.reload();	
+						}	
 					},
 					error :function (data){
-						console.log(data);
+						//console.log(data);
 					}
 				});
 				//jQuery(this).parents('.athlete_left').remove();

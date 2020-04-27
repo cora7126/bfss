@@ -145,6 +145,8 @@ class EditAssessmentsForm extends FormBase {
             '#type' => 'number',
             '#required' => TRUE,
             '#default_value' => $pGraph->field_duration->value,
+            '#prefix' => '<div class="duration-pl">',
+            '#suffix' => '',
           ];
 
           $form['update'][$key]['field_timing'] = [
@@ -152,6 +154,8 @@ class EditAssessmentsForm extends FormBase {
             '#placeholder' => t('Timing'),
             '#required' => TRUE,
             '#default_value' => DrupalDateTime::createFromTimestamp($pGraph->field_timing->value),
+            '#prefix' => '',
+            '#suffix' => '</div>',
           ];
         }
       }
@@ -182,6 +186,8 @@ class EditAssessmentsForm extends FormBase {
         '#placeholder' => t('Duration'),
         '#type' => 'number',
         '#required' => TRUE,
+        '#prefix' => '<div class="duration-pl">',
+        '#suffix' => '',
       ];
 
       $form['resident'][$i]['field_timing'] = [
@@ -189,6 +195,7 @@ class EditAssessmentsForm extends FormBase {
         '#placeholder' => t('Timing'),
         '#required' => TRUE,
         '#default_value' => '',
+        '#suffix' => '</div>',
       ];
 
 
