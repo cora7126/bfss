@@ -20,5 +20,16 @@ function bfss_admin_theme() {
     'template' => 'manager_assessor_account',
   ];
 
+  $theme['faqs_select_page'] = [
+    'variables' => ['name' => NULL,'faqs_select_block' => NULL],
+    'template' => 'faqs_select',
+  ];
+
+  $theme['add_faqs_page'] = [
+    'variables' => ['name' => NULL,'add_faqs_block' => NULL],
+    'template' => 'add_faqs',
+  ];
+
+
   return $theme;
 }

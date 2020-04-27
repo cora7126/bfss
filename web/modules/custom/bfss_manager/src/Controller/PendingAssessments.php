@@ -9,7 +9,7 @@ use Drupal\Core\Database\Database;
 class PendingAssessments extends ControllerBase {
   public function pending_assessments() {
         $param = \Drupal::request()->query->all();
-        $title = $param['title'];
+        
         $booked_ids = \Drupal::entityQuery('bfsspayments')
         //->condition('assessment',$param['nid'],'IN')
         //->condition('time',$param['timeslot'],'=')
@@ -18,80 +18,70 @@ class PendingAssessments extends ControllerBase {
           $result = array();
           foreach ($booked_ids  as $key => $booked_id) {
             $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+
+            $node_id =  $entity->assessment->value;
+            if($node_id != '9999999999'){
+              $nid = $node_id; 
+            }else{
+              $nid = '';
+            }
+
             $assess_id = $entity->assessment->value;
             $user_id = $entity->user_id->value;
             $timestamp = $entity->time->value;
-            $assessment_title = $entity->assessment_title->value;
-
-            //check athlete_assessment_info info node
+         
             $query1 = \Drupal::entityQuery('node');
             $query1->condition('type', 'athlete_assessment_info');
             $query1->condition('field_booked_id',$booked_id, 'IN');
             $nids1 = $query1->execute();
-        
-            if(!empty($nids1)){
-               foreach ($nids1 as $key => $value) {
-                 $assess_nid = $value;
-                 $node1 = Node::load($value);
-                 $field_status = $node1->field_status->value;
-                 
-              } 
-              $st = 1;
+            $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$user_id,'athlete_uid'); //FOR ORG-1
+            $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
+            $mydata = $this->Get_Data_From_Tables('mydata','md',$user_id,'uid');
+            $city = isset($mydata['field_city']) ? $mydata['field_city'] : '';
+
+            if(empty($mydata['field_az'])){
+              $statequery =  $this->Get_Data_From_Tables('user__field_state','ufln',$user_id,'entity_id');
+              $state = isset($statequery['field_state_value']) ? $statequery['field_state_value'] : '';
             }else{
-               $assess_nid = '';
-               $field_status = 'No Show';
-               $st = 0;
+              $state = $mydata['field_az'];
             }
 
-            //sport
-            $query5 = \Drupal::database()->select('athlete_school', 'ats');
-            $query5->fields('ats');
-            $query5->condition('athlete_uid', $user_id,'=');
-            $results5 = $query5->execute()->fetchAssoc();            
-            $sport = $results5['athlete_school_sport'];
-            $postion = $results5['athlete_school_pos'];
+            if(!$nids1){
+                    $booking_date = date("Y/m/d",$timestamp);
+                    $booking_time = date("h:i:sa",$timestamp);
+                    if($entity->service->value == '199.99'){
+                        $formtype = 'elete';
+                    }elseif($entity->service->value == '29.99'){
+                        $formtype = 'starter';
+                    }
 
-      
+                    if(!empty($entity->assessment->value)){
+                      $Assess_type = 'individual';
+                    }else{
+                      $Assess_type = 'private';
+                     }
+                    
+                    $result[] = array(
+                      'booked_id' => $booked_id,
+                      'id' => $entity->id->value,
+                      'user_name' => $entity->user_name->value,
+                      'nid' => $nid,
+                      'formtype' => $formtype,
+                      'Assess_type' => $Assess_type,
+                      'booking_date'  => $booking_date,
+                      'booking_time'  => $booking_time,
+                      'assess_nid' => $assess_nid,
+                      'first_name' => $entity->first_name->value,
+                      'last_name' => $entity->last_name->value,
+                      'org_name' => $org_name,
+                      'city' => $city,
+                      'state' => $state,
+                    );
 
-            $booking_date = date("Y/m/d",$timestamp);
-            $booking_time = date("h:i:sa",$timestamp);
-            if($entity->service->value == '199.99'){
-                $formtype = 'elete';
-            }elseif($entity->service->value == '29.99'){
-                $formtype = 'starter';
             }
 
-            if(!empty($entity->assessment->value)){
-              $Assess_type = 'individual';
-            }else{
-              $Assess_type = 'private';
-             }
-            
-            $result[] = array(
-              'booked_id' => $booked_id,
-              'id' => $entity->id->value,
-              'user_name' => $entity->user_name->value,
-              'nid' => $param['nid'],
-              'formtype' => $formtype,
-              'Assess_type' => $Assess_type,
-              'booking_date'  => $booking_date,
-              'booking_time'  => $booking_time,
-              'assessment_title'  => $assessment_title,
-              'status' => $field_status,
-              'sport' => $sport,
-              'st' => $st,
-              'assess_nid' => $assess_nid,
-              'first_name' =>$entity->first_name->value,
-              'last_name' =>$entity->last_name->value,
-              'postion' => $postion,
-            );  
           }
-        
-        $header = array(
-          array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
-          array('data' => Markup::create('Sport <span></span>'), 'field' => 'sport'),
-          array('data' => Markup::create('Status <span></span>'), 'field' => 'status'),
-        );
+
 
         if(!empty($_GET['par_page_item'])){
           $parpage = $_GET['par_page_item'];
@@ -102,19 +92,24 @@ class PendingAssessments extends ControllerBase {
       // Wrapper for rows
 
 
-         $tb = '<div class="wrapped_div_main">
+         $tb = '<div class="wrapped_div_main user_pro_block">
           <div class="block-bfss-assessors">
           <div class="table-responsive">
          <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
-                <th class="th-hd"><a><span></span> Name</a>
+               <th class="th-hd"><a><span></span> Date</a>
                 </th>
-                <th class="th-hd"><a><span></span> Position</a>
+                <th class="th-hd"><a><span></span> First Name</a>
                 </th>
-                <th class="th-hd"><a><span></span> Office</a>
+                <th class="th-hd"><a><span></span> Last Name</a>
                 </th>
-              
+                <th class="th-hd"><a><span></span> Organization</a>
+                </th>
+                <th class="th-hd"><a><span></span> State</a>
+                </th>
+                <th class="th-hd"><a><span></span> City</a>
+                </th>
               </tr>
             </thead>
             <tbody>';
@@ -125,18 +120,20 @@ class PendingAssessments extends ControllerBase {
         $booked_id = $item['booked_id'];
         $st = $item['st'];
         $user_name = $item['user_name'];
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
+        $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
        
-        $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
-        // $rows[] = array(
-        //   'user_name' => $user_name,
-        //   'sport' => $item['sport'],
-        //   'status' => $item['status'],
-        // );
+        $first_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
+
+        $last_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
+
+    
          $tb .= '<tr>
-                <td>'.$user_name.'</td>
-                <td>'.$item['sport'].'</td>
-                <td>'.$item['status'].'</td>
+                <td>'.$item['booking_date'].'</td>
+                <td>'.$first_name.'</td>
+                <td>'.$last_name.'</td>
+                <td>'.$item['org_name'].'</td>
+                <td>'.$item['state'].'</td>
+                <td>'.$item['city'].'</td>
               </tr>';
       }
       $tb .= '</tbody>
@@ -188,6 +185,18 @@ class PendingAssessments extends ControllerBase {
         ];
       //return $element;
    }
+
+public function Get_Data_From_Tables($TableName,$atr,$current_user,$user_key){
+      if($TableName){
+        $conn = Database::getConnection();
+      $query = $conn->select($TableName, $atr);
+        $query->fields($atr);
+        $query->condition($user_key, $current_user, '=');
+        $results = $query->execute()->fetchAssoc();
+      }
+      return $results;
+  }
+
 
 }
 

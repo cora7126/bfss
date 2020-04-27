@@ -81,20 +81,11 @@ bfss_manager.delete_assessments_data:
   requirements:
     _access: 'TRUE' 
 
-# bfss_manager.delete_assessment1:
-#   path: '/delete-assessment'
-#   defaults:
-#     _controller: 'Drupal\bfss_manager\Controller\DeleteAssessment::content'
-#     _title: 'delete-Assessments'
-#   requirements:
-#     _access: 'TRUE' 
+bfss_manager.pending_assessments_form:
+  path: '/pending-assessments-form'
+  defaults:
+    _form: '\Drupal\bfss_manager\Form\PendingAssessmentsForm'
+    _title: 'pending-Assessments'
+  requirements:
+    _access: 'TRUE' 
 
-
-
-# bfss_manager.delete_assessment:
-#   path: '/delete-assessment'
-#   defaults:
-#     _controller: '\Drupal\bfss_manager\Controller\DeleteAssessment::delete_assessment'
-#     _title: 'Delete Assessment'
-#   requirements:
-#     _access: 'TRUE'

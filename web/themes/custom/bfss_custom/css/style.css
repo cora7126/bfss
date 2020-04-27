@@ -1922,7 +1922,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#EB6E06;padding-right:15px;font-weight:700;}
 .left_section .athlete_left , .right_section .athlete_right{border:1px solid #ccc;padding-bottom:0px;margin-bottom:30px;position:relative;}
 .left_section .athlete_left .form-item , .right_section .athlete_right .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
-.left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;}
+.left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;}
 .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
 .left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;}
 .left_section .athlete_left .add_pos_div{position:relative;padding-bottom:30px;}
