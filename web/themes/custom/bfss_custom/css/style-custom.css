@@ -739,3 +739,27 @@ button.btn.btn-success.add_item_plx p:empty-child{display:none;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
+
+ul.faq.faqct,ul.faq.faqct li { list-style: none; }
+ul.faq.faqct li { padding: 20px; }
+ul.faq.faqct li.q {
+    margin-top: 12px;
+    font-size: 16px;
+    text-decoration: none;
+ 	cursor: pointer;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding: 18px 20px;
+    background: #000;
+    color: white;
+    position: relative;
+}
+ul.faq.faqct li.a {
+  display: none;
+  color:#000;
+}
+ul.faq.faqct .rotate {
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}

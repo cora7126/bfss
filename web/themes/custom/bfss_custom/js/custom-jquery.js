@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
 
+	jQuery( "#sortable_faqs" ).sortable();
+    jQuery( "#sortable_faqs" ).disableSelection();
 
  	jQuery('#select_faqs_by_user').niceSelect();
 	
