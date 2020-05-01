@@ -1,0 +1,3 @@
+services:
+  bfss_admin.bfss_admin_permissions:
+    class: Drupal\bfss_admin\BfssAdminPermissions

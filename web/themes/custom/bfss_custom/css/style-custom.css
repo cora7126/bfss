@@ -649,9 +649,47 @@ button.btn.btn-success.add_item_plx p:empty-child{display:none;}
 .manager_assessor_account{width:100%;float:left;display:block;margin:30px 0 0;}
 .manager_assessor_account .box.niceselect{font-size:13px;line-height:18px;}
 .manager_assessor_account .box.niceselect .form-type-select.js-form-type-select{max-width:50%;}
+.manager_assessor_account .box.niceselect .form-type-select.js-form-type-select .select-wrapper{width:calc(100% - 50px);float:left;}
 .manager_assessor_account .box.niceselect .nice-select.form-select{background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;height:35px;line-height:23px;padding:5px 15px;font-size:13px;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0;}
 .manager_assessor_account .box.niceselect .nice-select.form-select .list{border-radius:0;-moz-border-radius:0;-webkit-border-radius:0;width:100%;}
 .manager_assessor_account .box.niceselect .nice-select.form-select .list .option{color:#000;}
+.manager_assessor_account .box.niceselect .form-type-select.js-form-type-select .input-group-addon{width:50px;padding:8px 0;height:35px;background:#EB6E06;border:1px solid #EB6E06;}
+.manager_assessor_account .box.niceselect .form-type-select.js-form-type-select .input-group-addon span{opacity:1;}
+.manager_assessor_account .box.niceselect .form-type-select.js-form-type-select .input-group-addon span::before{color:#fff;font-weight:bold;}
+
+/**************** ADMIN USER TYPE Permissions CSS STARTS HERE *******************/
+.user-by-permissions-table-form{width:100%;float:left;display:block;}
+.user-by-permissions-table-form .left_section .items_div{padding:20px 15px;}
+.user-by-permissions-table-form .left_section .items_div .table{margin:0;}
+.user-by-permissions-table-form .left_section .items_div .table > .form-group{margin:0;}
+.user-by-permissions-table-form .left_section .items_div .table .form-group:nth-child(2n) ul li{background:#F1F3F2;}
+.user-by-permissions-table-form .left_section .items_div .table .form-group ul li:last-child{border-bottom:0;}
+.user-by-permissions-table-form .left_section .items_div .table > .form-group.first-thead ul li{background:#EB6E06;color:#fff;padding:12px 10px;height:40px;border:1px solid #EB6E06;text-align:center;}
+.user-by-permissions-table-form .left_section .items_div .table > .form-group.first-thead ul li:first-child{text-align:left;}
+.user-by-permissions-table-form .left_section .items_div .table ul{list-style-type:none;padding:0;margin:0;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
+.user-by-permissions-table-form .left_section .items_div .table ul li:first-child{width:calc(40% - 12px);}
+.user-by-permissions-table-form .left_section .items_div .table ul li{padding:10px;font-size:13px;line-height:16px;border-bottom:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid #ccc;height:34px;width:calc(15% - 12px);float:left;margin-right:12px;}
+.user-by-permissions-table-form .left_section .items_div .table ul li:last-child{margin:0;}
+
+
+.user-by-permissions-table-form .left_section .items_div .table ul li .form-item.form-type-checkbox{margin:0;padding:0;}
+.user-by-permissions-table-form .left_section .items_div .table ul li .form-item.form-type-checkbox input{height:13px;position:static;}
+/**************** ADMIN USER TYPE Permissions CSS ENDS HERE *******************/
+
+ul.faq.faqct, ul.faq.faqct li{list-style:none;}
+ul.faq.faqct li{padding:20px;}
+ul.faq.faqct li.q{margin-top:12px;font-size:14px;text-decoration:none;cursor:pointer;padding-top:5px;padding-left:20px;padding:12px 20px;background:#000;  color:white;position:relative;line-height:20px;}
+ul.faq.faqct li.a{display:none;color:#000;position:relative;}
+ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg);transform:rotate(90deg);}
+.faqsec{float:left;clear:both;width:100%;}
+
+
+.left_section .items_div .athlete_submit{padding:0 15px;}
+.add_faq_main_section ul.faq.faqct{padding:0;}
+.add_faq_main_section ul.faq.faqct .ui-state-default.ui-sortable-handle{margin:0 0 10px;}
+.add_faq_main_section ul.faq.faqct .ui-state-default.ui-sortable-handle li.q{margin:0;}
+.add_faq_main_section ul.faq.faqct li.a{padding-bottom:50px;}
+.add_faq_main_section ul.faq.faqct li.a .faq-footer-bar{position:absolute;bottom:0;height:30px;background:#ccc;border-top:1px solid #ccc;display:block;width: 100%;left:0;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -676,6 +714,7 @@ button.btn.btn-success.add_item_plx p:empty-child{display:none;}
 	.dataTables_paginate.paging_simple_numbers a.paginate_button{display:inline-block;float:none;}
 	div.dataTables_wrapper .dataTables_filter label input{max-width:145px;float:right;}
 	.centeralizeRow .rightText h4 img{max-width:50px;}
+	.manager_assessor_account .box.niceselect .form-type-select.js-form-type-select{max-width:100%;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
@@ -739,27 +778,3 @@ button.btn.btn-success.add_item_plx p:empty-child{display:none;}
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
-
-ul.faq.faqct,ul.faq.faqct li { list-style: none; }
-ul.faq.faqct li { padding: 20px; }
-ul.faq.faqct li.q {
-    margin-top: 12px;
-    font-size: 16px;
-    text-decoration: none;
- 	cursor: pointer;
-    padding-top: 5px;
-    padding-left: 20px;
-    padding: 18px 20px;
-    background: #000;
-    color: white;
-    position: relative;
-}
-ul.faq.faqct li.a {
-  display: none;
-  color:#000;
-}
-ul.faq.faqct .rotate {
-  -moz-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}

@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
 
-	jQuery( "#sortable_faqs" ).sortable();
-    jQuery( "#sortable_faqs" ).disableSelection();
+	
+    //jQuery( "#sortable_faqs" ).disableSelection();
 
  	jQuery('#select_faqs_by_user').niceSelect();
 	
@@ -26,51 +26,7 @@ jQuery(document).ready(function() {
 
 		});
 
-	// jQuery('.drupal-approve-org').on('click',' button.ui-dialog-titlebar-close',function(){
-	// 	location.reload();
-	// });
-	// jQuery('.drupal-edit-org ').on('click','button.ui-dialog-titlebar-close',function(){
-	// 	location.reload();
-	// });
-		// var names = 'Harry,John,Clark,Peter,Rohn,Alice';
-		// var nameArr = names.split(',');
-	 //  	var companies = [
-  //                   {"companyName":"Aperture Science"},
-  //                   {"companyName":"MomCorp"},
-  //                   {"companyName":"Wayne Enterprises"},
-  //                   {"companyName":"Umbrella Corp"},
-  //                   {"companyName":"Gringotts"},
-  //                   {"companyName":"Globex"}
-  //                 ];
 
-  //       jQuery("#companyPicker").fuzzyComplete(companies);
-
-  		//daynamic data
-		//  var orgNames = jQuery('textarea:input[name=search_org]').val();
-		//  var orgNamesArr = orgNames.split(',');
-		//  console.log(orgNamesArr);
-		//  //static data
-		//  var names = 'Harry,John,Clark,Peter,Rohn,Alice';
-		//  var nameArr = names.split(',');
-
-
-		// jQuery("#country").autosuggest({
-		// 			sugggestionsArray: nameArr
-		// 		});
-		// console.log(orgNamesArr);
-		 //jQuery('textarea:input[name=search_org]').hide();
-		// jQuery( ".orgNames_searchs" ).keydown(function() {
-  // 						 var orgNames = jQuery('textarea:input[name=search_org]').val();
-		// 				 var orgNamesArr = orgNames.split(',');
-		// 				 var lg = jQuery('.orgNames_searchs').val().length;
-		// 					if (lg != 0) {
-  //     							 jQuery(".orgNames_searchs").autosuggest({
-		// 								sugggestionsArray: orgNamesArr
-		// 						});
-		// 					}else{
-		// 						 //jQuery('.jquery-autosuggest-suggestions').hide();
-		// 					}		
-		// 	});
 
 		jQuery("input#edit-orgnames-search").click(function(){
 			   var orgNames = jQuery('textarea:input[name=search_org]').val();

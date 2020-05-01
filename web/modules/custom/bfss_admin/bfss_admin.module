@@ -3,6 +3,9 @@ use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+use \Drupal\user\Entity\User;
+use \Drupal\node\Entity\Node;
 /**
  * @file
  * Contains bfss_admin.module..
@@ -31,5 +34,58 @@ function bfss_admin_theme() {
   ];
 
 
+  $theme['user_type_permissions_page'] = [
+    'variables' => ['name' => NULL,'user_type_permissions_selcet_block' => NULL,'user_type_permissions_table_block' => NULL],
+    'template' => 'user_type_permissions',
+  ];
+
+
+  $theme['editable_tamplates_page'] = [
+    'variables' => ['name' => NULL,'editable_tamplates_block' => NULL],
+    'template' => 'editable_tamplates',
+  ];
+
+
   return $theme;
 }
+
+
+/**
+ * Implements hook_ENTITY_TYPE_INSERT().
+ */
+
+// function bfss_admin_user_insert(User $user) {
+
+// }
+
+
+/**
+ * implements hook_mail_alter() bfss_admin_mail_alter(&$message)
+ */
+// function bfss_admin_mail_alter(&$message){
+//   \Drupal::logger('mytitle')->notice('@type', array('@type' => print_r($message['body'], 1) ));
+//   $node = Node::load(196);
+//   $body = $node->body->value;
+//   $message['body'] = [];
+//   $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+//   $message['body'][] = Markup::create($body);
+
+
+
+
+
+
+ 
+    
+
+//   // if (!empty($message['id']) && $message['id'] == ' user_register_no_approval_required') {
+//   //   $node = Node::load(196);
+//   //   $body = $node->body->value;
+
+//   //   /*Unsetting message body field*/
+//   //   $message['body'] = [];
+//   //     /*sending html formatted email*/
+//   //   $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+//   //   $message['body'][] = Markup::create($body);
+//   // }
+// }
