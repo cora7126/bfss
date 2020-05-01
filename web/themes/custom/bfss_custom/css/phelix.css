@@ -580,11 +580,11 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   float: right;
 }
 .faq-right img {
-  width: 20px;
+  width:20px;
 }
 
 .faq li.q {
-  height: 57px;
+  height:45px;
 }
 
 .faq li.a {

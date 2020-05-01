@@ -23,7 +23,6 @@ framework:
     bootstrap/assets/javascripts/bootstrap/tab.js: {}
     bootstrap/assets/javascripts/bootstrap/transition.js: {}
     js/jquery.autosuggest.js: {}
-    js/sortable-ui.js: {}
     #js/fuse.min.js: {}
     js/custom.js: {}
     js/multiform.js: {}
