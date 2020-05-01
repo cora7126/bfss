@@ -38,7 +38,12 @@ class AddFaqsForm extends FormBase {
       }else{
         $user_role = '';
       }
+    //Permissions
+    $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+    $rel = $permissions_service->bfss_admin_permissions();
+    $faqs =  unserialize($rel['faqs']);
 
+    if($faqs['create']==1 || $faqs['admin']==1){
       $form['#attached']['library'][] = 'bfss_admin/bfss_admin_lab'; //here can add library
       $form['message'] = [ //for custom message "like: ajax msgs"
         '#type' => 'markup',
@@ -94,9 +99,20 @@ class AddFaqsForm extends FormBase {
             ]
       ];
 
+    
+      
+    }else{
+      
+      $form['access_message'] = [ //for custom message "like: ajax msgs"
+          '#type' => 'markup',
+          '#markup' => '<p>we are sorry. you can not access this page.</p>',
+        ];
+        
+    }
+    
+    return $form;
 
-
-  	 return $form;
+  	// return $result;
   }
 
   public function validateForm(array &$form, FormStateInterface $form_state) {

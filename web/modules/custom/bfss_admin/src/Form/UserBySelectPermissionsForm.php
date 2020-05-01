@@ -38,13 +38,15 @@ class UserBySelectPermissionsForm extends FormBase {
          $role = 'assessors';
       }elseif($param['role'] == 'BFSS Manager'){
          $role = 'bfss_manager';
+      }elseif($param['role'] == 'Admin'){
+         $role = 'bfss_administrator';
       }else{
         $role = '';
       }
     }
 
 
-  	  $users_sel = ['' => 'User Type','athlete'=>'Athletes','parent_guardian_registering_athlete_' => 'Athlete Guardian','coach' => 'Coaches', 'assessors' => 'Assessor','bfss_manager'=>'BFSS Manager'];
+  	  $users_sel = ['' => 'User Type','bfss_administrator'=>'Admin','athlete'=>'Athletes','parent_guardian_registering_athlete_' => 'Athlete Guardian','coach' => 'Coaches', 'assessors' => 'Assessor','bfss_manager'=>'BFSS Manager'];
       
       $form['select_faqs'] = [
         #'#placeholder' => t('State'),

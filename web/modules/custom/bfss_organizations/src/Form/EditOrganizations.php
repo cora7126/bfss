@@ -54,141 +54,157 @@ class EditOrganizations extends FormBase {
     $param = \Drupal::request()->query->all();
     // print_r($param);
     // die;
-    if(!empty($param['nids'])){
-    $query_nids = !empty(json_decode($param['nids'])) ? json_decode($param['nids']) : '';
-    
-    $form['#tree'] = TRUE;
-
-    $form['loader-container'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'id' => 'loader-container',
-      ],
-    ];
-
-    $form['left_section_start'] = [
-      '#type' => 'markup',
-      '#markup' => '<div class="left_section">',
-    ];
-    $form['resident'] = [
-      '#type' => 'container',
-      '#attributes' => ['id' => 'resident-details'],
-    ];
-
-    foreach ($query_nids as $i => $nid) {
-      if(isset($nid)){
-              $node = Node::load($nid);
-              $field_address_1 = $node->field_address_1->value;
-              $field_address_2 = $node->field_address_2->value;
-              $field_city = $node->field_city->value;
-              $field_state = $node->field_state->value;
-              $field_zip = $node->field_zip->value;
-              $field_organization_name = $node->field_organization_name->value;
-              $field_type = $node->field_type->value;
-              $title = $node->title->value;
 
 
-              // $form['resident'][$i] = [
-              //   '#type' => 'fieldgroup',
-              //   '#title' => 'Organization - '.$field_organization_name,
-              //   // '#attributes' => ['id' => 'edit-resident'],
-              // ];
+     //Permissions
+     $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+     $rel = $permissions_service->bfss_admin_permissions();
+     $Organizations_permissions =  unserialize($rel['Organizations']);
+     if($Organizations_permissions['edit']==1 || $Organizations_permissions['admin']==1){
+        if( $param['nids'] != '[]'){
+        $query_nids = !empty(json_decode($param['nids'])) ? json_decode($param['nids']) : '';
 
-              $states = $this->get_state();
-              $form['resident'][$i]['state'] = [
-                '#placeholder' => t('State'),
-                '#type' => 'select',
-                 '#required' => TRUE,
-                '#options' => $states,
-                '#default_value' => $field_state,
-                '#prefix' => '<div class="athlete_left">
-                                <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Organization - '.$field_organization_name.'</h3>
-                                <div class="items_div" style="">',
-                 '#suffix' => ''
-              ];
+        $form['#tree'] = TRUE;
 
-              $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club', 'university' => 'University'];
-              $form['resident'][$i]['type'] = [
-                '#placeholder' => t('Type'),
-                '#type' => 'select',
-                 '#required' => TRUE,
-                '#options' => $types,
-                '#default_value' => $field_type,
-              ];
+        $form['loader-container'] = [
+          '#type' => 'container',
+          '#attributes' => [
+            'id' => 'loader-container',
+          ],
+        ];
 
-              $form['resident'][$i]['organization_name'] = [
-                '#type' => 'textfield',
-                '#placeholder' => t('Organization Name'),
-                #'#title' => $this->t('Organization Name'),
-                '#required' => TRUE,
-                '#default_value' => $field_organization_name,
-              ];
-
-              $form['resident'][$i]['address_1'] = [
-                '#type' => 'textfield',
-                '#placeholder' => t('Address 1'),
-                '#required' => TRUE,
-                '#default_value' => $field_address_1,
-              ];
-
-              $form['resident'][$i]['address_2'] = [
-                '#type' => 'textfield',
-                '#placeholder' => t('Address 2'),
-                '#required' => TRUE,
-                '#default_value' => $field_address_2,
-              ];
-
-              $form['resident'][$i]['city'] = [
-                '#type' => 'textfield',
-                '#placeholder' => t('City'),
-                '#required' => TRUE,
-                '#default_value' => $field_city,
-              ];
-
-              $form['resident'][$i]['zip'] = [
-                '#type' => 'textfield',
-                '#placeholder' => t('Zip'),
-                '#required' => TRUE,
-                '#default_value' => $field_zip,
-                 '#suffix' => '</div></div>'
-              ];
-
-              $form['resident'][$i]['nid'] = [
-                '#type' => 'hidden',
-                '#default_value' => $nid,
-              ];
-
-              $form['resident'][$i]['actions'] = [
-                '#type' => 'actions',
-              ];
-            }
-          }
-          // for ($i = 1; $i <= $count; $i++) {  
-
-          // }
-
-           $form['left_section_end'] = [
+        $form['left_section_start'] = [
           '#type' => 'markup',
-          '#markup' => '</div>',
-           ];
+          '#markup' => '<div class="left_section">',
+        ];
+        $form['resident'] = [
+          '#type' => 'container',
+          '#attributes' => ['id' => 'resident-details'],
+        ];
+
+             foreach ($query_nids as $i => $nid) {
+                if(isset($nid)){
+                  $node = Node::load($nid);
+                  $field_address_1 = $node->field_address_1->value;
+                  $field_address_2 = $node->field_address_2->value;
+                  $field_city = $node->field_city->value;
+                  $field_state = $node->field_state->value;
+                  $field_zip = $node->field_zip->value;
+                  $field_organization_name = $node->field_organization_name->value;
+                  $field_type = $node->field_type->value;
+                  $title = $node->title->value;
 
 
-            $form['actions'] = [
-              '#type' => 'actions',
+                  // $form['resident'][$i] = [
+                  //   '#type' => 'fieldgroup',
+                  //   '#title' => 'Organization - '.$field_organization_name,
+                  //   // '#attributes' => ['id' => 'edit-resident'],
+                  // ];
+
+                  $states = $this->get_state();
+                  $form['resident'][$i]['state'] = [
+                    '#placeholder' => t('State'),
+                    '#type' => 'select',
+                     '#required' => TRUE,
+                    '#options' => $states,
+                    '#default_value' => $field_state,
+                    '#prefix' => '<div class="athlete_left">
+                                    <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Organization - '.$field_organization_name.'</h3>
+                                    <div class="items_div" style="">',
+                     '#suffix' => ''
+                  ];
+
+                  $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club', 'university' => 'University'];
+                  $form['resident'][$i]['type'] = [
+                    '#placeholder' => t('Type'),
+                    '#type' => 'select',
+                     '#required' => TRUE,
+                    '#options' => $types,
+                    '#default_value' => $field_type,
+                  ];
+
+                  $form['resident'][$i]['organization_name'] = [
+                    '#type' => 'textfield',
+                    '#placeholder' => t('Organization Name'),
+                    #'#title' => $this->t('Organization Name'),
+                    '#required' => TRUE,
+                    '#default_value' => $field_organization_name,
+                  ];
+
+                  $form['resident'][$i]['address_1'] = [
+                    '#type' => 'textfield',
+                    '#placeholder' => t('Address 1'),
+                    '#required' => TRUE,
+                    '#default_value' => $field_address_1,
+                  ];
+
+                  $form['resident'][$i]['address_2'] = [
+                    '#type' => 'textfield',
+                    '#placeholder' => t('Address 2'),
+                    '#required' => TRUE,
+                    '#default_value' => $field_address_2,
+                  ];
+
+                  $form['resident'][$i]['city'] = [
+                    '#type' => 'textfield',
+                    '#placeholder' => t('City'),
+                    '#required' => TRUE,
+                    '#default_value' => $field_city,
+                  ];
+
+                  $form['resident'][$i]['zip'] = [
+                    '#type' => 'textfield',
+                    '#placeholder' => t('Zip'),
+                    '#required' => TRUE,
+                    '#default_value' => $field_zip,
+                     '#suffix' => '</div></div>'
+                  ];
+
+                  $form['resident'][$i]['nid'] = [
+                    '#type' => 'hidden',
+                    '#default_value' => $nid,
+                  ];
+
+                  $form['resident'][$i]['actions'] = [
+                    '#type' => 'actions',
+                  ];
+                }
+              }
+              // for ($i = 1; $i <= $count; $i++) {  
+
+              // }
+
+               $form['left_section_end'] = [
+              '#type' => 'markup',
+              '#markup' => '</div>',
+               ];
+
+
+                $form['actions'] = [
+                  '#type' => 'actions',
+                ];
+
+                $form['actions']['submit'] = [
+                  '#type' => 'submit',
+                  '#value' => $this->t('Save'),
+                  '#attributes' => [
+                    'class' => ['save-button-plx'],
+                  ]
+                ];
+          
+          }else{
+            $form['access_message'] = [ //for custom message "like: ajax msgs"
+              '#type' => 'markup',
+              '#markup' => '<p>we are sorry. you can not access this page.</p>',
             ];
-
-            $form['actions']['submit'] = [
-              '#type' => 'submit',
-              '#value' => $this->t('Save'),
-              '#attributes' => [
-                'class' => ['save-button-plx'],
-              ]
+          }
+    }else{
+        $form['access_message1'] = [ //for custom message "like: ajax msgs"
+              '#type' => 'markup',
+              '#markup' => '<p>we are sorry. you can not access this page.</p>',
             ];
-      return $form;
-      }else{
-       return '';
-      }
-    
+    }
+    return $form;
   }
 
   /**

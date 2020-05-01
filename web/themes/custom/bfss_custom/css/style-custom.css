@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-html body{font-family:montserrat, Sans-Serif;}
+html body{font-family:montserrat, Sans-Serif;font-size:13px;}
 body a{color:#EB6E06;}
 body a:hover, body a:focus{text-decoration:underline;color:#EB6E06;}
 html .container{max-width:100% !important;}
@@ -603,7 +603,7 @@ a#edit-organizations-plx, .drupal-approve-org .modal-footer .modal-buttons butto
 .drupal-approve-org .approve-organization-popup .form-group.js-form-wrapper.form-wrapper p{font-size:13px;font-weight:500;margin:0 0 .5rem;}
 .drupal-approve-org .approve-organization-popup .form-group.js-form-wrapper.form-wrapper p:last-child{margin:0;}
 .drupal-approve-org .modal-footer, .drupal-edit-org .modal-footer{padding:0 15px 20px;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
-.drupal-approve-org .modal-header .close, .drupal-edit-org .modal-header .close{right:0;top:7px;padding:0;margin:0;position:absolute !important;opacity:1;}
+.drupal-approve-org .modal-header .close, .drupal-edit-org .modal-header .close{right:15px;top:7px;padding:0;margin:0;position:absolute !important;opacity:1;}
 .drupal-approve-org .modal-header .close span, .drupal-edit-org .modal-header .close span{color:#EB6E06;font-size:32px !important;position:relative !important;opacity:1;text-shadow:none;}
 
 .drupal-approve-org .modal-footer .modal-buttons, .drupal-edit-org .modal-footer .modal-buttons{margin:0;}
@@ -677,19 +677,41 @@ button.btn.btn-success.add_item_plx p:empty-child{display:none;}
 /**************** ADMIN USER TYPE Permissions CSS ENDS HERE *******************/
 
 ul.faq.faqct, ul.faq.faqct li{list-style:none;}
+.faqsec ul.faq.faqct{padding:0;}
 ul.faq.faqct li{padding:20px;}
-ul.faq.faqct li.q{margin-top:12px;font-size:14px;text-decoration:none;cursor:pointer;padding-top:5px;padding-left:20px;padding:12px 20px;background:#000;  color:white;position:relative;line-height:20px;}
+ul.faq.faqct li.q{margin-top:12px;font-size:14px;text-decoration:none;cursor:pointer;padding:0 20px;background:#000;color:white;position:relative;height:45px;line-height:43px;overflow:hidden;}
+ul.faq.faqct li.q p{font-size:14px;line-height:45px;overflow:hidden;}
 ul.faq.faqct li.a{display:none;color:#000;position:relative;}
 ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg);transform:rotate(90deg);}
 .faqsec{float:left;clear:both;width:100%;}
 
 
 .left_section .items_div .athlete_submit{padding:0 15px;}
-.add_faq_main_section ul.faq.faqct{padding:0;}
 .add_faq_main_section ul.faq.faqct .ui-state-default.ui-sortable-handle{margin:0 0 10px;}
 .add_faq_main_section ul.faq.faqct .ui-state-default.ui-sortable-handle li.q{margin:0;}
 .add_faq_main_section ul.faq.faqct li.a{padding-bottom:50px;}
-.add_faq_main_section ul.faq.faqct li.a .faq-footer-bar{position:absolute;bottom:0;height:30px;background:#ccc;border-top:1px solid #ccc;display:block;width: 100%;left:0;}
+.add_faq_main_section ul.faq.faqct li.a p:empty{margin:0;display:none;}
+.add_faq_main_section ul.faq.faqct li.a p:last-child, .add_faq_main_section ul.faq.faqct li.a p:last-of-type{margin:0;}
+.add_faq_main_section ul.faq.faqct li.a .faq-footer-bar{position:absolute;bottom:0;height:30px;background:#F1F3F2;border-top:1px solid #ccc;display:block;width:100%;left:0;padding:5px 15px;}
+.faq-footer-bar .faq-icons-bar{display:inline-block;float:right;}
+.faq-footer-bar .faq-icons-bar p{display:inline-block;margin:0 25px 0 0;}
+.faq-footer-bar .faq-icons-bar p a{display:block;}
+.faq-footer-bar .faq-icons-bar p a i{color:#EB6E06;font-size:15px;}
+.faq-footer-bar .faq-auth-date, .faq-footer-bar .faq-auth-date p{display:inline-block;float:left;}
+.faq-footer-bar .faq-auth-date p{margin:0 60px 0 0;font-size:11px;}
+
+.drupal-edit-faq-fm.ui-dialog.ui-widget-content{width:100% !important;max-width:700px;}
+.drupal-edit-faq-fm .ui-dialog-titlebar button.ui-button{position:absolute;right:15px;top:7px;margin:0;padding:0;opacity:1;z-index:9;font-size:0;background:none;border:0;}
+.drupal-edit-faq-fm .ui-dialog-titlebar button.ui-button span{display:none;}
+.drupal-edit-faq-fm .ui-dialog-titlebar button.ui-button span.ui-button-icon{display:block;background:none;position:relative;height:30px;width:25px;}
+.drupal-edit-faq-fm .ui-dialog-titlebar button.ui-button span.ui-button-icon:before{content:"x";color:#EB6E06;font-size:25px;display:block;line-height:30px;text-indent:0;}
+.drupal-edit-faq-fm .ui-dialog-buttonpane.ui-widget-content{padding:0 15px 15px;width:100% !important;float:left;border:0 !important;}
+.drupal-edit-faq-fm .ui-dialog-buttonpane.ui-widget-content .form-actions button.button{outline:none;padding:5px 30px;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-weight:700;width:auto;color:#fff;text-align:center;background:#EB6E06;font-size:14px;cursor:pointer;line-height:23px;height:35px;border:1px solid #EB6E06;display:inline-block;}
+.drupal-edit-faq-fm .ui-dialog-buttonpane.ui-widget-content .form-actions button.button:hover, .drupal-edit-faq-fm .ui-dialog-buttonpane.ui-widget-content .form-actions button.button:focus{outline:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;}
+.drupal-edit-faq-fm div#drupal-modal{background:#fff !important;border:0 !important;width:100% !important;}
+.drupal-edit-faq-fm div#drupal-modal .left_section .athlete_left{border:0;margin:0;}
+.drupal-edit-faq-fm div#drupal-modal .left_section .athlete_left .items_div{padding:15px 0;}
+.drupal-edit-faq-fm.delete-faq div#drupal-modal .left_section .athlete_left .items_div{padding:15px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -702,6 +724,7 @@ ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg
 	.social_icons_top .star_icon .follow-unfollow{width:100%;float:left;text-align:center;}
 	.dashboard .profile_img_section .profile-sec .col-md-4{width:50px;padding:0;}
 	.dashboard .profile_img_section .profile-sec .col-md-8{width:calc(100% - 65px);}
+	.faq-footer-bar .faq-auth-date p{margin:0 30px 0 0;}
 }
 
 @media(min-width:580px) and (max-width:767px) {

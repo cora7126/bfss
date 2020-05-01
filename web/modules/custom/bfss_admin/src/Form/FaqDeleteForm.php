@@ -25,6 +25,13 @@ class FaqDeleteForm extends FormBase {
 
   public function buildForm(array $form, FormStateInterface $form_state) {
   	    $param = \Drupal::request()->query->all();
+
+         //Permissions
+        $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+        $rel = $permissions_service->bfss_admin_permissions();
+        $faqs =  unserialize($rel['faqs']);
+        if($faqs['edit']==1 || $faqs['admin']==1){
+        $form['#attributes'] = array('class' => 'approve-organization-popup faq-delete-form');
   	    $form['message_delete'] = [ //for custom message "like: ajax msgs"
 	        '#type' => 'markup',
 	        '#markup' => '<div class="result_message_delete"></div>',
@@ -50,7 +57,7 @@ class FaqDeleteForm extends FormBase {
       	$form['actions']['submit'] = [
           '#type' => 'submit',
           '#value' => $this->t('Yes Delete'),
-          '#prefix' => '<div  class="athlete_submit">',
+          '#prefix' => '<div class="athlete_submit">',
           '#suffix' => '</div> </div>
 					</div>
 				</div>',
@@ -67,6 +74,15 @@ class FaqDeleteForm extends FormBase {
               ],
             ]
       	];
+    
+    }else{
+      
+      $form['access_message'] = [ 
+        '#type' => 'markup',
+        '#markup' => '<div class="acess-message"><p>We are sorry.You can not access.</p></div>',
+      ];
+ 
+    }     
   	return $form;
   }
 

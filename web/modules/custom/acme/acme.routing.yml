@@ -4,7 +4,7 @@ acme_hello:
     _controller: Drupal\acme\Controller\DefaultController::dashboard
     _title: 'BFSS dashboard'
   requirements:
-   _role: 'bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
     
 acme.form:
  path: /userform
