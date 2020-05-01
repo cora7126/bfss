@@ -89,7 +89,19 @@ class ApproveOrganizationPopup extends FormBase {
             '#markup' => '</div>
             </div></div>',
     ];
-    return $form;
+
+        //Permissions
+       $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+       $rel = $permissions_service->bfss_admin_permissions();
+       $pending_approval =  unserialize($rel['pending_approval']);
+      
+        if($pending_approval['create']==1 || $pending_approval['admin']==1){
+          $result = $form;
+        }else{
+          $result = "we are sorry. you can not access this page.";
+        }
+
+    return $result;
      
   }
 

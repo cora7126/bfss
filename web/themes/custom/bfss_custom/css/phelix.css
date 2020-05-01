@@ -573,23 +573,19 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 }
 
 .faq-left {
-  float: left;
+  float:left;
+  width:calc(100% - 30px);
 }
 
-.faq-right {
-  float: right;
+.faq-right{
+  float:right;
+  width:30px;
+  text-align:right;
 }
-.faq-right img {
+.faq-right img{
   width:20px;
 }
 
-.faq li.q {
-  height:45px;
-}
-
-.faq li.a {
-  font-size: 14px;
-}
 
 .dash-schedule {
   font-family: "Proxima Nova Rg";

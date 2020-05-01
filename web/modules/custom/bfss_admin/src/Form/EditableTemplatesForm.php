@@ -59,6 +59,7 @@ class EditableTemplatesForm extends FormBase {
 	        '#title' => $this->t('Email Content:'),
 	        #'#required' => TRUE,
 	        #'#default_value' => '',
+	        #'#access' => TRUE,
 	        '#default_value' => $forgetpass['value'],
     		'#format' => $forgetpass['format'],
 	       '#suffix' => '</li></ul>
@@ -166,7 +167,7 @@ class EditableTemplatesForm extends FormBase {
 	        #'#required' => TRUE,
 	        '#default_value' => $ticketing_resolved['value'],
 	        '#format' => $ticketing_resolved['format'],
-	       '#suffix' => '</li></ul>
+	        '#suffix' => '</li></ul>
 					</div>',
 	        
 	    ];
@@ -177,7 +178,8 @@ class EditableTemplatesForm extends FormBase {
       	$form['actions']['submit'] = [
           '#type' => 'submit',
           '#value' => $this->t('save'),
-          '#suffix' => '',
+          '#prefix' => '<div id="athlete_submit" class="athlete_submit">',
+          '#suffix' => '</div>',
           '#button_type' => 'primary',
            '#ajax' => [
               'callback' => '::DataSaveAjax', // don't forget :: when calling a class method.

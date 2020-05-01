@@ -99,7 +99,8 @@ class DefaultController extends ControllerBase {
           ]
         ];
       }
-      elseif(in_array('administrator', $roles)){
+      elseif(in_array('administrator', $roles) || in_array('bfss_administrator', $roles)){
+       
         $assessments_block = "listing here";
         return [
           '#cache' => ['max-age' => 0,],

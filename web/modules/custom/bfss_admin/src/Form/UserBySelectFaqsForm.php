@@ -25,6 +25,13 @@ class UserBySelectFaqsForm extends FormBase {
     return 'user_by_select_faqs_Form';
   }
   public function buildForm(array $form, FormStateInterface $form_state) {
+    //Permissions
+    $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+    $rel = $permissions_service->bfss_admin_permissions();
+    $faqs =  unserialize($rel['faqs']);
+    //print_r($faqs);die;
+
+    if($faqs['view']==1 || $faqs['admin']==1){
   	  $users_sel = ['' => 'Select','athletes'=>'Athletes','coach' => 'Coaches' ];
       
       $form['select_faqs'] = [
@@ -46,11 +53,16 @@ class UserBySelectFaqsForm extends FormBase {
                 'message' => $this->t('Verifying entry...'),
           ],
         ],
-      ];
-
-
-   
-
+      ];  
+      
+    }else{
+      
+      $form['access_message'] = [ //for custom message "like: ajax msgs"
+          '#type' => 'markup',
+          '#markup' => '<p>we are sorry. you can not access this page.</p>',
+        ];
+         
+    }
   	 return $form;
   }
 

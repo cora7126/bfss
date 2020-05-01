@@ -1632,8 +1632,7 @@ table .checkbox.form-no-label, table .radio.form-no-label{margin-bottom:0;margin
  .has-success .select-wrapper:after{color:#3c763d;}
  .has-warning .select-wrapper:after{color:#8a6d3b;}
 .form-required:after{background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHBhdGggZmlsbD0iI0VFMDAwMCIgIGQ9Ik0wLDcuNTYybDEuMTE0LTMuNDM4YzIuNTY1LDAuOTA2LDQuNDMsMS42ODgsNS41OSwyLjM1QzYuMzk4LDMuNTUzLDYuMjM3LDEuNTQ0LDYuMjIsMC40NDdoMy41MTEgYy0wLjA1LDEuNTk3LTAuMjM0LDMuNi0wLjU1OCw2LjAwM2MxLjY2NC0wLjgzOCwzLjU2Ni0xLjYxMyw1LjcxNC0yLjMyNUwxNiw3LjU2MmMtMi4wNSwwLjY3OC00LjA2LDEuMTMxLTYuMDI4LDEuMzU2IGMwLjk4NCwwLjg1NiwyLjM3MiwyLjM4MSw0LjE2Niw0LjU3NWwtMi45MDYsMi4wNTljLTAuOTM1LTEuMjc0LTIuMDQxLTMuMDA5LTMuMzE2LTUuMjA2Yy0xLjE5NCwyLjI3NS0yLjI0NCw0LjAxMy0zLjE0Nyw1LjIwNiBsLTIuODU2LTIuMDU5YzEuODcyLTIuMzA3LDMuMjExLTMuODMyLDQuMDE3LTQuNTc1QzMuODQ5LDguNTE2LDEuODcyLDguMDYyLDAsNy41NjIiLz48L3N2Zz4K);background-size:10px 7px;content:"";display:inline-block;vertical-align:super;line-height:1;height:7px;width:10px;}
-.form-actions .btn, .form-actions .btn-group{margin-right:10px;}
-.form-actions .btn-group .btn{margin-right:0;}
+
 /** * Icon styles. */
 a.icon-before .glyphicon, a .glyphicon.icon-before{margin-right:.25em;}
 a.icon-after .glyphicon, a .glyphicon.icon-after{margin-left:.25em;}
@@ -1938,8 +1937,8 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .athlete_right button{border-radius:0;border:2px solid #EB6E06;margin:0;background-color:#EB6E06;}
 .right_section .items_div ,.left_section .items_div{display:inline-block;width:100%;padding:30px 0;}
 .right_section .items_div, .left_section .items_div .form-actions.js-form-wrapper button.btn.btn-success.add_item_plx{top:0;padding-left:15px;}
-#athlete_submit, #athlete_submit1{display:inline-block;width:100%;padding-top:20px;}
-#athlete_submit button, #athlete_submit1 button{border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;color:#EB6E06;background-color:#fff;font-size:15px;}
+.athlete_submit{display:inline-block;width:100%;padding-top:20px;}
+.athlete_submit button.button.btn{border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;color:#EB6E06;background-color:#fff;font-size:15px;}
 #edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
 #edit-actions .athlete_submit button.btn-success{background:#EB6E06;}
 .right_section .image-widget .data{position:absolute;top:60px;right:15px;width:auto !important;background:white;padding:0;display:none;border:0;}

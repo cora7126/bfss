@@ -26,11 +26,14 @@ class FaqEditForm extends FormBase {
   }
   public function buildForm(array $form, FormStateInterface $form_state) {
   	  $param = \Drupal::request()->query->all();
-      if(isset($param['nid'])){
-
-
+      //Permissions
+      $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+      $rel = $permissions_service->bfss_admin_permissions();
+      $faqs =  unserialize($rel['faqs']);
       $node = Node::load($param['nid']);
-      
+  
+
+    if($faqs['edit']==1 || $faqs['admin']==1){
       $form['#attached']['library'][] = 'bfss_admin/bfss_admin_lab'; //here can add library
       $form['message'] = [ //for custom message "like: ajax msgs"
         '#type' => 'markup',
@@ -68,7 +71,9 @@ class FaqEditForm extends FormBase {
       $form['actions']['submit'] = [
           '#type' => 'submit',
           '#value' => $this->t('SAVE'),
+          '#prefix' => '<div class="athlete_submit">',
           '#suffix' => '</div>
+            </div>
            </div></div>',
           '#button_type' => 'primary',
            '#ajax' => [
@@ -85,11 +90,13 @@ class FaqEditForm extends FormBase {
       ];
 
     }else{
-      $form['message'] = [ //for custom message "like: ajax msgs"
+      $form['access_message'] = [ //for custom message "like: ajax msgs"
         '#type' => 'markup',
         '#markup' => '<div class="acess-message"><p>We are sorry.You can not access.</p></div>',
       ];
     }
+
+ 
 
   	 return $form;
   }

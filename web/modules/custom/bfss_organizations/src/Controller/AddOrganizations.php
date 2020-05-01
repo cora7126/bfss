@@ -11,7 +11,7 @@ class AddOrganizations extends ControllerBase {
        $rel = $permissions_service->bfss_admin_permissions();
        $Organizations_permissions =  unserialize($rel['Organizations']);
     
-        if( !empty($Organizations_permissions) && $Organizations_permissions['create']==1){
+        if($Organizations_permissions['view']==1 || $Organizations_permissions['admin']==1){
           $result = $form;
         }else{
           $result = "we are sorry. you can not access this page.";
