@@ -182,3 +182,11 @@ bfss_assessment.pdf_download:
     #_permission: 'access content'
     _role: 'athlete+parent_guardian_registering_athlete_'
 
+bfss_assessment.month_filter:
+  path: '/month-filter'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\MonthSelectForm'
+    _title: 'Assessment Type'
+    node_id: null
+  requirements:
+    _permission: 'access content'

@@ -66,8 +66,8 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 #date-picker-example{display:inline-block;border-color:transparent;border-radius:0;padding:0;text-align:center;box-shadow:none;outline:0;position:relative;top:0;height:24px;}
 #date-picker-example:hover, #date-picker-example:focus{outline:none;box-shadow:none;}
 .tab-main-sec .tab-nav{border:0;padding:0;}
-
-
+.success_message_faq_updated {text-align: center;color: green;}
+.success_message_delete {color: red;text-align: center;}
 .tab-nav ul{list-style-type:none;padding:10px 0 0;}
 .tab-nav ul li{display:inline-block;padding-right:20px;}
 .tab-nav ul li a{color:#808080;font-size:14px;font-weight:600;font-family:montserrat, sans-serif}
@@ -158,7 +158,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 #edit-coach-profile-form-modal .left_section.popup_left_section{width:70%;float:left;padding-right:20px;}
 #edit-coach-profile-form-modal .right_section{width:30%;float:left;}
 #edit-coach-profile-form-modal .edit-coach-form-popup{width:100%;float:left;display:block;}
-#edit-coach-profile-form-modal .left_section .athlete_left h3, #edit-coach-profile-form-modal .right_section .athlete_right h3{height:40px;padding:11px 15px;font-size:13px;font-weight:500;}
+#edit-coach-profile-form-modal .left_section .athlete_left h3, #edit-coach-profile-form-modal .right_section .athlete_right h3{height:40px;/*padding:11px 15px;*/font-size:13px;font-weight:500;}
 #edit-coach-profile-form-modal .left_section .athlete_left h3 i, #edit-coach-profile-form-modal .right_section .athlete_right h3 i{top:12px;}
 #edit-coach-profile-form-modal .left_section .athlete_left h3 > i, #edit-coach-profile-form-modal .right_section .athlete_right h3 > i{padding:0;right:15px;}	
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div, #edit-coach-profile-form-modal .right_section .athlete_right .items_div{padding:35px 15px;}
@@ -184,7 +184,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 /**************** EDIT COACH PROFILE CSS ENDS HERE *******************/
 
 /**************** ATHLETES FOLLOW CSS STARTS HERE *******************/
-.athletes_follow_dv, .athletes-unfollow-form, .wrapped_div_main{width:100%;float:left;display:block;}
+.athletes_follow_dv, .athletes-unfollow-form, .wrapped_div_main{width:100%;float:left;display:block;padding-top:20px;}
 .athletes_follow_dv .search_athlete_main{padding:0;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors{border:0;padding:20px 10px;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors .dataTables_wrapper table{margin:0 0 30px;}

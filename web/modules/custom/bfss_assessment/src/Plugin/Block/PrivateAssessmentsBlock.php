@@ -71,6 +71,7 @@ class PrivateAssessmentsBlock extends BlockBase implements ContainerFactoryPlugi
     if (!empty($data)) {
       return [
         'results' => [
+              '#cache' => ['max-age' => 0,],
               '#theme' => 'upcoming_group_assessments',
               '#data' => $data,
               '#empty' => 'no',
@@ -88,6 +89,7 @@ class PrivateAssessmentsBlock extends BlockBase implements ContainerFactoryPlugi
     }
     return array(
 	    '#type' => 'markup',
+      '#cache' => ['max-age' => 0,],
 	    '#markup' => $this->t('There is no assignment avaialble for now'),
       '#attached' =>[
         'library' => [

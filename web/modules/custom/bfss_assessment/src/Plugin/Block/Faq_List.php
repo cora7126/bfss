@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\bfss_assessment\AssessmentService;
 use Drupal\Core\Render\Markup;
 use  \Drupal\user\Entity\User;
+use Drupal\Core\Database\Database;
 
 /**
  * Provides a block with a simple text.
@@ -45,7 +46,7 @@ class Faq_List extends BlockBase implements ContainerFactoryPluginInterface {
     );
   }
   /**
-   * {@inheritdoc}
+   * {@inheritdoc} bfss_faqs_nids
    */
   public function build() {
         $element = 1;
@@ -54,17 +55,12 @@ class Faq_List extends BlockBase implements ContainerFactoryPluginInterface {
         $roles = $user->getRoles();
 
         if(in_array('athlete', $roles) && !empty($roles)){
-          $query = \Drupal::entityQuery('node');
-          $query->condition('status', 1);
-          $query->condition('type', 'faq');
-          $query->condition('field_roles', 'athlete', '=');
-          $nids = $query->execute();
+         $faq_nids = $this->Get_Data('athlete');
+         $nids = explode(',', $faq_nids['faq_nids']);
         }elseif( in_array('coach', $roles) && !empty($roles) ){
-          $query = \Drupal::entityQuery('node');
-          $query->condition('status', 1);
-          $query->condition('type', 'faq');
-          $query->condition('field_roles', 'coach', '=');
-          $nids = $query->execute();
+
+           $faq_nids = $this->Get_Data('coach');
+           $nids = explode(',', $faq_nids['faq_nids']);
         }else{
           $query = \Drupal::entityQuery('node');
           $query->condition('status', 1);
@@ -88,6 +84,7 @@ class Faq_List extends BlockBase implements ContainerFactoryPluginInterface {
       if (!empty($data)) {
         return [
           'results' => [
+                '#cache' => ['max-age' => 0,],
                 '#theme' => 'faq_list',
                 '#data' => $data,
                 '#empty' => 'no',
@@ -105,7 +102,8 @@ class Faq_List extends BlockBase implements ContainerFactoryPluginInterface {
       }
       return array(
         '#type' => 'markup',
-        '#markup' => $this->t('There is no assignment avaialble for now'),
+        '#cache' => ['max-age' => 0,],
+        '#markup' => $this->t('There is no Faq avaialble for now'),
         '#attached' =>[
           'library' => [
             'bfss_assessment/custom',
@@ -113,4 +111,12 @@ class Faq_List extends BlockBase implements ContainerFactoryPluginInterface {
         ],
       );
   }
+
+  public function Get_Data($role){
+      $query = \Drupal::database()->select('bfss_faqs_nids', 'faq');
+      $query->fields('faq');
+      $query->condition('role', $role,'=');
+      $results = $query->execute()->fetchAssoc();
+      return $results;
+    }
 }

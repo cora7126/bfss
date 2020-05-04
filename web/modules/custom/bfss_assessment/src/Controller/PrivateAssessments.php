@@ -27,16 +27,17 @@ class PrivateAssessments extends ControllerBase {
       ->view($block);
     $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-    $block1 = \Drupal\block\Entity\Block::load('monthform');
-    $block_content1 = \Drupal::entityManager()
-      ->getViewBuilder('block')
-      ->view($block1);
-    $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+    // $block1 = \Drupal\block\Entity\Block::load('monthform');
+    // $block_content1 = \Drupal::entityManager()
+    //   ->getViewBuilder('block')
+    //   ->view($block1);
+    // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+    $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
     return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'private_assessments_page',
       '#private_assessments_block' => $assessments_block,
-      '#month_block' => $assessments_block1,
+      '#month_block' => $form,
       '#attached' => [
         'library' => [
           'acme/acme-styles', //include our custom library for this response

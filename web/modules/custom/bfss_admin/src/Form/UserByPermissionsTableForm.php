@@ -451,7 +451,7 @@ class UserByPermissionsTableForm extends FormBase {
     }else{
       $form['html_start'] = [ 
           '#type' => 'markup',
-          '#markup' => '<p>We are sorry,You can not access.</p>',
+          '#markup' => '',
         ];
     }
    

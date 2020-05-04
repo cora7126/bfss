@@ -8,9 +8,9 @@
     	jQuery(document).on('click','a.paginate_button',function(){
  				jQuery(document).find('.niceselect select').niceSelect(); 
 		});
-    	   jQuery(".month_filter select").change(function(){
-  				jQuery('form#month-form').submit();
-  		});
+    // 	   jQuery(".month_filter select").change(function(){
+  		// 		jQuery('form#month-form').submit();
+  		// });
 
     	   jQuery(window).scroll(function(){
    				var st = jQuery(this).scrollTop();

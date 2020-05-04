@@ -55,17 +55,18 @@ class DefaultController extends ControllerBase {
           ->view($block);
         $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-        $block1 = \Drupal\block\Entity\Block::load('monthform');
-        $block_content1 = \Drupal::entityManager()
-          ->getViewBuilder('block')
-          ->view($block1);
-        $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+        // $block1 = \Drupal\block\Entity\Block::load('monthform');
+        // $block_content1 = \Drupal::entityManager()
+        //   ->getViewBuilder('block')
+        //   ->view($block1);
+        // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+        $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'hello_page',
           '#name' => 'Shubham Rana',
           '#assessments_block' => $assessments_block,
-          '#month_block' => $assessments_block1,
+          '#month_block' => $form,
           '#rolename' => $rolename,
           '#attached' => [
             'library' => [
@@ -80,17 +81,18 @@ class DefaultController extends ControllerBase {
           ->view($block);
         $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-        $block1 = \Drupal\block\Entity\Block::load('monthform');
-        $block_content1 = \Drupal::entityManager()
-          ->getViewBuilder('block')
-          ->view($block1);
-        $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+        // $block1 = \Drupal\block\Entity\Block::load('monthform');
+        // $block_content1 = \Drupal::entityManager()
+        //   ->getViewBuilder('block')
+        //   ->view($block1);
+        // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+        $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
       
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'bfss_manager_profile_dashboard_page',
           '#bfss_manager_profile_dashboard_block' => $assessments_block,
-          '#month_block' => $assessments_block1,
+          '#month_block' => $form,
           '#rolename' => $roles[1],
           '#attached' => [
             'library' => [
