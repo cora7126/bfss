@@ -223,4 +223,10 @@ function bfss_assessment_user_login($account) {
         return;
     }
 
+    if(isset($roles) && in_array('bfss_administrator', $roles)){
+        $response = new RedirectResponse("/dashboard");
+        $response->send();
+        return;
+    }
+
 }

@@ -32,10 +32,7 @@ class FaqDeleteForm extends FormBase {
         $faqs =  unserialize($rel['faqs']);
         if($faqs['edit']==1 || $faqs['admin']==1){
         $form['#attributes'] = array('class' => 'approve-organization-popup faq-delete-form');
-  	    $form['message_delete'] = [ //for custom message "like: ajax msgs"
-	        '#type' => 'markup',
-	        '#markup' => '<div class="result_message_delete"></div>',
-      	];
+  	   
   	    $form['faq_nid'] =[
 	        '#type' => 'hidden',
 	        '#value' => $param['nid'],
@@ -45,11 +42,16 @@ class FaqDeleteForm extends FormBase {
         '#type' => 'hidden',
         '#value' => $param['role'],
       	];
+         $form['message_delete'] = [ //for custom message "like: ajax msgs"
+          '#type' => 'markup',
+          '#markup' => '',
+        ];
+        
       	$form['html_left'] = [
 	        '#type' => 'markup',
 	        '#markup' => '<div class="left_section popup_left_section">
 							 <div class="athlete_left"> 
-								<h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>DELETE FAQ?</h3>
+								<h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>DELETE FAQ?</h3><div class="result_message_delete"></div>
 							                    <div class="items_div">
 							                    <p>Are you sure you want to delete this FAQ permanently?</p>',
       	];

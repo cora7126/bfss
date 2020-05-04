@@ -66,6 +66,7 @@ class CoachEditProfileForm extends FormBase {
     $userdt = User::load($current_user);
     $field_state =  $userdt->get('field_state')->value;
     $roles_user = \Drupal::currentUser()->getRoles();
+
     $query18 = \Drupal::database()->select('mydata', 'md');
     $query18->fields('md');
     $query18->condition('uid', $current_user, '=');
@@ -351,7 +352,7 @@ $form['html_image_athlete_start'] = [
   $form['instagram_account'] = array(
   '#type' => 'textfield',
   '#placeholder' => t('TEAM Instagram Account(Optional)'),
-  '#default_value' => isset($results_bfss_coach[0]->field_instagram)?$results_bfss_coach[0]->field_instagram:'',
+  '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
 
   '#prefix' => '</div>
   </div>
@@ -364,7 +365,7 @@ $form['html_image_athlete_start'] = [
   $form['youtube_account'] = array(
     '#type' => 'textfield',
     '#placeholder' => t('TEAM Youtube/Video Channel(Optional)'),
-    '#default_value' => isset($results_bfss_coach[0]->field_youtube)?$results_bfss_coach[0]->field_youtube:'',
+    '#default_value' => isset($results18['field_youtube'])?$results18['field_youtube']:'',
     '#suffix' => '</div>
     </div>',
   );
@@ -699,57 +700,61 @@ $form['html_image_athlete_end'] = [
           'field_az' => $form_state->getValue('az'),
           'field_city' => $form_state->getValue('city'),
           'field_birth_gender' => $form_state->getValue('sextype'),
+          'field_instagram' => $form_state->getValue('instagram_account'),
+          'field_youtube' => $form_state->getValue('youtube_account'),
           ))->execute();
       } else {
         $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
           'field_az' => $form_state->getValue('az'),
           'field_city' => $form_state->getValue('city'),
           'field_birth_gender' => $form_state->getValue('sextype'),
+          'field_instagram' => $form_state->getValue('instagram_account'),
+          'field_youtube' => $form_state->getValue('youtube_account'),
           ))->execute();
       } 
-      if(in_array('coach', $roles_user)){
-        //org
-    $query_bfss_coach = \Drupal::database()->select('bfss_coach', 'bc');
-      $query_bfss_coach->fields('bc');
-      $query_bfss_coach->condition('coach_uid',$current_user, '=');
-      $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
-      $arrfields = array(
-              //one
-              'coach_uid' => $current_user,
-              'field_organization_type_one' => !empty($form_state->getValue('organizationType1'))?$form_state->getValue('organizationType1'):'',
-              'field_organization_name_one' => !empty($form_state->getValue('organizationName1'))?$form_state->getValue('organizationName1'):'',
-              'field_coach_title_one' => !empty($form_state->getValue('coachtitle1'))?$form_state->getValue('coachtitle1'):'',
-              'field_sport_one' => !empty($form_state->getValue('sport1'))?$form_state->getValue('sport1'):'',
-              'field_year_one' => !empty($form_state->getValue('year1'))?$form_state->getValue('year1'):'',
-              //two
-              #'coach_uid' => $current_user,
-              'field_organization_type_two' => !empty($form_state->getValue('organizationType2'))?$form_state->getValue('organizationType2'):'',
-              'field_organization_name_two' => !empty($form_state->getValue('organizationName2'))?$form_state->getValue('organizationName2'):'',
-              'field_coach_title_two' => !empty($form_state->getValue('coachtitle2'))?$form_state->getValue('coachtitle2'):'',
-              'field_sport_two' => !empty($form_state->getValue('sport2'))?$form_state->getValue('sport2'):'',
-              'field_year_two' => !empty($form_state->getValue('year2'))?$form_state->getValue('year2'):'',
-              //three
-              #'coach_uid' => $current_user,
-              'field_organization_type_three' => !empty($form_state->getValue('organizationType3'))?$form_state->getValue('organizationType3'):'',
-              'field_organization_name_three' => !empty($form_state->getValue('organizationName3'))?$form_state->getValue('organizationName3'):'',
-              'field_coach_title_three' => !empty($form_state->getValue('coachtitle3'))?$form_state->getValue('coachtitle3'):'',
-              'field_sport_three' => !empty($form_state->getValue('sport3'))?$form_state->getValue('sport3'):'',
-              'field_year_three' => !empty($form_state->getValue('year3'))?$form_state->getValue('year3'):'',
-              //social media
-              'field_instagram' => !empty($form_state->getValue('instagram_account'))?$form_state->getValue('instagram_account'):'',
-              'field_youtube' => !empty($form_state->getValue('youtube_account'))?$form_state->getValue('youtube_account'):'',
-          );
-      if(empty($results_bfss_coach)){
-          $conn->insert('bfss_coach')
-          ->fields($arrfields)
-          ->execute();
-      }else{
-        $conn->update('bfss_coach')
-          ->condition('coach_uid',$current_user,'=')
-          ->fields($arrfields)
-          ->execute();
-      }
-      }
+      // if(in_array('coach', $roles_user)){
+      //   //org
+      // $query_bfss_coach = \Drupal::database()->select('bfss_coach', 'bc');
+      // $query_bfss_coach->fields('bc');
+      // $query_bfss_coach->condition('coach_uid',$current_user, '=');
+      // $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
+      // $arrfields = array(
+      //         //one
+      //         'coach_uid' => $current_user,
+      //         'field_organization_type_one' => !empty($form_state->getValue('organizationType1'))?$form_state->getValue('organizationType1'):'',
+      //         'field_organization_name_one' => !empty($form_state->getValue('organizationName1'))?$form_state->getValue('organizationName1'):'',
+      //         'field_coach_title_one' => !empty($form_state->getValue('coachtitle1'))?$form_state->getValue('coachtitle1'):'',
+      //         'field_sport_one' => !empty($form_state->getValue('sport1'))?$form_state->getValue('sport1'):'',
+      //         'field_year_one' => !empty($form_state->getValue('year1'))?$form_state->getValue('year1'):'',
+      //         //two
+      //         #'coach_uid' => $current_user,
+      //         'field_organization_type_two' => !empty($form_state->getValue('organizationType2'))?$form_state->getValue('organizationType2'):'',
+      //         'field_organization_name_two' => !empty($form_state->getValue('organizationName2'))?$form_state->getValue('organizationName2'):'',
+      //         'field_coach_title_two' => !empty($form_state->getValue('coachtitle2'))?$form_state->getValue('coachtitle2'):'',
+      //         'field_sport_two' => !empty($form_state->getValue('sport2'))?$form_state->getValue('sport2'):'',
+      //         'field_year_two' => !empty($form_state->getValue('year2'))?$form_state->getValue('year2'):'',
+      //         //three
+      //         #'coach_uid' => $current_user,
+      //         'field_organization_type_three' => !empty($form_state->getValue('organizationType3'))?$form_state->getValue('organizationType3'):'',
+      //         'field_organization_name_three' => !empty($form_state->getValue('organizationName3'))?$form_state->getValue('organizationName3'):'',
+      //         'field_coach_title_three' => !empty($form_state->getValue('coachtitle3'))?$form_state->getValue('coachtitle3'):'',
+      //         'field_sport_three' => !empty($form_state->getValue('sport3'))?$form_state->getValue('sport3'):'',
+      //         'field_year_three' => !empty($form_state->getValue('year3'))?$form_state->getValue('year3'):'',
+      //         //social media
+      //         'field_instagram' => !empty($form_state->getValue('instagram_account'))?$form_state->getValue('instagram_account'):'',
+      //         'field_youtube' => !empty($form_state->getValue('youtube_account'))?$form_state->getValue('youtube_account'):'',
+      //     );
+      // if(empty($results_bfss_coach)){
+      //     $conn->insert('bfss_coach')
+      //     ->fields($arrfields)
+      //     ->execute();
+      // }else{
+      //   $conn->update('bfss_coach')
+      //     ->condition('coach_uid',$current_user,'=')
+      //     ->fields($arrfields)
+      //     ->execute();
+      // }
+      // }
     
     //mobile field
 

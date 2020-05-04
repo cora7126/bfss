@@ -10,11 +10,46 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
-
+use \Drupal\user\Entity\User;
+use \Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+Use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\AlertCommand;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Contribute form.
  */
 class EditCoachUserProfile extends FormBase {
+
+
+    /**
+   * Drupal\Core\Entity\EntityTypeManagerInterface definition.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Drupal\Core\Logger\LoggerChannelFactoryInterface definition.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
+   * The entity query.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  // Resident count
+  protected $residentCount = 0;
+
+
   /**
    * {@inheritdoc}
    */
@@ -71,75 +106,50 @@ class EditCoachUserProfile extends FormBase {
     if(!empty($file)){
       $url = $file->url();
     }
+
     $fname=$results1['field_first_name_value'];
-    $form['#prefix'] = '<div class="edit-coach-profile-form-main"> 
-  <div class="modal" id="edit-coach-profile-form-modal"><!--popupstart-->
-    <div class="modal-dialog">
-      <div class="modal-content">  
-        <!-- Modal body -->
-        <div class="modal-body"><p class="wlcm_cont">Welcome '.$fname.', to continue you must complete all the required fields below.<p>';
+
+
+    $form['#prefix'] = '<div class="edit-coach-profile-form-main main_section_plx"> 
+    <div class="modal" id="edit-coach-profile-form-modal"><!--popupstart-->
+      <div class="modal-dialog">
+        <div class="modal-content">  
+          <!-- Modal body -->
+          <div class="modal-body"><p class="wlcm_cont">Welcome '.$fname.', to continue you must complete all the required fields below.<p>';
     $form['suffix'] = ' </div>
       </div>
     </div>
   </div><!--popupend-->
   </div>';
 
-    $form['username'] = array(
-      '#type' => 'textfield',
-      '#required' => TRUE,
-      '#default_value' => $results4['name'],
-    '#prefix'=>'<div class="left_section popup_left_section athlete_left"><div class="athlete_left edit-user-display"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Login Information</h3><div class=items_div>',
+  
+      
+    $form['#tree'] = TRUE;
+    $form['fname'] = array(
+    '#type' => 'textfield',
+    '#prefix' => '<div class="left_section popup_left_section athlete_left">
+                  <div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>COACHES INFORMATION</h3>
+                  <div class=items_div>',
+    '#default_value' => $results1['field_first_name_value'],
     '#attributes' => array('disabled'=>true),
-      );
-    if(in_array('assessors', $roles_user)){
-      $hd_title = "ASSESSORS&#39;s Information";
-    }elseif(in_array('coach', $roles_user)){
-      $hd_title = "COACHES&#39;s Information";
-    }else{
-      $hd_title = "ATHLETE&#39;s Information"; 
-    }
-  $form['email'] = array(
-      '#type' => 'textfield',
-      '#placeholder' => t('Email'),
-      '#required' => TRUE,
-      '#default_value' => $results4['mail'],
-    '#prefix' => '',
-    '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>'.$hd_title.'</h3><div class=items_div>',
-      );
-        $form['fname'] = array(
-      '#type' => 'textfield',
-      '#default_value' => $results1['field_first_name_value'],
-      '#attributes' => array('disabled'=>true),
-    
-      );
+    );
     $form['lname'] = array(
       '#type' => 'textfield',
-     // '#title' => t('Mobile Number:'),
-      // '#placeholder' => t('Bloggs'),
       '#default_value' => $results2['field_last_name_value'],
     '#attributes' => array('disabled'=>true),
       );
 
-    if(!in_array('assessors', $roles_user)){
-        $form['numberone'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => 'Phone Number',
-            #'#required' => TRUE,
-             '#default_value' => $results5['field_mobile_value'],
-          ); 
-        if(!in_array('coach', $roles_user)){
-          $form['date_joined'] = array (
-            '#type' => 'textfield',
-            '#placeholder' => t('Date joined'),
-            '#suffix' => '</div></div>',
-            '#default_value' => substr($results3['field_date_value'],0,10),
-            // '#attributes' => array('disabled'=>true),
-            '#attributes' => array('id' => array('datepicker')),
-          );
-        }
-    }
-    // for coach
-    if(in_array('coach', $roles_user)){
+    
+      $form['numberone'] = array(
+          '#type' => 'textfield',
+          '#placeholder' => 'Phone Number',
+          #'#required' => TRUE,
+           '#default_value' => $results5['field_mobile_value'],
+        ); 
+    
+    
+
+   
       $states = $this->getStates();
       $form['az'] = array(
       '#type' => 'select',
@@ -158,319 +168,230 @@ class EditCoachUserProfile extends FormBase {
       '#placeholder' => t("Your Athlete's Gender"),
       '#options' => $gender_arr,
       '#default_value' => $results18['field_birth_gender'],
+      '#suffix' => '</div>
+      </div>
+     ',
       );
-    
-     /* Organization START */
-    $query_bfss_coach = \Drupal::database()->select('bfss_coach', 'bc');
-      $query_bfss_coach->fields('bc');
-      $query_bfss_coach->condition('coach_uid',$current_user, '=');
-      $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
 
+        /*
+*ORGANIZATION SECTION END
+*/
 
-     //organizationType1
-        $orgtype1 = array(
-          ""=>t('Organization Type'),
-          "school"=>t('School'),
-          "club"=>t('Club'),
-          "university"=>t('University'),
-          "Organization Type 4"=> t("Organization Type 4 "), 
-        );
-        $form['organizationType1'] = array(
+     $form['left_section_start'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="lft_sect">',
+    ];
+    $form['resident'] = [
+      '#type' => 'container',
+      '#attributes' => ['id' => 'resident-details'],
+    ];
+     for ($i = 0; $i <= $this->residentCount; $i++) {
+        $form['resident'][$i] = [
+         '#type' => 'container',
+          '#attributes' => [
+                   'class' => [
+                              'accommodation',
+                    ],
+          ],
+          '#prefix' => '
+                          <div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>ADD NEW ORGANIZATION</h3><div class="items_div" style="">',
+          '#suffix' => '</div>
+                </div>
+           '
+        ];
+
+       $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
+        $form['resident'][$i]['type'] = [
+          '#placeholder' => t('Type'),
           '#type' => 'select',
-         '#required' => TRUE,
-          '#options' => $orgtype1,
-          '#prefix' => '<div class="athlete_school bfssAthleteProfile"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
-          '#default_value' => $results_bfss_coach[0]->field_organization_type_one,
-          );
-          
-        
-        $form['organizationName1'] = array(
-          '#type' => 'textfield',
-          '#placeholder' => t('Orginization Name'),
-          '#required' => TRUE,
-          '#default_value' => $results_bfss_coach[0]->field_organization_name_one,
-          );
-          
-          
-        $form['coachtitle1'] = array(
-          '#type' => 'textfield',
-          '#placeholder' => t("Coach Title"),
-          '#default_value' => $results_bfss_coach[0]->field_coach_title_one,
-          );
+           '#required' => TRUE,
+          '#options' => $types,
+          '#default_value' => '',
+        ];
 
-        
-       
-        $form['sport1'] = array(
+
+      $form['resident'][$i]['organization_name'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Organization Name'),
+        #'#title' => $this->t('Organization Name'),
+        '#required' => TRUE,
+        '#default_value' => '',
+      ];
+
+      $form['resident'][$i]['sport'] = [
         '#type' => 'textfield',
         '#placeholder' => t('Sport'),
-        #'#options'=>$sports_arr,
-        '#default_value' => $results_bfss_coach[0]->field_sport_one,
-          );
+        #'#title' => $this->t('Organization Name'),
+        '#required' => TRUE,
+        '#default_value' => '',
+      ];
 
-        $form['year1'] = array(
-          '#type' => 'textfield',
-          '#placeholder' => t("Year"),
-          '#default_value' => $results_bfss_coach[0]->field_year_one,
-          '#suffix' => '</div>',
-          );
-    //organizationType2
-        $orgtype2 = array(
-          ""=>t('Organization Type'),
-          "school"=>t('School'),
-          "club"=>t('Club'),
-          "university"=>t('University'),
-          "Organization Type 4"=> t("Organization Type 4 "), 
-        );
+      $form['resident'][$i]['coach_title'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Coach Title'),
+        #'#title' => $this->t('Organization Name'),
+        '#required' => TRUE,
+        '#default_value' => '',
+      ];
 
+      $form['resident'][$i]['year'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Year'),
+        #'#title' => $this->t('Organization Name'),
+        '#required' => TRUE,
+        '#default_value' => '',
+      ];
 
-      $form['organizationType2'] = array( //uni
-        '#type' => 'select',
-        '#options' => $orgtype2,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i></h3><div class=items_div>',
-        '#default_value' => isset($results_bfss_coach[0]->field_organization_type_two)?$results_bfss_coach[0]->field_organization_type_two:'',
-        );
+        $form['resident'][$i]['actions'] = [
+          '#type' => 'actions',
+        ];
 
-          $form['organizationName2'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t('Orginization Name'),
-            '#default_value' => isset($results_bfss_coach[0]->field_organization_name_two)?$results_bfss_coach[0]->field_organization_name_two:'',
-            );
-
-          $form['coachtitle2'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t("Coache Title"),
-            '#default_value' => isset($results_bfss_coach[0]->field_coach_title_two)?$results_bfss_coach[0]->field_coach_title_two:'',
-            );
-
-           $form['sport2'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t('Sport'),
-           
-            '#default_value' => isset($results_bfss_coach[0]->field_sport_two)?$results_bfss_coach[0]->field_sport_two:'',
-            );
-          $form['year2'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t("Year"),
-            '#default_value' => isset($results_bfss_coach[0]->field_year_two)?$results_bfss_coach[0]->field_year_two:'',
-            '#prefix' => '<div class="add_pos_div_second"></div>',
-            '#suffix' => '</div></div>',
-            );
-
-
-
-    //organizationType3
-         $orgtype3 = array(
-          ""=>t('Organization Type'),
-          "school"=>t('School'),
-          "club"=>t('Club'),
-          "university"=>t('University'),
-          "Organization Type 4"=> t("Organization Type 4 "), 
-        );
-
-
-          $form['organizationType3'] = array( // club
-            '#type' => 'select',
-            '#options' => $orgtype3,
-            '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i></h3><div class=items_div>',
-            '#default_value' => isset($results_bfss_coach[0]->field_organization_type_three)?$results_bfss_coach[0]->field_organization_type_three:'',
-            );
-
-          $form['organizationName3'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t('Orginization Name'),
-            '#default_value' =>  isset($results_bfss_coach[0]->field_organization_name_three)?$results_bfss_coach[0]->field_organization_name_three:'',
-            );
-
-          $form['coachtitle3'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t("Coache Title"),
-            '#default_value' => isset($results_bfss_coach[0]->field_coach_title_three)?$results_bfss_coach[0]->field_coach_title_three:'',
-            );
-
-           $form['sport3'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t('Sport'),
-            #'#options'=> $results_bfss_coach[0]->field_sport_three,
-            '#default_value' =>isset($results_bfss_coach[0]->field_sport_three)?$results_bfss_coach[0]->field_sport_three:'',
-             
-          );
-          $form['year3'] = array(
-            '#type' => 'textfield',
-            '#placeholder' => t("Year"),
-            '#default_value' => isset($results_bfss_coach[0]->field_year_three)?$results_bfss_coach[0]->field_year_three:'',
-            '#prefix' => '<div class="add_pos_div_third">',
-            '#suffix' => '</div></div></div></div><a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Title, Sport or Organization</a></div>',
-          );
-
-         
+        if ($i > 0) {
+          $form['resident'][$i]['actions']['remove_item'] = [
+            '#type' => 'submit',
+            '#value' => Markup::create('<i class="fas fa-trash"></i>'),
+            '#name' => 'resident_remove_' . $i,
+            '#submit' => ['::removeRenter'],
+            // Since we are removing a name, don't validate until later.
+            '#limit_validation_errors' => [],
+            '#ajax' => [
+              'callback' => '::renterAjaxCallback',
+              'wrapper'  => 'resident-details',
+            ],
+            '#attributes' => [
+              'class' => ['delete_item_plx']
+            ]
+          ];
+        }
     }
-    /* Organization END */
 
-$form['submit'] = ['#type' => 'submit', '#value' => 'FINISH', '#prefix' => '<div id="athlete_submit">','#suffix' => '</div></div>
-<div class ="right_section">
-<div class = "athlete_right edit-user-display">
-                <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Profile Photo</h3>
-       <div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a>
-        <ul class="dropdown-menu" style="padding:0"></ul>
-       </div>
-<div class=items_div>
-<img src='.$url.' class="edit-profile-image" >
-<div class="popupimage" id="imagepopup">
- <div class="popup_header">
-       <h3>Profile Photo <i class="fa fa-times right-icon imagepopup-modal-close spb_close" aria-hidden="true"></i></h3>
-  </div>',
-//'#value' => t('Submit'),
-];
+    
+   $form['resident']['actions'] = [
+      '#type' => 'actions',
+    ];
 
-$form['image_athlete'] = [
-'#type' => 'managed_file',
-'#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg'],
-'file_validate_size' => [25600000], ],
-'#theme' => 'image_widget',
-'#preview_image_style' => 'medium', 
-'#upload_location' => 'public://',
-'#required' => false,
-'#default_value' => array($img_id), 
-'#prefix' => '</div></div>', 
-'#suffix' => '<div class="action_bttn">
-                <span>Action</span><ul><li>Remove</li></ul>
-              </div>
-</div>',
- ];
+    $form['resident']['actions']['add_item'] = [
+      '#type' => 'submit',
+      '#value' => Markup::create('<p><i class="fa fa-plus"></i>Add another organization<p>'),
+      '#submit' => ['::addRenter'],
+      '#limit_validation_errors' => [],
+      '#ajax' => [
+        'callback' => '::renterAjaxCallback',
+        'wrapper' => 'resident-details',
+        'disable-refocus' => TRUE
+      ],
+      '#attributes' => [
+        'class' => ['add_item_plx']
+      ],
+      '#prefix' => '',
+      '#suffix' => '</div>'
+    ];
+/*
+*ORGANIZATION SECTION END
+*/ 
+    
+ $form['submit'] = [
+      '#type' => 'submit', 
+      '#value' => 'FINISH', 
+      '#prefix' => '<div id="athlete_submit">
+                          ',
+      '#suffix' => '</div></div><!--LEFT SECTION END-->',
+    ];
 
-  $form['instagram_account'] = array(
+ $form['instagram_account'] = [
   '#type' => 'textfield',
   '#placeholder' => t('TEAM Instagram Account(Optional)'),
-  '#default_value' => isset($results_bfss_coach[0]->field_instagram)?$results_bfss_coach[0]->field_instagram:'',
-
-  '#prefix' => '</div>
-  </div></div>
-  <div class = "athlete_right">
-  <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA<i class="fa fa-info right-icon" aria-hidden="true"></i></h3>
-  <div class=items_div>',
-  );
+  '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
+  '#prefix' => '<div class="right_section">
+                  <div class = "athlete_right">
+                    <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
+                      <div class=items_div>',
+  ];
 
 
-
-  $form['youtube_account'] = array(
+  $form['youtube_account'] = [
     '#type' => 'textfield',
     '#placeholder' => t('TEAM Youtube/Video Channel(Optional)'),
+    '#default_value' => isset($results18['field_youtube'])?$results18['field_youtube']:'',
+    '#suffix' => '</div>
+      </div>
+    </div>',
+  ];
 
-    '#default_value' => isset($results_bfss_coach[0]->field_youtube)?$results_bfss_coach[0]->field_youtube:'',
-  );
+
+
+    /* Organization END */
+
    
-    
-
-
-    if ($orgtype_2!='') {
-      $form['school_web2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('School'),
-        '#default_value' => $orgname_2,
-        '#attributes' => array('disabled' => true),
-        '#prefix' => '</div></div><div class = "athlete_right edit-user-display"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
-        );
-      $form['sport_web2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
-        '#default_value' => $orgsport_2,
-        '#attributes' => array('disabled' => true),
-        );
-      $form['name_web2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Pick a Name'),
-        '#default_value' => $deltaweb1,
-        '#prefix' => '<div class="container-inline web_name webfield">',
-        '#suffix' => '</div>',
-        '#attributes' => array('id' => 'name_2'),
-        );
-      $form['label_12'] = array(
-        '#type' => 'label',
-        '#title' => ' http://bfsscience.com/users/',
-        '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
-        );
-      $form['label_22'] = array(
-        '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
-        );
-      $form['preview_12'] = array(
-        '#type' => 'markup',
-        '#markup' => render($link),
-        '#prefix' => "<div class='previewdiv' data-id='2'>",
-        '#suffix' => "</div>",
-        // '#type' => 'button',
-        // '#default_value' => 'Preview Changes',
-        );
-      $form['web_visible_2'] = array(
-        '#type' => 'select',
-        '#options' => array(
-          t('Website Visibility'),
-          t('on'),
-          t('off')),
-        '#default_value' => $deltaweb1_visibility,
-        '#suffix' => '</div></div>',
-        );
-    }
-    if ($orgtype_3!='') {
-      $form['school_web3'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('School'),
-        '#default_value' => $orgname_3,
-        '#attributes' => array('disabled' => true),
-        '#prefix' => '<div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
-        );
-      $form['sport_web3'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Sport'),
-        '#default_value' => $orgsport_3,
-        '#attributes' => array('disabled' => true),
-        );
-      $form['name_web3'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t('Pick a Name'),
-        '#default_value' => $deltaweb2,
-        '#prefix' => '<div class="container-inline web_name webfield">',
-        '#suffix' => '</div>',
-        '#attributes' => array('id' => 'name_2'),
-        );
-      $form['label_13'] = array(
-        '#type' => 'label',
-        '#title' => 'http://bfsscience.com/users/',
-        '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
-        );
-      $form['label_23'] = array(
-        '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
-        );
-      $form['preview_13'] = array(
-        '#type' => 'markup',
-        '#markup' => render($link),
-        '#prefix' => "<div class='previewdiv' data-id='3'>",
-        '#suffix' => "</div>",
-        // '#type' => 'button',
-        // '#default_value' => 'Preview Changes',
-        );
-      $form['web_visible_3'] = array(
-        '#type' => 'select',
-        '#options' => array(
-          t('Website Visibility'),
-          t('on'),
-          t('off')),
-        '#default_value' => $deltaweb2_visibility,
-        '#suffix' => '</div></div></div>',
-        );
-    }
-    // $form['#theme'] = 'athlete_form';
     return $form;
   }
+
+/**
+   * Ajax Callback for the form.
+   *
+   * @param array $form
+   *   The form being passed in
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Current state of form.
+   *
+   * @return array
+   *   The form element we are changing via ajax
+   */
+  function renterAjaxCallback(&$form, FormStateInterface $form_state) {
+    return $form['resident'];
+  }
+
+  /**
+   * Functionality for our ajax callback.
+   *
+   * @param array $form
+   *   The form being passed in
+   * @param array $form_state
+   *   The form state, passed by reference so we can modify
+   */
+  function addRenter(&$form, FormStateInterface $form_state) {
+    $this->residentCount++;
+    $form_state->setRebuild();
+  }
+
+  /**
+   * Functionality for our ajax callback.
+   *
+   * @param array $form
+   *   The form being passed in
+   * @param array $form_state
+   *   The form state, passed by reference so we can modify
+   */
+  function removeRenter(&$form, FormStateInterface $form_state) {
+    // Get the triggering element
+    $triggering_element = $form_state->getTriggeringElement();
+
+    // Remove the clicked resident group
+    if ($triggering_element) {
+      if ($triggering_element['#name'] != 'op') {
+        $button_name = $triggering_element['#name'];
+        $button_name = explode('_', $button_name);
+
+        $userInput = $form_state->getUserInput();
+        unset($userInput['resident'][$button_name[2]]);
+
+        $userInput['resident'] = array_values($userInput['resident']);
+        $userInput = $form_state->setUserInput($userInput);
+      }
+    }
+
+    $this->residentCount--;
+    $form_state->setRebuild();
+  }
+
 
   /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-   if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
-        $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
-    }
+   // if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
+   //      $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
+   //  }
   }
 
   /**
@@ -481,76 +402,51 @@ $form['image_athlete'] = [
     $roles_user = \Drupal::currentUser()->getRoles();
     $conn = Database::getConnection();
 
-    //user profile 
-    $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
-    $query_pic->fields('uup');
-    $query_pic->condition('entity_id', $current_user,'=');
-    $results_pic = $query_pic->execute()->fetchAll(); 
-    $imgid = $form_state->getValue('image_athlete');
 
-        if(empty($results_pic)){
-           if(isset($imgid[0])){
-              $conn->insert('user__user_picture')->fields(
-                array(
-                'entity_id' => $current_user,
-                'bundle' => 'user',
-                'deleted' => '0',
-                'revision_id' => $current_user,
-                'langcode' => 'en',
-                'delta' => '0',
-                'user_picture_target_id' => $imgid[0],
-                )
-            )->execute();
-           }
-        }else {
-          if(!empty($imgid[0])){
-            $conn->update('user__user_picture')
-            ->condition('entity_id',$current_user,'=')
-            ->fields(
-              array(
-              'user_picture_target_id' => $imgid[0],
-              )
-            )
-            ->execute();
-          }else{
-            $conn->update('user__user_picture')
-            ->condition('entity_id',$current_user,'=')
-            ->fields(
-              array(
-              'user_picture_target_id' => '240',
-              )
-            )
-            ->execute();
-          }
-                
+    /*
+    *ORGANIZATION SAVE START
+    */
+     $data=[];
+     foreach($form_state->getValues('resident')['resident'] as $values) {   
+      if(!empty($values['organization_name'])){
+        $data[] = [
+            'type' => $values['type'],
+            'organization_name' => $values['organization_name'],
+            'sport' => $values['sport'],
+            'coach_title' => $values['coach_title'],
+            'year' => $values['year'],
+            'city' => isset($form_state->getValues()['city'])?$form_state->getValues()['city']:'',
+            'az' =>isset($form_state->getValues()['az'])?$form_state->getValues()['az']:'',
+            // 'organization_name' => $values['organization_name'],
+            // 'type' => $values['type'],
+          ]; 
+      }    
+     }
+
+      foreach ($data as $key => $value) {
+        $node = Node::create([
+               'type' => 'bfss_organizations',
+        ]);
+        $node->field_type->value = $value['type'];
+        $node->field_organization_name->value = $value['organization_name'];
+        $node->field_sport->value = $value['sport'];
+        $node->field_coach_title->value = $value['coach_title'];
+        $node->field_year->value = $value['year'];
+        $node->field_user_role->value = isset($role)?$role:'';
+        $node->field_organization_name->value = $value['organization_name'];
+        $node->field_type->value = $value['type'];
+        $node->title->value = $value['type'].'-'.$value['organization_name'];
+        $node->field_city->value = $value['city'];
+        $node->field_state->value = $value['az'];
+        $node->setPublished(FALSE);
+        $node->save();
       }
-        
-    //joining date  
-    if(!in_array('coach', $roles_user)){
-      $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
-      $query3->addField('ufln3', 'field_date_value');
-      $query3->condition('entity_id', $current_user, '=');
-      $results3 = $query3->execute()->fetchAssoc();
-      $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
-        if (empty($results3)) {
-        
-            $conn->insert('user__field_date')->fields(array(
-            'entity_id' => $current_user,
-            'bundle' => 'user',
-            'revision_id' => $current_user,
-            'delta' => 0,
-            'langcode' => $lang_code,
-            'field_date_value' => $form_state->getValue('date_joined'),
-            ))->execute();
-        }
-        else {
-            $conn->update('user__field_date')->condition('entity_id', $current_user, '=')->fields(array(
-            'field_date_value' => $form_state->getValue('date_joined'),
-            ))->execute();
-        }
-      }
+    /*
+    *ORGANIZATION SAVE END
+    */
 
-
+        
+   
     //mydata
     $query_mydata = \Drupal::database()->select('mydata', 'md');
     $query_mydata->fields('md');
@@ -563,57 +459,19 @@ $form['image_athlete'] = [
           'field_az' => $form_state->getValue('az'),
           'field_city' => $form_state->getValue('city'),
           'field_birth_gender' => $form_state->getValue('sextype'),
+          'field_instagram' => $form_state->getValue('instagram_account'),
+          'field_youtube' => $form_state->getValue('youtube_account'),
           ))->execute();
       } else {
         $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
           'field_az' => $form_state->getValue('az'),
           'field_city' => $form_state->getValue('city'),
           'field_birth_gender' => $form_state->getValue('sextype'),
+          'field_instagram' => $form_state->getValue('instagram_account'),
+          'field_youtube' => $form_state->getValue('youtube_account'),
           ))->execute();
       } 
-      if(in_array('coach', $roles_user)){
-        //org
-    $query_bfss_coach = \Drupal::database()->select('bfss_coach', 'bc');
-      $query_bfss_coach->fields('bc');
-      $query_bfss_coach->condition('coach_uid',$current_user, '=');
-      $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
-      $arrfields = array(
-              //one
-              'coach_uid' => $current_user,
-              'field_organization_type_one' => !empty($form_state->getValue('organizationType1'))?$form_state->getValue('organizationType1'):'',
-              'field_organization_name_one' => !empty($form_state->getValue('organizationName1'))?$form_state->getValue('organizationName1'):'',
-              'field_coach_title_one' => !empty($form_state->getValue('coachtitle1'))?$form_state->getValue('coachtitle1'):'',
-              'field_sport_one' => !empty($form_state->getValue('sport1'))?$form_state->getValue('sport1'):'',
-              'field_year_one' => !empty($form_state->getValue('year1'))?$form_state->getValue('year1'):'',
-              //two
-              #'coach_uid' => $current_user,
-              'field_organization_type_two' => !empty($form_state->getValue('organizationType2'))?$form_state->getValue('organizationType2'):'',
-              'field_organization_name_two' => !empty($form_state->getValue('organizationName2'))?$form_state->getValue('organizationName2'):'',
-              'field_coach_title_two' => !empty($form_state->getValue('coachtitle2'))?$form_state->getValue('coachtitle2'):'',
-              'field_sport_two' => !empty($form_state->getValue('sport2'))?$form_state->getValue('sport2'):'',
-              'field_year_two' => !empty($form_state->getValue('year2'))?$form_state->getValue('year2'):'',
-              //three
-              #'coach_uid' => $current_user,
-              'field_organization_type_three' => !empty($form_state->getValue('organizationType3'))?$form_state->getValue('organizationType3'):'',
-              'field_organization_name_three' => !empty($form_state->getValue('organizationName3'))?$form_state->getValue('organizationName3'):'',
-              'field_coach_title_three' => !empty($form_state->getValue('coachtitle3'))?$form_state->getValue('coachtitle3'):'',
-              'field_sport_three' => !empty($form_state->getValue('sport3'))?$form_state->getValue('sport3'):'',
-              'field_year_three' => !empty($form_state->getValue('year3'))?$form_state->getValue('year3'):'',
-              //social media
-              'field_instagram' => !empty($form_state->getValue('instagram_account'))?$form_state->getValue('instagram_account'):'',
-              'field_youtube' => !empty($form_state->getValue('youtube_account'))?$form_state->getValue('youtube_account'):'',
-          );
-      if(empty($results_bfss_coach)){
-          $conn->insert('bfss_coach')
-          ->fields($arrfields)
-          ->execute();
-      }else{
-        $conn->update('bfss_coach')
-          ->condition('coach_uid',$current_user,'=')
-          ->fields($arrfields)
-          ->execute();
-      }
-      }
+ 
     
     //mobile field
     $query = \Drupal::database()->select('user__field_mobile', 'ufm');

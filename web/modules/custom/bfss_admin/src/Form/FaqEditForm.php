@@ -37,7 +37,7 @@ class FaqEditForm extends FormBase {
       $form['#attached']['library'][] = 'bfss_admin/bfss_admin_lab'; //here can add library
       $form['message'] = [ //for custom message "like: ajax msgs"
         '#type' => 'markup',
-        '#markup' => '<div class="result_message_faq_updated"></div>',
+        '#markup' => '',
       ];
       $form['question_faqs'] = [
         '#title' => t('Question:'),
@@ -46,7 +46,7 @@ class FaqEditForm extends FormBase {
         '#default_value' => $node->title->value,
         '#prefix' => '<div class="left_section popup_left_section">
                         <div class="athlete_left"> 
-                          <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Add FAQ</h3>
+                          <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Add FAQ</h3><div class="result_message_faq_updated"></div>
                           <div class="items_div">',
       	'#suffix' => '',
       ];
