@@ -14,12 +14,12 @@ use \Drupal\user\Entity\User;
 /**
  * Contribute form.
  */
-class test extends FormBase {
+class edit_profile_form extends FormBase {
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-     return 'edit_form';
+     return 'edit_form1';
   }
 
   /**
@@ -519,7 +519,7 @@ if(in_array('coach', $roles_user)){
     //end change password
      if(!in_array('assessors', $roles_user)){
    $form['submit'] = ['#type' => 'submit', 
-      '#value' => 'SAVE', 
+      '#value' => 'save', 
       '#prefix' => '</div></div><div id="athlete_submit">',
       '#suffix' => '</div>',
       //'#value' => t('Submit'),

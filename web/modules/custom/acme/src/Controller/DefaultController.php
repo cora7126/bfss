@@ -4,6 +4,8 @@ namespace Drupal\acme\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use  \Drupal\user\Entity\User;
+use \Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 
 class DefaultController extends ControllerBase {
 
@@ -104,15 +106,17 @@ class DefaultController extends ControllerBase {
         ];
       }
       elseif(in_array('administrator', $roles) || in_array('bfss_administrator', $roles)){
-       
+
+        $Pending_Approval_Data = $this->Pending_Approval();
+        // print_r($Pending_Approval_Data);
+        // die();
         $assessments_block = "listing here";
         return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'admin_profile_dashboard_page',
           '#name' => '',
           '#admin_profile_block' => $assessments_block,
-          #'#month_block' => $assessments_block1,
-          #'#rolename' => $rolename,
+          '#Pending_Approval_Data_Block' => $Pending_Approval_Data,
           '#attached' => [
             'library' => [
               'acme/acme-styles', //include our custom library for this response
@@ -171,6 +175,25 @@ public function userform()
               }
           }
           return !empty($result)?$result:null;
+    }
+
+    public function Pending_Approval(){
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'bfss_organizations');
+        $query->condition('status', 0);
+        $nids = $query->execute();
+        $Pending_Approval = [];
+        if(!empty($nids) && is_array($nids)){
+          foreach ($nids as $nid) {
+            $node = Node::load($nid);
+            $Pending_Approval[] = [
+              'field_organization_name' => $node->field_organization_name->value,
+              'field_state' => $node->field_state->value,
+              'field_city' => $node->field_city->value,
+            ];
+          }
+        }
+        return $Pending_Approval;
     }
    
 }
