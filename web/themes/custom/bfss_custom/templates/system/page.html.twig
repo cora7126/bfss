@@ -111,7 +111,7 @@
               </div>
             {% elseif user_role == 3 %}<!--BFSS MANAGER--> 
             	<div class="calender_img athletes_follow">
-                <a href="#">
+                <a href="/search-athlete">
                   <i class="fal fa-search"></i>
                 <p>Search<br>
                 Users
@@ -119,7 +119,7 @@
                 </a>
               </div>
               <div class="calender_img athletes_follow">
-                <a href="#">
+                <a href="/pending-assessments">
                   <i class="fal fa-alarm-clock"></i>
                 <p>Pending<br>
                 Assessments
@@ -134,9 +134,9 @@
                 </p>
                 </a>
               </div>
-            {% elseif user_role == 4 %} 
+            {% elseif user_role == 4 or user_role == 5%} 
               <div class="calender_img athletes_follow">
-                <a href="#">
+                <a href="/search-athlete">
                   <i class="far fa-search"></i>
                 <p>Search<br>
                 Users
@@ -144,7 +144,7 @@
                 </a>
               </div>
               <div class="calender_img athletes_follow">
-                <a href="#">
+                <a href="/pending-assessments">
                   <i class="far fa-alarm-clock"></i>
                 <p>Pending<br>
                 Assessments
@@ -332,18 +332,18 @@
                      </div>
                   </nav>
                </li>
-              {% elseif user_role == 4 %}<!-- FOR ADMIN -->
+              {% elseif user_role == 4 or user_role == 5 %}<!-- FOR ADMIN -->
                <li class="sub-menu-drop ">
                   <!--  <button class="side_button">Calender-View & Book</button> -->
                   <nav>
                      <div class="dropdown ">
                         <a {% if (current_path == '/search-athlete') or (current_path == '/view-edit-active') or (current_path == '/view-edit-deactived') or (current_path == '/create-account') or (current_path == '/user-type-permissions') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-user"></i><span class="side_menu_text">Users</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
-                          <li ><a class="side_button " href="#">View / Edit Active</a></li>
-                          <li><a class="side_button " href="#">View / Edit Deactived</a></li>
-                          <li><a class="side_button " href="#">Create Account</a></li>
-                          <li><a class="side_button " href="#">Search Athletes</a></li>
-                          <li><a class="side_button " href="#">User Type Permissions</a></li>
+                          <li ><a class="side_button " href="/view-edit-active">View / Edit Active</a></li>
+                          <li><a class="side_button " href="/view-edit-deactive">View / Edit Deactived</a></li>
+                          <li><a class="side_button " href="/manager-assessor-account">Create Account</a></li>
+                          <li><a class="side_button " href="/search-athlete">Search Athletes</a></li>
+                          <li><a class="side_button " href="/user-type-permissions">User Type Permissions</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -354,9 +354,9 @@
                         <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-school"></i><span class="side_menu_text">Organizations</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
-                           <li><a class="side_button"  href="#">View / Edit</a></li>
-                           <li><a class="side_button"  href="#">Add New</a></li>
-                          <li><a class="side_button"  href="#">Pending Approval</a></li>
+                           <li><a class="side_button"  href="/view-edit-organizations">View / Edit</a></li>
+                           <li><a class="side_button"  href="/add-organizations">Add New</a></li>
+                          <li><a class="side_button"  href="/pending-approval">Pending Approval</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -379,17 +379,17 @@
                <li class="sub-menu-drop">
                   <nav>
                      <div class="dropdown">
-                        <a {% if (current_path == '/bfssAthleteProfile') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-chart-bar"></i><span class="side_menu_text">Assessments</span><span class="down-arrow fa fa-angle-down"></span></a>
+                        <a {% if (current_path == '/pending-assessments') %} class="drop active" {% else %} class="drop" {% endif %} href="/bfssAthleteProfile"><i class="far fa-chart-bar"></i><span class="side_menu_text">Assessments</span><span class="down-arrow fa fa-angle-down"></span></a>
 
                         <ul class="dropdown-menu">
-                           <li><a class="side_button"  href="#">Pending Assessments</a></li>
+                           <li><a class="side_button"  href="/pending-assessments">Pending Assessments</a></li>
                         </ul>
                      </div>
                   </nav>
                </li>
 
                 <li {% if (current_path == '/editable-templates') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
-                  <a href="#" class="side_button menulink my_assess"><i class="far fa-edit"></i><span class="side_menu_text">Editable Templates</span></a>
+                  <a href="/editable-tamplates" class="side_button menulink my_assess"><i class="far fa-edit"></i><span class="side_menu_text">Editable Templates</span></a>
                </li>
 
                 <li class="sub-menu-drop">
@@ -408,7 +408,7 @@
                	</li>
 
                	<li {% if (current_path == '/editable-templates') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
-                  <a href="#" class="side_button menulink my_assess"><i class="far fa-lightbulb-on"></i><span class="side_menu_text">FAQ's</span></a>
+                  <a href="/user-by-select-faqs" class="side_button menulink my_assess"><i class="far fa-lightbulb-on"></i><span class="side_menu_text">FAQ's</span></a>
                </li>
 
                <li {% if (current_path == '/editable-templates') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
@@ -453,8 +453,8 @@
                   </nav>
                </li>
 			   {% elseif user_role == 3 %}<!--FOR BFSSS MANAGER-->
-			   <li class="sub_menu">
-                  <a href="#" class="side_button menulink my_assess"><i class="fal fa-chart-bar"></i><span class="side_menu_text">Pending Assessments</span></a>
+			   <li {% if (current_path == '/pending-assessments') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
+                  <a href="/pending-assessments" class="side_button menulink my_assess"><i class="fal fa-chart-bar"></i><span class="side_menu_text">Pending Assessments</span></a>
                </li>
                
                <li class="sub-menu-drop">

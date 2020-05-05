@@ -1,5 +1,9 @@
 (function($) {
     $(document).ready(function() {
+
+    	// if(jQuery("[name='schoolname_2']").val().length != 0){
+    	// 	jQuery('a.add_org.popup_add_org').hide();
+    	// }
 		jQuery('#basic0_circle_progressbar').circlesProgress({'progress':'48','borderSize':'0','innerColor':'#f56907'});
 		//month filter	    	
 		//alert();
@@ -8,9 +12,9 @@
     	jQuery(document).on('click','a.paginate_button',function(){
  				jQuery(document).find('.niceselect select').niceSelect(); 
 		});
-    	   jQuery(".month_filter select").change(function(){
-  				jQuery('form#month-form').submit();
-  		});
+    // 	   jQuery(".month_filter select").change(function(){
+  		// 		jQuery('form#month-form').submit();
+  		// });
 
     	   jQuery(window).scroll(function(){
    				var st = jQuery(this).scrollTop();
@@ -113,7 +117,9 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			return newURL;
 		}
 		//Delete Second Social/Club/Uni
-		jQuery('#athlete_uni').on('click',function(){
+		jQuery('.athlete-del-org').on('click',function(){
+			var Orgname = $(this).data("orgname");
+			console.log(Orgname);
 			$(this).parents('.athlete_left').addClass('delete_athlete');
 			$('body').append('<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">'+
 			  '<div class="modal-dialog" role="document">'+
@@ -126,7 +132,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			     ' </div>'+
 			      '<div class="modal-body px-4"><p>Are you sure you want to delete this information permanently?</p></div>'+
 			      '<div class="modal-footer px-4">'+
-			        '<button type="button" class="btn btn-lg text-white btn-default text-uppercase p-3" id="confirm-delete" style="background: #f76907; font-size: 17px;">YES, Delete</button>'+
+			        '<button type="button" class="btn btn-lg text-white btn-default text-uppercase p-3" data-org="'+Orgname+'" id="confirm-delete" style="background: #f76907; font-size: 17px;">YES, Delete</button>'+
 			      '</div>'+
 			    '</div>'+
 			  '</div>'+
@@ -147,9 +153,10 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			// }
 		});
 		jQuery(document).on('click', '#confirm-delete', function(){
+			var Orgname = $(this).data("org");
 
 			jQuery.ajax({
-				url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_uni',
+				url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+Orgname,
 				dataType: 'json',
 				cache: false,
 				success: function(data){
@@ -165,21 +172,21 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			jQuery('.delete_athlete').removeClass('delete_athlete');
 		});
 		//Delete Third Social/Club/Uni
-		jQuery('#athlete_club').on('click',function(){
-			if(confirm('Are you sure you want to delete this?')){
-				jQuery.ajax({
-					url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_club',
-					dataType: 'json',
-					cache: false,
-					success: function(data){
-					},
-					error :function (data){
+		// jQuery('#athlete_club').on('click',function(){
+		// 	if(confirm('Are you sure you want to delete this?')){
+		// 		jQuery.ajax({
+		// 			url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_club',
+		// 			dataType: 'json',
+		// 			cache: false,
+		// 			success: function(data){
+		// 			},
+		// 			error :function (data){
 
-					}
-				});
-				jQuery(this).parents('.athlete_left').remove();
-			}
-		});
+		// 			}
+		// 		});
+		// 		jQuery(this).parents('.athlete_left').remove();
+		// 	}
+		// });
 		//Delete newly added org
 		jQuery('.previous_delete').on('click',function(){
 			jQuery('.previous_athlete').hide();
@@ -458,8 +465,8 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
      jQuery(".athlete_form_submit .form-submit").click(function(){
      jQuery("#accordion").find('form').submit();
 });
-     var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Edit Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>EDIT</span><br>Profile</h2></div></div>");
-     jQuery('.edit-user .edit-form').before(header_html);
+     // var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Edit Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>EDIT</span><br>Profile</h2></div></div>");
+     // jQuery('.edit-user .edit-form').before(header_html);
 	 
 	 var header_html='';
 	  var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Payment/Receipts</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Manage </span><br>Payment/Receipts</h2></div></div>");

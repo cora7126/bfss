@@ -3,6 +3,9 @@ use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+use \Drupal\user\Entity\User;
+use \Drupal\node\Entity\Node;
 /**
  * @file
  * Contains bfss_admin.module..
@@ -20,5 +23,90 @@ function bfss_admin_theme() {
     'template' => 'manager_assessor_account',
   ];
 
+  $theme['faqs_select_page'] = [
+    'variables' => ['name' => NULL,'faqs_select_block' => NULL],
+    'template' => 'faqs_select',
+  ];
+
+  $theme['add_faqs_page'] = [
+    'variables' => ['name' => NULL,'add_faqs_block' => NULL,'reorder_faqs_block' => NULL],
+    'template' => 'add_faqs',
+  ];
+
+
+  $theme['user_type_permissions_page'] = [
+    'variables' => ['name' => NULL,'user_type_permissions_selcet_block' => NULL,'user_type_permissions_table_block' => NULL],
+    'template' => 'user_type_permissions',
+  ];
+
+
+  $theme['editable_tamplates_page'] = [
+    'variables' => ['name' => NULL,'editable_tamplates_block' => NULL],
+    'template' => 'editable_tamplates',
+  ];
+
+
   return $theme;
+}
+
+
+/**
+ * implements hook_mail_alter() bfss_admin_mail_alter(&$message)
+ */
+function bfss_admin_mail_alter(&$message){
+
+
+  if (!empty($message['id']) && $message['id'] == 'user_register_no_approval_required') {
+    //FOR Registration - Success 196
+    $node = Node::load(196);
+    if(!empty($message['body'][0])){
+      $body_array = explode(',',$message['body'][0]);
+      $BODY = $node->body->value;
+      $SUBJECT = $node->field_subject->value;
+      if(!empty($BODY)){
+        $BODY = str_replace('[user:display-name]',$body_array[0],$BODY);
+        $BODY = str_replace('[user:one-time-login-url]',$body_array[1],$BODY);
+        $BODY = str_replace('[user:name]',$body_array[2],$BODY);
+        $BODY = str_replace('[site:login-url]',$body_array[3],$BODY);
+        $BODY = str_replace('[site:name]',$body_array[4],$BODY);
+        $BODY = Markup::create($BODY);
+        //body
+        $message['body'] = [];
+        $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+        $message['body'][] = $BODY;
+        //subject
+        $message['subject'] = '';
+        $message['subject'] = $SUBJECT;
+
+      }
+    }
+  }
+
+  if (!empty($message['id']) && $message['id'] == 'user_password_reset') {
+    //Forgot / Change Password 195
+    $node = Node::load(195);
+    $body_array = explode(',',$message['body'][0]);
+    $BODY = $node->body->value;
+    $SUBJECT = $node->field_subject->value;
+    if(!empty($BODY)){
+        $BODY = str_replace('[user:display-name]',$body_array[0],$BODY);
+        $BODY = str_replace('[user:one-time-login-url]',$body_array[1],$BODY);
+        $BODY = str_replace('[user:name]',$body_array[2],$BODY);
+        $BODY = str_replace('[site:login-url]',$body_array[3],$BODY);
+        $BODY = str_replace('[site:name]',$body_array[4],$BODY);
+        $BODY = Markup::create($BODY);
+        //body 
+        $message['body'] = [];
+        $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+        $message['body'][] = $BODY;
+        //subject
+        $message['subject'] = '';
+        $message['subject'] = $SUBJECT;
+    }
+ // \Drupal::logger('message array')->notice('@type', array('@type' => print_r($message['body'], 1) ));
+  //\Drupal::logger('body_array array')->notice('@type', array('@type' => print_r($body_array, 1) ));
+  }
+   
+   // \Drupal::logger('$subject')->notice('@type', array('@type' => print_r($message['subject'], 1) ));
+
 }

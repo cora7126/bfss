@@ -68,6 +68,7 @@ class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginIn
     if (!empty($data)) {
       return [
         'results' => [
+              '#cache' => ['max-age' => 0,],
               '#theme' => 'page_assessment',
               '#data' => $data,
               '#empty' => 'no',
@@ -84,6 +85,7 @@ class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginIn
       ];
     }
     return array(
+      '#cache' => ['max-age' => 0,],
 	    '#type' => 'markup',
 	    '#markup' => $this->t('There is no assignment avaialble for now'),
       '#attached' =>[

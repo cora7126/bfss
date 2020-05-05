@@ -20,9 +20,9 @@ class Bfss_Funds extends ControllerBase {
         $query_bfss_coach->condition('coach_uid',$current_user, '=');
         $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
 
-        $orgname1 = $results_bfss_coach[0]->field_organization_name_one;
-        $orgname2 = $results_bfss_coach[0]->field_organization_name_two;
-        $orgname3 = $results_bfss_coach[0]->field_organization_name_three;
+        $orgname1 = 'Williams And Vaughn Inc';
+        // $orgname2 = 'Challenge FC';
+        // $orgname3 = 'Chandler High School';
 
        
         if(!empty($param['orgname'])){
@@ -30,6 +30,9 @@ class Bfss_Funds extends ControllerBase {
         }else{
             $orgname = $orgname1; 
         }
+
+
+
         #GET ATHLETE IDS
         $athlete_uids = $this->get_uids_by_orgname($orgname);
        
@@ -79,14 +82,29 @@ class Bfss_Funds extends ControllerBase {
         	}
         }
 
-        $arrradios = [
-            'orgname1' => $orgname1,
-            'orgname2' => $orgname2,
-            'orgname3' => $orgname3,
-        ];
+
+
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'bfss_organizations');
+        $query->condition('uid', 321, 'IN');
+        $query->condition('status', 1, 'IN');
+        $nids = $query->execute();
+        $orgnames = [];
+        foreach ($nids as $nid) {
+           $node = Node::load($nid);
+           $orgnames[] = $node->field_organization_name->value;
+            
+        }
+        $orgname_ar = [];
+        foreach ($orgnames as $orgname_v) {  
+           $orgname_ar[$orgname_v] = $orgname_v;
+        }
+
+        $arrradios = $orgname_ar;
 
         $radios = '<div class="org-radio">';
         foreach (array_unique($arrradios) as $arrradio) {
+           
             $cls = '';
             $checked = '';
         if(!empty($arrradio)){ 

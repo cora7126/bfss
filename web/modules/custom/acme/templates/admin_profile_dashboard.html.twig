@@ -114,29 +114,21 @@
                   </div>        
                </div>
                <div class="col-lg-4">
-                  <div class="my-assessment admin_desh">
-                     <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i>PENDING APPROVAL</button>
+                  <div class="my-assessment admin_desh pending-approval">
+                     <button class="accordion">PENDING APPROVAL<i class="fa fa-arrow-right" aria-hidden="true" style="    padding-left: 87px;"></i></button>
                      <div class="panel">
-                        <div class="panel_row">                           
-                           <p>Central Christian High School</br>
-                              Columbus,OH
-                           </p>
-                        </div>
-                        <div class="panel_row">    
-                           <p>Bogle Jr.High</br>
-                           Chandler,AZ
-                           </p>
-                        </div>
-                        <div class="panel_row">                           
-                           <p>Central Christian High School</br>
-                              Columbus,OH
-                           </p>
-                        </div>
-                        <div class="panel_row">    
-                           <p>Bogle Jr.High</br>
-                           Chandler,AZ
-                           </p>
-                        </div>
+
+                        {% if Pending_Approval_Data_Block is empty %}
+                        <p>No Pending Approval!</p>
+                        {% else %}
+                           {% for Data in Pending_Approval_Data_Block %}
+                            <div class="panel_row">        
+                           <p>{{ Data.field_organization_name }}</p>
+                           <p>{{ Data.field_city }} {{ Data.field_state }}</p>
+                            </div>
+                           {% endfor %}
+                        {% endif %}
+                      
                      </div>
                   </div>  
 

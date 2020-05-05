@@ -16,8 +16,13 @@ use Drupal\Core\Url;
  */
 function acme_theme() {
   $theme['hello_page'] = [
-    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'rolename' => NULL],
+    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'rolename' => NULL,'my_assessments_section_block' => NULL],
     'template' => 'hello',
+  ];
+
+   $theme['edit_user_profile_template_page'] = [
+    'variables' => ['name' => NULL,'edit_user_profile_template_block' => NULL],
+    'template' => 'edit_user_profile_template',
   ];
 
   $theme['assessors_profile_dashboard_page'] = [
@@ -32,7 +37,7 @@ function acme_theme() {
 
 
   $theme['admin_profile_dashboard_page'] = [
-    'variables' => ['name' => NULL,'admin_profile_block' => NULL],
+    'variables' => ['name' => NULL,'admin_profile_block' => NULL,'Pending_Approval_Data_Block' => NULL],
     'template' => 'admin_profile_dashboard',
   ];
 

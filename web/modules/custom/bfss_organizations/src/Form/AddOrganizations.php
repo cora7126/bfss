@@ -54,6 +54,12 @@ class AddOrganizations extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $session = $this->getRequest()->getSession();
 
+
+  //Permissions
+ $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+ $rel = $permissions_service->bfss_admin_permissions();
+ $Organizations_permissions =  unserialize($rel['Organizations']);
+ if($Organizations_permissions['create']==1 || $Organizations_permissions['admin']==1){
     $form['#tree'] = TRUE;
     #$form['#attached']['library'][] = 'renter_landlord_reference/request_form';
 
@@ -300,6 +306,12 @@ class AddOrganizations extends FormBase {
        
       ];
       $form['#attached']['library'][] = 'bfss_organizations/add_organization';
+    }else{
+      $form['access_message'] = [ //for custom message "like: ajax msgs"
+              '#type' => 'markup',
+              '#markup' => '<p>we are sorry. you can not access this page.</p>',
+      ];
+    }
     return $form;
   }
 

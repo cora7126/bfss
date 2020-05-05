@@ -1,0 +1,8 @@
+bfss_admin_lab:
+  version: 1.x
+  css:
+    layout:
+      #css/multiform.css: {}
+  js:
+    js/sortable-ui.js: {}
+    js/bfss-admin-custom.js: {}
