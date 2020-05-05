@@ -393,6 +393,9 @@ div.orgtextarea textarea{display:none;}
 /********************Nice select css end************************/
 
 /*************** ASSESSORS CSS STARTS HERE ******************/
+.pending-assessment-block .user_pro_block .block-bfss-assessors {border: 0px;}
+.preview-profile .user_pro_block .block-bfss-assessors {border: 0px;}
+div.form-item-current-pass {padding-top: 31px;margin-top: 20px;}
 .user_pro_row .userpr{width:100%;float:left;display:block;padding:0;margin:20px 0 0;list-style-type:none;}
 .user_pro_row .userpr li{display:inline-block;font-size:14px;line-height:20px;margin-right:50px;}
 .user_pro_row .userpr li:last-child{margin-right:0;}
@@ -801,3 +804,4 @@ ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
+.edit-user .region.region-content{display:none !important;}

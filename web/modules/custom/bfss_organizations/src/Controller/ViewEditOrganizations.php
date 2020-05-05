@@ -57,7 +57,7 @@ class ViewEditOrganizations extends ControllerBase {
 				//print_r($node->type->value);
 				$tb1 .=  '<tr>
 		            <td><input class="form-checkbox edit-ckeckbox-plx" type="checkbox" name="items_selected[]" value="'.$nid.'"><span class="unfollow-checkbox"></span></td>
-		            <td>'.$node->field_organization_name->value.'</td>
+		            <td><a>'.$node->field_organization_name->value.'</a>  </td>
 		            <td>'.$node->field_type->value.'</td>
 		            <td>'.$node->field_state->value.'</td>
 		            <td>'.$node->field_city->value.'</td>     
@@ -65,17 +65,13 @@ class ViewEditOrganizations extends ControllerBase {
 			}
 			
                    
-            $tb1 .= '<div class="edit-sub"><a id="edit-organizations-plx">EDIT</a></div>
-
+            $tb1 .= '
             </tbody>
             </table>
              </div>
             </div>
              </div>
             </div></form>';
-
-
-
 
               //Permissions
              $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');

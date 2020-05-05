@@ -40,6 +40,8 @@ class ViewEditDeactive extends ControllerBase {
                 </th>
                 <th class="th-hd"><a><span></span>Last Name</a>
                 </th> 
+                <th class="th-hd"><a><span></span>Organization</a>
+                </th> 
                  <th class="th-hd"><a><span></span>Role</a>
                 </th> 
               </tr>
@@ -81,10 +83,14 @@ class ViewEditDeactive extends ControllerBase {
               $pos = $results5['athlete_school_pos'];
               $school_name = $results5['athlete_school_name'];
 
+              $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$athlete_user_id,'athlete_uid'); //FOR ORG-1
+              $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
+
               $tb1 .=  '<tr>
                 <td><input class="form-checkbox" type="checkbox" name="items_selected[]" value="'.$athlete_user_id.'"><span class="unfollow-checkbox"></span></td>
                 <td>'.$firstname.'</td>
-                <td>'.$lastname.'</td>';
+                <td>'.$lastname.'</td>
+                <td>'.$org_name.'</td>';
               $tb1 .= '<td>
                         <div class="box niceselect roles">
                           <span id="dateofshow">
@@ -96,7 +102,7 @@ class ViewEditDeactive extends ControllerBase {
               $tb1 .= '</tr>';
             }
             
-            $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="deactive_submit" value="DEACTIVE" onclick="activate_users();" ></div>
+            $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="deactive_submit" value="ACTIVATE" onclick="activate_users();" ></div>
 
             </tbody>
             </table>
@@ -108,15 +114,26 @@ class ViewEditDeactive extends ControllerBase {
    
 
     return [
-    '#cache' => ['max-age' => 0,],
-    '#theme' => 'view_edit_deactive_page',
-    '#view_edit_deactive_block' => Markup::create($tb1),
-    '#attached' => [
-      'library' => [
-        'acme/acme-styles', //include our custom library for this response
+      '#cache' => ['max-age' => 0,],
+      '#theme' => 'view_edit_deactive_page',
+      '#view_edit_deactive_block' => Markup::create($tb1),
+      '#attached' => [
+        'library' => [
+          'acme/acme-styles', //include our custom library for this response
+        ]
       ]
-    ]
-  ];   
+    ];   
   
   } 
+
+  public function Get_Data_From_Tables($TableName,$atr,$current_user,$user_key){
+      if($TableName){
+        $conn = Database::getConnection();
+        $query = $conn->select($TableName, $atr);
+        $query->fields($atr);
+        $query->condition($user_key, $current_user, '=');
+        $results = $query->execute()->fetchAssoc();
+      }
+      return $results;
+  }
 }

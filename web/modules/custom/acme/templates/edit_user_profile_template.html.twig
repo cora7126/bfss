@@ -3,9 +3,10 @@
 <html>   
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/themes/custom/bfss_custom/css/style-custom.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -20,140 +21,33 @@
      
       <!-- ------------Side Navbar----------end -->
       <div class="right_side_section pl-0 pr-0">
-         <div class="dash-main-right">
-            <h1><i class="fas fa-home" 11></i><span>></span> Dashboard </h1>
+         <div class="dash-main-right main_header">
+            <h1><i class="fas fa-home" 1123></i> > <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Edit Profile</h1>
             <div class="dash-sub-main">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/dash-img.png">  
-               <h2><span>ALL FEATURES</span><br>Dashboard  </h2>
+            <i class="fas fa-school edit_image_solid" aria-hidden="true"></i>
+               <h2><span>EDIT</span><br>Profile</h2>
             </div>
          </div>
-         <!----------Quick Link Section -----Start------->
-         <div class="quick-link">
-            <div class="row" style="margin-left: 0px;margin-right: 0px;">
-               <div class="col-lg-8 ">
-                  <h1>Quick links</h1>
-                  <div class="row">
-                     <div class="col-md-3 mob_bottom_margin">
-                        <a class="datainfo" href="#">
-                        <div class="quick-link-sub-sec">
-                           <i class="fas fa-user-alt"></i>
-                           <p>View / Edit <br>
-                              Users
-                           </p>
-                        </div>
-                        </a>
-                     </div>
-                     <div class="col-md-3 mob_bottom_margin">
-                        <a class="datainfo" href="#">
-                        <div class="quick-link-sub-sec">
-                           <i class="fas fa-school"></i>
-                           <p>View / Edit<br>
-                              Organizations
-                           </p>
-                        </div>
-                        </a>
-                     </div>
-                     <div class="col-md-3 mob_bottom_margin">
-                           <a href='#' class="atheltic_link">
-                              <div class="quick-link-sub-sec">
-                          <i class="fa fa-users" aria-hidden="true"></i>
-                              <p>Group<br/>Assessments</p>
-                        </div>
-                           </a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href='#' class="atheltic_link">
-                        <div class="quick-link-sub-sec">
-                           <i class="fas fa-running"></i>
-                           <p>Private<br>
-                              Assessments
-                           </p>
-                        </div>
-                        </a>
-                     </div>
-                  </div> </br>   
-                  <div class="row">
-                     <div class="col-md-3 mob_bottom_margin">
-                        <a class="datainfo" href="#">
-                        <div class="quick-link-sub-sec">
-                          <i class="fas fa-map-marker-plus"></i>
-                           <p>Add New<br>
-                              Organization</a>
-                           </p>
-                        </div>
-                        </a>
-                     </div>
-                     <div class="col-md-3 mob_bottom_margin">
-                        <a class="datainfo" href="#">
-                        <div class="quick-link-sub-sec">
-                           <i class="fas fa-hands-usd"></i>
-                           <p>Revenue<br>
-                              Generated
-                           </p>
-                        </div>
-                        </a>
-                     </div>
-                     <div class="col-md-3 mob_bottom_margin">
-                        <a href='#' class="atheltic_link">
-                              <div class="quick-link-sub-sec">
-                          <i class="fas fa-search"></i>
-                              <p>Search<br/>Athletes</p>
-                        </div>
-                        </a>
-                     </div>
-                     <div class="col-md-3">
-                        <a class="datainfo" href="#">
-                        <div class="quick-link-sub-sec">
-                           <i class="fas fa-ticket-alt"></i>
-                           <p><a class="datainfo" href="#">Ticketing<br>
-                              System</a>
-                           </p>
-                        </div>
-                        </a>
-                     </div>
-                  </div>        
-               </div>
-               <div class="col-lg-4">
-                  <div class="my-assessment admin_desh pending-approval">
-                     <button class="accordion">PENDING APPROVAL<i class="fa fa-arrow-right" aria-hidden="true" style="    padding-left: 87px;"></i></button>
-                     <div class="panel">
-
-                        {% if Pending_Approval_Data_Block is empty %}
-                        <p>No Pending Approval!</p>
-                        {% else %}
-                           {% for Data in Pending_Approval_Data_Block %}
-                            <div class="panel_row">        
-                           <p>{{ Data.field_organization_name }}</p>
-                           <p>{{ Data.field_city }} {{ Data.field_state }}</p>
-                            </div>
-                           {% endfor %}
-                        {% endif %}
-                      
-                     </div>
-                  </div>  
-
-               </div>
-            </div>
-         </div>
-         <!----------Quick Link Section -----End-------> 
          <!----------Tabs Section -----Start------->
          <div class="tab-main-sec">
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
-               <div class="col-lg-8 col-md-12">
-                  
-               <!-----------Profile Card---HTML----Start-->
-               <div class="latest_revenue">
-                  <h3>LATEST REVENUE</h3>
-                  {{ admin_profile_block }}
-               </div>
-               <!-- ---------Profile Card---HTML----End-->
+               <div class="col-lg-12 col-md-12">
+                  <!-- ---------Profile Card---HTML----Start-->
+                <div class="add_organizations">  
+               		{{ edit_user_profile_template_block }}
+           		</div>
+           		
+          <!-- ---------Profile Card---HTML----End-->
           
-               </div>    
+               </div>
          
+               <div class="col-md-1"></div>
+         <div class="col-md-3"></div>
+            </div>
          </div>
       </div>
    <div class="container">
-      <div class="modal myathletic-menu  fade" id="myModal" role="dialog">
+      <div class="modal fade" id="myModal" role="dialog">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
