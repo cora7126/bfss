@@ -12,7 +12,7 @@ use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\bfss_assessment\AssessmentService;
-
+use  \Drupal\user\Entity\User;
 /**
  * Class AthelticController.
  */
@@ -121,6 +121,7 @@ class AthelticController extends ControllerBase {
   }
 
   public function getBasicData(){
+     $uid = \Drupal::currentUser()->id();
     $data['first_name'] = $this->getUserInfo('user__field_first_name', 'field_first_name_value');
     $data['last_name'] = $this->getUserInfo('user__field_last_name', 'field_last_name_value');
     $data['date'] = $this->getUserInfo('user__field_date', 'field_date_value');
@@ -194,7 +195,10 @@ class AthelticController extends ControllerBase {
     $data['athlete_addweb'] = $this->getUserInfo('athlete_addweb','','athlete_uid');
     // [athlete_addweb_name] => 
     // [athlete_addweb_visibility] =>  
-    $imgID = $this->getUserInfo('user__user_picture','user_picture_target_id');
+    //$imgID = $this->getUserInfo('user__user_picture','user_picture_target_id');
+     $imgID = $this->Get_ath_Data('athlete_prof_image', 'atsim','athlete_id',$uid)['athlete_target_image_id'];
+     // print_r($imgID);
+     // die;
     if ($imgID) {
       $file = File::load($imgID);
       if ($file) {
@@ -236,6 +240,7 @@ class AthelticController extends ControllerBase {
 
 
   public function InstagramUrl(&$data, $preview =false) {
+    //print_r($data['athlete_social']['athlete_social_1']);die;
     if (!$preview) {
       $data['mydata']['field_instagram'] = $instagram_url = isset($data['athlete_social']['athlete_social_1']) ? $data['athlete_social']['athlete_social_1'] : null;
     }
@@ -369,6 +374,7 @@ class AthelticController extends ControllerBase {
 
   public function updateTempInfoForTmeplate(&$data) {
     $req = $this->requestStack->getCurrentRequest();
+    $uid = \Drupal::currentUser()->id();
     #update values
     if ($val = $req->get('fname')) {
       $data['first_name'] = $val;
@@ -431,30 +437,41 @@ class AthelticController extends ControllerBase {
 
    // $data['mydata']['field_youtube1'] = 'field_youtube1';
 
-    if ($val = $req->get('btnId')) {
-      $pr = $name = $type = '';
-      if ($val == 1) {
-        $pr = '';
-        $name = 'organizationName';
-        $type = 'organizationType';
-      }elseif ($val == 2) {
-        $pr = '_1';
-        $name = 'schoolname_1';
-        $type = 'education_1';
-      }elseif ($val == 3) {
-        $pr = '_2';
-        $name = 'schoolname_2';
-        $type = 'education_2';
-      }
-      $data['org_info']['name'] = $req->get($name);
-      $data['org_info']['type'] = $req->get($type);
-      $data['org_info']['coach'] = $req->get('coach'.$pr);
-      $data['org_info']['sport'] = $req->get('sport'.$pr);
-      $data['org_info']['pos'] = $req->get('position'.$pr);
-      $data['org_info']['stat'] = $req->get('stats');
-      $data['org_info']['pos2'] = $req->get('position'.$pr.'2');
-      $data['org_info']['pos3'] = $req->get('position'.$pr.'3');
-    }
+    // if ($val = $req->get('btnId')) {
+    //   $pr = $name = $type = '';
+    //   if ($val == 1) {
+    //     $pr = '';
+    //     $name = 'organizationName';
+    //     $type = 'organizationType';
+    //   }elseif ($val == 2) {
+    //     $pr = '_1';
+    //     $name = 'schoolname_1';
+    //     $type = 'education_1';
+    //   }elseif ($val == 3) {
+    //     $pr = '_2';
+    //     $name = 'schoolname_2';
+    //     $type = 'education_2';
+    //   }
+
+    // $resulttype = \Drupal::database()->select('athlete_school', 'ats');
+    // $resulttype->fields('ats');
+    // $resulttype->condition('athlete_uid', $current_user, '=');
+    // $resulttype->condition('id', $id1, '=');
+    // $resulttype1 = $resulttype->execute()->fetchAssoc();
+      
+      
+    $org = $this->Get_ath_Data('athlete_school', 'ats','athlete_uid',$uid);
+   // if($org)
+      $data['org_info']['name'] = $org['athlete_school_name'];
+      $data['org_info']['type'] = $org['athlete_school_type'];
+      $data['org_info']['coach'] = $org['athlete_school_coach'];
+      $data['org_info']['sport'] = $org['athlete_school_sport'];
+      $data['org_info']['pos'] = $org['athlete_school_pos'];
+      $data['org_info']['stat'] = $org['athlete_school_stat'];
+      $data['org_info']['pos2'] = $org['athlete_school_pos2'];
+      $data['org_info']['pos3'] = $org['athlete_school_pos3'];
+   // }
+    //}
 
 
   }
@@ -534,6 +551,14 @@ class AthelticController extends ControllerBase {
       ];
   }
 	
-		
+    public function Get_ath_Data($table,$atr,$uid_key,$current_user){
+      //if($table){
+        $query = \Drupal::database()->select($table, $atr);
+        $query->fields($atr);
+        $query->condition($uid_key, $current_user, '=');
+        $result = $query->execute()->fetchAssoc();
+      //}
+      return isset($result)?$result:'null';
+    }		
 	
 }

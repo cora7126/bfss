@@ -22,7 +22,7 @@ a:focus{color: #ccc!important;text-decoration: none!important;}
 .sub_title_jodi{font-size: 20px;}
 .star_icon span{font-size: 10px;color:#828282;display: flex;
     align-items: center;}
-.item_image .image{min-height: 85%;background-image: url("../img/user-default-profile.png");background-repeat: no-repeat;background-repeat: no-repeat;background-size: cover;background-position: center;
+.item_image .image{min-height: 85%;/*background-image: url("../img/user-default-profile.png");*/background-repeat: no-repeat;background-repeat: no-repeat;background-size: cover;background-position: center;
     height: 100%;margin-bottom: 7px;}
 .toggler-wrap h3{background:#000;position: relative;color:#fff;font-weight: bold;padding: 20px 15px;font-size: 16px;margin: 0;margin-bottom: 0px;text-transform: uppercase;margin-bottom: 0px;cursor: pointer;}
 .toggler-wrap .toggle_icon i{color:#f76907;padding-right: 15px;}

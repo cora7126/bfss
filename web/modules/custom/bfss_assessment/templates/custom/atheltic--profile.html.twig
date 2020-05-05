@@ -47,7 +47,12 @@
 		          	<div class="row">
 		              	<div class="col-6 item_image">
 		              		<div class="image">
-		                		<img src="{{ data.image }}" alt="" />
+		                	<!-- 	<img src="{{ data.image }}" alt="" /> -->
+		                	{% if data.image is not empty %}
+		                	<img src="{{ data.image }}" alt="" /> 
+		                	{% else %}
+		                	<img src="/themes/custom/bfss_custom/images/DefaultProfile.png" alt="" /> 
+		                	{% endif %}
 		                	</div>
 		                	<a href = "mailto:{{ data.mail }}">EMAIL ATHLETE</a>
 		              	</div>
@@ -59,9 +64,9 @@
 			                <p>Graduates {{data.athlete_info.athlete_year}}</p>
 			                <p>{{ data.athlete_info.field_height }}"</p>
 			                <p>{{ data.athlete_info.field_weight }} lbs</p>
-			                <p>Williams Field Hight School Gilbert AZ</p>
-			                <!-- <p>{{ data.org_info.name }}</p>
-			                <p>{{ data.org_info.stat }}</p> -->
+			                <p>{{ data.org_info.name }} </p>
+			                <p>{{ data.mydata.field_city }} {{ data.mydata.field_az }}</p>
+			                <!-- <p>{{ data.org_info.stat }}</p> -->
 		              	</div>
 		             </div>
 				</div>
@@ -240,6 +245,7 @@
 					    {% endfor %}
 					  </section> -->
 					  <input type="hidden" name="instagram_username" id="instagram_username" value="{{ data.mydata.field_instagram }}">
+
 					  <div id="instagram-feed1" class="instagram_feed regular slider"></div>
 					</div>
 				</div>
