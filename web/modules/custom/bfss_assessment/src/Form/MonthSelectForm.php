@@ -8,13 +8,17 @@ namespace Drupal\bfss_assessment\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\UrlHelper;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\ChangedCommand;
-use Drupal\Core\Ajax\CssCommand;
-use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\AlertCommand;
+use \Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+Use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Ajax\InvokeCommand;
+use \Drupal\user\Entity\User;
+use Drupal\Core\Ajax\RedirectCommand;
+
 /**
  * Contribute form.
  */
@@ -90,21 +94,32 @@ class MonthSelectForm extends FormBase {
       '#default_value' => $month_crr,
       //'#required' => TRUE,
       //'#title' => $this->t('Date of Show:'),
-      '#prefix' => '<div class="box niceselect"><span id="dateofshow">'.$getlastval,
-      '#suffix' => $getnextval.'</span></div>',
+      '#prefix' => '<div class="box niceselect">',
+      '#suffix' => '</div>',
+      '#ajax' => [
+              'callback' => '::myAjaxCallback', // don't forget :: when calling a class method.
+              //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+              'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+              'event' => 'change',
+              'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+              'progress' => [
+                'type' => 'throbber',
+                'message' => $this->t('Verifying entry...'),
+          ],
+        ],
       ];
 
 
 
-    $form['#method'] = 'get'; 
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['submit'] = array(
-      '#type' => 'submit',
-      '#value' => $this->t('Filter'),
-      '#button_type' => 'primary',
-       '#prefix' => '<div class="filter_btn">',
-      '#suffix' => '</div>',
-    );
+    // $form['#method'] = 'get'; 
+    // $form['actions']['#type'] = 'actions';
+    // $form['actions']['submit'] = array(
+    //   '#type' => 'submit',
+    //   '#value' => $this->t('Filter'),
+    //   '#button_type' => 'primary',
+    //    '#prefix' => '<div class="filter_btn">',
+    //   '#suffix' => '</div>',
+    // );
     
 
     return $form;
@@ -127,5 +142,17 @@ class MonthSelectForm extends FormBase {
     public function validateEmailAjax(array &$form, FormStateInterface $form_state) {
       
     }
+
+    public function myAjaxCallback(array &$form, FormStateInterface $form_state){
+      global $base_url;
+      $current_path = \Drupal::service('path.current')->getPath();
+     if ($selectedValue = $form_state->getValue('showdate')) {
+      $selectedText = $form['showdate']['#options'][$selectedValue];
+      $response = new \Drupal\Core\Ajax\AjaxResponse();
+      $url = $base_url.$current_path.'?showdate='.$form_state->getValue('showdate');
+      $response->addCommand(new RedirectCommand($url));  
+    }
+    return $response;
+  }
 
 }// class close 

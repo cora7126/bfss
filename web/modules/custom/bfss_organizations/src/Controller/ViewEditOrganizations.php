@@ -57,7 +57,7 @@ class ViewEditOrganizations extends ControllerBase {
 				//print_r($node->type->value);
 				$tb1 .=  '<tr>
 		            <td><input class="form-checkbox edit-ckeckbox-plx" type="checkbox" name="items_selected[]" value="'.$nid.'"><span class="unfollow-checkbox"></span></td>
-		            <td>'.$node->field_organization_name->value.'</td>
+		            <td><a>'.$node->field_organization_name->value.'</a>  </td>
 		            <td>'.$node->field_type->value.'</td>
 		            <td>'.$node->field_state->value.'</td>
 		            <td>'.$node->field_city->value.'</td>     
@@ -65,20 +65,30 @@ class ViewEditOrganizations extends ControllerBase {
 			}
 			
                    
-            $tb1 .= '<div class="edit-sub"><a id="edit-organizations-plx">EDIT</a></div>
-
+            $tb1 .= '
             </tbody>
             </table>
              </div>
             </div>
              </div>
             </div></form>';
+
+              //Permissions
+             $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
+             $rel = $permissions_service->bfss_admin_permissions();
+             $Organizations_permissions =  unserialize($rel['Organizations']);
+          
+              if($Organizations_permissions['view']==1 || $Organizations_permissions['admin']==1){
+                $result = Markup::create($tb1);
+              }else{
+                $result = "we are sorry. you can not access this page.";
+              }
 			
 	    return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'view_edit_organizations_page',
           '#name' => 'G.K',
-          '#view_edit_organizations_block' => Markup::create($tb1),
+          '#view_edit_organizations_block' => $result,
           '#attached' => [
             'library' => [
               'acme/acme-styles', //include our custom library for this response

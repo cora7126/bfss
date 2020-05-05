@@ -86,8 +86,12 @@ class test extends FormBase {
       $hd_title = "ASSESSORS&#39; Information";
     }elseif(in_array('coach', $roles_user)){
       $hd_title = "COACHES&#39;s Information";
-    }else{
+    }elseif(in_array('athlete', $roles_user)){
       $hd_title = "ATHLETE&#39;s Information"; 
+    }elseif(in_array('bfss_administrator', $roles_user)){
+      $hd_title = "ADMIN&#39;s Information"; 
+    }else{
+      $hd_title = "USER&#39;s Information"; 
     }
 	$form['email'] = array(
       '#type' => 'textfield',
@@ -114,13 +118,13 @@ class test extends FormBase {
       );
 
 
-     $form['submit'] = [
-        '#type' => 'submit',
-        '#value' => 'save',
-        '#prefix' =>'<div id="athlete_submit" class="assessor-btn user-submit-button">',
-        '#suffix' => '</div>',
-            //'#value' => t('Submit'),
-        ];
+     // $form['submit'] = [
+     //    '#type' => 'submit',
+     //    '#value' => 'save',
+     //    '#prefix' =>'<div id="athlete_submit" class="assessor-btn user-submit-button">',
+     //    '#suffix' => '</div>',
+     //        //'#value' => t('Submit'),
+     //    ];
     
     }
     if(!in_array('assessors', $roles_user)){
@@ -515,7 +519,7 @@ if(in_array('coach', $roles_user)){
     //end change password
      if(!in_array('assessors', $roles_user)){
    $form['submit'] = ['#type' => 'submit', 
-      '#value' => 'save', 
+      '#value' => 'SAVE', 
       '#prefix' => '</div></div><div id="athlete_submit">',
       '#suffix' => '</div>',
       //'#value' => t('Submit'),

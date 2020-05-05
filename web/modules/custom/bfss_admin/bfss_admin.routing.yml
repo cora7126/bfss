@@ -5,3 +5,59 @@ bfss_admin.manager_assessor_account:
     _title: 'Create Manager/Assessor Account'
   requirements:
     _access: 'TRUE'
+
+bfss_admin.user_by_select_faqs:
+  path: '/user-by-select-faqs'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\UserBySelectFaqs::user_by_select_faqs'
+    _title: 'FAQs'
+  requirements:
+    _access: 'TRUE'
+
+bfss_admin.add_faqs_pl:
+  path: '/add-faqs-user'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\AddFaqs::add_faqs'
+    _title: 'FAQs'
+  requirements:
+    _access: 'TRUE'
+
+bfss_admin.get_faqs_nids:
+  path: '/faq-nids/{nids}/{user_role}'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\GetFaqsNids::get_faqs_nids'
+    _title: 'faq-nids'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_admin.faq_edit_form:
+  path: '/faq-edit-form'
+  defaults:
+    _form: 'Drupal\bfss_admin\Form\FaqEditForm'
+    _title: 'edit-faq'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_admin.faq_delete_form:
+  path: '/faq-delete-form'
+  defaults:
+    _form: 'Drupal\bfss_admin\Form\FaqDeleteForm'
+    _title: 'delete-faq'
+  requirements:
+    _access: 'TRUE'
+
+bfss_admin.user_type_permissions:
+  path: '/user-type-permissions'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\UserTypePermissions::user_type_permissions'
+    _title: 'User Type Permissions'
+  requirements:
+    _access: 'TRUE'
+
+bfss_admin.editable_tamplates:
+  path: '/editable-tamplates'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\EditableTemplates::editable_tamplates'
+    _title: 'Editable Templates'
+  requirements:
+    _access: 'TRUE'
