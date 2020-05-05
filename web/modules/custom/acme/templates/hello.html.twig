@@ -137,20 +137,22 @@
                   </div>
                   {% else %}
                   <div class="my-assessment">
+                     
                      <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i> MY ASSESSMENTS</button>
                      <div class="panel">
+                        {% if my_assessments_section_block is empty %}
                         <div class="panel_row">                           
-                           <h3>Elite Assessment</h3>
-                           <p>December 29,2019</p>
+                           <p>No Assessment</p>
                         </div>
-                        <div class="panel_row">    
-                           <h3>Starter Assessment</h3>
-                           <p>September 29,2019</p>
-                        </div>
-                        <div class="panel_row">    
-                           <h3>Starter Assessment</h3>
-                           <p>March 29,2019</p>
-                        </div>
+                        {% else %}
+                           {% for assess in my_assessments_section_block %}
+                           <div class="panel_row">                           
+                              <h3>{{ assess.formtype }}</h3>
+                              <p>{{ assess.date }}</p>
+                           </div>
+                           {% endfor %}
+                        {% endif %}
+
                      </div>
                   </div>  
                   {% endif %}

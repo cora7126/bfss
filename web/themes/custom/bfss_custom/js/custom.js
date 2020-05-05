@@ -1,5 +1,9 @@
 (function($) {
     $(document).ready(function() {
+
+    	// if(jQuery("[name='schoolname_2']").val().length != 0){
+    	// 	jQuery('a.add_org.popup_add_org').hide();
+    	// }
 		jQuery('#basic0_circle_progressbar').circlesProgress({'progress':'48','borderSize':'0','innerColor':'#f56907'});
 		//month filter	    	
 		//alert();
@@ -113,7 +117,9 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			return newURL;
 		}
 		//Delete Second Social/Club/Uni
-		jQuery('#athlete_uni').on('click',function(){
+		jQuery('.athlete-del-org').on('click',function(){
+			var Orgname = $(this).data("orgname");
+			console.log(Orgname);
 			$(this).parents('.athlete_left').addClass('delete_athlete');
 			$('body').append('<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">'+
 			  '<div class="modal-dialog" role="document">'+
@@ -126,7 +132,7 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			     ' </div>'+
 			      '<div class="modal-body px-4"><p>Are you sure you want to delete this information permanently?</p></div>'+
 			      '<div class="modal-footer px-4">'+
-			        '<button type="button" class="btn btn-lg text-white btn-default text-uppercase p-3" id="confirm-delete" style="background: #f76907; font-size: 17px;">YES, Delete</button>'+
+			        '<button type="button" class="btn btn-lg text-white btn-default text-uppercase p-3" data-org="'+Orgname+'" id="confirm-delete" style="background: #f76907; font-size: 17px;">YES, Delete</button>'+
 			      '</div>'+
 			    '</div>'+
 			  '</div>'+
@@ -147,9 +153,10 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			// }
 		});
 		jQuery(document).on('click', '#confirm-delete', function(){
+			var Orgname = $(this).data("org");
 
 			jQuery.ajax({
-				url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_uni',
+				url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+Orgname,
 				dataType: 'json',
 				cache: false,
 				success: function(data){
@@ -165,21 +172,21 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 			jQuery('.delete_athlete').removeClass('delete_athlete');
 		});
 		//Delete Third Social/Club/Uni
-		jQuery('#athlete_club').on('click',function(){
-			if(confirm('Are you sure you want to delete this?')){
-				jQuery.ajax({
-					url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_club',
-					dataType: 'json',
-					cache: false,
-					success: function(data){
-					},
-					error :function (data){
+		// jQuery('#athlete_club').on('click',function(){
+		// 	if(confirm('Are you sure you want to delete this?')){
+		// 		jQuery.ajax({
+		// 			url : 'http://5ppsystem.com/delete/athlete/'+'abc'+'/'+'athlete_club',
+		// 			dataType: 'json',
+		// 			cache: false,
+		// 			success: function(data){
+		// 			},
+		// 			error :function (data){
 
-					}
-				});
-				jQuery(this).parents('.athlete_left').remove();
-			}
-		});
+		// 			}
+		// 		});
+		// 		jQuery(this).parents('.athlete_left').remove();
+		// 	}
+		// });
 		//Delete newly added org
 		jQuery('.previous_delete').on('click',function(){
 			jQuery('.previous_athlete').hide();

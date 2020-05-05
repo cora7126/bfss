@@ -3,17 +3,19 @@
 namespace Drupal\acme\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use  \Drupal\user\Entity\User;
 
 class DefaultController extends ControllerBase {
 
   public function dashboard() {
     //get current user 
+    $uid = \Drupal::currentUser()->id();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
     $roles = $user->getRoles();
 
     // the {name} in the route gets captured as $name variable
     // in the function called
-	 #ATTACH BLOCK
+	   #ATTACH BLOCK
    
 
       if(in_array('assessors', $roles)){
@@ -55,18 +57,18 @@ class DefaultController extends ControllerBase {
           ->view($block);
         $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-        // $block1 = \Drupal\block\Entity\Block::load('monthform');
-        // $block_content1 = \Drupal::entityManager()
-        //   ->getViewBuilder('block')
-        //   ->view($block1);
-        // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
         $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+        
+        //MY Assessments
+        $myAssessments = $this->My_assessments($uid);
+
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'hello_page',
           '#name' => 'Shubham Rana',
           '#assessments_block' => $assessments_block,
           '#month_block' => $form,
+          '#my_assessments_section_block' => $myAssessments,
           '#rolename' => $rolename,
           '#attached' => [
             'library' => [
@@ -134,5 +136,41 @@ public function userform()
       ]
     ];
 }
+
+
+    function My_assessments($uid){
+          $query = \Drupal::entityQuery('node');
+          $query->condition('type', 'assessment');
+          $nids = $query->execute();
+
+          $result = array();
+          if(!empty($nids) && is_array($nids)){
+              foreach ($nids as $nid) {
+                $booked_ids = \Drupal::entityQuery('bfsspayments')
+                ->condition('assessment', $nid,'IN')
+                ->condition('user_id',$uid,'IN')
+                ->execute();
+                if(!empty($booked_ids) && is_array($booked_ids)){
+                  foreach ($booked_ids  as $key => $booked_id) {
+                            $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+                            $timestamp = $entity->time->value;
+                            $booking_date = date("F j, Y",$timestamp);
+                            if($entity->service->value == '199.99'){
+                                $formtype = 'Elete';
+                            }elseif($entity->service->value == '29.99'){
+                                $formtype = 'Starter';
+                            }
+                            
+                            $result[] = [
+                              'formtype' => $formtype,
+                              'date' => $booking_date,
+                            ];
+                  }
+                }
+
+              }
+          }
+          return !empty($result)?$result:null;
+    }
    
 }
