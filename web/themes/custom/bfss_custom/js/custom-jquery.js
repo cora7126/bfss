@@ -1,6 +1,8 @@
 jQuery(document).ready(function() {
 
-	
+	jQuery("a.assessment-search-icon").click(function(){
+    	jQuery(".search-assessements-input").toggle('slow');
+  	});
     //jQuery( "#sortable_faqs" ).disableSelection();
 
  	jQuery('#select_faqs_by_user').niceSelect();

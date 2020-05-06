@@ -6,6 +6,8 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use \Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 Use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Database\Database;
 
 /**
  * Class AssessmentService.
@@ -135,6 +137,21 @@ class AssessmentService {
 
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
   }
+
+//ASSESSMENTS SEARCH FILTER  FOR Group ASSESSMENTS
+  public function Group_Assessments_Search_Filter($element,$search_val){
+    if(isset($search_val)){
+      $assessment = \Drupal::entityQuery('node')
+              ->condition('type', 'assessment')
+              ->condition('field_type_of_assessment','group', '=')
+              ->condition('title','%'.$search_val.'%','LIKE')
+              ->condition('status', 1);
+      $entity_ids = $assessment->execute();
+     
+    }
+     return !empty(array_unique($entity_ids)) ? array_unique($entity_ids): null;
+  }
+
 
 //Private Assessments function
   public function assessment_after_month_filter_private($element){

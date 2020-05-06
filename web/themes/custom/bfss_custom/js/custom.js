@@ -51,24 +51,16 @@ jQuery('#edit-coach-profile-form-modal').modal({
     backdrop: 'static',
     keyboard: false
 });
+
+jQuery('ul.faq.faqct li:eq(1)').slideDown(); //FIRST FAQ OPEN
+jQuery('ul.faq.faqct li:eq(0)').find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
 jQuery('.faqct li.q').on('click', function(){
-  //gets next element
-  //opens .a of selected question
   if (jQuery(this).next('li.a').is(':visible')){
 		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/o-arrow.png");
 	}else{
 		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
 	}
-jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
-
-    //selects all other answers and slides up any open answer
-    
-  //Grab img from clicked question
-/*var img = jQuery(this).children('img');
-  //Remove Rotate class from all images except the active
-  jQuery('img').not(img).removeClass('rotate');
-  //toggle rotate class
-  img.toggleClass('rotate');*/
+	jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 });//End on click
 
 

@@ -122,6 +122,9 @@ class AthelticController extends ControllerBase {
 
   public function getBasicData(){
      $uid = \Drupal::currentUser()->id();
+     if(isset($_GET['uid'])){
+     $uid =$_GET['uid'];
+    }
     $data['first_name'] = $this->getUserInfo('user__field_first_name', 'field_first_name_value');
     $data['last_name'] = $this->getUserInfo('user__field_last_name', 'field_last_name_value');
     $data['date'] = $this->getUserInfo('user__field_date', 'field_date_value');
@@ -196,6 +199,7 @@ class AthelticController extends ControllerBase {
     // [athlete_addweb_name] => 
     // [athlete_addweb_visibility] =>  
     //$imgID = $this->getUserInfo('user__user_picture','user_picture_target_id');
+    
      $imgID = $this->Get_ath_Data('athlete_prof_image', 'atsim','athlete_id',$uid)['athlete_target_image_id'];
      // print_r($imgID);
      // die;
@@ -459,7 +463,9 @@ class AthelticController extends ControllerBase {
     // $resulttype->condition('id', $id1, '=');
     // $resulttype1 = $resulttype->execute()->fetchAssoc();
       
-      
+    if(isset($_GET['uid'])){
+     $uid =$_GET['uid'];
+    }
     $org = $this->Get_ath_Data('athlete_school', 'ats','athlete_uid',$uid);
    // if($org)
       $data['org_info']['name'] = $org['athlete_school_name'];
