@@ -20,9 +20,7 @@ class Bfss_Funds extends ControllerBase {
         $query_bfss_coach->condition('coach_uid',$current_user, '=');
         $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
 
-        $orgname1 = 'Williams And Vaughn Inc';
-        // $orgname2 = 'Challenge FC';
-        // $orgname3 = 'Chandler High School';
+        $orgname1 = 'Williams Field High School'; // DEFAULT VALUE
 
        
         if(!empty($param['orgname'])){
@@ -100,8 +98,8 @@ class Bfss_Funds extends ControllerBase {
            $orgname_ar[$orgname_v] = $orgname_v;
         }
 
-        $arrradios = $orgname_ar;
-
+        $arrradios = array('Williams Field High School'=>'Williams Field High School') + $orgname_ar;
+     
         $radios = '<div class="org-radio">';
         foreach (array_unique($arrradios) as $arrradio) {
            

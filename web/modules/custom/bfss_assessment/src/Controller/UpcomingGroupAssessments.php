@@ -27,19 +27,15 @@ class UpcomingGroupAssessments extends ControllerBase {
       ->view($block);
     $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-    // $block1 = \Drupal\block\Entity\Block::load('monthform');
-    // $block_content1 = \Drupal::entityManager()
-    //   ->getViewBuilder('block')
-    //   ->view($block1);
-    // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
-
-     $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+    $MonthFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+    $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
    
     return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'upcoming_page',
       '#assessments_block' => $assessments_block,
-      '#month_block' =>  $form,
+      '#month_block' =>  $MonthFilterForm,
+      '#search_filter_block' =>  $SearchFilterForm,
       '#attached' => [
         'library' => [
           'acme/acme-styles', //include our custom library for this response

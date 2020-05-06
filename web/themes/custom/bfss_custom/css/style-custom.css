@@ -152,6 +152,8 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 /**************** DASHBOARD CSS ENDS HERE *******************/
 
 /**************** EDIT COACH PROFILE CSS STARTS HERE *******************/
+.payment_paid_dv .search_athlete_main.user_pro_block .block-bfss-assessors,.payment_pending_dv .search_athlete_main.user_pro_block .block-bfss-assessors{border: 1px solid #000;}
+.panel.fund-raised-box h3 {color: #EB6E06!important;}
 #edit-coach-profile-form-modal .modal-dialog{max-width:70%;margin:125px 10% 0 20%;}
 #edit-coach-profile-form-modal .modal-dialog .modal-body{padding:2rem 3.5rem 4rem;}
 #edit-coach-profile-form-modal .modal-dialog .wlcm_cont{color:#000;font-size:14px;margin:0 0 15px;line-height:16px;}
@@ -512,9 +514,11 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;color:#fff;}
 ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 .result_message{width:100%;text-align:center;color:green;font-size:16px;}
-
-
+/*******************SEARCH Filter Start here*****************/
+a.pr-3.assessment-search-icon {cursor: pointer;}
+/*******************SEARCH Filter end here*****************/
 /******************MY Assessments Page Strat here************************/
+.my-assessments .table-responsive table td span.green{color:green;}
 .wrapper #multistep-form-three div.js-form-itiem.form-item-first-name{margin:0 10px 15px 0 !important;}
 .wrapper #multistep-form-three div.js-form-item.form-item-last-name{margin:0 0 15px 10px !important;}
 .wrapper #multistep-form-three div.js-form-item.form-item-first-name, .wrapper #multistep-form-three div.js-form-item.form-item-last-name{float:left;width: calc(49.5% - 10px);padding:0;}
