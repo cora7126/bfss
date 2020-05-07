@@ -239,18 +239,18 @@ class edit_parent extends FormBase {
 	$form['submit'] = [
         '#type' => 'submit',
         '#value' => 'save',
-		'#prefix' =>'</div></div><a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Parent/Guardian</a><div id="athlete_submit">',
+		'#prefix' =>'</div></div><a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Parent/Guardian</a><div id="athlete_submit" class="athlete_submit">',
 		'#suffix' => '</div></div>',
         //'#value' => t('Submit'),
     ];	
-	// $form['label_text'] = array(
-	// '#type' => 'label',
-	// '#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
-	// '#prefix' => '
-	// <div class ="right_section"><div class = "athlete_right">',
-	// '#suffix' => '</div></div>',
-	// '#attributes' => array('id => parent_label'),
-	// );	
+	$form['label_text'] = array(
+	'#type' => 'label',
+	'#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
+	'#prefix' => '
+	<div class ="right_section box-pre"><div class = "athlete_right">',
+	'#suffix' => '</div></div>',
+	'#attributes' => array('id => parent_label'),
+	);	
     
 	
     return $form;

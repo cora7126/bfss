@@ -85,7 +85,7 @@ class MyAssessments extends ControllerBase {
                     $assess_nid = $value;
                   } 
                 }else{
-                   $field_status = 'Upcoming';
+                   $field_status = Markup::create('<span class="green">Upcoming</span>');
                    $st = 0;
                 }
                  $result[] = array(
@@ -138,10 +138,12 @@ class MyAssessments extends ControllerBase {
           ];
 
           $url = '/pdf-download?'.http_build_query($pdf_arr);
-          if($item['status'] == 'Upcoming'){
-            $urlhtml = '';  
-          }else{
+
+          if($item['status'] == 'complete' || $item['status'] == 'incomplete'){
             $urlhtml = '<a href="'.$url.'">';  
+           
+          }else{
+             $urlhtml = '';  
           }
           
           $formtype = Markup::create('<p>'.$urlhtml.ucfirst($item['formtype']).'</a></p>');

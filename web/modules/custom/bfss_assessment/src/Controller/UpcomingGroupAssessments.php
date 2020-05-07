@@ -20,26 +20,40 @@ class UpcomingGroupAssessments extends ControllerBase {
    *   A simple renderable array.
    */
   public function UpcomingGroup() {
+    $param = \Drupal::request()->query->all();
     
+    //Assessment Listing Block
     $block = \Drupal\block\Entity\Block::load('upcominggroupassessments');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block);
     $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-    // $block1 = \Drupal\block\Entity\Block::load('monthform');
-    // $block_content1 = \Drupal::entityManager()
-    //   ->getViewBuilder('block')
-    //   ->view($block1);
-    // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+    //Month view block
+    $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
+    $block_content_m_v = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block_m_v);
+    $assessments_block_m_v = \Drupal::service('renderer')->renderRoot($block_content_m_v);
 
-     $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
-   
+    //FILTERS FROM
+    $MonthFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+    $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
+    $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+    $BlockData = '';
+    if($param['MonthView']){
+      $BlockData = $assessments_block_m_v;
+    }else{
+       $BlockData = $assessments_block;
+    }
+
     return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'upcoming_page',
-      '#assessments_block' => $assessments_block,
-      '#month_block' =>  $form,
+      '#assessments_block' => $BlockData,
+      '#month_block' =>  $MonthFilterForm,
+      '#search_filter_block' =>  $SearchFilterForm,
+      '#month_view_filter_block' =>  $MonthViewFilterForm,
       '#attached' => [
         'library' => [
           'acme/acme-styles', //include our custom library for this response
