@@ -900,7 +900,7 @@ class ContributeForm extends FormBase {
 
 
     }
-    $form['submit'] = ['#type' => 'submit', '#value' => 'save', '#prefix' => '<div id="athlete_submit" class="athlete_submit">', '#suffix' => '</div>',
+    $form['submit'] = ['#type' => 'submit', '#value' => 'SAVE', '#prefix' => '<div id="athlete_submit" class="athlete_submit">', '#suffix' => '</div>',
       //'#value' => t('Submit'),
       ];
     // $form['#theme'] = 'athlete_form';

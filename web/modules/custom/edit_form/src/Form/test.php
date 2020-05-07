@@ -520,7 +520,7 @@ if(in_array('coach', $roles_user)){
      if(!in_array('assessors', $roles_user)){
    $form['submit'] = ['#type' => 'submit', 
       '#value' => 'SAVE', 
-      '#prefix' => '</div></div><div id="athlete_submit">',
+      '#prefix' => '</div></div><div id="athlete_submit" class="athlete_submit">',
       '#suffix' => '</div>',
       //'#value' => t('Submit'),
     ];

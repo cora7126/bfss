@@ -1,0 +1,4 @@
+name: BFSS Month View
+description: 'Provides Event calendar'
+type: module
+core: 8.x
