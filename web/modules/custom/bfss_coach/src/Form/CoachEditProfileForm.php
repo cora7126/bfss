@@ -304,6 +304,14 @@ class CoachEditProfileForm extends FormBase {
       '#prefix' => '',
       '#suffix' => '</div><!--LEFT SECTION END-->'
     ];
+
+    $form['submit'] = [
+      '#type' => 'submit',
+      '#value' => 'SAVE', 
+      '#prefix' => '<div id="athlete_submit">',
+      '#suffix' => '</div>',
+    ];
+
 /*
 *ORGANIZATION SECTION END
 */
@@ -475,7 +483,7 @@ $form['html_image_athlete_end'] = [
     //end change password
    $form['submit'] = [
       '#type' => 'submit',
-      '#value' => 'save', 
+      '#value' => 'SAVE', 
       '#prefix' => '<div id="athlete_submit">',
       '#suffix' => '</div>',
     ];

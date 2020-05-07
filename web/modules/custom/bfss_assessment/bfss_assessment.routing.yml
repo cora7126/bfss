@@ -190,3 +190,12 @@ bfss_assessment.month_filter:
     node_id: null
   requirements:
     _permission: 'access content'
+
+bfss_assessment.assessment_search_query:
+  path: '/assessment-search'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\SearchForm'
+    _title: 'Assessment Search'
+    node_id: null
+  requirements:
+    _permission: 'access content'

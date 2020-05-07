@@ -20,7 +20,18 @@ function acme_theme() {
     'template' => 'hello',
   ];
 
-   $theme['edit_user_profile_template_page'] = [
+  $theme['athletic_Profile_form_page'] = [
+    'variables' => ['name' => NULL,'athletic_Profile_form_block' => NULL],
+    'template' => 'athletic_Profile_form',
+  ];
+
+  $theme['edit_parent_profile_page'] = [
+    'variables' => ['name' => NULL,'edit_parent_profile_block' => NULL],
+    'template' => 'edit_parent_profile',
+  ];
+
+
+  $theme['edit_user_profile_template_page'] = [
     'variables' => ['name' => NULL,'edit_user_profile_template_block' => NULL],
     'template' => 'edit_user_profile_template',
   ];
@@ -42,7 +53,7 @@ function acme_theme() {
   ];
 
   $theme['upcoming_page'] = [
-    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL],
+    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'search_filter_block' => NULL,'month_view_filter_block' => NULL],
     'template' => 'upcoming',
   ];
 

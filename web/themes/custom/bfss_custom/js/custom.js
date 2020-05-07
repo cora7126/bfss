@@ -51,24 +51,16 @@ jQuery('#edit-coach-profile-form-modal').modal({
     backdrop: 'static',
     keyboard: false
 });
+
+jQuery('ul.faq.faqct li:eq(1)').slideDown(); //FIRST FAQ OPEN
+jQuery('ul.faq.faqct li:eq(0)').find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
 jQuery('.faqct li.q').on('click', function(){
-  //gets next element
-  //opens .a of selected question
   if (jQuery(this).next('li.a').is(':visible')){
 		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/o-arrow.png");
 	}else{
 		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
 	}
-jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
-
-    //selects all other answers and slides up any open answer
-    
-  //Grab img from clicked question
-/*var img = jQuery(this).children('img');
-  //Remove Rotate class from all images except the active
-  jQuery('img').not(img).removeClass('rotate');
-  //toggle rotate class
-  img.toggleClass('rotate');*/
+	jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 });//End on click
 
 
@@ -289,10 +281,10 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
         // });
         
             /* var athleteprofile_header = "<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000'>Atheltic Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='far fa-chart-network edit_image'></i></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Atheltic</span><br>Profile</h2></div></div>"; */
-            var athleteprofile_header = "<div class='dash-main-right'><h1><i class='fas fa-home'></i> &gt; <a href='/dashboard' class='edit_dash' style='margin-right:5px;color: #333333;'>Dashboard</a> &gt; Athletic Profile</h1><div class='dash-sub-main'><i class='far fa-chart-network edit_image'></i><h2><span>Edit</span><br> Athletic Profile</h2></div></div>";
+    //         var athleteprofile_header = "<div class='dash-main-right'><h1><i class='fas fa-home'></i> &gt; <a href='/dashboard' class='edit_dash' style='margin-right:5px;color: #333333;'>Dashboard</a> &gt; Athletic Profile</h1><div class='dash-sub-main'><i class='far fa-chart-network edit_image'></i><h2><span>Edit</span><br> Athletic Profile</h2></div></div>";
      
  
-    jQuery(athleteprofile_header).insertBefore( ".bfssAthleteProfile .edit-form" );
+    // jQuery(athleteprofile_header).insertBefore( ".bfssAthleteProfile .edit-form" );
         
 
         
@@ -473,9 +465,9 @@ jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
      jQuery('.payment-receipts #block-paymentreceipts--2').before(header_html);
 	 
 	 
-	  var header_html='';
-	  var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Parent/Guardian Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Edit</span><br>Parent/Guardian</h2></div></div>");
-     jQuery('.edit-parent #edit-parent').before(header_html);
+	  // var header_html='';
+	  // var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Parent/Guardian Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Edit</span><br>Parent/Guardian</h2></div></div>");
+   //   jQuery('.edit-parent #edit-parent').before(header_html);
 
      var image_action = jQuery("<div class='edit_dropdown'><a class='drop'>Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div>");
      jQuery('#edit-profile-class .field-group-format-toggler').after(image_action);

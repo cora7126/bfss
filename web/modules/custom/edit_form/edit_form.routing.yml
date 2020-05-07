@@ -9,7 +9,7 @@ edit_form.contribute_form:
 edit_form.athlete_form:
   path: /bfssAthleteProfile
   defaults:
-    _form: '\Drupal\edit_form\Form\ContributeForm'
+    _controller: '\Drupal\edit_form\Controller\AthleticProfile::content'
     _title: 'Athlete Form'
   requirements:
     _access: 'TRUE'
@@ -41,7 +41,7 @@ edit_form.test_form:
 edit_form.parent_form:
   path: 'edit/parent'
   defaults:
-    _form: '\Drupal\edit_form\Form\edit_parent'
+    _controller: '\Drupal\edit_form\Controller\EditParentProfile::content'
     _title: 'Edit Parent/Guardian'
   requirements:
     _access: 'TRUE'
