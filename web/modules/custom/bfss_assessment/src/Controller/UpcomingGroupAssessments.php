@@ -20,22 +20,40 @@ class UpcomingGroupAssessments extends ControllerBase {
    *   A simple renderable array.
    */
   public function UpcomingGroup() {
+    $param = \Drupal::request()->query->all();
     
+    //Assessment Listing Block
     $block = \Drupal\block\Entity\Block::load('upcominggroupassessments');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block);
     $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
+    //Month view block
+    $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
+    $block_content_m_v = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block_m_v);
+    $assessments_block_m_v = \Drupal::service('renderer')->renderRoot($block_content_m_v);
+
+    //FILTERS FROM
     $MonthFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
     $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
-   
+    $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+    $BlockData = '';
+    if($param['MonthView']){
+      $BlockData = $assessments_block_m_v;
+    }else{
+       $BlockData = $assessments_block;
+    }
+
     return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'upcoming_page',
-      '#assessments_block' => $assessments_block,
+      '#assessments_block' => $BlockData,
       '#month_block' =>  $MonthFilterForm,
       '#search_filter_block' =>  $SearchFilterForm,
+      '#month_view_filter_block' =>  $MonthViewFilterForm,
       '#attached' => [
         'library' => [
           'acme/acme-styles', //include our custom library for this response

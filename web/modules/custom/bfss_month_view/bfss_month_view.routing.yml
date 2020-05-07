@@ -1,0 +1,17 @@
+bfss_month_view.month_view_form:
+  path: '/month-view-form'
+  defaults:
+    _form: '\Drupal\bfss_month_view\Form\MonthViewForm'
+    _title: 'MonthViewForm'
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
+bfss_month_view.event_data_get:
+  path: '/event-data'
+  defaults:
+    _controller: '\Drupal\bfss_month_view\Controller\EventDataGet::event_data_get'
+    _title: 'MonthViewForm'
+    node_id: null
+  requirements:
+    _permission: 'access content'

@@ -808,4 +808,5 @@ ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
-.edit-user .region.region-content{display:none !important;}
+.edit-user .region.region-content,.bfssAthleteProfile .region.region-content,.edit-parent .region.region-content{display:none !important;}
+.right_section.box-pre .athlete_right {border: 0px;}

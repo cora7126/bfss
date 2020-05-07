@@ -1,0 +1,12 @@
+month_view_lib:
+  version: 1.x
+  css:
+    layout:
+      css/month_view_custom.css: {}
+      css/packages/core/main.css: {}
+      css/packages/daygrid/main.css: {}
+  js:
+    js/month_view_custom.js: {}
+    js/packages/daygrid/main.js: {}
+    js/packages/interaction/main.js: {}
+    js/packages/core/main.min.js: {}

@@ -21,48 +21,22 @@
      
       <!-- ------------Side Navbar----------end -->
       <div class="right_side_section pl-0 pr-0">
-         <div class="dash-main-right">
-            <h1><i class="fas fa-home" 1123></i> > <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Upcoming Group Assessments</h1>
+         <div class="dash-main-right main_header">
+            <h1><i class="fas fa-home" 1123></i> > <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Parent/Guardian Profile</h1>
             <div class="dash-sub-main">
-               <img src="/modules/custom/acme/img/timetable.png">  
-               <h2><span>UPCOMING</span><br>Group Assessments</h2>
+            <i class="fa fa-laptop edit_image" aria-hidden="true"></i>
+               <h2><span>EDIT</span><br>Parent/Guardian</h2>
             </div>
          </div>
          <!----------Tabs Section -----Start------->
          <div class="tab-main-sec">
-            <div class="row tab-main-sec-heading" style="margin-left: 0px;margin-right: 0px;">
+            <div class="row" style="margin-left: 0px;margin-right: 0px;">
                <div class="col-lg-12 col-md-12">
-                  <div class="row">
-                     <div class="col-xl-9 col-lg-8 col-md-6 col-6">
-                     	<div class="month_filter">{{ month_block }}</div>
-                     </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6 col-6 search_icon">
-                     	
-                       <a class="pr-3 assessment-search-icon"><i class="fas fa-search"></i></a>
-                      	<div class="search-assessements-input" style="display:none;">
-                       		{{ search_filter_block }}
-                   		</div>
-                      <div class="search_icon_field">
-                        <i class="fal fa-calendar-alt"></i>
-                        {{ month_view_filter_block }}
-                       <!--  <input placeholder="Month View" type="text" id="date-picker-example" class="form-control datepicker"> -->
-                        <i class="fal fa-caret-down"></i>
-                     </div>  
-
-                        
-                     </div>
-                  </div>
-				  <hr/>
-                  <div class="tab-nav">
-                     <ul class="mb-4">
-                        <li><a href="javascript:void(0);">Categories </a> </li>
-                        <li><a href="javascript:void(0);">Tags </a></li>
-                        <li><a href="javascript:void(0);">Organizers </a></li>
-                        <li><a href="javascript:void(0);">Venues </a></li>
-                     </ul>
-                  </div>
                   <!-- ---------Profile Card---HTML----Start-->
-               {{ assessments_block }}
+                <div class="athletic_Profile_form">  
+               		{{ edit_parent_profile_block }}
+           		</div>
+           		
           <!-- ---------Profile Card---HTML----End-->
           
                </div>

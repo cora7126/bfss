@@ -1,0 +1,19 @@
+<?php
+
+
+/*
+ * HOOK_theme - bfss_month_view
+ */
+
+
+function bfss_month_view_theme() {
+	return [
+	 'month_view_temp' => [
+	      'variables' => [
+	          'data'=> null,
+	        ],
+	        'template'=>'month_view_temp',
+	    ],
+	];
+
+}
