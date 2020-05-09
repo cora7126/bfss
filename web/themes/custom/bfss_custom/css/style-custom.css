@@ -60,9 +60,14 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .tab-main-sec .tab-main-sec-heading h2 i{color:#4c4c4c;font-size:20px;line-height:20px;position:relative;top:2px;}
 .dashboard .search_icon{text-align:right;}
 .dashboard .search_icon a{line-height:26px;color:#000;opacity:.6;}
-.search_icon_field{display:inline-block;height:25px;border:1px solid #ced4da;margin:0;padding:0 20px;position:relative;width:112px;border-radius:5px;}
+.search_icon_field{display:inline-block;height:25px;border:1px solid #ced4da;margin:0;padding:0 20px;position:relative;width:140px;border-radius:5px;}
 .search_icon_field > i{position:absolute;color:#000;right:5px;top:6px;opacity:.6;font-weight:600;}
 .search_icon_field > i:first-child{left:5px;right:auto;}
+.search_icon_field .month-view-form .select-wrapper{width:100%;}
+.search_icon_field .month-view-form .input-group-addon{display:none;}
+.search_icon_field .month-view-form .select-wrapper .nice-select{border:0;height:auto;outline:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;padding:2.5px 0;}
+.search_icon_field .month-view-form .select-wrapper .nice-select span.current{display:block;text-align:center;font-size:12px;line-height:18px;}
+.search_icon_field .month-view-form .select-wrapper .nice-select ul.list{left:-15px;}
 #date-picker-example{display:inline-block;border-color:transparent;border-radius:0;padding:0;text-align:center;box-shadow:none;outline:0;position:relative;top:0;height:24px;}
 #date-picker-example:hover, #date-picker-example:focus{outline:none;box-shadow:none;}
 .tab-main-sec .tab-nav{border:0;padding:0;}
@@ -190,7 +195,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .athletes_follow_dv .search_athlete_main{padding:0;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors{border:0;padding:20px 10px;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors .dataTables_wrapper table{margin:0 0 30px;}
-.athletes_follow_dv .search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;top:30px;}
+.athletes_follow_dv .search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;/*top:30px;*/}
 .athletes_follow_dv .search_athlete_main .unfollow-sub i{color:#EB6E06;font-size:14px;line-height:22px;position:relative;top:1px;}
 .athletes_follow_dv .search_athlete_main .unfollow-sub input[type="submit"]{border:0;background:none;color:#EB6E06;font-size:13px;text-transform:capitalize;line-height:22px;font-weight:500;}
 /**************** ATHLETES FOLLOW CSS ENDS HERE *******************/
@@ -355,6 +360,14 @@ span.side_menu_text.dashboard {color: #fff;font-size: 16px;}
 .calender_img a {text-decoration: none;}
 div.orgtextarea textarea{display:none;}
 /************ SELECT MONTH CSS STARTS HERE **************/
+.sea-inp-ic{width:calc(100% - 150px);float:left;position:relative;}
+.sea-inp-ic a.assessment-search-icon{right:0;position:absolute;z-index:99;}
+.sea-inp-ic .search-assessements-input{width:100%;float:left;display:block;position:relative;}
+.sea-inp-ic .search-assessements-input .form-item.js-form-item, .sea-inp-ic .search-assessements-input .form-item.js-form-item input{margin:0;}
+.sea-inp-ic .search-assessements-input .form-actions.form-group{position:absolute;right:6px;top:1px;}
+.sea-inp-ic .search-assessements-input .form-actions.form-group button#edit-submit{background:transparent;border:0;padding:0;font-size:0 !important;}
+.sea-inp-ic .search-assessements-input .form-actions.form-group button#edit-submit span{font-size:14px !important;}
+
 .month_filter, .month_filter form{width:100%;float:left;display:block;}
 .month_filter form span#dateofshow{float:left;margin-right:15px;}
 .month_filter form span#dateofshow i{float:left;line-height:30px;font-size:18px;position:relative;top:1px;color:#ccc;}
@@ -719,6 +732,19 @@ ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg
 .drupal-edit-faq-fm div#drupal-modal .left_section .athlete_left{border:0;margin:0;}
 .drupal-edit-faq-fm div#drupal-modal .left_section .athlete_left .items_div{padding:15px 0;}
 .drupal-edit-faq-fm.delete-faq div#drupal-modal .left_section .athlete_left .items_div{padding:15px;}
+
+.edit-user .region.region-content, .bfssAthleteProfile .region.region-content, .edit-parent .region.region-content{display:none !important;}
+.right_section.box-pre .athlete_right{border:0;}
+
+/************* DASHBOARD CALENDER CSS STARTS HERE ********************/
+.block-bfss-month-view #calendar{max-width:100%;}
+#calendar .fc-toolbar.fc-header-toolbar{display:none;}
+#calendar .fc-content-skeleton thead tr td, #calendar .fc-content-skeleton tbody tr td{padding:5px 10px;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event{background:transparent;border:0;margin:0;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-time{-moz-order:2;-webkit-order:2;order:2;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-title{-moz-order:1;-webkit-order:1;order:1;/*white-space:normal;*/}
+#calendar .fc-content-skeleton tbody tr td .fc-title{color:#EB6E06;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -808,5 +834,3 @@ ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg
 }
 
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
-.edit-user .region.region-content,.bfssAthleteProfile .region.region-content,.edit-parent .region.region-content{display:none !important;}
-.right_section.box-pre .athlete_right {border: 0px;}

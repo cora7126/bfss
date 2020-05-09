@@ -183,17 +183,24 @@
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
                <div class="col-lg-8 col-md-12">
                   <div class="row tab-main-sec-heading">
-                     <div class="col-xl-9 col-lg-8 col-md-6 col-6">
+                     <div class="col-xl-6 col-lg-6 col-md-6 col-6">
                            <div class="month_filter">{{ month_block }}</div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6 col-6 search_icon">
+                     <div class="col-xl-6 col-lg-6 col-md-6 col-6 search_icon filters-right">
                         
-                      <a href="#" class="pr-3"> <i class="fas fa-search"></i></a>
-                      <div class="search_icon_field">
-                        <i class="fal fa-calendar-alt"></i>
-                        <input placeholder="Month View" type="text" id="date-picker-example" class="form-control datepicker">
-                        <i class="fal fa-caret-down"></i>
-                     </div>   
+                      <div class="sea-inp-ic">
+                              <a class="pr-3 assessment-search-icon"><i class="fas fa-search"></i></a>
+                              <div class="search-assessements-input" style="display:none;">
+                                 {{ search_filter_block }}
+                              </div>
+                        </div>
+
+                            <div class="search_icon_field">
+                              <i class="fal fa-calendar-alt"></i>
+                              {{ month_view_filter_block }}
+                              <!-- <input placeholder="Month View" type="text" id="date-picker-example" class="form-control datepicker"> -->
+                              <i class="fal fa-caret-down"></i>
+                           </div>   
                      </div>
                   </div>
 				  <hr/>

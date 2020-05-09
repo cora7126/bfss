@@ -48,9 +48,19 @@ class PrivateAssessmentsBlock extends BlockBase implements ContainerFactoryPlugi
     global $base_url;
     $data = [];
     $element = 1;
+    $param = \Drupal::request()->query->all();
     #get nodes by paginations
     //$nids =$this->assessmentService->getComingAssessments($element);
-    $nids = $this->assessmentService->assessment_after_month_filter_private($element);
+   
+
+
+    if(isset($param['SearchAssessments'])){
+      
+      $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'private');
+    }else{
+     
+      $nids = $this->assessmentService->assessment_after_month_filter_private($element);
+    }
  
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
