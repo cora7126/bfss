@@ -13,12 +13,8 @@ use Drupal\Core\Render\Markup;
  */
 class MonthViewBlock extends BlockBase {
   public function build() {
-  	$out =  Markup::create('html here');
-    // return [
-    //   '#markup' => $out,
-    // ];
-
-  	$data = 'here';
+  	
+  	$data = Markup::create('html here');
   	$element = 1;
     return [
         'results' => [

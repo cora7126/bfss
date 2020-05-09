@@ -14,6 +14,7 @@ class DefaultController extends ControllerBase {
     $uid = \Drupal::currentUser()->id();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
     $roles = $user->getRoles();
+    $param = \Drupal::request()->query->all();
 
     // the {name} in the route gets captured as $name variable
     // in the function called
@@ -59,22 +60,39 @@ class DefaultController extends ControllerBase {
           ->view($block);
         $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
+
+        //Month view block
+        $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
+        $block_content_m_v = \Drupal::entityManager()
+          ->getViewBuilder('block')
+          ->view($block_m_v);
+        $assessments_block_m_v = \Drupal::service('renderer')->renderRoot($block_content_m_v);
+
+        //FILTERS FROM
         $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+        $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
+        $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
         
         //MY Assessments
         $myAssessments = $this->My_assessments($uid);
-
+        if($param['MonthView']){
+                $BlockData = $assessments_block_m_v;
+        }else{
+         $BlockData = $assessments_block;
+        }
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'hello_page',
           '#name' => 'Shubham Rana',
-          '#assessments_block' => $assessments_block,
+          '#assessments_block' => $BlockData,
           '#month_block' => $form,
+          '#search_filter_block' =>  $SearchFilterForm,
+          '#month_view_filter_block' =>  $MonthViewFilterForm,
           '#my_assessments_section_block' => $myAssessments,
           '#rolename' => $rolename,
           '#attached' => [
             'library' => [
-              'acme/acme-styles', //include our custom library for this response
+              'bfss_month_view/month_view_lib',//include our custom library for this response
             ]
           ]
         ];
@@ -85,22 +103,38 @@ class DefaultController extends ControllerBase {
           ->view($block);
         $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-        // $block1 = \Drupal\block\Entity\Block::load('monthform');
-        // $block_content1 = \Drupal::entityManager()
-        //   ->getViewBuilder('block')
-        //   ->view($block1);
-        // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+        //Month view block
+        $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
+        $block_content_m_v = \Drupal::entityManager()
+          ->getViewBuilder('block')
+          ->view($block_m_v);
+        $assessments_block_m_v = \Drupal::service('renderer')->renderRoot($block_content_m_v);
+        $Pending_Approval_Data = $this->Pending_Approval();
+        //FILTERS FROM
         $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
-      
+        $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
+        $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+        
+        //MY Assessments
+        $myAssessments = $this->My_assessments($uid);
+        if($param['MonthView']){
+                $BlockData = $assessments_block_m_v;
+        }else{
+         $BlockData = $assessments_block;
+        }
+
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'bfss_manager_profile_dashboard_page',
-          '#bfss_manager_profile_dashboard_block' => $assessments_block,
+          '#bfss_manager_profile_dashboard_block' => $BlockData,
           '#month_block' => $form,
+          '#search_filter_block' =>  $SearchFilterForm,
+          '#month_view_filter_block' =>  $MonthViewFilterForm,
           '#rolename' => $roles[1],
+          '#Pending_Approval_Data_Block' => $Pending_Approval_Data,
           '#attached' => [
             'library' => [
-              'acme/acme-styles', //include our custom library for this response
+              'bfss_month_view/month_view_lib', //include our custom library for this response
             ]
           ]
         ];

@@ -89,3 +89,21 @@ bfss_manager.pending_assessments_form:
   requirements:
     _access: 'TRUE' 
 
+bfss_manager.role_update_con:
+  path: 'user-role-update/{uid}/{oldrole}/{newrole}/{dropdown}'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\UserRoleUpdate::content'
+    _title: 'role-update'
+  requirements:
+    _access: 'TRUE' 
+
+
+bfss_manager.deactive_user_status:
+  path: 'user-status-update/{uid}/{editpage}'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\DeactivateUser::content'
+    _title: 'Deactive user status'
+  requirements:
+    _access: 'TRUE' 
+
+

@@ -20,27 +20,39 @@ class PrivateAssessments extends ControllerBase {
    *   A simple renderable array.
    */
   public function private_assessments() {
-    
+    $param = \Drupal::request()->query->all();
     $block = \Drupal\block\Entity\Block::load('privateassessmentsblockpxl');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block);
     $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-    // $block1 = \Drupal\block\Entity\Block::load('monthform');
-    // $block_content1 = \Drupal::entityManager()
-    //   ->getViewBuilder('block')
-    //   ->view($block1);
-    // $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
+    //Month view block
+    $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
+    $block_content_m_v = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block_m_v);
+    $assessments_block_m_v = \Drupal::service('renderer')->renderRoot($block_content_m_v);
+
+    //FILTERS FROM
     $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+    $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
+    $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+    if($param['MonthView']){
+      $BlockData = $assessments_block_m_v;
+    }else{
+       $BlockData = $assessments_block;
+    }
     return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'private_assessments_page',
-      '#private_assessments_block' => $assessments_block,
+      '#private_assessments_block' => $BlockData,
+      '#search_filter_block' =>  $SearchFilterForm,
       '#month_block' => $form,
+      '#month_view_filter_block' =>  $MonthViewFilterForm,
       '#attached' => [
         'library' => [
-          'acme/acme-styles', //include our custom library for this response
+           'bfss_month_view/month_view_lib', //include our custom library for this response
         ]
       ]
     ];

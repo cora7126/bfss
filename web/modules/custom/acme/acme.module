@@ -16,7 +16,7 @@ use Drupal\Core\Url;
  */
 function acme_theme() {
   $theme['hello_page'] = [
-    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'rolename' => NULL,'my_assessments_section_block' => NULL],
+    'variables' => ['name' => NULL,'assessments_block' => NULL,'month_block' => NULL,'rolename' => NULL,'my_assessments_section_block' => NULL,'search_filter_block' => NULL,'month_view_filter_block' => NULL],
     'template' => 'hello',
   ];
 
@@ -42,7 +42,7 @@ function acme_theme() {
   ];
 
   $theme['bfss_manager_profile_dashboard_page'] = [
-    'variables' => ['name' => NULL,'bfss_manager_profile_dashboard_block' => NULL,'month_block' => NULL],
+    'variables' => ['name' => NULL,'bfss_manager_profile_dashboard_block' => NULL,'month_block' => NULL,'Pending_Approval_Data_Block' => NULL,'search_filter_block' => NULL,'month_view_filter_block' => NULL],
     'template' => 'bfss_manager_profile_dashboard',
   ];
 
@@ -58,7 +58,7 @@ function acme_theme() {
   ];
 
   $theme['private_assessments_page'] = [
-    'variables' => ['name' => NULL,'private_assessments_block' => NULL,'month_block' => NULL],
+    'variables' => ['name' => NULL,'private_assessments_block' => NULL,'month_block' => NULL,'search_filter_block' => NULL,'month_view_filter_block' => NULL],
     'template' => 'private_assessments',
   ];
 

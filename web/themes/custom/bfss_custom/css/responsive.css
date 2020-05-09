@@ -37,7 +37,7 @@
 	body.dashboard .left_side_section{position:fixed;left:-250px;top:60px;z-index:999;width:250px;-moz-transition:all 0.2s ease-in-out;-webkit-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;bottom:0;padding:0;height:calc(100vh - 60px);overflow-x:hidden;overflow-y:auto;}
 	body.dashboard.open_left_side_mobile .left_side_section{left:0;}
 	body.dashboard.open_left_side_mobile .right_side_section{transform:translateX(240px);-moz-transform:translateX(240px);-webkit-transform:translateX(240px);}
-  	body.dashboard .right_side_section{width:100%;float:right;-moz-transition:all 0.2s ease-in-out;-webkit-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;}
+  	body.dashboard .right_side_section, .dashboard.preview-profile .region.region-content{width:100%;float:right;-moz-transition:all 0.2s ease-in-out;-webkit-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;}
   	.user_pro_block .block-bfss-assessors.block-events-listing, .user_pro_block .block-bfss-assessors.block-private-accessments-block{padding:0;border:0;}
   	.user_pro_block .block-bfss-assessors .table-responsive table{border:0;}  	
 	#assessor_popup_form .accessorform_inner{padding:20px;}

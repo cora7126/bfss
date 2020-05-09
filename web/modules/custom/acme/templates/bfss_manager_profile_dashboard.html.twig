@@ -30,7 +30,7 @@
          <!----------Quick Link Section -----Start------->
          <div class="quick-link">
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
-               <div class="col-lg-9 ">
+               <div class="col-lg-8">
                   <h1>Quick links</h1>
                   
                   <div class="row">
@@ -113,11 +113,25 @@
                      </div>
                   </div> 
                </div>
-               <div class="col-lg-3">
+               <div class="col-lg-4">
                   <div class="my-assessment">
                      <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i>Pending Approval</button>
                      <div class="panel">
-                        <div class="panel_row">                           
+                        
+
+                        {% if Pending_Approval_Data_Block is empty %}
+                        <p>No Pending Approval!</p>
+                        {% else %}
+                           {% for Data in Pending_Approval_Data_Block %}
+                            <div class="panel_row">        
+                           <p>{{ Data.field_organization_name }}</p>
+                           <p>{{ Data.field_city }} {{ Data.field_state }}</p>
+                            </div>
+                           {% endfor %}
+                        {% endif %}
+
+                        
+                       <!--  <div class="panel_row">                           
                            <h3>Central Christan High School Whittler, CA</h3>
                         </div>
                         <div class="panel_row">    
@@ -128,7 +142,7 @@
                         </div>
                          <div class="panel_row">    
                            <h3>EI Monte Community College EI Monte, CA</h3>
-                        </div>
+                        </div> -->
                      </div>
                   </div>
                </div>
@@ -138,19 +152,27 @@
          <!----------Tabs Section -----Start------->
          <div class="tab-main-sec">
             <div class="row" style="margin-left: 0px;margin-right: 0px;">
-               <div class="col-lg-9 col-md-12">
+              <div class="col-lg-8 col-md-12">
                   <div class="row tab-main-sec-heading">
-                     <div class="col-xl-9 col-lg-8 col-md-6 col-6">
+                     <div class="col-xl-6 col-lg-6 col-md-6 col-6">
                            <div class="month_filter">{{ month_block }}</div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6 col-6 search_icon">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-6 search_icon filters-right">
                         
-                      <a href="#" class="pr-3"> <i class="fas fa-search"></i></a>
-                      <div class="search_icon_field">
-                        <i class="fal fa-calendar-alt"></i>
-                        <input placeholder="Month View" type="text" id="date-picker-example" class="form-control datepicker">
-                        <i class="fal fa-caret-down"></i>
-                     </div>   
+                      <div class="sea-inp-ic">
+                              <a class="pr-3 assessment-search-icon"><i class="fas fa-search"></i></a>
+                              <div class="search-assessements-input" style="display:none;">
+                                 {{ search_filter_block }}
+                              </div>
+                        </div>
+
+
+                        <div class="search_icon_field">
+                              <i class="fal fa-calendar-alt"></i>
+                              {{ month_view_filter_block }}
+                              <!-- <input placeholder="Month View" type="text" id="date-picker-example" class="form-control datepicker"> -->
+                              <i class="fal fa-caret-down"></i>
+                        </div>  
                      </div>
                   </div>
               <hr/>
