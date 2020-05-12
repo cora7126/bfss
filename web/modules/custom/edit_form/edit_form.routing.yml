@@ -69,3 +69,11 @@ edit_form.changepassajax:
     _title: 'Change Password'
   requirements:
     _access: 'TRUE'
+
+edit_form.autocomplete:
+  path: '/get-data-autocomplete/{field_name}/{count}'
+  defaults:
+    _controller: '\Drupal\edit_form\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _access: 'TRUE'

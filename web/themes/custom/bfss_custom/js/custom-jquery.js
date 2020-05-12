@@ -39,6 +39,7 @@ jQuery(document).ready(function() {
             }
 		});
 
+		//autosuggest
 		jQuery("input#edit-orgnames-search").click(function(){
 			   var orgNames = jQuery('textarea:input[name=search_org]').val();
 			var orgNamesArr = orgNames.split(',');

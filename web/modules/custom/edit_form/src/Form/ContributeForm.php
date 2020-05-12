@@ -328,7 +328,7 @@ class ContributeForm extends FormBase {
     */
     $type_org_1 = isset($athlete_school['athlete_school_type']) ? $athlete_school['athlete_school_type'] : 'school';
     $orgnames_op1 = $this->Get_Org_Name_For_default($type_org_1);
-
+    $form_state_values = $form_state->getValues();
     $orgtype = [
       #""=>t('Organization Type'),
       "school"=>t('School'),
@@ -342,7 +342,7 @@ class ContributeForm extends FormBase {
       '#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
       '#default_value' => isset($athlete_school['athlete_school_type'])?$athlete_school['athlete_school_type']:'school',
       '#ajax' => [
-			    'callback' => '::OrgNamesAjaxCallback_1', // don't forget :: when calling a class method.
+			    'callback' => '::OrgNamesAjaxCallback_one', // don't forget :: when calling a class method.
 			    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
 			    'event' => 'change',
 			    'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
@@ -350,23 +350,37 @@ class ContributeForm extends FormBase {
       ];
 
 
+    $type__1 = isset($type_org_1)?$type_org_1:'school';
+    $type_organization_1 = isset($form_state_values['organizationType'])?$form_state_values['organizationType']:$type__1; 
     $form['organizationName'] = array(
-      '#type' => 'select',
+      '#type' => 'textfield',
       '#placeholder' => t('Orginization Name'),
-      #'#required' => TRUE,
-      '#options' => $orgnames_op1,
+      '#autocomplete_route_name' => 'edit_form.autocomplete',
+      '#autocomplete_route_parameters' => array('field_name' => $type_organization_1, 'count' => 10), 
       '#prefix' => '<div id="edit-output" class="orgtextarea1">',
       '#suffix' => '</div>',
       '#default_value' => $athlete_school['athlete_school_name'] ,
-      //'#attributes' => array('disabled' => TRUE),
-      );
+    );
+
+
+
+    // $form['organizationName'] = array(
+    //   '#type' => 'select',
+    //   '#placeholder' => t('Orginization Name'),
+    //   #'#required' => TRUE,
+    //   '#options' => $orgnames_op1,
+    //   '#prefix' => '<div id="edit-output" class="orgtextarea1">',
+    //   '#suffix' => '</div>',
+    //   '#default_value' => $athlete_school['athlete_school_name'] ,
+    //   //'#attributes' => array('disabled' => TRUE),
+    //   );
       
       
-    $form['coach'] = array(
-      '#type' => 'textfield',
-      '#placeholder' => t("Coach's Last Name"),
-      '#default_value' => $athlete_school['athlete_school_coach'],
-      );
+    // $form['coach'] = array(
+    //   '#type' => 'textfield',
+    //   '#placeholder' => t("Coach's Last Name"),
+    //   '#default_value' => $athlete_school['athlete_school_coach'],
+    //   );
 	 
     $form['sport'] = array(
       '#type' => 'select',
@@ -422,7 +436,7 @@ class ContributeForm extends FormBase {
     */
     $type_org_2 =  isset($athlete_club['athlete_school_type']) ? $athlete_club['athlete_school_type'] : 'school';
     $orgnames_op = $this->Get_Org_Name_For_default($type_org_2);
-    if (!empty($athlete_club['athlete_club_name']) && !empty($athlete_club['athlete_school_type']) && !empty($athlete_club['athlete_club_coach'])) {
+    if (!empty($athlete_club['athlete_club_name']) && !empty($athlete_club['athlete_school_type'])) {
 
       $form['education_1'] = array( // uni
         '#type' => 'select',
@@ -430,7 +444,7 @@ class ContributeForm extends FormBase {
         '#prefix' => '</div><div class="org_notempty"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_club" class="athlete-del-org fa fa-trash right-icon delete_icon" aria-hidden="true" data-orgname="athlete_club"></i></h3><div class=items_div>',
         '#default_value' => isset($athlete_club['athlete_school_type'])?$athlete_club['athlete_school_type']:'school',
               '#ajax' => [
-			    'callback' => '::OrgNamesAjaxCallback_2', // don't forget :: when calling a class method.
+			    'callback' => '::OrgNamesAjaxCallback_two', // don't forget :: when calling a class method.
 			    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
 			    'event' => 'change',
 			    'wrapper' => 'edit-output-1', // This element is updated with this AJAX callback.
@@ -438,22 +452,25 @@ class ContributeForm extends FormBase {
         );
 
 
-      	
-       	$form['schoolname_1'] = [
-            '#placeholder' => t('Organization Name'),
-            '#type' => 'select', 
-            '#options' => $orgnames_op,
+
+    $type__2 = isset($type_org_2)?$type_org_2:'school';
+    $type_organization_2 = isset($form_state_values['education_1'])?$form_state_values['education_1']:$type__2; 
+      $form['schoolname_1'] = [
+            '#type' => 'textfield',
+            '#placeholder' => t('Orginization Name'),
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('field_name' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_club['athlete_club_name'],
-            '#attributes' => array('disabled' => FALSE),
-	    ];
+      ];
 
-      $form['coach_1'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t("Coache's Last Name"),
-        '#default_value' => $athlete_club['athlete_club_coach'],
-        );
+
+      // $form['coach_1'] = array(
+      //   '#type' => 'textfield',
+      //   '#placeholder' => t("Coache's Last Name"),
+      //   '#default_value' => $athlete_club['athlete_club_coach'],
+      //   );
       $form['sport_1'] = array(
         '#type' => 'select',	
 		'#options'=> $sports_arr,
@@ -519,19 +536,23 @@ class ContributeForm extends FormBase {
 			  ]
         );
 
+     
+    $type__2 = isset($type_org_2)?$type_org_2:'school';
+    $type_organization_2 = isset($form_state_values['education_1'])?$form_state_values['education_1']:$type__2; 
       $form['schoolname_1'] = [
-            '#placeholder' => t('Organization Name'),
-            '#type' => 'select', 
-            '#options' => $orgnames_op,
+            '#type' => 'textfield',
+            '#placeholder' => t('Orginization Name'),
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('field_name' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
-            '#default_value' => $athlete_club['athlete_club_name'],
-            '#attributes' => array('disabled' => FALSE),
-	    ];
-      $form['coach_1'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t("Coache's Last Name"),
-        );
+            '#default_value' => '',
+      ];
+
+      // $form['coach_1'] = array(
+      //   '#type' => 'textfield',
+      //   '#placeholder' => t("Coache's Last Name"),
+      //   );
       $form['sport_1'] = array(
         '#type' => 'select',
 		'#options'=>$sports_arr,
@@ -581,8 +602,9 @@ class ContributeForm extends FormBase {
     */
 	$type_org_3 =  isset($athlete_uni['athlete_uni_type']) ? $athlete_uni['athlete_uni_type'] : 'school';
     $orgnames_op3 = $this->Get_Org_Name_For_default($type_org_3);
-
-     if (!empty($athlete_uni['athlete_uni_name']) && !empty($athlete_uni['athlete_uni_type']) && !empty($athlete_uni['athlete_uni_coach'])) {
+    $type__3 = isset($type_org_3)?$type_org_3:'school';
+        $type_organization_3 = isset($form_state_values['education_2'])?$form_state_values['education_2']:$type__3;
+     if (!empty($athlete_uni['athlete_uni_name']) && !empty($athlete_uni['athlete_uni_type'])) {
  
       $form['education_2'] = array(
         '#type' => 'select',
@@ -590,28 +612,29 @@ class ContributeForm extends FormBase {
         '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" class="athlete-del-org fa fa-trash right-icon delete_icon" aria-hidden="true" data-orgname="athlete_uni"></i></h3><div class=items_div>',
         '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
               '#ajax' => [
-			    'callback' => '::OrgNamesAjaxCallback_3', // don't forget :: when calling a class method.
+			    'callback' => '::OrgNamesAjaxCallback_three', // don't forget :: when calling a class method.
 			    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
 			    'event' => 'change',
 			    'wrapper' => 'edit-output-2', // This element is updated with this AJAX callback.
 			  ]
         );
 
+        
       	$form['schoolname_2'] = [
-            '#placeholder' => t('Organization Name'),
-            '#type' => 'select', 
-            '#options' => $orgnames_op3,
+            '#type' => 'textfield',
+            '#placeholder' => t('Orginization Name'),
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('field_name' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
-            '#attributes' => array('disabled' => FALSE),
             '#default_value' => $athlete_uni['athlete_uni_name'],
-		];
+		    ];
 
-      $form['coach_2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t("Coache's Last Name"),
-        '#default_value' => $athlete_uni['athlete_uni_coach'],
-        );
+      // $form['coach_2'] = array(
+      //   '#type' => 'textfield',
+      //   '#placeholder' => t("Coache's Last Name"),
+      //   '#default_value' => $athlete_uni['athlete_uni_coach'],
+      //   );
       $form['sport_2'] = array(
         '#type' => 'select',
 		'#options'=>$sports_arr,
@@ -668,26 +691,26 @@ class ContributeForm extends FormBase {
         '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" data-orgname="athlete_uni" class="athlete-del-org fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i></h3><div class=items_div>',
         	'#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
               '#ajax' => [
-			    'callback' => '::OrgNamesAjaxCallback_3', // don't forget :: when calling a class method.
+			    'callback' => '::OrgNamesAjaxCallback_three', // don't forget :: when calling a class method.
 			    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
 			    'event' => 'change',
 			    'wrapper' => 'edit-output-2', // This element is updated with this AJAX callback.
 			  ]
         );
 		$form['schoolname_2'] = [
-            '#placeholder' => t('Organization Name'),
-            '#type' => 'select', 
-            '#options' => $orgnames_op3,
+            '#type' => 'textfield',
+            '#placeholder' => t('Orginization Name'),
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('field_name' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
-            '#attributes' => array('disabled' => FALSE),
             '#default_value' => $athlete_uni['athlete_uni_name'],
-		];
-      $form['coach_2'] = array(
-        '#type' => 'textfield',
-        '#placeholder' => t("Coache's Last Name"),
-        '#default_value' => '',
-        );
+        ];
+      // $form['coach_2'] = array(
+      //   '#type' => 'textfield',
+      //   '#placeholder' => t("Coache's Last Name"),
+      //   '#default_value' => '',
+      //   );
       $form['sport_2'] = array(
         '#type' => 'select',
 		'#options'=>$sports_arr,
@@ -1219,7 +1242,7 @@ class ContributeForm extends FormBase {
       $conn->insert('athlete_info')->fields(array(
         'athlete_uid' => $current_user,
         'athlete_email' => $form_state->getValue('email'),
-        'athlete_coach' => $form_state->getValue('coach'),
+        #'athlete_coach' => $form_state->getValue('coach'),
         'athlete_year' => $form_state->getValue('gradyear'),
         'field_height' => $form_state->getValue('height'),
         'field_weight' => $form_state->getValue('weight'),
@@ -1228,7 +1251,7 @@ class ContributeForm extends FormBase {
     } else {
       $conn->update('athlete_info')->condition('athlete_uid', $current_user, '=')->fields(array(
         'athlete_email' => $form_state->getValue('email'),
-        'athlete_coach' => $form_state->getValue('coach'),
+        #'athlete_coach' => $form_state->getValue('coach'),
         'athlete_year' => $form_state->getValue('gradyear'),
         'field_height' => $form_state->getValue('height'),
         'field_weight' => $form_state->getValue('weight'),
@@ -1304,7 +1327,7 @@ class ContributeForm extends FormBase {
     $FIELDS_athlete_school = [
     'athlete_uid' => $current_user,
     ' athlete_school_name' => !empty($form_state->getValue('organizationName'))?$form_state->getValue('organizationName') : '',
-    'athlete_school_coach' => !empty($form_state->getValue('coach')) ? $form_state->getValue('coach') : '',
+    #'athlete_school_coach' => !empty($form_state->getValue('coach')) ? $form_state->getValue('coach') : '',
     'athlete_school_sport' => !empty($form_state->getValue('sport')) ? $form_state->getValue('sport') : '',
     'athlete_school_pos' => !empty($form_state->getValue('position'))? $form_state->getValue('position') : '',
     'athlete_school_pos2' => !empty($form_state->getValue('position2'))? $form_state->getValue('position2') : '',
@@ -1316,7 +1339,7 @@ class ContributeForm extends FormBase {
 		}else{
       $FIELDS_athlete_school = [
     'athlete_school_name' => !empty($form_state->getValue('organizationName'))?$form_state->getValue('organizationName') : '',
-    'athlete_school_coach' => !empty($form_state->getValue('coach')) ? $form_state->getValue('coach') : '',
+    #'athlete_school_coach' => !empty($form_state->getValue('coach')) ? $form_state->getValue('coach') : '',
     'athlete_school_sport' => !empty($form_state->getValue('sport')) ? $form_state->getValue('sport') : '',
     'athlete_school_pos' => !empty($form_state->getValue('position'))? $form_state->getValue('position') : '',
     'athlete_school_pos2' => !empty($form_state->getValue('position2'))? $form_state->getValue('position2') : '',
@@ -1333,7 +1356,7 @@ class ContributeForm extends FormBase {
     $FIELDS_athlete_club = [
     'athlete_uid' => $current_user,
     'athlete_club_name' => !empty($form_state->getValue('schoolname_1'))?$form_state->getValue('schoolname_1') : '',
-    'athlete_club_coach' => !empty($form_state->getValue('coach_1')) ? $form_state->getValue('coach_1') : '',
+    #'athlete_club_coach' => !empty($form_state->getValue('coach_1')) ? $form_state->getValue('coach_1') : '',
     'athlete_club_sport' => !empty($form_state->getValue('sport_1')) ? $form_state->getValue('sport_1') : '',
     'athlete_club_pos' => !empty($form_state->getValue('position_1'))? $form_state->getValue('position_1') : '',
     'athlete_school_pos2' => !empty($form_state->getValue('position_12'))? $form_state->getValue('position_12') : '',
@@ -1345,7 +1368,7 @@ class ContributeForm extends FormBase {
 		}else{
     $FIELDS_athlete_club = [
     'athlete_club_name' => !empty($form_state->getValue('schoolname_1'))?$form_state->getValue('schoolname_1') : '',
-    'athlete_club_coach' => !empty($form_state->getValue('coach_1')) ? $form_state->getValue('coach_1') : '',
+   # 'athlete_club_coach' => !empty($form_state->getValue('coach_1')) ? $form_state->getValue('coach_1') : '',
     'athlete_club_sport' => !empty($form_state->getValue('sport_1')) ? $form_state->getValue('sport_1') : '',
     'athlete_club_pos' => !empty($form_state->getValue('position_1'))? $form_state->getValue('position_1') : '',
     'athlete_school_pos2' => !empty($form_state->getValue('position_12'))? $form_state->getValue('position_12') : '',
@@ -1362,7 +1385,7 @@ class ContributeForm extends FormBase {
     $FIELDS_athlete_uni = [
     'athlete_uid' => $current_user,
     'athlete_uni_name' => !empty($form_state->getValue('schoolname_2'))?$form_state->getValue('schoolname_2') : '',
-    'athlete_uni_coach' => !empty($form_state->getValue('coach_2')) ? $form_state->getValue('coach_2') : '',
+    #'athlete_uni_coach' => !empty($form_state->getValue('coach_2')) ? $form_state->getValue('coach_2') : '',
     'athlete_uni_sport' => !empty($form_state->getValue('sport_2')) ? $form_state->getValue('sport_2') : '',
     'athlete_uni_pos' => !empty($form_state->getValue('position_2'))? $form_state->getValue('position_2') : '',
     'athlete_uni_pos2' => !empty($form_state->getValue('position_22'))? $form_state->getValue('position_22') : '',
@@ -1374,7 +1397,7 @@ class ContributeForm extends FormBase {
 		}else{
     $FIELDS_athlete_uni = [
     'athlete_uni_name' => !empty($form_state->getValue('schoolname_2'))?$form_state->getValue('schoolname_2') : '',
-    'athlete_uni_coach' => !empty($form_state->getValue('coach_2')) ? $form_state->getValue('coach_2') : '',
+   # 'athlete_uni_coach' => !empty($form_state->getValue('coach_2')) ? $form_state->getValue('coach_2') : '',
     'athlete_uni_sport' => !empty($form_state->getValue('sport_2')) ? $form_state->getValue('sport_2') : '',
     'athlete_uni_pos' => !empty($form_state->getValue('position_2'))? $form_state->getValue('position_2') : '',
     'athlete_uni_pos2' => !empty($form_state->getValue('position_22'))? $form_state->getValue('position_22') : '',
@@ -1394,6 +1417,23 @@ class ContributeForm extends FormBase {
   /*
   *AJAX FUNCTIONS
   */
+
+public function OrgNamesAjaxCallback_one(array &$form, FormStateInterface $form_state){
+      //ORG-1   
+  return  $form['organizationName']; 
+}
+
+
+public function OrgNamesAjaxCallback_two(array &$form, FormStateInterface $form_state){
+        //ORG-2   
+  return  $form['schoolname_1']; 
+}
+
+public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $form_state){
+        //ORG-3   
+  return  $form['schoolname_2']; 
+}
+
  	public function OrgNamesAjaxCallback_1(array &$form, FormStateInterface $form_state) {
 	 	$op = [''=>'Organizations Name'];	
 	 	//ORG-1		
@@ -1467,40 +1507,40 @@ class ContributeForm extends FormBase {
 	}
 
 	//ORG-3
-	public function OrgNamesAjaxCallback_3(array &$form, FormStateInterface $form_state) {
-		if ($selectedValue = $form_state->getValue('education_2')) {
-				$selectedText = $form['education_2']['#options'][$selectedValue];
-				$orgNames = $this->Get_Org_Name($selectedText);
-				$arrName = explode(',',$orgNames);
-				$selArr = [];
-			    foreach ($arrName as $key => $value) {
-			      $selArr[$value] = $value;
-			    }
-			    $selArr = ['' => 'Organization Name'] + $selArr;
-						if(!empty($arrName)){
-				        	$form['schoolname_2'] = [
-				                '#placeholder' => t('Organization Name'),
-				                '#type' => 'select', 
-				                '#options' => $selArr,
-				                '#prefix' => '<div id="edit-output-2" class="org-3">',
-				                '#suffix' => '</div>',
-				                '#attributes' => array('disabled' => FALSE),
-				            ];
-			            }else{
-			           		$form['schoolname_2'] = [
-				                '#placeholder' => t('Organization Name'),
-				                '#type' => 'select', 
-				                '#options' => ['' => 'Organization Name'],
-				                '#prefix' => '<div id="edit-output-2" class="org-3">',
-				                '#suffix' => '</div>',
-				                '#attributes' => array('disabled' => FALSE),
-				            ];
+	// public function OrgNamesAjaxCallback_3(array &$form, FormStateInterface $form_state) {
+	// 	if ($selectedValue = $form_state->getValue('education_2')) {
+	// 			$selectedText = $form['education_2']['#options'][$selectedValue];
+	// 			$orgNames = $this->Get_Org_Name($selectedText);
+	// 			$arrName = explode(',',$orgNames);
+	// 			$selArr = [];
+	// 		    foreach ($arrName as $key => $value) {
+	// 		      $selArr[$value] = $value;
+	// 		    }
+	// 		    $selArr = ['' => 'Organization Name'] + $selArr;
+	// 					if(!empty($arrName)){
+	// 			        	$form['schoolname_2'] = [
+	// 			                '#placeholder' => t('Organization Name'),
+	// 			                '#type' => 'select', 
+	// 			                '#options' => $selArr,
+	// 			                '#prefix' => '<div id="edit-output-2" class="org-3">',
+	// 			                '#suffix' => '</div>',
+	// 			                '#attributes' => array('disabled' => FALSE),
+	// 			            ];
+	// 		            }else{
+	// 		           		$form['schoolname_2'] = [
+	// 			                '#placeholder' => t('Organization Name'),
+	// 			                '#type' => 'select', 
+	// 			                '#options' => ['' => 'Organization Name'],
+	// 			                '#prefix' => '<div id="edit-output-2" class="org-3">',
+	// 			                '#suffix' => '</div>',
+	// 			                '#attributes' => array('disabled' => FALSE),
+	// 			            ];
 				                
-			           }
+	// 		           }
 			    
-	    }
-	    return  $form['schoolname_2'];
-	}
+	//     }
+	//     return  $form['schoolname_2'];
+	// }
 
 	public function Get_Org_Name($type){
 	    if(isset($type)){

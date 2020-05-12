@@ -11,7 +11,11 @@ use Drupal\user\Entity\Role;
 class ViewEditActive extends ControllerBase {
 
   public function view_edit_active() {
+  	$uid = \Drupal::currentUser()->id();
+	$current_user = \Drupal\user\Entity\User::load($uid);
+	$current_roles = $current_user->getRoles();
 
+	
      // $user = User::load(349);
      // echo "<pre>";
      // print_r($user);
@@ -81,6 +85,8 @@ class ViewEditActive extends ControllerBase {
               
               $key = array_search('Authenticated user', $RolesLabel);
               unset($RolesLabel[$key]);
+              $RolesLabel = array_values($RolesLabel);
+             // print_r($RolesLabel);die;
              
               $firstname = $user->field_first_name->value;
               $lastname = $user->field_last_name->value;
@@ -111,7 +117,8 @@ class ViewEditActive extends ControllerBase {
                 <td>'.$lastname.'</td>
                 <td>'.$org_name.'</td>
                 <td>'.$edit_permissions_status.'</td>';
-              $tb1 .= '<td>
+              if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){
+              	 $tb1 .= '<td>
                         <div class="box niceselect roles">
                           <span id="dateofshow">
                             <select data-uid="'.$athlete_user_id.'" data-role="'.$sel_role[0].'" data-dropdown="ViewEditActive">';
@@ -120,6 +127,10 @@ class ViewEditActive extends ControllerBase {
                               $tb1 .= '<option value="'.$key.'" "'.$selected.'" >'.$userrole.'</option>';
                             }
               $tb1 .= '</select></span></div></td>';
+              }else{
+              	$tb1 .= '<td>'.$RolesLabel[0].'</td>';
+              }
+
               $tb1 .= '</tr>';
             }
             

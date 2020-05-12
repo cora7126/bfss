@@ -12,9 +12,9 @@ class ViewEditDeactive extends ControllerBase {
 
   public function view_edit_deactive() {
 
-     // $user = User::load(349);
-     // echo "<pre>";
-     // print_r($user);
+    $uid = \Drupal::currentUser()->id();
+    $current_user = \Drupal\user\Entity\User::load($uid);
+    $current_roles = $current_user->getRoles();
 
     if( isset($_POST['deactive_submit']) ){
     if(isset($_POST['items_selected'])){
@@ -83,6 +83,8 @@ class ViewEditDeactive extends ControllerBase {
               
               $key = array_search('Authenticated user', $RolesLabel);
               unset($RolesLabel[$key]);
+              $RolesLabel = array_values($RolesLabel);
+
               $firstname = $user->field_first_name->value;
               $lastname = $user->field_last_name->value;
               
@@ -112,6 +114,7 @@ class ViewEditDeactive extends ControllerBase {
                 <td>'.$lastname.'</td>
                 <td>'.$org_name.'</td>
                 <td>'.$edit_permissions_status.'</td>';
+              if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){
               $tb1 .= '<td>
                         <div class="box niceselect roles">
                           <span id="dateofshow">
@@ -121,6 +124,9 @@ class ViewEditDeactive extends ControllerBase {
                               $tb1 .= '<option value="'.$key.'" "'.$selected.'" >'.$userrole.'</option>';
                             }
               $tb1 .= '</select></span></div></td>';
+              }else{
+                $tb1 .= '<td>'.$RolesLabel[0].'</td>';
+              }
               $tb1 .= '</tr>';
             }
             
