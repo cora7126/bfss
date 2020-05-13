@@ -206,7 +206,10 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Firstname'),
       '#default_value' => $results1['field_first_name_value'],
-      '#prefix' => '<div class="left_section popup_left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information</h3><div class=items_div>',
+      '#prefix' => '<div class="left_section popup_left_section">
+      <div class="athlete_left">
+        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information</h3>
+        <div class=items_div>',
 	  '#required' => TRUE,
 	  '#attributes' => array('readonly' => 'readonly'),
       );
@@ -337,9 +340,11 @@ class ContributeForm extends FormBase {
   	];
     $form['organizationType'] = [
       '#type' => 'select',
-	   '#required' => TRUE,
+	    '#required' => TRUE,
       '#options' => $orgtype,
-      '#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div>',
+      #'#attributes' => array('class' => array('full-width-inp')),
+      '#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><div class=items_div><div class="full-width-inp">',
+      '#suffix' => '</div>',
       '#default_value' => isset($athlete_school['athlete_school_type'])?$athlete_school['athlete_school_type']:'school',
       '#ajax' => [
 			    'callback' => '::OrgNamesAjaxCallback_one', // don't forget :: when calling a class method.
@@ -360,6 +365,7 @@ class ContributeForm extends FormBase {
       '#prefix' => '<div id="edit-output" class="orgtextarea1">',
       '#suffix' => '</div>',
       '#default_value' => $athlete_school['athlete_school_name'] ,
+      #'#attributes' => ['id' => 'label_1', 'class' => array['weblabel']],
     );
 
 
@@ -441,7 +447,9 @@ class ContributeForm extends FormBase {
       $form['education_1'] = array( // uni
         '#type' => 'select',
         '#options' => $orgtype,
-        '#prefix' => '</div><div class="org_notempty"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_club" class="athlete-del-org fa fa-trash right-icon delete_icon" aria-hidden="true" data-orgname="athlete_club"></i></h3><div class=items_div>',
+        #'#attributes' => array('class' => array('full-width-inp')),
+        '#prefix' => '</div><div class="org_notempty"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_club" class="athlete-del-org fa fa-trash right-icon delete_icon" aria-hidden="true" data-orgname="athlete_club"></i></h3><div class=items_div><div class="full-width-inp">',
+        '#suffix' => '</div>',
         '#default_value' => isset($athlete_club['athlete_school_type'])?$athlete_club['athlete_school_type']:'school',
               '#ajax' => [
 			    'callback' => '::OrgNamesAjaxCallback_two', // don't forget :: when calling a class method.
@@ -526,7 +534,9 @@ class ContributeForm extends FormBase {
       $form['education_1'] = array( //uni
         '#type' => 'select',
         '#options' => $orgtype,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_club"  data-orgname="athlete_club" class="athlete-del-org fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i></h3><div class=items_div>',
+       # '#attributes' => array('class' => array('full-width-inp')),
+        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide previous_athlete" style="display:none;"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_club"  data-orgname="athlete_club" class="athlete-del-org fa fa-trash right-icon delete_icon previous_delete" aria-hidden="true"></i></h3><div class=items_div><div class="full-width-inp">',
+         '#suffix' => '</div>',
         '#default_value' => isset($athlete_club['athlete_school_type'])?$athlete_club['athlete_school_type']:'school',
               '#ajax' => [
 			    'callback' => '::OrgNamesAjaxCallback_2', // don't forget :: when calling a class method.
@@ -600,18 +610,23 @@ class ContributeForm extends FormBase {
     /*
     *ORGANIZATION - 3
     */
-	$type_org_3 =  isset($athlete_uni['athlete_uni_type']) ? $athlete_uni['athlete_uni_type'] : 'school';
-    $orgnames_op3 = $this->Get_Org_Name_For_default($type_org_3);
-    $type__3 = isset($type_org_3)?$type_org_3:'school';
-        $type_organization_3 = isset($form_state_values['education_2'])?$form_state_values['education_2']:$type__3;
+	    $type_org_3 =  isset($athlete_uni['athlete_uni_type']) ? $athlete_uni['athlete_uni_type'] : 'school';
+      $orgnames_op3 = $this->Get_Org_Name_For_default($type_org_3);
+      $type__3 = isset($type_org_3)?$type_org_3:'school';
+      $type_organization_3 = isset($form_state_values['education_2'])?$form_state_values['education_2']:$type__3;
      if (!empty($athlete_uni['athlete_uni_name']) && !empty($athlete_uni['athlete_uni_type'])) {
  
       $form['education_2'] = array(
         '#type' => 'select',
         '#options' => $orgtype,
-        '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" class="athlete-del-org fa fa-trash right-icon delete_icon" aria-hidden="true" data-orgname="athlete_uni"></i></h3><div class=items_div>',
+        #'#attributes' => array('class' => array('full-width-inp')),
+        '#prefix' => '<div class="athlete_left">
+            <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" class="athlete-del-org fa fa-trash right-icon delete_icon" aria-hidden="true" data-orgname="athlete_uni"></i></h3>
+            <div class=items_div>
+            <div class="full-width-inp">',
+         '#suffix' => '</div>',
         '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
-              '#ajax' => [
+        '#ajax' => [
 			    'callback' => '::OrgNamesAjaxCallback_three', // don't forget :: when calling a class method.
 			    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
 			    'event' => 'change',
@@ -688,7 +703,9 @@ class ContributeForm extends FormBase {
       $form['education_2'] = array( // club
         '#type' => 'select',
         '#options' => $orgtype,
-        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" data-orgname="athlete_uni" class="athlete-del-org fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i></h3><div class=items_div>',
+        #'#attributes' => array('class' => array('full-width-inp')),
+        '#prefix' => '</div><div class="athlete_school popup-athlete-school-hide last_athlete"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i id="athlete_uni" data-orgname="athlete_uni" class="athlete-del-org fa fa-trash right-icon delete_icon last_delete" aria-hidden="true"></i></h3><div class=items_div><div class="full-width-inp">',
+         '#suffix' => '</div>',
         	'#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
               '#ajax' => [
 			    'callback' => '::OrgNamesAjaxCallback_three', // don't forget :: when calling a class method.
@@ -761,7 +778,16 @@ class ContributeForm extends FormBase {
 
     $form['html_image_athlete'] = [
   		'#type' => 'markup',
-  		'#markup' => '</div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3><div class="edit_dropdown"><a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a><ul class="dropdown-menu" style="padding:0"></ul></div><div class=items_div>',
+  		'#markup' => '</div><div class ="right_section">
+      <div class = "athlete_right">
+      <h3>
+        <div class="toggle_icon">
+            <i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>My Website Photo</h3>
+              <div class="edit_dropdown">
+                <a class="drop" >Action<span class="down-arrow fa fa-angle-down"></span></a>
+                <ul class="dropdown-menu" style="padding:0"></ul>
+              </div>
+        <div class=items_div>',
 		];
     $form['image_athlete'] = [
     '#type' => 'managed_file',
@@ -822,7 +848,7 @@ class ContributeForm extends FormBase {
         t('On'),
         t('Off')),
       '#default_value' => $deltaweb0_visibility,
-      '#suffix' => '',
+      '#suffix' => '</div></div>',
       );
 
     if (!empty($athlete_club['athlete_club_name'])) {
@@ -831,7 +857,7 @@ class ContributeForm extends FormBase {
         '#placeholder' => t('School'),
         '#default_value' => $athlete_club['athlete_club_name'],
         '#attributes' => array('disabled' => true),
-        '#prefix' => '</div></div><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
+        '#prefix' => '<div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
         );
       $form['sport_web2'] = array(
         '#type' => 'textfield',
@@ -878,7 +904,9 @@ class ContributeForm extends FormBase {
         '#placeholder' => t('School'),
         '#default_value' => $athlete_uni['athlete_uni_name'],
         '#attributes' => array('disabled' => true),
-        '#prefix' => '<div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3><div class=items_div>',
+        '#prefix' => '<div class = "athlete_right">
+                 <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Additional Website</h3>
+              <div class=items_div>',
         );
       $form['sport_web3'] = array(
         '#type' => 'textfield',
@@ -918,12 +946,14 @@ class ContributeForm extends FormBase {
           t('on'),
           t('off')),
         '#default_value' => $deltaweb2_visibility,
-        '#suffix' => '</div></div></div>',
+        '#suffix' => '</div>
+        </div>
+       ',
         );
 
 
     }
-    $form['submit'] = ['#type' => 'submit', '#value' => 'SAVE', '#prefix' => '<div id="athlete_submit" class="athlete_submit">', '#suffix' => '</div>',
+    $form['submit'] = ['#type' => 'submit', '#value' => 'SAVE', '#prefix' => ' </div><div id="athlete_submit" class="athlete_submit">', '#suffix' => '</div>',
       //'#value' => t('Submit'),
       ];
     // $form['#theme'] = 'athlete_form';

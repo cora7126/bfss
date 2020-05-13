@@ -1913,7 +1913,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 #ajax-wrapper{display:inline-block;}
 .bfssathleteprofile .edit-form{margin-top:40px;}
 /* 20-02-2020 */
-#edit-form{padding:20px;display:inline-block;transition:width 0.5s;display:grid;grid-template-columns:1fr 36rem;grid-gap:20px;}
+#edit-form{padding:20px 0;display:inline-block;transition:width 0.5s;display:grid;grid-template-columns:1fr 36rem;grid-gap:20px;}
 .left_section{display:inline-block;width:100%;float:left;position:relative;}
 .right_section{display:inline-block;width:100%;float:left;}
 .right_section .athlete_right{position:realtive;}
@@ -1923,7 +1923,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .left_section .athlete_left .form-item , .right_section .athlete_right .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
 .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;}
 .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
-.left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;}
+.left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;padding:10px;}
 .left_section .athlete_left .add_pos_div{position:relative;padding-bottom:30px;}
 .left_section .athlete_left .add_pos_div a.add_pos{padding:0px 0px 0px 16px;position:absolute;bottom:5px;margin-bottom:0;left:0;cursor:pointer;}
 .left_section .athlete_left .add_pos_div a.add_pos i{padding-right:5px;}
