@@ -273,8 +273,8 @@ a.drop:hover{text-decoration:none;}
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover{opacity:1;}
 .pop_img_sec{border-bottom:1px solid #9b9b9b;padding-bottom:16px;margin-bottom:10px;}
-.pop_img_sec h2{font-size:20px;text-align:left;}
-.pop_img_sec p{font-size:16px;text-align:left;}
+.pop_img_sec h2{font-size:16px;text-align:left;margin:0;}
+.pop_img_sec p{font-size:13px;text-align:left;}
 .pop_text_sec{text-align:left;}
 .pop_text_sec a p{margin-bottom:0px;line-height:35px;font-size:13px;color:#EB6E06;font-weight:500;}
 .pop_text_sec a p i{color:#000;margin-right:6px;width:20px;display:inline-block;}
