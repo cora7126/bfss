@@ -71,7 +71,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<span>14.9</span>
 							</div>
 							<div class="rightText">
-								<h4>BALLISTIC STRENGTH (IN)</h4>
+								<h4>BALLISTIC</br> STRENGTH (IN)</h4>
 								<p>Squat Jump</p>
 							</div>
 						</div>
@@ -83,7 +83,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<span>16.4</span>
 							</div>
 							<div class="rightText">
-								<h4>ELASTIC STRENGTH (IN)</h4>
+								<h4>ELASTIC</br> STRENGTH (IN)</h4>
 								<p>Countermovement Jump</p>
 							</div>
 						</div>

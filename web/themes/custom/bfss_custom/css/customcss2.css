@@ -8,7 +8,7 @@
 .timing span{bottom:-5px !important}
 .textdata{margin:10px 0;font-size:15px;}
 .dashboard.preview-profile .region.region-content, .right_side_section, .payment-receipts .region-content, .add-organization .region-content, .edit-parent .region-content, .faq-page .region-content{
-  width:calc(100% - 19%);transition:width 0.5s}
+  width:calc(100% - 20%);transition:width 0.5s}
  .dashboard.preview-profile .region.region-content .right_side_section{width:100%;}
   .customselectcss{padding:0 !important;}
   .messages__wrapper{display:block !important;margin-top:15px;padding:0 22px;}
