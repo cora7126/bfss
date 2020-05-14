@@ -68,6 +68,8 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .search_icon_field .month-view-form .select-wrapper .nice-select{border:0;height:auto;outline:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;padding:2.5px 0;}
 .search_icon_field .month-view-form .select-wrapper .nice-select span.current{display:block;text-align:center;font-size:12px;line-height:18px;}
 .search_icon_field .month-view-form .select-wrapper .nice-select ul.list{left:-15px;}
+.search_icon_field .month-view-form .select-wrapper .nice-select ul.list .option{padding:0 10px;font-size:14px;}
+.search_icon_field .month-view-form .select-wrapper .nice-select ul.list .option:hover{color:#fff;background:#EB6E06;}
 #date-picker-example{display:inline-block;border-color:transparent;border-radius:0;padding:0;text-align:center;box-shadow:none;outline:0;position:relative;top:0;height:24px;}
 #date-picker-example:hover, #date-picker-example:focus{outline:none;box-shadow:none;}
 .tab-main-sec .tab-nav{border:0;padding:0;}
@@ -81,6 +83,8 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .lft_sect{width:100%;float:left;display:block;}
 .right_section .athlete_right .edit_dropdown{width:90px;font-size:13px;overflow:hidden;}
 .coach-edit-profile-form .right_section .athlete_right:first-child h3{padding-right:100px;}
+.faqsec ul.faq.faqct li.a .filter-help.form-group{margin:0 0 0 15px;}
+.faqsec ul.faq.faqct li.q .faq-right.faq.faqct{top:9px;position:relative;}
 /* --------- BFSS MANAGER CSS STARTS HERE *******************/
 .bfss-main{width:65%;float:left;display:block;margin:3rem 0;}
 .bfss-main h3{width:100%;float:left;display:block;background-color:#000;margin:0;color:#fff;font-size:14px;padding:15px;line-height:16px;border:1px solid #000;}
@@ -762,6 +766,7 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close{padding:0;margin:0;top:0rem;position:relative;height:30px;width:30px;right:0;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span{color:grey;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:hover, .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:focus{color:#EB6E06;}
+#edit-actions.form-actions button.btn-success{background:#EB6E06;border-color:#EB6E06;color:#fff;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -789,7 +794,8 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	.centeralizeRow .rightText h4 img{max-width:50px;}
 	.manager_assessor_account .box.niceselect .form-type-select.js-form-type-select{max-width:100%;}
 	.timing span{width:100%;float:left;display:block;position:relative;}
-	.assessment_block .timing h2{max-height:50px;overflow:hidden;padding:0 15px 0 0;}
+	.assessment_block .timing h2{max-height:50px;overflow:hidden;padding:0 15px 0 0;}	
+	.private-assesspopup.drupal-assess-fm .close span{font-size:50px;line-height:35px;height:35px;display:block;overflow:hidden;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {

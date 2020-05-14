@@ -1878,6 +1878,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .sidenav ul.dropdown-menu.open li:hover::before{background:#fff;}
 .pop_text_sec a p:hover i{color:#EB6E06;}
 .datepicker{position:relative;}
+.dashboard.user-register .region-footer{padding-top:0;}
 .region-footer{margin-top:100px;padding-top:35px;padding-bottom:15px;margin-left:15px;margin-right:15px;}
 
 
