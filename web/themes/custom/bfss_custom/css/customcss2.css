@@ -1,17 +1,17 @@
-.faq-text-area{text-align:justify;font-family:montserrat, sans-serif !important}
+@charset "UTF-8";
+/** CSS Document **/
 
+.faq-text-area{text-align:justify;font-family:montserrat, sans-serif !important}
 #multistep-form-one{margin-top:20px;float:left;width:100%;}
 .upcoming-group-assessments #drupal-modal--content{max-height:795px !important;width:760px !important;}
-#edit-form .items_div{border:1px solid #c2c2c2;}
 .modal .modal-dialog .modal-content{overflow-x:none !important;overflow-y:none !important}
 .assessment_inner .top-head{margin-bottom:15px !important}
 .timing span{bottom:-5px !important}
 .textdata{margin:10px 0;font-size:15px;}
-.dashboard.preview-profile .region.region-content, .right_side_section, .payment-receipts .region-content, .add-organization .region-content, .edit-parent .region-content, .faq-page .region-content{
-  width:calc(100% - 20%);transition:width 0.5s}
- .dashboard.preview-profile .region.region-content .right_side_section{width:100%;}
-  .customselectcss{padding:0 !important;}
-  .messages__wrapper{display:block !important;margin-top:15px;padding:0 22px;}
-  .alert-dismissible{padding-right:0 !important}
-  .alert{padding:.75rem 1.25rem !important}
-  .alert-dismissible .close{padding: 0px !important}
+.dashboard.preview-profile .region.region-content, .right_side_section, .payment-receipts .region-content, .add-organization .region-content, .edit-parent .region-content, .faq-page .region-content{width:calc(100% - 20%);transition:width 0.5s}
+.dashboard.preview-profile .region.region-content .right_side_section{width:100%;}
+.customselectcss{padding:0 !important;}
+.messages__wrapper{display:block !important;margin-top:15px;padding:0 22px;}
+.alert-dismissible{padding-right:0 !important}
+.alert{padding:.75rem 1.25rem !important}
+.alert-dismissible .close{padding:0px !important}

@@ -255,6 +255,9 @@ class AssessmentService {
   public function getNodeData($nid){
       $node = Node::load($nid);
       $data = [];
+      global $base_url;
+      $current_path = \Drupal::service('path.current')->getPath();
+      $data['current_page'] = $base_url;
       if ($node instanceof NodeInterface) {
         $data['title'] = $node->getTitle();
         if ($node->hasField('body')) {

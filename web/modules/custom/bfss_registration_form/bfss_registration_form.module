@@ -923,7 +923,7 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
       }
 
       if ($is_over_16_years == 'no' && $parent_permission == 'no') {
-        $form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
+        $form_state->setErrorByName('parent_permission_error', t('<div class="error er">Sed ut perspiciatis unde omnis ...</div>'));
 		 $form['step_4']['cck']['#access']=false;
 		$form['step_4']['cck']['cck_name']['#access']=false;
 		$form['step_4']['cck']['cck_number']['#access']=false;
@@ -957,7 +957,7 @@ function bfss_registration_form_next_validate(&$form, FormStateInterface $form_s
             //          $form_state->setRebuild();
             //          return FALSE;
           }else{
-			$form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
+			//$form_state->setErrorByName('parent_permission_error', t('<div class="error">Sed ut perspiciatis unde omnis ...</div>'));
 		  }
         }
 

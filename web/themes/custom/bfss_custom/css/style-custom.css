@@ -1,5 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
+
 html body{font-family:montserrat, Sans-Serif;font-size:13px;}
 body a{color:#EB6E06;}
 body a:hover, body a:focus{text-decoration:underline;color:#EB6E06;}
@@ -29,6 +30,7 @@ html body{margin-top:0 !important;padding:0 !important;}
 .dash-sub-main i.edit_image_solid::before{width:45px;height:45px;display:block;overflow:hidden;line-height:45px;text-align:center;color:#EB6E06;font-size:32px;}
 /* ---------Quick Link sec CSS STARTS HERE *******************/
 div.quick-link{margin:40px 0;}
+div.quick-link a, div.quick-link a:hover, div.quick-link a:focus{text-decoration:none;}
 .quick-link h1{font-size:14px;margin:0 0 8px;font-weight:600;text-transform:uppercase;}
 .quick-link-sub-sec{text-align:center;padding:10px;background:#fffcd7;border:1px solid #6b6b6b;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-align-content:center;-webkit-align-content:center;align-content:center;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
 .quick-link-sub-sec i{font-size:40px;color:#EB6E06;margin-bottom:10px;}
@@ -101,7 +103,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .bfss-main .content-bfss p .switch .slider.round::before{border-radius:50%;}
 
 /* --------- DASHBOARD ASSESMENT BLOCK CSS STARTS HERE *******************/
-.assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;}
+.assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:60px;overflow:hidden;}
 .block-bfss-assessment{width:100%;float:left;display:block;}
 .block-bfss-assessment .container{padding:0;margin:0;}
 .block-bfss-assessment .container .assessment_block{margin:0;width:100%;float:left;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
@@ -140,19 +142,20 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 /*************** MY AUTHENTIC PROFILE POP UP CSS ENDS HERE ****************************/
 .calender_event_pop_up, .calender_event_pop_up .tophead, .calender_event_pop_up .ticketing, .calender_event_pop_up .details{width:100%;float:left;display:block;}
 .calender_event_pop_up .container{padding:0;}
-.calender_event_pop_up .tophead .image{width:55%;float:left;display:block;}
-.calender_event_pop_up .tophead .title-timing{width:45%;float:left;display:block;padding:30px 40px;}
-.calender_event_pop_up .tophead .title-timing h2{margin:25px 0 0;font-size:25px;font-weight:700;}
+.calender_event_pop_up .tophead .image{width:55%;float:left;display:block;height:100%;}
+.calender_event_pop_up .tophead .image img{height:100%;}
+.calender_event_pop_up .tophead .title-timing{width:45%;float:left;display:block;padding:25px 40px;}
+.calender_event_pop_up .tophead .title-timing h2{margin:20px 0 0;font-size:21px;font-weight:700;width:100%;float:left;display:block;}
 .calender_event_pop_up .tophead .title-timing .loca{font-size:15px;}
 /*.calender_event_pop_up .ticketing{border-top:1px solid #aaa;border-bottom:1px solid #aaa;border-left:0;border-right:0;}*/
 .calender_event_pop_up .ticketing .share{display:inline-block;float:left;}
 .calender_event_pop_up .ticketing .ticket{display:inline-block;float:right;padding:0;}
 .calender_event_pop_up .details{padding:20px;}
-.calender_event_pop_up .details .body{width:55%;float:left;display:block;font-size:18px;}
+.calender_event_pop_up .details .body{width:55%;float:left;display:block;font-size:16px;}
 .calender_event_pop_up .details .date-location{width:45%;float:left;display:block;padding:0 25px;}
 .calender_event_pop_up .details .date-location p{margin:0;}
 
-
+.calender_event_pop_up .tophead{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
 .dashboard .profile_img_section .profile-sec{border-left:1px solid #ced4da;margin:0;width:125px;background:#030000;text-align:center;height:100px;padding:10px 0px;position:relative;cursor:pointer;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;float:right;}
 .dashboard .profile_img_section .profile-sec img{width:100%;max-width:60px;}
 .chat-popup{position:absolute;z-index:9;width:250px;right:10px;border:1px solid #bebebe;top:80px;}
@@ -193,11 +196,13 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 #edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:hover, #edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:focus{background-color:#EB6E06;}
 
 .left_section .athlete_left .form-item.form-item-organizationtype .select-wrapper, .left_section .athlete_left .form-item.form-item-education-2 .select-wrapper, .left_section .athlete_left .form-item.form-item-education-1 .select-wrapper{display:block;width:100%;}
-.edit_profile_form .js-form-managed-file.form-managed-file #edit-image-athlete-upload{padding:7.5px 10px;}
+form.edit-form .js-form-managed-file.form-managed-file .js-form-file.form-file{padding:7.5px 10px;line-height:18px;outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+#edit-form .right_section .items_div, #edit-form .left_section .items_div{padding:30px 0;border:1px solid #c2c2c2;}
+.right_section .athlete_right label.weblabel.control-label{padding-top:0 !important;margin:5px 0 10px;}
 /**************** EDIT COACH PROFILE CSS ENDS HERE *******************/
 
 /**************** ATHLETES FOLLOW CSS STARTS HERE *******************/
-.athletes_follow_dv, .athletes-unfollow-form, .wrapped_div_main{width:100%;float:left;display:block;padding-top:20px;}
+.athletes_follow_dv, .athletes-unfollow-form, .wrapped_div_main{width:100%;float:left;display:block;}
 .athletes_follow_dv .search_athlete_main{padding:0;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors{border:0;padding:20px 10px;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors .dataTables_wrapper table{margin:0 0 30px;}
@@ -235,12 +240,11 @@ a.navbar-brand img{width:100%;}
 .bell-icon-sec{background:#030000;text-align:center;height:100px;padding:22px}
 #sidenav{background-color:#000000;}
 ul.side_nav{padding:0px;}
-ul.side_nav li{border-bottom:1px solid #fff;line-height:50px;}
 button.side_button{background:transparent;color:#fff;font-size:14px;text-transform:capitalize;border:none;cursor:pointer;text-decoration:none;}
 div#sidenav ul li i{color:#EB6E06;font-size:15px;margin-right:15px;}
-ul.side_nav .sub_menu{padding:0 15px;}
+ul.side_nav .sub_menu{padding:15px;line-height:20px;}
 li.sub_menu button{padding:0;}
-li.sub-menu-drop .drop{padding:0 15px !important;}
+li.sub-menu-drop .drop{padding:15px !important;}
 li.sub_menu button:focus{outline:none !important;}
 li.sub_menu.active{background-color:#EB6E06;}
 li.sub_menu.active i{color:#fff !important;}
@@ -254,7 +258,7 @@ a.drop:hover{text-decoration:none;}
 .dropdown .dropdown-menu{width:100%;margin:0;margin-top:8px;padding:0;position:relative !important;float:left;max-height:0;overflow:hidden;transition:all 0.55s linear;background-color:#fff;border-radius:unset;background-clip:unset;}
 .dropdown{position:relative;display:inline-block;}
 .drop{background-color:#3498db;color:#fff;padding:1rem;border-radius:6px;position:relative;display:inline-block;}
-.dropdown > .dropdown-menu.open{max-height:300px;height:auto;transition:all 0.25s linear;display:block;}
+.dropdown > .dropdown-menu.open{max-height:300px;height:auto;transition:all 0.25s linear;display:block;margin:0;border:0;}
 .dropdown > .dropdown-menu > li > a{padding:0.5rem 1rem;display:block;color:#555;text-align:left;transition:all 0.25s linear;font-size:14px;padding:0px 0px;border-bottom:1px solid #909090;}
 .open li a:hover{background-color:#3498db;color:#fff;}
 .open-caret{transform:rotate(180deg);transition:all .25s ease-out;}
@@ -422,7 +426,7 @@ div.form-item-current-pass {padding-top: 31px;margin-top: 20px;}
 .user_pro_row .userpr li:last-child{margin-right:0;}
 .user_pro_row .userpr li i{color:#EB6E06;}
 .user_pro_block{width:100%;float:left;display:block;margin:0 0 30px;padding:30px 15px 0;}
-.user_pro_block h2{background:#000;color:#fff;padding:10px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:18px;}
+.user_pro_block h2{background:#000;color:#fff;padding:5px 15px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:30px;height:40px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border:1px solid #000;padding:20px 40px;}
 .user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#A8A9AD;}
@@ -443,7 +447,7 @@ div.form-item-current-pass {padding-top: 31px;margin-top: 20px;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a.delete-assess-pl, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a.edit-assess-pl{padding:5px 15px;display:block;color:#fff;text-align:center;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination{-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
 .user_pro_block .block-bfss-assessors .pager-nav .pagination > .active > a{background-color:#EB6E06 !important;color:#fff !important;border-color:#EB6E06 !important;}
-.user_pro_block .block-bfss-assessors .pager-nav .pagination li{margin:0 2px;background:transparent;}
+.user_pro_block .block-bfss-assessors .pager-nav .pagination li{margin:0;background:transparent;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td input.form-checkbox{margin:0;position:absolute;opacity:0;height:14px;width:14px;display:block;cursor:pointer;z-index:9;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td .unfollow-checkbox{border:2px solid #777;height:14px;width:14px;display:block;text-align:center;cursor:pointer;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td .unfollow-checkbox:before{display:none;content:"\f00c";font-family: "Font Awesome 5 Pro";font-weight:900;color:#fff;font-size:9px;position:relative;top:.5px;}
@@ -460,7 +464,7 @@ div.dataTables_wrapper .dataTables_filter label{font-size:0;margin:0;}
 div.dataTables_wrapper .dataTables_filter label input{font-size:13px;height:25px;border:1px solid #ddd;padding:0 10px;line-height:14px;display:block;font-weight:400;}
 div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;font-weight:400;padding-left:0;}
 .dataTables_paginate.paging_simple_numbers{display:inline-block;float:right;}
-.dataTables_paginate.paging_simple_numbers a.paginate_button, .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a{background-color:#F1F3F2 !important;color:#000 !important;font-size:12px;height:30px;display:block;float:left;text-align:center;padding:7px 10px;line-height:14px;margin:0 2px;cursor:pointer;border:1px solid transparent;border-radius:2px;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;text-decoration:none !important;min-width:1.5em;text-transform:capitalize;}
+.dataTables_paginate.paging_simple_numbers a.paginate_button, .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a{background-color:#F1F3F2 !important;color:#000 !important;font-size:12px;height:30px;display:block;float:left;text-align:center;padding:7px 12px;line-height:14px;margin:0 2px;cursor:pointer;border:1px solid transparent;border-radius:0;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;text-decoration:none !important;min-width:1.5em;text-transform:capitalize;}
 .dataTables_paginate.paging_simple_numbers a.paginate_button.disabled{opacity:.7;}
 .dataTables_paginate.paging_simple_numbers a.paginate_button.disabled:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button.disabled:focus{background-color:#F1F3F2 !important;color:#000 !important;opacity:.7;border-color:#F1F3F2 !important;}
 .dataTables_paginate.paging_simple_numbers a.paginate_button.current, .dataTables_paginate.paging_simple_numbers a.paginate_button:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button:focus, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:hover, .dataTables_paginate.paging_simple_numbers a.paginate_button.current:focus, .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a:hover, .user_pro_block .block-bfss-assessors .pager-nav .pagination li > a:focus{outline:none;text-decoration:none;color:#fff !important;background:#EB6E06 !important;border-color:#EB6E06 !important;}
@@ -474,12 +478,12 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 .org_name_tabs .orgradios input.tabs-orgs{width:100%;height:100%;position:absolute;opacity:0;margin:0;cursor:pointer;}
 .org_name_tabs .orgradios span{border:1px solid #EB6E06;color:#EB6E06;height:36px;padding:8px 10px;font-weight:400;font-size:14px;display:block;line-height:16px;min-width:130px;text-align:center;cursor:pointer;}
 .org_name_tabs .orgradios input.tabs-orgs:checked ~ span{background:#EB6E06;color:#fff;}
-.paid-unpaid ul{list-style-type:none;padding:0;margin:15px 0 0;}
+.paid-unpaid ul{list-style-type:none;padding:0;margin:15px 0;}
 .paid-unpaid ul li{display:inline-block;float:left;min-width:120px;color:#000;font-size:14px;line-height:14px;font-weight:500;}
 .paid-unpaid ul li i{color:#EB6E06;margin-right:5px;}
 .search_athlete_main.user_pro_block .block-bfss-assessors{border:0;padding:30px 10px;}
-.search_athlete_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 30px;}
-.table-responsive table{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.search_athlete_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 15px;}
+.table-responsive table{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;width:100%;float:left;}
 /*************** ASSESSORS CSS ENDS HERE ******************/
 
 /*************** EDIT FOLLOW UNFOLLOW CSS STARTS HERE ******************/
@@ -498,7 +502,7 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 #accessorform a.close{font-size:30px;}
 .drupal-assess-fm .modal-body.ui-dialog-content{overflow:visible !important;}
 .drupal-assess-fm .modal-body.ui-dialog-content .asse_frm{width:100%;float:left;display:block;}
-#assessor_popup_form .accessorform_inner{padding:25px 50px;float:left;width:100%;display:block;background-color:#fff;}
+#assessor_popup_form .accessorform_inner{padding:25px 40px;float:left;width:100%;display:block;background-color:#fff;}
 .usrinfo{width:100%;float:left;display:block;margin:0 0 20px;}
 .usrinfo h3{width:100%;float:left;display:block;color:#EB6E06;text-transform:capitalize;font-weight:700;margin:0 0 5px;font-size:22px;line-height:22px;}
 .usrinfo ul{width:100%;float:left;display:block;padding:0;margin:0;list-style-type:none;}
@@ -673,7 +677,7 @@ button.btn.btn-success.add_item_plx p:empty-child{display:none;}
 .main_section_plx .add-organizations-form #edit-actions .add_org_submit button{background-color:#EB6E06;text-transform:uppercase;padding:9px 20px;height:40px;font-size:14px;border-color:#EB6E06;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;line-height:20px;}
 .main_section_plx .athlete_left .delete_item_plx.cancel.button{margin:0 15px;padding:0;}
 .main_section_plx .athlete_left .delete_item_plx.cancel.button:hover, .main_section_plx .athlete_left .delete_item_plx.cancel.button:focus{background:transparent;border-color:#fff;}
-.main_section_plx .athlete_left .delete_item_plx.cancel.button i{font-size:18px;color:#EB6E06;}
+.main_section_plx .athlete_left .delete_item_plx.cancel.button i{font-size:14px;color:#EB6E06;}
 .tab-main-sec-heading.private-assess{padding-top:20px;}
 /**************** BFSS MANAGER CSS ENDS HERE *******************/
 .manager_assessor_account{width:100%;float:left;display:block;margin:30px 0 0;}
@@ -763,10 +767,18 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 #calendar .fc-content-skeleton tbody tr td .fc-title{color:#EB6E06;}
 
 .assessments-popup-md .modal-header.ui-dialog-titlebar{position:absolute;width:100%;left:0;top:0;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
-.assessments-popup-md .modal-header.ui-dialog-titlebar button.close{padding:0;margin:0;top:0rem;position:relative;height:30px;width:30px;right:0;}
+.assessments-popup-md .modal-header.ui-dialog-titlebar button.close{padding:0;margin:0;top:10px;position:relative;height:30px;width:30px;right:0;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span{color:grey;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:hover, .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:focus{color:#EB6E06;}
 #edit-actions.form-actions button.btn-success{background:#EB6E06;border-color:#EB6E06;color:#fff;}
+.eventlisting_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 15px;}
+.eventlisting_main.user_pro_block .block-bfss-assessors .table-responsive table tbody tr{border:1px solid transparent;border-left:1px solid #6d6e72;border-right: 1px solid #6d6e72;}
+
+.remove_padding .search_athlete_main.user_pro_block, .remove_padding .search_athlete_main.user_pro_block .wrapped_div_main{padding:0;}
+.remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:30px 0 0;overflow:hidden;}
+.bfss-funds .remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:30px;}
+
+.wrapper .form-actions.form-group .button.button[type="submit"]{height:40px;font-size:14px;border:1px solid #f4650f;line-height:20px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -780,6 +792,12 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	.dashboard .profile_img_section .profile-sec .col-md-4{width:50px;padding:0;}
 	.dashboard .profile_img_section .profile-sec .col-md-8{width:calc(100% - 65px);}
 	.faq-footer-bar .faq-auth-date p{margin:0 30px 0 0;}
+  	.private-assesspopup.drupal-assess-fm .modal-footer button{width:100%;margin:5px 0;}
+  	.social_share_links{left:0;top:50px;background:#fff;width:100%;padding:0 20px;text-align:center;}
+  	.social_share_links ul{text-align:center;}
+  	.social_share_links ul li{float:none;margin:0 5px;}
+  	.org-tab-form .org-radio{text-align:center;}
+  	.org_name_tabs .org-tab-form .orgradios{float:none;margin:5px;}
 }
 
 @media(min-width:580px) and (max-width:767px) {
@@ -796,6 +814,13 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	.timing span{width:100%;float:left;display:block;position:relative;}
 	.assessment_block .timing h2{max-height:50px;overflow:hidden;padding:0 15px 0 0;}	
 	.private-assesspopup.drupal-assess-fm .close span{font-size:50px;line-height:35px;height:35px;display:block;overflow:hidden;}
+	.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{height:auto;margin:0 0 10px;}
+	.sm_cls{width:100%;margin:15px 0;}
+	.centeralizeRow .rightText h4{width:100%;float:left;display:block;padding-right:60px;}
+	.centeralizeRow p{display:block;float:left;width:100%;}
+	#assessor_popup_form .accessorform_inner{padding:25px;}
+	.drupal-assess-fm .modal-footer{padding:0 25px 25px;}
+	.user_pro_block .block-bfss-assessors{padding:20px;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
@@ -856,6 +881,12 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	.bfss-main{width:100%;}
 	.bfssAthleteProfile .left_section .athlete_left:last-child, .bfssAthleteProfile .right_section .athlete_right:last-child{margin-bottom:0;}
 	.main_section_plx form .left_section, .main_section_plx form .right_section{width:100%;padding:0;}
+  	.user_pro_block .block-bfss-assessors .table-responsive table{border:0;}  
+  	.user_pro_block .block-bfss-assessors .table-responsive table{border:0;}  
+  	.user_pro_block .block-bfss-assessors .table-responsive{border:1px solid #6d6e72;}
 }
 
+@media (min-width:1024px) and (max-width:1199px) {
+	.dashboard .athletic_profile{height:auto;}
+}
 /*************************** RESPONSIVE CSS ENDS HERE ****************/

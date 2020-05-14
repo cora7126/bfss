@@ -80,6 +80,7 @@
                       <span class=" toggle_icon fa fa-bars"></span>
             </div>
             </div>
+            {% if user_role != 1 %}
             <div class="dashboard-menu">
               <span class="icon ion-ios-keypad">
                 <i class="fal fa-ellipsis-h"></i>
@@ -87,6 +88,7 @@
                 <i class="fal fa-ellipsis-h"></i>
               </span>
             </div>
+            {% endif %}
          </nav>
       </div>
       <div class="col-lg-10 col-md-12 header_rightbar">
