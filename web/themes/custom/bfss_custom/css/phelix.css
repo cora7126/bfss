@@ -188,7 +188,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 }
 
 .user-register .user_form_content .registration-area {
-  margin: 25px 0 60px;
+  margin: 25px 0 15px;
 }
 
 .user_form_content .registration-area form {
@@ -217,74 +217,18 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
   position: relative;
 }
 
-.user_form_content .registration-area form .form-item.js-form-item {
-  margin: 0 0 15px;
-}
-.user_form_content .registration-area form #edit-pass.form-item.js-form-item{margin:0;}
+.user_form_content .registration-area form .form-item.js-form-item{margin:0 0 15px;}
+.user_form_content .registration-area form .form-item.js-form-item:last-child, .user_form_content .registration-area form #edit-pass.form-item.js-form-item{margin:0;}
 .user_form_content .registration-area form .form-item.js-form-item #edit-send-code.btn-send-code{display:none !important}
-.user_form_content .registration-area form .form-item.js-form-item:empty {
-  margin: 0;
-}
-
-.user_form_content .registration-area form .form-group {
-  margin: 0;
-}
-
-.user_form_content .registration-area form .form-item.js-form-item .alert, .user-register .user_form_content .registration-area form .form-group .alert {
-  margin: 12px 0 0;
-  clear: both;
-  float: left;
-  width: 100%;
-  display: block;
-}
-
-.user_form_content .registration-area form .form-item.js-form-item .panel-heading {
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  width: 100%;
-  float: left;
-  display: block;
-  margin: 0 0 5px;
-}
-
-.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title {
-  padding: 0 35px 0 0;
-  font-size: 21px;
-  color: #000;
-  width: 100%;
-  margin: 0;
-  line-height: 25px;
-  font-weight: 500;
-  position: relative;
-}
-
-.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title .register {
-  font-size: 16px;
-  display: block;
-  float: left;
-  width: 100%;
-}
-
-.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title img {
-  width: 22px;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.user_form_content .registration-area form .form-item.js-form-item .panel-body {
-  float: left;
-  width: 100%;
-  position: relative;
-  padding: 0;
-}
-
-.user_form_content .registration-area form .form-item.js-form-item .panel-body .form-item-description {
-  float: left;
-  width: 100%;
-  display: block;
-}
+.user_form_content .registration-area form .form-item.js-form-item:empty{margin:0;}
+.user_form_content .registration-area form .form-group{margin:0;}
+.user_form_content .registration-area form .form-item.js-form-item .alert, .user-register .user_form_content .registration-area form .form-group .alert{ margin:12px 0 0;clear:both;float:left;width:100%;display:block;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading{padding:0;border:0;background-color:transparent;width:100%;float:left; display:block;margin:0 0 5px;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title{padding:0 35px 0 0;font-size:21px;color:#000;width:100%;  margin:0;line-height:25px;font-weight:500;position:relative;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title .register{font-size:16px;display:block;float:left;width:100%;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title img{width:22px;position:absolute;right:0;top:0;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body{float:left;width:100%;position:relative;padding:0;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .form-item-description{float:left;width:100%;display:block;}
 
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .form-item-description p {
   color: #000;
