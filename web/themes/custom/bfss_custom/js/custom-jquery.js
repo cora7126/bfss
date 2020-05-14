@@ -1,8 +1,9 @@
 jQuery(document).ready(function() {
-
-	jQuery("a.assessment-search-icon").click(function(){
-    	jQuery(".search-assessements-input").toggle('slow');
-  	});
+jQuery("[name=image_athlete_remove_button]").wrap('<div class="remove_btn_wrap"></div>');
+	jQuery(".share a.share_assessment").click(function(){
+  		jQuery(".social_share_links").toggle('slow');
+  		console.log("here toogle");
+	});
     //jQuery( "#sortable_faqs" ).disableSelection();
 
  	jQuery('#select_faqs_by_user').niceSelect();

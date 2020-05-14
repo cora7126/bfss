@@ -308,7 +308,7 @@ class CoachEditProfileForm extends FormBase {
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => 'SAVE', 
-      '#prefix' => '<div id="athlete_submit">',
+      '#prefix' => '<div id="athlete_submit" class="athlete_submit">',
       '#suffix' => '</div>',
     ];
 

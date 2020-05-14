@@ -49,7 +49,6 @@ class MyAssessments extends ControllerBase {
               
                 $timestamp = $entity->time->value;
                 $booking_date = date("F d,Y",$timestamp);
-
                 $booking_time = date("h:i a",$timestamp);
 
                 $query1 = \Drupal::entityQuery('node');
@@ -109,7 +108,6 @@ class MyAssessments extends ControllerBase {
                 ); 
           }   
         } 
-
         /**************drupal table start*****************/
         $header = array(
           array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
@@ -158,10 +156,9 @@ class MyAssessments extends ControllerBase {
             'status' => $item['status'],
           );
         }
-       // $rows = $this->_records_nonsql_sort($rows, $header);
+        $rows = $this->_records_nonsql_sort($rows, $header);
         // Create table and pager
         $element['table'] = array(
-        	'#cache' => ['max-age' => 0,],
           '#theme' => 'table',
           '#prefix' => '<div class="">',
           '#suffix' => '</div>',
@@ -192,22 +189,27 @@ class MyAssessments extends ControllerBase {
 
       //sorting rows
     function _records_nonsql_sort($rows, $header, $flag = SORT_STRING|SORT_FLAG_CASE) {
-      $order = tablesort_get_order($header);
-      $sort = tablesort_get_sort($header);
-      $column = $order['sql'];
-      foreach ($rows as $row) {
-        $temp_array[] = $row[$column];
+      if(isset($_GET['sort'])){
+          $order = tablesort_get_order($header);
+          $sort = tablesort_get_sort($header);
+          $column = $order['sql'];
+          foreach ($rows as $row) {
+            $temp_array[] = $row[$column];
+          }
+          if ($sort == 'asc') {
+            asort($temp_array, $flag);
+          }
+          else {
+            arsort($temp_array, $flag);
+          }
+          foreach ($temp_array as $index => $data) {
+            $new_rows[] = $rows[$index];
+          }
+          return $new_rows;
+      }else{
+        return $rows;
       }
-      if ($sort == 'asc') {
-        asort($temp_array, $flag);
-      }
-      else {
-        arsort($temp_array, $flag);
-      }
-      foreach ($temp_array as $index => $data) {
-        $new_rows[] = $rows[$index];
-      }
-      return $new_rows;
+      
     }
 
     /**

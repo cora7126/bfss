@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* CSS Document */
 
 /**
  * Default Variables.
@@ -1901,7 +1902,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 */
  #edit-profile-class .field-group-format-toggler{position:relative;padding:20px 15px !important;}
  #edit-profile-class .edit_dropdown, .right_section .edit_dropdown{position:absolute;z-index:99;right:0;top:0;padding:12px;height:45px;font-size:14px;}
- #edit-profile-class .edit_dropdown a.drop , .right_section .edit_dropdown a.drop{color:#EB6E06;}
+ #edit-profile-class .edit_dropdown a.drop , .right_section .edit_dropdown a.drop{color:#EB6E06;cursor:pointer;}
  #edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span{margin-left:10px;color:#EB6E06;position:relative;top:2px;}
 /* #edit-profile-class .edit_dropdown ul.dropdown-menu , .right_section .edit_dropdown ul.dropmenu{top:34px;min-width:85px;left:10px;}
 */
@@ -1942,7 +1943,9 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .athlete_submit button.button.btn{border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;color:#EB6E06;background-color:#fff;font-size:15px;}
 #edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
 #edit-actions .athlete_submit button.btn-success{background:#EB6E06;}
-.right_section .image-widget .data{position:absolute;top:60px;right:15px;width:auto !important;background:white;padding:0;display:none;border:0;}
+.right_section .image-widget .data{position:absolute;top:45px;right:0;width:90px;background:white;padding:0;display:none;border:0;}
+.right_section .image-widget .data .remove_btn_wrap{width:100%;float:left;display:block;height:auto;padding:10px 5px;background:#fff;border:1px solid #c2c2c2;}
+.right_section .image-widget .data button{width:100%;margin:0;}
 .right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{display:table;margin:0px auto 0;color:#fff !important;font-size:14px;}
 .right_section .image-widget .data span , #edit-user-picture-wrapper .image-widget .data span{display:none;}
 .right_section .preview{width:100%;float:left;display:block;flex:0 0 100%;max-width:100%;}
@@ -2019,7 +2022,7 @@ input#name_1{width:70%;}
 .edit-user .imagepopup-modal .spb-popup-main-wrapper.spb_top_center,.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center{max-width:320px;width:100%;}
 .popup_header.change_password_header{padding:0;}
 .edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center h3 i{background:none;border:0;color:#EB6E06;padding:0;}
-.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center h3 i.fa-times.right-icon.changepassdiv-modal-close{top:15px;}
+.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center h3 i.fa-times.right-icon.changepassdiv-modal-close{top:18px;}
 #changepassdiv .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
 #changepassdiv .form-item input{height:40px;}
 #changepassdiv .passerror{padding-left:15px;}
