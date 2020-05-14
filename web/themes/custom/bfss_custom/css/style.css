@@ -1841,8 +1841,8 @@ ul.side_nav li:last-child{border-bottom:unset;}
 .sidenav ul.dropdown-menu.open li::before{content:"";position:absolute;width:5px;height:5px;background:#909090;left:12px;top:18px;}
 
 /* 04-03-2020 */
-.header_rightbar{max-width:81% !important;width:81% !important;flex:0 0 81% !important;}
-.header_leftbar{max-width:19% !important;width:19% !important;flex:0 0 19% !important;}
+.header_rightbar{max-width:80% !important;width:80% !important;flex:0 0 80% !important;}
+.header_leftbar{max-width:20% !important;width:20% !important;flex:0 0 20% !important;}
 .open_left_side .left_side_section{width:75px;transition:width 0.5s;}
 .open_left_side .left_side_section .side_menu_text{display:none;}
 .open_left_side .left_side_section span.down-arrow{display:none;}
