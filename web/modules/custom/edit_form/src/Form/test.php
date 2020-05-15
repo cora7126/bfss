@@ -517,14 +517,15 @@ if(in_array('coach', $roles_user)){
     '#attributes' => array('id'=>'save_pass','style'=>'cursor:pointer; background:green;padding: 5px;
     border-radius: 3px;'),
     ];
- $form['label_text'] = array(
-      '#type' => 'label',
-      '#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
-      '#prefix' => '
-      <div class ="right_section box-pre"><div class="athlete_right">',
-      '#suffix' => '</div></div>',
-      '#attributes' => array('id => parent_label'),
-    );
+    if(in_array('athlete', $roles_user)){
+     $form['label_text'] = array(
+          '#type' => 'label',
+          '#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
+          '#prefix' => '<div class ="right_section box-pre"><div class="athlete_right">',
+          '#suffix' => '</div></div>',
+          '#attributes' => array('id => parent_label'),
+        );
+    }
     //end change password
      if(!in_array('assessors', $roles_user)){
    $form['submit'] = ['#type' => 'submit', 
