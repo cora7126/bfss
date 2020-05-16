@@ -1837,7 +1837,7 @@ nav .dropdown .drop .down-caret{position:absolute;top:25px;right:15px;}
 .sidenav ul.side_nav li.sub_menu , .sidenav ul.side_nav li.sub-menu-drop{border-bottom:1px solid grey;}
 .sidenav ul.dropdown-menu.open li:last-child a , .dropdown > .dropdown-menu.open{border-bottom:unset;}
 ul.side_nav li:last-child{border-bottom:unset;}
-.sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 37px;}
+.sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 30px;}
 .sidenav ul.dropdown-menu.open li{position:relative;}
 .sidenav ul.dropdown-menu.open li::before{content:"";position:absolute;width:5px;height:5px;background:#909090;left:12px;top:18px;}
 
@@ -1943,8 +1943,8 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .athlete_submit button.button.btn{border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;color:#EB6E06;background-color:#fff;font-size:15px;}
 #edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
 #edit-actions .athlete_submit button.btn-success{background:#EB6E06;}
-.right_section .image-widget .data{position:absolute;top:45px;right:0;width:90px;background:white;padding:0;display:none;border:0;}
-.right_section .image-widget .data .remove_btn_wrap{width:100%;float:left;display:block;height:auto;padding:10px 5px;background:#fff;border:1px solid #c2c2c2;}
+.right_section .image-widget .data{position:absolute;top:45px;right:0;width:90px;background:#fff;padding:20px 5px 10px;display:none;border:1px solid #c2c2c2; -moz-transition:all .5s ease;-webkit-transition:all .5s ease;transition:all .5s ease;-moz-box-shadow:0 2px 4px #c2c2c2;-webkit-box-shadow:0 2px 4px #c2c2c2;box-shadow:0 2px 4px #c2c2c2;}
+.right_section .image-widget .data .remove_btn_wrap{width:100%;float:left;display:block;height:auto;border:0;padding:0;}
 .right_section .image-widget .data button{width:100%;margin:0;}
 .right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{display:table;margin:0px auto 0;color:#fff !important;font-size:14px;}
 .right_section .image-widget .data span , #edit-user-picture-wrapper .image-widget .data span{display:none;}
@@ -2000,6 +2000,7 @@ input#name_1{width:70%;}
 .edit-user .spb-popup-main-wrapper.spb_top_center .image-widget .data{position:absolute;bottom:-5px;right:-4px;width:auto !important;background:unset;padding:10px 17px;display:block;top:unset;}
 #edit-form img.edit-profile-image{width:100%;margin:auto;padding:40px;}
 /*25-02-2020 end*/
+
 .right_side_section , .edit-user .region-content , .payment-receipts .region-content, .bfssAthleteProfile .region-content , .edit-parent .region-content,.faq-page .region-content{width:calc(100% - 19%);transition:width 0.5s;}
 .edit-parent .region-content{min-height:calc(100vh - 102px);}
 .open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
@@ -2103,7 +2104,7 @@ input#name_1{width:70%;}
   .dash-main-right .dash-sub-main{border-left:1px solid grey;}
   .mobile_hide{display:none;}
   .dashboard .quick-link .panel{z-index:9;}
-  .right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:100% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
+  .right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:90% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
   .edit_dropdown{display:none;}
   #athelets-modal .modal-content{width:100% !important;}
 }
