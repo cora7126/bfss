@@ -123,10 +123,11 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 #edit-service,#edit-previous,.assessment-time input,#multistep-form-three > div.form-item input,#multistep-form-four > div.form-item input,#edit-expiration-month,#edit-expiration-year,#multistep-form-four h3{font-family:"Proxima Nova Rg";font-size:14px !important;}
 #edit-previous{float:left;}
 .wrapper #edit-submit{float:left !important;}
-.wrapper .form-actions .btn, .form-actions .btn-group{padding:5px 30px;}
+.wrapper .form-actions .btn, .form-actions .btn-group{padding:5px 30px;line-height:25px;}
 .timeslots > fieldset > legend > span{font-family:"Proxima Nova Rg";font-size:14px;}
 #sidenav > ul li nav div a.drop,#sidenav > ul li nav div a.drop:hover,a.side_button,a.side_button:hover{text-decoration:none;}
-.mob_bottom_margin .quick-link-sub-sec p,.quick-link-sub-sec p,#sidenav > ul > li nav div a span.side_menu_text,#sidenav > ul > li.sub_menu.active > a > span,#sidenav > ul > li nav div ul li a{font-size:16px !important;}
+.mob_bottom_margin .quick-link-sub-sec p, .quick-link-sub-sec p, #sidenav > ul > li nav div a span.side_menu_text, #sidenav > ul > li.sub_menu.active > a > span{font-size:16px !important;}
+#sidenav > ul > li nav div ul li a{font-size:14px !important;}
 .quick-link-sub-sec i{font-size:50px !important;}
 .tab-nav ul li a{font-weight:normal !important;}
 #sidenav ul li nav div ul li.sub_menu.active > a{padding:10px 15px !important;}

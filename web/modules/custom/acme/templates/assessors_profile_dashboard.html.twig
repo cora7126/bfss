@@ -35,14 +35,14 @@
                   <div class="col-lg-12 user_pro_col">   
                         <!-- ---------Profile Card---HTML----Start-->
                         <ul class="userpr">
-             			<li><i class="fas fa-calendar-alt"></i> Events</li>
-             			<li><i class="fas fa-user"></i> Private Assessments</li>
+             			<li><a href="#assessment-event-section"><i class="fas fa-calendar-alt"></i> Events</a></li>
+             			<li><a href="#assessment-private-section"><i class="fas fa-user"></i> Private Assessments</a></li>
                         </ul>
-                        <div class="eventlisting_main user_pro_block">
+                        <div id="assessment-event-section" class="eventlisting_main user_pro_block">
                         <h2>Events</h2>
                          {{ event_listing_block }}
                      	</div>
-                     	<div class="private_assess_listing_main user_pro_block">
+                     	<div id="assessment-private-section" class="private_assess_listing_main user_pro_block">
                      	<h2>Private Assessments</h2>
                          {{ private_assessment_listing_block }}
                      	</div>

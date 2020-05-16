@@ -56,7 +56,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:.6;}
 /* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
 .right_side_section .tab-main-sec .col-xl-9.col-lg-8.col-md-6.col-6, .right_side_section .tab-main-sec .col-xl-3.search_icon{margin:0;}
-.tab-main-sec .tab-main-sec-heading h2{font-size:16px;margin:0;opacity:.6;padding:0 0 20px;}
+.tab-main-sec .tab-main-sec-heading h2{font-size:16px;margin:0;opacity:.6;}
 .tab-main-sec .tab-main-sec-heading h2 span{position:relative;}
 .tab-main-sec .tab-main-sec-heading h2 span:after{content:" ";height:3px;background:transparent url("../images/grey-dot.png") repeat-x left center/5px 5px;width:100%;display:block;position:absolute;left:0;bottom:-8px;opacity:.6;}
 .tab-main-sec .tab-main-sec-heading h2 i{color:#4c4c4c;font-size:20px;line-height:20px;position:relative;top:2px;}
@@ -262,7 +262,7 @@ a.drop:hover{text-decoration:none;}
 .dropdown > .dropdown-menu > li > a{padding:0.5rem 1rem;display:block;color:#555;text-align:left;transition:all 0.25s linear;font-size:14px;padding:0px 0px;border-bottom:1px solid #909090;}
 .open li a:hover{background-color:#3498db;color:#fff;}
 .open-caret{transform:rotate(180deg);transition:all .25s ease-out;}
-
+span.open-caret:before{color:#fff;}
 
 /* -------profile-pop-css----------- */
 
@@ -541,7 +541,7 @@ a.pr-3.assessment-search-icon {cursor: pointer;}
 /*******************SEARCH Filter end here*****************/
 /******************MY Assessments Page Strat here************************/
 .my-assessments .table-responsive table td span.green{color:green;}
-.wrapper #multistep-form-three div.js-form-itiem.form-item-first-name{margin:0 10px 15px 0 !important;}
+.wrapper #multistep-form-three div.js-form-item.form-item-first-name{margin:0 10px 15px 0 !important;}
 .wrapper #multistep-form-three div.js-form-item.form-item-last-name{margin:0 0 15px 10px !important;}
 .wrapper #multistep-form-three div.js-form-item.form-item-first-name, .wrapper #multistep-form-three div.js-form-item.form-item-last-name{float:left;width: calc(49.5% - 10px);padding:0;}
 .myassess_main_pxl.user_pro_block .block-bfss-assessors{border:0;}
@@ -778,7 +778,11 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 .remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:30px 0 0;overflow:hidden;}
 .bfss-funds .remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:30px;}
 
-.wrapper .form-actions.form-group .button.button[type="submit"]{height:40px;font-size:14px;border:1px solid #f4650f;line-height:20px;}
+
+/*********** ASSESSMENT TIME PAGE CSS STARTS HERE *************/
+.form-actions.js-form-wrapper a.btn{margin:0 15px 0 0;}
+.form-actions.js-form-wrapper a.btn, .form-actions.js-form-wrapper button.button{outline:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;height:35px;border:1px solid #f4650f;font-size:14px;line-height:20px;}
+.form-actions.js-form-wrapper a.btn:hover, .form-actions.js-form-wrapper a.btn:focus, .form-actions.js-form-wrapper button.button:hover, .assessment-time .form-actions.js-form-wrapper button.button:focus{color:#fff;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -798,6 +802,10 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
   	.social_share_links ul li{float:none;margin:0 5px;}
   	.org-tab-form .org-radio{text-align:center;}
   	.org_name_tabs .org-tab-form .orgradios{float:none;margin:5px;}
+  	.term-conditions-of-funds .dash-sub-main.hands-usd-top h2 br{display:none;}
+  	.term-conditions-of-funds .dash-sub-main.hands-usd-top h2 span{padding-right:.5rem;}
+  	.term-conditions-of-funds .dash-sub-main.hands-usd-top{-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;
+}
 }
 
 @media(min-width:580px) and (max-width:767px) {

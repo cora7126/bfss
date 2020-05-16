@@ -123,6 +123,7 @@ class PrivateAccessmentsBlock extends BlockBase {
           'date' => array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
           'time' => array('data' => Markup::create('Time <span></span>'), 'field' => 'time'),
           'user_name' => array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
+          'type_assess' => array('data' => Markup::create('Assessment Type <span></span>'), 'field' => 'type_assess'),
           'location' => array('data' => Markup::create('Location <span></span>'), 'field' => 'location'),
         );
 
@@ -146,12 +147,13 @@ class PrivateAccessmentsBlock extends BlockBase {
           'date' => $item['booking_date'],
           'time' => $item['booking_time'],
           'user_name' => $user_name,
+          'type_assess' => $item['formtype'],
           'location' => $item['address_1'],
         );
       }
-      if($header['date_e']['specifier'] == 'date_e' || $header['time_e']['specifier'] == 'time_e' ||$header['assessment_title_e']['specifier'] == 'assessment_title_e' || $header['attendees_e']['specifier'] == 'attendees_e'){
+      //if($header['date_e']['specifier'] == 'date_e' || $header['time_e']['specifier'] == 'time_e' ||$header['assessment_title_e']['specifier'] == 'assessment_title_e' || $header['attendees_e']['specifier'] == 'attendees_e'){
       $rows = $this->_records_nonsql_sort($rows, $header);
-      }
+      //}
       // Create table and pager
       $element['table'] = array(
         '#theme' => 'table',
