@@ -54,7 +54,7 @@ class AddFaqs extends ControllerBase {
 		   		$url_edit = '/faq-edit-form?nid='.$nid.'&role='.$user_role;
 		   		$url_delete = '/faq-delete-form?nid='.$nid.'&role='.$user_role;
 		   		$HTML .= '<div data-nid="'.$nid.'" class="ui-state-default"><li class="q">
-							  	<div class="faq-left"><p>'.$node->title->value.'</p></div><div class="faq-right faq faqct"><img class="arrowimg" src="/modules/custom/bfss_assessment/img/o-arrow.png"></div>
+							  	<div class="faq-left"><p>'.$node->title->value.'</p></div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div>
 							 </li>
 							<li class="a"><p>'.$node->body->value.'</p>
 							<div class="faq-footer-bar">

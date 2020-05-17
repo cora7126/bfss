@@ -20,8 +20,9 @@ jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
 		 jQuery('.dashboard-menu span').toggleClass("tgl-cls");
 		 console.log("hr1");
 	});
-	 
-
+	 	jQuery('a.pr-3.assessment-search-icon').click(function(){
+	 		jQuery(".search-assessements-input").toggle('slow');	
+	 	});
 		// i = 0;
 		// jQuery('#edit-organizations-plx').on('click',function(){
 		// 	var arr = [];

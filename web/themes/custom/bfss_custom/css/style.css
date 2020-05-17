@@ -1842,8 +1842,7 @@ ul.side_nav li:last-child{border-bottom:unset;}
 .sidenav ul.dropdown-menu.open li::before{content:"";position:absolute;width:5px;height:5px;background:#909090;left:12px;top:18px;}
 
 /* 04-03-2020 */
-.header_rightbar{max-width:80% !important;width:80% !important;flex:0 0 80% !important;}
-.header_leftbar{max-width:20% !important;width:20% !important;flex:0 0 20% !important;}
+
 .open_left_side .left_side_section{width:75px;transition:width 0.5s;}
 .open_left_side .left_side_section .side_menu_text{display:none;}
 .open_left_side .left_side_section span.down-arrow{display:none;}
@@ -1852,6 +1851,7 @@ ul.side_nav li:last-child{border-bottom:unset;}
 .open_left_side .dropdown > .dropdown-menu.open{min-width:250px;position:absolute ! important;top:-8px;left:74px;}
 .down-arrow{transform:rotate(0deg);transition:all 0.25s ease-in;color:grey;font-size:18px;position:relative;}
 nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-events:none;}
+.side_nav .drop.active .down-arrow:before{color:#fff;}
 .top_right .calender_img{border-left:1px solid grey;border-right:1px solid grey;}
 .dashboard .athletic_profile{border-right:1px solid grey;}
 .dash-main-right .dash-sub-main{border:1px solid grey;border-left:unset;padding:15px 15px 15px 15px;}
@@ -1872,7 +1872,6 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .my-assessment{position:relative;}
 
 
-
 .dashboard h2 span.month_year{color:#EB6E06;}
 .dashboard .card-sub p{width:20%;}
 .dashboard .card-sub p span{font-size:18px;font-weight:700;}
@@ -1880,12 +1879,11 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .pop_text_sec a p:hover i{color:#EB6E06;}
 .datepicker{position:relative;}
 .dashboard.user-register .region-footer{padding-top:0;}
-.region-footer{margin-top:100px;padding-top:35px;padding-bottom:15px;margin-left:15px;margin-right:15px;}
 
 
 #edit-profile-class .user-form .panel-default > .panel-heading{color:#fff;font-weight:bold;}
- #edit-profile-class .user-form .panel-default > .panel-heading{background:#000;position:relative;}
- #edit-profile-class .user-form .panel-default a.panel-title:before{content:"\f068";font-family:"Font Awesome 5 Pro";position:absolute;color:#EB6E06;font-size:18px;top:7px;left:7px;pointer-events:none;}
+#edit-profile-class .user-form .panel-default > .panel-heading{background:#000;position:relative;}
+#edit-profile-class .user-form .panel-default a.panel-title:before{content:"\f068";font-family:"Font Awesome 5 Pro";position:absolute;color:#EB6E06;font-size:18px;top:7px;left:7px;pointer-events:none;}
 #edit-profile-class .user-form .panel-default a.panel-title.collapsed:before{content:"\f067";}
 #edit-profile-class .user-form .panel-default{width:66%;}
 #edit-profile-class .user-form .panel-title img{display:none !important;}
@@ -1915,7 +1913,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 #ajax-wrapper{display:inline-block;}
 .bfssathleteprofile .edit-form{margin-top:40px;}
 /* 20-02-2020 */
-#edit-form{padding:20px 0;display:inline-block;transition:width 0.5s;display:grid;grid-template-columns:1fr 36rem;grid-gap:20px;}
+.edit-form{padding:0;display:inline-block;transition:width 0.5s;display:grid;grid-template-columns:1fr 36rem;grid-gap:20px;}
 .left_section{display:inline-block;width:100%;float:left;position:relative;}
 .right_section{display:inline-block;width:100%;float:left;}
 .right_section .athlete_right{position:realtive;}
@@ -1940,7 +1938,6 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .items_div ,.left_section .items_div{display:inline-block;width:100%;padding:30px 0;}
 .right_section .items_div, .left_section .items_div .form-actions.js-form-wrapper button.btn.btn-success.add_item_plx{top:0;padding-left:15px;}
 .athlete_submit{display:inline-block;width:100%;padding-top:20px;}
-.athlete_submit button.button.btn{border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;color:#EB6E06;background-color:#fff;font-size:15px;}
 #edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
 #edit-actions .athlete_submit button.btn-success{background:#EB6E06;}
 .right_section .image-widget .data{position:absolute;top:45px;right:0;width:90px;background:#fff;padding:20px 5px 10px;display:none;border:1px solid #c2c2c2; -moz-transition:all .5s ease;-webkit-transition:all .5s ease;transition:all .5s ease;-moz-box-shadow:0 2px 4px #c2c2c2;-webkit-box-shadow:0 2px 4px #c2c2c2;box-shadow:0 2px 4px #c2c2c2;}

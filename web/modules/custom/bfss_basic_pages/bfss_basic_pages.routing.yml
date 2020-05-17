@@ -1,0 +1,23 @@
+bfss_basic_pages.privacy_policy:
+ path: /privacy-policy
+ defaults:
+   _title: 'Privacy Policy'
+   _controller: \Drupal\bfss_basic_pages\Controller\PrivacyPolicyBasicPage::content
+ requirements:
+   _permission: 'access content' 
+
+bfss_basic_pages.cookie_policy:
+ path: /cookie-policy
+ defaults:
+   _title: 'Cookie Policy'
+   _controller: \Drupal\bfss_basic_pages\Controller\CookiePolicyBasicPage::content
+ requirements:
+   _permission: 'access content' 
+
+bfss_basic_pages.terms_and_conditions:
+ path: /terms-and-conditions
+ defaults:
+   _title: 'Terms & Conditions'
+   _controller: \Drupal\bfss_basic_pages\Controller\TermsAndConditionsBasicPage::content
+ requirements:
+   _permission: 'access content' 
