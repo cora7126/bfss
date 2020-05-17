@@ -148,7 +148,7 @@ class StarterProfessionalAssessments extends FormBase {
             //Elastic Strenght (Countermovement Jump)
         	$form['form_fields_wrap']['elastic_strenght'] = array(
         		  '#type' => 'fieldset',
-        		  '#title' => $this->t('Elastic Strenght (Countermovement Jump)'),
+        		  '#title' => $this->t('Elastic Strength (Countermovement Jump)'),
         		  '#prefix' => '<div id="elastic_strenght" class="sm_cls">',
         		  '#suffix' => '</div>',
         	);
@@ -324,7 +324,7 @@ class StarterProfessionalAssessments extends FormBase {
                 //Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)
                 $form['form_fields_wrap']['strength_endurance'] = array(
                   '#type' => 'fieldset',
-                  '#title' => $this->t('Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)'),
+                  '#title' => $this->t('Strength Endurance (Pull-ups, Push-ups, Single Leg Squats)'),
                   '#prefix' => '<div id="strength_endurance" class="sm_cls">',
                   '#suffix' => '</div>',
                 );

@@ -53,12 +53,12 @@ jQuery('#edit-coach-profile-form-modal').modal({
 });
 
 jQuery('ul.faq.faqct li:eq(1)').slideDown(); //FIRST FAQ OPEN
-jQuery('ul.faq.faqct li:eq(0)').find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
+jQuery('ul.faq.faqct li:eq(0)').find('i').attr('class',"far fa-angle-up");
 jQuery('.faqct li.q').on('click', function(){
   if (jQuery(this).next('li.a').is(':visible')){
-		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/o-arrow.png");
+		jQuery(this).find('i').attr('class',"far fa-angle-down");
 	}else{
-		jQuery(this).find('img').attr('src',"/modules/custom/bfss_assessment/img/u-arrow.png");
+		jQuery(this).find('i').attr('class',"far fa-angle-up");
 	}
 	jQuery(this).next().slideToggle("500").siblings('li.a').slideUp();
 });//End on click

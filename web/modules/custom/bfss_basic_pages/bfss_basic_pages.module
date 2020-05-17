@@ -1,0 +1,29 @@
+<?php
+/**
+ * module name - bfss_basic_pages
+ * 
+ */
+
+/**
+ * Implements hook_theme()
+ * @return mixed
+ */
+function bfss_basic_pages_theme() {
+
+  $theme['privacy_policy_basic_page'] = [
+    'variables' => ['name' => NULL,'privacy_policy_basic_page_block' => NULL],
+    'template' => 'privacy_policy_basic_page',
+  ];
+
+  $theme['cookie_policy_basic_page'] = [
+    'variables' => ['name' => NULL,'cookie_policy_basic_page_block' => NULL],
+    'template' => 'cookie_policy_basic_page',
+  ];
+
+  $theme['terms_and_conditions_basic_page'] = [
+    'variables' => ['name' => NULL,'terms_and_conditions_basic_page_block' => NULL],
+    'template' => 'terms_and_conditions_basic_page',
+  ];
+
+  return $theme;
+}

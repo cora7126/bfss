@@ -112,7 +112,8 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .profile-sec{width:125px;text-align:center;border-left:1px solid grey;margin:0 auto;}
 .calender_img a:hover{text-decoration:none;}
 .faq-left{float:left;width:calc(100% - 30px);}
-.faq-right{float:right;width:30px;text-align:right;}
+.faq-right{float:right;width:30px;height:45px;text-align:center;}
+.faq-right i{line-height:45px;font-size:21px;color:#EB6E06;}
 .faq-right img{width:20px;}
 .dash-schedule{font-family:"Proxima Nova Rg";font-size:28px;padding:35px 0 0 15px;}
 .wrapper .dash-main-right{margin-bottom:20px;}
@@ -137,8 +138,6 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
 .weblabel{width:unset !important;}
 .container-inline.web_name input, #name_1, #name_2, #name_3, #name_4{width:120px !important;}
 .right_section .athlete_right .previewdiv a{line-height:unset;}
-#athlete_submit button{border:0;background-color:#f76907;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;height:40px;line-height:30px;padding:5px 20px;font-size:14px;}
-#athlete_submit button:hover, #athlete_submit button:focus{box-shadow:none;outline:0;}
 #sidenav > ul > li > nav > div > a.drop.active{border-radius:0 !important;}
 .faqct li.a{border:1px solid grey;}
 body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.region-content > div > div > h2 > span{font-family:"Proxima Nova Rg";}
