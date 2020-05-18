@@ -38,7 +38,7 @@ class PrivateAssessments extends ControllerBase {
     $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
     $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
     $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
-    if($param['MonthView']){
+    if($param['MonthView'] == 'MonthView'){
       $BlockData = $assessments_block_m_v;
     }else{
        $BlockData = $assessments_block;

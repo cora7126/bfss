@@ -1916,7 +1916,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .edit-form{padding:0;display:inline-block;transition:width 0.5s;display:grid;grid-template-columns:1fr 36rem;grid-gap:20px;}
 .left_section{display:inline-block;width:100%;float:left;position:relative;}
 .right_section{display:inline-block;width:100%;float:left;}
-.right_section .athlete_right{position:realtive;}
+.right_section .athlete_right{position:relative;float:left;width:100%;}
 .left_section .athlete_left h3, .right_section .athlete_right h3{line-height:43px;border:1px solid #000;background:#000;position:relative;color:#fff;font-weight:400;padding:0 15px;font-size:14px;margin:0;text-transform:uppercase;margin-bottom:0px;cursor:pointer;height:45px;overflow:hidden;}
 .left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#EB6E06;padding-right:15px;font-weight:700;}
 .left_section .athlete_left , .right_section .athlete_right{border:1px solid #ccc;padding-bottom:0px;margin-bottom:30px;position:relative;}
@@ -1942,7 +1942,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 #edit-actions .athlete_submit button.btn-success{background:#EB6E06;}
 .right_section .image-widget .data{position:absolute;top:45px;right:0;width:90px;background:#fff;padding:20px 5px 10px;display:none;border:1px solid #c2c2c2; -moz-transition:all .5s ease;-webkit-transition:all .5s ease;transition:all .5s ease;-moz-box-shadow:0 2px 4px #c2c2c2;-webkit-box-shadow:0 2px 4px #c2c2c2;box-shadow:0 2px 4px #c2c2c2;}
 .right_section .image-widget .data .remove_btn_wrap{width:100%;float:left;display:block;height:auto;border:0;padding:0;}
-.right_section .image-widget .data button{width:100%;margin:0;}
+.right_section .image-widget .data button{width:100%;margin:0;padding:0;}
 .right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{display:table;margin:0px auto 0;color:#fff !important;font-size:14px;}
 .right_section .image-widget .data span , #edit-user-picture-wrapper .image-widget .data span{display:none;}
 .right_section .preview{width:100%;float:left;display:block;flex:0 0 100%;max-width:100%;}
@@ -1998,7 +1998,7 @@ input#name_1{width:70%;}
 #edit-form img.edit-profile-image{width:100%;margin:auto;padding:40px;}
 /*25-02-2020 end*/
 
-.right_side_section , .edit-user .region-content , .payment-receipts .region-content, .bfssAthleteProfile .region-content , .edit-parent .region-content,.faq-page .region-content{width:calc(100% - 19%);transition:width 0.5s;}
+
 .edit-parent .region-content{min-height:calc(100vh - 102px);}
 .open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
 .region-content .edit-parent{padding:20px;}

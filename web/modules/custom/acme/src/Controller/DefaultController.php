@@ -75,7 +75,7 @@ class DefaultController extends ControllerBase {
         
         //MY Assessments
         $myAssessments = $this->My_assessments($uid);
-        if($param['MonthView']){
+        if($param['MonthView'] == 'MonthView'){
                 $BlockData = $assessments_block_m_v;
         }else{
          $BlockData = $assessments_block;
@@ -117,7 +117,7 @@ class DefaultController extends ControllerBase {
         
         //MY Assessments
         $myAssessments = $this->My_assessments($uid);
-        if($param['MonthView']){
+        if($param['MonthView'] =='MonthView'){
                 $BlockData = $assessments_block_m_v;
         }else{
          $BlockData = $assessments_block;
