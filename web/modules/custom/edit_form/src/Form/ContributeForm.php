@@ -244,12 +244,17 @@ class ContributeForm extends FormBase {
       '#default_value' => $results18['field_city'],
       );
 
-	 $arr = [t('Gender'),t('Male'),t('Female'),t('Other')];
+	 $arr = [
+    '' => t('Gender'),
+    'Male'   => t('Male'),
+    'Female'  =>t('Female'),
+    'Other'   => t('Other')
+    ];
     $form['sextype'] = array(
       '#type' => 'select',
       '#options' => $arr ,
       '#default_value' => $results18['field_birth_gender'],
-	   '#attributes' => array('disabled' => 'disabled'),
+	   #'#attributes' => array('disabled' => 'disabled'),
       );
 	  
 	  $form['sex'] = array(
@@ -1255,7 +1260,7 @@ class ContributeForm extends FormBase {
         'uid' => $current_user,
         'field_az' => $form_state->getValue('az'),
         'field_city' => $form_state->getValue('city'),
-        'field_birth_gender' => $form_state->getValue('sex'),
+        'field_birth_gender' => $form_state->getValue('sextype'),
         'field_grade' => $form_state->getValue('grade'),
         ))->execute();
     } else {
@@ -1263,7 +1268,7 @@ class ContributeForm extends FormBase {
       $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
         'field_az' => $form_state->getValue('az'),
         'field_city' => $form_state->getValue('city'),
-        'field_birth_gender' => $form_state->getValue('sex'),
+        'field_birth_gender' => $form_state->getValue('sextype'),
         'field_grade' => $form_state->getValue('grade'),
         ))->execute();
     }

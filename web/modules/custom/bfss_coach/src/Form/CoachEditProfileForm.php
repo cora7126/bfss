@@ -109,7 +109,12 @@ class CoachEditProfileForm extends FormBase {
       $url = $file->url();
     }
 
-
+  $vid = 'sports';
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+  $sports_arr = array();
+  foreach ($terms as $term) {
+   $sports_arr[$term->name] = $term->name;
+  }
 
     $form['#tree'] = TRUE;
 
@@ -136,7 +141,7 @@ class CoachEditProfileForm extends FormBase {
       '#placeholder' => t('Email'),
       '#required' => TRUE,
       '#default_value' => $results4['mail'],
-      '#attributes' => ['disabled'=>true],
+     # '#attributes' => ['disabled'=>true],
       '#prefix' => '',
       '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a>
       </div>
@@ -218,7 +223,7 @@ class CoachEditProfileForm extends FormBase {
            '
         ];
 
-       $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
+       $types = ['' => 'Select Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
         $form['resident'][$i]['type'] = [
           '#placeholder' => t('Type'),
           '#type' => 'select',
@@ -235,11 +240,12 @@ class CoachEditProfileForm extends FormBase {
         '#required' => TRUE,
         '#default_value' => '',
       ];
-
+      $sports_arr = [''=>'Select Sport'] +  $sports_arr;
       $form['resident'][$i]['sport'] = [
-        '#type' => 'textfield',
+        '#type' => 'select',
         '#placeholder' => t('Sport'),
-        #'#title' => $this->t('Organization Name'),
+        '#options' => $sports_arr,
+        #'#title' => $this->t('Organization Name'),$sports_arr
         '#required' => TRUE,
         '#default_value' => '',
       ];
@@ -251,11 +257,19 @@ class CoachEditProfileForm extends FormBase {
         '#required' => TRUE,
         '#default_value' => '',
       ];
-
-      $form['resident'][$i]['year'] = [
-        '#type' => 'textfield',
-        '#placeholder' => t('Year'),
-        #'#title' => $this->t('Organization Name'),
+      $grade_op =[
+        '' => 'Select Grade',
+        'Senior' => 'Senior',
+        'Junior' => 'Junior',
+        'Sophmore' => 'Sophmore',
+        'Freshman' => 'Freshman',
+        '8th grade' => '8th grade',
+        '7th grade' => '7th grade',
+        ];
+      $form['resident'][$i]['grade'] = [
+        '#type' => 'select',
+        '#placeholder' => t('Grade'),
+        '#options' => $grade_op,
         '#required' => TRUE,
         '#default_value' => '',
       ];
@@ -357,13 +371,24 @@ $form['html_image_athlete_start'] = [
                   </div>',
     ];
 
+    $form['label_text'] = array(
+  '#type' => 'label',
+  '#title' => 'No longer need your account and want to deactivate<br/>
+it? You can request deactivating you account via our<br/>
+ticketing system.',
+  '#prefix' => '</div>
+  </div>
+  <div class ="right_section box-pre"><div class = "athlete_right">',
+  '#suffix' => '</div></div>',
+  '#attributes' => array('id => parent_label'),
+  );
+
   $form['instagram_account'] = array(
   '#type' => 'textfield',
   '#placeholder' => t('TEAM Instagram Account(Optional)'),
   '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
 
-  '#prefix' => '</div>
-  </div>
+  '#prefix' => '
   <div class = "athlete_right">
                     <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
                   <div class=items_div>',
@@ -585,7 +610,7 @@ $form['html_image_athlete_end'] = [
             'organization_name' => $values['organization_name'],
             'sport' => $values['sport'],
             'coach_title' => $values['coach_title'],
-            'year' => $values['year'],
+            'grade' => $values['grade'],
             'city' => isset($form_state->getValues()['city'])?$form_state->getValues()['city']:'',
             'az' =>isset($form_state->getValues()['az'])?$form_state->getValues()['az']:'',
             // 'organization_name' => $values['organization_name'],
@@ -602,7 +627,7 @@ $form['html_image_athlete_end'] = [
         $node->field_organization_name->value = $value['organization_name'];
         $node->field_sport->value = $value['sport'];
         $node->field_coach_title->value = $value['coach_title'];
-        $node->field_year->value = $value['year'];
+        $node->field_year->value = $value['grade'];
         $node->field_user_role->value = isset($role)?$role:'';
         $node->field_organization_name->value = $value['organization_name'];
         $node->field_type->value = $value['type'];

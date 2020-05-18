@@ -98,7 +98,7 @@ class test extends FormBase {
       '#placeholder' => t('Email'),
       '#required' => TRUE,
       '#default_value' => $results4['mail'],
-      '#attributes' => array('disabled'=>true),
+      #'#attributes' => array('disabled'=>true),
 	  '#prefix' => '',
 	  '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>'.$hd_title.'</h3><div class=items_div>',
       );
@@ -513,7 +513,7 @@ if(in_array('coach', $roles_user)){
         '#type' => 'label',
         '#title' => 'update',
     '#prefix' =>'',
-    '#suffix' => '</div>',
+    '#suffix' => '</div></div>',
     '#attributes' => array('id'=>'save_pass','style'=>'cursor:pointer; background:green;padding: 5px;
     border-radius: 3px;'),
     ];
@@ -530,7 +530,7 @@ if(in_array('coach', $roles_user)){
      if(!in_array('assessors', $roles_user)){
    $form['submit'] = ['#type' => 'submit', 
       '#value' => 'SAVE', 
-      '#prefix' => '</div></div><div id="athlete_submit" class="athlete_submit">',
+      '#prefix' => '</div><div id="athlete_submit" class="athlete_submit">',
       '#suffix' => '</div>',
       //'#value' => t('Submit'),
     ];

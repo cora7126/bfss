@@ -1,9 +1,19 @@
 jQuery(document).ready(function() {
+
+
+jQuery('.edit_dropdown .drop').click(function(){
+
+jQuery('.data.col-sm-10 ').toggle();
+
+});
 jQuery("[name=image_athlete_remove_button]").wrap('<div class="remove_btn_wrap"></div>');
 	jQuery(".share a.share_assessment").click(function(){
   		jQuery(".social_share_links").toggle('slow');
-  		console.log("here toogle");
+  		
 	});
+	jQuery('#calendar .fc-view-container td.fc-event-container a').addClass('col use-ajax assessment_inner');
+jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-type','modal');
+jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-options','{&quot;width&quot;:800, &quot;dialogClass&quot;: &quot;assessments-popup-md&quot;}');
     //jQuery( "#sortable_faqs" ).disableSelection();
     jQuery(document).on('click', 'a[href^="#"]', function (e) {
     e.preventDefault();

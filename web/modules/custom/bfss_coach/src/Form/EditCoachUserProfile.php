@@ -109,6 +109,12 @@ class EditCoachUserProfile extends FormBase {
 
     $fname=$results1['field_first_name_value'];
 
+  $vid = 'sports';
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+  $sports_arr = array();
+  foreach ($terms as $term) {
+   $sports_arr[$term->name] = $term->name;
+  }
 
     $form['#prefix'] = '<div class="edit-coach-profile-form-main main_section_plx"> 
     <div class="modal" id="edit-coach-profile-form-modal"><!--popupstart-->
@@ -218,10 +224,12 @@ class EditCoachUserProfile extends FormBase {
         '#default_value' => '',
       ];
 
+      $sports_arr = [''=>'Select Sport'] +  $sports_arr;
       $form['resident'][$i]['sport'] = [
-        '#type' => 'textfield',
+        '#type' => 'select',
         '#placeholder' => t('Sport'),
-        #'#title' => $this->t('Organization Name'),
+        '#options' => $sports_arr,
+        #'#title' => $this->t('Organization Name'),$sports_arr
         '#required' => TRUE,
         '#default_value' => '',
       ];
@@ -234,10 +242,19 @@ class EditCoachUserProfile extends FormBase {
         '#default_value' => '',
       ];
 
-      $form['resident'][$i]['year'] = [
-        '#type' => 'textfield',
-        '#placeholder' => t('Year'),
-        #'#title' => $this->t('Organization Name'),
+        $grade_op =[
+        '' => 'Select Grade',
+        'Senior' => 'Senior',
+        'Junior' => 'Junior',
+        'Sophmore' => 'Sophmore',
+        'Freshman' => 'Freshman',
+        '8th grade' => '8th grade',
+        '7th grade' => '7th grade',
+        ];
+      $form['resident'][$i]['grade'] = [
+        '#type' => 'select',
+        '#placeholder' => t('Grade'),
+        '#options' => $grade_op,
         '#required' => TRUE,
         '#default_value' => '',
       ];
@@ -414,7 +431,7 @@ class EditCoachUserProfile extends FormBase {
             'organization_name' => $values['organization_name'],
             'sport' => $values['sport'],
             'coach_title' => $values['coach_title'],
-            'year' => $values['year'],
+            'grade' => $values['grade'],
             'city' => isset($form_state->getValues()['city'])?$form_state->getValues()['city']:'',
             'az' =>isset($form_state->getValues()['az'])?$form_state->getValues()['az']:'',
             // 'organization_name' => $values['organization_name'],
@@ -431,7 +448,7 @@ class EditCoachUserProfile extends FormBase {
         $node->field_organization_name->value = $value['organization_name'];
         $node->field_sport->value = $value['sport'];
         $node->field_coach_title->value = $value['coach_title'];
-        $node->field_year->value = $value['year'];
+        $node->field_year->value = $value['grade'];
         $node->field_user_role->value = isset($role)?$role:'';
         $node->field_organization_name->value = $value['organization_name'];
         $node->field_type->value = $value['type'];
