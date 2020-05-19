@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-
+jQuery('[data-toggle="tooltip"]').tooltip();
 
 jQuery('.edit_dropdown .drop').click(function(){
 console.log("image");

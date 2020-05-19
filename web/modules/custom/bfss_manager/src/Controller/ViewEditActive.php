@@ -39,11 +39,12 @@ class ViewEditActive extends ControllerBase {
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Select</a>
+                </th> 
+                  <th class="th-hd"><a><span></span>Last Name</a>
                 </th>  
                 <th class="th-hd"><a><span></span>First Name</a>
                 </th>
-                <th class="th-hd"><a><span></span>Last Name</a>
-                </th> 
+              
                 <th class="th-hd"><a><span></span>Organization</a>
                 </th>
                 <th class="th-hd"><a><span></span>Edit Permissions</a>
@@ -113,8 +114,9 @@ class ViewEditActive extends ControllerBase {
 
               $tb1 .=  '<tr>
                 <td><a class="user-status-edit" data-uid='.$athlete_user_id.' data-editpage="ViewEditActive">EDIT</a></td>
+                 <td>'.$lastname.'</td>
                 <td>'.$firstname.'</td>
-                <td>'.$lastname.'</td>
+               
                 <td>'.$org_name.'</td>
                 <td>'.$edit_permissions_status.'</td>';
               if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){

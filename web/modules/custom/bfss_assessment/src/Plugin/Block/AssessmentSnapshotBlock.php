@@ -20,7 +20,8 @@ class AssessmentSnapshotBlock extends BlockBase {
    */
   public function build() {
 
-
+	$val1 = "14.1"."'";
+	$val2 = "16.1"."'";
   	$html = '<div class="user_pro_block">
                         	<section class="assessmentshot">
 			<div class="container">
@@ -29,7 +30,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="strengthRow">
 						<div class="centeralizeRow">
 							<div class="rightText">
-								<span>14.1</span>
+								<span>'.$val1.'</span>
 							</div>
 							<div class="rightText">
 								<h4>MY REACTIVE STRENGTH (IN) <img src="/modules/custom/bfss_assessment/img/coin.png" class="sideIcon" alt=""></h4>
@@ -44,9 +45,9 @@ class AssessmentSnapshotBlock extends BlockBase {
 		<section class="accelaration">
 			<div class="container">
 				<div class="row">
-					<div class="infoRow leftBg">
+					<div class="infoRow leftBg leftBg1">
 						<div class="inner">
-							<span>5.89/1.66</span>
+							<span>5.89 / 1.66</span>
 							<h4>SPEED / ACCELERATION 40M / 10M (SECS)</h4>
 						</div>
 						<img src="/modules/custom/bfss_assessment/img/run.svg" class="sideIcon" alt="">
@@ -54,7 +55,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="infoRow">
 						<div class="centeralizeRow white large">
 							<div class="rightText">
-								<span>14.9</span>
+								<span>206</span>
 							</div>
 							<div class="rightText">
 								<h4>MAXIMAL STRENGTH (LBS)</h4>
@@ -68,7 +69,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="infoRow">
 						<div class="centeralizeRow white small">
 							<div class="rightText">
-								<span>14.9</span>
+								<span>'.$val1.'</span>
 							</div>
 							<div class="rightText">
 								<h4>BALLISTIC</br> STRENGTH (IN)</h4>
@@ -77,10 +78,10 @@ class AssessmentSnapshotBlock extends BlockBase {
 						</div>
 						<img src="/modules/custom/bfss_assessment/img/arrows_data.png" class="sideIcon" alt="">
 					</div>
-					<div class="infoRow leftBg">
+					<div class="infoRow leftBg leftBg2">
 						<div class="centeralizeRow small whiteDesc">
 							<div class="rightText">
-								<span>16.4</span>
+								<span>'.$val2.'</span>
 							</div>
 							<div class="rightText">
 								<h4>ELASTIC</br> STRENGTH (IN)</h4>

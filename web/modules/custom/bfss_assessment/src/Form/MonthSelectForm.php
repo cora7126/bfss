@@ -94,8 +94,8 @@ class MonthSelectForm extends FormBase {
       '#default_value' => $month_crr,
       //'#required' => TRUE,
       //'#title' => $this->t('Date of Show:'),
-      '#prefix' => '<div class="box niceselect"><span id="dateofshow"><i class="fal fa-angle-left mr-2"></i>',
-      '#suffix' => '<i class="fal fa-angle-right ml-2"></i></span></div>',
+      '#prefix' => '<div class="box niceselect"><span id="dateofshow">',
+      '#suffix' => '</span></div>',
       '#ajax' => [
               'callback' => '::myAjaxCallback', // don't forget :: when calling a class method.
               //'callback' => [$this, 'myAjaxCallback'], //alternative notation

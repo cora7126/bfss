@@ -320,13 +320,13 @@ class ContributeForm extends FormBase {
       );
     $form['instagram'] = array(
       '#type' => 'textfield',
-      '#placeholder' => t('Your Instagram Account(Optional)'),
-      '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Social Media<i class="fa fa-info right-icon" aria-hidden="true"></i></h3><div class=items_div>',
+      '#placeholder' => t('You Instagram Handle'),
+      '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Social Media<i class="fa fa-info right-icon" aria-hidden="true" data-toggle="tooltip" title="Lorem ipsum dolor sit amet, viverra orci risus porta ut lobortis volutpat"></i></h3><div class=items_div>',
       '#default_value' => $results10['athlete_social_1'],
       );
     $form['youtube'] = array(
       '#type' => 'textfield',
-      '#placeholder' => t('Your Youtube/Video Channel(Optional)'),
+      '#placeholder' => t('Youtube or vimeo account'),
       '#suffix' => '</div></div>',
       '#default_value' => $results10['athlete_social_2'],
       );
@@ -1096,7 +1096,7 @@ class ContributeForm extends FormBase {
     $results_web = $query_web->execute()->fetchAll();
 	
 	
-	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
+	  $query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
     $query_web_type_delta0->fields('athw');
     $query_web_type_delta0->condition('athlete_uid', $current_user, '=');
     $query_web_type_delta0->condition('athlete_web_type', 1, '=');
@@ -1179,7 +1179,7 @@ class ContributeForm extends FormBase {
     $query3->addField('ufln3', 'field_date_value');
     $query3->condition('entity_id', $current_user, '=');
     $results3 = $query3->execute()->fetchAssoc();
-	$lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+	  $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
     if (empty($results3)) {
 		
         $conn->insert('user__field_date')->fields(array(

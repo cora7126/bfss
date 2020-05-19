@@ -54,7 +54,7 @@ class ManagerAssessorAccount extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $session = $this->getRequest()->getSession();
-
+    $states = $this->get_state();
     $form['#tree'] = TRUE;
 
     $form['#prefix'] = '<div class="main_section_plx">';
@@ -134,14 +134,13 @@ class ManagerAssessorAccount extends FormBase {
         '#prefix' => '',
         '#suffix' => '',
     ];
-
+  
     $form['manager_state'] = [
-        '#type' => 'textfield',
-        '#placeholder' => t('State'),
-        '#required' => TRUE,
+         '#placeholder' => t('State'),
+        '#type' => 'select',
+         '#required' => TRUE,
+        '#options' => $states,
         '#default_value' => '',
-        '#prefix' => '',
-        '#suffix' => '',
     ];
 
     $form['zip'] = [
@@ -176,7 +175,7 @@ class ManagerAssessorAccount extends FormBase {
     ];
 
     for ($i = 0; $i <= $this->residentCount; $i++) {
-      $states = $this->get_state();
+      
       $form['resident'][$i]['cover_area_state'] = [
         '#placeholder' => t('State'),
         '#type' => 'select',
