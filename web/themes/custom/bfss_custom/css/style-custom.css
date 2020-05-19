@@ -53,11 +53,12 @@ html body{margin-top:0 !important;padding:0 !important;}
 .dash-sub-main{display:flex;background:#fffcd7;padding:15px 15px 15px 40px;border:1px solid #ced4da;}
 .dash-sub-main img{width:72px;height:72px;margin-right:15px;}
 .dash-sub-main h2 span{font-size:13px;font-weight:600;text-transform:uppercase;}
-.dash-sub-main h2{font-size:25px;}
+.dash-sub-main h2{font-size:25px;margin:0;}
 .dashboard ul.side_nav{list-style-type:none;}
 
-.dash-sub-main i.edit_image_solid{width:72px;height:72px;margin-right:12px;border:2px solid #EB6E06;border-radius:50%;padding:13.5px;}
-.dash-sub-main i.edit_image_solid::before{width:45px;height:45px;display:block;overflow:hidden;line-height:45px;text-align:center;color:#EB6E06;font-size:32px;}
+.dash-sub-main i.edit_image_solid{width:72px;height:72px;margin-right:12px;border:2px solid #EB6E06;border-radius:50%;padding:13.5px 5px;text-align:center;}
+.dash-sub-main i.edit_image_solid::before{width:48px;height:auto;display:inline-block;overflow:hidden;line-height:45px;text-align:center;color:#EB6E06;font-size:32px;}
+.view-edit-organizations .dash-sub-main i.edit_image_solid::before{line-height:40px;}
 .right_section .athlete_right label.control-label{padding:0 15px;margin:15px 0;}
 .right_section.box-pre .athlete_right label.control-label{padding:0;margin:0;}
 .right_section.box-pre .athlete_right label.control-label br{display:none;}
@@ -86,7 +87,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
  .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
-.dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:.6;}
+.dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:1;}
 /* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
 .right_side_section .tab-main-sec .col-xl-9.col-lg-8.col-md-6.col-6, .right_side_section .tab-main-sec .col-xl-3.search_icon{margin:0;}
 .tab-main-sec .tab-main-sec-heading h2{font-size:16px;margin:0;opacity:.6;}
@@ -376,23 +377,21 @@ h3.add-organization{margin-top:12px;}
 ul.menutoggle.open li a:hover{text-decoration:none;background-color:#EB6E06;color:#fff;padding:10px 30px 10px 30px;}
 span.navbar-toggler-icon{cursor:pointer;}
 /*******************/
-
-.bfss_manager_inner{border: 1px solid #aeaeae;padding: 20px 0px;}
-.bfss_manager_form{width: 80%;margin: auto;}
-.bfss_manager_black_layer h4{background: #000;color: #fff;margin: 0;padding: 10px 20px;}
-.full_inputs input{width: 100%;height: 30px;padding: 0 15px;border: 1px solid #aeaeae;margin: 12px 0px;}
-.half_inputs select{width: 100%;height: 30px;/* margin: 12px 0px; */}
-.half_inputs input{width: 100%;height: 30px;/* margin: 12px 0px; */}
-.half_inputs_feild input{width: 100%;height: 30px;/* margin: 12px 0px; */}
+.submit_btn_wrap{width:100%;float:left;display:block;padding:30px 0 0;}
+.submit_btn_wrap input{width:100%;text-align:center;background:#00531c;color:#fff;text-transform:uppercase;height:40px;padding:10px;line-height:18px;border: 1px solid #00531c;font-size:16px;}
+.submit_btn_wrap input:hover, .submit_btn_wrap input:focus{background:#EB6E06;border-color:#EB6E06;}
+.bfss_manager_inner{border:1px solid #aeaeae;padding:20px 15px;width:100%;float:left;display:block;}
+.bfss_manager_form{width:100%;margin:0;float:left;display:block;}
+.bfss_manager_black_layer h4{background:#000;color:#fff;margin:0;padding:10px 20px;}
+.full_inputs input, .half_inputs select, .half_inputs input, .half_inputs_feild input, .half_inputs_feild select, .number input[type="number"]{width:100%;height:40px;padding:10px 15px;border:1px solid #aeaeae;margin:12px 0;font-size:14px;line-height:18px;border-radius:0;box-shadow:none;}
+.half_inputs select, .half_inputs input, .half_inputs_feild input, .half_inputs_feild select{margin:0;}
 .half_inputs{display: grid;grid-template-columns: 1fr 1fr;grid-gap: 20px;}
 .half_inputs_feild{display: grid;grid-template-columns: 1fr 20% 20%;grid-gap: 20px;}
-.half_inputs_feild select{width: 100%;height: 30px;/* margin: 12px 0px; */}
-.number input[type="number"]{width: 100%;height: 30px;padding: 0 15px;border: 1px solid #aeaeae;margin: 12px 0px;}
 .bfss_manager{margin:10px 0 30px;}
 select#zip{width:100%;}
-.bfss_manager_page{display: grid;grid-template-columns: 1fr 30%;grid-gap: 20px;grid-gap: 30px;padding:20px}
+.bfss_manager_page{display:grid;grid-template-columns:1fr 30%;grid-gap:30px;padding:0;}
 
-.bfss_manager_inner_sec{margin:30px 0px;}
+.bfss_manager_inner_sec{margin:30px 0px;width:100%;float:left;display:block;}
 .left_manager_inner{border: 1px solid #aeaeae;}
 .left_manager_inner ul{margin: 0;list-style: none;padding:0;}
 .left_manager_inner p{margin: 0;color: #868383;}
@@ -570,21 +569,25 @@ ul.dropdown-menu.open li.active a{color:#fff;background-color:none !important;}
 .result_message{width:100%;text-align:center;color:green;font-size:16px;}
 /*******************SEARCH Filter Start here*****************/
 a.pr-3.assessment-search-icon {cursor: pointer;}
+.firstname_l_w{width:100%;float:left;display:block;}
 /*******************SEARCH Filter end here*****************/
 /******************MY Assessments Page Strat here************************/
 .my-assessments .table-responsive table td span.green{color:green;}
-.wrapper #multistep-form-three div.js-form-item.form-item-first-name{margin:0 10px 15px 0 !important;}
-.wrapper #multistep-form-three div.js-form-item.form-item-last-name{margin:0 0 15px 10px !important;}
-.wrapper #multistep-form-three div.js-form-item.form-item-first-name, .wrapper #multistep-form-three div.js-form-item.form-item-last-name{float:left;width: calc(49.5% - 10px);padding:0;}
+.wrapper #multistep-form-three div.js-form-item.form-item-first-name{padding:0 10px 0 0;}
+.wrapper #multistep-form-three div.js-form-item.form-item-last-name{padding:0 0 0 10px;}
+.wrapper #multistep-form-three div.js-form-item.form-item-first-name, .wrapper #multistep-form-three div.js-form-item.form-item-last-name{float:left;width:50%;margin:0 0 20px !important;}
+.wrapper #multistep-form-three div.js-form-item{float:left;margin:0 0 20px;}
+.wrapper #multistep-form-three div.js-form-item input{margin:0;font-size:14px;}
 .myassess_main_pxl.user_pro_block .block-bfss-assessors{border:0;}
-.centeralizeRow span{font-size:110px;font-weight:bold;color:#EB6E06;margin-right:30px;}
-.centeralizeRow{max-width:450px;margin:0 auto;display:flex;align-items:center;}
-.centeralizeRow h4, .infoRow h4{font-size:22px;color:#fff;margin-bottom:15px;max-width:290px;}
+.centeralizeRow span{font-size:110px;font-weight:bold;color:#EB6E06;margin-right:30px;font-family:'ALISEO';}
+.centeralizeRow{max-width:620px;margin:0 auto;display:flex;align-items:center;}
+.centeralizeRow h4, .infoRow h4{font-size:22px;color:#fff;margin-bottom:10px;max-width:290px;}
+.centeralizeRow h4{font-weight:bold;}
 .centeralizeRow.white h4{color:#000;}
-.strengthRow{position:relative;width:100%;background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;padding: 30px 0;}
+.strengthRow{position:relative;width:100%;background:url('/modules/custom/bfss_assessment/img/reactive strength.jpg')no-repeat center top/cover;padding: 30px 0;}
 .strengthRow p{font-size:18px;color:#fff;}
 .infoRow .sideIcon{max-width:50px;float:right;position:relative;z-index:9;}
-.infoRow span{font-size:60px;font-weight:bold;color:#EB6E06;margin-right:40px;}
+.infoRow span{font-size:60px;font-weight:bold;color:#EB6E06;margin-right:40px;font-family:'ALISEO';}
 
 .assessmentshot, .accelaration, .my_assessment_snap{width:100%;float:left;display:block;}
 .assessmentshot .row{margin:0;}
@@ -592,11 +595,12 @@ a.pr-3.assessment-search-icon {cursor: pointer;}
 .accelaration .row{display:flex;justify-content:space-between;margin:0 0 15px;}
 .accelaration .row::before, .accelaration .row::after{display:none;}
 .accelaration .row > div{width:calc(50% - 8px);display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#e6e8e9;position:relative;position:relative;z-index:9;border:2px solid #6d6e72;}
-.accelaration .row > .leftBg{background:url('/modules/custom/bfss_assessment/img/cropped-banner-product-category-athletics.jpg')no-repeat center top/cover;}
-.accelaration .row > .leftBg.infoRow:before, .assessmentshot .strengthRow:before{content:"";background:rgba(0, 0, 0, .5);height:100%;width:100%;display:block;position:absolute;left:0;top:0;}
+.accelaration .row > .leftBg1{background:url('/modules/custom/bfss_assessment/img/Speedjpg.jpg')no-repeat center top/cover;}
+.accelaration .row > .leftBg2{background:url('/modules/custom/bfss_assessment/img/Elastic Strength.jpg')no-repeat center top/cover;}
+/*.accelaration .row > .leftBg.infoRow:before, .assessmentshot .strengthRow:before{content:"";background:rgba(0, 0, 0, .5);height:100%;width:100%;display:block;position:absolute;left:0;top:0;}*/
 .assessmentshot .strengthRow .centeralizeRow, .accelaration .row > .leftBg.infoRow > div{position:relative;z-index:9;}
 .accelaration .centeralizeRow{max-width:100%;margin:0;}
-.centeralizeRow.large span{font-size:120px;}
+.centeralizeRow.large span{font-size:80px;}
 .centeralizeRow.small span{font-size:60px;}
 .centeralizeRow.small h4{font-size:18px;}
 .centeralizeRow.whiteDesc p{color:#fff;}
@@ -651,7 +655,7 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 .accordion_tabs_block .eventlisting_main.user_pro_block{padding:0;margin:0;}
 .accordion_tabs_block .user_pro_block .block-bfss-assessors{padding:0;}
 .left_section .athlete_left h3 >  i, .right_section .athlete_right h3 > i{padding:0;right:15px;top:13px;}
-.centeralizeRow .rightText h4{float:left;position:relative;padding-right:15px;}
+.centeralizeRow .rightText h4{float:left;position:relative;padding-right:50px;font-family:'ALISEO';}
 .centeralizeRow .rightText h4 img{position:absolute;top:0;right:0;}
 
 /**************** BFSS MANAGER CSS STARTS HERE *******************/
@@ -753,7 +757,7 @@ ul.faq.faqct li.q p{font-size:14px;line-height:45px;overflow:hidden;}
 ul.faq.faqct li.a{display:none;color:#000;position:relative;}
 ul.faq.faqct .rotate{-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg);transform:rotate(90deg);}
 .faqsec{float:left;clear:both;width:100%;}
-ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
+ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 
 
 .left_section .items_div .athlete_submit{padding:0 15px;}
@@ -808,7 +812,7 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 .eventlisting_main.user_pro_block .block-bfss-assessors .table-responsive table tbody tr{border:1px solid transparent;border-left:1px solid #6d6e72;border-right: 1px solid #6d6e72;}
 
 .remove_padding .search_athlete_main.user_pro_block, .remove_padding .search_athlete_main.user_pro_block .wrapped_div_main{padding:0;}
-.remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:30px 0 0;overflow:hidden;}
+.remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:0;overflow:hidden;}
 .bfss-funds .remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:30px;}
 
 
@@ -853,8 +857,6 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	.accessorform_inner .st_lk li{border:0;}
 }
 
-}
-
 @media(min-width:580px) and (max-width:767px) {
 	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:calc(50% - 15px);}	
 	div#upcoming_bk, .bfssmanager-dashboard div#upcoming_bk{grid-template-columns:1fr 1fr !important;}
@@ -876,6 +878,10 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	#assessor_popup_form .accessorform_inner{padding:25px;}
 	.drupal-assess-fm .modal-footer{padding:0 25px 25px;}
 	.user_pro_block .block-bfss-assessors{padding:20px;}
+	.myassess_main_pxl.user_pro_block .block-bfss-assessors{padding:0;}
+	.bfss_manager_page{grid-template-columns:1fr;}
+	.bfss_manager{margin:10px 0 0;}
+	.bfss_manager_inner_sec{margin:30px 0px 0;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
@@ -909,7 +915,7 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	.centeralizeRow span{font-size:60px;line-height:70px;display:block;margin:0;}
 	.strengthRow{padding:15px 0;}
 	.centeralizeRow .sideIcon{margin:0 auto;}
-	.accelaration .infoRow span{margin:0;line-height:70px;font-size:60px !important;}
+	.accelaration .infoRow span{margin:0;line-height:70px;font-size:50px !important;}
 	.accelaration .infoRow.leftBg{margin:0 0 15px;}
 	.centeralizeRow h4, .infoRow h4{font-size:20px;margin-bottom:5px;max-width:100%;}
 	.upcoming-group-assessments #drupal-modal--content.modal-content{width:100% !important;}
@@ -944,7 +950,7 @@ ul.faq.faqct li.q .faq-left{padding:10px 0;height:45px;line-height:25px;}
 	.dashboard .row.border_bottom.custom-nav-box{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;position:fixed;z-index:9999;width:100vw;top:0;left:0;margin:0;height:60px;-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
 	.dashboard .row.border_bottom.custom-nav-box:before, .dashboard .row.border_bottom.custom-nav-box:after, .tab-main-sec .tab-main-sec-heading:before, .tab-main-sec .tab-main-sec-heading:after{display:none;}
 	.tab-main-sec .tab-main-sec-heading{padding:0 15px;-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
-	.tab-main-sec .tab-main-sec-heading > div.col-md-6.col-6{flex:0 0 50%;padding:0;max-width:50col-md-6 col-6%;}
+	.tab-main-sec .tab-main-sec-heading > div.col-md-6.col-6{flex:0 0 50%;padding:0;max-width:50%;}
 	.upcoming-group-assessments .right_side_section .tab-main-sec .row > .col-lg-12.col-md-12{flex:0 0 100%;max-width:100%;}
  	body.dashboard .header_leftbar .navbar .navbar-brand{display:none;}
  	body.dashboard .header_leftbar .navbar{height:100%;padding:0 !important;-webkit-flex-wrap:nowrap;-ms-flex-wrap:nowrap;flex-wrap:nowrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
