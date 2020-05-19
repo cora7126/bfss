@@ -230,3 +230,11 @@ function bfss_assessment_user_login($account) {
     }
 
 }
+
+
+
+function bfss_assessment_user_insert(Drupal\Core\Entity\EntityInterface $entity){
+
+   //your code here
+
+}

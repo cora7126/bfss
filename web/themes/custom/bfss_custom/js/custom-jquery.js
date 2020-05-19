@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
 
 
 jQuery('.edit_dropdown .drop').click(function(){
-
+console.log("image");
 jQuery('.data.col-sm-10 ').toggle();
 
 });
