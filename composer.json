@@ -31,6 +31,7 @@
         "drupal/field_group": "^3.0",
         "drupal/field_permissions": "^1.0@RC",
         "drupal/form_placeholder": "^1.0",
+        "drupal/login_emailusername": "^1.1",
         "drupal/mailsystem": "^4.2",
         "drupal/modules_weight": "^1.8",
         "drupal/multiple_registration": "^2.88",

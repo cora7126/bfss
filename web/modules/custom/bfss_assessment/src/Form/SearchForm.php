@@ -38,12 +38,13 @@ class SearchForm extends FormBase {
 		      '#attributes' => array(
 		       	'placeholder' => t('Search'),
 		      ),
+          '#prifix'=>'<div class="search-input-main-px">'
             ];
 
-            $form['actions']['#type'] = 'actions';
+        $form['actions']['#type'] = 'actions';
 		    $form['actions']['submit'] = [
 		      '#type' => 'submit',
-		      '#value' => $this->t('Filter'),
+		      '#value' => $this->t('Search'),
 		      '#button_type' => 'primary',
 		      // '#prefix' => '<div class="filter_btn">',
 		      // '#suffix' => '</div>',
@@ -51,6 +52,7 @@ class SearchForm extends FormBase {
 	              'callback' => '::SearchAjaxCallback', 
 	              'disable-refocus' => FALSE, 
 	              'event' => 'click',
+                '#suffix' => '</div>',
 	              'wrapper' => 'edit-output',
 		              'progress' => [
 		                'type' => 'throbber',

@@ -62,7 +62,8 @@ class AssessmentService {
     if( !empty($M) && !empty($Y) ){
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
-              ->condition('status', 1);
+              ->condition('status', 1)
+              ->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
       $entity_ids = $assessment->execute();
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
@@ -138,19 +139,42 @@ class AssessmentService {
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
   }
 
-//ASSESSMENTS SEARCH FILTER  FOR Group ASSESSMENTS
-  public function Group_Assessments_Search_Filter($element,$search_val){
-    if(isset($search_val)){
-      $assessment = \Drupal::entityQuery('node')
+//ASSESSMENTS SEARCH FILTER  FOR  ASSESSMENTS
+  public function Assessments_Search_Filter($element,$search_val,$assess_type){
+    if(isset($search_val) && $assess_type=='group'){
+    
+          $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
               ->condition('title','%'.$search_val.'%','LIKE')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
      
+    }elseif(isset($search_val) && $assess_type=='private'){
+      
+      $assessment = \Drupal::entityQuery('node')
+              ->condition('type', 'assessment')
+              ->condition('field_type_of_assessment','private', '=')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
+              ->condition('title','%'.$search_val.'%','LIKE')
+              ->condition('status', 1);
+      $entity_ids = $assessment->execute();
+    }else{
+    
+      $assessment = \Drupal::entityQuery('node')
+              ->condition('type', 'assessment')
+              ->condition('title','%'.$search_val.'%','LIKE')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
+              ->condition('status', 1);
+      $entity_ids = $assessment->execute();
     }
-     return !empty(array_unique($entity_ids)) ? array_unique($entity_ids): null;
+    return !empty(array_unique($entity_ids)) ? array_unique($entity_ids): null;
+    
   }
+
+
+
 
 
 //Private Assessments function
@@ -172,6 +196,7 @@ class AssessmentService {
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','private', '=')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
       $monthdata = [];
@@ -235,6 +260,9 @@ class AssessmentService {
   public function getNodeData($nid){
       $node = Node::load($nid);
       $data = [];
+      global $base_url;
+      $current_path = \Drupal::service('path.current')->getPath();
+      $data['current_page'] = $base_url;
       if ($node instanceof NodeInterface) {
         $data['title'] = $node->getTitle();
         if ($node->hasField('body')) {

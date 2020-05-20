@@ -30,7 +30,19 @@ function bfss_custom_form_user_login_form_alter(&$form, $form_state) {
 }
 
 //  alter user login page
+function bfss_custom_page_attachments_alter(&$page) {
+  $viewport = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'viewport',
+      'content' => 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0',
+    ),
+  );
+  $page['#attached']['html_head'][] = [$viewport, 'viewport'];
+}
 function bfss_custom_preprocess_page(&$variables) {
+
   $current_path = \Drupal::service('path.current')->getPath();
   $result = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
   $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());

@@ -48,9 +48,16 @@ class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginIn
     global $base_url;
     $data = [];
     $element = 1;
+    $param = \Drupal::request()->query->all();
     #get nodes by paginations
     //$nids =$this->assessmentService->getComingAssessments($element);
-    $nids = $this->assessmentService->assessment_after_month_filter($element);
+
+
+    if(isset($param['SearchAssessments'])){
+        $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'all');
+    }else{
+         $nids = $this->assessmentService->assessment_after_month_filter($element);
+    }
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
     $res = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);

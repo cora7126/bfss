@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* CSS Document */
 
 /**
  * Default Variables.
@@ -57,6 +58,20 @@
        url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
   font-weight:normal;
   font-style:normal;
+}
+
+@font-face {
+    font-family:'ALISEO';
+    src: url('../fonts/ALISEO.eot');
+  src: url('../fonts/ALISEO.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/ALISEO.woff2') format('woff2'),
+    url('../fonts/ALISEO.woff') format('woff'),
+    url('../fonts/ALISEO.ttf') format('truetype'),
+    url('../fonts/ALISEO.svg#ALISEO') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-00FC;
 }
 
 
@@ -1836,13 +1851,12 @@ nav .dropdown .drop .down-caret{position:absolute;top:25px;right:15px;}
 .sidenav ul.side_nav li.sub_menu , .sidenav ul.side_nav li.sub-menu-drop{border-bottom:1px solid grey;}
 .sidenav ul.dropdown-menu.open li:last-child a , .dropdown > .dropdown-menu.open{border-bottom:unset;}
 ul.side_nav li:last-child{border-bottom:unset;}
-.sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 37px;}
+.sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 30px;}
 .sidenav ul.dropdown-menu.open li{position:relative;}
 .sidenav ul.dropdown-menu.open li::before{content:"";position:absolute;width:5px;height:5px;background:#909090;left:12px;top:18px;}
 
 /* 04-03-2020 */
-.header_rightbar{max-width:81% !important;width:81% !important;flex:0 0 81% !important;}
-.header_leftbar{max-width:19% !important;width:19% !important;flex:0 0 19% !important;}
+
 .open_left_side .left_side_section{width:75px;transition:width 0.5s;}
 .open_left_side .left_side_section .side_menu_text{display:none;}
 .open_left_side .left_side_section span.down-arrow{display:none;}
@@ -1851,13 +1865,14 @@ ul.side_nav li:last-child{border-bottom:unset;}
 .open_left_side .dropdown > .dropdown-menu.open{min-width:250px;position:absolute ! important;top:-8px;left:74px;}
 .down-arrow{transform:rotate(0deg);transition:all 0.25s ease-in;color:grey;font-size:18px;position:relative;}
 nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-events:none;}
+.side_nav .drop.active .down-arrow:before{color:#fff;}
 .top_right .calender_img{border-left:1px solid grey;border-right:1px solid grey;}
 .dashboard .athletic_profile{border-right:1px solid grey;}
 .dash-main-right .dash-sub-main{border:1px solid grey;border-left:unset;padding:15px 15px 15px 15px;}
 
 .quick-link-sub-sec:hover{background:#000;}
 .quick-link-sub-sec:hover i{color:#fff;}
-.quick-link-sub-sec:hover p{color:#ffd537;}
+.quick-link-sub-sec:hover p, .quick-link-sub-sec:hover p a{color:#ffd537;}
 .quick-link-sub-sec{min-height:125px;}
 .profile-card .card{min-height:312px;}
 
@@ -1871,19 +1886,18 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .my-assessment{position:relative;}
 
 
-
 .dashboard h2 span.month_year{color:#EB6E06;}
 .dashboard .card-sub p{width:20%;}
 .dashboard .card-sub p span{font-size:18px;font-weight:700;}
 .sidenav ul.dropdown-menu.open li:hover::before{background:#fff;}
 .pop_text_sec a p:hover i{color:#EB6E06;}
 .datepicker{position:relative;}
-.region-footer{margin-top:100px;padding-top:35px;padding-bottom:15px;margin-left:15px;margin-right:15px;}
+.dashboard.user-register .region-footer{padding-top:0;}
 
 
 #edit-profile-class .user-form .panel-default > .panel-heading{color:#fff;font-weight:bold;}
- #edit-profile-class .user-form .panel-default > .panel-heading{background:#000;position:relative;}
- #edit-profile-class .user-form .panel-default a.panel-title:before{content:"\f068";font-family:"Font Awesome 5 Pro";position:absolute;color:#EB6E06;font-size:18px;top:7px;left:7px;pointer-events:none;}
+#edit-profile-class .user-form .panel-default > .panel-heading{background:#000;position:relative;}
+#edit-profile-class .user-form .panel-default a.panel-title:before{content:"\f068";font-family:"Font Awesome 5 Pro";position:absolute;color:#EB6E06;font-size:18px;top:7px;left:7px;pointer-events:none;}
 #edit-profile-class .user-form .panel-default a.panel-title.collapsed:before{content:"\f067";}
 #edit-profile-class .user-form .panel-default{width:66%;}
 #edit-profile-class .user-form .panel-title img{display:none !important;}
@@ -1900,7 +1914,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 */
  #edit-profile-class .field-group-format-toggler{position:relative;padding:20px 15px !important;}
  #edit-profile-class .edit_dropdown, .right_section .edit_dropdown{position:absolute;z-index:99;right:0;top:0;padding:12px;height:45px;font-size:14px;}
- #edit-profile-class .edit_dropdown a.drop , .right_section .edit_dropdown a.drop{color:#EB6E06;}
+ #edit-profile-class .edit_dropdown a.drop , .right_section .edit_dropdown a.drop{color:#EB6E06;cursor:pointer;}
  #edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span{margin-left:10px;color:#EB6E06;position:relative;top:2px;}
 /* #edit-profile-class .edit_dropdown ul.dropdown-menu , .right_section .edit_dropdown ul.dropmenu{top:34px;min-width:85px;left:10px;}
 */
@@ -1913,17 +1927,17 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 #ajax-wrapper{display:inline-block;}
 .bfssathleteprofile .edit-form{margin-top:40px;}
 /* 20-02-2020 */
-#edit-form{padding:20px;display:inline-block;transition:width 0.5s;display:grid;grid-template-columns:1fr 36rem;grid-gap:20px;}
+.edit-form{padding:0;display:inline-block;transition:width 0.5s;display:grid;grid-template-columns:1fr 36rem;grid-gap:20px;}
 .left_section{display:inline-block;width:100%;float:left;position:relative;}
 .right_section{display:inline-block;width:100%;float:left;}
-.right_section .athlete_right{position:realtive;}
+.right_section .athlete_right{position:relative;float:left;width:100%;}
 .left_section .athlete_left h3, .right_section .athlete_right h3{line-height:43px;border:1px solid #000;background:#000;position:relative;color:#fff;font-weight:400;padding:0 15px;font-size:14px;margin:0;text-transform:uppercase;margin-bottom:0px;cursor:pointer;height:45px;overflow:hidden;}
 .left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#EB6E06;padding-right:15px;font-weight:700;}
 .left_section .athlete_left , .right_section .athlete_right{border:1px solid #ccc;padding-bottom:0px;margin-bottom:30px;position:relative;}
 .left_section .athlete_left .form-item , .right_section .athlete_right .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
 .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;}
 .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
-.left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;}
+.left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;padding:10px;}
 .left_section .athlete_left .add_pos_div{position:relative;padding-bottom:30px;}
 .left_section .athlete_left .add_pos_div a.add_pos{padding:0px 0px 0px 16px;position:absolute;bottom:5px;margin-bottom:0;left:0;cursor:pointer;}
 .left_section .athlete_left .add_pos_div a.add_pos i{padding-right:5px;}
@@ -1938,10 +1952,11 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .items_div ,.left_section .items_div{display:inline-block;width:100%;padding:30px 0;}
 .right_section .items_div, .left_section .items_div .form-actions.js-form-wrapper button.btn.btn-success.add_item_plx{top:0;padding-left:15px;}
 .athlete_submit{display:inline-block;width:100%;padding-top:20px;}
-.athlete_submit button.button.btn{border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;color:#EB6E06;background-color:#fff;font-size:15px;}
 #edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
 #edit-actions .athlete_submit button.btn-success{background:#EB6E06;}
-.right_section .image-widget .data{position:absolute;top:60px;right:15px;width:auto !important;background:white;padding:0;display:none;border:0;}
+.right_section .image-widget .data{position:absolute;top:45px;right:0;width:90px;background:#fff;padding:20px 5px 10px;display:none;border:1px solid #c2c2c2; -moz-transition:all .5s ease;-webkit-transition:all .5s ease;transition:all .5s ease;-moz-box-shadow:0 2px 4px #c2c2c2;-webkit-box-shadow:0 2px 4px #c2c2c2;box-shadow:0 2px 4px #c2c2c2;}
+.right_section .image-widget .data .remove_btn_wrap{width:100%;float:left;display:block;height:auto;border:0;padding:0;}
+.right_section .image-widget .data button{width:100%;margin:0;padding:0;}
 .right_section .image-widget .data button , #edit-user-picture-wrapper .image-widget .data button{display:table;margin:0px auto 0;color:#fff !important;font-size:14px;}
 .right_section .image-widget .data span , #edit-user-picture-wrapper .image-widget .data span{display:none;}
 .right_section .preview{width:100%;float:left;display:block;flex:0 0 100%;max-width:100%;}
@@ -1996,7 +2011,8 @@ input#name_1{width:70%;}
 .edit-user .spb-popup-main-wrapper.spb_top_center .image-widget .data{position:absolute;bottom:-5px;right:-4px;width:auto !important;background:unset;padding:10px 17px;display:block;top:unset;}
 #edit-form img.edit-profile-image{width:100%;margin:auto;padding:40px;}
 /*25-02-2020 end*/
-.right_side_section , .edit-user .region-content , .payment-receipts .region-content, .bfssAthleteProfile .region-content , .edit-parent .region-content,.faq-page .region-content{width:calc(100% - 19%);transition:width 0.5s;}
+
+
 .edit-parent .region-content{min-height:calc(100vh - 102px);}
 .open_left_side .right_side_section , .edit-user.open_left_side .region-content , .bfssAthleteProfile.open_left_side .region-content , .edit-parent.open_left_side .region-content{width:calc(100% - 75px);transition:width 0.5s;}
 .region-content .edit-parent{padding:20px;}
@@ -2018,7 +2034,7 @@ input#name_1{width:70%;}
 .edit-user .imagepopup-modal .spb-popup-main-wrapper.spb_top_center,.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center{max-width:320px;width:100%;}
 .popup_header.change_password_header{padding:0;}
 .edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center h3 i{background:none;border:0;color:#EB6E06;padding:0;}
-.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center h3 i.fa-times.right-icon.changepassdiv-modal-close{top:15px;}
+.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center h3 i.fa-times.right-icon.changepassdiv-modal-close{top:18px;}
 #changepassdiv .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
 #changepassdiv .form-item input{height:40px;}
 #changepassdiv .passerror{padding-left:15px;}
@@ -2099,7 +2115,7 @@ input#name_1{width:70%;}
   .dash-main-right .dash-sub-main{border-left:1px solid grey;}
   .mobile_hide{display:none;}
   .dashboard .quick-link .panel{z-index:9;}
-  .right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:100% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
+  .right_section .image-widget .data , #edit-user-picture-wrapper .image-widget .data{position:relative;opacity:1;top:auto;right:auto;width:90% !important;background:transparent;padding:0;box-shadow:none;display:table !important;margin:10px auto 0;}
   .edit_dropdown{display:none;}
   #athelets-modal .modal-content{width:100% !important;}
 }
