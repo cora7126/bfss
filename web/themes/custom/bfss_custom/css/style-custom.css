@@ -144,10 +144,9 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .block-bfss-assessment .container .assessment_block .col.assessment_inner{padding:5px;background:#f1f3f2;margin:5px 7.5px;width:calc(33.3% - 15px);border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset; flex-basis:unset;-ms-flex-positive:unset;flex-grow:unset;}
 
 
-
 /* --------- DASHBOARD DETAILS POPUP CSS STARTS HERE *******************/
 
-.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{max-height:84vh;margin:8vh 0;border:none;padding:30px 50px 50px;}
+.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{max-height:84vh;margin:8vh 0;border:none;padding:30px;}
 .simple-popup-blocks-global form > .control-label{font-size:18px;margin:0 0 25px;color:#000;font-weight:400;}
 
 .simple-popup-blocks-global form .left_section{width:70%;float:left;display:block;padding-bottom:50px;}
@@ -157,7 +156,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .simple-popup-blocks-global form .left_section .items_div, .simple-popup-blocks-global form .right_section .items_div{border:1px solid #4c4c4c;padding:40px 0;}
 .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item{padding:0 10px;margin:0 0 30px;}
 .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item:last-child{margin:0;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:30px;margin:0;outline:none;font-size:13px;}
+.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:40px;margin:0;outline:none;font-size:13px;}
 .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:focus{background:#f1f3f2;outline:none;}
 .simple-popup-blocks-global form .left_section .items_div .add_pos_div{padding:0;float:left;width:100%;display:block;}
 .simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item{margin:0 0 40px;}
@@ -378,8 +377,8 @@ ul.menutoggle.open li a:hover{text-decoration:none;background-color:#EB6E06;colo
 span.navbar-toggler-icon{cursor:pointer;}
 /*******************/
 .submit_btn_wrap{width:100%;float:left;display:block;padding:30px 0 0;}
-.submit_btn_wrap input{width:100%;text-align:center;background:#00531c;color:#fff;text-transform:uppercase;height:40px;padding:10px;line-height:18px;border: 1px solid #00531c;font-size:16px;}
-.submit_btn_wrap input:hover, .submit_btn_wrap input:focus{background:#EB6E06;border-color:#EB6E06;}
+.submit_btn_wrap input, .green_successful_button button.form-submit{width:100%;text-align:center;background:#00531c;color:#fff;text-transform:uppercase;height:40px;padding:10px;line-height:18px;border:1px solid #00531c;font-size:16px;}
+.submit_btn_wrap input:hover, .submit_btn_wrap input:focus, .green_successful_button button.form-submit:hover, .green_successful_button button.form-submit:focus{background:#EB6E06;border-color:#EB6E06;}
 .bfss_manager_inner{border:1px solid #aeaeae;padding:20px 15px;width:100%;float:left;display:block;}
 .bfss_manager_form{width:100%;margin:0;float:left;display:block;}
 .bfss_manager_black_layer h4{background:#000;color:#fff;margin:0;padding:10px 20px;}
@@ -449,17 +448,16 @@ div.orgtextarea textarea{display:none;}
 /********************Nice select css end************************/
 
 /*************** ASSESSORS CSS STARTS HERE ******************/
-.pending-assessment-block .user_pro_block .block-bfss-assessors {border: 0px;}
-.preview-profile .user_pro_block .block-bfss-assessors {border: 0px;}
-div.form-item-current-pass {padding-top: 31px;margin-top: 20px;}
+.pending-assessment-block .user_pro_block .block-bfss-assessors, .preview-profile .user_pro_block .block-bfss-assessors{border:0;}
+div.form-item-current-pass{padding-top:31px;margin-top:20px;}
 .user_pro_row .userpr{width:100%;float:left;display:block;padding:0;margin:0 0 30px;list-style-type:none;}
 .user_pro_row .userpr li{display:inline-block;font-size:14px;line-height:20px;margin-right:50px;}
 .user_pro_row .userpr li:last-child{margin-right:0;}
 .user_pro_row .userpr li i{color:#EB6E06;}
 .user_pro_block{width:100%;float:left;display:block;margin:0;padding:0;}
 .user_pro_block h2{background:#000;color:#fff;padding:5px 15px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:30px;height:40px;}
-.user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border:1px solid #6d6e72;padding:20px 40px;}
-.user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;}
+.user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border:1px solid #6d6e72;padding:0;}
+.user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;margin:0 0 30px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#A8A9AD;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th{border:0;padding:15px 12px;text-transform:capitalize;border:0;white-space:nowrap;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a{color:#000;font-weight:400;font-size:13px;display:block;line-height:14px;white-space:nowrap;position:relative;padding-right:20px;}

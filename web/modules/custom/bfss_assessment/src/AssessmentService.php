@@ -62,7 +62,8 @@ class AssessmentService {
     if( !empty($M) && !empty($Y) ){
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
-              ->condition('status', 1);
+              ->condition('status', 1)
+              ->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
       $entity_ids = $assessment->execute();
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
@@ -145,6 +146,7 @@ class AssessmentService {
           $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
               ->condition('title','%'.$search_val.'%','LIKE')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
@@ -154,6 +156,7 @@ class AssessmentService {
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','private', '=')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
               ->condition('title','%'.$search_val.'%','LIKE')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
@@ -162,6 +165,7 @@ class AssessmentService {
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('title','%'.$search_val.'%','LIKE')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
     }
@@ -192,6 +196,7 @@ class AssessmentService {
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','private', '=')
+               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
       $monthdata = [];

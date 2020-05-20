@@ -91,7 +91,8 @@ foreach ($terms as $term) {
     $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$current_user); //FOR ORG-1
     $athlete_club = $this->Get_Data_From_Tables('athlete_club','aclub',$current_user); //FOR ORG-2
     $athlete_uni = $this->Get_Data_From_Tables('athlete_uni','atc',$current_user); //FOR ORG-3
-
+    $form['#prefix'] = '<div class="athlete_popup_firsttime">';
+     $form['#suffix'] = '</div>';
 	$form['#attributes'] = array('id' => 'popup_form_id');
 	$form['welcome'] = array (
       '#type' => 'label',
@@ -449,7 +450,7 @@ foreach ($terms as $term) {
     $form['submit'] = [
     '#type' => 'submit',
     '#value' => 'FINISH',
-		'#prefix' =>'<div class="left_section popup_left_section finish-btn"><div class="athlete_submit">',
+		'#prefix' =>'<div class="left_section popup_left_section finish-btn"><div class="athlete_submit green_successful_button" >',
 		'#suffix' => '</div></div>',
         //'#value' => t('Submit'),
     ];
