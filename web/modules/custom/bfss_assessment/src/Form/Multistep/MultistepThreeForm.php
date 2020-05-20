@@ -69,6 +69,7 @@ class MultistepThreeForm extends MultistepFormBase {
       //'#default_value' => $this->store->get('first_name') ? $this->store->get('first_name') : '',
       '#default_value' => $results18['field_jodi'],
       '#required' => true,
+      '#prefix' => '<div class="firstname_l_w">',
     );
     if ($name) {
       $form['first_name']['#disabled'] = false;
@@ -80,6 +81,7 @@ class MultistepThreeForm extends MultistepFormBase {
       '#placeholder' => $this->t('Last Name'),
       //'#default_value' => $this->store->get('last_name') ? $this->store->get('last_name') : '',
       '#default_value' =>  $results2['field_last_name_value'],
+      '#suffix' => '</div>',
     );
     $form['phone'] = array(
       '#type' => 'textfield',

@@ -1,6 +1,6 @@
-<!--  <pre>
+<!--    <pre>
 	{{ dump(data) }}
-</pre> -->
+</pre>   -->
 
  <!-- Modal START-->
   <div class="modal fade" id="social_share_us" role="dialog">
@@ -20,6 +20,8 @@
 	    </div>
   </div>
 <!-- Modal END-->
+
+<div class="right_side_section pl-0 pr-0">
 <div class='atheltic-profile'>
 	<section class="user-data">
 	  	<div class="container">
@@ -28,7 +30,7 @@
 		          	<div class="row title">
 		              	<h1>{{ data.first_name }} {{ data.last_name }}</h1>
 		              	<br />
-		              	<span class="sub_title">{{data.org_info.sport}} | {{data.org_info.pos}}</span>
+		              	<span class="sub_title tl">{{data.org_info.sport}} | {{data.org_info.pos}}</span>
 		              	<div class="social_icons_top">
 		                  	<div class="icons_only">
 		                  	<a href="#" data-toggle="modal" data-target="#social_share_us"><i class="fa fa-share-alt"></i></a>
@@ -58,6 +60,7 @@
 		              	</div>
 
 		              	<div class="col-6 bio_data">  
+		              		<p>{{ data.mydata.field_birth_gender }}</p>
 			                <p>{{ data.athlete_info.athlete_state }}</p>
 			                <p>{{ data.date }} yrs</p>
 			                <p>Sophomore year</p>
@@ -253,4 +256,5 @@
 			</div>
 		</div>
 	</section>
+</div>
 </div>

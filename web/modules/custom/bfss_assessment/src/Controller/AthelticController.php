@@ -340,8 +340,12 @@ class AthelticController extends ControllerBase {
      
   }
   public function updateInfoForTmeplate(&$data, $username = null) {
+    // echo "<pre>";
+    // print_r($data);
+    // die;
+
     if ($username) {
-      if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
+      //if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
         // $data['org_info']['name']
         $relSchl = isset($data['athlete_school']) ? $data['athlete_school'] : null;
         if ($relSchl) {
@@ -349,7 +353,9 @@ class AthelticController extends ControllerBase {
             $data['org_info'][str_replace('athlete_school_','', $key)] = $value;
           }
         }
-      }
+
+       
+      //}
 
       if (isset($data['athlete_addweb']['athlete_addweb_name']) && $data['athlete_addweb']['athlete_addweb_name'] == $username) {
         // $data['org_info']['name']
@@ -378,6 +384,9 @@ class AthelticController extends ControllerBase {
 
   public function updateTempInfoForTmeplate(&$data) {
     $req = $this->requestStack->getCurrentRequest();
+    // echo "<pre>";
+    // print_r($req);
+    // die;
     $uid = \Drupal::currentUser()->id();
     #update values
     if ($val = $req->get('fname')) {
@@ -486,6 +495,7 @@ class AthelticController extends ControllerBase {
    *url bfss_assessment.atheltic_profile
    */
   public function profilePage() {
+
     $data = [];
     $username = \Drupal::request()->get('username');
     $profileuser = $this->getUserNameValiditity($username);

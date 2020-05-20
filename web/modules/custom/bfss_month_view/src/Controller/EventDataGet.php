@@ -36,7 +36,9 @@ class EventDataGet extends ControllerBase {
 					 $event_data[] = [
 					   'title' => $data['title'],
 					   //'date' => $date,
+					   //'url' => '/assessment/node/8',
 					   'start' => $time,
+
 					 ];
 				}
 			}

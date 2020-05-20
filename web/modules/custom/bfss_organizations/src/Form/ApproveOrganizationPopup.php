@@ -34,6 +34,7 @@ class ApproveOrganizationPopup extends FormBase {
   $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
   $rel = $permissions_service->bfss_admin_permissions();
   $pending_approval =  unserialize($rel['pending_approval']);
+   $form['#attached']['library'][] = 'bfss_organizations/add_organization'; //here can add library
     if($pending_approval['create']==1 || $pending_approval['admin']==1){
        $form['left_section_start'] = [
               '#type' => 'markup',
@@ -74,7 +75,7 @@ class ApproveOrganizationPopup extends FormBase {
       // ];
        $form['actions']['submit'] = [
                 '#type' => 'submit',
-                '#value' => $this->t('YES, APPROVE'),
+                '#value' => $this->t('Yes approved'),
                 '#button_type' => 'primary',
                  '#ajax' => [
                     'callback' => '::submitForm', // don't forget :: when calling a class method.

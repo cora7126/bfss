@@ -1,10 +1,28 @@
 jQuery(document).ready(function() {
+jQuery('[data-toggle="tooltip"]').tooltip();
 
-	jQuery("a.assessment-search-icon").click(function(){
-    	jQuery(".search-assessements-input").toggle('slow');
-  	});
+jQuery('.edit_dropdown .drop').click(function(){
+console.log("image");
+jQuery('.data.col-sm-10 ').toggle();
+
+});
+jQuery("[name=image_athlete_remove_button]").wrap('<div class="remove_btn_wrap"></div>');
+	jQuery(".share a.share_assessment").click(function(){
+  		jQuery(".social_share_links").toggle('slow');
+  		
+	});
+	jQuery('#calendar .fc-view-container td.fc-event-container a').addClass('col use-ajax assessment_inner');
+jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-type','modal');
+jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-options','{&quot;width&quot;:800, &quot;dialogClass&quot;: &quot;assessments-popup-md&quot;}');
     //jQuery( "#sortable_faqs" ).disableSelection();
-
+    jQuery(document).on('click', 'a[href^="#"]', function (e) {
+    e.preventDefault();
+    jQuery('html, body').stop().animate({
+        scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2
+    }, 1000, 'linear');
+	});
+jQuery( ".user-login-form input[name=name]" ).attr('tabindex','1');
+jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
  	jQuery('#select_faqs_by_user').niceSelect();
 	
 	jQuery('.dashboard-menu span').on('click',function(){
@@ -12,8 +30,9 @@ jQuery(document).ready(function() {
 		 jQuery('.dashboard-menu span').toggleClass("tgl-cls");
 		 console.log("hr1");
 	});
-	 
-
+	 	jQuery('a.pr-3.assessment-search-icon').click(function(){
+	 		jQuery(".search-assessements-input").toggle('slow');	
+	 	});
 		// i = 0;
 		// jQuery('#edit-organizations-plx').on('click',function(){
 		// 	var arr = [];
@@ -39,6 +58,7 @@ jQuery(document).ready(function() {
             }
 		});
 
+		//autosuggest
 		jQuery("input#edit-orgnames-search").click(function(){
 			   var orgNames = jQuery('textarea:input[name=search_org]').val();
 			var orgNamesArr = orgNames.split(',');

@@ -1,0 +1,4 @@
+name: BFSS Basic Pages
+description: 'This module provide basic pages for backend'
+type: module
+core: 8.x

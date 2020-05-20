@@ -1,0 +1,7 @@
+bfss_manager_lib:
+  version: 1.x
+  css:
+    layout:
+      css/bfss_manager_custom.css: {}
+  js:
+    js/bfss_manager_custom.js: {}

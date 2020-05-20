@@ -12,9 +12,9 @@ class ViewEditDeactive extends ControllerBase {
 
   public function view_edit_deactive() {
 
-     // $user = User::load(349);
-     // echo "<pre>";
-     // print_r($user);
+    $uid = \Drupal::currentUser()->id();
+    $current_user = \Drupal\user\Entity\User::load($uid);
+    $current_roles = $current_user->getRoles();
 
     if( isset($_POST['deactive_submit']) ){
     if(isset($_POST['items_selected'])){
@@ -42,12 +42,14 @@ class ViewEditDeactive extends ControllerBase {
                 </th> 
                 <th class="th-hd"><a><span></span>Organization</a>
                 </th> 
+                <th class="th-hd"><a><span></span>Edit Permissions</a>
+                </th>
                  <th class="th-hd"><a><span></span>Role</a>
                 </th> 
               </tr>
             </thead>
             <tbody>';
-
+            $RolesDropDown = ['athlete' => 'Athlete','coach' => 'Coach','parent_guardian_registering_athlete_' => 'Parent Guardian','assessors' => 'Assessors','bfss_manager' => 'BFSS Manager','bfss_administrator'=>'Administrator'];
             $role_names = ['athlete','coach','parent_guardian_registering_athlete_','assessors','bfss_manager'];
              $athlete_user_ids = \Drupal::entityQuery('user')
             ->condition('roles', $role_names, 'IN')
@@ -56,6 +58,24 @@ class ViewEditDeactive extends ControllerBase {
             foreach ($athlete_user_ids as $athlete_user_id) {
               $user = User::load($athlete_user_id);
               $userroles = Role::loadMultiple($user->getRoles());
+
+
+
+              $sel_role = $user->getRoles();
+              $edit_permissions = $user->field_edit_permissions->value;
+              $edit_permissions_status = '';
+              if(isset($edit_permissions) && $edit_permissions == 'yes'){
+                $edit_permissions_status = 'Yes';
+              }else{
+                $edit_permissions_status = 'No';
+              }
+               $key = array_search('authenticated', $sel_role);
+               unset($sel_role[$key]);
+          
+               $sel_role = array_values($sel_role);
+               
+
+              $userroles = Role::loadMultiple($user->getRoles());
               $RolesLabel = [];
               foreach ($userroles as $userrole) {
                               $RolesLabel[] = $userrole->label();
@@ -63,6 +83,8 @@ class ViewEditDeactive extends ControllerBase {
               
               $key = array_search('Authenticated user', $RolesLabel);
               unset($RolesLabel[$key]);
+              $RolesLabel = array_values($RolesLabel);
+
               $firstname = $user->field_first_name->value;
               $lastname = $user->field_last_name->value;
               
@@ -87,29 +109,80 @@ class ViewEditDeactive extends ControllerBase {
               $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
 
               $tb1 .=  '<tr>
-                <td><input class="form-checkbox" type="checkbox" name="items_selected[]" value="'.$athlete_user_id.'"><span class="unfollow-checkbox"></span></td>
+                 <td><a class="user-status-edit" data-uid='.$athlete_user_id.'  data-editpage="ViewEditDeactive" >EDIT</a></td>
                 <td>'.$firstname.'</td>
                 <td>'.$lastname.'</td>
-                <td>'.$org_name.'</td>';
+                <td>'.$org_name.'</td>
+                <td>'.$edit_permissions_status.'</td>';
+              if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){
               $tb1 .= '<td>
                         <div class="box niceselect roles">
                           <span id="dateofshow">
-                            <select>';
-                            foreach ($RolesLabel as $userrole) {
-                              $tb1 .= '<option>'.$userrole.'</option>';
+                            <select data-uid="'.$athlete_user_id.'" data-role="'.$sel_role[0].'" data-dropdown="ViewEditDeactive">';
+                            foreach ($RolesDropDown as $key => $userrole) {
+                             $selected = ($sel_role[0] == $key) ? " selected='selected'": "";
+                              $tb1 .= '<option value="'.$key.'" "'.$selected.'" >'.$userrole.'</option>';
                             }
               $tb1 .= '</select></span></div></td>';
+              }else{
+                $tb1 .= '<td>'.$RolesLabel[0].'</td>';
+              }
               $tb1 .= '</tr>';
             }
             
-            $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="deactive_submit" value="ACTIVATE" onclick="activate_users();" ></div>
-
+            $tb1 .= '
             </tbody>
             </table>
              </div>
             </div>
              </div>
             </div></form>';
+
+                 $tb1 .= '<!--Model Popup starts-->
+              <div class="container">
+                  <div class="row">
+                      <div class="modal fade" id="ignismyModal" role="dialog">
+                          <div class="modal-dialog drupal-approve-org">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                   </div>
+                                  <div class="modal-body">
+                          <div class="thank-you-pop">
+                            <img src="/modules/custom/bfss_manager/img/Green-Round-Tick.png" alt="">
+                            <h2>Successfully Updated!</h2>
+                          </div>
+                                  </div>
+                        
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--Model Popup ends-->';
+
+              $tb1 .=   '<!--Model Popup starts-->
+                  <div class="modal fade" id="ConfirmDeactivateModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeactivateLabel" aria-hidden="true">
+                    <div class="modal-dialog drupal-approve-org" role="document">
+                      <div class="modal-content">
+                        
+                                  <div class="modal-header">
+                                      <button type="button" class="close deactivate-close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                   </div>
+                        
+                        <div class="modal-body">
+                        <div class="message-deactivate"></div>
+                          <h2>Are you sure , you want to Reactivate?</h2>
+                        </div>
+                        <div class="modal-footer deactivate-footer">
+                        <div class="modal-buttons">
+                          <button id="deactive-no" type="button" class="button btn btn-danger deactive-no" data-dismiss="modal">NO</button>
+                          <button id="deactive-yes" type="button" class="button btn btn-primary deactive-yes" >YES</button>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!--Model Popup ends-->';
 
    
 
@@ -119,7 +192,7 @@ class ViewEditDeactive extends ControllerBase {
       '#view_edit_deactive_block' => Markup::create($tb1),
       '#attached' => [
         'library' => [
-          'acme/acme-styles', //include our custom library for this response
+          'bfss_manager/bfss_manager_lib', //include our custom library for this response
         ]
       ]
     ];   

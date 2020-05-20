@@ -2,9 +2,9 @@
 .col{width: 24%;display: inline-block; margin: 10px; padding:10px; background-color:#c2c2c2; cursor: pointer;}
 </style>
 <div class="container">
-  <div class="row assessment_block">
+  <div class="row assessment_block desh-assess">
   	{% for row in data %}
-	    <div class="col use-ajax assessment_inner" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;:800}" href="{{ row.url }}">
+	    <div class="col use-ajax assessment_inner" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;:800, &quot;dialogClass&quot;: &quot;assessments-popup-md&quot;}" href="{{ row.url }}">
 	    	<div class="top-head">
 				<div class="timing">
 					<h2>
