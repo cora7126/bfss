@@ -146,8 +146,9 @@ class MyAssessments extends ControllerBase {
           }else{
              $urlhtml = '';  
           }
-          
-          $formtype = Markup::create('<p>'.$urlhtml.ucfirst($item['formtype']).'</a></p>');
+          if(!empty($item['formtype'])){
+            $formtype = Markup::create('<p>'.$urlhtml.ucfirst($item['formtype']).' Assessment</a></p>');
+          }
           $rows[] = array(
             'date' => $item['booking_date'],
             'program' => $formtype,

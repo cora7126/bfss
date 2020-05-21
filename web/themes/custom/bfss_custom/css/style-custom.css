@@ -31,6 +31,7 @@ html body{margin-top:0 !important;padding:0 !important;}
 /**************** DASHBOARD MAIN CONTENT LAYOUT CSS ENDS HERE *******************/
 
 /*********** SITE DEFAULT BUTTON CSS STARTS HERE *************/
+i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor: pointer;}
 .btn.button{border:1px solid #EB6E06;background:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;height:35px;line-height:23px;padding:5px 20px;font-size:14px;}
 .btn.button:hover, .btn.button:focus{box-shadow:none;outline:0;border:1px solid #EB6E06;background:#EB6E06;opacity:.8;}
 .form-actions.js-form-wrapper a.btn{margin:0 15px 0 0;}
