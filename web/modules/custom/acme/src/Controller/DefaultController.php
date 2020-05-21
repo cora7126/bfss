@@ -194,9 +194,11 @@ public function userform()
                             $timestamp = $entity->time->value;
                             $booking_date = date("F j, Y",$timestamp);
                             if($entity->service->value == '199.99'){
-                                $formtype = 'Elete';
+                                $formtype = 'Elete Assessment';
                             }elseif($entity->service->value == '29.99'){
-                                $formtype = 'Starter';
+                                $formtype = 'Starter Assessment';
+                            }elseif($entity->service->value == '69.99'){
+                                $formtype = 'Professional Assessment';
                             }
                             
                             $result[] = [

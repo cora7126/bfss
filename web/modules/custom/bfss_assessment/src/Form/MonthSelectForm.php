@@ -35,20 +35,28 @@ class MonthSelectForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $year = date("Y");
-    $month = [
-            '01/'.$year.'' =>'January '.$year.'',
-            '02/'.$year.'' =>'February '.$year.'',
-            '03/'.$year.'' =>'March '.$year.'',
-            '04/'.$year.'' =>'April '.$year.'',
-            '05/'.$year.'' =>'May '.$year.'',
-            '06/'.$year.'' =>'June '.$year.'',
-            '07/'.$year.'' =>'July '.$year.'',
-            '08/'.$year.'' =>'August '.$year.'',
-            '09/'.$year.'' =>'September '.$year.'',
-            '10/'.$year.'' =>'October '.$year.'',
-            '11/'.$year.'' =>'November '.$year.'',
-            '12/'.$year.'' =>'December '.$year.'',
-          ];
+    $month = [];
+    for ($i = 1; $i < 12; $i++) {
+      $key = date('m/Y', strtotime("+$i month"));
+      $val = date('F, Y', strtotime("+$i month"));
+      $month[$key] = $val; 
+    }
+    $month = array(date('m/Y') => date('F, Y')) + $month;
+    //print_r($month);
+    // $month = [
+    //         '01/'.$year.'' =>'January '.$year.'',
+    //         '02/'.$year.'' =>'February '.$year.'',
+    //         '03/'.$year.'' =>'March '.$year.'',
+    //         '04/'.$year.'' =>'April '.$year.'',
+    //         '05/'.$year.'' =>'May '.$year.'',
+    //         '06/'.$year.'' =>'June '.$year.'',
+    //         '07/'.$year.'' =>'July '.$year.'',
+    //         '08/'.$year.'' =>'August '.$year.'',
+    //         '09/'.$year.'' =>'September '.$year.'',
+    //         '10/'.$year.'' =>'October '.$year.'',
+    //         '11/'.$year.'' =>'November '.$year.'',
+    //         '12/'.$year.'' =>'December '.$year.'',
+    //       ];
     $current_date = date("Y/m/d");
     $date_arr = explode('/',$current_date);
     if(isset($_GET['showdate'])){

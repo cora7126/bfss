@@ -1,4 +1,9 @@
 jQuery(document).ready(function() {
+
+	jQuery("i.fal.fa-caret-down, i.fal.fa-calendar-alt").click(function(){
+	 	jQuery(".month-view-form .nice-select.form-select.form-control").toggleClass('open');
+    	return false;
+	});
 jQuery('[data-toggle="tooltip"]').tooltip();
 
 jQuery('.edit_dropdown .drop').click(function(){
