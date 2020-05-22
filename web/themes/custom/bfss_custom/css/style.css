@@ -1175,7 +1175,7 @@ tbody.collapse.in{display:table-row-group;}
  .breadcrumb > li{display:inline-block;}
  .breadcrumb > li + li:before{padding:0 5px;color:#ccc;content:"/ ";}
  .breadcrumb > .active{color:#777777;}
-.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px;}
+.pagination{display:inline-block;padding-left:0;margin:0 0 20px;border-radius:4px;}
  .pagination > li{display:inline;}
  .pagination > li > a, .pagination > li > span{position:relative;float:left;padding:6px 12px;margin-left:-1px;line-height:1.428571429;color:#337ab7;text-decoration:none;background-color:#fff;border:1px solid #ddd;}
  .pagination > li > a:hover, .pagination > li > a:focus, .pagination > li > span:hover, .pagination > li > span:focus{z-index:2;color:#23527c;background-color:#eeeeee;border-color:#ddd;}
@@ -1902,9 +1902,6 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 #edit-profile-class .user-form .panel-default{width:66%;}
 #edit-profile-class .user-form .panel-title img{display:none !important;}
 #edit-profile-class .user-form .panel-default a.panel-title{padding:10px 35px !important;}
-
-#edit-actions button.btn-success{background:#000;}
-
 .js-form-item-jodi input:focus{background:#90909033;}
 .edit_image{width:72px;height:72px;margin-right:12px;font-size:36px;padding-top:36px;border:2px solid;border-radius:50%;padding:12px;line-height:46px!important;color:#EB6E06;font-weight:300!important;}
 #edit-profile-class , .bfssathleteprofile{margin-top:0;}
@@ -1953,7 +1950,6 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .right_section .items_div, .left_section .items_div .form-actions.js-form-wrapper button.btn.btn-success.add_item_plx{top:0;padding-left:15px;}
 .athlete_submit{display:inline-block;width:100%;padding-top:20px;}
 #edit-user-picture-wrapper .image-widget .data{display:inline-block;top:10px;right:2px;width:auto !important;background:white;padding:10px 20px;box-shadow:0 2px 2px #ccc;display:block;}
-#edit-actions .athlete_submit button.btn-success{background:#EB6E06;}
 .right_section .image-widget .data{position:absolute;top:45px;right:0;width:90px;background:#fff;padding:20px 5px 10px;display:none;border:1px solid #c2c2c2; -moz-transition:all .5s ease;-webkit-transition:all .5s ease;transition:all .5s ease;-moz-box-shadow:0 2px 4px #c2c2c2;-webkit-box-shadow:0 2px 4px #c2c2c2;box-shadow:0 2px 4px #c2c2c2;}
 .right_section .image-widget .data .remove_btn_wrap{width:100%;float:left;display:block;height:auto;border:0;padding:0;}
 .right_section .image-widget .data button{width:100%;margin:0;padding:0;}

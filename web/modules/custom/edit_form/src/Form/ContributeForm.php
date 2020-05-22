@@ -165,7 +165,10 @@ class ContributeForm extends FormBase {
 	$deltaweb2=$results_delta2['athlete_web_name'];
 	$deltaweb2_visibility=$results_delta2['athlete_web_visibility'];
 	
-	
+	$date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
+  $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
+  $date_of_birth->condition('entity_id', $current_user, '=');
+  $date_of_birth_val = $date_of_birth->execute()->fetchAssoc();
 	
 	$query_org = \Drupal::database()->select('athlete_orginfo', 'n');
     $query_org->fields('n');
@@ -270,13 +273,12 @@ class ContributeForm extends FormBase {
 
     $form['doj'] = array(
       '#placeholder' => 'Date of Birth',
-      '#type' => 'textfield',
-	 '#attributes' => array('readonly' => 'readonly'),
+      '#type' => 'date',
+	  #'#attributes' => array('readonly' => 'readonly'),
 	 //'#attributes' => array('readonly' => 'readonly','id' => array('datepicker')),
       '#required' => true,
-      '#default_value' => substr($results3['field_date_value'], 0, 10),
+      '#default_value' => $date_of_birth_val,
       '#format' => 'm/d/Y',
-      '#description' => t('i.e. 09/06/2016'),
       //'#attributes' => array('disabled' => true),
       );
 
@@ -1175,25 +1177,31 @@ class ContributeForm extends FormBase {
 	}
 
     $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
-    
     $query3->addField('ufln3', 'field_date_value');
     $query3->condition('entity_id', $current_user, '=');
     $results3 = $query3->execute()->fetchAssoc();
+
+    $date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
+    $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
+    $date_of_birth->condition('entity_id', $current_user, '=');
+    $date_of_birth_val = $date_of_birth->execute()->fetchAssoc();
+
+
 	  $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    if (empty($results3)) {
+    if (empty($date_of_birth_val)) {
 		
-        $conn->insert('user__field_date')->fields(array(
+        $conn->insert('user__field_date_of_birth')->fields(array(
         'entity_id' => $current_user,
         'bundle' => 'user',
         'revision_id' => $current_user,
         'delta' => 0,
         'langcode' => $lang_code,
-        'field_date_value' => $form_state->getValue('doj'),
+        'field_date_of_birth_value' => $form_state->getValue('doj'),
         ))->execute();
     }
     else {
-        $conn->update('user__field_date')->condition('entity_id', $current_user, '=')->fields(array(
-        'field_date_value' => $form_state->getValue('doj'),
+        $conn->update('user__field_date_of_birth')->condition('entity_id', $current_user, '=')->fields(array(
+        'field_date_of_birth_value' => $form_state->getValue('doj'),
         ))->execute();
     }
 

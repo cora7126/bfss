@@ -36,10 +36,10 @@ class ViewEditDeactive extends ControllerBase {
               <tr>
                 <th class="th-hd"><a><span></span>Select</a>
                 </th>  
-                <th class="th-hd"><a><span></span>First Name</a>
-                </th>
                 <th class="th-hd"><a><span></span>Last Name</a>
                 </th> 
+                <th class="th-hd"><a><span></span>First Name</a>
+                </th>
                 <th class="th-hd"><a><span></span>Organization</a>
                 </th> 
                 <th class="th-hd"><a><span></span>Edit Permissions</a>
@@ -109,9 +109,9 @@ class ViewEditDeactive extends ControllerBase {
               $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
 
               $tb1 .=  '<tr>
-                 <td><a class="user-status-edit" data-uid='.$athlete_user_id.'  data-editpage="ViewEditDeactive" >EDIT</a></td>
+                 <td><input class="form-checkbox getcheckboxid" type="checkbox" name="items_selected[]" value="'.$athlete_user_id.'"><span class="unfollow-checkbox"></td>
+                  <td>'.$lastname.'</td>
                 <td>'.$firstname.'</td>
-                <td>'.$lastname.'</td>
                 <td>'.$org_name.'</td>
                 <td>'.$edit_permissions_status.'</td>';
               if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){
@@ -130,7 +130,7 @@ class ViewEditDeactive extends ControllerBase {
               $tb1 .= '</tr>';
             }
             
-            $tb1 .= '
+            $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="deactive_submit" value="REACTIVATE" onclick="activate_users();" ></div>
             </tbody>
             </table>
              </div>
@@ -145,7 +145,7 @@ class ViewEditDeactive extends ControllerBase {
                           <div class="modal-dialog drupal-approve-org">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                      <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                      <button type="button" class="close role-close-btn" data-dismiss="modal" aria-label=""><span>×</span></button>
                                    </div>
                                   <div class="modal-body">
                           <div class="thank-you-pop">
@@ -161,28 +161,28 @@ class ViewEditDeactive extends ControllerBase {
               </div>
               <!--Model Popup ends-->';
 
-              $tb1 .=   '<!--Model Popup starts-->
-                  <div class="modal fade" id="ConfirmDeactivateModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeactivateLabel" aria-hidden="true">
-                    <div class="modal-dialog drupal-approve-org" role="document">
-                      <div class="modal-content">
+              // $tb1 .=   '<!--Model Popup starts-->
+              //     <div class="modal fade" id="ConfirmDeactivateModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeactivateLabel" aria-hidden="true">
+              //       <div class="modal-dialog drupal-approve-org" role="document">
+              //         <div class="modal-content">
                         
-                                  <div class="modal-header">
-                                      <button type="button" class="close deactivate-close" data-dismiss="modal" aria-label=""><span>×</span></button>
-                                   </div>
+              //                     <div class="modal-header">
+              //                         <button type="button" class="close deactivate-close" data-dismiss="modal" aria-label=""><span>×</span></button>
+              //                      </div>
                         
-                        <div class="modal-body">
-                        <div class="message-deactivate"></div>
-                          <h2>Are you sure , you want to Reactivate?</h2>
-                        </div>
-                        <div class="modal-footer deactivate-footer">
-                        <div class="modal-buttons">
-                          <button id="deactive-no" type="button" class="button btn btn-danger deactive-no" data-dismiss="modal">NO</button>
-                          <button id="deactive-yes" type="button" class="button btn btn-primary deactive-yes" >YES</button>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div><!--Model Popup ends-->';
+              //           <div class="modal-body">
+              //           <div class="message-deactivate"></div>
+              //             <h2>Are you sure , you want to Reactivate?</h2>
+              //           </div>
+              //           <div class="modal-footer deactivate-footer">
+              //           <div class="modal-buttons">
+              //             <button id="deactive-no" type="button" class="button btn btn-danger deactive-no" data-dismiss="modal">NO</button>
+              //             <button id="deactive-yes" type="button" class="button btn btn-primary deactive-yes" >YES</button>
+              //           </div>
+              //           </div>
+              //         </div>
+              //       </div>
+              //     </div><!--Model Popup ends-->';
 
    
 

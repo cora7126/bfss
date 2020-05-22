@@ -140,7 +140,7 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
 .right_section .athlete_right .previewdiv a{line-height:unset;}
 #sidenav > ul > li > nav > div > a.drop.active{border-radius:0 !important;}
 .faqct li.a{border:1px solid grey;}
-body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.region-content > div > div > h2 > span{font-family:"Proxima Nova Rg";}
+body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.region-content > div > div > h2 > span{font-family:"Proxima Nova Rg";font-weight:normal;}
 .profile-image-text{font-family:"Proxima Nova Rg";font-size:14px;margin:10px 10px 0 10px;text-align:justify}
 /************************** COMPLETE REGISTRATION FORM CSS STARTS HERE **************************/
 .complete-registration-form #edit-actions #edit-submit.btn-set-password{font-family:montserrat, Sans-Serif;font-size:20px !important;line-height:26px;}
