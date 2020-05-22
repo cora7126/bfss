@@ -29,7 +29,7 @@ function bfss_admin_theme() {
   ];
 
   $theme['add_faqs_page'] = [
-    'variables' => ['name' => NULL,'add_faqs_block' => NULL,'reorder_faqs_block' => NULL],
+    'variables' => ['name' => NULL,'add_faqs_block' => NULL,'reorder_faqs_block' => NULL,'role_name' => NULL],
     'template' => 'add_faqs',
   ];
 

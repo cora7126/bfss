@@ -30,6 +30,7 @@ class FaqDeleteForm extends FormBase {
         $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
         $rel = $permissions_service->bfss_admin_permissions();
         $faqs =  unserialize($rel['faqs']);
+        $form['#attached']['library'][] = 'bfss_admin/bfss_admin_lab'; //here can add library
         if($faqs['edit']==1 || $faqs['admin']==1){
         $form['#attributes'] = array('class' => 'approve-organization-popup faq-delete-form');
   	   

@@ -54,9 +54,9 @@ class AddFaqs extends ControllerBase {
 		   		$url_edit = '/faq-edit-form?nid='.$nid.'&role='.$user_role;
 		   		$url_delete = '/faq-delete-form?nid='.$nid.'&role='.$user_role;
 		   		$HTML .= '<div data-nid="'.$nid.'" class="ui-state-default"><li class="q">
-							  	<div class="faq-left"><p>'.$node->title->value.'</p></div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div>
+							  	<div class="faq-left">'.$node->title->value.'</div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div>
 							 </li>
-							<li class="a"><p>'.$node->body->value.'</p>
+							<li class="a">'.$node->body->value.'
 							<div class="faq-footer-bar">
 							<div class="faq-auth-date">
 							<p class="auth">'.$user->name->value.'</p>
@@ -90,13 +90,19 @@ class AddFaqs extends ControllerBase {
 		  $result1 = '';
 		}
 
-
+		$role_name = '';
+		if(isset($param['role']) && $param['role'] == 'Athletes'){
+			$role_name = "ATHLETE'S"; 
+		}elseif(isset($param['role']) && $param['role'] == 'Coaches'){
+			$role_name = "COACHE'S"; 
+		}
 
 	    return [
 		    '#cache' => ['max-age' => 0,],
 		    '#theme' => 'add_faqs_page',
 		    '#add_faqs_block' => $form,
 		    '#reorder_faqs_block' => $result1,
+		    '#role_name' => $role_name,
 		    '#attached' => [
 		      'library' => [
 		        'acme/acme-styles', //include our custom library for this response

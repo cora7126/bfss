@@ -13,7 +13,7 @@ html body{margin-top:0 !important;padding:0 !important;}
 .close span{font-size:30px;color:#EB6E06;text-shadow:none;}
 #edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus{box-shadow:none;outline:0;}
 #edit-actions button.save-button-plx{font-size:14px;background-color:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;height:40px;margin:10;}
-
+div.table-responsive{overflow-y:hidden;}
 /**************** DASHBOARD HEADER CSS STARTS HERE *******************/
 .dashboard .custom-nav-box{display:block;}
 .dashboard .header_rightbar{max-width:100%;width:calc(100% - 300px);float:left;}
@@ -35,8 +35,8 @@ i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor: pointer;}
 .btn.button{border:1px solid #EB6E06;background:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;height:35px;line-height:23px;padding:5px 20px;font-size:14px;}
 .btn.button:hover, .btn.button:focus{box-shadow:none;outline:0;border:1px solid #EB6E06;background:#EB6E06;opacity:.8;}
 .form-actions.js-form-wrapper a.btn{margin:0 15px 0 0;}
-.form-actions.js-form-wrapper a.btn, .form-actions.js-form-wrapper button.button{outline:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;height:35px;border:1px solid #f4650f;font-size:14px;line-height:20px;}
-.form-actions.js-form-wrapper a.btn:hover, .form-actions.js-form-wrapper a.btn:focus, .form-actions.js-form-wrapper button.button:hover, .assessment-time .form-actions.js-form-wrapper button.button:focus{color:#fff;}
+.form-actions.js-form-wrapper a.btn, .form-actions.js-form-wrapper button.button{outline:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;height:35px;border:1px solid #f4650f;font-size:14px;line-height:20px;opacity:1;}
+.form-actions.js-form-wrapper a.btn:hover, .form-actions.js-form-wrapper a.btn:focus, .form-actions.js-form-wrapper button.button:hover, .assessment-time .form-actions.js-form-wrapper button.button:focus{color:#fff;opacity:.8;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit{background:transparent;color:#EB6E06;border:0;padding:0;margin:0;position:relative;top:-15px;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit span{display:inline-block;float:left;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit p{margin:0;font-size:14px;line-height:20px;display:inline-block;float:left;}
@@ -88,6 +88,9 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
  .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
+.dashboard .my-assessment.manager_desh.pending-approval .panel_row p {
+    color: #000;
+}
 .dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:1;}
 /* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
 .right_side_section .tab-main-sec .col-xl-9.col-lg-8.col-md-6.col-6, .right_side_section .tab-main-sec .col-xl-3.search_icon{margin:0;}
@@ -121,7 +124,6 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .right_section .athlete_right .edit_dropdown{width:90px;font-size:13px;overflow:hidden;}
 .coach-edit-profile-form .right_section .athlete_right:first-child h3{padding-right:100px;}
 .faqsec ul.faq.faqct li.a .filter-help.form-group{margin:0 0 0 15px;}
-.faqsec ul.faq.faqct li.q .faq-right.faq.faqct{top:9px;position:relative;}
 /* --------- BFSS MANAGER CSS STARTS HERE *******************/
 .bfss-main{width:65%;float:left;display:block;margin:3rem 0;}
 .bfss-main h3{width:100%;float:left;display:block;background-color:#000;margin:0;color:#fff;font-size:14px;padding:15px;line-height:16px;border:1px solid #000;}
@@ -247,8 +249,8 @@ form.edit-form .js-form-managed-file.form-managed-file .js-form-file.form-file{p
 .private_assess_listing_main.user_pro_block{padding:0;}
 .eventlisting_main.user_pro_block h2, .private_assess_listing_main.user_pro_block h2{margin:0;}
 .submit-follow-label i{color:#fc6703;font-size:18px;}
-.dashboard .region-footer .footer_bt{padding:0 15px;}
-.col-lg-2.col-md-3.col-sm-6.col-6.pr-0.pl-0.athletic_icon_section{cursor:pointer;}
+.dashboard .region-footer .footer_bt{padding:0;}
+.athletic_icon_section{cursor:pointer;}
 nav.navbar.navbar-expand-xs.bg-dark.navbar-dark{background:black !important;padding:23.8px 10px;}
 .modal-header{padding:0px !important;}
 .modals-section img{width:96.5%;margin-left:15px;}
@@ -458,6 +460,7 @@ div.form-item-current-pass{padding-top:31px;margin-top:20px;}
 .user_pro_block{width:100%;float:left;display:block;margin:0;padding:0;}
 .user_pro_block h2{background:#000;color:#fff;padding:5px 15px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:30px;height:40px;}
 .user_pro_block .block-bfss-assessors{width:100%;float:left;display:block;border:1px solid #6d6e72;padding:0;}
+.assessor-profile-desh .user_pro_block .block-bfss-assessors{padding:30px 30px 0;}
 .user_pro_block .block-bfss-assessors .table-responsive table{border:1px solid #6d6e72;border-collapse:unset;margin:0 0 30px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead{background-color:#A8A9AD;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th{border:0;padding:15px 12px;text-transform:capitalize;border:0;white-space:nowrap;}
@@ -619,7 +622,7 @@ a.side_button.menulink.my_assess{color:#fff;}
 .change_pass{padding:0 15px;font-size:14px;}
 a.change_pass, a.change_pass:hover{color:#EB6E06;}
 .faq.faqct.aa, .faq-text-area{padding:0 15px;}
-.faq-text-area{font-size:16px;margin:30px 0;font-family:'montserrat, Sans-Serif';text-align:justify}
+.faq-text-area{font-size:13px;margin:30px 0;font-family:'montserrat, Sans-Serif';text-align:justify}
 #edit-form .assessor-btn.user-submit-button{position:relative;bottom:0;left:15px;padding:0;}
 .right_section .athlete_right .changepassdiv-modal .change_password_button{float:right;margin-right:15px;color:#fff;font-size:13px;text-transform:uppercase;background:#EB6E06 !important;display:block;height:32px;line-height:14px;}
 .bgGray{background:#ebebeb;}
@@ -806,8 +809,6 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close{padding:0;margin:0;top:10px;position:relative;height:30px;width:30px;right:0;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span{color:grey;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:hover, .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:focus{color:#EB6E06;}
-#edit-actions.form-actions button.btn-success{background:#EB6E06;border-color:#EB6E06;color:#fff;}
-.eventlisting_main.user_pro_block .block-bfss-assessors .table-responsive table{margin:0 0 15px;}
 .eventlisting_main.user_pro_block .block-bfss-assessors .table-responsive table tbody tr{border:1px solid transparent;border-left:1px solid #6d6e72;border-right: 1px solid #6d6e72;}
 
 .remove_padding .search_athlete_main.user_pro_block, .remove_padding .search_athlete_main.user_pro_block .wrapped_div_main{padding:0;}
@@ -881,10 +882,15 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.bfss_manager_page{grid-template-columns:1fr;}
 	.bfss_manager{margin:10px 0 0;}
 	.bfss_manager_inner_sec{margin:30px 0px 0;}
+	.add-assessments .athlete_submit button{width:100%;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
 	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:250px;flex: 0 0 250px;max-width:250px;}
+}
+@media (min-width:768px) {
+	.add-assessments .athlete_submit{position:fixed;bottom:0;right:0;width:auto;}
+	.add-assessments .athlete_submit button{width:300px;}
 }
 
 @media (max-width:1023px) {

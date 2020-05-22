@@ -215,7 +215,7 @@ class AddGroupAssessmentsForm extends FormBase {
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Save'),
+      '#value' => $this->t('SAVE'),
       '#prefix' => ' <div id="athlete_submit" class="athlete_submit">',
       '#suffix' => '</div>'
      
