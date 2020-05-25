@@ -47,7 +47,7 @@ class EditableTemplatesForm extends FormBase {
 	        '#default_value' => $forgetpass['subject'],
 	        '#prefix' => '<div class="faqsec">
 	      					<ul class="faq faqct">
-	      					 <li class="q"><div class="faq-left">Forgot / Change Password</div><div class="faq-right faq faqct"><img class="arrowimg" src="/modules/custom/bfss_assessment/img/o-arrow.png"/></div></li>
+	      					 <li class="q"><div class="faq-left">Forgot / Change Password</div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div></li>
 	      					 <li class="a">',
 	        '#suffix' => '',
 
@@ -77,7 +77,7 @@ class EditableTemplatesForm extends FormBase {
 	        '#default_value' => $reg_success['subject'],
 	        '#prefix' => '<div class="faqsec">
 	      					<ul class="faq faqct">
-	      					 <li class="q"><div class="faq-left">Registration - Success</div><div class="faq-right faq faqct"><img class="arrowimg" src="/modules/custom/bfss_assessment/img/o-arrow.png"/></div></li><li class="a">',
+	      					 <li class="q"><div class="faq-left">Registration - Success</div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div></li><li class="a">',
 
 	    ];
 
@@ -104,7 +104,7 @@ class EditableTemplatesForm extends FormBase {
 	        '#default_value' => $change_pass['subject'],
 	        '#prefix' => '<div class="faqsec">
 	      					<ul class="faq faqct">
-	      					 <li class="q"><div class="faq-left">Password Change</div><div class="faq-right faq faqct"><img class="arrowimg" src="/modules/custom/bfss_assessment/img/o-arrow.png"/></div></li><li class="a">',
+	      					 <li class="q"><div class="faq-left">Password Change</div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div></li><li class="a">',
 
 	    ];
 
@@ -131,7 +131,7 @@ class EditableTemplatesForm extends FormBase {
 	        '#default_value' => $ticketing_initial['subject'],
 	        '#prefix' => '<div class="faqsec">
 	      					<ul class="faq faqct">
-	      					 <li class="q"><div class="faq-left">Ticketing - Initial Ticket</div><div class="faq-right faq faqct"><img class="arrowimg" src="/modules/custom/bfss_assessment/img/o-arrow.png"/></div></li><li class="a">',
+	      					 <li class="q"><div class="faq-left">Ticketing - Initial Ticket</div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div></li><li class="a">',
 
 	    ];
 
@@ -157,7 +157,7 @@ class EditableTemplatesForm extends FormBase {
 	        '#default_value' => $ticketing_resolved['subject'],
 	        '#prefix' => '<div class="faqsec">
 	      					<ul class="faq faqct">
-	      					 <li class="q"><div class="faq-left">Ticketing - Ticket Resolved</div><div class="faq-right faq faqct"><img class="arrowimg" src="/modules/custom/bfss_assessment/img/o-arrow.png"/></div></li><li class="a">',
+	      					 <li class="q"><div class="faq-left">Ticketing - Ticket Resolved</div><div class="faq-right faq faqct"><i class="far fa-angle-down"></i></div></li><li class="a">',
 	    ];
 
 	    $form['ticketing_resolved_body'] = [

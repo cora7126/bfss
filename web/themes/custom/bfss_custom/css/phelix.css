@@ -59,7 +59,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper{display:block;position:relative;width:100%;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select{outline:none;color:#6d6e71;-webkit-appearance:none;-moz-appearance:none;appearance:none;padding:10px 40px 10px 15px;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:hover, .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:focus, .user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title:hover, .user_form_content .registration-area form .form-item.js-form-item .panel-heading .panel-title:focus{outline:none;box-shadow:none;}
-.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:focus{background:#fff;border-color:#ccc;}
+.user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select:focus{background:#fff;border-color:#6d6e72;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper select::-ms-expand{opacity:0;}
 .user_form_content .registration-area form .form-item.js-form-item .panel-body .js-form-item.form-type-select .select-wrapper:after{color:#6d6e71;content:"\F107";pointer-events:none;position:absolute;right:15px;top:10px;z-index:10;font-family:"FontAwesome";font-size:20px;}
 .user_form_content .registration-area form .form-item-title, .user_form_content .registration-area form .form-item-fields-list-title, .user_form_content .registration-area form .form-item-fields-list-title-2{color:#000;font-size:21px;line-height:25px;font-weight:500;margin:15px 0;}
@@ -107,9 +107,9 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .main_header h1{padding:10px 0;}
 .dash-main-right h1,.dash-main-right a,.main_header h1 a{font-family:montserrat, sans-serif !important;font-weight:inherit !important;}
 .dashboard .athletic_profile{border-right:none;}
-.top_right .athletic_profile{width:125px;float:left;border-right:1px solid grey;cursor:pointer;}
+.top_right .athletic_profile{width:125px;float:left;border-right:1px solid #6d6e72;cursor:pointer;}
 .top_right .calender_img{float:left;width:125px;}
-.profile-sec{width:125px;text-align:center;border-left:1px solid grey;margin:0 auto;}
+.profile-sec{width:125px;text-align:center;border-left:1px solid #6d6e72;margin:0 auto;}
 .calender_img a:hover{text-decoration:none;}
 .faq-left{float:left;width:calc(100% - 30px);}
 .faq-right{float:right;width:30px;height:45px;text-align:center;}
@@ -120,10 +120,7 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .main-head h6{font-family:"Proxima Nova Rg";font-size:14px;}
 .service-top-head{font-family:"Proxima Nova Rg";font-size:14px;}
 #multistep-form-one > div.form-group > label:after{background-image:inherit;content:none;}
-#multistep-form-one > div.form-group > label,#multistep-form-two > div.two > label,#multistep-form-three > div.two > label,#multistep-form-four > div.two > label{color:#f4650f;font-family:"Proxima Nova Rg";font-size:14px;}
-#edit-service,#edit-previous,.assessment-time input,#multistep-form-three > div.form-item input,#multistep-form-four > div.form-item input,#edit-expiration-month,#edit-expiration-year,#multistep-form-four h3{font-family:"Proxima Nova Rg";font-size:14px !important;}
 #edit-previous{float:left;}
-.wrapper #edit-submit{float:left !important;}
 .wrapper .form-actions .btn, .form-actions .btn-group{padding:5px 30px;line-height:25px;}
 .timeslots > fieldset > legend > span{font-family:"Proxima Nova Rg";font-size:14px;}
 #sidenav > ul li nav div a.drop,#sidenav > ul li nav div a.drop:hover,a.side_button,a.side_button:hover{text-decoration:none;}
@@ -139,7 +136,7 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
 .container-inline.web_name input, #name_1, #name_2, #name_3, #name_4{width:120px !important;}
 .right_section .athlete_right .previewdiv a{line-height:unset;}
 #sidenav > ul > li > nav > div > a.drop.active{border-radius:0 !important;}
-.faqct li.a{border:1px solid grey;}
+.faqct li.a{border:1px solid #6d6e72;}
 body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.region-content > div > div > h2 > span{font-family:"Proxima Nova Rg";font-weight:normal;}
 .profile-image-text{font-family:"Proxima Nova Rg";font-size:14px;margin:10px 10px 0 10px;text-align:justify}
 /************************** COMPLETE REGISTRATION FORM CSS STARTS HERE **************************/

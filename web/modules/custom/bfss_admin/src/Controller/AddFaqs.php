@@ -42,7 +42,8 @@ class AddFaqs extends ControllerBase {
 
 				}
 			}
-		  	$HTML = '<ul id="sortable_faqs" class="faq faqct">';
+		  	$HTML = '
+		  	<ul id="sortable_faqs" class="faq faqct">';
 		  	foreach ($nids as $nid) {
 		   	 $node = Node::load($nid);
 		   	 $uid = isset($node->get('uid')->getValue()[0]['target_id'])?$node->get('uid')->getValue()[0]['target_id']:'';

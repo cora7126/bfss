@@ -60,11 +60,9 @@ class EditOrganizations extends FormBase {
      $permissions_service = \Drupal::service('bfss_admin.bfss_admin_permissions');
      $rel = $permissions_service->bfss_admin_permissions();
      $Organizations_permissions =  unserialize($rel['Organizations']);
-
      if($Organizations_permissions['edit']==1 || $Organizations_permissions['admin']==1){
-        if(isset($param['nids'])){
-        //$query_nids = !empty(json_decode($param['nids'])) ? json_decode($param['nids']) : '';
-          $query_nids = $param['nids'];
+        if( $param['nids'] != '[]'){
+        $query_nids = !empty(json_decode($param['nids'])) ? json_decode($param['nids']) : '';
 
         $form['#tree'] = TRUE;
 
@@ -84,8 +82,9 @@ class EditOrganizations extends FormBase {
           '#attributes' => ['id' => 'resident-details'],
         ];
 
-            
-                  $node = Node::load($query_nids);
+             foreach ($query_nids as $i => $nid) {
+                if(isset($nid)){
+                  $node = Node::load($nid);
                   $field_address_1 = $node->field_address_1->value;
                   $field_address_2 = $node->field_address_2->value;
                   $field_city = $node->field_city->value;
@@ -103,7 +102,7 @@ class EditOrganizations extends FormBase {
                   // ];
 
                   $states = $this->get_state();
-                  $form['resident']['state'] = [
+                  $form['resident'][$i]['state'] = [
                     '#placeholder' => t('State'),
                     '#type' => 'select',
                      '#required' => TRUE,
@@ -116,7 +115,7 @@ class EditOrganizations extends FormBase {
                   ];
 
                   $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club', 'university' => 'University'];
-                  $form['resident']['type'] = [
+                  $form['resident'][$i]['type'] = [
                     '#placeholder' => t('Type'),
                     '#type' => 'select',
                      '#required' => TRUE,
@@ -124,7 +123,7 @@ class EditOrganizations extends FormBase {
                     '#default_value' => $field_type,
                   ];
 
-                  $form['resident']['organization_name'] = [
+                  $form['resident'][$i]['organization_name'] = [
                     '#type' => 'textfield',
                     '#placeholder' => t('Organization Name'),
                     #'#title' => $this->t('Organization Name'),
@@ -132,28 +131,28 @@ class EditOrganizations extends FormBase {
                     '#default_value' => $field_organization_name,
                   ];
 
-                  $form['resident']['address_1'] = [
+                  $form['resident'][$i]['address_1'] = [
                     '#type' => 'textfield',
                     '#placeholder' => t('Address 1'),
                     '#required' => TRUE,
                     '#default_value' => $field_address_1,
                   ];
 
-                  $form['resident']['address_2'] = [
+                  $form['resident'][$i]['address_2'] = [
                     '#type' => 'textfield',
                     '#placeholder' => t('Address 2'),
                     '#required' => TRUE,
                     '#default_value' => $field_address_2,
                   ];
 
-                  $form['resident']['city'] = [
+                  $form['resident'][$i]['city'] = [
                     '#type' => 'textfield',
                     '#placeholder' => t('City'),
                     '#required' => TRUE,
                     '#default_value' => $field_city,
                   ];
 
-                  $form['resident']['zip'] = [
+                  $form['resident'][$i]['zip'] = [
                     '#type' => 'textfield',
                     '#placeholder' => t('Zip'),
                     '#required' => TRUE,
@@ -161,15 +160,16 @@ class EditOrganizations extends FormBase {
                      '#suffix' => '</div></div>'
                   ];
 
-                  $form['resident']['nid'] = [
+                  $form['resident'][$i]['nid'] = [
                     '#type' => 'hidden',
-                    '#default_value' => $query_nids,
+                    '#default_value' => $nid,
                   ];
 
-                  $form['resident']['actions'] = [
+                  $form['resident'][$i]['actions'] = [
                     '#type' => 'actions',
                   ];
-             
+                }
+              }
               // for ($i = 1; $i <= $count; $i++) {  
 
               // }
@@ -219,21 +219,46 @@ class EditOrganizations extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $param = \Drupal::request()->query->all();
-
-      if(isset($param['nids'])){
-        $data = $form_state->getValue('resident');
-        $node = Node::load($param['nids']);
-        $node->field_address_1->value = $data['address_1'];
-        $node->field_address_2->value = $data['address_2'];
-        $node->field_city->value = $data['city'];
-        $node->field_state->value = $data['state'];
-        $node->field_zip->value = $data['zip'];
-        $node->field_organization_name->value = $data['organization_name'];
-        $node->field_type->value = $data['type'];
-        $node->save();  
-       // drupal_set_message(t('An error occurred and processing did not complete.'), 'success');
-      }
+    if(!empty($form_state->getValues('resident')['resident'])){
+                $data=[];
+             foreach($form_state->getValues('resident')['resident'] as $values) {   
+              if(!empty($values['organization_name'])){
+                $data[] = [
+                    'nid' => $values['nid'],
+                    'address_1' => $values['address_1'],
+                    'address_2' => $values['address_2'],
+                    'city' => $values['city'],
+                    'state' => $values['state'],
+                    'zip' => $values['zip'],
+                    'organization_name' => $values['organization_name'],
+                    'type' => $values['type'],
+                  ]; 
+              }
+                 
+             }
+          //    echo "<pre>";
+          // print_r($data);
+          // die;
+            foreach ($data as $key => $value) {
+              // print_r($value['nid']);
+              // die;
+             // if(isset($value['nids'])){
+                $node = Node::load($value['nid']);
+                $node->field_address_1->value = $value['address_1'];
+                $node->field_address_2->value = $value['address_2'];
+                $node->field_city->value = $value['city'];
+                $node->field_state->value = $value['state'];
+                $node->field_zip->value = $value['zip'];
+                $node->field_organization_name->value = $value['organization_name'];
+                $node->field_type->value = $value['type'];
+                //$node->title->value = $value['type'].'-'.$value['organization_name'];
+                //$node->setPublished(FALSE);
+                $node->save();
+             // }
+              
+            }
+              
+    }
         
   }
 

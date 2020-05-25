@@ -1,4 +1,5 @@
 jQuery(document).ready(function() {
+
 	console.log("here1");
 	jQuery("button.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close").click(function(){
 		location.reload();

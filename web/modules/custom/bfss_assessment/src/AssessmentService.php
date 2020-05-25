@@ -329,6 +329,7 @@ class AssessmentService {
                 if ($pGraph->hasField('field_timing')/* && $pGraph->hasField('field_duration')*/) {
                   $timing = (int) $pGraph->get('field_timing')->value;
                   if ($timing > time()) {
+                    //print_r($timing);
                     $data[$timing] = $timing;
                   }
                 }

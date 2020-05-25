@@ -140,8 +140,8 @@ class test extends FormBase {
             '#placeholder' => t('Date joined'),
             '#suffix' => '</div></div>',
             '#default_value' => substr($results3['field_date_value'],0,10),
-            // '#attributes' => array('disabled'=>true),
-            '#attributes' => array('id' => array('datepicker')),
+             #'#attributes' => array('disabled'=>true),
+            '#attributes' => array('disabled'=>true,'id' => array('datepicker')),
           );
         }
     }
