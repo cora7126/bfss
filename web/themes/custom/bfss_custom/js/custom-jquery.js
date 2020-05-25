@@ -38,30 +38,32 @@ jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
 	 	jQuery('a.pr-3.assessment-search-icon').click(function(){
 	 		jQuery(".search-assessements-input").toggle('slow');	
 	 	});
-		// i = 0;
-		// jQuery('#edit-organizations-plx').on('click',function(){
-		// 	var arr = [];
-		// 	jQuery('.edit-ckeckbox-plx:checked').each(function () {
-		// 		arr[i++] = $(this).val();
-		// 	});
-		// 	console.log(jQuery.isEmptyObject(arr));
-		// 	//if(jQuery.isEmptyObject(arr) == false){
-		// 		var arrStr = encodeURIComponent(JSON.stringify(arr));
-		// 		window.location.href = "http://5ppsystem.com/edit-organizations?nids="+arrStr;
-		// 	//}
+		i = 0;
+		jQuery('#edit-organizations-plx').on('click',function(){
+			var arr = [];
+			jQuery('.edit-ckeckbox-plx:checked').each(function () {
+				arr[i++] = $(this).val();
+			});
+			console.log(jQuery.isEmptyObject(arr));
+			if (arr.length != 0) {
+				var arrStr = encodeURIComponent(JSON.stringify(arr));
+				window.location.href = "http://5ppsystem.com/edit-organizations?nids="+arrStr;
+			}else{
+				alert("Plaese Select Checkboxes.");
+			}
 
-		// });
-
-		jQuery('.edit-ckeckbox-plx').click(function(){
-            if(jQuery(this).is(":checked")){
-                console.log(jQuery(this).val());
-                var nid = jQuery(this).val();
-                window.location.href = "http://5ppsystem.com/edit-organizations?nids="+nid;
-            }
-            else if(jQuery(this).is(":not(:checked)")){
-                console.log("Checkbox is unchecked.");
-            }
 		});
+
+		// jQuery('.edit-ckeckbox-plx').click(function(){
+  //           if(jQuery(this).is(":checked")){
+  //               console.log(jQuery(this).val());
+  //               var nid = jQuery(this).val();
+  //               window.location.href = "http://5ppsystem.com/edit-organizations?nids="+nid;
+  //           }
+  //           else if(jQuery(this).is(":not(:checked)")){
+  //               console.log("Checkbox is unchecked.");
+  //           }
+		// });
 
 		//autosuggest
 		jQuery("input#edit-orgnames-search").click(function(){

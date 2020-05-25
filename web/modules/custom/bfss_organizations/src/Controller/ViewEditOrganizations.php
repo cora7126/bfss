@@ -34,7 +34,8 @@ class ViewEditOrganizations extends ControllerBase {
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
-             
+                <th class="th-hd"><a><span></span>Select</a>
+                </th>  
                 </th>  
                 <th class="th-hd"><a><span></span>Organization</a>
                 </th>
@@ -56,6 +57,7 @@ class ViewEditOrganizations extends ControllerBase {
 				$node = Node::load($nid);
         $url = '/edit-organizations?nids='.$nid;
 				$tb1 .=  '<tr>
+                <td><input class="form-checkbox edit-ckeckbox-plx" type="checkbox" name="items_selected[]" value="'.$nid.'"><span class="unfollow-checkbox"></span></td>
 		            <td><a href="'.$url.'" target="_blank">'.$node->field_organization_name->value.'</a>  </td>
 		            <td>'.$node->field_type->value.'</td>
 		            <td>'.$node->field_state->value.'</td>
@@ -64,7 +66,7 @@ class ViewEditOrganizations extends ControllerBase {
 			}
 			
                    
-            $tb1 .= '
+            $tb1 .= '<div class="unfollow-sub"><a value="EDIT" id="edit-organizations-plx" >EDIT</a></div>
             </tbody>
             </table>
              </div>
