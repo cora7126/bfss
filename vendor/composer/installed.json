@@ -54,6 +54,54 @@
         ]
     },
     {
+        "name": "authorizenet/authorizenet",
+        "version": "1.9.9",
+        "version_normalized": "1.9.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/AuthorizeNet/sdk-php.git",
+            "reference": "31bb167baeec86eb87908e40db58a3de0eba406f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/AuthorizeNet/sdk-php/zipball/31bb167baeec86eb87908e40db58a3de0eba406f",
+            "reference": "31bb167baeec86eb87908e40db58a3de0eba406f",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "ext-simplexml": "*",
+            "ext-xmlwriter": "*",
+            "goetas-webservices/xsd2php-runtime": "^0.2.2",
+            "php": ">=5.6"
+        },
+        "require-dev": {
+            "phpmd/phpmd": "~2.0",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2018-12-05T10:34:25+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "lib"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "proprietary"
+        ],
+        "description": "Official PHP SDK for Authorize.Net",
+        "homepage": "http://developer.authorize.net",
+        "keywords": [
+            "authorize.net",
+            "authorizenet",
+            "ecommerce",
+            "payment"
+        ]
+    },
+    {
         "name": "behat/mink",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -338,6 +386,100 @@
             "GPL-2.0-or-later"
         ],
         "description": "Drupal code generator"
+    },
+    {
+        "name": "commercie/currency",
+        "version": "1.1.2",
+        "version_normalized": "1.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Commercie/currency.git",
+            "reference": "64812cb8d5e8cdbc406c2f7c114399c814e2d898"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Commercie/currency/zipball/64812cb8d5e8cdbc406c2f7c114399c814e2d898",
+            "reference": "64812cb8d5e8cdbc406c2f7c114399c814e2d898",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": "~5.5 || ~7.0"
+        },
+        "require-dev": {
+            "justinrainbow/json-schema": "~1.4",
+            "phpunit/phpunit": "~4.0"
+        },
+        "suggest": {
+            "drupal/currency": "Integrates this package with Drupal."
+        },
+        "time": "2018-05-11T10:11:38+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Commercie\\Currency\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Bart Feenstra",
+                "email": "bart@mynameisbart.com",
+                "homepage": "http://mynameisbart.com",
+                "role": "Developer"
+            }
+        ]
+    },
+    {
+        "name": "commercie/currency-exchange",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Commercie/currency-exchange.git",
+            "reference": "bb6a0c3b682aaed2eda205ceda5582673cb444af"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Commercie/currency-exchange/zipball/bb6a0c3b682aaed2eda205ceda5582673cb444af",
+            "reference": "bb6a0c3b682aaed2eda205ceda5582673cb444af",
+            "shasum": ""
+        },
+        "require": {
+            "ext-bcmath": "*",
+            "ext-json": "*",
+            "php": "~5.5 || ~7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "suggest": {
+            "commercie/currency-exchange-yahoo-finance": "Retrieves currency exchange rates from Yahoo! Finance.",
+            "drupal/currency": "Integrates this package with Drupal."
+        },
+        "time": "2016-07-01T11:01:48+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Commercie\\CurrencyExchange\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Bart Feenstra",
+                "email": "bart@mynameisbart.com"
+            }
+        ],
+        "description": "A library for retrieving currency exchange rates."
     },
     {
         "name": "composer/ca-bundle",
@@ -3111,6 +3253,70 @@
         }
     },
     {
+        "name": "drupal/currency",
+        "version": "3.2.0",
+        "version_normalized": "3.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/currency.git",
+            "reference": "8.x-3.2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/currency-8.x-3.2.zip",
+            "reference": "8.x-3.2",
+            "shasum": "dfb67b498bfd30bea07677fd897734f0b47b11f6"
+        },
+        "require": {
+            "commercie/currency": "~1.0",
+            "commercie/currency-exchange": "~1.0",
+            "drupal/core": "~8.0",
+            "drupal/plugin": "^2.6",
+            "ext-bcmath": "*",
+            "php": "~7.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-3.x": "3.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-3.2",
+                "datestamp": "1573662484",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Drupal\\currency\\": "src"
+            }
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Drupal\\Tests\\currency\\": "tests/src"
+            }
+        },
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Berdir",
+                "homepage": "https://www.drupal.org/user/214652"
+            }
+        ],
+        "description": "Provides your Drupal site with currency conversion, currency information & metadata, and amount/price display functionality.",
+        "homepage": "https://www.drupal.org/project/currency",
+        "support": {
+            "source": "https://git.drupalcode.org/project/currency"
+        }
+    },
+    {
         "name": "drupal/devel",
         "version": "2.1.0",
         "version_normalized": "2.1.0.0",
@@ -3933,6 +4139,208 @@
         "homepage": "https://www.drupal.org/project/paragraphs",
         "support": {
             "source": "https://git.drupalcode.org/project/paragraphs"
+        }
+    },
+    {
+        "name": "drupal/payment",
+        "version": "2.0.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/payment.git",
+            "reference": "8.x-2.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/payment-8.x-2.0.zip",
+            "reference": "8.x-2.0",
+            "shasum": "dc71e7e79b2db723d831edf0cec267c6a84cdbbc"
+        },
+        "require": {
+            "drupal/core": "^8.7.7 || ^9",
+            "drupal/currency": "~3.0 || ~8.3.0",
+            "drupal/plugin": "~2.2 || ~8.2.2",
+            "ext-bcmath": "*",
+            "php": "~5.5 || ~7.0"
+        },
+        "require-dev": {
+            "drupal/payment_reference": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-2.0",
+                "datestamp": "1577815087",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Drupal\\payment\\": "src",
+                "Drupal\\payment_form\\": "modules/payment_form/src",
+                "Drupal\\payment_reference\\": "modules/payment_reference/src"
+            }
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Drupal\\Tests\\payment\\": "tests/src",
+                "Drupal\\Tests\\payment_form\\": "modules/payment_form/tests/src",
+                "Drupal\\Tests\\payment_reference\\": "modules/payment_reference/tests/src"
+            }
+        },
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Berdir",
+                "homepage": "https://www.drupal.org/user/214652"
+            },
+            {
+                "name": "ricovandevin",
+                "homepage": "https://www.drupal.org/user/1243726"
+            },
+            {
+                "name": "torotil",
+                "homepage": "https://www.drupal.org/user/865256"
+            }
+        ],
+        "description": "Allows payments to be made using any of the available payment methods.",
+        "homepage": "https://www.drupal.org/project/payment",
+        "support": {
+            "source": "https://git.drupalcode.org/project/payment"
+        }
+    },
+    {
+        "name": "drupal/payment_authnet",
+        "version": "1.8.0",
+        "version_normalized": "1.8.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/payment_authnet.git",
+            "reference": "8.x-1.8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/payment_authnet-8.x-1.8.zip",
+            "reference": "8.x-1.8",
+            "shasum": "03c74b004a984b6c473c537c99346f6a5b498656"
+        },
+        "require": {
+            "authorizenet/authorizenet": "~1.9.8",
+            "drupal/core": "*",
+            "drupal/creditfield": "^1.0",
+            "drupal/payment": "^2.0@RC",
+            "ext-curl": "*",
+            "php": ">=5.6|~7.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "drupal": {
+                "version": "8.x-1.8",
+                "datestamp": "1589453448",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Drupal\\payment_authnet\\": "src"
+            }
+        },
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0"
+        ],
+        "authors": [
+            {
+                "name": "vaza18",
+                "homepage": "https://www.drupal.org/user/2443606"
+            }
+        ],
+        "description": "Provides Authorize.net integration for the Payment module.",
+        "homepage": "https://www.drupal.org/project/payment_authnet",
+        "support": {
+            "source": "https://git.drupalcode.org/project/payment_authnet"
+        }
+    },
+    {
+        "name": "drupal/plugin",
+        "version": "2.7.0",
+        "version_normalized": "2.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/plugin.git",
+            "reference": "8.x-2.7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/plugin-8.x-2.7.zip",
+            "reference": "8.x-2.7",
+            "shasum": "55e2d907c260fca797aa4cc5c4ccdc794aa00446"
+        },
+        "require": {
+            "drupal/core": "^8.7.7 || ^9",
+            "php": "~7.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-2.7",
+                "datestamp": "1573598280",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Drupal\\plugin\\": "src"
+            }
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Drupal\\Tests\\plugin\\": "tests/src"
+            }
+        },
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Berdir",
+                "homepage": "https://www.drupal.org/user/214652"
+            },
+            {
+                "name": "bradjones1",
+                "homepage": "https://www.drupal.org/user/405824"
+            },
+            {
+                "name": "joachim",
+                "homepage": "https://www.drupal.org/user/107701"
+            }
+        ],
+        "description": "Provides tools that extend Drupal's plugin system.",
+        "homepage": "https://www.drupal.org/project/plugin",
+        "support": {
+            "source": "https://git.drupalcode.org/project/plugin"
         }
     },
     {
@@ -4889,6 +5297,64 @@
         ]
     },
     {
+        "name": "goetas-webservices/xsd2php-runtime",
+        "version": "v0.2.12",
+        "version_normalized": "0.2.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/goetas-webservices/xsd2php-runtime.git",
+            "reference": "306d346eb39720ff6ca6c7108b3d9fe2ae328089"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/goetas-webservices/xsd2php-runtime/zipball/306d346eb39720ff6ca6c7108b3d9fe2ae328089",
+            "reference": "306d346eb39720ff6ca6c7108b3d9fe2ae328089",
+            "shasum": ""
+        },
+        "require": {
+            "jms/serializer": "^1.2|^2.0|^3.0",
+            "php": "^5.5|^7.0",
+            "symfony/yaml": "^2.2|^3.0|^4.0|^5.0"
+        },
+        "conflict": {
+            "jms/serializer": "1.4.1|1.6.1|1.6.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8|^5.0"
+        },
+        "time": "2020-03-03T13:05:00+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GoetasWebservices\\Xsd\\XsdToPhpRuntime\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Asmir Mustafic"
+            }
+        ],
+        "description": "Convert XSD  (XML Schema) definitions into PHP classes",
+        "keywords": [
+            "converter",
+            "jms",
+            "php",
+            "serializer",
+            "xml",
+            "xsd"
+        ]
+    },
+    {
         "name": "grasmash/expander",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -5491,6 +5957,186 @@
             "javascript",
             "phantomjs",
             "testing"
+        ]
+    },
+    {
+        "name": "jms/metadata",
+        "version": "1.7.0",
+        "version_normalized": "1.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/schmittjoh/metadata.git",
+            "reference": "e5854ab1aa643623dc64adde718a8eec32b957a8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/e5854ab1aa643623dc64adde718a8eec32b957a8",
+            "reference": "e5854ab1aa643623dc64adde718a8eec32b957a8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "doctrine/cache": "~1.0",
+            "symfony/cache": "~3.1"
+        },
+        "time": "2018-10-26T12:40:10+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.5.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Metadata\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Asmir Mustafic",
+                "email": "goetas@gmail.com"
+            },
+            {
+                "name": "Johannes M. Schmitt",
+                "email": "schmittjoh@gmail.com"
+            }
+        ],
+        "description": "Class/method/property metadata management in PHP",
+        "keywords": [
+            "annotations",
+            "metadata",
+            "xml",
+            "yaml"
+        ]
+    },
+    {
+        "name": "jms/parser-lib",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/schmittjoh/parser-lib.git",
+            "reference": "c509473bc1b4866415627af0e1c6cc8ac97fa51d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/schmittjoh/parser-lib/zipball/c509473bc1b4866415627af0e1c6cc8ac97fa51d",
+            "reference": "c509473bc1b4866415627af0e1c6cc8ac97fa51d",
+            "shasum": ""
+        },
+        "require": {
+            "phpoption/phpoption": ">=0.9,<2.0-dev"
+        },
+        "time": "2012-11-18T18:08:43+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "JMS\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache2"
+        ],
+        "description": "A library for easily creating recursive-descent parsers."
+    },
+    {
+        "name": "jms/serializer",
+        "version": "1.14.1",
+        "version_normalized": "1.14.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/schmittjoh/serializer.git",
+            "reference": "ba908d278fff27ec01fb4349f372634ffcd697c0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/ba908d278fff27ec01fb4349f372634ffcd697c0",
+            "reference": "ba908d278fff27ec01fb4349f372634ffcd697c0",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/annotations": "^1.0",
+            "doctrine/instantiator": "^1.0.3",
+            "jms/metadata": "^1.3",
+            "jms/parser-lib": "1.*",
+            "php": "^5.5|^7.0",
+            "phpcollection/phpcollection": "~0.1",
+            "phpoption/phpoption": "^1.1"
+        },
+        "conflict": {
+            "twig/twig": "<1.12"
+        },
+        "require-dev": {
+            "doctrine/orm": "~2.1",
+            "doctrine/phpcr-odm": "^1.3|^2.0",
+            "ext-pdo_sqlite": "*",
+            "jackalope/jackalope-doctrine-dbal": "^1.1.5",
+            "phpunit/phpunit": "^4.8|^5.0",
+            "propel/propel1": "~1.7",
+            "psr/container": "^1.0",
+            "symfony/dependency-injection": "^2.7|^3.3|^4.0",
+            "symfony/expression-language": "^2.6|^3.0",
+            "symfony/filesystem": "^2.1",
+            "symfony/form": "~2.1|^3.0",
+            "symfony/translation": "^2.1|^3.0",
+            "symfony/validator": "^2.2|^3.0",
+            "symfony/yaml": "^2.1|^3.0",
+            "twig/twig": "~1.12|~2.0"
+        },
+        "suggest": {
+            "doctrine/cache": "Required if you like to use cache functionality.",
+            "doctrine/collections": "Required if you like to use doctrine collection types as ArrayCollection.",
+            "symfony/yaml": "Required if you'd like to serialize data to YAML format."
+        },
+        "time": "2020-02-22T20:59:37+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.14-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "JMS\\Serializer": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Johannes M. Schmitt",
+                "email": "schmittjoh@gmail.com"
+            },
+            {
+                "name": "Asmir Mustafic",
+                "email": "goetas@gmail.com"
+            }
+        ],
+        "description": "Library for (de-)serializing data of any complexity; supports XML, JSON, and YAML.",
+        "homepage": "http://jmsyst.com/libs/serializer",
+        "keywords": [
+            "deserialization",
+            "jaxb",
+            "json",
+            "serialization",
+            "xml"
         ]
     },
     {
@@ -6346,6 +6992,56 @@
         "description": "Library for handling version information and constraints"
     },
     {
+        "name": "phpcollection/phpcollection",
+        "version": "0.5.0",
+        "version_normalized": "0.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/schmittjoh/php-collection.git",
+            "reference": "f2bcff45c0da7c27991bbc1f90f47c4b7fb434a6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/schmittjoh/php-collection/zipball/f2bcff45c0da7c27991bbc1f90f47c4b7fb434a6",
+            "reference": "f2bcff45c0da7c27991bbc1f90f47c4b7fb434a6",
+            "shasum": ""
+        },
+        "require": {
+            "phpoption/phpoption": "1.*"
+        },
+        "time": "2015-05-17T12:39:23+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PhpCollection": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache2"
+        ],
+        "authors": [
+            {
+                "name": "Johannes M. Schmitt",
+                "email": "schmittjoh@gmail.com"
+            }
+        ],
+        "description": "General-Purpose Collection Library for PHP",
+        "keywords": [
+            "collection",
+            "list",
+            "map",
+            "sequence",
+            "set"
+        ]
+    },
+    {
         "name": "phpdocumentor/reflection-common",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -6500,6 +7196,63 @@
                 "name": "Mike van Riel",
                 "email": "me@mikevanriel.com"
             }
+        ]
+    },
+    {
+        "name": "phpoption/phpoption",
+        "version": "1.7.3",
+        "version_normalized": "1.7.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/schmittjoh/php-option.git",
+            "reference": "4acfd6a4b33a509d8c88f50e5222f734b6aeebae"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/4acfd6a4b33a509d8c88f50e5222f734b6aeebae",
+            "reference": "4acfd6a4b33a509d8c88f50e5222f734b6aeebae",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.5.9 || ^7.0 || ^8.0"
+        },
+        "require-dev": {
+            "bamarni/composer-bin-plugin": "^1.3",
+            "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
+        },
+        "time": "2020-03-21T18:07:53+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.7-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PhpOption\\": "src/PhpOption/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Johannes M. Schmitt",
+                "email": "schmittjoh@gmail.com"
+            },
+            {
+                "name": "Graham Campbell",
+                "email": "graham@alt-three.com"
+            }
+        ],
+        "description": "Option Type for PHP",
+        "keywords": [
+            "language",
+            "option",
+            "php",
+            "type"
         ]
     },
     {

@@ -37,6 +37,7 @@
         "drupal/modules_weight": "^1.8",
         "drupal/multiple_registration": "^2.88",
         "drupal/paragraphs": "^1.10",
+        "drupal/payment_authnet": "^1.8",
         "drupal/profile": "^1.0",
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/recaptcha": "^2.5",
