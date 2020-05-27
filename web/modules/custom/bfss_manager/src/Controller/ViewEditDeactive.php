@@ -30,7 +30,7 @@ class ViewEditDeactive extends ControllerBase {
      $tb1 = '<form class="athletes-unfollow-form" action="" method="post" id="view-edit-deactive-form" onsubmit="return false;" accept-charset="UTF-8"><div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
@@ -115,7 +115,8 @@ class ViewEditDeactive extends ControllerBase {
                 <td>'.$org_name.'</td>
                 <td>'.$edit_permissions_status.'</td>';
               if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){
-              $tb1 .= '<td>
+              $tb1 .= '<td><p class="hide_role">'.$sel_role[0].
+                        '</p>
                         <div class="box niceselect roles">
                           <span id="dateofshow">
                             <select data-uid="'.$athlete_user_id.'" data-role="'.$sel_role[0].'" data-dropdown="ViewEditDeactive">';

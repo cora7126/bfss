@@ -196,6 +196,119 @@ class CoachEditProfileForm extends FormBase {
         '#default_value' => $results18['field_birth_gender'],
       ];
 
+	$query = \Drupal::entityQuery('node')
+	  ->condition('type', 'bfss_organizations') //content type
+	  ->sort('created' , 'DESC')
+	  ->condition('uid',$current_user,'=');
+	$nids = $query->execute();
+	if(!empty($nids)){
+		$old_org_data = [];
+		foreach ($nids as $nid) {
+		  $node = \Drupal\node\Entity\Node::load($nid);
+		  $old_org_data[] = [
+		  	'field_type' => $node->field_type->value,
+		  	'field_organization_name' => $node->field_organization_name->value,
+		  	'field_sport' => $node->field_sport->value,
+		  	'field_coach_title' => $node->field_coach_title->value,
+		  	'field_year' => $node->field_year->value,
+		  	'nid' => $nid,
+		  ];
+		}
+	}
+	  //  echo "<pre>";
+	  // print_r($old_org_data);
+	  // die; 
+
+	//OLD ORG START
+	if(!empty($old_org_data)){
+	     $form['resident_11'] = [
+	      '#type' => 'markup',
+	      '#markup' => '<div class="lft_sect">',
+	    ];
+		 $form['resident1'] = [
+		      '#type' => 'container',
+		      '#attributes' => ['id' => 'resident-details1'],
+		    ];
+	    foreach ($old_org_data as $i => $value) {
+	        $form['resident1'][$i] = [
+	         '#type' => 'container',
+	          '#attributes' => [
+	                   'class' => [
+	                              'accommodation',
+	                    ],
+	          ],
+	          '#prefix' => '<div class="athlete_left gk"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>'.$value['field_type'].' - '.$value['field_organization_name'].'</h3><div class="items_div" style="">',
+	          '#suffix' => '</div>
+	                </div>
+	           '
+	        ];
+	         $form['resident1'][$i]['nid'] = [
+		        '#type' => 'hidden',
+		        '#value' => $value['nid'],
+		    ];
+	        $types = ['' => 'Select Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
+	        $form['resident1'][$i]['type'] = [
+	          '#placeholder' => t('Type'),
+	          '#type' => 'select',
+	           '#required' => TRUE,
+	          '#options' => $types,
+	          '#default_value' => $value['field_type'],
+	        ];
+
+			 $form['resident1'][$i]['organization_name'] = [
+		        '#type' => 'textfield',
+		        '#placeholder' => t('Organization Name'),
+		        #'#title' => $this->t('Organization Name'),
+		       # '#required' => TRUE,
+		        '#default_value' => $value['field_organization_name'],
+		     ];
+
+		      $sports_arr = [''=>'Select Sport'] +  $sports_arr;
+		      $form['resident1'][$i]['sport'] = [
+		        '#type' => 'select',
+		        '#placeholder' => t('Sport'),
+		        '#options' => $sports_arr,
+		        #'#title' => $this->t('Organization Name'),$sports_arr
+		       # '#required' => TRUE,
+		        '#default_value' => $value['field_sport'],
+		      ];
+
+		      $form['resident1'][$i]['coach_title'] = [
+		        '#type' => 'textfield',
+		        '#placeholder' => t('Coach Title'),
+		        #'#title' => $this->t('Organization Name'),
+		        #'#required' => TRUE,
+		        '#default_value' => $value['field_coach_title'],
+		      ];
+		      $grade_op =[
+		        '' => 'Select Grade',
+		        'Senior' => 'Senior',
+		        'Junior' => 'Junior',
+		        'Sophmore' => 'Sophmore',
+		        'Freshman' => 'Freshman',
+		        '8th grade' => '8th grade',
+		        '7th grade' => '7th grade',
+		        ];
+		      $form['resident1'][$i]['grade'] = [
+		        '#type' => 'select',
+		        '#placeholder' => t('Grade'),
+		        '#options' => $grade_op,
+		        #'#required' => TRUE,
+		        '#default_value' =>  $value['field_year'],
+		      ];
+
+		     $form['resident1'][$i]['remove'] = [
+		      '#type' => 'markup',
+		      '#markup' => '<div class="remove-org form-item js-form-item form-type-textfield js-form-type-textfield form-no-label form-group"><span class="removeorg" data-nid="'.$value['nid'].'"><i class="fas fa-trash"></i></span></div>',
+	    	];
+	    }
+	     $form['resident_12'] = [
+	      '#type' => 'markup',
+	      '#markup' => '</div>',
+	    ];
+	 }
+	//OLD ORG END
+
 /*
 *ORGANIZATION SECTION END
 */
@@ -227,7 +340,7 @@ class CoachEditProfileForm extends FormBase {
         $form['resident'][$i]['type'] = [
           '#placeholder' => t('Type'),
           '#type' => 'select',
-           '#required' => TRUE,
+         #  '#required' => TRUE,
           '#options' => $types,
           '#default_value' => '',
         ];
@@ -237,7 +350,7 @@ class CoachEditProfileForm extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Organization Name'),
         #'#title' => $this->t('Organization Name'),
-        '#required' => TRUE,
+       # '#required' => TRUE,
         '#default_value' => '',
       ];
       $sports_arr = [''=>'Select Sport'] +  $sports_arr;
@@ -246,7 +359,7 @@ class CoachEditProfileForm extends FormBase {
         '#placeholder' => t('Sport'),
         '#options' => $sports_arr,
         #'#title' => $this->t('Organization Name'),$sports_arr
-        '#required' => TRUE,
+       # '#required' => TRUE,
         '#default_value' => '',
       ];
 
@@ -254,7 +367,7 @@ class CoachEditProfileForm extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Coach Title'),
         #'#title' => $this->t('Organization Name'),
-        '#required' => TRUE,
+        #'#required' => TRUE,
         '#default_value' => '',
       ];
       $grade_op =[
@@ -270,7 +383,7 @@ class CoachEditProfileForm extends FormBase {
         '#type' => 'select',
         '#placeholder' => t('Grade'),
         '#options' => $grade_op,
-        '#required' => TRUE,
+        #'#required' => TRUE,
         '#default_value' => '',
       ];
 
@@ -318,6 +431,7 @@ class CoachEditProfileForm extends FormBase {
       '#prefix' => '',
       '#suffix' => '</div><!--LEFT SECTION END-->'
     ];
+
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -588,9 +702,22 @@ $form['html_image_athlete_end'] = [
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // echo "<pre>";
-    // print_r($form_state->getValues()['city']);
-    // die;
+  
+  	//old data update
+  	foreach ($form_state->getValues('resident1')['resident1'] as $key => $value) {
+  		if($value['nid']){
+	  		$node = Node::load($value['nid']);
+	  		$node->field_type->value = $value['type'];
+	  		$node->field_organization_name->value = $value['organization_name'];
+	  		$node->field_sport->value = $value['sport'];
+	  		$node->field_coach_title->value = $value['coach_title'];
+	  		$node->field_year->value = $value['grade'];
+	  		$node->save();
+  		}
+  	}
+    $current_user = \Drupal::currentUser()->id();
+    $roles_user = \Drupal::currentUser()->getRoles();
+    $conn = Database::getConnection();
     $uid = \Drupal::currentUser()->id();
     $user = \Drupal\user\Entity\User::load($uid);
     $roles = $user->getRoles();
@@ -640,9 +767,7 @@ $form['html_image_athlete_end'] = [
     /*
     *ORGANIZATION SAVE END
     */
-    $current_user = \Drupal::currentUser()->id();
-    $roles_user = \Drupal::currentUser()->getRoles();
-    $conn = Database::getConnection();
+
 
     //user profile 
     $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
@@ -687,39 +812,9 @@ $form['html_image_athlete_end'] = [
                 
       }
 
-    //joining date  
+  
 
-       if(in_array('coach', $roles_user) || in_array('assessors', $roles_user)){
-         // for assessors or coach here
-        }else{
-             $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
-          $query3->addField('ufln3', 'field_date_value');
-          $query3->condition('entity_id', $current_user, '=');
-          $results3 = $query3->execute()->fetchAssoc();
-          $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
-            if (empty($results3)) {
-            
-                $conn->insert('user__field_date')->fields(array(
-                'entity_id' => $current_user,
-                'bundle' => 'user',
-                'revision_id' => $current_user,
-                'delta' => 0,
-                'langcode' => $lang_code,
-                'field_date_value' => $form_state->getValue('date_joined'),
-                ))->execute();
-            }
-            else {
-                $conn->update('user__field_date')->condition('entity_id', $current_user, '=')->fields(array(
-                'field_date_value' => $form_state->getValue('date_joined'),
-                ))->execute();
-            }
-        }
-
-    if(!in_array('coach', $roles_user) || !in_array('assessors', $roles_user)){
-
-      
-      }
-
+    
 
     //mydata
     $query_mydata = \Drupal::database()->select('mydata', 'md');
@@ -745,49 +840,7 @@ $form['html_image_athlete_end'] = [
           'field_youtube' => $form_state->getValue('youtube_account'),
           ))->execute();
       } 
-      // if(in_array('coach', $roles_user)){
-      //   //org
-      // $query_bfss_coach = \Drupal::database()->select('bfss_coach', 'bc');
-      // $query_bfss_coach->fields('bc');
-      // $query_bfss_coach->condition('coach_uid',$current_user, '=');
-      // $results_bfss_coach = $query_bfss_coach->execute()->fetchAll();
-      // $arrfields = array(
-      //         //one
-      //         'coach_uid' => $current_user,
-      //         'field_organization_type_one' => !empty($form_state->getValue('organizationType1'))?$form_state->getValue('organizationType1'):'',
-      //         'field_organization_name_one' => !empty($form_state->getValue('organizationName1'))?$form_state->getValue('organizationName1'):'',
-      //         'field_coach_title_one' => !empty($form_state->getValue('coachtitle1'))?$form_state->getValue('coachtitle1'):'',
-      //         'field_sport_one' => !empty($form_state->getValue('sport1'))?$form_state->getValue('sport1'):'',
-      //         'field_year_one' => !empty($form_state->getValue('year1'))?$form_state->getValue('year1'):'',
-      //         //two
-      //         #'coach_uid' => $current_user,
-      //         'field_organization_type_two' => !empty($form_state->getValue('organizationType2'))?$form_state->getValue('organizationType2'):'',
-      //         'field_organization_name_two' => !empty($form_state->getValue('organizationName2'))?$form_state->getValue('organizationName2'):'',
-      //         'field_coach_title_two' => !empty($form_state->getValue('coachtitle2'))?$form_state->getValue('coachtitle2'):'',
-      //         'field_sport_two' => !empty($form_state->getValue('sport2'))?$form_state->getValue('sport2'):'',
-      //         'field_year_two' => !empty($form_state->getValue('year2'))?$form_state->getValue('year2'):'',
-      //         //three
-      //         #'coach_uid' => $current_user,
-      //         'field_organization_type_three' => !empty($form_state->getValue('organizationType3'))?$form_state->getValue('organizationType3'):'',
-      //         'field_organization_name_three' => !empty($form_state->getValue('organizationName3'))?$form_state->getValue('organizationName3'):'',
-      //         'field_coach_title_three' => !empty($form_state->getValue('coachtitle3'))?$form_state->getValue('coachtitle3'):'',
-      //         'field_sport_three' => !empty($form_state->getValue('sport3'))?$form_state->getValue('sport3'):'',
-      //         'field_year_three' => !empty($form_state->getValue('year3'))?$form_state->getValue('year3'):'',
-      //         //social media
-      //         'field_instagram' => !empty($form_state->getValue('instagram_account'))?$form_state->getValue('instagram_account'):'',
-      //         'field_youtube' => !empty($form_state->getValue('youtube_account'))?$form_state->getValue('youtube_account'):'',
-      //     );
-      // if(empty($results_bfss_coach)){
-      //     $conn->insert('bfss_coach')
-      //     ->fields($arrfields)
-      //     ->execute();
-      // }else{
-      //   $conn->update('bfss_coach')
-      //     ->condition('coach_uid',$current_user,'=')
-      //     ->fields($arrfields)
-      //     ->execute();
-      // }
-      // }
+      
     
     //mobile field
 
@@ -797,10 +850,7 @@ $form['html_image_athlete_end'] = [
     $results = $query->execute()->fetchAll();   
 
 
-   if(in_array('coach', $roles_user) || in_array('assessors', $roles_user)){
-     // for assessors or coach here
-    }else{  
-    if(empty($results)){
+   if(empty($results)){
     $conn->insert('user__field_mobile')->fields(
             array(
             'entity_id' => $current_user,
@@ -821,15 +871,6 @@ $form['html_image_athlete_end'] = [
         ->execute();
     }
 
-    //first name 
-    $conn->update('user__field_first_name')
-    ->condition('entity_id',$current_user,'=')
-    ->fields([
-      'field_first_name_value' => $form_state->getValue('fname'),
-    ])
-    ->execute();
-  }
-
     //email
     $conn->update('users_field_data')
     ->condition('uid',$current_user,'=')
@@ -839,7 +880,7 @@ $form['html_image_athlete_end'] = [
     ->execute();
 
     
-     //$form_state->setRedirect('acme_hello');
+    //drupal_set_message(t('An error occurred and processing did not complete.'), 'success');
   }
 
 

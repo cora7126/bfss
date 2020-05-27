@@ -89,12 +89,15 @@ class AthelticController extends ControllerBase {
    * check id exists
    */
   private function getUserNameValiditity($username = '') {
+  
     if ($username) {
       $query = $this->db->select('athlete_web', 'tb');
       $query->fields('tb');
       $query->condition('athlete_web_name', $username,'=');
       $query->condition('athlete_web_visibility', 1,'=');
       $result = $query->execute()->fetchAssoc();
+     
+
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
       }
@@ -104,6 +107,7 @@ class AthelticController extends ControllerBase {
       $query->condition('athlete_addweb_name', $username,'=');
       $query->condition('athlete_addweb_visibility', 1,'=');
       $result = $query->execute()->fetchAssoc();
+       
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
       }
@@ -113,6 +117,7 @@ class AthelticController extends ControllerBase {
       $query->condition('athlete_clubweb_name', $username,'=');
       $query->condition('athlete_clubweb_visibility', 1,'=');
       $result = $query->execute()->fetchAssoc();
+
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
       }
@@ -498,6 +503,7 @@ class AthelticController extends ControllerBase {
 
     $data = [];
     $username = \Drupal::request()->get('username');
+
     $profileuser = $this->getUserNameValiditity($username);
   //  print '<pre>'; print_r($profileuser);die;
     #if username doesn't exist

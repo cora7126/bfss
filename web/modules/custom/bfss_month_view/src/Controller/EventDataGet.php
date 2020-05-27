@@ -38,6 +38,7 @@ class EventDataGet extends ControllerBase {
 					   //'date' => $date,
 					   //'url' => '/assessment/node/8',
 					   'start' => $time,
+					   'className' => 'use-ajax',
 
 					 ];
 				}

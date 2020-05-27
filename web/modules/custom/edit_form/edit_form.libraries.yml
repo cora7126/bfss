@@ -3,7 +3,8 @@ edit_form_lab:
   css:
     layout:
       css/edit_form.css: {}
-      css/tooltip.css: {}
+      # css/tooltip.css: {}
+      # css/tooltip.scss: {}
   js:
     js/edit_form.js: {}
-    js/tooltip.min.js: {}
+    js/tooltip.js: {}

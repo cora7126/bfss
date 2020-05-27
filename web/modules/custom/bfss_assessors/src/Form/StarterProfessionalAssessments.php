@@ -47,12 +47,12 @@ class StarterProfessionalAssessments extends FormBase {
             elseif($formtype == 'elete' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
              }
-         
+
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
             <!-- Modal start-->
                     <div id="assessor_popup_form" class="asse_frm" >
-                    
+
                                     <div class="">
                                       <!-- Modal content-->
                                       <div>
@@ -66,8 +66,8 @@ class StarterProfessionalAssessments extends FormBase {
                                               </ul>';
 
                     $form['#suffix'] = '  </div>
-                                        </div>       
-                                      </div>   
+                                        </div>
+                                      </div>
                                     </div>
                                 </div>
             <!-- Modal end-->';
@@ -82,7 +82,7 @@ class StarterProfessionalAssessments extends FormBase {
             '#suffix' => '</div>',
              );
             if( !empty($assess_nid) ){
-            //default values here 
+            //default values here
             $node = Node::load($assess_nid);
             $starter_weight_rea_str = $node->title->value;
             $field_jump_height_in_reactive = $node->field_jump_height_in_reactive->value;
@@ -148,7 +148,7 @@ class StarterProfessionalAssessments extends FormBase {
             //Elastic Strenght (Countermovement Jump)
         	$form['form_fields_wrap']['elastic_strenght'] = array(
         		  '#type' => 'fieldset',
-        		  '#title' => $this->t('Elastic Strength (Countermovement Jump)'),
+        		  '#title' => $this->t('Elastic Strenght (Countermovement Jump)'),
         		  '#prefix' => '<div id="elastic_strenght" class="sm_cls">',
         		  '#suffix' => '</div>',
         	);
@@ -296,7 +296,7 @@ class StarterProfessionalAssessments extends FormBase {
                   '#prefix' => '<div id="ue_power2" class="sm_cls">',
                   '#suffix' => '</div>',
                 );
-                
+
                 $form['form_fields_wrap']['ue_power_spm']['power_spm'] = array (
                   '#type' => 'textfield',
                   '#default_value' => $field_power_w_spm_ipe,
@@ -324,7 +324,7 @@ class StarterProfessionalAssessments extends FormBase {
                 //Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)
                 $form['form_fields_wrap']['strength_endurance'] = array(
                   '#type' => 'fieldset',
-                  '#title' => $this->t('Strength Endurance (Pull-ups, Push-ups, Single Leg Squats)'),
+                  '#title' => $this->t('Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)'),
                   '#prefix' => '<div id="strength_endurance" class="sm_cls">',
                   '#suffix' => '</div>',
                 );
@@ -359,7 +359,7 @@ class StarterProfessionalAssessments extends FormBase {
 
              //hidden fields
 
-            if($formtype == 'elete'){  
+            if($formtype == 'elete'){
              $formtype_val = 'elete';
             }elseif($formtype == 'starter'){
              $formtype_val = 'starter';
@@ -367,7 +367,7 @@ class StarterProfessionalAssessments extends FormBase {
               $formtype_val = '';
             }
 
-            if($Assess_type == 'individual'){  
+            if($Assess_type == 'individual'){
              $Assess_type_val = 'individual';
             }elseif($Assess_type == 'private'){
              $Assess_type_val = 'private';
@@ -389,7 +389,7 @@ class StarterProfessionalAssessments extends FormBase {
              '#type' => 'hidden',
              '#value' => $booked_id,
             );
-            
+
              $form['athelete_nid'] = array(
              '#type' => 'hidden',
              '#value' => $nid,
@@ -441,7 +441,7 @@ class StarterProfessionalAssessments extends FormBase {
    * {@inheritdoc}
    */
     public function validateForm(array &$form, FormStateInterface $form_state) {
-    
+
     }
 
   /**
@@ -455,16 +455,16 @@ class StarterProfessionalAssessments extends FormBase {
            $formtype = $param['formtype'];
            $Assess_type = $param['Assess_type'];
            $booked_id = $param['booked_id'];
-           $st = $param['st']; 
+           $st = $param['st'];
            $assess_nid = $param['assess_nid'];
-        } 
+        }
         //check node already exist
         $query1 = \Drupal::entityQuery('node');
         $query1->condition('type', 'athlete_assessment_info');
         $query1->condition('field_booked_id',$booked_id, 'IN');
         $nids1 = $query1->execute();
-        	
-    		
+
+
         //current user
         $current_user = \Drupal::currentUser();
         $user_id = $current_user->id();
@@ -474,7 +474,7 @@ class StarterProfessionalAssessments extends FormBase {
   	  	foreach ($form_state->getValues() as $key => $value) {
   	  	 	$form_data[$key] = $value;
   	  	}
-        
+
         if(!empty($assess_nid) && $st == 1){
           //update here
           $node = Node::load($assess_nid);
@@ -483,9 +483,9 @@ class StarterProfessionalAssessments extends FormBase {
         	if(empty($nids1)){
 	          $node = Node::create([
 	             'type' => 'athlete_assessment_info',
-	          ]); 
+	          ]);
       		}
-        } 
+        }
         $node->set('title', $form_data['starter_weight_rea_str']);
         $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
         $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
@@ -509,10 +509,10 @@ class StarterProfessionalAssessments extends FormBase {
         $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
         $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
         $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-        //user target id 
+        //user target id
         $node->set('field_user', ['target_id' => $user_id]);
-  	  
-      if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-submit') !== false) { 
+
+      if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-submit') !== false) {
             // if "SAVE - ALL FIELDS COMPLETED" trigger
             $node->set('field_status', 'complete');
            if (!is_numeric($form_state->getValue('starter_jump_height_rea_str')) || empty($form_state->getValue('starter_jump_height_rea_str'))) {
@@ -552,30 +552,30 @@ class StarterProfessionalAssessments extends FormBase {
            }
            elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'elete' ){
 
-           
+
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
-            
+
 
            }
            elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'elete'){
-           
+
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
             }
            elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'elete'){
-            
-              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>'; 
-           
+
+              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
+
            }
             elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';   
-           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){  
+             $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';
+           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
            }
            else{
              $message = 'Saved successfully!';
               $node->setPublished(TRUE);
-              $node->save(); 	
-              
+              $node->save();
+
            }
       }
 
@@ -588,7 +588,7 @@ class StarterProfessionalAssessments extends FormBase {
               $message = 'Saved successfully!';
               $node->setPublished(FALSE);
               $node->save();
-           }  
+           }
       }
 
       // for success message show

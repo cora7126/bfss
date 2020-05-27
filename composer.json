@@ -19,6 +19,7 @@
         "consolidation/cgr": "^2.0",
         "drupal/admin_toolbar": "^2.0",
         "drupal/backup_migrate": "^4.1",
+        "drupal/bbr": "^1.1",
         "drupal/bootstrap": "^3.21",
         "drupal/bootstrap_datetime_picker": "^1.2",
         "drupal/core-composer-scaffold": "^8.8",
@@ -42,6 +43,7 @@
         "drupal/scss_compiler": "^1.0@RC",
         "drupal/social_media": "^1.8",
         "drupal/swiftmailer": "^1.0@beta",
+        "drupal/user_current_paths": "^1.1",
         "drupal/webform": "^5.8",
         "drush/drush": "^9.7",
         "mpdf/mpdf": "^8.0"
