@@ -157,7 +157,7 @@ class BfssAssessmentListBlock extends BlockBase {
         $tb = '<div class="eventlisting_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>

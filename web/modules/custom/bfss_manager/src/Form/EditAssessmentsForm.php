@@ -66,8 +66,17 @@ class EditAssessmentsForm extends FormBase {
     // }
     $img_id = isset($node->get('field_image')->getValue()[0]['target_id']) ? $node->get('field_image')->getValue()[0]['target_id'] : '';
     $title =  $node->title->value;
-    $body =  $node->body->value;
+    $body_val = $node->body->value;
+    $body_format = $node->body->format;
+
     $location =  $node->field_location->value;
+
+    $address_1 = $node->field_address_1_us->value;
+    $address_2 = $node->field_address_2_us->value;
+    $city = $node->field_city_us->value;
+    $state = $node->field_state_us->value;
+    $zip = $node->field_zip_us->value;
+
     $type =  $node->field_type_of_assessment->value;
     $schedules =  $node->get('field_schedules')->getValue(); 
    
@@ -99,16 +108,27 @@ class EditAssessmentsForm extends FormBase {
 
 
      $form['body'] = [
-        '#type' => 'textarea',
-        '#placeholder' => t('Assessment Body'),
-        '#required' => TRUE,
-        '#default_value' => $body,
-        '#prefix' => '',
-    ]; 
+          '#type' => 'text_format',
+          '#placeholder' => t('Assessment Body'),
+          '#default_value' => $body_val,
+          '#format' => $body_format,
+          '#prefix' => '<div class="html_body_wrap">',
+          '#suffix' => '</div>',
+        
+          
+      ];
+
+    //  $form['body'] = [
+    //     '#type' => 'textarea',
+    //     '#placeholder' => t('Assessment Body'),
+    //     '#required' => TRUE,
+    //     '#default_value' => $body,
+    //     '#prefix' => '',
+    // ]; 
 
     
 
-   $types = [''=>'Select','group'=>'Group','private'=>'Private'];
+    $types = [''=>'Select','group'=>'Group','private'=>'Private'];
     $form['type'] = [
         '#type' => 'select',
         '#options' => $types,
@@ -120,14 +140,60 @@ class EditAssessmentsForm extends FormBase {
     ];
 
 
-    $form['location'] = [
-        '#type' => 'textarea',
-        '#placeholder' => t('Location'),
+     $form['location'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Location Name'),
         '#required' => TRUE,
         '#default_value' => $location,
         '#prefix' => '',
-        '#suffix' => '</div></div>
-        <div class="athlete_left schedule_plx">
+        '#suffix' => '',
+      ];
+
+      $form['address_1'] = [
+        '#type' => 'textarea',
+        '#placeholder' => t('Address 1'),
+        '#required' => TRUE,
+        '#default_value' => $address_1,
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $form['address_2'] = [
+        '#type' => 'textarea',
+        '#placeholder' => t('Address 2'),
+        '#required' => TRUE,
+        '#default_value' => $address_2,
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $form['city'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('City'),
+        '#required' => TRUE,
+        '#default_value' => $city,
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+      $states_op = $this->getStates();
+      $form['state'] = [
+        '#type' => 'select',
+        '#options' => $states_op,
+        '#placeholder' => t('State'),
+        '#required' => TRUE,
+        '#default_value' => $state,
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $form['zip'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Zip'),
+        '#required' => TRUE,
+        '#default_value' => $zip,
+        '#prefix' => '',
+        '#suffix' => '</div>
+        </div><div class="athlete_left schedule_plx">
                         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHEDULES</h3>
                        <div class="items_div" style="">',
       ];
@@ -182,21 +248,23 @@ class EditAssessmentsForm extends FormBase {
 
     for ($i = 0; $i <= $this->residentCount; $i++) {
       //$states = $this->get_state();
+       $form['resident'][$i]['field_timing'] = [
+        '#type' => 'datetime',
+        '#placeholder' => t('Timing'),
+       # '#required' => TRUE,
+        '#default_value' => '',
+         '#prefix' => '<div class="date_duration">',
+        '#suffix' => '',
+      ];
       $form['resident'][$i]['field_duration'] = [
         '#placeholder' => t('Duration'),
         '#type' => 'number',
-        '#required' => TRUE,
-        '#prefix' => '<div class="duration-pl">',
-        '#suffix' => '',
-      ];
-
-      $form['resident'][$i]['field_timing'] = [
-        '#type' => 'datetime',
-        '#placeholder' => t('Timing'),
-        '#required' => TRUE,
-        '#default_value' => '',
+        #'#required' => TRUE,
+       
         '#suffix' => '</div>',
       ];
+
+     
 
 
       $form['resident'][$i]['actions'] = [
@@ -353,8 +421,18 @@ class EditAssessmentsForm extends FormBase {
         $node->set('field_schedules', $paragraph_items);
         //aditional user info 
         $node->title->value = $form_state->getValue('title');
-        $node->body->value = $form_state->getValue('body');
+
+        $node->body->value = $form_state->getValue('body')['value'];
+        $node->body->format = $form_state->getValue('body')['format'];
+
         $node->field_location->value = $form_state->getValue('location');
+        $node->field_address_1_us->value = $form_state->getValue('address_1');
+        $node->field_address_2_us->value = $form_state->getValue('address_2');
+        $node->field_city_us->value = $form_state->getValue('city');
+        $node->field_state_us->value = $form_state->getValue('state');
+        $node->field_zip_us->value = $form_state->getValue('zip');
+
+
         $node->field_type_of_assessment->value = $form_state->getValue('type');
         //$node->field_image[] = ['target_id' => $img_id, 'alt'=> 'img'];
         $node->save();
@@ -420,6 +498,58 @@ class EditAssessmentsForm extends FormBase {
     $form_state->setRebuild();
   }
 
-
+      function getStates() {
+        return $states=array(
+        'AL'=> t('AL'),
+        'AK'=> t('AK'),
+        'AZ'=> t('AZ'),
+        'AR'=> t('AR'),
+        'CA'=> t('CA'),
+        'CO'=> t('CO'),
+        'CT'=> t('CT'),
+        'DE'=> t('DE'),
+        'DC'=> t('DC'),
+        'FL'=> t('FL'),
+        'GA'=> t('GA'),
+        'HI'=> t('HI'),
+        'ID'=> t('ID'),
+        'IL'=> t('IL'),
+        'IN'=> t('IN'),
+        'IA'=> t('IA'),
+        'KS'=> t('KS'),
+        'KY'=> t('KY'),
+        'LA'=> t('LA'),
+        'ME'=> t('ME'),
+        'MT'=> t('MT'),
+        'NE'=> t('NE'),
+        'NV'=> t('NV'),
+        'NH'=> t('NH'),
+        'NJ'=> t('NJ'),
+        'NM'=> t('NM'),
+        'NY'=> t('NY'),
+        'NC'=> t('NC'),
+        'ND'=> t('ND'),
+        'OH'=> t('OH'),
+        'OR'=> t('OR'),
+        'MD'=> t('MD'),
+        'MA'=> t('MA'),
+        'MI'=> t('MI'),
+        'MN'=> t('MN'),
+        'MS'=> t('MS'),
+        'MO'=> t('MO'),
+        'PA'=> t('PA'),
+        'RI'=> t('RI'),
+        'SC'=> t('SC'),
+        'SD'=> t('SD'),
+        'TN'=> t('TN'),
+        'TX'=> t('TX'),
+        'UT'=> t('UT'),
+        'VT'=> t('VT'),
+        'VA'=> t('VA'),
+        'WA'=> t('WA'),
+        'WV'=> t('WV'),
+        'WI'=> t('WI'),
+        'WY'=> t('WY'));
+      }
 
 }

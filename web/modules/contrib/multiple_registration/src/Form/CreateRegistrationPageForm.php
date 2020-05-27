@@ -18,9 +18,32 @@ use Drupal\Core\Entity\EntityDisplayRepository;
  */
 class CreateRegistrationPageForm extends ConfigFormBase {
 
+  /**
+   * Multiple registration.
+   *
+   * @var \Drupal\multiple_registration\Controller\MultipleRegistrationController
+   */
   protected $multipleRegistrationController;
+
+  /**
+   * A cache backend interface instance.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
   protected $cacheRender;
+
+  /**
+   * The route building service.
+   *
+   * @var \Drupal\Core\Routing\RouteBuilderInterface
+   */
   protected $routeBuilder;
+
+  /**
+   * EntityDisplayRepository service.
+   *
+   * @var \Drupal\Core\Entity\EntityDisplayRepository
+   */
   protected $entityDisplayRepository;
 
   /**

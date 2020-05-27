@@ -43,12 +43,20 @@ class MultistepTwoForm extends MultistepFormBase {
       $query = \Drupal::entityQuery('node');
       $query->condition('status', 1);
       $query->condition('type', 'assessment');
+      //$query->sort('time' , 'ASC'); 
       $query->condition('field_type_of_assessment', 'private','=');
       $private_nids = $query->execute();
       $timings_private = [];
       foreach ($private_nids as $private_nid) {
         $timings_private[] = $this->assessmentService->getSchedulesofAssessment($private_nid);
       }
+      $timings_private = array_filter($timings_private);
+      arsort($timings_private);
+      //  echo "<pre>";
+       
+      // print_r($timings_private);
+      // die;
+     
     }else{
        $timings = $this->assessmentService->getSchedulesofAssessment($nid);
     }
@@ -72,12 +80,15 @@ class MultistepTwoForm extends MultistepFormBase {
 	  );
  if($nid == '9999999999'){
       foreach ($timings_private as $timings_pri) {
+            
            foreach ($timings_pri as $key => $value) {
                 $value = date('h:i a',$value);
                 $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
         }
       }
-		
+  //     echo "<pre>";
+		// print_r($sortedTimings);
+  //   die;
         foreach ($sortedTimings as $key => $value) {
           $maintitle = current(array_keys($value));
             $form['time'.$key] = array(

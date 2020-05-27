@@ -12,6 +12,9 @@
     	jQuery(document).on('click','a.paginate_button',function(){
  				jQuery(document).find('.niceselect select').niceSelect(); 
 		});
+		jQuery(document).on('click','.table-responsive table th',function(){
+ 				jQuery(document).find('.niceselect select').niceSelect(); 
+		});
     // 	   jQuery(".month_filter select").change(function(){
   		// 		jQuery('form#month-form').submit();
   		// });

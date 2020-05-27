@@ -199,3 +199,20 @@ bfss_assessment.assessment_search_query:
     node_id: null
   requirements:
     _permission: 'access content'
+
+bfss_assessment.test_payment_form:
+  path: '/test-payment-form'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\PaymentTestForm'
+    _title: 'PaymentTestForm'
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
+bfss_assessment.admin_settings:
+  path: '/admin/config/payment_settings'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\PaymentSettingsForm'
+    _title: 'Payment settings'
+  requirements:
+    _role: 'administrator'

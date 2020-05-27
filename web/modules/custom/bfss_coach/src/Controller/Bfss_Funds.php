@@ -143,7 +143,7 @@ class Bfss_Funds extends ControllerBase {
           <div class="wrapped_div_main">
            <h2>BFSS Payments Pending</h2>
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
@@ -226,7 +226,7 @@ class Bfss_Funds extends ControllerBase {
           <div class="wrapped_div_main">
            <h2>BFSS Payments Paid</h2>
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="bfss_payment_paid_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
  			 <tr>

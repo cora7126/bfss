@@ -16,8 +16,8 @@ class MyAssessments extends ControllerBase {
    * @return array
    *   A simple renderable array.
    */
-  public function my_assessments() 
- {   
+  public function my_assessments()
+ {
     $block = \Drupal\block\Entity\Block::load('assessmentsnapshotblock');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
@@ -29,7 +29,7 @@ class MyAssessments extends ControllerBase {
     $uid = \Drupal::currentUser();
     $user = \Drupal\user\Entity\User::load($uid->id());
     $roles = $user->getRoles();
-   
+
 
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
@@ -46,7 +46,7 @@ class MyAssessments extends ControllerBase {
           foreach ($booked_ids  as $key => $booked_id) {
                 $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
                 $address_1 = $entity->address_1->value;
-              
+
                 $timestamp = $entity->time->value;
                 $booking_date = date("F d,Y",$timestamp);
                 $booking_time = date("h:i a",$timestamp);
@@ -61,7 +61,7 @@ class MyAssessments extends ControllerBase {
                 $query5 = \Drupal::database()->select('athlete_school', 'ats');
                 $query5->fields('ats');
                 $query5->condition('athlete_uid', $uid->id(),'=');
-                $results5 = $query5->execute()->fetchAssoc();            
+                $results5 = $query5->execute()->fetchAssoc();
                 $sport = $results5['athlete_school_sport'];
 
                   if($entity->service->value == '199.99'){
@@ -84,7 +84,7 @@ class MyAssessments extends ControllerBase {
                     $node1 = Node::load($value);
                     $field_status = $node1->field_status->value;
                     $assess_nid = $value;
-                  } 
+                  }
                 }else{
                    $field_status = Markup::create('<span class="green">Upcoming</span>');
                    $st = 0;
@@ -104,10 +104,10 @@ class MyAssessments extends ControllerBase {
                   'sport' => $sport,
                   'status' => $field_status,
                   'time' => $booking_time,
-                  
-                ); 
-          }   
-        } 
+
+                );
+          }
+        }
         /**************drupal table start*****************/
         $header = array(
           array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
@@ -141,13 +141,14 @@ class MyAssessments extends ControllerBase {
           $url = '/pdf-download?'.http_build_query($pdf_arr);
 
           if($item['status'] == 'complete' || $item['status'] == 'incomplete'){
-            $urlhtml = '<a href="'.$url.'">';  
-           
+            $urlhtml = '<a href="'.$url.'">';
+
           }else{
-             $urlhtml = '';  
+             $urlhtml = '';
           }
-          
-          $formtype = Markup::create('<p>'.$urlhtml.ucfirst($item['formtype']).'</a></p>');
+          if(!empty($item['formtype'])){
+            $formtype = Markup::create('<p>'.$urlhtml.ucfirst($item['formtype']).' Assessment</a></p>');
+          }
           $rows[] = array(
             'date' => $item['booking_date'],
             'program' => $formtype,
@@ -209,7 +210,7 @@ class MyAssessments extends ControllerBase {
       }else{
         return $rows;
       }
-      
+
     }
 
     /**

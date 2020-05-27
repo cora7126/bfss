@@ -34,7 +34,7 @@ class ViewEditActive extends ControllerBase {
      $tb1 = '<form class="athletes-unfollow-form" action="" method="post" id="view-edit-active-form" onsubmit="return false;" accept-charset="UTF-8"><div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
@@ -113,15 +113,15 @@ class ViewEditActive extends ControllerBase {
               $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
 
               $tb1 .=  '<tr>
-                <td><a class="user-status-edit" data-uid='.$athlete_user_id.' data-editpage="ViewEditActive">EDIT</a></td>
+                <td><input class="form-checkbox getcheckboxid" type="checkbox" name="items_selected[]" value="'.$athlete_user_id.'"><span class="unfollow-checkbox"></span></td>
                  <td>'.$lastname.'</td>
                 <td>'.$firstname.'</td>
                
                 <td>'.$org_name.'</td>
                 <td>'.$edit_permissions_status.'</td>';
               if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){
-              	 $tb1 .= '<td>
-                        <div class="box niceselect roles">
+              	 $tb1 .= '<td><p class="hide_role">'.$sel_role[0].
+                        '</p><div class="box niceselect roles">
                           <span id="dateofshow">
                             <select data-uid="'.$athlete_user_id.'" data-role="'.$sel_role[0].'" data-dropdown="ViewEditActive">';
                             foreach ($RolesDropDown as $key => $userrole) {
@@ -136,7 +136,7 @@ class ViewEditActive extends ControllerBase {
               $tb1 .= '</tr>';
             }
             
-            $tb1 .= '
+            $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="active_submit" value="DEACTIVATE" onclick="deactivate_users();" ></div>
             </tbody>
             </table>
              </div>
@@ -152,7 +152,7 @@ class ViewEditActive extends ControllerBase {
                           <div class="modal-dialog drupal-approve-org">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                      <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                      <button type="button" class="close role-close-btn" data-dismiss="modal" aria-label=""><span>×</span></button>
                                    </div>
                                   <div class="modal-body">
                           <div class="thank-you-pop">
@@ -168,28 +168,28 @@ class ViewEditActive extends ControllerBase {
               </div>
               <!--Model Popup ends-->';
 
-        $tb1 .=   '<!--Model Popup starts-->
-                  <div class="modal fade" id="ConfirmDeactivateModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeactivateLabel" aria-hidden="true">
-                    <div class="modal-dialog drupal-approve-org" role="document">
-                      <div class="modal-content">
+        // $tb1 .=   '<!--Model Popup starts-->
+        //           <div class="modal fade" id="ConfirmDeactivateModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeactivateLabel" aria-hidden="true">
+        //             <div class="modal-dialog drupal-approve-org" role="document">
+        //               <div class="modal-content">
                         
-                                  <div class="modal-header">
-                                      <button type="button" class="close deactivate-close" data-dismiss="modal" aria-label=""><span>×</span></button>
-                                   </div>
+        //                           <div class="modal-header">
+        //                               <button type="button" class="close deactivate-close" data-dismiss="modal" aria-label=""><span>×</span></button>
+        //                            </div>
                         
-                        <div class="modal-body">
-                        <div class="message-deactivate"></div>
-                          <h2>Are you sure , you want to deactivate?</h2>
-                        </div>
-                        <div class="modal-footer deactivate-footer">
-                        <div class="modal-buttons">
-                          <button id="deactive-no" type="button" class="button btn btn-danger deactive-no" data-dismiss="modal">NO</button>
-                          <button id="deactive-yes" type="button" class="button btn btn-primary deactive-yes" >YES</button>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div><!--Model Popup ends-->';
+        //                 <div class="modal-body">
+        //                 <div class="message-deactivate"></div>
+        //                   <h2>Are you sure , you want to deactivate?</h2>
+        //                 </div>
+        //                 <div class="modal-footer deactivate-footer">
+        //                 <div class="modal-buttons">
+        //                   <button id="deactive-no" type="button" class="button btn btn-danger deactive-no" data-dismiss="modal">NO</button>
+        //                   <button id="deactive-yes" type="button" class="button btn btn-primary deactive-yes" >YES</button>
+        //                 </div>
+        //                 </div>
+        //               </div>
+        //             </div>
+        //           </div><!--Model Popup ends-->';
 
     return [
     '#cache' => ['max-age' => 0,],

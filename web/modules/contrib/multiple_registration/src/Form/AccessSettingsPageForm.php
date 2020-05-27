@@ -17,8 +17,25 @@ use Drupal\Core\ProxyClass\Routing\RouteBuilder;
  */
 class AccessSettingsPageForm extends ConfigFormBase {
 
+  /**
+   * Multiple registration.
+   *
+   * @var \Drupal\multiple_registration\Controller\MultipleRegistrationController
+   */
   protected $multipleRegistrationController;
+
+  /**
+   * A cache backend interface instance.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
   protected $cacheRender;
+
+  /**
+   * The route building service.
+   *
+   * @var \Drupal\Core\Routing\RouteBuilderInterface
+   */
   protected $routeBuilder;
 
   /**

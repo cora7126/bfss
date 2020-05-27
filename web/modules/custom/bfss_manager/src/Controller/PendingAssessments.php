@@ -94,7 +94,7 @@ class PendingAssessments extends ControllerBase {
 
          $tb = '<div class="wrapped_div_main user_pro_block">
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>

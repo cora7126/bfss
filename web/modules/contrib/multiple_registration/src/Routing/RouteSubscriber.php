@@ -12,6 +12,11 @@ use Drupal\Core\Config\ConfigFactoryInterface;
  */
 class RouteSubscriber extends RouteSubscriberBase {
 
+  /**
+   * The configuration factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
   protected $configFactory;
 
   /**

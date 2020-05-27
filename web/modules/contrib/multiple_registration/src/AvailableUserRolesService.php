@@ -19,6 +19,12 @@ class AvailableUserRolesService {
    * @var \Drupal\user\RoleStorageInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
   protected $configFactory;
 
   /**
@@ -50,11 +56,16 @@ class AvailableUserRolesService {
       ->condition('is_admin', TRUE)
       ->execute();
     $admin_role = reset($admin_role);
+
     $notAvalible = [
       AccountInterface::ANONYMOUS_ROLE => $roles[AccountInterface::ANONYMOUS_ROLE],
       AccountInterface::AUTHENTICATED_ROLE => $roles[AccountInterface::AUTHENTICATED_ROLE],
-      $admin_role => $roles[$admin_role],
     ];
+
+    // Building not available roles list depending on selection of admin role.
+    if (isset($roles[$admin_role])) {
+      $notAvalible[$admin_role] = $roles[$admin_role];
+    }
 
     return array_diff_assoc($roles, $notAvalible);
   }
