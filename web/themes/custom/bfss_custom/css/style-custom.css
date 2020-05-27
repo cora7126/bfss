@@ -1064,3 +1064,6 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.dashboard .my-assessment{margin:30px 0 0;}
 }
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
+
+#block-eventslisting .table{width:99% !important}
+.eventlisting_main.user_pro_block .block-bfss-assessors .table-responsive table tbody tr{border:none !important}
