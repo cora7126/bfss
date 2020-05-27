@@ -39,12 +39,12 @@ class AssessmentService {
    * query
    */
   private function getAssessmentQuery(){
-    
+
         return \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('status', 1)
               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
-    
+
   }
 
   public function assessment_after_month_filter($element){
@@ -79,12 +79,12 @@ class AssessmentService {
           ];
        }
       }
-      
-      $NIDS = [];   
+
+      $NIDS = [];
       foreach ($monthdata as $month_data) {
         if($month_data['month'] == $M && $month_data['year'] == $Y){
           $NIDS[] = $month_data['nid'];
-        } 
+        }
       }
     }
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
@@ -126,13 +126,13 @@ class AssessmentService {
           ];
        }
       }
-        
-      $NIDS = [];   
+
+      $NIDS = [];
       foreach ($monthdata as $month_data) {
         if($month_data['month'] == $M && $month_data['year'] == $Y){
-       
+
           $NIDS[] = $month_data['nid'];
-        } 
+        }
       }
     }
 
@@ -142,7 +142,7 @@ class AssessmentService {
 //ASSESSMENTS SEARCH FILTER  FOR  ASSESSMENTS
   public function Assessments_Search_Filter($element,$search_val,$assess_type){
     if(isset($search_val) && $assess_type=='group'){
-    
+
           $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
@@ -150,9 +150,9 @@ class AssessmentService {
               ->condition('title','%'.$search_val.'%','LIKE')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
-     
+
     }elseif(isset($search_val) && $assess_type=='private'){
-      
+
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','private', '=')
@@ -161,7 +161,7 @@ class AssessmentService {
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
     }else{
-    
+
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('title','%'.$search_val.'%','LIKE')
@@ -170,7 +170,7 @@ class AssessmentService {
       $entity_ids = $assessment->execute();
     }
     return !empty(array_unique($entity_ids)) ? array_unique($entity_ids): null;
-    
+
   }
 
 
@@ -213,13 +213,13 @@ class AssessmentService {
           ];
        }
       }
-        
-      $NIDS = [];   
+
+      $NIDS = [];
       foreach ($monthdata as $month_data) {
         if($month_data['month'] == $M && $month_data['year'] == $Y){
-       
+
           $NIDS[] = $month_data['nid'];
-        } 
+        }
       }
     }
 
@@ -272,7 +272,7 @@ class AssessmentService {
           $data['field_location'] = t($node->get('field_location')->value);
         }
         if ($node->hasField('field_image')) {
-          $data['field_image'] = file_create_url($node->get('field_image')->entity->getFileUri());
+   //       $data['field_image'] = file_create_url($node->get('field_image')->entity->getFileUri());
         }
         if ($node->hasField('field_schedules')) {
           $field_schedules = $node->get('field_schedules')->getValue();
