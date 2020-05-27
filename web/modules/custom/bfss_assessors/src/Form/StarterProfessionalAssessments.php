@@ -494,7 +494,7 @@ class StarterProfessionalAssessments extends FormBase {
             $form['actions']['#type'] = 'actions';
             $form['actions']['draft'] = array(
               '#type' => 'submit',
-              '#value' => $this->t('SAVE'),
+              '#value' => $this->t('ASSESSORS - SAVE'),
               '#button_type' => 'primary',
                '#ajax' => [
                   'callback' => '::submitForm', // don't forget :: when calling a class method.
@@ -508,22 +508,22 @@ class StarterProfessionalAssessments extends FormBase {
                   ],
                 ]
             );
-            $form['actions']['submit'] = array(
-              '#type' => 'submit',
-              '#value' => $this->t('SAVE & PUBLISH'),
-              '#button_type' => 'primary',
-               '#ajax' => [
-                  'callback' => '::submitForm', // don't forget :: when calling a class method.
-                  //'callback' => [$this, 'myAjaxCallback'], //alternative notation
-                  'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
-                  'event' => 'click',
-                  'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
-                  'progress' => [
-                    'type' => 'throbber',
-                    'message' => $this->t('Verifying entry...'),
-                  ],
-                ]
-            );
+            // $form['actions']['submit'] = array(
+            //   '#type' => 'submit',
+            //   '#value' => $this->t('MANAGER - APPROVED'),
+            //   '#button_type' => 'primary',
+            //    '#ajax' => [
+            //       'callback' => '::submitForm', // don't forget :: when calling a class method.
+            //       //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+            //       'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+            //       'event' => 'click',
+            //       'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+            //       'progress' => [
+            //         'type' => 'throbber',
+            //         'message' => $this->t('Verifying entry...'),
+            //       ],
+            //     ]
+            // );
 
             return $form;
       }else{
