@@ -193,7 +193,7 @@ public function userform()
                             $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
                             $timestamp = $entity->time->value;
                             $booking_date = date("F j, Y",$timestamp);
-                            if($entity->service->value == '199.99'){
+                            if($entity->service->value == '299.99'){
                                 $formtype = 'Elete Assessment';
                             }elseif($entity->service->value == '29.99'){
                                 $formtype = 'Starter Assessment';
