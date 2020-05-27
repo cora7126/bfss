@@ -54,6 +54,7 @@ class PendingAssessmentsForm extends FormBase {
                $form_title = 'ELITE ASSESSMENT';
             }
 
+
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
             <!-- Modal start-->
