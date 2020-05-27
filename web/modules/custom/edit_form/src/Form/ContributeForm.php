@@ -110,10 +110,12 @@ class ContributeForm extends FormBase {
     $query13->condition('athlete_uid', $current_user, '=');
     $query13->condition('athlete_web_type', 1, '=');
     $results13 = $query13->execute()->fetchAssoc();
+    
     $query14 = \Drupal::database()->select('athlete_addweb', 'aaweb');
     $query14->fields('aaweb');
     $query14->condition('athlete_uid', $current_user, '=');
     $results14 = $query14->execute()->fetchAssoc();
+
     $query_img = \Drupal::database()->select('athlete_prof_image', 'n');
     $query_img->addField('n', 'athlete_target_image_id');
     $query_img->condition('athlete_id', $current_user, '=');
@@ -138,37 +140,31 @@ class ContributeForm extends FormBase {
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
 
-	$delta0 = \Drupal::database()->select('athlete_web', 'md');
-	$delta0->fields('md');
-	$delta0->condition('athlete_uid', $current_user, '=');
-	$delta0->condition('delta', 0, '=');
-	$delta0->condition('athlete_web_type', 1, '=');
-	$results_delta0 = $delta0->execute()->fetchAssoc();
-	$deltaweb0=$results_delta0['athlete_web_name'];
-	$deltaweb0_visibility=$results_delta0['athlete_web_visibility'];
-	
-	$delta1 = \Drupal::database()->select('athlete_web', 'md');
-	$delta1->fields('md');
-	$delta1->condition('athlete_uid', $current_user, '=');
-	$delta1->condition('delta', 1, '=');
-	$delta1->condition('athlete_web_type', 1, '=');
-	$results_delta1 = $delta1->execute()->fetchAssoc();
-	$deltaweb1=$results_delta1['athlete_web_name'];
-	$deltaweb1_visibility=$results_delta1['athlete_web_visibility'];
-	
-	$delta2 = \Drupal::database()->select('athlete_web', 'md');
-	$delta2->fields('md');
-	$delta2->condition('athlete_uid', $current_user, '=');
-	$delta2->condition('delta', 2, '=');
-	$delta2->condition('athlete_web_type', 1, '=');
-	$results_delta2 = $delta2->execute()->fetchAssoc();
-	$deltaweb2=$results_delta2['athlete_web_name'];
-	$deltaweb2_visibility=$results_delta2['athlete_web_visibility'];
-	
+    //web start
+	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
+	$query_web_type_delta0->fields('athw');
+	$query_web_type_delta0->condition('athlete_uid', $current_user, '=');
+	$query_web_type_delta0->condition('athlete_web_type', 1, '=');
+	$results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAssoc();
+		
+		
+	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
+	$query_web_type_delta1->fields('athw');
+	$query_web_type_delta1->condition('athlete_uid', $current_user, '=');
+	$query_web_type_delta1->condition('athlete_web_type', 2, '=');
+	$results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAssoc();
+		
+	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
+	$query_web_type_delta2->fields('athw');
+	$query_web_type_delta2->condition('athlete_uid', $current_user, '=');
+	$query_web_type_delta2->condition('athlete_web_type', 3, '=');
+	$results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAssoc();
+	//web end
+
 	$date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
-  $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
-  $date_of_birth->condition('entity_id', $current_user, '=');
-  $date_of_birth_val = $date_of_birth->execute()->fetchAssoc();
+    $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
+    $date_of_birth->condition('entity_id', $current_user, '=');
+    $date_of_birth_val = $date_of_birth->execute()->fetchAssoc();
 	
 	$query_org = \Drupal::database()->select('athlete_orginfo', 'n');
     $query_org->fields('n');
@@ -268,18 +264,22 @@ class ContributeForm extends FormBase {
       );
 	  
 	
-	    
+	// $form['test'] = [
+	// 	'#type' => 'textfield',
+	// 	'#placeholder' => t('test'),
+	// 	'#attributes' => array('id' => array('datepicker')),
+	// ];
 	  
 
     $form['doj'] = array(
       '#placeholder' => 'Date of Birth',
-      '#type' => 'date',
+      '#type' => 'textfield',
 	  #'#attributes' => array('readonly' => 'readonly'),
 	 //'#attributes' => array('readonly' => 'readonly','id' => array('datepicker')),
       '#required' => true,
       '#default_value' => $date_of_birth_val,
       '#format' => 'm/d/Y',
-      //'#attributes' => array('disabled' => true),
+      '#attributes' => array('id' => array('datepicker')),
       );
 
 	  
@@ -394,7 +394,7 @@ class ContributeForm extends FormBase {
     //   '#placeholder' => t("Coach's Last Name"),
     //   '#default_value' => $athlete_school['athlete_school_coach'],
     //   );
-	 
+	$sports_arr = [''=>'Select Sport'] + $sports_arr;
     $form['sport'] = array(
       '#type' => 'select',
 	  '#options' => $sports_arr,
@@ -828,7 +828,7 @@ class ContributeForm extends FormBase {
     $form['name_web'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Pick a Name'),
-      '#default_value' => $deltaweb0,
+      '#default_value' => $results_web_type_delta0['athlete_web_name'],
       '#prefix' => '<div class="container-inline web_name webfield">',
       '#suffix' => '</div>',
       '#attributes' => array('id' => 'name_1'),
@@ -854,7 +854,7 @@ class ContributeForm extends FormBase {
         t('Website Visibility'),
         t('On'),
         t('Off')),
-      '#default_value' => $deltaweb0_visibility,
+      '#default_value' => $results_web_type_delta0['athlete_web_visibility'],
       '#suffix' => '</div></div>',
       );
 
@@ -875,7 +875,7 @@ class ContributeForm extends FormBase {
       $form['name_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $deltaweb1,
+        '#default_value' => $results_web_type_delta1['athlete_web_name'],
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -901,7 +901,7 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $deltaweb1_visibility,
+        '#default_value' => $results_web_type_delta1['athlete_web_visibility'],
         '#suffix' => '</div></div>',
         );
     }
@@ -924,7 +924,7 @@ class ContributeForm extends FormBase {
       $form['name_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $deltaweb2,
+        '#default_value' => $results_web_type_delta2['athlete_web_name'],
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -952,7 +952,7 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $deltaweb2_visibility,
+        '#default_value' => $results_web_type_delta2['athlete_web_visibility'],
         '#suffix' => '</div>
         </div>
        ',
@@ -1056,11 +1056,7 @@ class ContributeForm extends FormBase {
     $results_social = $query_social->execute()->fetchAll();
 	
 
-	
-    $query_addweb = \Drupal::database()->select('athlete_addweb', 'aaw');
-    $query_addweb->fields('aaw');
-    $query_addweb->condition('athlete_uid', $current_user, '=');
-    $results_addweb = $query_addweb->execute()->fetchAll();
+
 	
     $query_school = \Drupal::database()->select('athlete_school', 'ats');
     $query_school->fields('ats');
@@ -1093,15 +1089,9 @@ class ContributeForm extends FormBase {
 	
 
 	
-    $query_addweb = \Drupal::database()->select('athlete_addweb', 'athaw');
-    $query_addweb->fields('athaw');
-    $query_addweb->condition('athlete_uid', $current_user, '=');
-    $results_addweb = $query_addweb->execute()->fetchAll();
+   
 	
-    $query_clubweb = \Drupal::database()->select('athlete_clubweb', 'athawa');
-    $query_clubweb->fields('athawa');
-    $query_clubweb->condition('athlete_uid', $current_user, '=');
-    $results_clubweb = $query_clubweb->execute()->fetchAll();
+
 	
     $query_club = \Drupal::database()->select('athlete_club', 'athawac');
     $query_club->fields('athawac');
@@ -1248,31 +1238,7 @@ class ContributeForm extends FormBase {
         ))->execute();
     }
 	
-    if (empty($results_addweb)) {
-      $conn->insert('athlete_addweb')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_addweb_name' => $form_state->getValue('name_web2'),
-        'athlete_addweb_visibility' => $form_state->getValue('web_visible_2'),
-        ))->execute();
-    } else {
-      $conn->update('athlete_addweb')->condition('athlete_uid', $current_user, '=')->fields(array(
-        'athlete_addweb_name' => $form_state->getValue('name_web2'),
-        'athlete_addweb_visibility' => $form_state->getValue('web_visible_2'),
-        ))->execute();
-    }
 
-    if (empty($results_clubweb)) {
-      $conn->insert('athlete_clubweb')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_clubweb_name' => $form_state->getValue('name_web3'),
-        'athlete_clubweb_visibility' => $form_state->getValue('web_visible_3'),
-        ))->execute();
-    } else {
-      $conn->update('athlete_clubweb')->condition('athlete_uid', $current_user, '=')->fields(array(
-        'athlete_clubweb_name' => $form_state->getValue('name_web3'),
-        'athlete_clubweb_visibility' => $form_state->getValue('web_visible_3'),
-        ))->execute();
-    }
 	
 
     	/**
@@ -1379,7 +1345,106 @@ class ContributeForm extends FormBase {
 	/**
 	*WEB PAGE START HERE
 	*/
-	
+	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
+	$query_web_type_delta0->fields('athw');
+	$query_web_type_delta0->condition('athlete_uid', $current_user, '=');
+	$query_web_type_delta0->condition('athlete_web_type', 1, '=');
+	$results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAll();
+		
+		
+	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
+	$query_web_type_delta1->fields('athw');
+	$query_web_type_delta1->condition('athlete_uid', $current_user, '=');
+	$query_web_type_delta1->condition('athlete_web_type', 2, '=');
+	$results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAll();
+		
+	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
+	$query_web_type_delta2->fields('athw');
+	$query_web_type_delta2->condition('athlete_uid', $current_user, '=');
+	$query_web_type_delta2->condition('athlete_web_type', 3, '=');
+	$results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAll();
+
+	if (empty($results_web_type_delta0)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+        'athlete_web_type' => 1,
+        'delta' => 0,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 0, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
+        ))->execute();
+    }
+
+    if (empty($results_web_type_delta1)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web2'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
+        'athlete_web_type' =>  2,
+        'delta' => 1,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 2, '=')->condition('delta', 1, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web2'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
+        ))->execute();
+    }
+
+
+	if (empty($results_web_type_delta2)) {
+      $conn->insert('athlete_web')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_web_name' => $form_state->getValue('name_web3'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
+        'athlete_web_type' =>  3,
+        'delta' => 2,
+        ))->execute();
+    } else {
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 3, '=')->condition('delta', 2, '=')->fields(array(
+        'athlete_web_name' => $form_state->getValue('name_web3'),
+        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
+        ))->execute();
+    }
+
+    //	for getUserNameValiditity
+    $query_addweb = \Drupal::database()->select('athlete_addweb', 'athaw');
+    $query_addweb->fields('athaw');
+    $query_addweb->condition('athlete_uid', $current_user, '=');
+    $results_addweb = $query_addweb->execute()->fetchAll();
+    
+    if (empty($results_addweb)) {
+      $conn->insert('athlete_addweb')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_addweb_name' => $form_state->getValue('name_web2'),
+        'athlete_addweb_visibility' => $form_state->getValue('web_visible_2'),
+        ))->execute();
+    } else {
+      $conn->update('athlete_addweb')->condition('athlete_uid', $current_user, '=')->fields(array(
+        'athlete_addweb_name' => $form_state->getValue('name_web2'),
+        'athlete_addweb_visibility' => $form_state->getValue('web_visible_2'),
+        ))->execute();
+    }
+
+    $query_clubweb = \Drupal::database()->select('athlete_clubweb', 'athawa');
+    $query_clubweb->fields('athawa');
+    $query_clubweb->condition('athlete_uid', $current_user, '=');
+    $results_clubweb = $query_clubweb->execute()->fetchAll();
+    if (empty($results_clubweb)) {
+      $conn->insert('athlete_clubweb')->fields(array(
+        'athlete_uid' => $current_user,
+        'athlete_clubweb_name' => $form_state->getValue('name_web3'),
+        'athlete_clubweb_visibility' => $form_state->getValue('web_visible_3'),
+        ))->execute();
+    } else {
+      $conn->update('athlete_clubweb')->condition('athlete_uid', $current_user, '=')->fields(array(
+        'athlete_clubweb_name' => $form_state->getValue('name_web3'),
+        'athlete_clubweb_visibility' => $form_state->getValue('web_visible_3'),
+        ))->execute();
+    }
 	/**
 	*WEB PAGE END HERE
 	*/

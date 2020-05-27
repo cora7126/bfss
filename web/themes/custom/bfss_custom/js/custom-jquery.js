@@ -1,5 +1,8 @@
 jQuery(document).ready(function() {
 
+
+	jQuery(".user_pro_block .table-responsive-wrap table").wrap("<div class='table-responsive'></div>");
+
 	jQuery("i.fal.fa-caret-down, i.fal.fa-calendar-alt").click(function(){
 	 	jQuery(".month-view-form .nice-select.form-select.form-control").toggleClass('open');
     	return false;
@@ -83,6 +86,29 @@ jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
 			if(confirm('Are you sure you want to delete this?')){
 				jQuery.ajax({
 					url : 'http://5ppsystem.com/delete-assessments-data/'+$nid,
+					dataType: 'json',
+					cache: false,
+					success: function(data){
+						//console.log(data);
+						if(data){
+							location.reload();	
+						}	
+					},
+					error :function (data){
+						//console.log(data);
+					}
+				});
+				//jQuery(this).parents('.athlete_left').remove();
+			}
+		});
+
+
+		jQuery('span.removeorg').on('click',function(){
+			var $nid = jQuery(this).data("nid");
+			console.log(jQuery(this).data("nid"));
+			if(confirm('Are you sure you want to delete this?')){
+				jQuery.ajax({
+					url : 'http://5ppsystem.com/delete-org-from-coach/'+$nid,
 					dataType: 'json',
 					cache: false,
 					success: function(data){

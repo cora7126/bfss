@@ -1,0 +1,25 @@
+%FDF-1.2
+%����
+1 0 obj
+<<
+/FDF <</Fields [
+	<</T (FULL_NAME_TOP) /V (V_FULL_NAME_TOP)>>
+	<</T (AGE) /V (V_AGE y/o)>>
+	<</T (SPORT) /V (V_SPORT)>>
+	<</T (WEIGHT) /V (V_WEIGHT lbs)>>
+	<</T (SEX) /V (V_SEX)>>
+	<</T (YOU_REACTIVE) /V (V_YOU_REACTIVE in)>>
+	<</T (YOU_ELASTIC) /V (V_YOU_ELASTIC in)>>
+	<</T (YOU_BALLISTIC) /V (V_YOU_BALLISTIC in)>>
+	<</T (YOU_ACCELERATION) /V (V_YOU_ACCELERATION sec)>>
+	<</T (YOU_MAXIMAL) /V (V_YOU_MAXIMAL lbs)>>
+	<</T (ELITE_REACTIVE) /V (V_ELITE_REACTIVE in)>>
+	<</T (BENCHMARK_REACTIVE) /V (V_BENCHMARK_REACTIVE in)>>
+] /F (template.pdf)>>
+>>
+endobj
+trailer
+<<
+/Root 1 0 R
+>>
+%%EOF

@@ -93,9 +93,9 @@ class AddFaqs extends ControllerBase {
 
 		$role_name = '';
 		if(isset($param['role']) && $param['role'] == 'Athletes'){
-			$role_name = "ATHLETE'S"; 
+			$role_name = "Athlete's";  
 		}elseif(isset($param['role']) && $param['role'] == 'Coaches'){
-			$role_name = "COACHE'S"; 
+			$role_name = "Coache's"; 
 		}
 
 	    return [

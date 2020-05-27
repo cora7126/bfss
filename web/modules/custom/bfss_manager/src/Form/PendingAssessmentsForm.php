@@ -47,12 +47,12 @@ class PendingAssessmentsForm extends FormBase {
             elseif($formtype == 'elete' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
              }
-         
+
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
             <!-- Modal start-->
                     <div id="assessor_popup_form" class="asse_frm" >
-                    
+
                                     <div class="">
                                       <!-- Modal content-->
                                       <div>
@@ -66,8 +66,8 @@ class PendingAssessmentsForm extends FormBase {
                                               </ul>';
 
                     $form['#suffix'] = '  </div>
-                                        </div>       
-                                      </div>   
+                                        </div>
+                                      </div>
                                     </div>
                                 </div>
             <!-- Modal end-->';
@@ -82,7 +82,7 @@ class PendingAssessmentsForm extends FormBase {
             '#suffix' => '</div>',
              );
             if( !empty($assess_nid) ){
-            //default values here 
+            //default values here
             $node = Node::load($assess_nid);
             $starter_weight_rea_str = $node->title->value;
             $field_jump_height_in_reactive = $node->field_jump_height_in_reactive->value;
@@ -116,13 +116,23 @@ class PendingAssessmentsForm extends FormBase {
         	  '#suffix' => '</div>',
         	   );
 
-            $form['form_fields_wrap']['reactive_strength']['starter_weight_rea_str'] = array(
+             $form['form_fields_wrap']['reactive_strength']['starter_weight_rea_str'] = array(
               '#type' => 'textfield',
               '#default_value' => $starter_weight_rea_str,
               #'#title' => t('Weight (N) Calculated into Ibs'),
               #'#required' => TRUE,
               '#attributes' => array(
                 'placeholder' => t('Weight (N) Calculated into Ibs'),
+              ),
+            );
+
+            $form['form_fields_wrap']['reactive_strength']['starter_test_jjj'] = array(
+              '#type' => 'textfield',
+              '#default_value' => '',
+              #'#title' => t('Weight (N) Calculated into Ibs'),
+              #'#required' => TRUE,
+              '#attributes' => array(
+                'placeholder' => t('Starter test jjj'),
               ),
             );
 
@@ -296,7 +306,7 @@ class PendingAssessmentsForm extends FormBase {
                   '#prefix' => '<div id="ue_power2" class="sm_cls">',
                   '#suffix' => '</div>',
                 );
-                
+
                 $form['form_fields_wrap']['ue_power_spm']['power_spm'] = array (
                   '#type' => 'textfield',
                   '#default_value' => $field_power_w_spm_ipe,
@@ -359,7 +369,7 @@ class PendingAssessmentsForm extends FormBase {
 
              //hidden fields
 
-            if($formtype == 'elete'){  
+            if($formtype == 'elete'){
              $formtype_val = 'elete';
             }elseif($formtype == 'starter'){
              $formtype_val = 'starter';
@@ -367,7 +377,7 @@ class PendingAssessmentsForm extends FormBase {
               $formtype_val = '';
             }
 
-            if($Assess_type == 'individual'){  
+            if($Assess_type == 'individual'){
              $Assess_type_val = 'individual';
             }elseif($Assess_type == 'private'){
              $Assess_type_val = 'private';
@@ -389,7 +399,7 @@ class PendingAssessmentsForm extends FormBase {
              '#type' => 'hidden',
              '#value' => $booked_id,
             );
-            
+
              $form['athelete_nid'] = array(
              '#type' => 'hidden',
              '#value' => $nid,
@@ -398,7 +408,7 @@ class PendingAssessmentsForm extends FormBase {
 
 
             $form['actions']['#type'] = 'actions';
-         
+
             $form['actions']['submit'] = array(
               '#type' => 'submit',
               '#value' => $this->t('MANAGER APPROVED'),
@@ -426,7 +436,7 @@ class PendingAssessmentsForm extends FormBase {
    * {@inheritdoc}
    */
     public function validateForm(array &$form, FormStateInterface $form_state) {
-    
+
     }
 
   /**
@@ -440,16 +450,16 @@ class PendingAssessmentsForm extends FormBase {
            $formtype = $param['formtype'];
            $Assess_type = $param['Assess_type'];
            $booked_id = $param['booked_id'];
-           $st = $param['st']; 
+           $st = $param['st'];
            $assess_nid = $param['assess_nid'];
-        } 
+        }
         //check node already exist
         $query1 = \Drupal::entityQuery('node');
         $query1->condition('type', 'athlete_assessment_info');
         $query1->condition('field_booked_id',$booked_id, 'IN');
         $nids1 = $query1->execute();
-        	
-    		
+
+
         //current user
         $current_user = \Drupal::currentUser();
         $user_id = $current_user->id();
@@ -497,25 +507,25 @@ class PendingAssessmentsForm extends FormBase {
              $message = '<p style="color:red;">"RFD @ 100ms (N)" Required or Numeric</p>';
            }
            elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'elete' ){
-             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>'; 
+             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
            }
            elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'elete'){
-           
+
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
             }
            elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'elete'){
-              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>'; 
+              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
            }
             elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';   
-           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){  
+             $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';
+           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
            }else{
              $message = '<p style="color:green;">Successfully saved!</p>';
                 if(!$nids1){
                       $node = Node::create([
                          'type' => 'athlete_assessment_info',
-                        ]); 
+                        ]);
 
                     $node->set('title', $form_data['starter_weight_rea_str']);
                     $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
@@ -540,12 +550,12 @@ class PendingAssessmentsForm extends FormBase {
                     $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
                     $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
                     $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-                    //user target id 
+                    //user target id
                     $node->set('field_user', ['target_id' => $user_id]);
                      // if "SAVE - ALL FIELDS COMPLETED" trigger
                     $node->set('field_status', 'complete');
                     $node->setPublished(TRUE);
-                    $node->save();  
+                    $node->save();
                   }else{
                     // $node = Node::load($nids1);
                     // $node->set('title', $form_data['starter_weight_rea_str']);
@@ -571,19 +581,19 @@ class PendingAssessmentsForm extends FormBase {
                     // $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
                     // $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
                     // $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-                    // //user target id 
+                    // //user target id
                     // $node->set('field_user', ['target_id' => $user_id]);
                     //  // if "SAVE - ALL FIELDS COMPLETED" trigger
                     // $node->set('field_status', 'complete');
                     // $node->setPublished(TRUE);
-                    // $node->save(); 
+                    // $node->save();
                   }
            }
-           
+
             // if(!$nids1){
             //        $node = Node::create([
             //          'type' => 'athlete_assessment_info',
-            //         ]); 
+            //         ]);
             //       $node->set('title', $form_data['starter_weight_rea_str']);
             //       $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
             //       $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
@@ -607,11 +617,11 @@ class PendingAssessmentsForm extends FormBase {
             //       $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
             //       $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
             //       $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-            //       //user target id 
+            //       //user target id
             //       $node->set('field_user', ['target_id' => $user_id]);
             //        // if "SAVE - ALL FIELDS COMPLETED" trigger
             //       $node->set('field_status', 'complete');
-                
+
             //       $node->setPublished(TRUE);
             //  }else{
             //       $node->set('title', $form_data['starter_weight_rea_str']);
@@ -637,20 +647,20 @@ class PendingAssessmentsForm extends FormBase {
             //       $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
             //       $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
             //       $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-            //       //user target id 
+            //       //user target id
             //       $node->set('field_user', ['target_id' => $user_id]);
             //        // if "SAVE - ALL FIELDS COMPLETED" trigger
             //       $node->set('field_status', 'complete');
-                 
+
             //       $node->setPublished(TRUE);
             //       $node = Node::load($nids1);
             //  }
             //   $node->save();
             //   $message = 'Successfully saved.';
-             // $message = "Successfully saved.";	
-           
-      
-      
+             // $message = "Successfully saved.";
+
+
+
           // for success message show
             $response = new AjaxResponse();
             $response->addCommand(
