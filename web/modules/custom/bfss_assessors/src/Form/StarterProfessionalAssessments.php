@@ -36,17 +36,23 @@ class StarterProfessionalAssessments extends FormBase {
   if(isset($nid) && isset($formtype) && isset($Assess_type))
     {
             if($formtype == 'starter' && $Assess_type == 'individual'){
-              $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
+              $form_title = 'STARTER ASSESSMENT';
+            }
+            elseif($formtype == 'professional' && $Assess_type == 'individual'){
+              $form_title = 'PROFESSIONAL ASSESSMENT';
             }
             elseif($formtype == 'elete' && $Assess_type == 'individual'){
               $form_title = 'ELITE ASSESSMENT';
             }
             elseif($formtype == 'starter' && $Assess_type == 'private'){
-               $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
-             }
+              $form_title = 'STARTER ASSESSMENT';
+            }
+            elseif($formtype == 'professional' && $Assess_type == 'private'){
+              $form_title = 'PROFESSIONAL ASSESSMENT';
+            }
             elseif($formtype == 'elete' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
-             }
+            }
 
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
@@ -107,7 +113,6 @@ class StarterProfessionalAssessments extends FormBase {
             $field_repetitions_se_ipe = $node->field_repetitions_se_ipe->value;
             $field_power_w_cfd_ipe = $node->field_power_w_cfd_ipe->value;
             }
-
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ jody - assumed fields for starter form
 
