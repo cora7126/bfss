@@ -10,7 +10,7 @@ use Drupal\node\NodeInterface;
 class DefaultController extends ControllerBase {
 
   public function dashboard() {
-    //get current user 
+    //get current user
     $uid = \Drupal::currentUser()->id();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
     $roles = $user->getRoles();
@@ -19,7 +19,7 @@ class DefaultController extends ControllerBase {
     // the {name} in the route gets captured as $name variable
     // in the function called
 	   #ATTACH BLOCK
-   
+
 
       if(in_array('assessors', $roles)){
         $block1 = \Drupal\block\Entity\Block::load('eventslisting');
@@ -33,7 +33,7 @@ class DefaultController extends ControllerBase {
           ->getViewBuilder('block')
           ->view($block2);
         $assessments_block2 = \Drupal::service('renderer')->renderRoot($block_content2);
-        
+
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'assessors_profile_dashboard_page',
@@ -53,7 +53,7 @@ class DefaultController extends ControllerBase {
         }else{
           $rolename = '';
         }
-        
+
         $block = \Drupal\block\Entity\Block::load('assessmentscustomview');
         $block_content = \Drupal::entityManager()
           ->getViewBuilder('block')
@@ -72,7 +72,7 @@ class DefaultController extends ControllerBase {
         $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
         $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
         $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
-        
+
         //MY Assessments
         $myAssessments = $this->My_assessments($uid);
         if($param['MonthView'] == 'MonthView'){
@@ -114,7 +114,7 @@ class DefaultController extends ControllerBase {
         $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
         $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
         $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
-        
+
         //MY Assessments
         $myAssessments = $this->My_assessments($uid);
         if($param['MonthView'] =='MonthView'){
@@ -158,9 +158,9 @@ class DefaultController extends ControllerBase {
           ]
         ];
       }
-    
+
   }
-  
+
 public function userform()
 {
 	return [
@@ -200,7 +200,7 @@ public function userform()
                             }elseif($entity->service->value == '69.99'){
                                 $formtype = 'Professional Assessment';
                             }
-                            
+
                             $result[] = [
                               'formtype' => $formtype,
                               'date' => $booking_date,
@@ -231,5 +231,5 @@ public function userform()
         }
         return $Pending_Approval;
     }
-   
+
 }
