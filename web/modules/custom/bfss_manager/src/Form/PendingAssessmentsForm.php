@@ -33,20 +33,26 @@ class PendingAssessmentsForm extends FormBase {
     $first_name = $param['first_name'];
     $last_name = $param['last_name'];
     $sport = $param['sport'];
-  if(isset($nid) && isset($formtype) && isset($Assess_type))
+    if(isset($nid) && isset($formtype) && isset($Assess_type))
     {
             if($formtype == 'starter' && $Assess_type == 'individual'){
-              $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
+              $form_title = 'STARTER ASSESSMENT';
+            }
+            elseif($formtype == 'professional' && $Assess_type == 'individual'){
+              $form_title = 'PROFESSIONAL ASSESSMENT';
             }
             elseif($formtype == 'elete' && $Assess_type == 'individual'){
               $form_title = 'ELITE ASSESSMENT';
             }
             elseif($formtype == 'starter' && $Assess_type == 'private'){
-               $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
-             }
+              $form_title = 'STARTER ASSESSMENT';
+            }
+            elseif($formtype == 'professional' && $Assess_type == 'private'){
+              $form_title = 'PROFESSIONAL ASSESSMENT';
+            }
             elseif($formtype == 'elete' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
-             }
+            }
 
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
@@ -181,7 +187,6 @@ class PendingAssessmentsForm extends FormBase {
               ),
             );
             // *ELITE PERFORMERS AGE
-            // $form['form_fields_wrap']['starter_elite_performers_age_avg'] = array (
             $form['form_fields_wrap']['starter_peak_pro_ela_str'] = array (
               '#type' => 'textfield',
               '#default_value' => $field_peak_propulsive_elastic,
