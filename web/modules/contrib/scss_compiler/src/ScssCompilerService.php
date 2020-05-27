@@ -10,6 +10,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\StreamWrapper\LocalStream;
 
 /**
  * Defines a class for scss compiler service.
@@ -69,13 +70,6 @@ class ScssCompilerService implements ScssCompilerInterface {
   protected $activeThemeName;
 
   /**
-   * Compiler object instance.
-   *
-   * @var \Drupal\scss_compiler\Compiler
-   */
-  protected $parser;
-
-  /**
    * Path to cache folder.
    *
    * @var string
@@ -104,6 +98,20 @@ class ScssCompilerService implements ScssCompilerInterface {
   protected $fileIsModified;
 
   /**
+   * Additional import paths for compiler.
+   *
+   * @var array
+   */
+  protected $additionalImportPaths;
+
+  /**
+   * List of replacement tokens.
+   *
+   * @var array
+   */
+  protected $tokens;
+
+  /**
    * Constructs a SCSS Compiler service object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
@@ -130,6 +138,9 @@ class ScssCompilerService implements ScssCompilerInterface {
     $this->activeThemeName = $theme_manager->getActiveTheme()->getName();
     $this->cacheFolder = 'public://scss_compiler';
     $this->isCacheEnabled = $this->config->get('cache');
+    $this->tokens = [
+      '@drupal_root' => '',
+    ];
 
     if (!$this->isCacheEnabled() && $this->config->get('check_modify_time')) {
       $this->lastModifyList = [];
@@ -204,7 +215,14 @@ class ScssCompilerService implements ScssCompilerInterface {
     if ($cache = $this->cache->get('scss_compiler_list')) {
       $data = $cache->data;
       if ($all) {
-        $files = array_merge_recursive(...array_values($data));
+        foreach ($data as $namespace) {
+          foreach ($namespace as $key => $file) {
+            if (!isset($files[$key])) {
+              $files[$key] = [];
+            }
+            $files[$key] = array_merge($files[$key], $file);
+          }
+        }
       }
       elseif (!empty($data[$this->activeThemeName])) {
         $files = $data[$this->activeThemeName];
@@ -225,6 +243,22 @@ class ScssCompilerService implements ScssCompilerInterface {
           $this->compile($scss_file, $flush);
         }
       }
+      $this->compileComplete();
+    }
+  }
+
+  /**
+   * Indicates that all files was compiled.
+   *
+   * Run compileQueue function if plugin supports it.
+   */
+  public function compileComplete() {
+    $plugins = $this->config->get('plugins');
+    foreach ($plugins as $plugin) {
+      $compiler = \Drupal::service('plugin.manager.scss_compiler')->getInstanceById($plugin);
+      if (method_exists($compiler, 'compileQueue')) {
+        $compiler->compileQueue();
+      }
     }
   }
 
@@ -239,12 +273,28 @@ class ScssCompilerService implements ScssCompilerInterface {
       }
 
       $namespace_path = $this->getNamespacePath($info['namespace']);
+
+      $assets_path = '';
+      if (isset($info['assets_path'])) {
+        if (substr($info['assets_path'], 0, 1) === '@') {
+          $assets_path = '/' . trim($this->replaceTokens($info['assets_path']), '/. ') . '/';
+        }
+      }
+      elseif (!empty($namespace_path)) {
+        $assets_path = '/' . trim($namespace_path, '/') . '/';
+      }
+
       $name = pathinfo($info['data'], PATHINFO_FILENAME);
       if (!empty($info['css_path'])) {
-        // If custom css path defined, build path relative to theme/module.
-        $css_path = $namespace_path . '/' . trim($info['css_path'], '/. ') . '/' . $name . '.css';
+        if (substr($info['css_path'], 0, 1) === '@') {
+          $css_path = trim($this->replaceTokens($info['css_path']), '/. ') . '/' . $name . '.css';
+        }
+        elseif (!empty($namespace_path)) {
+          $css_path = $namespace_path . '/' . trim($info['css_path'], '/. ') . '/' . $name . '.css';
+        }
       }
-      else {
+
+      if (!isset($css_path)) {
         // Get source file path relative to theme/module and add it to css path
         // to prevent overwriting files when two source files with the same name
         // defined in different folders.
@@ -261,6 +311,7 @@ class ScssCompilerService implements ScssCompilerInterface {
       return [
         'name'        => $name,
         'namespace'   => $info['namespace'],
+        'assets_path' => $assets_path,
         'source_path' => $info['data'],
         'css_path'    => $css_path,
       ];
@@ -268,6 +319,31 @@ class ScssCompilerService implements ScssCompilerInterface {
     catch (\Exception $e) {
       $this->messenger()->addError($e->getMessage());
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function replaceTokens($path) {
+    // If string starts with @ replace it with the proper path.
+    if (substr($path, 0, 1) === '@') {
+      $namespace = [];
+      if (preg_match('#([^/]+)/#', $path, $namespace)) {
+        $namespace_path = $this->getNamespacePath(substr($namespace[1], 1));
+        if (!$namespace_path) {
+          return FALSE;
+        }
+        $path = str_replace($namespace[1], $namespace_path, $path);
+      }
+      else {
+        if (!$namespace_path = $this->getNamespacePath(substr($path, 1))) {
+          return FALSE;
+        }
+        $path = $namespace_path;
+      }
+    }
+
+    return $path;
   }
 
   /**
@@ -283,113 +359,92 @@ class ScssCompilerService implements ScssCompilerInterface {
    *   Path to theme/module of given namespace.
    */
   protected function getNamespacePath($namespace) {
+    if (isset($this->tokens[$namespace])) {
+      return $this->tokens[$namespace];
+    }
     $type = 'theme';
     if ($this->moduleHandler->moduleExists($namespace)) {
       $type = 'module';
     }
     $path = @drupal_get_path($type, $namespace);
     if (empty($path)) {
-      $error_message = $this->t('@namespace is invalid', [
-        '@namespace' => $type . ' ' . $namespace,
-      ]);
-      throw new \Exception($error_message);
+      $path = '';
     }
+    $this->tokens[$namespace] = $path;
     return $path;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function compile(array $scss_file, $flush = FALSE) {
+  public function getAdditionalImportPaths() {
+    if (isset($this->additionalImportPaths)) {
+      return $this->additionalImportPaths;
+    }
+
+    $this->additionalImportPaths = [];
+    $this->moduleHandler->alter('scss_compiler_import_paths', $this->additionalImportPaths);
+    if (!is_array($this->additionalImportPaths)) {
+      $this->additionalImportPaths = [];
+    }
+    return $this->additionalImportPaths;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function compile(array $source_file, $flush = FALSE) {
     try {
-      if (!file_exists($scss_file['source_path'])) {
+      if (!file_exists($source_file['source_path'])) {
         $error_message = $this->t('File @path not found', [
-          '@path' => $scss_file['source_path'],
+          '@path' => $source_file['source_path'],
         ]);
         throw new \Exception($error_message);
       }
 
-      if (!$parser = $this->parser) {
-        $compiler_class_exists = class_exists('ScssPhp\ScssPhp\Compiler');
-        if (!$compiler_class_exists && !file_exists(DRUPAL_ROOT . '/libraries/scssphp/scss.inc.php')) {
-          $error_message = $this->t('SCSS Compiler library not found. Visit status page for more information.');
-          throw new \Exception($error_message);
-        }
+      $extension = pathinfo($source_file['source_path'], PATHINFO_EXTENSION);
+      $plugins = $this->config->get('plugins');
+      if (!empty($plugins[$extension])) {
+        $compiler = \Drupal::service('plugin.manager.scss_compiler')->getInstanceById($plugins[$extension]);
+      }
 
-        // If library didn't autoload from the vendor folder, load it from the
-        // libraries folder.
-        if (!$compiler_class_exists) {
-          require_once DRUPAL_ROOT . '/libraries/scssphp/scss.inc.php';
+      if (empty($compiler)) {
+        $error_message = $this->t('Compiler for @extension extension not found', [
+          '@extension' => $extension,
+        ]);
+        throw new \Exception($error_message);
+      }
 
-          // leafo/scssphp no longer supported, it was forked to
-          // scssphp/scssphp.
-          // @see https://github.com/leafo/scssphp/issues/707
-          if (!class_exists('ScssPhp\ScssPhp\Compiler')) {
-            $error_message = $this->t('leafo/scssphp no longer supported. Update compiler library to scssphp/scssphp @url', [
-              '@url' => '(https://github.com/scssphp/scssphp/releases)',
-            ]);
-            throw new \Exception($error_message);
+      // Replace all local stream wrappers by real path.
+      foreach ([&$source_file['source_path'], &$source_file['css_path']] as &$path) {
+        if (\Drupal::service('stream_wrapper_manager')->getScheme($path)) {
+          $wrapper = \Drupal::service('stream_wrapper_manager')->getViaUri($path);
+          if ($wrapper instanceof LocalStream) {
+            $host = $this->request->getSchemeAndHttpHost();
+            $wrapper_path = $wrapper->getExternalUrl();
+            $path = trim(str_replace($host, '', $wrapper_path), '/');
           }
         }
-
-        $this->parser = $parser = new Compiler();
-        $this->parser->setFormatter($this->getScssPhpFormatClass($this->getOption('output_format')));
-        // Disable utf-8 support to increase performance.
-        $this->parser->setEncoding(TRUE);
       }
 
-      // Build path for @import, if import not found relative to current file,
-      // find relative to DRUPAL_ROOT, for example, load scss from another
-      // module, @import modules/custom/my_module/scss/mixins.
-      $parser->setImportPaths([
-        dirname($scss_file['source_path']),
-        DRUPAL_ROOT,
-      ]);
-
-      // Add theme/module path to compiler to build path to static resources.
-      $parser->drupalPath = '/' . $this->getNamespacePath($scss_file['namespace']) . '/';
-
-      $css_folder = dirname($scss_file['css_path']);
-      if ($this->getOption('sourcemaps')) {
-        $parser->setSourceMap(Compiler::SOURCE_MAP_FILE);
-        $host = $this->request->getSchemeAndHttpHost();
-        $sourcemap_file = $css_folder . '/' . $scss_file['name'] . '.css.map';
-        $parser->setSourceMapOptions([
-          'sourceMapWriteTo'  => $sourcemap_file,
-          'sourceMapURL'      => file_create_url($sourcemap_file),
-          'sourceMapBasepath' => $host . '/',
-          'sourceMapRootpath' => $host . '/',
-        ]);
-      }
-      // Use deprecated code to supports drupal 8.5.x+.
-      // @todo remove on Drupal 9.x release.
-      file_prepare_directory($css_folder, FILE_CREATE_DIRECTORY);
-
-      // If custom css path defined, check if it located in the proper
-      // theme/module folder else throw an error.
-      if (substr($css_folder, 0, strlen($this->cacheFolder)) !== $this->cacheFolder) {
-        $namespace_path = $this->getNamespacePath($scss_file['namespace']);
-        if (strpos(realpath($css_folder), realpath($namespace_path)) !== 0) {
-          $error_message = $this->t('Css destination path is wrong, @path', [
-            '@path' => $scss_file['source_path'],
-          ]);
-          throw new \Exception($error_message);
-        }
-      }
-
-      $source_content = file_get_contents($scss_file['source_path']);
-      if ($this->config->get('check_modify_time') && !$flush && !$this->checkLastModifyTime($scss_file, $source_content)) {
+      $source_content = file_get_contents($source_file['source_path']);
+      if ($this->config->get('check_modify_time') && !$flush && !$this->checkLastModifyTime($source_file, $source_content)) {
         return;
       }
-      $content = $parser->compile($source_content, $scss_file['source_path']);
-      file_put_contents($scss_file['css_path'], trim($content));
+
+      $content = $compiler->compile($source_file);
+      if (!empty($content)) {
+        $css_folder = dirname($source_file['css_path']);
+        $this->fileSystem->prepareDirectory($css_folder, FileSystemInterface::CREATE_DIRECTORY);
+        file_put_contents($source_file['css_path'], trim($content));
+      }
 
     }
     catch (\Exception $e) {
       // If error occurrence during compilation, reset last modified time of the
       // file.
-      if (!empty($this->lastModifyList[$scss_file['source_path']])) {
-        $this->lastModifyList[$scss_file['source_path']] = 0;
+      if (!empty($this->lastModifyList[$source_file['source_path']])) {
+        $this->lastModifyList[$source_file['source_path']] = 0;
       }
       $this->messenger()->addError($e->getMessage());
     }
@@ -408,71 +463,27 @@ class ScssCompilerService implements ScssCompilerInterface {
    */
   protected function checkLastModifyTime(array &$source_file, &$content) {
     // If file wasn't changed and compiled css file exists don't recompile it
-    // to increase performance. Supports only 1 level @import.
-    $last_modify_time = filemtime($source_file['source_path']);
-    $source_folder = dirname($source_file['source_path']);
-    $import = [];
-    preg_match_all('/@import(.*);/', $content, $import);
-    if (!empty($import[1])) {
-      foreach ($import[1] as $file) {
-        // Normalize @import path.
-        $file_path = trim($file, '\'" ');
-        $pathinfo = pathinfo($file_path);
-        $extension = '.scss';
-        $filename = $pathinfo['filename'];
-        $dirname = $pathinfo['dirname'] === '.' ? '' : $pathinfo['dirname'] . '/';
+    // to increase performance. Each plugin has own realization.
+    if (empty($this->lastModifyList[$source_file['source_path']]) || !file_exists($source_file['css_path'])) {
+      $last_modify_time = filemtime($source_file['source_path']);
+      $this->lastModifyList[$source_file['source_path']] = $last_modify_time;
+      $this->fileIsModified = TRUE;
+      return TRUE;
+    }
 
-        $file_path = $source_folder . '/' . $dirname . $filename . $extension;
-        $scss_path = $source_folder . '/' . $dirname . '_' . $filename . $extension;
+    $extension = pathinfo($source_file['source_path'], PATHINFO_EXTENSION);
+    $plugins = $this->config->get('plugins');
+    if (!empty($plugins[$extension])) {
+      $compiler = \Drupal::service('plugin.manager.scss_compiler')->getInstanceById($plugins[$extension]);
+      $last_modify_time = $compiler->checkLastModifyTime($source_file);
 
-        if (file_exists($file_path) || file_exists($file_path = $scss_path)) {
-          $file_modify_time = filemtime($file_path);
-          if ($file_modify_time > $last_modify_time) {
-            $last_modify_time = $file_modify_time;
-          }
-        }
+      if ($last_modify_time > $this->lastModifyList[$source_file['source_path']]) {
+        $this->lastModifyList[$source_file['source_path']] = $last_modify_time;
+        $this->fileIsModified = TRUE;
+        return TRUE;
       }
     }
-    if (empty($this->lastModifyList[$source_file['source_path']]) || !file_exists($source_file['css_path'])) {
-      $this->lastModifyList[$source_file['source_path']] = $last_modify_time;
-      $this->fileIsModified = TRUE;
-      return TRUE;
-    }
-    elseif ($last_modify_time > $this->lastModifyList[$source_file['source_path']]) {
-      $this->lastModifyList[$source_file['source_path']] = $last_modify_time;
-      $this->fileIsModified = TRUE;
-      return TRUE;
-    }
-
     return FALSE;
-  }
-
-  /**
-   * Returns ScssPhp Compiler format classname.
-   *
-   * @param string $format
-   *   Format name.
-   *
-   * @return string
-   *   Format type classname.
-   */
-  private function getScssPhpFormatClass($format) {
-    switch ($format) {
-      case 'expanded':
-        return '\ScssPhp\ScssPhp\Formatter\Expanded';
-
-      case 'nested':
-        return '\ScssPhp\ScssPhp\Formatter\Nested';
-
-      case 'compact':
-        return '\ScssPhp\ScssPhp\Formatter\Compact';
-
-      case 'crunched':
-        return '\ScssPhp\ScssPhp\Formatter\Crunched';
-
-      default:
-        return '\ScssPhp\ScssPhp\Formatter\Compressed';
-    }
   }
 
 }

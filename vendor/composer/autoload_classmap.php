@@ -38,7 +38,6 @@ return array(
     'AuthorizeNetTransaction' => $vendorDir . '/authorizenet/authorizenet/lib/deprecated/shared/AuthorizeNetTypes.php',
     'AuthorizeNetXMLResponse' => $vendorDir . '/authorizenet/authorizenet/lib/deprecated/shared/AuthorizeNetXMLResponse.php',
     'AuthorizeNet_Subscription' => $vendorDir . '/authorizenet/authorizenet/lib/deprecated/shared/AuthorizeNetTypes.php',
-    'Console_Table' => $vendorDir . '/pear/console_table/Table.php',
     'DivisionByZeroError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
     'Drupal' => $baseDir . '/web/core/lib/Drupal.php',
     'DrupalFinder\\DrupalFinder' => $vendorDir . '/webflo/drupal-finder/src/DrupalFinder.php',

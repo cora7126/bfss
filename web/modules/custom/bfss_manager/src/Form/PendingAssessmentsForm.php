@@ -51,25 +51,24 @@ class PendingAssessmentsForm extends FormBase {
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
             <!-- Modal start-->
-                    <div id="assessor_popup_form" class="asse_frm" >
+              <div id="assessor_popup_form" class="asse_frm" >
+                <div class="">
+                  <!-- Modal content-->
+                  <div>
+                    <div id="accessorform">
+                        <div class="accessorform_inner">
+                        <div class="usrinfo"><h3>'.$first_name.' '.$last_name.'</h3><ul><li>'.$sport.'</li><li>'.$param['postion'].'</li></ul></div>
+                          <h2>'.$form_title.'</h2><ul class="st_lk">
+                          <li>EF-Equipment Failure</li>
+                          <li>Al-Athlete Injured</li>
+                          <li>ART-Athlete Refused Test</li>
+                          </ul>';
 
-                                    <div class="">
-                                      <!-- Modal content-->
-                                      <div>
-                                        <div id="accessorform">
-                                            <div class="accessorform_inner">
-                                           <div class="usrinfo"><h3>'.$first_name.' '.$last_name.'</h3><ul><li>'.$sport.'</li><li>'.$param['postion'].'</li></ul></div>
-                                             <h2>'.$form_title.'</h2><ul class="st_lk">
-                                              <li>EF-Equipment Failure</li>
-                                              <li>Al-Athlete Injured</li>
-                                              <li>ART-Athlete Refused Test</li>
-                                              </ul>';
-
-                    $form['#suffix'] = '  </div>
-                                        </div>
-                                      </div>
-                                    </div>
+            $form['#suffix'] = '  </div>
                                 </div>
+                              </div>
+                            </div>
+                        </div>
             <!-- Modal end-->';
              $form['message'] = [
               '#type' => 'markup',
@@ -80,208 +79,289 @@ class PendingAssessmentsForm extends FormBase {
            # '#title' => $this->t(''),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
-             );
-            if( !empty($assess_nid) ){
-            //default values here
-            $node = Node::load($assess_nid);
-            $starter_weight_rea_str = $node->title->value;
-            $field_jump_height_in_reactive = $node->field_jump_height_in_reactive->value;
-            $field_rsi_reactive = $node->field_rsi_reactive->value;
-            $field_jump_height_in_elastic = $node->field_jump_height_in_elastic->value;
-            $field_peak_propulsive_elastic = $node->field_peak_propulsive_elastic->value;
-            $field_peak_power_w_elastic = $node->field_peak_power_w_elastic->value;
-            $field_jump_height_in_ballistic = $node->field_jump_height_in_ballistic->value;
-            $field_peak_propulsive_ballistic = $node->field_peak_propulsive_ballistic->value;
-            $field_peak_power_w_ballistic = $node->field_peak_power_w_ballistic->value;
-            $field_10m_time_sec_sprint = $node->field_10m_time_sec_sprint->value;
-            $field_40m_time_sec_sprint = $node->field_40m_time_sec_sprint->value;
-            $field_peak_force_n_maximal = $node->field_peak_force_n_maximal->value;
-            $field_rfd_100ms_n_maximal = $node->field_rfd_100ms_n_maximal->value;
-            $field_assessment_type = $node->field_assessment_type->value;
-            $field_form_type = $node->field_form_type->value;
-            $field_athelete_nid = $node->field_athelete_nid->value;
-            $field_booked_id = $node->field_booked_id->value;
-            $field_power_w_ssm_ipe = $node->field_power_w_ssm_ipe->value;
-            $field_power_w_spm_ipe = $node->field_power_w_spm_ipe->value;
-            $field_power_w_rm_ipe = $node->field_power_w_rm_ipe->value;
-            $field_repetitions_se_ipe = $node->field_repetitions_se_ipe->value;
-            $field_power_w_cfd_ipe = $node->field_power_w_cfd_ipe->value;
+            );
+            if( !empty($assess_nid) ) {
+              //default values here
+              $node = Node::load($assess_nid);
+              $starter_weight_rea_str = $node->title->value;
+              $field_jump_height_in_reactive = $node->field_jump_height_in_reactive->value;
+              $field_rsi_reactive = $node->field_rsi_reactive->value;
+              $field_jump_height_in_elastic = $node->field_jump_height_in_elastic->value;
+              $field_peak_propulsive_elastic = $node->field_peak_propulsive_elastic->value;
+              $field_peak_power_w_elastic = $node->field_peak_power_w_elastic->value;
+              $field_jump_height_in_ballistic = $node->field_jump_height_in_ballistic->value;
+              $field_peak_propulsive_ballistic = $node->field_peak_propulsive_ballistic->value;
+              $field_peak_power_w_ballistic = $node->field_peak_power_w_ballistic->value;
+              $field_10m_time_sec_sprint = $node->field_10m_time_sec_sprint->value;
+              $field_40m_time_sec_sprint = $node->field_40m_time_sec_sprint->value;
+              $field_peak_force_n_maximal = $node->field_peak_force_n_maximal->value;
+              $field_rfd_100ms_n_maximal = $node->field_rfd_100ms_n_maximal->value;
+              $field_assessment_type = $node->field_assessment_type->value;
+              $field_form_type = $node->field_form_type->value;
+              $field_athelete_nid = $node->field_athelete_nid->value;
+              $field_booked_id = $node->field_booked_id->value;
+              $field_power_w_ssm_ipe = $node->field_power_w_ssm_ipe->value;
+              $field_power_w_spm_ipe = $node->field_power_w_spm_ipe->value;
+              $field_power_w_rm_ipe = $node->field_power_w_rm_ipe->value;
+              $field_repetitions_se_ipe = $node->field_repetitions_se_ipe->value;
+              $field_power_w_cfd_ipe = $node->field_power_w_cfd_ipe->value;
             }
-          	//Reactive Strength (CM Rebound Jump)
-          	$form['form_fields_wrap']['reactive_strength'] = array(
-        	  '#type' => 'fieldset',
-        	  '#title' => $this->t('Reactive Strength (CM Rebound Jump)'),
 
-        	  '#prefix' => '<div id="reactive_strength" class="sm_cls">',
-        	  '#suffix' => '</div>',
-        	   );
 
-             $form['form_fields_wrap']['reactive_strength']['starter_weight_rea_str'] = array(
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ jody - assumed fields for starter form
+
+            // 5. REACTIVE STRENGTH (in) or (ln)
+            $form['form_fields_wrap']['starter_jump_height_rea_str'] = array(
               '#type' => 'textfield',
-              '#default_value' => $starter_weight_rea_str,
-              #'#title' => t('Weight (N) Calculated into Ibs'),
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('Weight (N) Calculated into Ibs'),
-              ),
-            );
-
-            $form['form_fields_wrap']['reactive_strength']['starter_test_jjj'] = array(
-              '#type' => 'textfield',
-              '#default_value' => '',
-              #'#title' => t('Weight (N) Calculated into Ibs'),
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('Starter test jjj'),
-              ),
-            );
-
-            $form['form_fields_wrap']['reactive_strength']['starter_jump_height_rea_str'] = array(
-              '#type' => 'textfield',
-              #'#title' => t('Jump Height (ln)'),
               '#default_value' => $field_jump_height_in_reactive,
               #'#required' => TRUE,
               '#attributes' => array(
-                'placeholder' => t('Jump Height (ln)'),
+                'placeholder' => t('REACTIVE STRENGTH (In)'),
+                'style' => 'width: 49%;',
               ),
             );
-            $form['form_fields_wrap']['reactive_strength']['starter_rsi_rea_str'] = array (
-              '#type' => 'textfield',
-              #'#title' => t('RSI'),
-              '#default_value' => $field_rsi_reactive,
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('RSI'),
-              ),
-            );
-
-            //Elastic Strenght (Countermovement Jump)
-        	$form['form_fields_wrap']['elastic_strenght'] = array(
-        		  '#type' => 'fieldset',
-        		  '#title' => $this->t('Elastic Strenght (Countermovement Jump)'),
-        		  '#prefix' => '<div id="elastic_strenght" class="sm_cls">',
-        		  '#suffix' => '</div>',
-        	);
-            $form['form_fields_wrap']['elastic_strenght']['starter_jump_height_ela_str'] = array (
+            // 6. ELASTIC STRENGTH (in) or (ln)
+            $form['form_fields_wrap']['starter_jump_height_ela_str'] = array (
               '#type' => 'textfield',
               '#default_value' => $field_jump_height_in_elastic,
-              #'#title' => t('Jump Height (ln)'),
               #'#required' => TRUE,
               '#attributes' => array(
-                'placeholder' => t('Jump Height (ln)'),
+                'placeholder' => t('ELASTIC STRENGTH (In)'),
+                'style' => 'width: 49%; margin-top: -40px; float: right;',
               ),
             );
-
-            $form['form_fields_wrap']['elastic_strenght']['elastic_strenght']['starter_peak_pro_ela_str'] = array (
-              '#type' => 'textfield',
-              '#default_value' => $field_peak_propulsive_elastic,
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('Peak Propulslve Force (N)'),
-              ),
-            );
-            $form['form_fields_wrap']['elastic_strenght']['starter_peak_power_ela_str'] = array (
-              '#type' => 'textfield',
-              '#default_value' => $field_peak_power_w_elastic,
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('Peak Power (W)'),
-              ),
-            );
-
-            //Ballistic Strength (Squat Jump)
-            $form['form_fields_wrap']['ballistic_strength'] = array(
-        		  '#type' => 'fieldset',
-        		  '#title' => $this->t('Ballistic Strength (Squat Jump)'),
-        		  '#prefix' => '<div id="ballistic_strength" class="sm_cls">',
-        		  '#suffix' => '</div>',
-        	);
-            $form['form_fields_wrap']['ballistic_strength']['starter_jump_height_ballistic'] = array (
+            // 7. BALLISTIC STRENGTH (in) or (ln)
+            $form['form_fields_wrap']['starter_jump_height_ballistic'] = array (
               '#type' => 'textfield',
               '#default_value' => $field_jump_height_in_ballistic,
               #'#required' => TRUE,
               '#attributes' => array(
-                'placeholder' => t('Jump Height (ln)'),
+                'placeholder' => t('BALLISTIC STRENGTH (In)'),
+                'style' => 'width: 49%;',
               ),
             );
-
-            $form['form_fields_wrap']['ballistic_strength']['starter_peak_pro_ballistic'] = array (
-              '#type' => 'textfield',
-              '#default_value' => $field_peak_propulsive_ballistic,
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('Peak Propulslve Force (N)'),
-              ),
-            );
-
-            $formv['ballistic_strength']['starter_peak_power_ballistic'] = array (
-              '#type' => 'textfield',
-              '#default_value' => $field_peak_power_w_ballistic,
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('Peak Power (W)'),
-              ),
-            );
-
-            // 10M/40M Sprint
-            $form['form_fields_wrap']['10m_40m_sprint'] = array(
-        		  '#type' => 'fieldset',
-        		  '#title' => $this->t('10M/40M Sprint'),
-        		  '#prefix' => '<div id="10m_40m" class="sm_cls">',
-        		  '#suffix' => '</div>',
-        	);
-
-            $form['form_fields_wrap']['10m_40m_sprint'] ['starter_10m'] = array (
+            // 8. ACCELERATION/SPEED (secs)
+            $form['form_fields_wrap']['starter_10m'] = array (
               '#type' => 'textfield',
               '#default_value' => $field_10m_time_sec_sprint,
               #'#required' => TRUE,
               '#attributes' => array(
-                'placeholder' => t('10 M Time (sec)'),
+                'placeholder' => t('ACCELERATION/SPEED (Sec)'),
+                'style' => 'width: 49%; margin-top: -40px; float: right;',
               ),
             );
-
-            $form['form_fields_wrap']['10m_40m_sprint'] ['starter_40m'] = array (
-              '#type' => 'textfield',
-              '#default_value' => $field_40m_time_sec_sprint,
-              #'#required' => TRUE,
-              '#attributes' => array(
-                'placeholder' => t('40 M Time (sec)'),
-              ),
-            );
-
-            // Maximal Strength (Isometric Mid-Thigh Pull)
-            $form['form_fields_wrap']['maximal_strength'] = array(
-        		  '#type' => 'fieldset',
-        		  '#title' => $this->t('Maximal Strength (Isometric Mid-Thigh Pull)'),
-        		  '#prefix' => '<div id="10m_40m" class="sm_cls">',
-        		  '#suffix' => '</div>',
-        	);
-
-            $form['form_fields_wrap']['maximal_strength']['starter_peak_for_max'] = array (
+            // 9. MAXIMAL STRENGTH (N)
+            $form['form_fields_wrap']['starter_peak_for_max'] = array (
               '#type' => 'textfield',
               '#default_value' => $field_peak_force_n_maximal,
               #'#required' => TRUE,
               '#attributes' => array(
-                'placeholder' => t('Peak Force (N)'),
+                'placeholder' => t('MAXIMAL STRENGTH (N)'),
+                'style' => 'width: 49%;',
               ),
             );
-
-             $form['form_fields_wrap']['maximal_strength']['starter_rfd_max'] = array (
+            // 10. (E) REACTIVE STRENGTH (In)
+            $form['form_fields_wrap']['starter_rsi_rea_str'] = array (
               '#type' => 'textfield',
-              '#default_value' => $field_rfd_100ms_n_maximal,
+              '#default_value' => $field_rsi_reactive,
               #'#required' => TRUE,
               '#attributes' => array(
-                'placeholder' => t('RFD @ 100ms (N)'),
+                'placeholder' => t('(E) REACTIVE STRENGTH (In)'),
+                'style' => 'width: 49%; margin-top: -40px; float: right;',
+              ),
+            );
+            // 11. (B) REACTIVE STRENGTH
+            $form['form_fields_wrap']['starter_weight_rea_str'] = array(
+              '#type' => 'textfield',
+              '#default_value' => $starter_weight_rea_str,
+              #'#required' => TRUE,
+              '#attributes' => array(
+                'placeholder' => t('(B) REACTIVE STRENGTH'),
+                'style' => 'width: 49%;',
+              ),
+            );
+            // *ELITE PERFORMERS AGE
+            // $form['form_fields_wrap']['starter_elite_performers_age_avg'] = array (
+            $form['form_fields_wrap']['starter_peak_pro_ela_str'] = array (
+              '#type' => 'textfield',
+              '#default_value' => $field_peak_propulsive_elastic,
+              #'#required' => TRUE,
+              '#attributes' => array(
+                'placeholder' => t('ELITE PERFORMERS AGE - test'),
+                'style' => 'width: 49%; margin-top: -40px; float: right;',
               ),
             );
 
+
+
+          //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx jody
+          // 	//Reactive Strength (CM Rebound Jump)
+          // 	$form['form_fields_wrap']['reactive_strength'] = array(
+        	//   '#type' => 'fieldset',
+        	//   '#title' => $this->t('Reactive Strength (CM Rebound Jump)'),
+        	//   '#prefix' => '<div id="reactive_strength" class="sm_cls">',
+        	//   '#suffix' => '</div>',
+        	//    );
+
+          //    $form['form_fields_wrap']['reactive_strength']['starter_weight_rea_str'] = array(
+          //     '#type' => 'textfield',
+          //     '#default_value' => $starter_weight_rea_str,
+          //     #'#title' => t('Weight (N) Calculated into Ibs'),
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Weight (N) Calculated into Ibs'),
+          //     ),
+          //   );
+
+          //   $form['form_fields_wrap']['reactive_strength']['starter_jump_height_rea_str'] = array(
+          //     '#type' => 'textfield',
+          //     #'#title' => t('Jump Height (ln)'),
+          //     '#default_value' => $field_jump_height_in_reactive,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Jump Height (ln)'),
+          //     ),
+          //   );
+          //   $form['form_fields_wrap']['reactive_strength']['starter_rsi_rea_str'] = array (
+          //     '#type' => 'textfield',
+          //     #'#title' => t('RSI'),
+          //     '#default_value' => $field_rsi_reactive,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('RSI'),
+          //     ),
+          //   );
+
+          //   //Elastic Strenght (Countermovement Jump)
+        	// $form['form_fields_wrap']['elastic_strenght'] = array(
+        	// 	  '#type' => 'fieldset',
+        	// 	  '#title' => $this->t('Elastic Strenght (Countermovement Jump)'),
+        	// 	  '#prefix' => '<div id="elastic_strenght" class="sm_cls">',
+        	// 	  '#suffix' => '</div>',
+        	// );
+          //   $form['form_fields_wrap']['elastic_strenght']['starter_jump_height_ela_str'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_jump_height_in_elastic,
+          //     #'#title' => t('Jump Height (ln)'),
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Jump Height (ln)'),
+          //     ),
+          //   );
+
+          //   $form['form_fields_wrap']['elastic_strenght']['elastic_strenght']['starter_peak_pro_ela_str'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_peak_propulsive_elastic,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Peak Propulslve Force (N)'),
+          //     ),
+          //   );
+          //   $form['form_fields_wrap']['elastic_strenght']['starter_peak_power_ela_str'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_peak_power_w_elastic,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Peak Power (W)'),
+          //     ),
+          //   );
+
+          //   //Ballistic Strength (Squat Jump)
+          //   $form['form_fields_wrap']['ballistic_strength'] = array(
+        	// 	  '#type' => 'fieldset',
+        	// 	  '#title' => $this->t('Ballistic Strength (Squat Jump)'),
+        	// 	  '#prefix' => '<div id="ballistic_strength" class="sm_cls">',
+        	// 	  '#suffix' => '</div>',
+        	// );
+          //   $form['form_fields_wrap']['ballistic_strength']['starter_jump_height_ballistic'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_jump_height_in_ballistic,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Jump Height (ln)'),
+          //     ),
+          //   );
+
+          //   $form['form_fields_wrap']['ballistic_strength']['starter_peak_pro_ballistic'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_peak_propulsive_ballistic,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Peak Propulslve Force (N)'),
+          //     ),
+          //   );
+
+          //   $formv['ballistic_strength']['starter_peak_power_ballistic'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_peak_power_w_ballistic,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Peak Power (W)'),
+          //     ),
+          //   );
+
+          //   // 10M/40M Sprint
+          //   $form['form_fields_wrap']['10m_40m_sprint'] = array(
+        	// 	  '#type' => 'fieldset',
+        	// 	  '#title' => $this->t('10M/40M Sprint'),
+        	// 	  '#prefix' => '<div id="10m_40m" class="sm_cls">',
+        	// 	  '#suffix' => '</div>',
+        	// );
+
+          //   $form['form_fields_wrap']['10m_40m_sprint']['starter_10m'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_10m_time_sec_sprint,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('10 M Time (sec)'),
+          //     ),
+          //   );
+
+          //   $form['form_fields_wrap']['10m_40m_sprint']['starter_40m'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_40m_time_sec_sprint,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('40 M Time (sec)'),
+          //     ),
+          //   );
+
+          //   // Maximal Strength (Isometric Mid-Thigh Pull)
+          //   $form['form_fields_wrap']['maximal_strength'] = array(
+        	// 	  '#type' => 'fieldset',
+        	// 	  '#title' => $this->t('Maximal Strength (Isometric Mid-Thigh Pull)'),
+        	// 	  '#prefix' => '<div id="10m_40m" class="sm_cls">',
+        	// 	  '#suffix' => '</div>',
+        	// );
+
+          //   $form['form_fields_wrap']['maximal_strength']['starter_peak_for_max'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_peak_force_n_maximal,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('Peak Force (N)'),
+          //     ),
+          //   );
+
+          //    $form['form_fields_wrap']['maximal_strength']['starter_rfd_max'] = array (
+          //     '#type' => 'textfield',
+          //     '#default_value' => $field_rfd_100ms_n_maximal,
+          //     #'#required' => TRUE,
+          //     '#attributes' => array(
+          //       'placeholder' => t('RFD @ 100ms (N)'),
+          //     ),
+          //   );
+
+
+
+
              /*********** elete fields start ************/
-                       if($formtype == 'elete'){
-                          $required = TRUE;
-                       }else{
-                          $required = FALSE;
-                       }
             if($formtype == 'elete'){
+              $required = TRUE;
+            }else{
+              $required = FALSE;
+            }
+            if($formtype == 'elete') {
                 //UE Power (SPM Ball Throw)
                 $form['form_fields_wrap']['ue_power'] = array(
                   '#type' => 'fieldset',
