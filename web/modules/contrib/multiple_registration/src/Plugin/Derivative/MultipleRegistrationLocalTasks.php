@@ -4,6 +4,7 @@ namespace Drupal\multiple_registration\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\multiple_registration\AvailableUserRolesService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -12,6 +13,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class MultipleRegistrationLocalTasks extends DeriverBase implements ContainerDeriverInterface {
 
+  use StringTranslationTrait;
+
+  /**
+   * Available user roles service.
+   *
+   * @var \Drupal\multiple_registration\AvailableUserRolesService
+   */
   protected $availableUserRolesService;
 
   /**
@@ -54,7 +62,7 @@ class MultipleRegistrationLocalTasks extends DeriverBase implements ContainerDer
           continue;
         }
         $this->derivatives[$rid] = [];
-        $this->derivatives[$rid]['title'] = t('Create new @role account', ['@role' => $role['role_name']]);
+        $this->derivatives[$rid]['title'] = $this->t('Create new @role account', ['@role' => $role['role_name']]);
         $this->derivatives[$rid]['base_route'] = 'user.page';
         $this->derivatives[$rid]['route_name'] = 'multiple_registration.role_registration_page';
         $this->derivatives[$rid]['route_parameters'] = ['rid' => $rid];

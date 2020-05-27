@@ -44,7 +44,7 @@
         }
       }
     }
-   
+
     if (!event.data.settings.modal) {
       adjustedOptions = resetPosition(adjustedOptions);
     }

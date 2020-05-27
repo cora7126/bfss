@@ -2,7 +2,7 @@
 /**
  * SCSSPHP
  *
- * @copyright 2012-2019 Leaf Corcoran
+ * @copyright 2012-2020 Leaf Corcoran
  *
  * @license http://opensource.org/licenses/MIT MIT
  *
@@ -119,6 +119,22 @@ abstract class Formatter
     }
 
     /**
+     * Return custom property assignment
+     * differs in that you have to keep spaces in the value as is
+     *
+     * @api
+     *
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @return string
+     */
+    public function customProperty($name, $value)
+    {
+        return rtrim($name) . trim($this->assignSeparator) . $value . ';';
+    }
+
+    /**
      * Output lines inside a block
      *
      * @param \ScssPhp\ScssPhp\Formatter\OutputBlock $block
@@ -126,8 +142,7 @@ abstract class Formatter
     protected function blockLines(OutputBlock $block)
     {
         $inner = $this->indentStr();
-
-        $glue = $this->break . $inner;
+        $glue  = $this->break . $inner;
 
         $this->write($inner . implode($glue, $block->lines));
 
@@ -303,12 +318,12 @@ abstract class Formatter
             );
 
             $lines = explode("\n", $str);
-            $lineCount = count($lines);
+            $lineCount = \count($lines);
             $this->currentLine += $lineCount-1;
 
             $lastLine = array_pop($lines);
 
-            $this->currentColumn = ($lineCount === 1 ? $this->currentColumn : 0) + strlen($lastLine);
+            $this->currentColumn = ($lineCount === 1 ? $this->currentColumn : 0) + \strlen($lastLine);
         }
 
         echo $str;

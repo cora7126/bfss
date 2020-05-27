@@ -2,3 +2,7 @@ services:
   bfss_assessment.default:
     class: Drupal\bfss_assessment\AssessmentService
     arguments: ['@request_stack', '@config.factory']
+    
+  bfss_assessment.payment:
+    class: Drupal\bfss_assessment\BfssPaymentService
+    arguments: ['@request_stack', '@config.factory']

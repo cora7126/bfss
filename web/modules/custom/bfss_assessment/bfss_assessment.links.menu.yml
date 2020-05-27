@@ -10,3 +10,9 @@ entity.bfsspayments.collection:
   description: 'Payments'
   parent: system.admin_config_system
   weight: 100
+bfss_assessment.settings:
+  title: 'Payments settings'
+  route_name: bfss_assessment.admin_settings
+  description: 'Payment setings'
+  parent: system.admin_config_system
+  weight: 100

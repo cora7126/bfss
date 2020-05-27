@@ -14,6 +14,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class DeleteRegistrationPageForm extends FormBase {
 
+  /**
+   * Multiple registration.
+   *
+   * @var \Drupal\multiple_registration\Controller\MultipleRegistrationController
+   */
   protected $multipleRegistrationController;
 
   /**

@@ -4,13 +4,10 @@ namespace Drupal\multiple_registration\Controller;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Path\AliasManager;
-use Drupal\Core\Path\AliasStorage;
-use Drupal\Core\Database\Database;
+use Drupal\path_alias\AliasManager;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\CurrentRouteMatch;
-use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -20,7 +17,6 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\user\Access\RegisterAccessCheck;
 use Drupal\multiple_registration\AvailableUserRolesService;
 use Drupal\Core\Messenger\Messenger;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class MultipleRegistrationController.
@@ -29,13 +25,49 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class MultipleRegistrationController extends ControllerBase {
 
+  /**
+   * Path pattern.
+   */
   const MULTIPLE_REGISTRATION_SIGNUP_PATH_PATTERN = '/user/register/';
+
+  /**
+   * Registration id.
+   */
   const MULTIPLE_REGISTRATION_GENERAL_REGISTRATION_ID = 'authenticated';
 
+  /**
+   * Pages config.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
   public $regPagesConfig;
+
+  /**
+   * Available user roles service.
+   *
+   * @var \Drupal\multiple_registration\AvailableUserRolesService
+   */
   protected $availableUserRolesService;
+
+  /**
+   * The alias manager that caches alias lookups based on the request.
+   *
+   * @var \Drupal\path_alias\AliasManagerInterface
+   */
   protected $aliasManager;
+
+  /**
+   * The route match service.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
   protected $routeMatch;
+
+  /**
+   * Messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
   protected $messengerService;
 
   /**
@@ -45,7 +77,7 @@ class MultipleRegistrationController extends ControllerBase {
    *   AvailableUserRoles Service.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config factory.
-   * @param \Drupal\Core\Path\AliasManager $aliasManager
+   * @param \Drupal\path_alias\AliasManager $aliasManager
    *   Alias manager.
    * @param \Drupal\Core\Routing\CurrentRouteMatch $routeMatch
    *   RouteMatch service.
@@ -67,7 +99,7 @@ class MultipleRegistrationController extends ControllerBase {
     return new static(
       $container->get('multiple_registration.service'),
       $container->get('config.factory'),
-      $container->get('path.alias_manager'),
+      $container->get('path_alias.manager'),
       $container->get('current_route_match'),
       $container->get('messenger')
     );
@@ -94,7 +126,7 @@ class MultipleRegistrationController extends ControllerBase {
         }
       }
     }
-    // Allow user to access this page if he is authenticated.
+    // Allow user to access this page if user is authenticated.
     if ($account->isAuthenticated()) {
       return AccessResult::allowed();
     }
@@ -111,7 +143,7 @@ class MultipleRegistrationController extends ControllerBase {
   }
 
   /**
-   * Redirects the current user to its profile page if he has logged in.
+   * Redirects the current user to its profile page if user has logged in.
    *
    * @param \Drupal\Core\Session\AccountInterface $account
    *   Current user account object.
@@ -253,19 +285,6 @@ class MultipleRegistrationController extends ControllerBase {
   }
 
   /**
-   * Get AliasStorage object.
-   *
-   * @return \Drupal\Core\Path\AliasStorage
-   *   Returns Path object.
-   */
-  public function getRegisterAliasStorage() {
-    // Prepare database table.
-    $connection = Database::getConnection();
-    // Create Path object.
-    return new AliasStorage($connection, $this->moduleHandler());
-  }
-
-  /**
    * Adds alias for registration page.
    *
    * @param string $source
@@ -276,17 +295,12 @@ class MultipleRegistrationController extends ControllerBase {
    * @throws \Exception
    */
   public function addRegisterPageAlias($source, $alias) {
-    $aliasStorage = $this->getRegisterAliasStorage();
-    $conditions = [
-      'source' => $source,
-    ];
-    // Checks if alias exists for url.
-    $existsAliases = $aliasStorage->load($conditions);
-    $pid = NULL;
-    if (isset($existsAliases['pid'])) {
-      $pid = $existsAliases['pid'];
-    }
-    $aliasStorage->save($source, $alias, LanguageInterface::LANGCODE_NOT_SPECIFIED, $pid);
+    $path_alias = $this->entityTypeManager()->getStorage('path_alias')->create([
+      'path' => $source,
+      'alias' => $alias,
+      'langcode' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
+    ]);
+    $path_alias->save();
   }
 
   /**
@@ -296,12 +310,14 @@ class MultipleRegistrationController extends ControllerBase {
    *   Role ID.
    */
   public function removeRegisterPageAlias($rid) {
-    $aliasStorage = $this->getRegisterAliasStorage();
     $pages_config = $this->regPagesConfig;
-    $conditions = [
-      'source' => $pages_config->get('multiple_registration_url_' . $rid),
-    ];
-    $aliasStorage->delete($conditions);
+    $source = $pages_config->get('multiple_registration_url_' . $rid);
+    $path_alias_storage = $this->entityTypeManager()->getStorage('path_alias');
+    $entities = $path_alias_storage->loadByProperties([
+       'path' => $source,
+       'langcode' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
+    ]);
+    $path_alias_storage->delete($entities);
   }
 
   /**
