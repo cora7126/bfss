@@ -491,14 +491,32 @@ class PendingAssessmentsForm extends FormBase {
             );
 
 
+            // $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
+            // $form['#prefix'] = '
+            // <!-- Modal start-->
+            //   <div id="assessor_popup_form" class="asse_frm" >
+
+            // $form['form_fields_wrap'] = array(
+            //   '#type' => 'fieldset',
+            //  # '#title' => $this->t(''),
+            //   '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+            //   '#suffix' => '</div>',
+            //   );
+
+            $form['actions'] = array(
+        		  '#type' => 'fieldset',
+        		  '#title' => $this->t(''),
+        		  '#prefix' => '<div style="font-weight:bold; color: black; font-size: 1.2em; width: 100%; float: right; padding: 3px; margin: 2px;">MANAGER',
+        		  '#suffix' => '</div>',
+          	);
 
             $form['actions']['#type'] = 'actions';
 
             $form['actions']['submit'] = array(
               '#type' => 'submit',
-              '#value' => $this->t('MANAGER APPROVED'),
+              '#value' => $this->t('SAVE & PUBLISH'),
               '#button_type' => 'primary',
-               '#ajax' => [
+              '#ajax' => [
                   'callback' => '::submitForm', // don't forget :: when calling a class method.
                   //'callback' => [$this, 'myAjaxCallback'], //alternative notation
                   'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
