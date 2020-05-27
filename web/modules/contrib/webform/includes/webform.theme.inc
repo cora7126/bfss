@@ -9,6 +9,7 @@ use Drupal\file\Entity\File;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\webform\Utility\WebformAccessibilityHelper;
 use Drupal\webform\Utility\WebformElementHelper;
 
@@ -565,11 +566,29 @@ function webform_preprocess_file_managed_file(&$variables) {
 
 /**
  * Prepares variables for file upload help text templates.
+ *
+ * @see \Drupal\webform\Plugin\WebformElement\WebformManagedFileBase::prepare
  */
 function webform_preprocess_file_upload_help(&$variables) {
   $upload_validators = $variables['upload_validators'];
+
   if (isset($upload_validators['webform_file_limit']) && $upload_validators['webform_file_limit'][0]) {
     $variables['descriptions'][] = t('@size limit per form.', ['@size' => format_size($upload_validators['webform_file_limit'][0])]);
+  }
+
+  // Issue #3136578: Comma-separate the list of allowed file extensions.
+  // @see https://www.drupal.org/project/drupal/issues/3136578
+  if (isset($upload_validators['webform_file_validate_extensions'])) {
+    foreach ($variables['descriptions'] as $index => $description) {
+      if ($description instanceof TranslatableMarkup
+        && $description->getUntranslatedString() == 'Allowed types: @extensions.') {
+        $arguments = $description->getArguments();
+        if (strpos($arguments['@extensions'], ',') === FALSE) {
+          $arguments['@extensions'] = preg_replace('/ +/', ', ', $arguments['@extensions']);
+          $variables['descriptions'][$index] = new TranslatableMarkup($description->getUntranslatedString(), $arguments);
+        }
+      }
+    }
   }
 }
 
@@ -653,7 +672,7 @@ function _webform_preprocess_options(array &$variables) {
  */
 function _webform_preprocess_element(array &$variables, $title_parents = ['title']) {
   $element =& $variables['element'];
-  $type = $element['#type'];
+  $type = (isset($element['#type'])) ? $element['#type'] : '';
 
   // Fix details 'description' property which does not have description.content.
   // @see template_preprocess_details
@@ -762,7 +781,7 @@ function _webform_preprocess_description_help(array &$variables) {
  */
 function _webform_preprocess_help(array &$variables, $title_parents = ['title']) {
   $element =& $variables['element'];
-  $type = $element['#type'];
+  $type = (isset($element['#type'])) ? $element['#type'] : '';
 
   if (empty($element['#help'])) {
     return;
@@ -1164,7 +1183,9 @@ function webform_theme_suggestions_form_element(array $variables) {
   $suggestions = [];
 
   // Add webform type suggestion.
-  $suggestions[] = 'form_element__webform_' . $element['#type'];
+  if (isset($element['#type'])) {
+    $suggestions[] = 'form_element__webform_' . $element['#type'];
+  }
 
   // Add radio/checkbox displayed as a button suggestion.
   // @sse webform_process_options()

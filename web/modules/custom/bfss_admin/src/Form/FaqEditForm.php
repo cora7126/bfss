@@ -46,7 +46,7 @@ class FaqEditForm extends FormBase {
         '#default_value' => $node->title->value,
         '#prefix' => '<div class="left_section popup_left_section">
                         <div class="athlete_left"> 
-                          <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Add FAQ</h3><div class="result_message_faq_updated"></div>
+                          <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Edit FAQ</h3><div class="result_message_faq_updated"></div>
                           <div class="items_div">',
       	'#suffix' => '',
       ];

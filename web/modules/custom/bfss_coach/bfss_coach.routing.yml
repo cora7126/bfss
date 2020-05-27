@@ -59,3 +59,11 @@ bfss_coach.coach_edit_form:
   requirements: 
     _permission: 'access content'
     #_role: 'coach'
+
+bfss_coach.delete_org_from_coach:
+  path: '/delete-org-from-coach/{nid}' 
+  defaults: 
+    _controller: '\Drupal\bfss_coach\Controller\DeleteOrgFromCoachProfile::deleteaorg' 
+    _title: 'Delete'
+  requirements: 
+    _permission: 'access content'

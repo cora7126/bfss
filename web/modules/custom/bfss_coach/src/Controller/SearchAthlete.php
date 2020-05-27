@@ -63,7 +63,7 @@ class SearchAthlete extends ControllerBase {
          $tb = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="SearchAthlete_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>

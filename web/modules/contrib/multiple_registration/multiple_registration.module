@@ -18,6 +18,8 @@ use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Field\WidgetBase;
+use Drupal\user\UserInterface;
+
 /**
  * Implements hook_help().
  */
@@ -296,7 +298,7 @@ function multiple_registration_form_user_register_form_alter(&$form, FormStateIn
   $current_user = \Drupal::currentUser();
   if ($route === 'multiple_registration.role_registration_page') {
 
-    // Redirect authenticated user to his profile page instead of reg. form.
+    // Redirect authenticated user to user profile page instead of reg. form.
     if ($current_user->isAuthenticated()) {
       \Drupal::service('multiple_registration.controller_service')->authenticatedUserRedirect($current_user);
     }
@@ -323,7 +325,7 @@ function multiple_registration_user_register_form_validate(array &$form, FormSta
  */
 function multiple_registration_block_view_user_login_block_alter(array &$build, BlockPluginInterface $block) {
   if (isset($build['content']['user_links'])) {
-    if (\Drupal::config('user.settings')->get('register') !== USER_REGISTER_ADMINISTRATORS_ONLY) {
+    if (\Drupal::config('user.settings')->get('register') !== UserInterface::REGISTER_ADMINISTRATORS_ONLY) {
       $reg_pages = \Drupal::service('multiple_registration.service')->getRegistrationPages();
       foreach ($reg_pages as $rid => $role) {
         $uri = 'base:' . $role['url'];

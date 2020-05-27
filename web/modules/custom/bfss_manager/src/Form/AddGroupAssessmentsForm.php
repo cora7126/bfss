@@ -82,13 +82,26 @@ class AddGroupAssessmentsForm extends FormBase {
     ];
 
 
-     $form['body'] = [
-        '#type' => 'textarea',
-        '#placeholder' => t('Assessment Body'),
-        '#required' => TRUE,
-        '#default_value' => '',
-        '#prefix' => '',
-    ]; 
+    $form['body'] = [
+          '#type' => 'text_format',
+          '#placeholder' => t('Assessment Body'),
+          #'#title' => $this->t('Email Content:'),
+          #'#required' => TRUE,
+          // '#default_value' => '',
+          // '#format' => '',
+           '#prefix' => '<div class="html_body_wrap">',
+           '#suffix' => '</div>',
+         // '#allowed_formats' => array('full_html'),
+          
+      ];
+
+    // $form['body'] = [
+    //     '#type' => 'textarea',
+    //     '#placeholder' => t('Assessment Body'),
+    //     '#required' => TRUE,
+    //     '#default_value' => '',
+    //     '#prefix' => '',
+    // ]; 
 
     
 
@@ -104,8 +117,55 @@ class AddGroupAssessmentsForm extends FormBase {
     ];
 
   $form['location'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Location Name'),
+        '#required' => TRUE,
+        '#default_value' => '',
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $form['address_1'] = [
         '#type' => 'textarea',
-        '#placeholder' => t('Location'),
+        '#placeholder' => t('Address 1'),
+        '#required' => TRUE,
+        '#default_value' => '',
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $form['address_2'] = [
+        '#type' => 'textarea',
+        '#placeholder' => t('Address 2'),
+        '#required' => TRUE,
+        '#default_value' => '',
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $form['city'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('City'),
+        '#required' => TRUE,
+        '#default_value' => '',
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $states_op = $this->getStates();
+      $form['state'] = [
+        '#type' => 'select',
+        '#options' => $states_op,
+        '#placeholder' => t('State'),
+        '#required' => TRUE,
+        '#default_value' => $state,
+        '#prefix' => '',
+        '#suffix' => '',
+      ];
+
+      $form['zip'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Zip'),
         '#required' => TRUE,
         '#default_value' => '',
         '#prefix' => '',
@@ -123,17 +183,20 @@ class AddGroupAssessmentsForm extends FormBase {
 
     for ($i = 0; $i <= $this->residentCount; $i++) {
       //$states = $this->get_state();
-      $form['resident'][$i]['field_duration'] = [
-        '#placeholder' => t('Duration'),
-        '#type' => 'number',
-        '#required' => TRUE,
-      ];
+     
 
       $form['resident'][$i]['field_timing'] = [
         '#type' => 'datetime',
         '#placeholder' => t('Timing'),
         '#required' => TRUE,
         '#default_value' => '',
+        '#prefix' => '<div class="date_duration">',
+      ];
+       $form['resident'][$i]['field_duration'] = [
+        '#placeholder' => t('Duration'),
+        '#type' => 'number',
+        '#required' => TRUE,
+        '#suffix' => '</div>',
       ];
 
 
@@ -215,12 +278,12 @@ class AddGroupAssessmentsForm extends FormBase {
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Save'),
+      '#value' => $this->t('SAVE'),
       '#prefix' => ' <div id="athlete_submit" class="athlete_submit">',
       '#suffix' => '</div>'
      
     ];
- 
+  //echo "<pre>";print_r($form);die;
     return $form;
   }
 
@@ -277,9 +340,16 @@ class AddGroupAssessmentsForm extends FormBase {
             $node->set('field_schedules', $paragraph_items);
             //aditional user info 
             $node->title->value = $form_state->getValue('title');
-            $node->body->value = $form_state->getValue('body');
+            $node->body->value = $form_state->getValue('body')['value'];
+            $node->body->format = $form_state->getValue('body')['format'];
+
             $node->field_location->value = $form_state->getValue('location');
-            $node->field_type_of_assessment->value = $form_state->getValue('type');
+            $node->field_address_1_us->value = $form_state->getValue('address_1');
+            $node->field_address_2_us->value = $form_state->getValue('address_2');
+            $node->field_city_us->value = $form_state->getValue('city');
+            $node->field_state_us->value = $form_state->getValue('state');
+            $node->field_zip_us->value = $form_state->getValue('zip');
+
             $node->field_image[] = ['target_id' => $img_id, 'alt'=> 'img'];
             $node->save();
 
@@ -347,6 +417,58 @@ class AddGroupAssessmentsForm extends FormBase {
     $form_state->setRebuild();
   }
 
-
+   function getStates() {
+        return $states=array(
+        'AL'=> t('AL'),
+        'AK'=> t('AK'),
+        'AZ'=> t('AZ'),
+        'AR'=> t('AR'),
+        'CA'=> t('CA'),
+        'CO'=> t('CO'),
+        'CT'=> t('CT'),
+        'DE'=> t('DE'),
+        'DC'=> t('DC'),
+        'FL'=> t('FL'),
+        'GA'=> t('GA'),
+        'HI'=> t('HI'),
+        'ID'=> t('ID'),
+        'IL'=> t('IL'),
+        'IN'=> t('IN'),
+        'IA'=> t('IA'),
+        'KS'=> t('KS'),
+        'KY'=> t('KY'),
+        'LA'=> t('LA'),
+        'ME'=> t('ME'),
+        'MT'=> t('MT'),
+        'NE'=> t('NE'),
+        'NV'=> t('NV'),
+        'NH'=> t('NH'),
+        'NJ'=> t('NJ'),
+        'NM'=> t('NM'),
+        'NY'=> t('NY'),
+        'NC'=> t('NC'),
+        'ND'=> t('ND'),
+        'OH'=> t('OH'),
+        'OR'=> t('OR'),
+        'MD'=> t('MD'),
+        'MA'=> t('MA'),
+        'MI'=> t('MI'),
+        'MN'=> t('MN'),
+        'MS'=> t('MS'),
+        'MO'=> t('MO'),
+        'PA'=> t('PA'),
+        'RI'=> t('RI'),
+        'SC'=> t('SC'),
+        'SD'=> t('SD'),
+        'TN'=> t('TN'),
+        'TX'=> t('TX'),
+        'UT'=> t('UT'),
+        'VT'=> t('VT'),
+        'VA'=> t('VA'),
+        'WA'=> t('WA'),
+        'WV'=> t('WV'),
+        'WI'=> t('WI'),
+        'WY'=> t('WY'));
+      }
 
 }

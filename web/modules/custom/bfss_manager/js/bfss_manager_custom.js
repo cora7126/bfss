@@ -1,38 +1,42 @@
 jQuery(document).ready(function(){
+	 jQuery(document).on('click','button.close.role-close-btn',function(){
+	 	location.reload();
+	 	});
+	
 /**************** View ACTIVE PAGE JS START FROM HERE**************/
 
 
-	jQuery(document).on('click','a.user-status-edit',function(){
-			var uid = jQuery(this).data("uid");
-			var editpage = jQuery(this).data("editpage");
-			jQuery("button#deactive-yes").attr("data-uid",uid);
-			jQuery("button#deactive-yes").attr("data-editpage",editpage);
-			jQuery('#ConfirmDeactivateModal').modal('show');
-	});
-	jQuery('button#deactive-no, button.close.deactivate-close').click(function(){
-		jQuery('div.message-deactivate').html("");
-	});	
-	jQuery('button#deactive-yes').click(function(){
-			var uid = jQuery(this).data("uid");
-			var editpage = jQuery(this).data("editpage");
-			console.log(uid);
-			jQuery.ajax({
-				url : 'http://5ppsystem.com/user-status-update/'+uid+'/'+editpage,
-				dataType: 'json',
-				cache: false,
-				success: function(data){
-					console.log(data);
-					if(data.status == "true" && data.editpage == "ViewEditActive"){
-						jQuery('div.message-deactivate').html("<p style='color:green;'>User Successfully Deactivate!</p>");
-					}else if(data.status == "true" && data.editpage == "ViewEditDeactive"){
-						jQuery('div.message-deactivate').html("<p style='color:green;'>User Successfully Reactivate!</p>");
-					}
-				},
-				error :function (data){
+	// jQuery(document).on('click','a.user-status-edit',function(){
+	// 		var uid = jQuery(this).data("uid");
+	// 		var editpage = jQuery(this).data("editpage");
+	// 		jQuery("button#deactive-yes").attr("data-uid",uid);
+	// 		jQuery("button#deactive-yes").attr("data-editpage",editpage);
+	// 		jQuery('#ConfirmDeactivateModal').modal('show');
+	// });
+	// jQuery('button#deactive-no, button.close.deactivate-close').click(function(){
+	// 	jQuery('div.message-deactivate').html("");
+	// });	
+	// jQuery('button#deactive-yes').click(function(){
+	// 		var uid = jQuery(this).data("uid");
+	// 		var editpage = jQuery(this).data("editpage");
+	// 		console.log(uid);
+	// 		jQuery.ajax({
+	// 			url : 'http://5ppsystem.com/user-status-update/'+uid+'/'+editpage,
+	// 			dataType: 'json',
+	// 			cache: false,
+	// 			success: function(data){
+	// 				console.log(data);
+	// 				if(data.status == "true" && data.editpage == "ViewEditActive"){
+	// 					jQuery('div.message-deactivate').html("<p style='color:green;'>User Successfully Deactivate!</p>");
+	// 				}else if(data.status == "true" && data.editpage == "ViewEditDeactive"){
+	// 					jQuery('div.message-deactivate').html("<p style='color:green;'>User Successfully Reactivate!</p>");
+	// 				}
+	// 			},
+	// 			error :function (data){
 
-				}
-			});
-	});
+	// 			}
+	// 		});
+	// });
 
 
 	jQuery(document).on('click','a.paginate_button',function(){ // reload jquery

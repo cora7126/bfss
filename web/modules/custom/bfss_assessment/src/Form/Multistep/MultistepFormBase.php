@@ -93,7 +93,7 @@ abstract class MultistepFormBase extends FormBase {
       <div class="dash-main-right">
             <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold; color: #333333;">Dashboard</a> > Your Scheduled Assessment</h1>
             <div class="dash-sub-main">
-               <img src="/themes/custom/bfss_custom/images/images-dashboard/calender-circle.png">  
+              <i class="far fa-calendar-alt edit_image_solid"></i>
                <h2><span>YOUR</span><br> Scheduled Assessment  </h2>
             </div>
          </div>
