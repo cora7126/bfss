@@ -271,8 +271,14 @@ class AssessmentService {
         if ($node->hasField('field_location')) {
           $data['field_location'] = t($node->get('field_location')->value);
         }
+
         if ($node->hasField('field_image')) {
-   //       $data['field_image'] = file_create_url($node->get('field_image')->entity->getFileUri());
+        	$imageurl = $node->get('field_image')->entity->uri->value;
+        	if(isset($imageurl)){
+        		$data['field_image'] = file_create_url($imageurl);
+        	}
+        	        
+          //$data['field_image'] = file_create_url($node->get('field_image')->getFileUri());
         }
         if ($node->hasField('field_schedules')) {
           $field_schedules = $node->get('field_schedules')->getValue();
