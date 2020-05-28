@@ -145,3 +145,6 @@ body > div.dialog-off-canvas-main-canvas > div > div > section > div.region.regi
 .complete-registration-form #edit-additional-info a:hover, .complete-registration-form #edit-additional-info a:focus{color:#EB6E06;}
 .complete-registration-form #edit-additional-info #edit-resend-message{margin:0;}
 /************************** COMPLETE REGISTRATION FORM CSS STARTS HERE **************************/
+div.athletic_profile > a:hover {
+	text-decoration: none;
+}
