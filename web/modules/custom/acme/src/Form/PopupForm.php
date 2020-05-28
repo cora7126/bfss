@@ -84,21 +84,30 @@ foreach ($terms as $term) {
         $record = $query->execute()->fetchAssoc();
     }
 
-
+    $date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
+    $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
+    $date_of_birth->condition('entity_id', $current_user, '=');
+    $date_of_birth_val = $date_of_birth->execute()->fetchAssoc();
      /**
     *ORGANIZATIONS DATA GET
     */
     $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$current_user); //FOR ORG-1
     $athlete_club = $this->Get_Data_From_Tables('athlete_club','aclub',$current_user); //FOR ORG-2
     $athlete_uni = $this->Get_Data_From_Tables('athlete_uni','atc',$current_user); //FOR ORG-3
+
+     /*
+    *Athletic info data
+    */
+    $athlete_info = $this->Get_Data_From_Tables('athlete_info','ai',$current_user); 
+
     $form['#prefix'] = '<div class="athlete_popup_firsttime">';
-     $form['#suffix'] = '</div>';
-	$form['#attributes'] = array('id' => 'popup_form_id');
-	$form['welcome'] = array (
-      '#type' => 'label',
-      '#title' => 'Welcome '.$results3['field_first_name_value'].',to continue you must complete all the required fields below.',
-	  '#attributes' => array('id'=>'welcome_label'),
-      );
+    $form['#suffix'] = '</div>';
+  	$form['#attributes'] = array('id' => 'popup_form_id');
+  	$form['welcome'] = array (
+        '#type' => 'label',
+        '#title' => 'Welcome '.$results3['field_first_name_value'].',to continue you must complete all the required fields below.',
+  	  '#attributes' => array('id'=>'welcome_label'),
+        );
     $form['fname'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
@@ -123,61 +132,52 @@ foreach ($terms as $term) {
       '#type' => 'textfield',
       '#required' => TRUE,
       '#placeholder' => t('City'),
-      //'#default_value' => $results18['field_city'],
+      '#default_value' => $results18['field_city'],
 	//  '#suffix' => '</div></div>',
       );
 	  
-	  $form['sex'] = array(
-      //'#title' => t('az'),
+   $arr = [
+    '' => t('Gender'),
+    'Male'   => t('Male'),
+    'Female'  =>t('Female'),
+    'Other'   => t('Other')
+    ];
+    $form['sextype'] = array(
       '#type' => 'select',
-      //'#description' => 'Select the desired pizza crust size.',
-      '#options' => array(
-        t('Gender'),
-        t('Male'),
-        t('Female'),
-        t('Other')),
-      //'#default_value' => $results7['athlete_state'],
-	  '#required' => TRUE,
+      '#options' => $arr ,
+      '#default_value' => $results18['field_birth_gender'],
+     #'#attributes' => array('disabled' => 'disabled'),
       );
-	//  print DatePopup::class;die;
+    
     $form['doj'] = array(
-      //'#title' => 'Date of Birth',
-      '#placeholder' => 'DOB: (MM/DD/YY)',
+      '#placeholder' => 'Date of Birth',
       '#type' => 'textfield',
-      //'#type' => 'date_popup',
-     // '#attributes' => ['class' => ['container-inline']],
-     //'#attributes' => ['class' => 'date_popup'],
-	 //'#attributes' => array('class' => 'date_popup'),
-	 '#attributes' => array('id' => array('datepicker')),
       '#required' => true,
-      '#default_value' => substr($results3['field_date_value'], 0, 10),
+      '#default_value' => $date_of_birth_val,
       '#format' => 'm/d/Y',
-      '#description' => t('i.e. 09/06/2016'),
-	  '#required' => TRUE,
-      //'#attributes' => array('disabled' => true),
+      '#attributes' => array('id' => array('datepicker')),
       );
 
     $form['gradyear'] = array(
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Graduation Year'),
-     // '#default_value' => $results7['athlete_year'],
-	  '#required' => TRUE,
+      '#default_value' => $athlete_info['athlete_year'],
+      '#required' => TRUE,
       );
+
     $form['height'] = array(
       '#type' => 'textfield',
-      //'#title' => ('Height'),
       '#placeholder' => t('Height in Inches'),
-      //'#default_value' => $results7['field_height'],
-	  '#required' => TRUE,
+      '#default_value' => $athlete_info['field_height'],
+      '#required' => TRUE,
       );
     $form['weight'] = array(
       '#type' => 'textfield',
-      //'#title' => ('Height'),
       '#placeholder' => t('Weight in Pounds'),
-      //'#default_value' => $results7['field_weight'],
+      '#default_value' => $athlete_info['field_weight'],
       '#suffix' => '</div></div>',
-	  '#required' => TRUE,
+      '#required' => TRUE,
       );
 	  
 	    /*
@@ -492,7 +492,7 @@ foreach ($terms as $term) {
     $bloggs=$field['lname'];
     $az=$field['state'];
     $city=$field['city'];
-    $gender=$field['sex'];
+    $gender=$field['sextype'];
     $dob=$field['field_dob'];
     $height = $field['height'];
     $weight = $field['weight'];
@@ -750,6 +750,31 @@ foreach ($terms as $term) {
     /**
       *ORGANIZATION DATA SAVE AND UPDATE [END HERE]
     */	
+
+    $date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
+    $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
+    $date_of_birth->condition('entity_id', $current_user, '=');
+    $date_of_birth_val = $date_of_birth->execute()->fetchAssoc();
+
+
+    $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    if (empty($date_of_birth_val)) {
+    
+        $conn->insert('user__field_date_of_birth')->fields(array(
+        'entity_id' => $current_user,
+        'bundle' => 'user',
+        'revision_id' => $current_user,
+        'delta' => 0,
+        'langcode' => $lang_code,
+        'field_date_of_birth_value' => $form_state->getValue('doj'),
+        ))->execute();
+    }
+    else {
+        $conn->update('user__field_date_of_birth')->condition('entity_id', $current_user, '=')->fields(array(
+        'field_date_of_birth_value' => $form_state->getValue('doj'),
+        ))->execute();
+    }
+
 
        $form_state->setRedirect('acme_hello');
      }
