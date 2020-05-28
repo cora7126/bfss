@@ -96,83 +96,86 @@
             <div class="col-lg-6 col-md-3 col-sm-6 col-6 pr-0 pl-0 top_right">
 				
             {% if user_role == 0 %}
-              <div class="calender_img">
-                <a href="/appointments/scheduled">
-                  <i class="fal fa-calendar-alt"></i>
-                  <p>Scheduled <br>
-                     Assessments 
+              <a href="/appointments/scheduled">
+                <div class="calender_img">
+                    <i class="fal fa-calendar-alt"></i>
+                    <p>Scheduled <br>
+                       Assessments 
+                    </p>
+                </div>
+              </a>
+              <a href="/bfssAthleteProfile">
+                <div class="athletic_profile" >
+                  <i class="far fa-chart-network"></i>
+                  <p>My Athletic <br>
+                    Profile
                   </p>
-                </a>
-              </div>
-               
-              <div class="athletic_profile" >
-                <a href="/bfssAthleteProfile">
-                <i class="far fa-chart-network"></i>
-                <p>My Athletic <br>
-                  Profile
-                </p>
-                </a>
-              </div>
+                </div>
+              </a>
             {% elseif user_role == 3 %}<!--BFSS MANAGER--> 
-            	<div class="calender_img athletes_follow">
-                <a href="/search-athlete">
-                  <i class="fal fa-search"></i>
-                <p>Search<br>
-                Users
-                </p>
-                </a>
-              </div>
-              <div class="calender_img athletes_follow">
-                <a href="/pending-assessments">
-                  <i class="fal fa-alarm-clock"></i>
-                <p>Pending<br>
-                Assessments
-                </p>
-                </a>
-              </div>
-              <div class="calender_img athletes_follow">
-                <a href="/add-organizations">
-                 <i class="fal fa-map-marker-plus"></i>
-                <p>Add New<br>
-                Organization
-                </p>
-                </a>
-              </div>
-            {% elseif user_role == 4 or user_role == 5%} 
-              <div class="calender_img athletes_follow">
-                <a href="/search-athlete">
-                  <i class="far fa-search"></i>
-                <p>Search<br>
-                Users
-                </p>
-                </a>
-              </div>
-              <div class="calender_img athletes_follow">
-                <a href="/pending-assessments">
-                  <i class="far fa-alarm-clock"></i>
-                <p>Pending<br>
-                Assessments
-                </p>
-                </a>
-              </div>
-              <div class="calender_img athletes_follow">
-                <a href="/add-organizations">
-                 <i class="fal fa-map-marker-plus"></i>
-                <p>Add New<br>
-                Organization
-                </p>
-                </a>
-              </div>
+              <a href="/search-athlete">
+              	<div class="calender_img athletes_follow">
+                    <i class="fal fa-search"></i>
+                  <p>Search<br>
+                  Users
+                  </p>
+                </div>
+              </a>
 
+              <a href="/pending-assessments">
+                <div class="calender_img athletes_follow">
+                    <i class="fal fa-alarm-clock"></i>
+                  <p>Pending<br>
+                  Assessments
+                  </p>
+                </div>
+              </a>
+
+               <a href="/add-organizations">
+                <div class="calender_img athletes_follow">
+                   <i class="fal fa-map-marker-plus"></i>
+                  <p>Add New<br>
+                  Organization
+                  </p>
+                </div>
+               </a>
+
+            {% elseif user_role == 4 or user_role == 5%} 
+              <a href="/search-athlete">
+                <div class="calender_img athletes_follow">
+                  <i class="far fa-search"></i>
+                  <p>Search<br>
+                  Users
+                  </p>
+                </div>
+              </a>
+
+              <a href="/pending-assessments">
+                <div class="calender_img athletes_follow">
+                    <i class="far fa-alarm-clock"></i>
+                  <p>Pending<br>
+                  Assessments
+                  </p>
+                </div>
+              </a>
+
+              <a href="/add-organizations">
+                <div class="calender_img athletes_follow">
+                   <i class="fal fa-map-marker-plus"></i>
+                  <p>Add New<br>
+                  Organization
+                  </p>
+                </div>
+              </a> 
             {% elseif user_role == 2 %}
-             <div class="calender_img athletes_follow">
-                <a href="/athletes-follow">
-                  <i class="fas fa-star"></i>
+            <a href="/athletes-follow">
+              <div class="calender_img athletes_follow">
+                <i class="fas fa-star"></i>
                 <p>Athletes<br>
                 I Follow
                 </p>
-                </a>
               </div>
+            </a>
             {% endif %}
             </div>
             <div class="col-lg-4 pl-0 pr-0 mobile_hide" >

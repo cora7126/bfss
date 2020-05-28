@@ -185,7 +185,12 @@ class CoachEditProfileForm extends FormBase {
         '#default_value' => $results18['field_city'],
       ];
 
-      $gender_arr =  ['' => 'Select Gender','male' => 'Male','female' => 'Female','other' => 'Other'];
+      $gender_arr =  [
+        '' => 'Select Gender',
+        'male' => 'Male',
+        'female' => 'Female',
+        #'other' => 'Other'
+      ];
       $form['sextype'] = [
         '#type' => 'select',
         '#suffix' => '</div>

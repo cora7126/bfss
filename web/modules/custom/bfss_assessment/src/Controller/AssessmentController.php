@@ -9,7 +9,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\node\Entity\Node;
 Use Drupal\node\NodeInterface;
 use Drupal\bfss_assessment\AssessmentService;
-
+use \Drupal\user\Entity\User;
 /**
  * Class AssessmentController.
  */
@@ -61,6 +61,10 @@ class AssessmentController extends ControllerBase {
    */
   public function modalNodeView() {
     global $base_url;
+    $uid = \Drupal::currentUser()->id();
+    $user = User::load($uid);
+    $roles = $user->getRoles();
+
     $nid = \Drupal::request()->get('node_id');
     $data = [];
     if ($this->assessmentService->check_assessment_node($nid)) {
@@ -68,6 +72,7 @@ class AssessmentController extends ControllerBase {
     }
     if (isset($data['schedules']) && !empty($data['schedules'])) {
       $data['url'] = $base_url.'/assessment/type/'.$nid;
+      $data['roles'] = $roles;
       return [
           '#theme' => 'modal_assessment',
           '#data' => $data,

@@ -77,62 +77,28 @@ class ContributeForm extends FormBase {
     $query4 = \Drupal::database()->select('users_field_data', 'ufln4');
     $query4->addField('ufln4', 'mail');
     $query4->condition('uid', $current_user, '=');
-
     $results4 = $query4->execute()->fetchAssoc();
     
-
- 
-   
-
-  
-    
-
-
 
     $query8 = \Drupal::database()->select('user__field_state', 'ufs');
     $query8->fields('ufs');
     $query8->condition('entity_id', $current_user, '=');
     $results8 = $query8->execute()->fetchAssoc();
-    $query9 = \Drupal::database()->select('athlete_about', 'aa');
-    $query9->fields('aa');
-    $query9->condition('athlete_uid', $current_user, '=');
-    $results9 = $query9->execute()->fetchAssoc();
-    $query10 = \Drupal::database()->select('athlete_social', 'asoc');
-    $query10->fields('asoc');
-    $query10->condition('athlete_uid', $current_user, '=');
-    $results10 = $query10->execute()->fetchAssoc();
-    $query12 = \Drupal::database()->select('athlete_uni', 'auni');
-    $query12->fields('auni');
-    $query12->condition('athlete_uid', $current_user, '=');
-    $results12 = $query12->execute()->fetchAssoc();
+
+
     $query13 = \Drupal::database()->select('athlete_web', 'aweb');
     $query13->fields('aweb');
     $query13->condition('athlete_uid', $current_user, '=');
     $query13->condition('athlete_web_type', 1, '=');
     $results13 = $query13->execute()->fetchAssoc();
     
-    $query14 = \Drupal::database()->select('athlete_addweb', 'aaweb');
-    $query14->fields('aaweb');
-    $query14->condition('athlete_uid', $current_user, '=');
-    $results14 = $query14->execute()->fetchAssoc();
 
     $query_img = \Drupal::database()->select('athlete_prof_image', 'n');
     $query_img->addField('n', 'athlete_target_image_id');
     $query_img->condition('athlete_id', $current_user, '=');
-	$query_img->orderBy('athlete_prof_id', 'DESC');
-	$query_img->range(0, 1);
+  	$query_img->orderBy('athlete_prof_id', 'DESC');
+  	$query_img->range(0, 1);
     $results = $query_img->execute()->fetchAssoc();
-    $query15 = \Drupal::database()->select('athlete_addschool', 'aas');
-    $query15->fields('aas');
-    $query15->condition('athlete_uid', $current_user, '=');
-    $results15 = $query15->execute()->fetchAssoc();
-	
-
-	
-    $query17 = \Drupal::database()->select('athlete_clubweb', 'aclubw');
-    $query17->fields('aclubw');
-    $query17->condition('athlete_uid', $current_user, '=');
-    $results17 = $query17->execute()->fetchAssoc();
 
 
     $query18 = \Drupal::database()->select('mydata', 'md');
@@ -141,35 +107,32 @@ class ContributeForm extends FormBase {
     $results18 = $query18->execute()->fetchAssoc();
 
     //web start
-	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
-	$query_web_type_delta0->fields('athw');
-	$query_web_type_delta0->condition('athlete_uid', $current_user, '=');
-	$query_web_type_delta0->condition('athlete_web_type', 1, '=');
-	$results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAssoc();
-		
-		
-	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
-	$query_web_type_delta1->fields('athw');
-	$query_web_type_delta1->condition('athlete_uid', $current_user, '=');
-	$query_web_type_delta1->condition('athlete_web_type', 2, '=');
-	$results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAssoc();
-		
-	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
-	$query_web_type_delta2->fields('athw');
-	$query_web_type_delta2->condition('athlete_uid', $current_user, '=');
-	$query_web_type_delta2->condition('athlete_web_type', 3, '=');
-	$results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAssoc();
-	//web end
+  	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
+  	$query_web_type_delta0->fields('athw');
+  	$query_web_type_delta0->condition('athlete_uid', $current_user, '=');
+  	$query_web_type_delta0->condition('athlete_web_type', 1, '=');
+  	$results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAssoc();
+  		
+  		
+  	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
+  	$query_web_type_delta1->fields('athw');
+  	$query_web_type_delta1->condition('athlete_uid', $current_user, '=');
+  	$query_web_type_delta1->condition('athlete_web_type', 2, '=');
+  	$results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAssoc();
+  		
+  	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
+  	$query_web_type_delta2->fields('athw');
+  	$query_web_type_delta2->condition('athlete_uid', $current_user, '=');
+  	$query_web_type_delta2->condition('athlete_web_type', 3, '=');
+  	$results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAssoc();
+	  //web end
 
-	$date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
+	  $date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
     $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
     $date_of_birth->condition('entity_id', $current_user, '=');
     $date_of_birth_val = $date_of_birth->execute()->fetchAssoc();
 	
-	$query_org = \Drupal::database()->select('athlete_orginfo', 'n');
-    $query_org->fields('n');
-    $query_org->condition('athlete_id', $current_user, '=');
-	$resultsorg = $query_org->execute()->fetchAssoc();
+
 	
 
 	if(empty($results18)){
@@ -188,14 +151,50 @@ class ContributeForm extends FormBase {
     $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$current_user); //FOR ORG-1
     $athlete_club = $this->Get_Data_From_Tables('athlete_club','aclub',$current_user); //FOR ORG-2
     $athlete_uni = $this->Get_Data_From_Tables('athlete_uni','atc',$current_user); //FOR ORG-3
-
+   
     /*
     *Athletic info data
     */
     $athlete_info = $this->Get_Data_From_Tables('athlete_info','ai',$current_user); 
 
-   
+    /*
+    *social media
+    */
+    $results10 = $this->Get_Data_From_Tables('athlete_social','asoc',$current_user);
 
+    /*
+    *table athlete_orginfo
+    */
+    $query_org = \Drupal::database()->select('athlete_orginfo', 'n');
+    $query_org->fields('n');
+    $query_org->condition('athlete_id', $current_user, '=');
+    $resultsorg = $query_org->execute()->fetchAssoc();
+  
+
+    /*
+    *table athlete_orginfo
+    */
+    $results17 = $this->Get_Data_From_Tables('athlete_clubweb','aclubw',$current_user);
+
+    /*
+    *table athlete_addschool
+    */
+    $results15 = $this->Get_Data_From_Tables('athlete_addschool','aas',$current_user);
+
+    /*
+    *table athlete_addweb
+    */
+    $results14 = $this->Get_Data_From_Tables('athlete_addweb','aaweb',$current_user);
+
+    /*
+    *table athlete_uni
+    */
+    $results12 = $this->Get_Data_From_Tables('athlete_uni','auni',$current_user);
+
+    /*
+    *table athlete_about
+    */
+    $results9 = $this->Get_Data_From_Tables('athlete_about','aa',$current_user);
 
     $img_id = $results['athlete_target_image_id'];
     $form['prefix'] = "<div class=athlete_edit_class>";
@@ -247,7 +246,7 @@ class ContributeForm extends FormBase {
     '' => t('Gender'),
     'Male'   => t('Male'),
     'Female'  =>t('Female'),
-    'Other'   => t('Other')
+   # 'Other'   => t('Other')
     ];
     $form['sextype'] = array(
       '#type' => 'select',
@@ -1544,41 +1543,6 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
 	    return  $form['schoolname_1'];
 	}
 
-	//ORG-3
-	// public function OrgNamesAjaxCallback_3(array &$form, FormStateInterface $form_state) {
-	// 	if ($selectedValue = $form_state->getValue('education_2')) {
-	// 			$selectedText = $form['education_2']['#options'][$selectedValue];
-	// 			$orgNames = $this->Get_Org_Name($selectedText);
-	// 			$arrName = explode(',',$orgNames);
-	// 			$selArr = [];
-	// 		    foreach ($arrName as $key => $value) {
-	// 		      $selArr[$value] = $value;
-	// 		    }
-	// 		    $selArr = ['' => 'Organization Name'] + $selArr;
-	// 					if(!empty($arrName)){
-	// 			        	$form['schoolname_2'] = [
-	// 			                '#placeholder' => t('Organization Name'),
-	// 			                '#type' => 'select', 
-	// 			                '#options' => $selArr,
-	// 			                '#prefix' => '<div id="edit-output-2" class="org-3">',
-	// 			                '#suffix' => '</div>',
-	// 			                '#attributes' => array('disabled' => FALSE),
-	// 			            ];
-	// 		            }else{
-	// 		           		$form['schoolname_2'] = [
-	// 			                '#placeholder' => t('Organization Name'),
-	// 			                '#type' => 'select', 
-	// 			                '#options' => ['' => 'Organization Name'],
-	// 			                '#prefix' => '<div id="edit-output-2" class="org-3">',
-	// 			                '#suffix' => '</div>',
-	// 			                '#attributes' => array('disabled' => FALSE),
-	// 			            ];
-				                
-	// 		           }
-			    
-	//     }
-	//     return  $form['schoolname_2'];
-	// }
 
 	public function Get_Org_Name($type){
 	    if(isset($type)){
