@@ -100,6 +100,11 @@ foreach ($terms as $term) {
     */
     $athlete_info = $this->Get_Data_From_Tables('athlete_info','ai',$current_user); 
 
+     /*
+    *social media
+    */
+    $results10 = $this->Get_Data_From_Tables('athlete_social','asoc',$current_user);
+
     $form['#prefix'] = '<div class="athlete_popup_firsttime">';
     $form['#suffix'] = '</div>';
   	$form['#attributes'] = array('id' => 'popup_form_id');
@@ -140,7 +145,7 @@ foreach ($terms as $term) {
     '' => t('Gender'),
     'Male'   => t('Male'),
     'Female'  =>t('Female'),
-    'Other'   => t('Other')
+    #'Other'   => t('Other')
     ];
     $form['sextype'] = array(
       '#type' => 'select',
@@ -436,7 +441,7 @@ foreach ($terms as $term) {
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Your Instagram Account(Optional)'),
-      '#default_value' => '',
+      '#default_value' => $results10['athlete_social_1'],
 	  '#prefix' => '<a class="add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Organization</a></div><div class ="right_section"><div class = "athlete_right"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Social Media<i class="fa fa-info right-icon" aria-hidden="true"></i></h3><div class=items_div>',
       );
      $form['youtube'] = array (
@@ -444,7 +449,7 @@ foreach ($terms as $term) {
       //'#title' => ('Height'),
       '#placeholder' => t('Your Youtube/Video Channel(Optional)'),
 	  '#suffix' => '</div></div></div>',
-      '#default_value' => '',
+      '#default_value' => $results10['athlete_social_2'],
       );
 
     $form['submit'] = [
@@ -572,7 +577,7 @@ foreach ($terms as $term) {
 	/* ATHLETE INFO DETAIL ====*/
 	 $conn->insert('athlete_info')->fields(array(
         'athlete_uid' => $current_user,
-         'athlete_state' => $az,
+        'athlete_state' => $az,
         'athlete_city' => $form_state->getValue('city'),
         'athlete_year' => $form_state->getValue('gradyear'),
         'field_height' => $form_state->getValue('height'),
@@ -598,8 +603,6 @@ foreach ($terms as $term) {
 					  'field_organization_name' => $organizaton_name,
 					  'field_coach_lname' => $coach_lname,
 					  'field_sport' => $sport,
-					  'field_position' => $position,
-					  'field_instagram' => $instagram,
 					  'field_youtube' => $youtube,
 					  'popup_flag' => $popupFlag,
 					  'uid' => $current_user,
@@ -623,8 +626,6 @@ foreach ($terms as $term) {
 									  'field_coach_lname' => $coach_lname,
 									  'field_sport' => $sport,
 									  'field_position' => $position,
-									  'field_instagram' => $instagram,
-									  'field_youtube' => $youtube,
 									  'popup_flag' => $popupFlag,
 									  'uid' => $current_user,
 								  )
@@ -632,24 +633,26 @@ foreach ($terms as $term) {
 						->execute();
 	}
 	
-	
-		
+	 
+		/*
+    *social media
+    */
 	  $query_social = \Drupal::database()->select('athlete_social', 'ascc');
     $query_social->fields('ascc');
     $query_social->condition('athlete_uid', $current_user, '=');
     $results_social = $query_social->execute()->fetchAll();
-	 if (empty($results_social)) {
-      $conn->insert('athlete_social')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_social_1' => $form_state->getValue('instagram'),
-        'athlete_social_2' => $form_state->getValue('youtube'),
-        ))->execute();
-    } else {
-      $conn->update('athlete_social')->condition('athlete_uid', $current_user, '=')->fields(array(
-        'athlete_social_1' => $form_state->getValue('instagram'),
-        'athlete_social_2' => $form_state->getValue('youtube'),
-        ))->execute();
-    } 
+  	 if (empty($results_social)) {
+        $conn->insert('athlete_social')->fields(array(
+          'athlete_uid' => $current_user,
+          'athlete_social_1' => $form_state->getValue('instagram'),
+          'athlete_social_2' => $form_state->getValue('youtube'),
+          ))->execute();
+      } else {
+        $conn->update('athlete_social')->condition('athlete_uid', $current_user, '=')->fields(array(
+          'athlete_social_1' => $form_state->getValue('instagram'),
+          'athlete_social_2' => $form_state->getValue('youtube'),
+          ))->execute();
+      } 
 			
     /**
       *ORGANIZATION DATA SAVE AND UPDATE [START FROM HERE]

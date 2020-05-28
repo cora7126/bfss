@@ -1,3 +1,6 @@
+<!-- <pre>
+	{{ dump(data.roles) }}
+</pre> -->
 <script>
 jQuery(document).ready(function() {
 jQuery(".share a.share_assessment").click(function(){
@@ -91,10 +94,13 @@ jQuery(".share a.share_assessment").click(function(){
 				<p>LOCATION</p>
 				{{ data.field_location }}
 			<div>
+			{% set role = 'athlete' %}
+			{% if role in data.roles %}
 			<div class="ticketing">
 				<p>TICKETING</p>
 				<a href="{{ data.url }}" class="book-now">Book Now</a>
 			<div>
+			{% endif %}
 		</div>
 	</div>
 </div>

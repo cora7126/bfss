@@ -49,6 +49,7 @@ class AssessmentService {
 
   public function assessment_after_month_filter($element){
     $param = \Drupal::request()->query->all();
+    $current_date = date('Y/m/d');
     if(isset($param['showdate'])){
       $exp = explode("/",$param['showdate']);
       $M =  $exp[0];
@@ -73,6 +74,9 @@ class AssessmentService {
         $paragraph = Paragraph::load($target);
         $timesamp = $paragraph->field_timing->value;
         $monthdata[] = [
+        	'timesamp' => $timesamp,
+        	'date' =>  date('Y/m/d', $timesamp),
+        	'day' =>  date('d', $timesamp),
             'month' =>  date('m', $timesamp),
             'year' =>  date('Y', $timesamp),
             'nid' => $entity_id,
@@ -81,11 +85,21 @@ class AssessmentService {
       }
 
       $NIDS = [];
-      foreach ($monthdata as $month_data) {
-        if($month_data['month'] == $M && $month_data['year'] == $Y){
-          $NIDS[] = $month_data['nid'];
-        }
-      }
+      	if(isset($param['showdate'])){
+	      foreach ($monthdata as $month_data) {
+	        if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+	    else{
+	       foreach ($monthdata as $month_data) {
+	        if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+
     }
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
   }
@@ -95,6 +109,7 @@ class AssessmentService {
   public function assessment_after_month_filter_upcoming($element){
     // print_r($_GET['showdate']);
     // die;
+     $current_date = date('Y/m/d');
     $param = \Drupal::request()->query->all();
     if(isset($param['showdate'])){
       $exp = explode("/",$param['showdate']);
@@ -120,6 +135,9 @@ class AssessmentService {
         $paragraph = Paragraph::load($target);
         $timesamp = $paragraph->field_timing->value;
         $monthdata[] = [
+            'timesamp' => $timesamp,
+        	'date' =>  date('Y/m/d', $timesamp),
+        	'day' =>  date('d', $timesamp),
             'month' =>  date('m', $timesamp),
             'year' =>  date('Y', $timesamp),
             'nid' => $entity_id,
@@ -128,12 +146,20 @@ class AssessmentService {
       }
 
       $NIDS = [];
-      foreach ($monthdata as $month_data) {
-        if($month_data['month'] == $M && $month_data['year'] == $Y){
-
-          $NIDS[] = $month_data['nid'];
-        }
-      }
+      if(isset($param['showdate'])){
+	      foreach ($monthdata as $month_data) {
+	        if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+	    else{
+	       foreach ($monthdata as $month_data) {
+	        if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
     }
 
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
@@ -181,6 +207,7 @@ class AssessmentService {
   public function assessment_after_month_filter_private($element){
     // print_r($_GET['showdate']);
     // die;
+     $current_date = date('Y/m/d');
     $param = \Drupal::request()->query->all();
     if(isset($param['showdate'])){
       $exp = explode("/",$param['showdate']);
@@ -207,6 +234,9 @@ class AssessmentService {
         $paragraph = Paragraph::load($target);
         $timesamp = $paragraph->field_timing->value;
         $monthdata[] = [
+             'timesamp' => $timesamp,
+        	'date' =>  date('Y/m/d', $timesamp),
+        	'day' =>  date('d', $timesamp),
             'month' =>  date('m', $timesamp),
             'year' =>  date('Y', $timesamp),
             'nid' => $entity_id,
@@ -215,12 +245,20 @@ class AssessmentService {
       }
 
       $NIDS = [];
-      foreach ($monthdata as $month_data) {
-        if($month_data['month'] == $M && $month_data['year'] == $Y){
-
-          $NIDS[] = $month_data['nid'];
-        }
-      }
+       if(isset($param['showdate'])){
+	      foreach ($monthdata as $month_data) {
+	        if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+	    else{
+	       foreach ($monthdata as $month_data) {
+	        if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
     }
 
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
@@ -303,6 +341,7 @@ class AssessmentService {
                       $latest_duration = $duration;
                     }
                   }
+
                   if ($timing > time()) {
                     $data['schedules'][] = [
                       'field_timing' => $timing,

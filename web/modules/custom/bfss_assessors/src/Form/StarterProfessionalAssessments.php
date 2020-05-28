@@ -37,16 +37,17 @@ class StarterProfessionalAssessments extends FormBase {
     {
             if($formtype == 'starter' && $Assess_type == 'individual'){
               $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
-            }
-            elseif($formtype == 'elete' && $Assess_type == 'individual'){
+            }elseif($formtype == 'elete' && $Assess_type == 'individual'){
               $form_title = 'ELITE ASSESSMENT';
-            }
-            elseif($formtype == 'starter' && $Assess_type == 'private'){
+            }elseif($formtype == 'starter' && $Assess_type == 'private'){
                $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
-             }
-            elseif($formtype == 'elete' && $Assess_type == 'private'){
+            }elseif($formtype == 'elete' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
-             }
+            }elseif($formtype == 'professional' && $Assess_type == 'private'){
+               $form_title = 'ELITE ASSESSMENT';
+            }elseif($formtype == 'professional' && $Assess_type == 'individual'){
+               $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
+            }
 
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
@@ -363,6 +364,8 @@ class StarterProfessionalAssessments extends FormBase {
              $formtype_val = 'elete';
             }elseif($formtype == 'starter'){
              $formtype_val = 'starter';
+            }elseif($formtype == 'professional'){
+             $formtype_val = 'professional';
             }else{
               $formtype_val = '';
             }

@@ -35,23 +35,19 @@ class PrivateAccessmentsBlock extends BlockBase {
 
     	  $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
-        $query->condition('field_assessors', $current_assessors_id, '=');
+        #$query->condition('field_assessors', $current_assessors_id, '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
         $query->condition('field_type_of_assessment','private', '=');
         $nids = $query->execute();
-
         $result = array();
-
         foreach ($nids as $nid) {
         	$booked_ids = \Drupal::entityQuery('bfsspayments')
        		->condition('assessment', $nid,'IN')
+          ->condition('time',time(),'>')
         	->execute();
           //print_r($booked_ids);
         	foreach ($booked_ids  as $key => $booked_id) {
-            	 $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-               // echo "<pre>";
-               // print_r($entity);
-               // die;
-
+            	  $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
                 $address_1 = $entity->address_1->value;
                 $timestamp = $entity->time->value;
                 $booking_date = date("M d Y",$timestamp);
@@ -77,6 +73,8 @@ class PrivateAccessmentsBlock extends BlockBase {
                       $formtype = 'elete';
                   }elseif($entity->service->value == '29.99'){
                       $formtype = 'starter';
+                  }elseif($entity->service->value == '69.99'){
+                      $formtype = 'professional';
                   }
 
                   if(!empty($entity->assessment->value)){
