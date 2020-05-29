@@ -213,7 +213,22 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 
 .simple-popup-blocks-global form .right_section{width:calc(30% - 25px);float:right;display:block;margin-left:25px;}
 .simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
-
+/********first time popup start from here**********/
+.full-width-inp.orgtype {
+    /* padding: 0 10px; */
+    margin: 0 0 30px;
+}
+.full-width-inp.orgtype .select-wrapper {width: 100%;}
+.full-width-inp.orgtype span.input-group-addon {display: none;}
+.dashboard-profile .simple-popup-blocks-global form .left_section .athlete_left h3 {
+    padding: 0px 0px 0px 15px;
+}
+.dashboard-profile i.fa.fa-trash {
+    padding-top: 5px;
+}
+.dashboard-profile .simple-popup-blocks-global form .left_section .athlete_left h3 .right-icon{top:15px;right: 12px;}
+.dashboard-profile .simple-popup-blocks-global form .right_section .athlete_right h3 { padding: 0px 0px 0px 15px;}
+/********first time popup end from here**********/
 /*************** MY AUTHENTIC PROFILE POP UP CSS STARTS HERE ****************************/
 
 .calender_event_pop_up, .calender_event_pop_up .tophead, .calender_event_pop_up .ticketing, .calender_event_pop_up .details{width:100%;float:left;display:block;}

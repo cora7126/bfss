@@ -1134,6 +1134,7 @@ function _get_role_options() {
   unset($roles['authenticated']);
   unset($roles['assessors']);
   unset($roles['bfss_manager']);
+  unset($roles['bfss_administrator']);
   array_unshift($roles, t('Account Options'));
   return $roles;
 }
