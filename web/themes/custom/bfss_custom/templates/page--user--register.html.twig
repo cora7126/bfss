@@ -121,18 +121,21 @@
 {% endblock %}
 <div class="sucss-popup">
 <!-- POP UP  -->
-  <div class="customModal requestCallback " style="" id="requestCallbackModal">
+  <div class="customModal requestCallback drupal-edit-faq-fm " style="" id="requestCallbackModal">
     <div class="spb-popup-main-wrapper spb_top_center">
       <div class="spb-controls">
         <span class="" onclick="closeModal('#requestCallbackModal');">×</span>
       </div>
       <div id="" class="">
-        <div class="popup_header change_password_header">
-          <h3>Account Created
-            <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true"></i>
-          </h3>
+        <div class="left_section popup_left_section">
+           <div class="athlete_left">
+            <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>
+           Account Created</h3>
+            <div class="items_div">
+              <div class="success-msg">{{ page.popupmessage }}</div>
+            </div>
+          </div>
         </div>
-        <div class="success-msg">{{ page.popupmessage }}</div>
       </div>
     </div>
   </div>
