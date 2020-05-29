@@ -1,6 +1,11 @@
 jQuery(document).ready(function() {
 
-
+jQuery('.athlete_left i.fa.fa-info.right-icon,.athlete_right i.fa.fa-info.right-icon').click(function (evt){
+	return false;
+});
+	jQuery('#requestCallbackModal span.closepopup').click(function(){
+	window.location = "/user/login";
+});
 	jQuery(".user_pro_block .table-responsive-wrap table").wrap("<div class='table-responsive'></div>");
 
 	jQuery("i.fal.fa-caret-down, i.fal.fa-calendar-alt").click(function(){

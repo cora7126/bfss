@@ -3,7 +3,7 @@ framework:
     base:
       'https://fonts.googleapis.com/css?family=Montserrat&display=swap' : { type: external }
     theme:
-      #css/responsive.css: {}
+      #css/style-custom.css: {}
       css/custom.css: {}
       css/style.css: {}
       css/scott.css: {}

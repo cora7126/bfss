@@ -140,9 +140,9 @@ class ContributeForm extends FormBase {
 		$cityquery1->addField('ufln', 'field_state_value');
 		$cityquery1->condition('entity_id', $current_user, '=');
 		$cityresults1 = $cityquery1->execute()->fetchAssoc();
-		$city=$cityresults1['field_state_value'];
+		$state=$cityresults1['field_state_value'];
 	}else{
-		$city=$results18['field_az'];
+		$state=$results18['field_az'];
 	}
 
 	 /**
@@ -230,7 +230,7 @@ class ContributeForm extends FormBase {
       '#type' => 'select',
       //'#description' => 'Select the desired pizza crust size.',
 	  '#options'=>$states,
-      '#default_value' => $city,
+      '#default_value' => $state,
 	  '#required' => TRUE,
       );
 	  //print '<pre>';print_r($results18);die;
@@ -487,7 +487,7 @@ class ContributeForm extends FormBase {
       //   );
       $form['sport_1'] = array(
         '#type' => 'select',	
-		'#options'=> $sports_arr,
+		    '#options'=> $sports_arr,
         '#default_value' => $athlete_club['athlete_club_sport'],
         );
       $form['position_1'] = array(
@@ -658,7 +658,7 @@ class ContributeForm extends FormBase {
       //   );
       $form['sport_2'] = array(
         '#type' => 'select',
-		'#options'=>$sports_arr,
+		    '#options'=>$sports_arr,
         '#default_value' => $athlete_uni['athlete_uni_sport'],
         );
       $form['position_2'] = array(

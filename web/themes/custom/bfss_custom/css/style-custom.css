@@ -184,7 +184,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:60px;overflow:hidden;}
 .block-bfss-assessment{width:100%;float:left;display:block;}
 .block-bfss-assessment .container{padding:0;margin:0;}
-.block-bfss-assessment .container .assessment_block{margin:0 -7.5px;float:left;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
+.block-bfss-assessment .container .assessment_block{margin:0 -7.5px;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
 .block-bfss-assessment .container .assessment_block .col.assessment_inner{padding:5px;background:#f1f3f2;margin:5px 7.5px;width:calc(33.3% - 15px);border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset; flex-basis:unset;-ms-flex-positive:unset;flex-grow:unset;}
 
 
@@ -196,39 +196,38 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .simple-popup-blocks-global form .left_section{width:70%;float:left;display:block;padding-bottom:50px;}
 .simple-popup-blocks-global form .left_section .athlete_left h3, .simple-popup-blocks-global form .right_section .athlete_right h3{font-weight:400;font-size:13px;border:1px solid #000;padding:10px 15px;}
 .simple-popup-blocks-global form .left_section .athlete_left h3 i, .simple-popup-blocks-global form .right_section .athlete_right h3 i{font-weight:400;}
-.simple-popup-blocks-global form .left_section .athlete_left h3 .right-icon, .simple-popup-blocks-global form .right_section .athlete_right h3 .right-icon{top:12px;right:0;}
+.simple-popup-blocks-global form .left_section .athlete_left h3 .right-icon, .simple-popup-blocks-global form .right_section .athlete_right h3 .right-icon{top:15px;right:5px;}
 .simple-popup-blocks-global form .left_section .items_div, .simple-popup-blocks-global form .right_section .items_div{border:1px solid #4c4c4c;padding:40px 0;}
 .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item{padding:0 10px;margin:0 0 30px;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item:last-child{margin:0;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:40px;margin:0;outline:none;font-size:13px;}
+.simple-popup-blocks-global form .left_section .items_div > .form-item.js-form-item:last-child, .simple-popup-blocks-global form .right_section .items_div > .form-item.js-form-item:last-child{margin:0;}
+
+.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item input.form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:40px;margin:0;outline:none;font-size:13px;}
 .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:focus{background:#f1f3f2;outline:none;}
 .simple-popup-blocks-global form .left_section .items_div .add_pos_div{padding:0;float:left;width:100%;display:block;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item{margin:0 0 40px;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item{margin:0 0 30px;}
 .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first{margin-right:15px !important;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first, .simple-popup-blocks-global form .left_section .items_div .add_pos_div .remove_pos_first{position:relative;margin:0;top:-30px;left:15px;font-size:13px;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first i , .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.remove_pos_first i{padding-right:5px;font-weight:400;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first, .simple-popup-blocks-global form .left_section .items_div .add_pos_div .remove_pos_first{position:relative;margin:0;top:-5px;left:15px;font-size:13px;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first i, .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.remove_pos_first i, .add_pos_second i{padding-right:10px;font-weight:400;}
 .simple-popup-blocks-global form .left_section a.add_org.popup_add_org{padding:0;}
 .simple-popup-blocks-global form .left_section a.add_org.popup_add_org i{font-weight:400;}
-
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item.form-type-textarea.js-form-type-textarea{margin:0;}
 
 .simple-popup-blocks-global form .right_section{width:calc(30% - 25px);float:right;display:block;margin-left:25px;}
 .simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
+
 /********first time popup start from here**********/
-.full-width-inp.orgtype {
-    /* padding: 0 10px; */
-    margin: 0 0 30px;
-}
-.full-width-inp.orgtype .select-wrapper {width: 100%;}
-.full-width-inp.orgtype span.input-group-addon {display: none;}
-.dashboard-profile .simple-popup-blocks-global form .left_section .athlete_left h3 {
-    padding: 0px 0px 0px 15px;
-}
-.dashboard-profile i.fa.fa-trash {
-    padding-top: 5px;
-}
-.dashboard-profile .simple-popup-blocks-global form .left_section .athlete_left h3 .right-icon{top:15px;right: 12px;}
-.dashboard-profile .simple-popup-blocks-global form .right_section .athlete_right h3 { padding: 0px 0px 0px 15px;}
+
+.full-width-inp.orgtype .select-wrapper{width:100%;}
+.full-width-inp.orgtype span.input-group-addon{display:none;}
+.dashboard-profile .simple-popup-blocks-global form .left_section .athlete_left h3, .dashboard-profile .simple-popup-blocks-global form .right_section .athlete_right h3{padding:0 15px;}
+.dashboard-profile i.fa.fa-trash{padding-top:5px;}
+ul.ui-widget.ui-widget-content.ui-autocomplete, .ui-datepicker.ui-widget-content, .ui-datepicker.ui-widget-content .tooltip.cutsom-tooltip{z-index:999999999;}
+div.tooltip{z-index:99999999999999999999999999999999999999;}
+ul.ui-widget.ui-widget-content.ui-autocomplete li a{display:block;background:transparent;border-color:transparent;}
+ul.ui-widget.ui-widget-content.ui-autocomplete li a:hover, ul.ui-widget.ui-widget-content.ui-autocomplete li a:focus{background:transparent;color:#EB6E06;border-color:transparent;}
+
 /********first time popup end from here**********/
+
 /*************** MY AUTHENTIC PROFILE POP UP CSS STARTS HERE ****************************/
 
 .calender_event_pop_up, .calender_event_pop_up .tophead, .calender_event_pop_up .ticketing, .calender_event_pop_up .details{width:100%;float:left;display:block;}
@@ -301,7 +300,7 @@ form.edit-form .js-form-managed-file.form-managed-file .js-form-file.form-file{p
 .athletes_follow_dv .search_athlete_main .unfollow-sub input[type="submit"]{border:0;background:none;color:#EB6E06;font-size:13px;text-transform:capitalize;line-height:22px;font-weight:500;}
 /**************** ATHLETES FOLLOW CSS ENDS HERE *******************/
 .eventlisting_main.user_pro_block{margin:0 0 30px;}
-.private_assess_listing_main.user_pro_block{padding:0;}
+.dashboard .private_assess_listing_main.user_pro_block{padding:0 15px;}
 .eventlisting_main.user_pro_block h2, .private_assess_listing_main.user_pro_block h2{margin:0;}
 .submit-follow-label i{color:#fc6703;font-size:18px;}
 .dashboard .region-footer .footer_bt{padding:0;}
@@ -507,7 +506,7 @@ div.orgtextarea textarea{display:none;}
 /********************Nice select css end************************/
 
 /*************** ASSESSORS CSS STARTS HERE ******************/
-.table-responsive-wrap{width:100%;float:left;display:block;}
+.table-responsive-wrap{width:100%;float:left;display:block;padding:0 0 20px;}
 .table-responsive-wrap div.table-responsive{overflow-y:hidden;margin:0 0 20px;border:0;}
 .table-responsive-wrap div.table-responsive table{margin:0;border:1px solid #6d6e72;border-collapse:unset;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 .table-responsive .hide_role{display:none;}
@@ -895,6 +894,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .html_body_wrap .filter-help.form-group{margin:0;}
 .date_duration #edit-resident-0-field-timing{display:inline-block;float:left;}
 .wrapper form#multistep-form-two .form-actions{margin:20px 0;}
+
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -944,7 +944,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.sm_cls{width:100%;margin:15px 0;}
 	#assessor_popup_form .accessorform_inner{padding:25px;}
 	.drupal-assess-fm .modal-footer{padding:0 25px 25px;}
-	.user_pro_block .block-bfss-assessors{padding:20px;}
+	.user_pro_block .block-bfss-assessors, .assessor-profile-desh .user_pro_block .block-bfss-assessors{padding:20px;}
 	.myassess_main_pxl.user_pro_block .block-bfss-assessors{padding:0;}
 	.bfss_manager_page{grid-template-columns:1fr;}
 	.bfss_manager{margin:10px 0 0;}
@@ -963,6 +963,9 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 }
 
 @media (max-width:1023px) {
+	.simple-popup-blocks-global form .left_section, .simple-popup-blocks-global form .right_section{width:100%;}
+	.simple-popup-blocks-global form .right_section{margin:0;}
+	.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{margin:0 auto;width:90%;left:0;right:0;}
 	.centeralizeRow .rightText h4{width:100%;float:left;display:block;padding-right:60px;}
 	.centeralizeRow p{display:block;float:left;width:100%;}
 	.profile-right-modal .container{padding:0;}	
@@ -1065,6 +1068,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 
 @media (min-width:1024px) and (max-width:1199px) {
 	.dashboard .athletic_profile{height:auto;}
+	.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{left:10%;right:10%;}
 	.centeralizeRow.large span{font-size:60px;}
 	.infoRow span{margin-right:20px;}
 	.centeralizeRow h4, .infoRow h4{font-size:18px;}
@@ -1077,6 +1081,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.tab-main-sec.assessments-sec div.col-lg-8, .quick-link div.col-lg-8, .quick-link div.col-lg-4{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%;}
 	.dashboard .my-assessment .panel{position:relative;}
 	.dashboard .my-assessment{margin:30px 0 0;}
+	.edit-form{grid-template-columns:1fr 30rem;}
 }
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
 
