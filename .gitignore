@@ -1,2 +1,5 @@
 web/sites/default/settings.php
 settings.php
+*.zip
+/web/themes/custom
+/web/modules/custom
