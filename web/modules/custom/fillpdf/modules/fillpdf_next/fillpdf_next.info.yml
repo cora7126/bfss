@@ -1,0 +1,11 @@
+name: 'FillPDF Next [EXPERIMENTAL]'
+type: module
+description: 'Deprecated, please remove.'
+core: 8.x
+package: Other
+hidden: true
+
+# Information added by Drupal.org packaging script on 2020-04-24
+version: '8.x-4.11'
+project: 'fillpdf'
+datestamp: 1587734049
