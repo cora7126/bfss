@@ -28,7 +28,13 @@ jQuery("[name=image_athlete_remove_button]").wrap('<div class="remove_btn_wrap">
 jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-type','modal');
 jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-options','{&quot;width&quot;:800, &quot;dialogClass&quot;: &quot;assessments-popup-md&quot;}');
     //jQuery( "#sortable_faqs" ).disableSelection();
-    jQuery(document).on('click', 'a[href^="#"]', function (e) {
+    jQuery(document).on('click', 'a[href^="#assessment-event-section"]', function (e) {
+    e.preventDefault();
+    jQuery('html, body').stop().animate({
+        scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2
+    }, 1000, 'linear');
+	});
+	 jQuery(document).on('click', 'a[href^="#assessment-private-section"]', function (e) {
     e.preventDefault();
     jQuery('html, body').stop().animate({
         scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2

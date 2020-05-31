@@ -34,9 +34,10 @@ class EventDataGet extends ControllerBase {
 					 $time = $date.'T'.date("h:i:s",$timing);
 					 $duration = $pGraph->get('field_duration')->value;
 					 $event_data[] = [
+					 	'id'=>$nid,
 					   'title' => $data['title'],
 					   //'date' => $date,
-					   //'url' => '/assessment/node/8',
+					   'url' => '#'.$nid,
 					   'start' => $time,
 					   'className' => 'use-ajax',
 

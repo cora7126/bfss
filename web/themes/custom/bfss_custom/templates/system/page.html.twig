@@ -53,7 +53,8 @@
 #}
 <link rel="stylesheet" href="/themes/custom/bfss_custom/css/responsive.css">
 <link rel="stylesheet" href="/themes/custom/bfss_custom/css/style-custom.css">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -472,7 +473,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                           <li><a class="side_button"  href="/view-edit-active">View/Edit Active</a></li>
+                           <li><a class="side_button"  href="/view-edit-active">View / Edit Active</a></li>
                            <li><a href="/view-edit-deactive">View / Edit Deactivated</a></li>
                            <li><a href="/search-athlete">Search Athletes</a></li>
                         </ul>
@@ -560,6 +561,7 @@
 {% if page.footer %}
   {% block footer %}
     <footer class="footer {{ container }}" role="contentinfo">
+      <div id="calpopup-plx"></div>
       {{ page.footer }}
     </footer>
   {% endblock %}
