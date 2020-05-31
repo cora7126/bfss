@@ -40,12 +40,12 @@ class ViewEditActive extends ControllerBase {
               <tr>
                 <th class="th-hd"><a><span></span>Select</a>
                 </th> 
-                  <th class="th-hd"><a><span></span>Last Name</a>
+                  <th class="th-hd long-th th-last"><a><span></span>Last Name</a>
                 </th>  
-                <th class="th-hd"><a><span></span>First Name</a>
+                <th class="th-hd long-th th-fisrt"><a><span></span>First Name</a>
                 </th>
               
-                <th class="th-hd"><a><span></span>Organization</a>
+                <th class="th-hd long-th th-org"><a><span></span>Organization</a>
                 </th>
                 <th class="th-hd"><a><span></span>Edit Permissions</a>
                 </th>
@@ -114,10 +114,10 @@ class ViewEditActive extends ControllerBase {
 
               $tb1 .=  '<tr>
                 <td><input class="form-checkbox getcheckboxid" type="checkbox" name="items_selected[]" value="'.$athlete_user_id.'"><span class="unfollow-checkbox"></span></td>
-                 <td>'.$lastname.'</td>
-                <td>'.$firstname.'</td>
+                 <td class="long-td td-last">'.$lastname.'</td>
+                <td class="long-td th-fisrt">'.$firstname.'</td>
                
-                <td>'.$org_name.'</td>
+                <td class="long-td th-org">'.$org_name.'</td>
                 <td>'.$edit_permissions_status.'</td>';
               if(in_array('bfss_administrator', $current_roles) || in_array('administrator', $current_roles)){
               	 $tb1 .= '<td><p class="hide_role">'.$sel_role[0].

@@ -839,7 +839,7 @@ class ContributeForm extends FormBase {
       );
     $form['label_2'] = array(
       '#type' => 'label',
-      '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
+      '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
       );
     $form['preview_1'] = array(
       '#type' => 'markup',
@@ -886,7 +886,7 @@ class ContributeForm extends FormBase {
         );
       $form['label_22'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       $form['preview_12'] = array(
         '#type' => 'markup',
@@ -935,7 +935,7 @@ class ContributeForm extends FormBase {
         );
       $form['label_23'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br> Once published , this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       $form['preview_13'] = array(
         '#type' => 'markup',

@@ -150,7 +150,7 @@ class MultistepFourForm extends MultistepFormBase {
 	  '#options'=>$month_options,
       //'#placeholder' => $this->t('Expiration Month'),
       '#default_value' => $this->store->get('expiration_month') ? $this->store->get('expiration_month') : '',
-      '#prefix' => $this->t('<div class="expiration">'),
+      '#prefix' => $this->t('<div class="expiration1">'),
       //'#min' => 1,
       //'#max' => 12,
       '#required' => true,
@@ -202,22 +202,26 @@ class MultistepFourForm extends MultistepFormBase {
     $form['city'] = array(
       '#type' => 'textfield',
       '#placeholder' => $this->t('City'),
+      '#prefix' => $this->t('<div class="expiration">'),
       '#default_value' => $this->store->get('city') ? $this->store->get('city') : '',
       '#required' => true,
     );
 
-   /* $form['state'] = array(
-      '#type' => 'textfield',
+    $form['state'] = array(
+      '#type' => 'select',
+      '#options'=>$states,
       '#placeholder' => $this->t('State'),
+    # '#prefix' => $this->t('<div class="expiration">'),
       '#default_value' => $this->store->get('state') ? $this->store->get('state') : '',
       '#required' => true,
-    );*/ 
+    );
 
     $form['zip'] = array(
       '#type' => 'number',
       '#placeholder' => $this->t('ZIP/Post Code'),
       '#default_value' => $this->store->get('zip') ? $this->store->get('zip') : '',
       '#required' => true,
+      '#suffix' => $this->t('</div>'),
     );
 
     /*$form['country'] = array(
@@ -226,21 +230,14 @@ class MultistepFourForm extends MultistepFormBase {
       '#default_value' => $this->store->get('country') ? $this->store->get('country') : '',
       '#required' => true,
     );*/
-	$form['state'] = array(
-      '#type' => 'select',
-	  '#options'=>$states,
-      '#placeholder' => $this->t('State'),
-	   '#prefix' => $this->t('<div class="expiration">'),
-      '#default_value' => $this->store->get('state') ? $this->store->get('state') : '',
-      '#required' => true,
-    );
+
 	$form['country'] = array(
       '#type' => 'select',
-	  '#options'=>$country,
+	    '#options'=>$country,
       '#placeholder' => $this->t('Country'),
       '#default_value' => $this->store->get('country') ? $this->store->get('country') : '',
       '#required' => true,
-	  '#suffix' => $this->t('</div>'),
+	   # '#suffix' => $this->t('</div>'),
     );
 
 

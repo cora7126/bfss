@@ -121,7 +121,6 @@ body.user-login, body.user-password, body.registration-coach, body.user-register
 .service-top-head{font-family:"Proxima Nova Rg";font-size:14px;}
 #multistep-form-one > div.form-group > label:after{background-image:inherit;content:none;}
 #edit-previous{float:left;}
-.wrapper .form-actions .btn, .form-actions .btn-group{padding:5px 30px;line-height:25px;}
 .timeslots > fieldset > legend > span{font-family:"Proxima Nova Rg";font-size:14px;}
 #sidenav > ul li nav div a.drop,#sidenav > ul li nav div a.drop:hover,a.side_button,a.side_button:hover{text-decoration:none;}
 .mob_bottom_margin .quick-link-sub-sec p, .quick-link-sub-sec p, #sidenav > ul > li nav div a span.side_menu_text, #sidenav > ul > li.sub_menu.active > a > span{font-size:16px !important;}

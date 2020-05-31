@@ -27,6 +27,37 @@ input#edit-position2 {
 .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position3.js-form-item-position3.form-no-label.form-group {
     margin-bottom: 0px;
 }
+input#edit-position3 {
+    margin-bottom: 30px;
+}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-12.js-form-item-position-12.form-no-label.form-group {
+    margin-bottom: 0px;
+}
+input#edit-position-12 {
+    margin-bottom: 30px;
+}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-13.js-form-item-position-13.form-no-label.form-group {
+    margin-bottom: 0px;
+}
+input#edit-position-13 {
+    margin-bottom: 30px;
+}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-22.js-form-item-position-22.form-no-label.form-group {
+    margin-bottom: 0px;
+}
+
+input#edit-position-22 {
+    margin-bottom: 30px;
+}
+
+.edit-user .fa.fa-times.right-icon.changepassdiv-modal-close.spb_close {
+    top: 24px;
+}
+.edit-assessments .user_pro_block .block-bfss-assessors{border:none;}
+/*.edit-assessments table.dataTable.no-footer {
+    border-bottom: none;
+}*/
+.table-responsive-wrap div.table-responsive table{}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

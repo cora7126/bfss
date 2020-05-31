@@ -249,7 +249,7 @@ class PopupForm extends FormBase {
     $form['position2'] = array (
       '#type' => 'textfield',
       '#placeholder' => t('Position'),
-      $athlete_school['athlete_school_pos2'],
+     '#default_value' => $athlete_school['athlete_school_pos2'],
       '#attributes' => array('style'=>'display:none'),
       // '#prefix' => '<div class ="pos_first_1"',
       // '#suffix' => '</div>',

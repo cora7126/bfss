@@ -64,7 +64,7 @@ class AssessmentController extends ControllerBase {
     $uid = \Drupal::currentUser()->id();
     $user = User::load($uid);
     $roles = $user->getRoles();
-
+    $param = \Drupal::request()->query->all();
     $nid = \Drupal::request()->get('node_id');
     $data = [];
     if ($this->assessmentService->check_assessment_node($nid)) {
@@ -114,6 +114,7 @@ class AssessmentController extends ControllerBase {
    */
   public function scheduledAppointments() {
     $data = [];
+     $param = \Drupal::request()->query->all();
     $requriedFields = [
       'id',
       'time',
@@ -165,7 +166,7 @@ class AssessmentController extends ControllerBase {
     // $data = [];
 	
 	
-	$block = \Drupal\block\Entity\Block::load('upcominggroupassessments');
+	  $block = \Drupal\block\Entity\Block::load('upcominggroupassessments');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block);
@@ -177,14 +178,33 @@ class AssessmentController extends ControllerBase {
       ->view($block1);
     $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
 	
+    //Month view block
+    $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
+    $block_content_m_v = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block_m_v);
+    $assessments_block_m_v = \Drupal::service('renderer')->renderRoot($block_content_m_v);
+
+     if($param['MonthView'] =='MonthView'){
+                $BlockData = $assessments_block_m_v;
+        }else{
+         $BlockData = $assessments_block;
+        }
+  //FILTERS FROM
+  $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+  $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
+  $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+
 	return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'scheduled__appointments',
-      '#assessments_block' => $assessments_block,
-      '#month_block' => $assessments_block1,
+      '#assessments_block' => $BlockData,
+      '#month_block' => $form,
+      '#search_filter_block' => $SearchFilterForm,
+      '#month_view_filter_block' => $MonthViewFilterForm,
       '#attached' => [
         'library' => [
-          'acme/acme-styles', //include our custom library for this response
+           'bfss_month_view/month_view_lib', //include our custom library for this response
         ]
       ]
     ];
