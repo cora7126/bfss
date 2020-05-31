@@ -45,8 +45,10 @@ class PendingAssessmentsForm extends FormBase {
    *   Optional. Sets the textfield's value attribute.
    * @param string $placeholder
    *   Optional. The text that appears within the textfield when empty.
+   * @param string $units
+   *   Optional. i.e.  Lbs, In,  Secs
    */
-  public function getFormField($fieldName, $fieldColumn, $defaultValue = '', $placeholder = '') {
+  public function getFormField($fieldName, $fieldColumn, $defaultValue = '', $placeholder = '', $units='') {
     $fieldAry = [];
 
     $style = ($fieldColumn == 0) ? 'width: 62%;' : 'position: absolute; width: 42%; right: 7.1%;';
@@ -60,8 +62,19 @@ class PendingAssessmentsForm extends FormBase {
         'style' => $style,
       ),
     );
-    // TODO: Try to integrate this COOL Right-aligned "units" text, after textfield. -- ie "Secs" or "In"
-    //    array('#markup' => '<span style="margin-left:-24px; background-color: grey; color: white; padding-left:3px; padding-right: 3px;">Inch</span>', );
+
+    if ($units) {
+      $style = ($fieldColumn == 0) ? 'width: 62%;' : 'position: absolute; width: 42%; right: 7.1%;';
+      $fieldAry[$fieldName.$units] = array(
+        '#type' => 'textfield',
+        '#default_value' => $units,
+        '#attributes' => array(
+          'style' => 'font-size: 1.05em; background-color: grey;color: white; padding: 1px 3px; position: absolute; font-family: courier new; font-weight: bold; margin-top: -23px; ' . $style,
+        ),
+      );
+    }
+
+    // TODO: <div style="font-size: 1.05em; background-color: grey;color: white; padding: 1px 3px; position: absolute; font-family: courier new; font-weight: bold; margin-top: -23px; right: 51.6%;">In</div>
     return $fieldAry;
   }
 
@@ -109,6 +122,11 @@ class PendingAssessmentsForm extends FormBase {
                $form_title = 'ELITE ASSESSMENT';
             }
 
+
+            // session_start();
+            // $_SESSION['jjj'] = var_export($entity, TRUE);
+            // $form_title .= var_export($param, TRUE);
+            // $form_title .= '</pre>';
 
             $form['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
             $form['#prefix'] = '
@@ -171,6 +189,9 @@ class PendingAssessmentsForm extends FormBase {
             $defaultValues['field_repetitions_se_ipe']        = @$node->field_repetitions_se_ipe->value;        // ['strength_endurance']['repetitions']
             $defaultValues['field_power_w_cfd_ipe']           = @$node->field_power_w_cfd_ipe->value;           // ['change_of_direction']['power_ch']
 
+            $defaultValues['field_sport']                     = @$sport;
+
+
             /***************************************
              * TODO
              *    Field names above are origional database field names, which appear below in $fieldName.
@@ -187,6 +208,19 @@ class PendingAssessmentsForm extends FormBase {
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
+
+
+
+              $fieldName = 'field_age';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'AGE'); // 1
+              $fieldName = 'field_sport';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'SPORT'); // 2
+
+              $fieldName = 'field_weight';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'WEIGHT (Lbs)', 'Lbs'); // 3
+              $fieldName = 'field_sex';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'SEX'); // 4
+
 
               $fieldName = 'starter_weight_rea_str';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'REACTIVE STRENGTH (In)'); // 5
@@ -206,7 +240,7 @@ class PendingAssessmentsForm extends FormBase {
               $fieldName = 'starter_weight_rea_str_B';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(B) REACTIVE STRENGTH'); // 11
               $fieldName = 'field_elite_age_E';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ELITE PERFORMERS AGE - test'); // *ELITE PERFORMERS AGE
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ELITE PERFORMERS AGE (Yrs)'); // *ELITE PERFORMERS AGE
             }
 
             else if($realFormType == 'professional')
@@ -778,16 +812,29 @@ class PendingAssessmentsForm extends FormBase {
             );
 
             $form['booked_id'] = array(
-             '#type' => 'hidden',
-             '#value' => $booked_id,
-            );
+              '#type' => 'hidden',
+              '#value' => $booked_id,
+             );
+
+             $form['sport'] = array(
+              '#type' => 'hidden',
+              '#value' => $sport,
+             );
+
+             $form['first_name'] = array(
+              '#type' => 'hidden',
+              '#value' => $first_name,
+             );
+
+             $form['last_name'] = array(
+              '#type' => 'hidden',
+              '#value' => $last_name,
+             );
 
              $form['athelete_nid'] = array(
              '#type' => 'hidden',
              '#value' => $nid,
             );
-
-
 
 
             $form['actions'] = array(
@@ -804,7 +851,8 @@ class PendingAssessmentsForm extends FormBase {
 
             $form['actions']['draft'] = array(
               '#type' => 'submit',
-              '#value' => $this->t('SAVE & UNPUBLISH'),
+              '#name' => 'save_unpublished',
+              '#value' => $this->t('SAVE & UN-PUBLISH'),
               '#button_type' => 'primary',
                '#ajax' => [
                   'callback' => '::submitForm', // don't forget :: when calling a class method.
@@ -823,6 +871,7 @@ class PendingAssessmentsForm extends FormBase {
 
             $form['actions']['submit'] = array(
               '#type' => 'submit',
+              '#name' => 'save_published',
               '#value' => $this->t('MANAGER - SAVE & PUBLISH'),
               '#button_type' => 'primary',
               '#ajax' => [
@@ -877,222 +926,294 @@ class PendingAssessmentsForm extends FormBase {
         $user_id = $current_user->id();
         $user = \Drupal\user\Entity\User::load($user_id);
 
-  	  	$form_data = [];
-  	  	foreach ($form_state->getValues() as $key => $value) {
-  	  	 	$form_data[$key] = $value;
-        }
+        $form_data = [];
 
         $message = '';
 
 
 
-          /****
-           * TODO
-           *    See "LEGACY form field names" in code here, convert legacy form field names (Example, change "starter_rsi_rea_str" into natural database field name "field_rsi_reactive")
-           */
-          /***/
-          $message = '<hr><div style="font-size: 0.8em; text-align:left;"><pre>';
-          $message .= '<b>$form_data array:</b> ' . var_export($form_data, TRUE);
-          $message .= '</pre></div><hr>';
-          /***
-           if (!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))) {
-              $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
-           }
-           elseif(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))){
-            $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required or Numeric</p>';
-           }
-           elseif(!is_numeric($form_state->getValue('starter_rsi_rea_str')) || empty($form_state->getValue('starter_rsi_rea_str'))){
-             $message = '<p style="color:red;">"RSI" Required or Numeric</p>';
-           }
-           elseif(!is_numeric($form_state->getValue('starter_jump_height_ela_str')) || empty($form_state->getValue('starter_jump_height_ela_str'))){
-             $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
-           }
-           elseif(!is_numeric($form_state->getValue('starter_peak_pro_ela_str')) || empty($form_state->getValue('starter_peak_pro_ela_str'))){
-             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required or Numeric</p>';
-           }
-            elseif(!is_numeric($form_state->getValue('starter_peak_power_ela_str')) || empty($form_state->getValue('starter_peak_power_ela_str'))){
-             $message = '<p style="color:red;">"Peak Power (W)" Required or Numeric</p>';
-           }
-            elseif(!is_numeric($form_state->getValue('starter_jump_height_ballistic')) || empty($form_state->getValue('starter_jump_height_ballistic'))){
-             $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
-           }
-            elseif(!is_numeric($form_state->getValue('starter_peak_pro_ballistic')) || empty($form_state->getValue('starter_peak_pro_ballistic'))){
-             $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required or Numeric</p>';
-           }
-            elseif(!is_numeric($form_state->getValue('starter_10m')) || empty($form_state->getValue('starter_10m'))){
-             $message = '<p style="color:red;">"10 M Time (sec)" Required or Numeric</p>';
-           }
-            elseif(!is_numeric($form_state->getValue('starter_40m')) || empty($form_state->getValue('starter_40m'))){
-             $message = '<p style="color:red;">"40 M Time (sec)" Required or Numeric</p>';
-           }
-           elseif(!is_numeric($form_state->getValue('starter_peak_for_max')) || empty($form_state->getValue('starter_peak_for_max'))){
-             $message = '<p style="color:red;">"Peak Force (N)" Required or Numeric</p>';
-           }elseif(!is_numeric($form_state->getValue('starter_rfd_max')) || empty($form_state->getValue('starter_rfd_max'))){
-             $message = '<p style="color:red;">"RFD @ 100ms (N)" Required or Numeric</p>';
-           }
-           elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'elete' ){
-             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
-           }
-           elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'elete'){
+        //jjj added all "session" stuff here, to create pdf.
+        session_start();
+        $_SESSION['temp-session-form-values'] = [];
 
-             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
-            }
-           elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'elete'){
-              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
-           }
-           elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';
-           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){
-             $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
-           }else{
-             $message = '<p style="color:green;">Successfully saved!</p>';
-                if(!$nids1){
-                      $node = Node::create([
-                         'type' => 'athlete_assessment_info',
-                        ]);
+  	  	foreach ($form_state->getValues() as $key => $value) {
+           $form_data[$key] = $value;
+           $_SESSION['temp-session-form-values'][$key] = $value;
+        }
 
-                    $node->set('title', $form_data['starter_weight_rea_str']);
-                    $node->set('field_jump_height_in_reactive', $form_data['starter_weight_rea_str']);
-                    $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
-                    $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
-                    $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
-                    $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
-                    $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
-                    $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
-                    $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
-                    $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
-                    $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
-                    $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
-                    $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
-                    $node->set('field_assessment_type', $form_data['assessment_type']);
-                    $node->set('field_form_type', $form_data['form_type']);
-                    $node->set('field_athelete_nid', $form_data['athelete_nid']);
-                    $node->set('field_booked_id', $form_data['booked_id']);
-                    //aditional fields for elete
-                    $node->set('field_power_w_ssm_ipe', $form_data['power']);
-                    $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
-                    $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
-                    $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
-                    $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-                    //user target id
-                    $node->set('field_user', ['target_id' => $user_id]);
-                     // if "SAVE - ALL FIELDS COMPLETED" trigger
-                    $node->set('field_status', 'complete');
-                    $node->setPublished(TRUE);
-                    $node->save();
-                  }else{
-                    // $node = Node::load($nids1);
-                    // $node->set('title', $form_data['starter_weight_rea_str']);
-                    // $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
-                    // $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
-                    // $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
-                    // $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
-                    // $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
-                    // $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
-                    // $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
-                    // $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
-                    // $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
-                    // $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
-                    // $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
-                    // $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
-                    // $node->set('field_assessment_type', $form_data['assessment_type']);
-                    // $node->set('field_form_type', $form_data['form_type']);
-                    // $node->set('field_athelete_nid', $form_data['athelete_nid']);
-                    // $node->set('field_booked_id', $form_data['booked_id']);
-                    // //aditional fields for elete
-                    // $node->set('field_power_w_ssm_ipe', $form_data['power']);
-                    // $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
-                    // $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
-                    // $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
-                    // $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-                    // //user target id
-                    // $node->set('field_user', ['target_id' => $user_id]);
-                    //  // if "SAVE - ALL FIELDS COMPLETED" trigger
-                    // $node->set('field_status', 'complete');
-                    // $node->setPublished(TRUE);
-                    // $node->save();
-                  }
-           }
-           */
+        // Form field to pdf field mappings:
+        $_SESSION['temp-session-form-values']['FULL_NAME_TOP'] = $_SESSION['temp-session-form-values']['first_name'] . ' ' . $_SESSION['temp-session-form-values']['last_name'];
+        $_SESSION['temp-session-form-values']['field_weight'] .= @$_SESSION['temp-session-form-values']['field_weight'] ? ' Lbs' : '';
+        $_SESSION['temp-session-form-values']['starter_weight_rea_str'] .= @$_SESSION['temp-session-form-values']['starter_weight_rea_str'] ? ' In' : '';
+        $_SESSION['temp-session-form-values']['field_jump_height_in_elastic'] .= @$_SESSION['temp-session-form-values']['field_jump_height_in_elastic'] ? ' In' : '';
+        $_SESSION['temp-session-form-values']['field_jump_height_in_ballistic'] .= @$_SESSION['temp-session-form-values']['field_jump_height_in_ballistic'] ? ' In' : '';
+        $_SESSION['temp-session-form-values']['field_10m_time_sec_sprint'] .= @$_SESSION['temp-session-form-values']['field_10m_time_sec_sprint'] ? ' Sec' : '';
+        $_SESSION['temp-session-form-values']['field_peak_force_n_maximal'] .= @$_SESSION['temp-session-form-values']['field_peak_force_n_maximal'] ? ' N' : '';
+        $_SESSION['temp-session-form-values']['field_rsi_reactive'] .= @$_SESSION['temp-session-form-values']['field_rsi_reactive'] ? ' In' : '';
+        $_SESSION['temp-session-form-values']['field_elite_age_E'] .= @$_SESSION['temp-session-form-values']['field_elite_age_E'] ? ' y/o' : '';
 
 
 
+        // Find the pdf template "fid" -- see /admin/structure/fillpdf
+        switch ($_SESSION['temp-session-form-values']['form_type']) {
+          case 'starter':
+            $pdf_template_fid = '3';
+          break;
+          case 'professional':
+            $pdf_template_fid = '4';
+          break;
+          case 'elite':
+            $pdf_template_fid = '5';
+          break;
+        }
+
+        $default_entity_id = $form_state->getValue('form_token'); // currently not used
+
+        $publishMsg = @$_SESSION['temp-session-form-values']['save_published'] ? 'Saved and Published!' : 'Saved and Un-published!';
+
+
+        // 'field_age' => '22',
+        // 'field_sport' => 'foozeball',
+        // $_SESSION['temp-session-form-values']['field_weight' => '33',
+        // 'field_sex' => 'male',
+        // $_SESSION['temp-session-form-values']['starter_weight_rea_str' => '222',
+        // 'field_jump_height_in_elastic' => '333',
+        // 'field_jump_height_in_ballistic' => '444',
+        // 'field_10m_time_sec_sprint' => '555',
+        // 'field_peak_force_n_maximal' => '666',
+        // 'field_rsi_reactive' => '777',
+        // 'starter_weight_rea_str_B' => '888',
+        // 'field_elite_age_E' => '999',
+        // 'assessment_type' => 'individual',
+
+
+        // 'FULL_NAME_TOP'    => @$_POST['FULL_NAME_TOP'],
+        // 'AGE'    => @$_POST['AGE'] . ' y/o',
+        // 'SPORT'    => @$_POST['SPORT'] . ' ',
+        // 'WEIGHT'    => @$_POST['WEIGHT'] . ' lbs',
+        // 'SEX'    => @$_POST['SEX'] . ' ',
+        // 'YOU_REACTIVE'    => ' ' . @$_POST['YOU_REACTIVE'] . ' in',
+        // 'YOU_ELASTIC'    => ' ' . @$_POST['YOU_ELASTIC'] . ' in',
+        // 'YOU_BALLISTIC'    => ' ' . @$_POST['YOU_BALLISTIC'] . ' in',
+        // 'YOU_ACCELERATION'    => ' ' . @$_POST['YOU_ACCELERATION'] . ' secs',
+        // 'YOU_MAXIMAL'    => ' ' . @$_POST['YOU_MAXIMAL'] . ' lbs',
+        // 'ELITE_REACTIVE'    => ' ' . @$_POST['ELITE_REACTIVE'] . ' in',
+        // 'BENCHMARK_REACTIVE'    => ' ' . @$_POST['BENCHMARK_REACTIVE'] . ' in',
+
+
+        if ($pdf_template_fid) {
+          $message = '<div style="padding: 2px; margin: 0 15px 2px 15px; font-size: 1.1em; font-weight: bold; background-color: #ddd; border-radius: 4px;">';
+          $message .= 'Success! &nbsp; &nbsp; <a href="/fillpdf?fid='.$pdf_template_fid.'&entity_type=webform_submission&entity_id='.$default_entity_id.'&download=1" target="_blank">Generate PDF</a><br>';
+          $message .= "</div>";
+          // $message .= "<pre>". var_export($_SESSION['temp-session-form-values'], TRUE)."</pre>";
+        }
+
+        // $message .= '<pre><b>$form_state:</b> ' . var_export($form_state->getValue(), TRUE)."</pre><br>";
+        // $message .= "user_id: $user_id,<hr> triggerElement: ".var_export($triggerElement, TRUE).",<hr> current_user: ".var_export($current_user, TRUE).",<hr> nids1: ".var_export($nids1, TRUE);
+
+
+        /****
+         * TODO
+         *    See "LEGACY form field names" in code here, convert legacy form field names (Example, change "starter_rsi_rea_str" into natural database field name "field_rsi_reactive")
+         */
+
+        /***
+         if (!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))) {
+            $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))){
+          $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_rsi_rea_str')) || empty($form_state->getValue('starter_rsi_rea_str'))){
+            $message = '<p style="color:red;">"RSI" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_jump_height_ela_str')) || empty($form_state->getValue('starter_jump_height_ela_str'))){
+            $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_peak_pro_ela_str')) || empty($form_state->getValue('starter_peak_pro_ela_str'))){
+            $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_peak_power_ela_str')) || empty($form_state->getValue('starter_peak_power_ela_str'))){
+            $message = '<p style="color:red;">"Peak Power (W)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_jump_height_ballistic')) || empty($form_state->getValue('starter_jump_height_ballistic'))){
+            $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_peak_pro_ballistic')) || empty($form_state->getValue('starter_peak_pro_ballistic'))){
+            $message = '<p style="color:red;">"Peak Propulslve Force (N)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_10m')) || empty($form_state->getValue('starter_10m'))){
+            $message = '<p style="color:red;">"10 M Time (sec)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_40m')) || empty($form_state->getValue('starter_40m'))){
+            $message = '<p style="color:red;">"40 M Time (sec)" Required or Numeric</p>';
+          }
+          elseif(!is_numeric($form_state->getValue('starter_peak_for_max')) || empty($form_state->getValue('starter_peak_for_max'))){
+            $message = '<p style="color:red;">"Peak Force (N)" Required or Numeric</p>';
+          }elseif(!is_numeric($form_state->getValue('starter_rfd_max')) || empty($form_state->getValue('starter_rfd_max'))){
+            $message = '<p style="color:red;">"RFD @ 100ms (N)" Required or Numeric</p>';
+          }
+          elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'elete' ){
+            $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
+          }
+          elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'elete'){
+
+            $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
+          }
+          elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'elete'){
+            $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
+          }
+          elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'elete'){
+            $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';
+          }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){
+            $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
+          }else{
+            $message = '<p style="color:green;">Successfully saved!</p>';
+              if(!$nids1){
+                    $node = Node::create([
+                        'type' => 'athlete_assessment_info',
+                      ]);
+
+                  $node->set('title', $form_data['starter_weight_rea_str']);
+                  $node->set('field_jump_height_in_reactive', $form_data['starter_weight_rea_str']);
+                  $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
+                  $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
+                  $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
+                  $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
+                  $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
+                  $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
+                  $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
+                  $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
+                  $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
+                  $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
+                  $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
+                  $node->set('field_assessment_type', $form_data['assessment_type']);
+                  $node->set('field_form_type', $form_data['form_type']);
+                  $node->set('field_athelete_nid', $form_data['athelete_nid']);
+                  $node->set('field_booked_id', $form_data['booked_id']);
+                  //aditional fields for elete
+                  $node->set('field_power_w_ssm_ipe', $form_data['power']);
+                  $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
+                  $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
+                  $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
+                  $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
+                  //user target id
+                  $node->set('field_user', ['target_id' => $user_id]);
+                    // if "SAVE - ALL FIELDS COMPLETED" trigger
+                  $node->set('field_status', 'complete');
+                  $node->setPublished(TRUE);
+                  $node->save();
+                }else{
+                  // $node = Node::load($nids1);
+                  // $node->set('title', $form_data['starter_weight_rea_str']);
+                  // $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
+                  // $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
+                  // $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
+                  // $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
+                  // $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
+                  // $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
+                  // $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
+                  // $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
+                  // $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
+                  // $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
+                  // $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
+                  // $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
+                  // $node->set('field_assessment_type', $form_data['assessment_type']);
+                  // $node->set('field_form_type', $form_data['form_type']);
+                  // $node->set('field_athelete_nid', $form_data['athelete_nid']);
+                  // $node->set('field_booked_id', $form_data['booked_id']);
+                  // //aditional fields for elete
+                  // $node->set('field_power_w_ssm_ipe', $form_data['power']);
+                  // $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
+                  // $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
+                  // $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
+                  // $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
+                  // //user target id
+                  // $node->set('field_user', ['target_id' => $user_id]);
+                  //  // if "SAVE - ALL FIELDS COMPLETED" trigger
+                  // $node->set('field_status', 'complete');
+                  // $node->setPublished(TRUE);
+                  // $node->save();
+                }
+          }
+          */
 
 
 
 
-            // if(!$nids1){
-            //        $node = Node::create([
-            //          'type' => 'athlete_assessment_info',
-            //         ]);
-            //       $node->set('title', $form_data['starter_weight_rea_str']);
-            //       $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
-            //       $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
-            //       $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
-            //       $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
-            //       $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
-            //       $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
-            //       $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
-            //       $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
-            //       $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
-            //       $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
-            //       $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
-            //       $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
-            //       $node->set('field_assessment_type', $form_data['assessment_type']);
-            //       $node->set('field_form_type', $form_data['form_type']);
-            //       $node->set('field_athelete_nid', $form_data['athelete_nid']);
-            //       $node->set('field_booked_id', $form_data['booked_id']);
-            //       //aditional fields for elete
-            //       $node->set('field_power_w_ssm_ipe', $form_data['power']);
-            //       $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
-            //       $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
-            //       $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
-            //       $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-            //       //user target id
-            //       $node->set('field_user', ['target_id' => $user_id]);
-            //        // if "SAVE - ALL FIELDS COMPLETED" trigger
-            //       $node->set('field_status', 'complete');
 
-            //       $node->setPublished(TRUE);
-            //  }else{
-            //       $node->set('title', $form_data['starter_weight_rea_str']);
-            //       $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
-            //       $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
-            //       $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
-            //       $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
-            //       $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
-            //       $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
-            //       $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
-            //       $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
-            //       $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
-            //       $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
-            //       $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
-            //       $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
-            //       $node->set('field_assessment_type', $form_data['assessment_type']);
-            //       $node->set('field_form_type', $form_data['form_type']);
-            //       $node->set('field_athelete_nid', $form_data['athelete_nid']);
-            //       $node->set('field_booked_id', $form_data['booked_id']);
-            //       //aditional fields for elete
-            //       $node->set('field_power_w_ssm_ipe', $form_data['power']);
-            //       $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
-            //       $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
-            //       $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
-            //       $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
-            //       //user target id
-            //       $node->set('field_user', ['target_id' => $user_id]);
-            //        // if "SAVE - ALL FIELDS COMPLETED" trigger
-            //       $node->set('field_status', 'complete');
+          // if(!$nids1){
+          //        $node = Node::create([
+          //          'type' => 'athlete_assessment_info',
+          //         ]);
+          //       $node->set('title', $form_data['starter_weight_rea_str']);
+          //       $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
+          //       $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
+          //       $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
+          //       $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
+          //       $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
+          //       $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
+          //       $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
+          //       $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
+          //       $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
+          //       $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
+          //       $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
+          //       $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
+          //       $node->set('field_assessment_type', $form_data['assessment_type']);
+          //       $node->set('field_form_type', $form_data['form_type']);
+          //       $node->set('field_athelete_nid', $form_data['athelete_nid']);
+          //       $node->set('field_booked_id', $form_data['booked_id']);
+          //       //aditional fields for elete
+          //       $node->set('field_power_w_ssm_ipe', $form_data['power']);
+          //       $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
+          //       $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
+          //       $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
+          //       $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
+          //       //user target id
+          //       $node->set('field_user', ['target_id' => $user_id]);
+          //        // if "SAVE - ALL FIELDS COMPLETED" trigger
+          //       $node->set('field_status', 'complete');
 
-            //       $node->setPublished(TRUE);
-            //       $node = Node::load($nids1);
-            //  }
-            //   $node->save();
-            //   $message = 'Successfully saved.';
-             // $message = "Successfully saved.";
+          //       $node->setPublished(TRUE);
+          //  }else{
+          //       $node->set('title', $form_data['starter_weight_rea_str']);
+          //       $node->set('field_jump_height_in_reactive', $form_data['starter_jump_height_rea_str']);
+          //       $node->set('field_rsi_reactive', $form_data['starter_rsi_rea_str']);
+          //       $node->set('field_jump_height_in_elastic', $form_data['starter_jump_height_ela_str']);
+          //       $node->set('field_peak_propulsive_elastic', $form_data['starter_peak_pro_ela_str']);
+          //       $node->set('field_peak_power_w_elastic', $form_data['starter_peak_power_ela_str']);
+          //       $node->set('field_jump_height_in_ballistic', $form_data['starter_jump_height_ballistic']);
+          //       $node->set('field_peak_propulsive_ballistic', $form_data['starter_peak_pro_ballistic']);
+          //       $node->set('field_peak_power_w_ballistic', $form_data['starter_peak_power_ballistic']);
+          //       $node->set('field_10m_time_sec_sprint', $form_data['starter_10m']);
+          //       $node->set('field_40m_time_sec_sprint', $form_data['starter_40m']);
+          //       $node->set('field_peak_force_n_maximal', $form_data['starter_peak_for_max']);
+          //       $node->set('field_rfd_100ms_n_maximal', $form_data['starter_rfd_max']);
+          //       $node->set('field_assessment_type', $form_data['assessment_type']);
+          //       $node->set('field_form_type', $form_data['form_type']);
+          //       $node->set('field_athelete_nid', $form_data['athelete_nid']);
+          //       $node->set('field_booked_id', $form_data['booked_id']);
+          //       //aditional fields for elete
+          //       $node->set('field_power_w_ssm_ipe', $form_data['power']);
+          //       $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
+          //       $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
+          //       $node->set('field_repetitions_se_ipe', $form_data['repetitions']);
+          //       $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
+          //       //user target id
+          //       $node->set('field_user', ['target_id' => $user_id]);
+          //        // if "SAVE - ALL FIELDS COMPLETED" trigger
+          //       $node->set('field_status', 'complete');
+
+          //       $node->setPublished(TRUE);
+          //       $node = Node::load($nids1);
+          //  }
+          //   $node->save();
+          //   $message = 'Successfully saved.';
+          // $message = "Successfully saved.";
 
           if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-draft') !== false ) {
-          // if "ASSESSORS - SAVE" button trigger
-            if(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))){
+            // if "SAVE & UNPUBLISH" button trigger
+            if(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))) {
               $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
             }else{
               $node->set('field_status', 'incomplete');
@@ -1111,7 +1232,7 @@ class PendingAssessmentsForm extends FormBase {
             )
           );
 
-            return $response;
+          return $response;
    }
 
 }
