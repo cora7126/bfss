@@ -40,6 +40,24 @@ jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog
         scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2
     }, 1000, 'linear');
 	});
+
+	jQuery(document).on('click', 'a[href^="#Pending_section"]', function (e) {
+    e.preventDefault();
+    jQuery('html, body').stop().animate({
+        scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2
+    }, 1000, 'linear');
+    return false;
+	});
+
+	jQuery(document).on('click', 'a[href^="#Paid_section_ppp"]', function (e) {
+    e.preventDefault();
+    jQuery('html, body').stop().animate({
+        scrollTop: jQuery(jQuery(this).attr('href')).offset().top 
+    }, 1000, 'linear');
+    
+    return false;
+	});
+
 jQuery( ".user-login-form input[name=name]" ).attr('tabindex','1');
 jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
  	jQuery('#select_faqs_by_user').niceSelect();

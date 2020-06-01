@@ -216,3 +216,12 @@ bfss_assessment.admin_settings:
     _title: 'Payment settings'
   requirements:
     _role: 'administrator'
+
+# bfss_assessment.calendar_modal_show:
+#   path: '/calendar-modal-show/{nid}'
+#   defaults:
+#     _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::modalNodeViewCalPopup'
+#     _title: 'Calendar modal'
+#     node_id: null
+#   requirements:
+#     _permission: 'access content'
