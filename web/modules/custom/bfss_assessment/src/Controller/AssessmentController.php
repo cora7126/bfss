@@ -10,6 +10,10 @@ use Drupal\node\Entity\Node;
 Use Drupal\node\NodeInterface;
 use Drupal\bfss_assessment\AssessmentService;
 use \Drupal\user\Entity\User;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\UrlHelper;
+Use Drupal\paragraphs\Entity\Paragraph;
 /**
  * Class AssessmentController.
  */
@@ -83,9 +87,25 @@ class AssessmentController extends ControllerBase {
           ],
         ];
     }
+$popupmess ='<div class="sucss-popup slot-not-available">
+  <div class=" requestCallback sitepopup-default-bfss" style="">
+    <div class="sitepopup-wrap">
+    <div class="spb-popup-main-wrapper spb_top_center alertmessage">
+      <div  class="sitepopup-default-bfss-content">
+        <div class="popup_header change_password_header">
+          <h3>Alert! 
+            <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true" data-dismiss="modal"></i>
+          </h3>
+        </div>
+        <div class="success-msg">The event you are looking for book is not available! Please select another.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>';
     return [
       '#type' => 'markup',
-      '#markup' => $this->t('The event you are looking for book is not available! Please select another.'),
+      '#markup' => Markup::create($popupmess),
       '#attached' =>[
         'library' => [
           'bfss_assessment/custom',
@@ -93,6 +113,8 @@ class AssessmentController extends ControllerBase {
       ],
     ];
   }
+
+ 
 
   /**
    * @return markup

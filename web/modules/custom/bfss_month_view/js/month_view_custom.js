@@ -1,5 +1,9 @@
 
 jQuery(document).ready(function(){
+  jQuery('body').on('click',".share a.share_assessment",function(){
+      jQuery(".social_share_links").toggle('slow');
+      console.log("here toogle");
+  });
    jQuery('body').on('click','.use-ajax',function(){
      var nid = jQuery(this).attr('href').replace('#','');
     // console.log(nid);
@@ -12,12 +16,12 @@ jQuery(document).ready(function(){
             //  console.log(data);
             // console.log('SDFSDF');
 
-            // console.log(data.modal);
+            console.log(data.modal);
             //  console.log(data.nid);
-            //if(data){
-                //jQuery("#calpopup-plx").html(data.modal); 
-               // jQuery('#myModal').modal('show');
-            //} 
+            if(data){
+                jQuery("#calpopup-plx").html(data.modal); 
+               jQuery('#myModal').modal('show');
+            } 
           },
           error :function (data){
           //  console.log(data);

@@ -14,6 +14,9 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Ajax\InvokeCommand;
 use \Drupal\user\Entity\User;
 use Drupal\file\Entity\File;
+use \Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\date_popup\DatePopup;
+use Drupal\date_popup\DatetimePopup;
 /**
  * Class AddGroupAssessmentsForm.
  */
@@ -61,9 +64,7 @@ class AddGroupAssessmentsForm extends FormBase {
     $form['#prefix'] = '<div class="main_section_plx left_full_width_plx">';
     $form['#suffix'] = '</div>';
  
-    
   
-    
     $form['left_section_start'] = [
       '#type' => 'markup',
       '#markup' => '<div class="left_section">',
@@ -76,7 +77,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#required' => TRUE,
         '#default_value' => '',
         '#prefix' => '<div class="athlete_left">
-                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Assessment Informations</h3>
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Assessment Information</h3>
                        <div class="items_div" style="">',
         '#suffix' => '',
     ];
@@ -171,7 +172,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#prefix' => '',
         '#suffix' => '</div>
         </div><div class="athlete_left schedule_plx">
-                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHEDULES</h3>
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHEDULE</h3>
                        <div class="items_div" style="">',
       ];
     $form['resident'] = [
@@ -185,16 +186,34 @@ class AddGroupAssessmentsForm extends FormBase {
       //$states = $this->get_state();
      
 
-      $form['resident'][$i]['field_timing'] = [
-        '#type' => 'datetime',
-        '#placeholder' => t('Timing'),
+      $form['resident'][$i]['field_date'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Select Date'),
         '#required' => TRUE,
-        '#default_value' => '',
+        #'#default_value' => date('m/d/Y'),
+        '#format' => 'm/d/Y',
+        '#attributes' => array('id' => array('datepicker')),
         '#prefix' => '<div class="date_duration">',
       ];
-       $form['resident'][$i]['field_duration'] = [
-        '#placeholder' => t('Duration'),
-        '#type' => 'number',
+
+      $time = $this->gettime();
+      $time = ['' => 'Start Time'] + $time;
+      $form['resident'][$i]['field_time'] = [
+        '#type' => 'select',
+        '#options' => $time,
+        '#placeholder' => t('Start Time'),
+        '#required' => TRUE,
+        '#default_value' => '',
+      ];
+
+      $hours = [];
+      for ($i=1; $i <=5 ; $i++) { 
+        $hours[$i]=$i;
+      }
+      $form['resident'][$i]['field_duration'] = [
+        '#placeholder' => t('Duration (Hours)'),
+        '#options' => $hours,
+        '#type' => 'select',
         '#required' => TRUE,
         '#suffix' => '</div>',
       ];
@@ -302,23 +321,25 @@ class AddGroupAssessmentsForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-
-  
+  // print_r($form_state->getValues('resident')['resident']);
+  // die("working");
     $img_id = isset($form_state->getValue('image')[0]) ? $form_state->getValue('image')[0] : '';
     // print_r($img_id);
     // die;
     if(!empty($form_state->getValues('resident')['resident'])){
                 $data=[];
-               foreach($form_state->getValues('resident')['resident'] as $values) {   
-                if(!empty($values['field_timing'])){
+               foreach($form_state->getValues('resident')['resident'] as $values) { 
+                  print_r(strtotime($values['field_date'].$values['field_time']));die;
+
+                if(!empty($values['field_duration'])){
                   $data[] = [
                       'field_duration' => $values['field_duration'],
-                      'field_timing' => $values['field_timing']->getTimestamp(),
+                      'field_timing' => strtotime($values['field_date'].$values['field_time']),
                     ]; 
                 }    
                }
-    
-
+           
+              
             $paragraph_items = []; 
             foreach($data as $ar){
               $paragraph = Paragraph::create([
@@ -470,5 +491,15 @@ class AddGroupAssessmentsForm extends FormBase {
         'WI'=> t('WI'),
         'WY'=> t('WY'));
       }
+       public function gettime(){
+          $start_time = "05:00:00";
+          $end_time = "23:00:00";
+          $time_op=[];
+          while(strtotime($start_time) < strtotime($end_time)){
+             $start_time = date("H:i:s", strtotime("$start_time +30 minutes"));
+             $time_op[$start_time] = date("H:i A", strtotime($start_time));
+          }//end while
+          return $time_op;
+       }
 
 }

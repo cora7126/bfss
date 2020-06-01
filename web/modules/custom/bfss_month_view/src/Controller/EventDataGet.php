@@ -35,7 +35,7 @@ class EventDataGet extends ControllerBase {
 					 $duration = $pGraph->get('field_duration')->value;
 					 $event_data[] = [
 					 	'id'=>$nid,
-					   'title' => $data['title'],
+					   'title' => substr($data['title'], 0, 10).'...',
 					   //'date' => $date,
 					   'url' => '#'.$nid,
 					   'start' => $time,

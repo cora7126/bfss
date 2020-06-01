@@ -2028,7 +2028,6 @@ input#name_1{width:70%;}
 .right_section .popupimage .image-widget .data button{padding:6px 16px;font-size:14px;line-height:normal;}
 .edit-user .spb-popup-main-wrapper.spb_top_center .popupimage .image-widget .data{bottom:10px;right:100px;width:auto !important;background:unset;padding:0;display:block;top:unset;}
 .edit-user .imagepopup-modal .spb-popup-main-wrapper.spb_top_center,.edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center{max-width:320px;width:100%;}
-.popup_header.change_password_header{padding:0;}
 .edit-user .changepassdiv-modal .spb-popup-main-wrapper.spb_top_center h3 i{background:none;border:0;color:#EB6E06;padding:0;}
 .change_password_header h3 > i.changepassdiv-modal-close{margin:0;}
 #changepassdiv .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}

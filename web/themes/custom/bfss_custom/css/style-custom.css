@@ -34,9 +34,10 @@ html body{margin-top:0 !important;padding:0 !important;}
 /**************** DASHBOARD MAIN CONTENT LAYOUT CSS ENDS HERE *******************/
 	
 /*********** SITE DEFAULT BUTTON CSS STARTS HERE *************/
-i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor: pointer;}
-.btn.button{border:1px solid #EB6E06;background:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;height:35px;line-height:23px;padding:5px 20px;font-size:14px;}
-.btn.button:hover, .btn.button:focus{box-shadow:none;outline:0;border:1px solid #EB6E06;background:#EB6E06;opacity:.8;}
+i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor:pointer;}
+.block-month-view-block .fc-toolbar h2{color:#EB6E06;}
+.btn.button, .block-month-view-block .fc-button-primary{border:1px solid #EB6E06;background:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;height:35px;line-height:23px;padding:5px 20px;font-size:14px;}
+.btn.button:hover, .btn.button:focus, .block-month-view-block .fc-button-primary:hover, .block-month-view-block .fc-button-primary:focus, .block-month-view-block .fc-button-primary:active, .fc-button-primary:not(:disabled):active:focus, .fc-button-primary:not(:disabled).fc-button-active:focus{box-shadow:none;outline:0;border:1px solid #EB6E06;background:#EB6E06;opacity:.8;}
 .form-actions.js-form-wrapper a.btn{margin:0 15px 0 0;}
 .form-actions.js-form-wrapper a.btn, .form-actions.js-form-wrapper button.button{outline:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;height:35px;border:1px solid #f4650f;font-size:14px;line-height:20px;opacity:1;}
 .form-actions.js-form-wrapper a.btn:hover, .form-actions.js-form-wrapper a.btn:focus, .form-actions.js-form-wrapper button.button:hover, .assessment-time .form-actions.js-form-wrapper button.button:focus{color:#fff;opacity:.8;outline:0;box-shadow:none;}
@@ -859,13 +860,13 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .block-bfss-month-view #calendar{max-width:100%;}
 /* #calendar .fc-toolbar.fc-header-toolbar{display:none;}*/
 #calendar .fc-content-skeleton thead tr td, #calendar .fc-content-skeleton tbody tr td{padding:5px 10px;}
-#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event{background:transparent;border:0;margin:0;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event{background:transparent;border:0;margin:0;padding:0;}
 #calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
-#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-time{-moz-order:2;-webkit-order:2;order:2;}
-#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-title{-moz-order:1;-webkit-order:1;order:1;/*white-space:normal;*/}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-time{-moz-order:2;-webkit-order:2;order:2;display:block;color:#000;font-weight:normal;width:100%;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-title{-moz-order:1;-webkit-order:1;order:1;white-space:normal;display:block;width:100%;}
 #calendar .fc-content-skeleton tbody tr td .fc-title{color:#EB6E06;}
 
-.assessments-popup-md .modal-header.ui-dialog-titlebar{position:absolute;width:100%;left:0;top:0;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
+.assessments-popup-md .modal-header.ui-dialog-titlebar{position:absolute;width:100%;left:0;top:0;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;border:0;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close{padding:0;margin:0;top:10px;position:relative;height:30px;width:30px;right:0;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span{color:#6d6e72;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:hover, .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:focus{color:#EB6E06;}
@@ -897,6 +898,9 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .date_duration #edit-resident-0-field-timing{display:inline-block;float:left;}
 .wrapper form#multistep-form-two .form-actions{margin:20px 0;}
 
+.sucss-popup.slot-not-available .sitepopup-wrap .spb-popup-main-wrapper.spb_top_center{max-width:100%;width:100%;}
+.popup_header.change_password_header h3 i{color:#EB6E06;background:transparent;}
+.popup_header.change_password_header{padding:0;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -925,6 +929,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.html_body_wrap .form-item.js-form-item.form-type-select, .html_body_wrap .form-item.js-form-item.form-type-select select{width:100%;}
 	.html_body_wrap .form-item.js-form-item .filter-help{width:100%;float:left;padding:0 15px 10px;}
 	.html_body_wrap > .js-form-item.form-item .js-filter-wrapper.filter-wrapper{height:auto;}
+	.block-month-view-block .fc-toolbar h2{font-size:1.4rem;}
 }
 
 @media(min-width:580px) and (max-width:767px) {	
