@@ -107,3 +107,27 @@ bfss_manager.deactive_user_status:
     _access: 'TRUE' 
 
 
+
+bfss_manager.get_tags_data:
+  path: '/get-tags'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\TagsDataGet::tags_data_get'
+    _title: 'Get tags'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_manager.get_categories_data:
+  path: '/get-categories'
+  defaults:
+    _controller: 'Drupal\bfss_manager\Controller\TagsDataGet::categories_data_get'
+    _title: 'Get categories'
+  requirements:
+    _access: 'TRUE' 
+
+bfss_manager.get_location_autocomplete:
+  path: '/get-location-autocomplete/{field_name}/{count}'
+  defaults:
+    _controller: '\Drupal\bfss_manager\Controller\GetLoactionAutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _access: 'TRUE'
