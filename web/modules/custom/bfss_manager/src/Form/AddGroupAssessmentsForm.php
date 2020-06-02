@@ -46,6 +46,9 @@ class AddGroupAssessmentsForm extends FormBase {
   // Resident count
   protected $residentCount = 0;
 
+  // category count
+  protected $categoryCount = 0;
+
   /**
    * {@inheritdoc}
    */
@@ -60,7 +63,7 @@ class AddGroupAssessmentsForm extends FormBase {
     $session = $this->getRequest()->getSession();
 
     $form['#tree'] = TRUE;
-
+    $form['#attached']['library'][] = 'bfss_manager/tokenize2';       //here can add library
     $form['#prefix'] = '<div class="main_section_plx left_full_width_plx">';
     $form['#suffix'] = '</div>';
  
@@ -116,6 +119,8 @@ class AddGroupAssessmentsForm extends FormBase {
         '#prefix' => '',
         '#suffix' => '',
     ];
+
+     
 
   $form['location'] = [
         '#type' => 'textfield',
@@ -175,6 +180,8 @@ class AddGroupAssessmentsForm extends FormBase {
                         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHEDULE</h3>
                        <div class="items_div" style="">',
       ];
+
+
     $form['resident'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'resident-details'],
@@ -190,7 +197,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Select Date'),
         '#required' => TRUE,
-        #'#default_value' => date('m/d/Y'),
+        '#default_value' => date('m/d/Y'),
         '#format' => 'm/d/Y',
         '#attributes' => array('id' => array('datepicker')),
         '#prefix' => '<div class="date_duration">',
@@ -203,19 +210,24 @@ class AddGroupAssessmentsForm extends FormBase {
         '#options' => $time,
         '#placeholder' => t('Start Time'),
         '#required' => TRUE,
-        '#default_value' => '',
+        '#default_value' =>'',
+        '#prefix' => '<div class="box niceselect times">',
+        '#suffix' => '</div>',
       ];
 
       $hours = [];
-      for ($i=1; $i <=5 ; $i++) { 
-        $hours[$i]=$i;
+      for ($k=1; $k <=5 ; $k++) { 
+        $hours[$k]=$k;
       }
+      $hours1 = ['' => 'Duration (Hours)'] + $hours;
       $form['resident'][$i]['field_duration'] = [
         '#placeholder' => t('Duration (Hours)'),
-        '#options' => $hours,
+        '#options' => $hours1,
         '#type' => 'select',
         '#required' => TRUE,
-        '#suffix' => '</div>',
+         '#prefix' => '<div class="box niceselect duration">',
+       
+        '#suffix' => '</div></div>',
       ];
 
 
@@ -265,7 +277,38 @@ class AddGroupAssessmentsForm extends FormBase {
         </div>'
     ];
 
+    //categories  strat
+    // $form['category'] = [
+    //   '#type' => 'container',
+    //   '#attributes' => ['id' => 'category-details'],
+    // ];
+    //  for ($j = 0; $j <= $this->categoryCount; $j++) {
+    //   $form['category'][$j]['field_date1'] = [
+    //     '#type' => 'textfield',
+    //     '#placeholder' => t('Select Date'),
+    //   ];
+
+    //  }
+    // $form['category']['actions1'] = [
+    //   '#type' => 'actions',
+    // ];
+
+    // $form['category']['actions1']['add_item1'] = [
+    //   '#type' => 'submit',
+    //   '#value' => Markup::create('<p><i class="fa fa-plus"></i>Add another<p>'),
+    //   '#submit' => ['::addCategory'],
+    //   '#limit_validation_errors' => [],
+    //   '#ajax' => [
+    //     'callback' => '::categoriesAjaxCallback',
+    //     'wrapper' => 'category-details',
+    //     'disable-refocus' => TRUE
+    //   ],
+    // ];
+    //categories end 
+
+
     $form['image'] = [
+      '#title' => 'EVENT IMAGE',
       '#type' => 'managed_file',
       '#upload_validators' => [
         'file_validate_extensions' => ['gif png jpg jpeg'],
@@ -282,6 +325,89 @@ class AddGroupAssessmentsForm extends FormBase {
         'class' => ['imageuplode1']
       ],
     ];
+
+    $cat_vid = 'categories';
+    $cat_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($cat_vid);    
+    $cat_arr = [];
+    foreach ($cat_terms as $cat_term) {
+     $cat_arr[$cat_term->tid] = $cat_term->name;
+    }
+    $form['categories'] = [
+        '#type' => 'select',
+        '#options' => $cat_arr,
+        '#placeholder' => t('categories'),
+        #'#required' => TRUE,
+         '#multiple' => TRUE,
+        '#default_value' => 37,
+       '#prefix' => '<div class="athlete_left">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Categories</h3>
+                       <div class="items_div">',
+        '#suffix' => '</div></div>',
+        '#attributes' => array('class' => 'tokenize-remote-demo1'),
+    ];
+    /*
+    *Venue Start from here
+    */
+      // $Venue['venu_state'] = 'AZ';
+      // $venu_state =  isset($Venue['venu_state']) ? $Venue['venu_state'] : 'AZ';
+      // $location_N = $this->Get_location_For_default($type_org_3);
+      // $type__3 = isset($type_org_3)?$type_org_3:'school';
+      // $type_organization_3 = isset($form_state_values['education_2'])?$form_state_values['education_2']:$type__3;
+      $form_state_values = $form_state->getValues();
+      $venue_state = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:'AZ';
+
+      $venue_state_op = $this->getStates();
+      $form['venue_state'] = array(
+        '#type' => 'select',
+        '#options' => $venue_state_op,
+        #'#attributes' => array('class' => array('full-width-inp')),
+        '#prefix' => '<div class="athlete_left">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Location (Cities)</h3>
+                       <div class="items_div">',
+         '#suffix' => '',
+       # '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
+        '#ajax' => [
+          'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-2', // This element is updated with this AJAX callback.
+        ]
+        );
+
+        
+        $form['venue_loaction'] = [
+            '#type' => 'textfield',
+            '#placeholder' => t('Orginization Name'),
+            '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+            '#autocomplete_route_parameters' => array('field_name' => $venue_state, 'count' => 10), 
+            '#prefix' => '<div id="edit-output-2" class="org-3">',
+            '#suffix' => '</div></div></div>',
+            #'#default_value' => $athlete_uni['athlete_uni_name'],
+        ];
+    /*
+    *Venue end from here
+    */
+    $tags_vid = 'tags';
+    $tags_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($tags_vid);    
+    $tags_arr = [];
+    foreach ($tags_terms as $tags_term) {
+     $tags_arr[$tags_term->tid] = $tags_term->name;
+    }
+    $form['tags'] = [
+        '#type' => 'select',
+        '#options' => $tags_arr,
+        '#placeholder' => t('tags'),
+        #'#required' => TRUE,
+         '#multiple' => TRUE,
+        '#default_value' => 31,
+       '#prefix' => '<div class="athlete_left">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Tags</h3>
+                       <div class="items_div">',
+        '#suffix' => '</div></div>',
+        '#attributes' => array('class' => 'tokenize-remote-demo1'),
+    ];
+
+    
 
 
     $form['left_section_end'] = [
@@ -306,6 +432,16 @@ class AddGroupAssessmentsForm extends FormBase {
     return $form;
   }
 
+  //categories strat from here
+  function categoriesAjaxCallback(&$form, FormStateInterface $form_state) {
+    return $form['category'];
+  }
+
+  function addCategory(&$form, FormStateInterface $form_state) {
+    $this->categoryCount++;
+    $form_state->setRebuild();
+  }
+  //categories end from here
 
 
   /**
@@ -320,26 +456,22 @@ class AddGroupAssessmentsForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+  
 
-  // print_r($form_state->getValues('resident')['resident']);
-  // die("working");
     $img_id = isset($form_state->getValue('image')[0]) ? $form_state->getValue('image')[0] : '';
-    // print_r($img_id);
-    // die;
+   
     if(!empty($form_state->getValues('resident')['resident'])){
                 $data=[];
                foreach($form_state->getValues('resident')['resident'] as $values) { 
-                  print_r(strtotime($values['field_date'].$values['field_time']));die;
-
-                if(!empty($values['field_duration'])){
+                $date = new DrupalDateTime($values['field_date'].$values['field_time']);
+                if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
                   $data[] = [
                       'field_duration' => $values['field_duration'],
-                      'field_timing' => strtotime($values['field_date'].$values['field_time']),
+                      'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
                     ]; 
                 }    
                }
-           
-              
+         
             $paragraph_items = []; 
             foreach($data as $ar){
               $paragraph = Paragraph::create([
@@ -372,6 +504,19 @@ class AddGroupAssessmentsForm extends FormBase {
             $node->field_zip_us->value = $form_state->getValue('zip');
 
             $node->field_image[] = ['target_id' => $img_id, 'alt'=> 'img'];
+
+            if(!empty($form_state->getValue('categories'))){
+              foreach ($form_state->getValue('categories') as $key => $target_id) {
+                $node->field_categories[] = ['target_id' => $target_id];
+              }
+            }
+            
+            if(!empty($form_state->getValue('tags'))){
+              foreach ($form_state->getValue('tags') as $key => $target_id) {
+                $node->field_event_tags[] = ['target_id' => $target_id];
+              }
+            }
+
             $node->save();
 
             //drupal_set_message(t('Successfully inserted Assessment.'), 'success');
@@ -438,6 +583,10 @@ class AddGroupAssessmentsForm extends FormBase {
     $form_state->setRebuild();
   }
 
+public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
+        //ORG-3   
+  return  $form['venue_loaction']; 
+}
    function getStates() {
         return $states=array(
         'AL'=> t('AL'),

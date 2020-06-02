@@ -11,11 +11,13 @@ html body{margin-top:0 !important;padding:0 !important;}
 .form-item input:hover, .form-item input:focus{outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
 .modal-header .close{z-index:1;opacity:1;}
 .close span{font-size:30px;color:#EB6E06;text-shadow:none;}
-#edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus{box-shadow:none;outline:0;}
+#edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus, .nice-select.form-select > span:hover, .nice-select.form-select > span:focus, .select-wrapper .nice-select.form-select:hover, .select-wrapper .nice-select.form-select:focus{box-shadow:none;outline:0;}
 #edit-actions button.save-button-plx{font-size:14px;background-color:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;height:40px;margin:10;}
 
-.wrapper form input[type="text"], .wrapper form input[type="email"], .wrapper form input[type="number"], .wrapper form select, .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;}
-.right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select, .wrapper form select{background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
+.select-wrapper .nice-select.form-select{height:auto;padding:0;position:relative;z-index:999;}
+.nice-select.form-select > span{opacity:.6;}
+.nice-select.form-select > span, .wrapper form input[type="text"], .wrapper form input[type="email"], .wrapper form input[type="number"], .wrapper form select, .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;display:block;}
+.nice-select.form-select > span, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select, .wrapper form select{padding:7px 40px 7px 8px;background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
 .left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;padding:10px;}
 /**************** DASHBOARD HEADER CSS STARTS HERE *******************/
 .dashboard .custom-nav-box{display:block;}
@@ -901,6 +903,19 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .sucss-popup.slot-not-available .sitepopup-wrap .spb-popup-main-wrapper.spb_top_center{max-width:100%;width:100%;}
 .popup_header.change_password_header h3 i{color:#EB6E06;background:transparent;}
 .popup_header.change_password_header{padding:0;}
+
+.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:25%;}
+.add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list{width:100%;margin:0;border:1px solid #ced4da;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;background:#fff;max-height:285px;overflow-x:hidden;overflow-y:auto;}
+.add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list li{width:100%;float:left;display:block;border-bottom:1px solid #ced4da;font-size:14px;}
+.add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list li:last-child{border:0;}
+.add-assessments .tokenize > .tokens-container > .token{padding:5px 25px 5px 10px;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;font-size:12px;}
+.add-assessments .tokenize > .tokens-container > .token > .dismiss{font-size:20px;line-height:18px;right:7.5px;}
+.tokenize-dropdown.dropdown > .dropdown-menu{max-height:100%;padding:15px;}
+.tokenize-dropdown.dropdown > .dropdown-menu li{border:0;}
+.tokenize-dropdown.dropdown > .dropdown-menu li a{display:block;width:100%;border:0;}
+.tokenize-dropdown.dropdown > .dropdown-menu li.active{background:#EB6E06;border:0;}
+.tokenize-dropdown.dropdown > .dropdown-menu li.active a{color:#fff;}
+.tokenize-dropdown.dropdown > .dropdown-menu li a:hover, .tokenize-dropdown.dropdown > .dropdown-menu li a:focus{background:transparent;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -930,11 +945,13 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.html_body_wrap .form-item.js-form-item .filter-help{width:100%;float:left;padding:0 15px 10px;}
 	.html_body_wrap > .js-form-item.form-item .js-filter-wrapper.filter-wrapper{height:auto;}
 	.block-month-view-block .fc-toolbar h2{font-size:1.4rem;}
+	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:100%;}
 }
 
 @media(min-width:580px) and (max-width:767px) {	
 	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:calc(50% - 15px);}	
 	div#upcoming_bk, .bfssmanager-dashboard div#upcoming_bk{grid-template-columns:1fr 1fr !important;}
+	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:30%;}
 }	
 
 @media (max-width:767px) {
@@ -964,6 +981,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 
 @media (min-width:768px) and (max-width:1023px) {
 	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:250px;flex: 0 0 250px;max-width:250px;}
+	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:30%;}
 }
 @media (min-width:768px) {
 	.add-assessments .form-actions.js-form-wrapper .athlete_submit{position:fixed;bottom:5px;right:0;width:auto;}

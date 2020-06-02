@@ -65,7 +65,7 @@ class DefaultController extends ControllerBase {
           ->view($block);
         $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
 
-
+        //$assessments_block = "here";
         //Month view block
         $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
         $block_content_m_v = \Drupal::entityManager()

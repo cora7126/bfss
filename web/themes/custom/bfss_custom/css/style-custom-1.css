@@ -50,6 +50,9 @@ input#edit-position-22 {
     margin-bottom: 30px;
 }
 
+.add-group-assessments .form-item-image label {
+    color: #f4650f;
+}
 .edit-user .fa.fa-times.right-icon.changepassdiv-modal-close.spb_close {
     top: 24px;
 }

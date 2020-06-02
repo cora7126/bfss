@@ -5,3 +5,12 @@ bfss_manager_lib:
       css/bfss_manager_custom.css: {}
   js:
     js/bfss_manager_custom.js: {}
+
+tokenize2:
+  version: 1.x
+  css:
+    layout:
+      css/tokenize2.min.css: {}
+  js:
+    js/tokenize2.min.js: {}
+    js/tokenize2.custom.js: {}
