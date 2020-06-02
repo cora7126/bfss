@@ -51,7 +51,7 @@ class PendingAssessmentsForm extends FormBase {
   public function getFormField($fieldName, $fieldColumn, $defaultValue = '', $placeholder = '', $units='') {
     $fieldAry = [];
 
-    $style = ($fieldColumn == 0) ? 'width: 62%;' : 'position: absolute; width: 42%; right: 7.1%;';
+    $style = ($fieldColumn == 0) ? 'width: 62%;' : 'position: absolute; width: 42%; right: 7.2%;';
 
     $fieldAry[$fieldName] = array(
       '#type' => 'textfield',
@@ -59,22 +59,26 @@ class PendingAssessmentsForm extends FormBase {
       #'#required' => TRUE,
       '#attributes' => array(
         'placeholder' => t($placeholder),
-        'style' => $style,
+        'style' => 'height: calc(1.4em + 0.3rem + 2px); ' . $style,
       ),
     );
 
     if ($units) {
-      $style = ($fieldColumn == 0) ? 'width: 62%;' : 'position: absolute; width: 42%; right: 7.1%;';
-      $fieldAry[$fieldName.$units] = array(
+      $style = ($fieldColumn == 0) ? 'right: 50.3%' : 'right: 7.4%;';
+      $fieldWidth = 5;
+      $fieldWidth += strlen($units) > 5 ? (strlen($units) * 0.3) : 0;
+      $fieldWidth = $fieldWidth . '%';
+      $fieldAry[$fieldName.'_unit'] = array(
         '#type' => 'textfield',
         '#default_value' => $units,
         '#attributes' => array(
-          'style' => 'font-size: 1.05em; background-color: grey;color: white; padding: 1px 3px; position: absolute; font-family: courier new; font-weight: bold; margin-top: -23px; ' . $style,
+          'tabindex' => '100',
+          'readonly' => 'true',
+          'style' => 'height: calc(1.2em + 0.3rem + 2px); text-align: center; margin-top: 1px; border: 1px solid white; background-color: grey; color: white; width: ' . $fieldWidth . '; padding: 0 2px; position: absolute; font-size: 1.12em; font-family: "Agency FB" !important; text-align: center;' . $style
         ),
-      );
+      );  
     }
 
-    // TODO: <div style="font-size: 1.05em; background-color: grey;color: white; padding: 1px 3px; position: absolute; font-family: courier new; font-weight: bold; margin-top: -23px; right: 51.6%;">In</div>
     return $fieldAry;
   }
 
@@ -96,7 +100,7 @@ class PendingAssessmentsForm extends FormBase {
     {
             //jody - use this to extract "professional" (because $formtype only contains 'starter' OR 'elite')
             $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-
+            
             $sport = $param['sport'] || $entity->mydata->field_sport->value;
             // $tmp_user_id = $entity->user_id->value;
 
@@ -122,7 +126,7 @@ class PendingAssessmentsForm extends FormBase {
                $form_title = 'ELITE ASSESSMENT';
             }
 
-
+            
             // session_start();
             // $_SESSION['jjj'] = var_export($entity, TRUE);
             // $form_title .= var_export($param, TRUE);
@@ -199,51 +203,51 @@ class PendingAssessmentsForm extends FormBase {
             * ****************************/
 
 
-            if($realFormType == 'starter')
+            if($realFormType == 'starter') 
             {
-              //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+              //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
               $form['field_wrap_1'] = array(
                 '#type' => 'fieldset',
                 #'#title' => $this->t('<div style="text-align: center;"></div>'),
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
-
-
+  
+      
 
               $fieldName = 'field_age';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'AGE'); // 1
               $fieldName = 'field_sport';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'SPORT'); // 2
-
+  
               $fieldName = 'field_weight';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'WEIGHT (Lbs)', 'Lbs'); // 3
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'WEIGHT', 'Lbs', 'Lbs'); // 3
               $fieldName = 'field_sex';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'SEX'); // 4
-
-
-              $fieldName = 'starter_weight_rea_str';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'REACTIVE STRENGTH (In)'); // 5
+  
+              
+              $fieldName = 'field_jump_height_in_reactive';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'REACTIVE STRENGTH', 'In'); // 5
               $fieldName = 'field_jump_height_in_elastic';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ELASTIC STRENGTH (In)'); // 6
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ELASTIC STRENGTH', 'In'); // 6
 
               $fieldName = 'field_jump_height_in_ballistic';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'BALLISTIC STRENGTH (In)'); // 7
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'BALLISTIC STRENGTH', 'In'); // 7
               $fieldName = 'field_10m_time_sec_sprint';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ACCELERATION/SPEED (Sec)'); // 8
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ACCELERATION/SPEED', 'Sec'); // 8
 
               $fieldName = 'field_peak_force_n_maximal';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'MAXIMAL STRENGTH (N)');  // 9
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'MAXIMAL STRENGTH', 'N');  // 9
               $fieldName = 'field_rsi_reactive';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) REACTIVE STRENGTH (In)'); // 10
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) REACTIVE STRENGTH', 'In'); // 10
 
-              $fieldName = 'starter_weight_rea_str_B';
+              $fieldName = 'field_rsi_reactive_B';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(B) REACTIVE STRENGTH'); // 11
               $fieldName = 'field_elite_age_E';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ELITE PERFORMERS AGE (Yrs)'); // *ELITE PERFORMERS AGE
             }
 
-            else if($realFormType == 'professional')
+            else if($realFormType == 'professional') 
             {
 
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ASSESSMENT TABLE
@@ -254,31 +258,41 @@ class PendingAssessmentsForm extends FormBase {
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
-
+     
+              $fieldName = 'field_age';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'AGE'); // 1
+              $fieldName = 'field_sport';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'SPORT'); // 2
+  
+              $fieldName = 'field_weight';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'WEIGHT', 'Lbs', 'Lbs'); // 3
+              $fieldName = 'field_sex';
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'SEX'); // 4
+  
               $fieldName = 'field_jump_height_in_reactive';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'REACTIVE STRENGTH (In)'); // 5
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'REACTIVE STRENGTH', 'In'); // 5
               $fieldName = 'field_jump_height_in_elastic';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ELASTIC STRENGTH (In)'); // 6
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ELASTIC STRENGTH', 'In'); // 6
 
               $fieldName = 'field_jump_height_in_ballistic';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'BALLISTIC STRENGTH (In)'); // 7
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'BALLISTIC STRENGTH', 'In'); // 7
               $fieldName = 'field_10m_time_sec_sprint';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ACCELERATION/SPEED (Sec)'); // 8
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ACCELERATION/SPEED', 'Sec'); // 8
 
               $fieldName = 'field_peak_force_n_maximal';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'MAXIMAL STRENGTH (N)'); // 9
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'MAXIMAL STRENGTH', 'N'); // 9
               $fieldName = 'field_rsi_reactive';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) REACTIVE STRENGTH (In)'); // 10
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) REACTIVE STRENGTH', 'In'); // 10
 
               $fieldName = 'field_jump_height_in_elastic_E';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) ELASTIC STRENGTH (In)'); // 11
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) ELASTIC STRENGTH', 'In'); // 11
               $fieldName = 'field_jump_height_in_ballistic_E';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) BALLISTIC STRENGTH (In)'); // 12
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) BALLISTIC STRENGTH', 'In'); // 12
 
               $fieldName = 'field_10m_time_sec_sprint_E';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) ACCELERATION/SPEED (Secs)'); // 13
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) ACCELERATION/SPEED', 'Sec'); // 13
               $fieldName = 'field_peak_force_n_maximal_E';
-              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) MAXIMAL STRENGTH (Lbs)'); // 14
+              $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) MAXIMAL STRENGTH', 'Lbs'); // 14
 
               $fieldName = 'field_rsi_reactive_B';
               $form['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(B) REACTIVE STRENGTH'); // 15
@@ -297,7 +311,7 @@ class PendingAssessmentsForm extends FormBase {
 
 
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REBOUND JUMP
-
+          
               $form['field_wrap_2'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">REBOUND JUMP</div>'),
@@ -306,108 +320,108 @@ class PendingAssessmentsForm extends FormBase {
               );
 
               $fieldName = 'rebound_jump_rank';
-              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR RANK IS (Good, ...)'); // 20
+              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR RANK IS', 'Good'); // 20
               $fieldName = 'rebound_jump_rsi';
-              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'RSI SCORE (#.#)'); // 21
+              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'RSI SCORE', '#.#'); // 21
 
               $fieldName = 'rebound_jump_height';
-              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'JUMP HEIGHT (In)'); // 22
+              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'JUMP HEIGHT', 'In'); // 22
               $fieldName = 'rebound_jump_ground_contact_time';
-              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'GROUND CONTACT TIME (ms)'); // 23
+              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'GROUND CONTACT TIME', 'ms'); // 23
 
               $fieldName = 'rebound_jump_low_rsi';
-              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'LOW RSI (>1.5)'); // 24
+              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'LOW RSI', '>1.5'); // 24
               $fieldName = 'rebound_jump_medium_rsi';
-              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'MEDIUM RSI (1.5-2.0)'); // 25
+              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'MEDIUM RSI', '1.5-2.0'); // 25
 
               $fieldName = 'rebound_jump_high_rsi';
-              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'HIGH RSI (2.0-2.5)'); // 26
-
-
+              $form['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'HIGH RSI', '2.0-2.5'); // 26
+  
+              
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COUNTER MOVEMENT JUMP
-
+          
               $form['field_wrap_3'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">COUNTER MOVEMENT JUMP</div>'),
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
-
+  
               $fieldName = 'counter_movement_rank';
-              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR RANK IS (Good, ...)'); // 27
+              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR RANK IS', 'Good'); // 27
               $fieldName = 'counter_movement_cmj_height';
-              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'CMJ HEIGHT (In)'); // 28
-
+              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'CMJ HEIGHT', 'In'); // 28
+  
               $fieldName = 'counter_movement_cmj_height_E';
-              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) CMJ HEIGHT (In)'); // 29
+              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) CMJ HEIGHT', 'In'); // 29
               $fieldName = 'counter_movement_cmj_force';
-              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'CMJ PEAK FORCE (N)'); // 30
-
+              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'CMJ PEAK FORCE', 'N'); // 30
+  
               $fieldName = 'counter_movement_cmj_force_E';
-              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) CMJ PEAK FORCE (N)'); // 31
+              $form['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) CMJ PEAK FORCE', 'N'); // 31
 
-
+              
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SQUAT JUMP
-
+          
               $form['field_wrap_4'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">SQUAT JUMP</div>'),
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
-
+    
               $fieldName = 'squat_jump_rank';
               $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR RANK IS'); // 32
               $fieldName = 'squat_jump_jump_height';
-              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'JUMP HEIGHT (In)'); // 33
-
+              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'JUMP HEIGHT', 'In'); // 33
+    
               $fieldName = 'squat_jump_jump_height_E';
-              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) JUMP HEIGHT (In)'); // 34
+              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) JUMP HEIGHT', 'In'); // 34
               $fieldName = 'squat_jump_force';
-              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'PEAK FORCE (N)'); // 35
-
+              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'PEAK FORCE', 'N'); // 35
+    
               $fieldName = 'squat_jump_force_E';
-              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) PEAK FORCE (M)'); // 36
+              $form['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) PEAK FORCE', 'M'); // 36
 
-
+              
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EUR SCORE
-
+          
               $form['field_wrap_5'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">EUR SCORE</div>'),
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
-
+  
               $fieldName = 'eur_score';
               $form['field_wrap_5'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR EUR SCORE'); // 37
 
-
+              
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 10M/40M SPRINT
-
+          
               $form['field_wrap_6'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">10M/40M SPRINT</div>'),
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
-
+    
               $fieldName = 'sprint_rank';
               $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR RANK IS'); // 38
               $fieldName = 'sprint_10m';
-              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '10M SPRINT (Secs)'); // 39
-
+              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '10M SPRINT', 'Sec'); // 39
+    
               $fieldName = 'sprint_10m_E';
-              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) 10M SPRINT (Secs)'); // 40
+              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) 10M SPRINT', 'Sec'); // 40
               $fieldName = 'sprint_40m';
-              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '40M SPRINT (Secs)'); // 41
-
+              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '40M SPRINT', 'Sec'); // 41
+    
               $fieldName = 'sprint_40m_E';
-              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) 40M SPRINT (Secs)'); // 42
+              $form['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) 40M SPRINT', 'Sec'); // 42
 
-
+            
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MID-THIGH PULL
-
+          
               $form['field_wrap_7'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">MID-THIGH PULL</div>'),
@@ -418,26 +432,26 @@ class PendingAssessmentsForm extends FormBase {
               $fieldName = 'mid_thigh_rank';
               $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR RANK IS'); // 43
               $fieldName = 'mid_thigh_your_weight';
-              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'YOUR WEIGHT (LBS)'); // 44
+              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'YOUR WEIGHT', 'Lbs'); // 44
 
               $fieldName = 'mid_thigh_abs_strength_n';
-              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'ABSOLUTE STRENGTH (N)'); // 45
+              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'ABSOLUTE STRENGTH', 'N'); // 45
               $fieldName = 'mid_thigh_abs_strength_lbs';
-              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ABSOLUTE STRENGTH (LBS)'); // 46
+              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'ABSOLUTE STRENGTH', 'Lbs'); // 46
 
               $fieldName = 'mid_thigh_abs_strength_n_E';
-              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) ABSOLUTE STRENGTH (N)'); // 47
+              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) ABSOLUTE STRENGTH', 'N'); // 47
               $fieldName = 'mid_thigh_abs_strength_lbs_E';
-              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) ABSOLUTE STRENGTH (LBS)'); // 48
+              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) ABSOLUTE STRENGTH', 'Lbs'); // 48
 
               $fieldName = 'mid_thigh_rel_strength';
-              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'RELATIVE STRENGTH (%)'); // 49
+              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'RELATIVE STRENGTH', '%'); // 49
               $fieldName = 'mid_thigh_rel_strength_E';
-              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) RELATIVE STRENGTH (%)'); // 50
+              $form['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) RELATIVE STRENGTH', '%'); // 50
 
-
+              
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ RATE OF FORCE
-
+          
               $form['field_wrap_8'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">RATE OF FORCE</div>'),
@@ -446,17 +460,17 @@ class PendingAssessmentsForm extends FormBase {
               );
 
               $fieldName = 'force_rate_peak';
-              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'PEAK FORCE (LBS)'); // 51
+              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'PEAK FORCE', 'Lbs'); // 51
               $fieldName = 'force_rate_your_weight';
-              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'YOUR WEIGHT (LBS)'); // 52
+              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'YOUR WEIGHT', 'Lbs'); // 52
 
               $fieldName = 'force_rate_peak_weight';
-              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'PEAK FORCE/BODY WEIGHT (#.#x)'); // 53
+              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'PEAK FORCE/BODY WEIGHT', '#.#x'); // 53
               $fieldName = 'force_rate_force_n';
-              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'FORCE (N)'); // 54
+              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'FORCE', 'N'); // 54
 
               $fieldName = 'force_rate_rfd';
-              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'RFD (%)'); // 55
+              $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'RFD', '%'); // 55
               $fieldName = 'force_rate_low_peak';
               $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'LOW PEAK FORCE'); // 56
 
@@ -464,10 +478,10 @@ class PendingAssessmentsForm extends FormBase {
               $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'MEDIUM PEAK FORCE'); // 57
               $fieldName = 'force_rate_high_peak';
               $form['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'HIGH PEAK FORCE'); // 58
-
-
+  
+              
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DYNAMIC STRENGTH INDEX
-
+          
               $form['field_wrap_9'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">DYNAMIC STRENGTH INDEX</div>'),
@@ -476,50 +490,50 @@ class PendingAssessmentsForm extends FormBase {
               );
 
               $fieldName = 'dynamic_strength_impt_peak';
-              $form['field_wrap_9'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'IMTP PEAK FORCE (N)'); // 59
+              $form['field_wrap_9'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'IMTP PEAK FORCE', 'N'); // 59
               $fieldName = 'dynamic_strength_cmj_peak';
-              $form['field_wrap_9'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'CMJ PEAK FORCE (N)'); // 60
+              $form['field_wrap_9'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'CMJ PEAK FORCE', 'N'); // 60
 
               $fieldName = 'dynamic_strength_dsi_score';
-              $form['field_wrap_9'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR DSI SCORE (.##)'); // 61
-
-
+              $form['field_wrap_9'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'YOUR DSI SCORE', '.##'); // 61
+  
+              
               //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SUMMARY
-
+          
               $form['field_wrap_91'] = array(
                 '#type' => 'fieldset',
                 '#title' => $this->t('<div style="text-align: center; font-weight: bold;">SUMMARY</div>'),
                 '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
                 '#suffix' => '</div>',
               );
-
+  
               $fieldName = 'summary_reactive';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'REACTIVE STRENGTH (#.#)'); // 62
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'REACTIVE STRENGTH', '#.#'); // 62
               $fieldName = 'summary_reactive_E';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) REACTIVE STRENGTH (#.#)'); // 63
-
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) REACTIVE STRENGTH', '#.#'); // 63
+  
               $fieldName = 'summary_reactive_B';
               $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(B) REACTIVE STRENGTH (##TH PERCENTILE)'); // 64
               $fieldName = 'summary_dynamic';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'DYNAMIC STRENGTH (#.#%)'); // 65
-
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'DYNAMIC STRENGTH', '#.#%'); // 65
+  
               $fieldName = 'summary_dynamic_E';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) DYNAMIC STRENGTH (#.#%)'); // 66
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) DYNAMIC STRENGTH', '#.#%'); // 66
               $fieldName = 'summary_dynamic_B';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(B) DYNAMIC STRENGTH (N/A)'); // 67
-
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(B) DYNAMIC STRENGTH', 'N/A'); // 67
+  
               $fieldName = 'summary_ecc';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'ECC. RATIO (#.##)'); // 68
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], 'ECC. RATIO', '#.##'); // 68
               $fieldName = 'summary_summary_ecc_E';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) ECC. RATIO (#.##)'); // 69
-
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(E) ECC. RATIO', '#.##'); // 69
+  
               $fieldName = 'summary_summary_ecc_B';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(B) ECC. RATIO (N/A)'); // 70
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(B) ECC. RATIO', 'N/A'); // 70
               $fieldName = 'summary_relative';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'RELATIVE STRENGTH (###LBS)'); // 71
-
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], 'RELATIVE STRENGTH', 'Lbs'); // 71
+  
               $fieldName = 'summary_relative_E';
-              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) RELATIVE STRENGTH (###LBS)'); // 72
+              $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, $defaultValues[$fieldName], '(E) RELATIVE STRENGTH', 'Lbs'); // 72
               $fieldName = 'summary_relative_B';
               $form['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, $defaultValues[$fieldName], '(B) RELATIVE STRENGTH (##TH PERCENTILE)'); // 73
 
@@ -528,7 +542,7 @@ class PendingAssessmentsForm extends FormBase {
 
 
 
-
+            
 
           //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx jody
           // 	//Reactive Strength (CM Rebound Jump)
@@ -590,7 +604,7 @@ class PendingAssessmentsForm extends FormBase {
           //     '#default_value' => $field_peak_propulsive_elastic,
           //     #'#required' => TRUE,
           //     '#attributes' => array(
-          //       'placeholder' => t('Peak Propulslve Force (N)'),
+          //       'placeholder' => t('Peak Propulslve Force', 'N'),
           //     ),
           //   );
           //   $form['form_fields_wrap']['elastic_strenght']['starter_peak_power_ela_str'] = array (
@@ -789,8 +803,8 @@ class PendingAssessmentsForm extends FormBase {
              $formtype_val = 'elete';
             }elseif($realFormType == 'starter'){
              $formtype_val = 'starter';
-            }else{
-              $formtype_val = '';
+            }elseif($realFormType == 'professional'){
+              $formtype_val = 'professional';
             }
 
             if($Assess_type == 'individual'){
@@ -830,13 +844,13 @@ class PendingAssessmentsForm extends FormBase {
               '#type' => 'hidden',
               '#value' => $last_name,
              );
-
+   
              $form['athelete_nid'] = array(
              '#type' => 'hidden',
              '#value' => $nid,
             );
 
-
+          
             $form['actions'] = array(
               '#type' => 'fieldset',
               '#attributes' => array(
@@ -847,7 +861,7 @@ class PendingAssessmentsForm extends FormBase {
             );
 
             $form['actions']['#type'] = 'actions';
-
+            
 
             $form['actions']['draft'] = array(
               '#type' => 'submit',
@@ -935,29 +949,30 @@ class PendingAssessmentsForm extends FormBase {
         //jjj added all "session" stuff here, to create pdf.
         session_start();
         $_SESSION['temp-session-form-values'] = [];
-
+        
   	  	foreach ($form_state->getValues() as $key => $value) {
-           $form_data[$key] = $value;
-           $_SESSION['temp-session-form-values'][$key] = $value;
+          if (!preg_match('/^(.+)_unit$/i', $key)) {
+              $form_data[$key] = $value;
+            $_SESSION['temp-session-form-values'][$key] = $value;
+          }
+        }
+  	  	foreach ($form_state->getValues() as $key => $value) {
+          if (preg_match('/^(.+)_unit$/i', $key, $matches)) {
+            if (isset($_SESSION['temp-session-form-values'][$matches[1]]) && $_SESSION['temp-session-form-values'][$matches[1]] != '') {
+              // add units to end - ie " lbs"
+              $_SESSION['temp-session-form-values'][$matches[1]] .= ' ' . $value;
+            }
+          }
         }
 
         // Form field to pdf field mappings:
         $_SESSION['temp-session-form-values']['FULL_NAME_TOP'] = $_SESSION['temp-session-form-values']['first_name'] . ' ' . $_SESSION['temp-session-form-values']['last_name'];
-        $_SESSION['temp-session-form-values']['field_weight'] .= @$_SESSION['temp-session-form-values']['field_weight'] ? ' Lbs' : '';
-        $_SESSION['temp-session-form-values']['starter_weight_rea_str'] .= @$_SESSION['temp-session-form-values']['starter_weight_rea_str'] ? ' In' : '';
-        $_SESSION['temp-session-form-values']['field_jump_height_in_elastic'] .= @$_SESSION['temp-session-form-values']['field_jump_height_in_elastic'] ? ' In' : '';
-        $_SESSION['temp-session-form-values']['field_jump_height_in_ballistic'] .= @$_SESSION['temp-session-form-values']['field_jump_height_in_ballistic'] ? ' In' : '';
-        $_SESSION['temp-session-form-values']['field_10m_time_sec_sprint'] .= @$_SESSION['temp-session-form-values']['field_10m_time_sec_sprint'] ? ' Sec' : '';
-        $_SESSION['temp-session-form-values']['field_peak_force_n_maximal'] .= @$_SESSION['temp-session-form-values']['field_peak_force_n_maximal'] ? ' N' : '';
-        $_SESSION['temp-session-form-values']['field_rsi_reactive'] .= @$_SESSION['temp-session-form-values']['field_rsi_reactive'] ? ' In' : '';
-        $_SESSION['temp-session-form-values']['field_elite_age_E'] .= @$_SESSION['temp-session-form-values']['field_elite_age_E'] ? ' y/o' : '';
-
 
 
         // Find the pdf template "fid" -- see /admin/structure/fillpdf
         switch ($_SESSION['temp-session-form-values']['form_type']) {
           case 'starter':
-            $pdf_template_fid = '3';
+            $pdf_template_fid = '5';
           break;
           case 'professional':
             $pdf_template_fid = '4';
@@ -966,43 +981,14 @@ class PendingAssessmentsForm extends FormBase {
             $pdf_template_fid = '5';
           break;
         }
-
+        
         $default_entity_id = $form_state->getValue('form_token'); // currently not used
 
         $publishMsg = @$_SESSION['temp-session-form-values']['save_published'] ? 'Saved and Published!' : 'Saved and Un-published!';
 
 
-        // 'field_age' => '22',
-        // 'field_sport' => 'foozeball',
-        // $_SESSION['temp-session-form-values']['field_weight' => '33',
-        // 'field_sex' => 'male',
-        // $_SESSION['temp-session-form-values']['starter_weight_rea_str' => '222',
-        // 'field_jump_height_in_elastic' => '333',
-        // 'field_jump_height_in_ballistic' => '444',
-        // 'field_10m_time_sec_sprint' => '555',
-        // 'field_peak_force_n_maximal' => '666',
-        // 'field_rsi_reactive' => '777',
-        // 'starter_weight_rea_str_B' => '888',
-        // 'field_elite_age_E' => '999',
-        // 'assessment_type' => 'individual',
-
-
-        // 'FULL_NAME_TOP'    => @$_POST['FULL_NAME_TOP'],
-        // 'AGE'    => @$_POST['AGE'] . ' y/o',
-        // 'SPORT'    => @$_POST['SPORT'] . ' ',
-        // 'WEIGHT'    => @$_POST['WEIGHT'] . ' lbs',
-        // 'SEX'    => @$_POST['SEX'] . ' ',
-        // 'YOU_REACTIVE'    => ' ' . @$_POST['YOU_REACTIVE'] . ' in',
-        // 'YOU_ELASTIC'    => ' ' . @$_POST['YOU_ELASTIC'] . ' in',
-        // 'YOU_BALLISTIC'    => ' ' . @$_POST['YOU_BALLISTIC'] . ' in',
-        // 'YOU_ACCELERATION'    => ' ' . @$_POST['YOU_ACCELERATION'] . ' secs',
-        // 'YOU_MAXIMAL'    => ' ' . @$_POST['YOU_MAXIMAL'] . ' lbs',
-        // 'ELITE_REACTIVE'    => ' ' . @$_POST['ELITE_REACTIVE'] . ' in',
-        // 'BENCHMARK_REACTIVE'    => ' ' . @$_POST['BENCHMARK_REACTIVE'] . ' in',
-
-
         if ($pdf_template_fid) {
-          $message = '<div style="padding: 2px; margin: 0 15px 2px 15px; font-size: 1.1em; font-weight: bold; background-color: #ddd; border-radius: 4px;">';
+          $message .= '<div style="padding: 2px; margin: 0 15px 2px 15px; font-size: 1.1em; font-weight: bold; background-color: #ddd; border-radius: 4px;">';
           $message .= 'Success! &nbsp; &nbsp; <a href="/fillpdf?fid='.$pdf_template_fid.'&entity_type=webform_submission&entity_id='.$default_entity_id.'&download=1" target="_blank">Generate PDF</a><br>';
           $message .= "</div>";
           // $message .= "<pre>". var_export($_SESSION['temp-session-form-values'], TRUE)."</pre>";
@@ -1016,7 +1002,7 @@ class PendingAssessmentsForm extends FormBase {
          * TODO
          *    See "LEGACY form field names" in code here, convert legacy form field names (Example, change "starter_rsi_rea_str" into natural database field name "field_rsi_reactive")
          */
-
+        
         /***
          if (!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))) {
             $message = '<p style="color:red;">"Jump Height (ln)" Required or Numeric</p>';
@@ -1213,14 +1199,14 @@ class PendingAssessmentsForm extends FormBase {
 
           if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-draft') !== false ) {
             // if "SAVE & UNPUBLISH" button trigger
-            if(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))) {
-              $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
-            }else{
+            // if(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))) {
+            //   $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
+            // }else{
               $node->set('field_status', 'incomplete');
               $message = 'Saved successfully!';
               $node->setPublished(FALSE);
               $node->save();
-            }
+            // }  
           }
 
           // for success message show

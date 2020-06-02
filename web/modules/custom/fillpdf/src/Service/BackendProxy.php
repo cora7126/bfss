@@ -69,8 +69,16 @@ class BackendProxy implements BackendProxyInterface {
 
     // Populate mappings array.
     $fieldMappings = [];
+
+
+    //jjj added all "session" stuff here, to create pdf.
+    session_start();
+
     foreach ($fillPdfForm->getFormFields() as $pdf_key => $field) {
-      if ($mergeOptions['sample']) {
+      if (isset($_SESSION['temp-session-form-values'])) {
+        $fieldMappings[$pdf_key] = new TextFieldMapping($_SESSION['temp-session-form-values'][$pdf_key]);
+      }
+      elseif ($mergeOptions['sample']) {
         $fieldMappings[$pdf_key] = new TextFieldMapping("<$pdf_key>");
       }
       else {
