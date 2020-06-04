@@ -15,7 +15,7 @@ class ViewEditDeactive extends ControllerBase {
     $uid = \Drupal::currentUser()->id();
     $current_user = \Drupal\user\Entity\User::load($uid);
     $current_roles = $current_user->getRoles();
-     if(in_array('bfss_administrator', $current_roles)){
+     if(in_array('bfss_administrator', $current_roles) || in_array('bfss_manager', $current_roles)){
     $page_redirect = '/users-editable-account';
     }else{
       $page_redirect =  '/preview/profile';
