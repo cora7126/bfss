@@ -84,9 +84,10 @@ class Bfss_Funds extends ControllerBase {
 
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'bfss_organizations');
-        $query->condition('uid', 321, 'IN');
+        $query->condition('uid', $current_user, 'IN');
         $query->condition('status', 1, 'IN');
         $nids = $query->execute();
+
         $orgnames = [];
         foreach ($nids as $nid) {
            $node = Node::load($nid);
