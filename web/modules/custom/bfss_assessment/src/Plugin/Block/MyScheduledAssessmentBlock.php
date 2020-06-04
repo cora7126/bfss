@@ -58,7 +58,7 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
     }else{
       $nids = $this->assessmentService->My_Scheduled_Assessment_Block($element);
     }
-    
+    //$data['booking_status'] = 'purchased';
  
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
@@ -71,6 +71,7 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
         // $arr['url'] = $base_url.'/assessment/node/'.$nid;
         // $arr['url'] = 'http://bfss.mindimage.net/assessment/node/'.$nid;
         $arr['url'] = '/assessment/node/'.$nid;
+        $arr['booking_status'] = 'purchased';
         $data[] = $arr;
       }
     }

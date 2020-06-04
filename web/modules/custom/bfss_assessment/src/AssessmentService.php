@@ -189,7 +189,6 @@ class AssessmentService {
       $Y =  $date_arr[0];
     }
     if( !empty($M) && !empty($Y) ){
-
       // $assessment = \Drupal::entityQuery('node')
       //         ->condition('type', 'assessment')
       //         ->condition('field_type_of_assessment','group', '=')
@@ -387,6 +386,7 @@ class AssessmentService {
       $current_path = \Drupal::service('path.current')->getPath();
       $data['current_page'] = $base_url;
        $data['assess_type'] = $node->field_type_of_assessment->value;
+        $data['booking_status'] = 'purchased';
       // echo "<pre>";
       // print_r($data['assess_type']);
       // die;
