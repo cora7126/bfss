@@ -135,6 +135,7 @@ $popupmess ='<div class="sucss-popup slot-not-available">
    * @return markup
    */
   public function scheduledAppointments() {
+
     $data = [];
      $param = \Drupal::request()->query->all();
     $requriedFields = [
@@ -150,6 +151,8 @@ $popupmess ='<div class="sucss-popup slot-not-available">
         ->condition('time', time(), ">")
         ->sort('time','ASC')
         ->execute();
+        // print_r($entity_ids);
+        // die;
     #if there is data
     if ($entity_ids) {
       foreach ($entity_ids as $entity_id) {
@@ -162,8 +165,10 @@ $popupmess ='<div class="sucss-popup slot-not-available">
               $val[$field] = $entity->get($field)->value;
             }
           }
+          // print_r($val['assessment']);
+          // die;
           #if assessment avail
-          if (isset($val['assessment'])) {
+          if (isset($val['assessment'])) { // node id 
             $nodeData = $this->assessmentService->getNodeData($val['assessment']);
               #udpate title
               if (isset($nodeData['title']) && !empty($nodeData['title'])) {
@@ -175,6 +180,7 @@ $popupmess ='<div class="sucss-popup slot-not-available">
               $val['location'] = isset($nodeData['field_location']) ? $nodeData['field_location'] : null;
               #body
               $val['body'] = isset($nodeData['body']) ? $nodeData['body'] : null;
+              $val['booking_status'] = "purchased";
           }
           if ($val) {
             $data[] = $val;

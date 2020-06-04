@@ -136,8 +136,8 @@ class AssessmentService {
         $timesamp = $paragraph->field_timing->value;
         $monthdata[] = [
             'timesamp' => $timesamp,
-        	'date' =>  date('Y/m/d', $timesamp),
-        	'day' =>  date('d', $timesamp),
+        	  'date' =>  date('Y/m/d', $timesamp),
+        	  'day' =>  date('d', $timesamp),
             'month' =>  date('m', $timesamp),
             'year' =>  date('Y', $timesamp),
             'nid' => $entity_id,
@@ -301,6 +301,11 @@ class AssessmentService {
       global $base_url;
       $current_path = \Drupal::service('path.current')->getPath();
       $data['current_page'] = $base_url;
+       $data['assess_type'] = $node->field_type_of_assessment->value;
+      // echo "<pre>";
+      // print_r($data['assess_type']);
+      // die;
+       // $data['assessment_type'] = $node->get('field_type_of_assessment')->value;
       if ($node instanceof NodeInterface) {
         $data['title'] = $node->getTitle();
         if ($node->hasField('body')) {

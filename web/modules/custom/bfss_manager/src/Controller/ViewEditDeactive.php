@@ -15,7 +15,11 @@ class ViewEditDeactive extends ControllerBase {
     $uid = \Drupal::currentUser()->id();
     $current_user = \Drupal\user\Entity\User::load($uid);
     $current_roles = $current_user->getRoles();
-
+     if(in_array('bfss_administrator', $current_roles)){
+    $page_redirect = '/users-editable-account';
+    }else{
+      $page_redirect =  '/preview/profile';
+    }
     if( isset($_POST['deactive_submit']) ){
     if(isset($_POST['items_selected'])){
       foreach ($_POST['items_selected'] as $key => $value) {
@@ -89,11 +93,11 @@ class ViewEditDeactive extends ControllerBase {
               $lastname = $user->field_last_name->value;
               
               if(!empty($firstname)){
-                $firstname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$firstname.'</a>';
+                $firstname = '<a href="'.$page_redirect.'?uid='.$athlete_user_id.'" target="_blank">'.$firstname.'</a>';
               }
               
               if(!empty($lastname)){
-                $lastname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$lastname.'</a>';
+                $lastname = '<a href="'.$page_redirect.'?uid='.$athlete_user_id.'" target="_blank">'.$lastname.'</a>';
               }
               
               $query5 = \Drupal::database()->select('athlete_school', 'ats');

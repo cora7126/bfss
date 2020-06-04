@@ -48,7 +48,6 @@ i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor:pointer;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit p{margin:0;font-size:14px;line-height:20px;display:inline-block;float:left;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit p i{margin-right:10px;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit p:empty-child{display:none;}
-.form-actions.js-form-wrapper .delete_item_plx.cancel.button{margin:0 15px;padding:0;border:0;background:transparent;}
 .form-actions.js-form-wrapper .delete_item_plx.cancel.button:hover, .main_section_plx .athlete_left .delete_item_plx.cancel.button:focus{background:transparent;border-color:#fff;}
 .form-actions.js-form-wrapper .delete_item_plx.cancel.button i{font-size:14px;color:#EB6E06;}
 .assessment-time .form-actions.js-form-wrapper button.button{text-transform:none;}
@@ -179,7 +178,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .bfss-main .content-bfss p .switch .slider.round::before{border-radius:50%;}
 
 /* --------- DASHBOARD ASSESMENT BLOCK CSS STARTS HERE *******************/
-.assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:72px;overflow:hidden;opacity:1;}
+.assessment_block .timing h2{line-height:20px;color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:60px;overflow:hidden;opacity:1;}
 .block-bfss-assessment{width:100%;float:left;display:block;}
 .block-bfss-assessment .container{padding:0;margin:0;}
 .block-bfss-assessment .container .assessment_block{margin:0 -7.5px;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
@@ -900,12 +899,19 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .popup_header.change_password_header h3 i{color:#EB6E06;background:transparent;}
 .popup_header.change_password_header{padding:0;}
 
+.left_section .athlete_left .form-item.remove-org, .form-actions.js-form-wrapper .delete_item_plx.cancel.button{position:absolute;top:-37px;right:0;width:45px;text-align:center;}
+.form-actions.js-form-wrapper .delete_item_plx.cancel.button{margin:0;padding:0 15px;border:0;background:transparent;top:-40px !important;}
+.form-actions.js-form-wrapper .delete_item_plx.cancel.button span{display:none;}
 
 .edit-assessments .left_section .athlete_left.schedule_plx:first_of_type .items_div, .add-assessments .left_section .athlete_left.schedule_plx:first_of_type .items_div{position:relative;z-index:9999;}
 .add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:25%;}
 .add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list{width:100%;margin:0;border:1px solid #ced4da;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;background:#fff;max-height:285px;overflow-x:hidden;overflow-y:auto;}
 .add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list li{width:100%;float:left;display:block;border-bottom:1px solid #ced4da;font-size:14px;}
 .add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list li:last-child{border:0;}
+.add-assessments .form-actions.js-form-wrapper .athlete_submit .button .mobile{display:none;}
+.add-assessments .form-actions.js-form-wrapper .athlete_submit .button em{font-style:normal;margin:0 10px;}
+.add-assessments .form-actions.js-form-wrapper .athlete_submit{position:fixed;bottom:5px;right:0;width:auto;z-index:9999;}
+.add-assessments .form-actions.js-form-wrapper .athlete_submit button.button{width:300px;border-radius:0;height:40px;line-height:25px;}
 .add-assessments .tokenize > .tokens-container > .token{padding:5px 25px 5px 10px;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;font-size:12px;}
 .add-assessments .tokenize > .tokens-container > .token > .dismiss{font-size:20px;line-height:18px;right:7.5px;}
 .tokenize-dropdown.dropdown > .dropdown-menu{max-height:100%;padding:15px;}
@@ -977,6 +983,11 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.assessment_inner .top-head{min-height:60px;}
 	.bfss-funds .remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:20px 15px;}
 	.upcoming-group-assessments .assessment_block .timing h2{font-size:18px;line-height:24px;}
+	.add-assessments .form-actions.js-form-wrapper .athlete_submit .button .mobile{display:inline-block;}
+	.add-assessments .form-actions.js-form-wrapper .athlete_submit .button .desktop{display:none;}
+	.add-assessments .form-actions.js-form-wrapper .athlete_submit{width:100%;bottom:0;}
+	.add-assessments .form-actions.js-form-wrapper .athlete_submit button.button{width:100%;}
+	.add-assessments .region.region-footer{margin-bottom:40px;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
@@ -984,8 +995,6 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:30%;}
 }
 @media (min-width:768px) {
-	.add-assessments .form-actions.js-form-wrapper .athlete_submit{position:fixed;bottom:5px;right:0;width:auto;z-index:9999;}
-	.add-assessments .form-actions.js-form-wrapper .athlete_submit button.button{width:300px;border-radius:0;}
 	.add-assessments .tokenize > .tokens-container{max-width:60%;min-height:130px;}
 }
 

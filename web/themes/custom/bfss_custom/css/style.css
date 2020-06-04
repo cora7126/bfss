@@ -1932,7 +1932,7 @@ nav .dropdown .drop .down-arrow{position:absolute;top:17px;right:15px;pointer-ev
 .left_section .athlete_left h3, .right_section .athlete_right h3{line-height:43px;border:1px solid #000;background:#000;position:relative;color:#fff;font-weight:400;padding:0 15px;font-size:14px;margin:0;text-transform:uppercase;margin-bottom:0px;cursor:pointer;height:45px;overflow:hidden;}
 .left_section .athlete_left h3 i , .right_section .athlete_right h3 i{color:#EB6E06;padding-right:15px;font-weight:700;}
 .left_section .athlete_left, .right_section .athlete_right{border:0;padding-bottom:0px;margin-bottom:30px;position:relative;}
-.left_section .athlete_left > .items_div, .right_section .athlete_right > .items_div{border:1px solid #6d6e72;}
+.left_section .athlete_left > .items_div, .right_section .athlete_right > .items_div{border:1px solid #6d6e72;position:relative;}
 .left_section .athlete_left .form-item , .right_section .athlete_right .form-item{padding:5px 15px;display:inline-block;width:100%;box-sizing:border-box;}
 
 .left_section .athlete_left .add_pos_div{position:relative;padding-bottom:30px;}

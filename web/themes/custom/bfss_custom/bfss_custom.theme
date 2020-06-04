@@ -56,11 +56,11 @@ function bfss_custom_preprocess_page(&$variables) {
       return;
   }
   // FOR STOP REDIRECT /user/id like urls
-  if($current_path == '/user/'.$uid){
-      $response = new RedirectResponse("/dashboard");
-      $response->send();
-      return;
-  }
+  // if($current_path == '/user/'.$uid){
+  //     $response = new RedirectResponse("/dashboard");
+  //     $response->send();
+  //     return;
+  // }
   if(in_array('assessors', $roles)){
     $variables['user_role'] = 1;
   }elseif(in_array('coach', $roles)){

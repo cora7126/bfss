@@ -180,7 +180,16 @@
             {% endif %}
             </div>
             <div class="col-lg-4 pl-0 pr-0 mobile_hide" >
-			        <div class="athletic_profile"></div>
+                {% if user_role == 2 %} 
+                  <div class="bell_sec">
+                   <div class="bell-icon-sec">
+                    <img src="/themes/custom/bfss_custom/images/images-dashboard/bell-icon.png">
+                 </div>
+                </div> 
+                {% else %}
+                  <div class="athletic_profile"></div>
+                 {% endif %}
+ 
 			      </div>
            <!--  <div class="col-lg-1 col-md-3 col-sm-6 col-6 pl-0 pr-0 bell_sec">
                <div class="bell-icon-sec">
