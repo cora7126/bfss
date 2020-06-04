@@ -194,7 +194,7 @@ $popupmess ='<div class="sucss-popup slot-not-available">
     // $data = [];
 	
 	
-	  $block = \Drupal\block\Entity\Block::load('upcominggroupassessments');
+	  $block = \Drupal\block\Entity\Block::load('myscheduledassessmentblock');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block);
