@@ -85,7 +85,7 @@ class Bfss_Funds extends ControllerBase {
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'bfss_organizations');
         $query->condition('uid', $current_user, 'IN');
-        $query->condition('status', 1, 'IN');
+        //$query->condition('status', 1, 'IN');
         $nids = $query->execute();
 
         $orgnames = [];
@@ -98,7 +98,8 @@ class Bfss_Funds extends ControllerBase {
         foreach ($orgnames as $orgname_v) {  
            $orgname_ar[$orgname_v] = $orgname_v;
         }
-
+        // print_r($orgname_ar);
+        // die;
         $arrradios = array('Williams Field High School'=>'Williams Field High School') + $orgname_ar;
      
         $radios = '<div class="org-radio">';
