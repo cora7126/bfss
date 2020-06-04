@@ -168,7 +168,14 @@ class AssessmentService {
   }
 //My Scheduled Assessment
  public function My_Scheduled_Assessment_Block($element){
-
+  $requriedFields = [
+      'id',
+      'time',
+      'assessment_title',
+      'assessment',
+      'until',
+      'created',
+    ];
     $current_date = date('Y/m/d');
     $param = \Drupal::request()->query->all();
     if(isset($param['showdate'])){
@@ -194,26 +201,17 @@ class AssessmentService {
         ->sort('time','ASC')
         ->execute();
          #if there is data
-
+         $entity_ids = []; 
       if ($booked_ids) {
         foreach ($booked_ids as $booked_id) {
           #load entity
            $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-            if ($entity instanceof \Drupal\Core\Entity\ContentEntityInterface) {
-               $val = [];
-              foreach ($requriedFields as $field) {
-                if ($entity->hasField($field)) {
-                  $val[$field] = $entity->get($field)->value;
-                }
+              if($entity->assessment->value != 9999999999){
+               $entity_ids[] = $entity->assessment->value;
               }
-            }
         }
       }
-      print_r($val['assessment']);
-        die;
-
-
-      
+       
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
        $node = Node::load($entity_id);
