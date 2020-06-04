@@ -57,10 +57,18 @@ input#edit-position-22 {
     top: 24px;
 }
 .edit-assessments .user_pro_block .block-bfss-assessors{border:none;}
-/*.edit-assessments table.dataTable.no-footer {
-    border-bottom: none;
-}*/
-.table-responsive-wrap div.table-responsive table{}
+.form-item-venue-state span.input-group-addon,.form-item-venue-loaction span.input-group-addon{display:none;}
+.form-item-venue-state .select-wrapper,  .add-assessments .form-item-venue-loaction .input-group{width:100%}
+.edit-assessments-data .alert.alert-.alert-dismissible .close span,.add-assessments .alert.alert-.alert-dismissible .close {
+    font-size: 30px;
+    color: #fff;
+    text-shadow: none;
+}
+
+.edit-assessments-data .alert.alert-.alert-dismissible .close,.add-assessments .alert.alert-.alert-dismissible .close {
+    top: 22px;
+    right: 25px;
+}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

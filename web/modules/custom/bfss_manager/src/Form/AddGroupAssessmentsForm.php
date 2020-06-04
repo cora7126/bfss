@@ -109,7 +109,7 @@ class AddGroupAssessmentsForm extends FormBase {
 
     
 
-   $types = [''=>'Select','group'=>'Group','private'=>'Private'];
+   $types = [''=>'Select Type','group'=>'Group','private'=>'Private'];
     $form['type'] = [
         '#type' => 'select',
         '#options' => $types,
@@ -164,7 +164,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#options' => $states_op,
         '#placeholder' => t('State'),
         '#required' => TRUE,
-        '#default_value' => $state,
+        '#default_value' => '',
         '#prefix' => '',
         '#suffix' => '',
       ];
@@ -219,14 +219,15 @@ class AddGroupAssessmentsForm extends FormBase {
       for ($k=1; $k <=5 ; $k++) { 
         $hours[$k]=$k;
       }
-      $hours1 = ['' => 'Duration (Hours)'] + $hours;
+
+      $hours = ['' => 'Duration (Hours)'] + $hours;
       $form['resident'][$i]['field_duration'] = [
-        '#placeholder' => t('Duration (Hours)'),
-        '#options' => $hours1,
+        #'#placeholder' => t('Duration (Hours)'),
+        '#options' => $hours,
         '#type' => 'select',
         '#required' => TRUE,
-         '#prefix' => '<div class="box niceselect duration">',
-       
+        '#default_value' =>'',
+        '#prefix' => '<div class="box niceselect duration">',
         '#suffix' => '</div></div>',
       ];
 
@@ -306,7 +307,10 @@ class AddGroupAssessmentsForm extends FormBase {
     // ];
     //categories end 
 
-
+    $form['left_imageuploader_start'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="athlete_left assessment-image-uploader">',
+    ];
     $form['image'] = [
       '#title' => 'EVENT IMAGE',
       '#type' => 'managed_file',
@@ -325,6 +329,12 @@ class AddGroupAssessmentsForm extends FormBase {
         'class' => ['imageuplode1']
       ],
     ];
+
+    $form['left_imageuploader_end'] = [
+      '#type' => 'markup',
+      '#markup' => '</div>',
+    ];
+  
 
     $cat_vid = 'categories';
     $cat_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($cat_vid);    
@@ -345,14 +355,9 @@ class AddGroupAssessmentsForm extends FormBase {
         '#suffix' => '</div></div>',
         '#attributes' => array('class' => 'tokenize-remote-demo1'),
     ];
-    /*
-    *Venue Start from here
-    */
-      // $Venue['venu_state'] = 'AZ';
-      // $venu_state =  isset($Venue['venu_state']) ? $Venue['venu_state'] : 'AZ';
-      // $location_N = $this->Get_location_For_default($type_org_3);
-      // $type__3 = isset($type_org_3)?$type_org_3:'school';
-      // $type_organization_3 = isset($form_state_values['education_2'])?$form_state_values['education_2']:$type__3;
+      /*
+      *Venue Start from here
+      */
       $form_state_values = $form_state->getValues();
       $venue_state = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:'AZ';
 
@@ -360,11 +365,12 @@ class AddGroupAssessmentsForm extends FormBase {
       $form['venue_state'] = array(
         '#type' => 'select',
         '#options' => $venue_state_op,
+        '#default_value' => '',
         #'#attributes' => array('class' => array('full-width-inp')),
-        '#prefix' => '<div class="athlete_left">
+        '#prefix' => '<div class="athlete_left schedule_plx venue_plx">
                         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Location (Cities)</h3>
-                       <div class="items_div">',
-         '#suffix' => '',
+                       <div class="items_div"><div class="box niceselect duration">',
+         '#suffix' => '</div>',
        # '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
         '#ajax' => [
           'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
@@ -377,12 +383,12 @@ class AddGroupAssessmentsForm extends FormBase {
         
         $form['venue_loaction'] = [
             '#type' => 'textfield',
-            '#placeholder' => t('Orginization Name'),
+            '#placeholder' => t('Location Name'),
             '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
             '#autocomplete_route_parameters' => array('field_name' => $venue_state, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div></div></div>',
-            #'#default_value' => $athlete_uni['athlete_uni_name'],
+           # '#default_value' => '',
         ];
     /*
     *Venue end from here
@@ -408,7 +414,6 @@ class AddGroupAssessmentsForm extends FormBase {
     ];
 
     
-
 
     $form['left_section_end'] = [
       '#type' => 'markup',
@@ -457,7 +462,6 @@ class AddGroupAssessmentsForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
   
-
     $img_id = isset($form_state->getValue('image')[0]) ? $form_state->getValue('image')[0] : '';
    
     if(!empty($form_state->getValues('resident')['resident'])){
@@ -517,9 +521,13 @@ class AddGroupAssessmentsForm extends FormBase {
               }
             }
 
+            //venue 
+            $node->field_venue_state_assess->value = $form_state->getValue('venue_state');
+            $node->field_venue_location_assess->value = $form_state->getValue('venue_loaction');
+
             $node->save();
 
-            //drupal_set_message(t('Successfully inserted Assessment.'), 'success');
+            drupal_set_message(t('<p class="bfss-success-msg">Successfully inserted Assessment.</p>'), 'success');
 
     }
         
@@ -583,12 +591,13 @@ class AddGroupAssessmentsForm extends FormBase {
     $form_state->setRebuild();
   }
 
-public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
-        //ORG-3   
-  return  $form['venue_loaction']; 
-}
-   function getStates() {
+    public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
+      return  $form['venue_loaction']; 
+    }
+
+    function getStates() {
         return $states=array(
+        ''=> t('Select State'),
         'AL'=> t('AL'),
         'AK'=> t('AK'),
         'AZ'=> t('AZ'),
