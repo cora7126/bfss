@@ -11,13 +11,13 @@ html body{margin-top:0 !important;padding:0 !important;}
 .form-item input:hover, .form-item input:focus{outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
 .modal-header .close{z-index:1;opacity:1;}
 .close span{font-size:30px;color:#EB6E06;text-shadow:none;}
-#edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus, .nice-select.form-select > span:hover, .nice-select.form-select > span:focus, .select-wrapper .nice-select.form-select:hover, .select-wrapper .nice-select.form-select:focus{box-shadow:none;outline:0;}
+#edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus, .add-group-assessments .nice-select.form-select > span:hover, .nice-select.form-select > span:focus, .add-group-assessments .select-wrapper .nice-select.form-select:hover, .add-group-assessments .select-wrapper .nice-select.form-select:focus{box-shadow:none;outline:0;}
 #edit-actions button.save-button-plx{font-size:14px;background-color:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;height:40px;margin:10;}
 
-.select-wrapper .nice-select.form-select{height:auto;padding:0;position:relative;z-index:999;}
-.nice-select.form-select > span{opacity:.6;}
-.nice-select.form-select > span, .wrapper form input[type="text"], .wrapper form input[type="email"], .wrapper form input[type="number"], .wrapper form select, .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;display:block;}
-.nice-select.form-select > span, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select, .wrapper form select{padding:7px 40px 7px 8px;background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
+.add-group-assessments .select-wrapper .nice-select.form-select{height:auto;padding:0;}
+.add-group-assessments .nice-select.form-select > span{opacity:.6;}
+.add-group-assessments .nice-select.form-select > span, .wrapper form input[type="text"], .wrapper form input[type="email"], .wrapper form input[type="number"], .wrapper form select, .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;display:block;line-height:24px;}
+.add-group-assessments .nice-select.form-select > span, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select, .wrapper form select{padding:7px 40px 7px 8px;background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
 .left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;padding:10px;}
 /**************** DASHBOARD HEADER CSS STARTS HERE *******************/
 .dashboard .custom-nav-box{display:block;}
@@ -128,14 +128,10 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
  .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
-.dashboard .my-assessment.manager_desh.pending-approval .panel_row p {
-    color: #000;
-}
+.dashboard .my-assessment.manager_desh.pending-approval .panel_row p{color:#000;}
 .dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:1;}
 /* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
-.dashboard .my-assessment.admin_desh.pending-approval .panel_row p {
-    color: #000;
-}
+.dashboard .my-assessment.admin_desh.pending-approval .panel_row p{color:#000;}
 .right_side_section .tab-main-sec .col-xl-9.col-lg-8.col-md-6.col-6, .right_side_section .tab-main-sec .col-xl-3.search_icon{margin:0;}
 .tab-main-sec .tab-main-sec-heading h2{font-size:16px;margin:0;opacity:.6;}
 .tab-main-sec .tab-main-sec-heading h2 span{position:relative;}
@@ -183,7 +179,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .bfss-main .content-bfss p .switch .slider.round::before{border-radius:50%;}
 
 /* --------- DASHBOARD ASSESMENT BLOCK CSS STARTS HERE *******************/
-.assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:60px;overflow:hidden;opacity:1;}
+.assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:72px;overflow:hidden;opacity:1;}
 .block-bfss-assessment{width:100%;float:left;display:block;}
 .block-bfss-assessment .container{padding:0;margin:0;}
 .block-bfss-assessment .container .assessment_block{margin:0 -7.5px;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
@@ -357,7 +353,7 @@ a.drop:hover{text-decoration:none;}
 span.open-caret:before{color:#fff;}
 .pending-approval .accordion > a{float:right;width:15px;}
 /* -------profile-pop-css----------- */
-
+.add-assessments .left_section .athlete_left{width:100%;float:left;display:block;}
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button{background-color:#555;color:white;padding:16px 20px;border:none;cursor:pointer;opacity:0.8;position:fixed;bottom:23px;right:28px;width:280px;}
 
@@ -904,6 +900,8 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .popup_header.change_password_header h3 i{color:#EB6E06;background:transparent;}
 .popup_header.change_password_header{padding:0;}
 
+
+.edit-assessments .left_section .athlete_left.schedule_plx:first_of_type .items_div, .add-assessments .left_section .athlete_left.schedule_plx:first_of_type .items_div{position:relative;z-index:9999;}
 .add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:25%;}
 .add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list{width:100%;margin:0;border:1px solid #ced4da;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;background:#fff;max-height:285px;overflow-x:hidden;overflow-y:auto;}
 .add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list li{width:100%;float:left;display:block;border-bottom:1px solid #ced4da;font-size:14px;}
@@ -916,6 +914,8 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .tokenize-dropdown.dropdown > .dropdown-menu li.active{background:#EB6E06;border:0;}
 .tokenize-dropdown.dropdown > .dropdown-menu li.active a{color:#fff;}
 .tokenize-dropdown.dropdown > .dropdown-menu li a:hover, .tokenize-dropdown.dropdown > .dropdown-menu li a:focus{background:transparent;}
+.bfss-success-msg{background-color:#1e7e34;color:#fff;padding:15px;}
+.data .file-size{padding:0 1em 1rem;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -984,8 +984,9 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:30%;}
 }
 @media (min-width:768px) {
-	.add-assessments .form-actions.js-form-wrapper .athlete_submit{position:fixed;bottom:5px;right:0;width:auto;}
+	.add-assessments .form-actions.js-form-wrapper .athlete_submit{position:fixed;bottom:5px;right:0;width:auto;z-index:9999;}
 	.add-assessments .form-actions.js-form-wrapper .athlete_submit button.button{width:300px;border-radius:0;}
+	.add-assessments .tokenize > .tokens-container{max-width:60%;min-height:130px;}
 }
 
 @media (max-width:1023px) {
@@ -1008,7 +1009,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	div.dataTables_wrapper .dataTables_length label select{font-size:12px;}
 	.calender_event_pop_up .tophead .image, .calender_event_pop_up .tophead .title-timing, .calender_event_pop_up .details .body, .calender_event_pop_up .details .date-location{width:100%;}
 	.calender_event_pop_up .details .date-location{padding:25px 0 0;}
-	.calender_event_pop_up .details .body, .date-and-time span, .date-and-time div.location, .dash-main-right h1{font-size:14px !important;}
+	.calender_event_pop_up .details .body, .date-and-time span, .date-and-time div.location, .dash-main-right h1{font-size:12px !important;}
 	.dash-sub-main h2{font-size:21px;margin:0;padding:6px 0;}
 	.accelaration .row > div{width:100% !important;padding:15px;}
 	.accelaration .row > div:first-child{margin:0 0 15px;}
