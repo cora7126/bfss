@@ -428,7 +428,7 @@ class AddGroupAssessmentsForm extends FormBase {
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('SAVE'),
+      '#value' => Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'),
       '#prefix' => ' <div id="athlete_submit" class="athlete_submit">',
       '#suffix' => '</div>'
      
