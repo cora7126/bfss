@@ -56,7 +56,7 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
     if(isset($param['SearchAssessments'])){
       $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'group');
     }else{
-      $nids = $this->assessmentService->assessment_after_month_filter_upcoming($element);
+      $nids = $this->assessmentService->My_Scheduled_Assessment_Block($element);
     }
     
  

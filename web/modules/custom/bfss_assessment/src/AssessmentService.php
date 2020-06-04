@@ -122,11 +122,13 @@ class AssessmentService {
       $Y =  $date_arr[0];
     }
     if( !empty($M) && !empty($Y) ){
+
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
+
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
        $node = Node::load($entity_id);
@@ -160,6 +162,91 @@ class AssessmentService {
 	        }
 	      }
 	    }
+    }
+
+    return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
+  }
+//My Scheduled Assessment
+ public function My_Scheduled_Assessment_Block($element){
+
+    $current_date = date('Y/m/d');
+    $param = \Drupal::request()->query->all();
+    if(isset($param['showdate'])){
+      $exp = explode("/",$param['showdate']);
+      $M =  $exp[0];
+      $Y = $exp[1];
+    }else{
+      $current_date = date("Y/m/d");
+      $date_arr = explode('/',$current_date);
+      $M = $date_arr[1];
+      $Y =  $date_arr[0];
+    }
+    if( !empty($M) && !empty($Y) ){
+
+      // $assessment = \Drupal::entityQuery('node')
+      //         ->condition('type', 'assessment')
+      //         ->condition('field_type_of_assessment','group', '=')
+      //         ->condition('status', 1);
+      // $entity_ids = $assessment->execute();
+       $booked_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('user_id', \Drupal::currentUser()->id())
+        ->condition('time', time(), ">")
+        ->sort('time','ASC')
+        ->execute();
+         #if there is data
+
+      if ($booked_ids) {
+        foreach ($booked_ids as $booked_id) {
+          #load entity
+           $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+            if ($entity instanceof \Drupal\Core\Entity\ContentEntityInterface) {
+               $val = [];
+              foreach ($requriedFields as $field) {
+                if ($entity->hasField($field)) {
+                  $val[$field] = $entity->get($field)->value;
+                }
+              }
+            }
+        }
+      }
+      print_r($val['assessment']);
+        die;
+
+
+      
+      $monthdata = [];
+      foreach ($entity_ids as $entity_id) {
+       $node = Node::load($entity_id);
+       $target_id = array_column($node->field_schedules->getValue(), 'target_id');
+       foreach ($target_id as $target) {
+        $paragraph = Paragraph::load($target);
+        $timesamp = $paragraph->field_timing->value;
+        $monthdata[] = [
+            'timesamp' => $timesamp,
+            'date' =>  date('Y/m/d', $timesamp),
+            'day' =>  date('d', $timesamp),
+            'month' =>  date('m', $timesamp),
+            'year' =>  date('Y', $timesamp),
+            'nid' => $entity_id,
+          ];
+       }
+      }
+
+      $NIDS = [];
+      if(isset($param['showdate'])){
+        foreach ($monthdata as $month_data) {
+          if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+            $NIDS[] = $month_data['nid'];
+          }
+        }
+      }
+      else{
+         foreach ($monthdata as $month_data) {
+          if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+            $NIDS[] = $month_data['nid'];
+          }
+        }
+      }
     }
 
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
