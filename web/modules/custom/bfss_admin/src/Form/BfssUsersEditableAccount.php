@@ -6,7 +6,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 use \Drupal\user\Entity\User;
-
+use Drupal\Core\Render\Markup;
 /**
  * Implements an bfss_admin form.
  */
@@ -234,13 +234,15 @@ class BfssUsersEditableAccount extends FormBase {
      //      '#attributes' => array('id => parent_label'),
      //    );
     //end change password
-    
-      $form['submit'] = ['#type' => 'submit', 
-        '#value' => 'SAVE', 
-        '#prefix' => '</div><div id="athlete_submit" class="athlete_submit">',
-        '#suffix' => '</div>',
-        //'#value' => t('Submit'),
-      ];
+     $form['actions'] = [
+                      '#type' => 'actions',
+                    ];
+    $form['actions']['submit'] = [
+    '#type' => 'submit',
+    '#value' => Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'),
+    '#prefix' => '<div class="bfss_save_all save_all_changes">',
+    '#suffix' => '</div>'
+    ];
 
       return $form;
 
