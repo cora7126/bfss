@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
-
+use Drupal\Core\Render\Markup;
 /**
  * Contribute form.
  */
@@ -236,23 +236,26 @@ class edit_parent extends FormBase {
 			  );
 			  
 	  }
-	$form['submit'] = [
-        '#type' => 'submit',
-        '#value' => 'save',
-		'#prefix' =>'</div></div><a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Parent/Guardian</a><div id="athlete_submit" class="athlete_submit">',
-		'#suffix' => '</div></div>',
-        //'#value' => t('Submit'),
-    ];	
+	  $form['html1'] = [ //for custom message "like: ajax msgs"
+		      '#type' => 'markup',
+		      '#markup' => '</div></div><a class="add_parent add_org popup_add_org"><i class="fa fa-plus"></i>Add Another Parent/Guardian</a>',
+    	];
+	
 	$form['label_text'] = array(
 	'#type' => 'label',
 	'#title' => 'No longer need your Parent / Guardian on your account and want to remove them? <br> You can request Parent / Guardian removal from your account via our ticketing system.',
-	'#prefix' => '
+	'#prefix' => '</div>
 	<div class ="right_section box-pre"><div class = "athlete_right">',
 	'#suffix' => '</div></div>',
 	'#attributes' => array('id => parent_label'),
 	);	
     
-	
+	$form['submit'] = [
+		'#type' => 'submit',
+		'#value' => Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'),
+		'#prefix' => '<div class="bfss_save_all save_all_changes">',
+		'#suffix' => '</div>'
+	];	
     return $form;
   }
 

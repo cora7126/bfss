@@ -96,6 +96,12 @@ return [
         ],
         'template'=>'custom/modal-assessment',
     ],
+    'modal_assessment_scheduled' => [
+        'variables' => [
+          'data'=>[],
+        ],
+        'template'=>'custom/modal-assessment-scheduled',
+    ],
     'assessment_success' => [
       'variables' => [
           'message'=> null,
@@ -108,6 +114,12 @@ return [
         ],
         'template'=>'custom/atheltic--profile',
     ],
+    'my_scheduled_assessment' => [
+      'variables' => [
+          'data'=> null,
+        ],
+        'template'=>'custom/my_scheduled_assessment',
+    ], 
     'upcoming_group_assessments' => [
       'variables' => [
           'data'=> null,

@@ -16,7 +16,17 @@ use Drupal\bfss_assessment\AssessmentService;
 use Drupal\node\Entity\Node;
 Use Drupal\node\NodeInterface;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\bfss_assessment\BfssPaymentService;
+
 abstract class MultistepFormBase extends FormBase {
+  /**
+   * Drupal\bfss_assessment\BfssPaymentService definition.
+   *
+   *
+   * @var Drupal\bfss_assessment\BfssPaymentService
+   */
+  protected $payment;
 
   /**
    * @var \Drupal\user\PrivateTempStoreFactory
@@ -50,7 +60,7 @@ abstract class MultistepFormBase extends FormBase {
    * @param \Drupal\Core\Session\SessionManagerInterface $session_manager
    * @param \Drupal\Core\Session\AccountInterface $current_user
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, SessionManagerInterface $session_manager, AccountInterface $current_user, AssessmentService $assessment_service) {
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, SessionManagerInterface $session_manager, AccountInterface $current_user, AssessmentService $assessment_service,BfssPaymentService $payment) {
     $this->tempStoreFactory = $temp_store_factory;
     $this->sessionManager = $session_manager;
     $this->currentUser = $current_user;
@@ -58,6 +68,8 @@ abstract class MultistepFormBase extends FormBase {
     $this->store = $this->tempStoreFactory->get('multistep_data');
 
     $this->assessmentService = $assessment_service;
+    //payment
+    $this->payment = $payment;
   }
 
   /**
@@ -68,7 +80,8 @@ abstract class MultistepFormBase extends FormBase {
       $container->get('user.private_tempstore'),
       $container->get('session_manager'),
       $container->get('current_user'),
-      $container->get('bfss_assessment.default')
+      $container->get('bfss_assessment.default'),
+      $container->get('bfss_assessment.payment')
     );
   }
 
@@ -181,7 +194,7 @@ abstract class MultistepFormBase extends FormBase {
         $data['assessment_title'] = $node->getTitle();
       }
     }
-    $data['payment_status'] = "UNKNOWN";
+    
     #current logged in user data
     $currentUserId =  \Drupal::currentUser()->id();
     if ($currentUserId) {
@@ -194,6 +207,42 @@ abstract class MultistepFormBase extends FormBase {
     #get duration
     $until = $this->assessmentService->checkDuration($this->store->get('assessment'), $this->store->get('time'));
     $data['until'] = $until;
+    
+    #payment code  start
+   $pay_data['amount'] = (!empty($data['service']) ? $data['service'] : $data['service']);
+   $pay_data['amount_text'] = 'payment';
+   $pay_data['fname'] = $data['first_name'];
+   $pay_data['lname'] = $data['last_name'];
+   $pay_data['address'] = $data['address_1'];
+   $pay_data['city'] = $data['city'];
+   $pay_data['state'] = $data['state'];
+   $pay_data['country'] = $data['country'];
+   $pay_data['zip'] = $data['zip'];
+   $pay_data['phone'] = $data['phone'];
+
+   $pay_data['expiration_month'] = $data['expiration_month'];
+   $pay_data['expiration_year'] = $data['expiration_year'];
+   $pay_data['cvv'] = $data['cvv'];
+   $pay_data['credit_card_number'] = $data['credit_card_number'];
+
+
+    if (!empty($pay_data['amount'])) {
+      $paymentdone = $this->payment->createTransaction($pay_data);
+      // echo "<pre>";
+      // print_r($paymentdone);
+      // die;
+       if (is_array($paymentdone) && isset($paymentdone['status'])) {
+        if ($paymentdone['status'] == true) {
+          drupal_set_message('Payment successfully received.');
+        } else {
+          drupal_set_message('Something went wrong! Payment was interrupted. Please try again.','error');
+          drupal_set_message( (isset($paymentdone['message'])? $paymentdone['message'] : ''),'error');
+        }
+      }
+    }
+    $data['payment_status'] = ((isset($paymentdone['status']) && $paymentdone['status'] == true) ? 'paid' : 'unpaid');
+    #payment code  end
+
     # load entity and save payment
     $pay = \Drupal\bfss_assessment\Entity\BfssPayments::create($data);
     $pay->save();

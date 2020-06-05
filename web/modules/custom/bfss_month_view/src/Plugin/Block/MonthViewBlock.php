@@ -13,11 +13,15 @@ use Drupal\Core\Render\Markup;
  */
 class MonthViewBlock extends BlockBase {
   public function build() {
-  	
-  	$data = Markup::create('html here');
+    $data = []; 
+    $current_path = \Drupal::service('path.current')->getPath();	
+  	$data['current_path'] = $current_path;
+   
+
   	$element = 1;
     return [
         'results' => [
+              '#cache' => ['max-age' => 0,],
               '#theme' => 'month_view_temp',
               '#data' => $data,
               '#empty' => 'no',

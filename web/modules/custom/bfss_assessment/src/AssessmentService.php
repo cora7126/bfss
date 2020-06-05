@@ -270,6 +270,37 @@ class AssessmentService {
               ->condition('title','%'.$search_val.'%','LIKE')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
+    }elseif(isset($search_val) && $assess_type=='scheduled'){
+
+       $booked_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('user_id', \Drupal::currentUser()->id())
+        ->condition('time', time(), ">")
+        ->condition('assessment_title','%'.$search_val.'%','LIKE')
+        ->sort('time','ASC')
+        ->execute();
+         #if there is data
+         $entity_ids = []; 
+      if ($booked_ids) {
+        foreach ($booked_ids as $booked_id) {
+          #load entity
+           $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+              if($entity->assessment->value != 9999999999){
+               $entity_ids[] = $entity->assessment->value;
+              }
+        }
+      }
+     
+
+
+
+      // $assessment = \Drupal::entityQuery('node')
+      //         ->condition('type', 'assessment')
+      //         ->condition('field_type_of_assessment','private', '=')
+      //          ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
+      //         ->condition('title','%'.$search_val.'%','LIKE')
+      //         ->condition('status', 1);
+      // $entity_ids = $assessment->execute();
+
     }else{
 
       $assessment = \Drupal::entityQuery('node')
@@ -385,8 +416,8 @@ class AssessmentService {
       global $base_url;
       $current_path = \Drupal::service('path.current')->getPath();
       $data['current_page'] = $base_url;
-       $data['assess_type'] = $node->field_type_of_assessment->value;
-        //$data['booking_status'] = 'purchased';
+      $data['assess_type'] = $node->field_type_of_assessment->value;
+    
       // echo "<pre>";
       // print_r($data['assess_type']);
       // die;
