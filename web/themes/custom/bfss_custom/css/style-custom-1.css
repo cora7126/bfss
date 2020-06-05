@@ -72,6 +72,10 @@ input#edit-position-22 {
 .bell-icon-sec {
     text-align: right!important;
 }
+.approve-organization-popup .left_section .athlete_left > .items_div {border:none;}
+.no_pennding_organization {
+    text-align: center;
+}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
