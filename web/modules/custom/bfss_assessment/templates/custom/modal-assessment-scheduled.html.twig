@@ -1,0 +1,77 @@
+<!--<pre>
+	{{ dump(data) }}
+</pre>-->
+<script>
+jQuery(document).ready(function() {
+jQuery(".share a.share_assessment").click(function(){
+  		jQuery(".social_share_links").toggle('slow');
+  		console.log("here toogle");
+	});
+	});
+</script>
+<div class="calender_event_pop_up">
+<div class="container">
+	<div class="tophead">
+		<div class="image">
+			<img src='{{ data.field_image }}' alt='{{ data.title }}' />
+		</div>
+		<div class="title-timing">
+			<div>
+				{% if data.latest_timing %}
+					<span class="timing-date">
+					{{ data.latest_timing|date("M") }}</span>
+					<span class="timing-info">{{ data.latest_timing|date("d") }}</span>
+					
+				{% endif %}
+			</div>
+			<div>
+				<h2>
+					{{ data.title }} 
+				</h2>
+				<span class='loca'>{{ data.field_location|slice(0,27) }} </span>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="ticketing">
+		<div class="ticket">
+		<span><i class="fal fa-ticket-alt"></i>   TICKETING</span>
+		</div>
+	</div> -->
+	<div class="details">
+		<div class="body">
+			
+			<div class='node-body'>
+				{{ data.body }}
+			</div>
+		</div>
+		<div class="date-location">
+			<div class="date-and-time">
+				<p>DATE AND TIME</p>
+				{% if data.latest_timing %}
+					<span class="timing-date">
+						{{ data.latest_timing|date("l") }}<br/>
+						{{ data.latest_timing|date("M d, Y h:i A") }}
+					</span>
+				{% endif %}
+				<p>UNTIL</p>
+				<span>
+				{{ data.latest_duration }}
+				</span>
+
+			<div>
+			<div class="location">
+				<p>LOCATION</p>
+				{{ data.field_location }}
+			<div>
+			{% set role = 'athlete' %}
+			{% if role in data.roles %}
+			<div class="ticketing">
+				<p>ASSESSMENT TYPE</p>
+				<p style="color:#000;">{{ data.assess_type|capitalize }}</p>
+				<!-- <a href="{{ data.url }}" class="book-now">Book Now</a> -->
+			<div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+</div>

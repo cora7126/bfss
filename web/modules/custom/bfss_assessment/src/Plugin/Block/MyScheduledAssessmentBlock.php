@@ -54,7 +54,7 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
     
 
     if(isset($param['SearchAssessments'])){
-      $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'group');
+      $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'scheduled');
     }else{
       $nids = $this->assessmentService->My_Scheduled_Assessment_Block($element);
     }
@@ -70,8 +70,8 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
       if ($arr) {
         // $arr['url'] = $base_url.'/assessment/node/'.$nid;
         // $arr['url'] = 'http://bfss.mindimage.net/assessment/node/'.$nid;
-        $arr['url'] = '/assessment/node/'.$nid;
-        $arr['booking_status'] = 'purchased';
+        $arr['url'] = '/assessment/scheduled/node/'.$nid;
+       //$arr['booking_status'] = 'purchased';
         $data[] = $arr;
       }
     }
@@ -81,7 +81,7 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
       return [
         'results' => [
               '#cache' => ['max-age' => 0,],
-              '#theme' => 'upcoming_group_assessments',
+              '#theme' => 'my_scheduled_assessment',
               '#data' => $data,
               '#empty' => 'no',
             ],

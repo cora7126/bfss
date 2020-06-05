@@ -63,13 +63,14 @@ class AssessmentController extends ControllerBase {
   /**
    * @return markup
    */
-  public function modalNodeView() {
+  public function modalNodeView() { #data send in model 
     global $base_url;
     $uid = \Drupal::currentUser()->id();
     $user = User::load($uid);
     $roles = $user->getRoles();
     $param = \Drupal::request()->query->all();
     $nid = \Drupal::request()->get('node_id');
+    $current_path = \Drupal::service('path.current')->getPath();
     $data = [];
     if ($this->assessmentService->check_assessment_node($nid)) {
       $data = $this->assessmentService->getNodeData($nid);
@@ -77,6 +78,7 @@ class AssessmentController extends ControllerBase {
     if (isset($data['schedules']) && !empty($data['schedules'])) {
       $data['url'] = $base_url.'/assessment/type/'.$nid;
       $data['roles'] = $roles;
+      // $data['booking_status'] = $current_path;
       return [
           '#theme' => 'modal_assessment',
           '#data' => $data,
@@ -114,7 +116,61 @@ $popupmess ='<div class="sucss-popup slot-not-available">
     ];
   }
 
- 
+  /**
+   * @return markup
+   */
+  public function modalNodeViewForScheduled() { #data send in model 
+    global $base_url;
+    $uid = \Drupal::currentUser()->id();
+    $user = User::load($uid);
+    $roles = $user->getRoles();
+    $param = \Drupal::request()->query->all();
+    $nid = \Drupal::request()->get('node_id');
+    $current_path = \Drupal::service('path.current')->getPath();
+    $data = [];
+    if ($this->assessmentService->check_assessment_node($nid)) {
+      $data = $this->assessmentService->getNodeData($nid);
+    }
+    if (isset($data['schedules']) && !empty($data['schedules'])) {
+      $data['url'] = $base_url.'/assessment/scheduled/type/'.$nid;
+      $data['roles'] = $roles;
+      // $data['booking_status'] = $current_path;
+      return [
+          '#theme' => 'modal_assessment_scheduled',
+          '#data' => $data,
+          '#attached' =>[
+            'library' => [
+              'bfss_assessment/custom',
+            ],
+          ],
+        ];
+    }
+$popupmess ='<div class="sucss-popup slot-not-available">
+  <div class=" requestCallback sitepopup-default-bfss" style="">
+    <div class="sitepopup-wrap">
+    <div class="spb-popup-main-wrapper spb_top_center alertmessage">
+      <div  class="sitepopup-default-bfss-content">
+        <div class="popup_header change_password_header">
+          <h3>Alert! 
+            <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true" data-dismiss="modal"></i>
+          </h3>
+        </div>
+        <div class="success-msg">The event you are looking for book is not available! Please select another.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>';
+    return [
+      '#type' => 'markup',
+      '#markup' => Markup::create($popupmess),
+      '#attached' =>[
+        'library' => [
+          'bfss_assessment/custom',
+        ],
+      ],
+    ];
+  }
 
   /**
    * @return markup

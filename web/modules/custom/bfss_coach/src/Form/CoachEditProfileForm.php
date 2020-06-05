@@ -627,8 +627,8 @@ $form['html_image_athlete_end'] = [
     //end change password
    $form['submit'] = [
       '#type' => 'submit',
-      '#value' => 'SAVE', 
-      '#prefix' => '<div id="athlete_submit">',
+      '#value' =>  Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'), 
+      '#prefix' => '<div class="bfss_save_all save_all_changes">',
       '#suffix' => '</div>',
     ];
     return $form;

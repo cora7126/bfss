@@ -44,31 +44,57 @@ class EventDataGet extends ControllerBase {
 					 ];
 				}
 			}
-			 // $s =  array( 
-		  //       array(
-		  //         'title' => 'All Day Event1111',
-		  //         'start' => '2020-02-01'
-		  //       ),
-			 //      array(
-			 //        'title' => 'Long Event',
-			 //        'start' => '2020-02-07', 
-			 //      ),
-			 //      array(
-			 //        'title' => 'Repeating Event',
-			 //        'start' => '2020-02-09'
-			 //      ),
-			 //      array(
-			 //        'title' => 'Repeating Event',
-			 //        'start' => '2020-02-16'
-			 //      ),
-		  //   );
-		
-			// $uid = \Drupal::currentUser()->id();
-			// $conn = Database::getConnection();
-			// $num_deleted = $conn->delete($orgname)
-			//   ->condition('athlete_uid', $uid, '=')
-			//   ->execute();
-			//   $response = array($uid);
+
+			  return new JsonResponse($event_data);
+		}
+
+		public function event_data_get_scheduled()
+		{	
+
+			// $query = \Drupal::entityQuery('node');
+			// $query->condition('type', 'assessment');
+			// $query->condition('status', 1);
+			// $nids = $query->execute();
+			 $booked_ids = \Drupal::entityQuery('bfsspayments')
+		        ->condition('user_id', \Drupal::currentUser()->id())
+		        ->condition('time', time(), ">")
+		        ->sort('time','ASC')
+		        ->execute();
+		     #if there is data
+	         $entity_ids = []; 
+		      if ($booked_ids) {
+		        foreach ($booked_ids as $booked_id) {
+		          #load entity
+		           $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+		              if($entity->assessment->value != 9999999999){
+		               $entity_ids[] = $entity->assessment->value;
+		              }
+		        }
+		      }
+			$event_data = [];
+
+			foreach( $entity_ids as $nid ){
+				$node = Node::load($nid);
+				$data['title'] = $node->getTitle();
+				$field_schedules = $node->get('field_schedules')->getValue();
+
+				foreach ( $field_schedules as $element ) {
+					 $pGraph = Paragraph::load($element['target_id'] );
+					 $timing = (int) $pGraph->get('field_timing')->value;
+					 $date = date("Y-m-d",$timing);
+					 $time = $date.'T'.date("h:i:s",$timing);
+					 $duration = $pGraph->get('field_duration')->value;
+					 $event_data[] = [
+					 	'id'=>$nid,
+					   'title' => substr($data['title'], 0, 10).'...',
+					   //'date' => $date,
+					   'url' => '#'.$nid,
+					   'start' => $time,
+					   'className' => 'use-ajax',
+
+					 ];
+				}
+			}
 
 			  return new JsonResponse($event_data);
 		}

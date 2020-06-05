@@ -29,6 +29,16 @@ bfss_assessment.modal_node_view:
     _role: 'athlete+parent_guardian_registering_athlete_+coach+bfss_manager+bfss_administrator'
     # _permission: 'access content'
 
+bfss_assessment.modal_node_view_scheduled:
+  path: '/assessment/scheduled/node/{node_id}'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::modalNodeViewForScheduled'
+    _title: 'Assessment'
+    node_id: null
+  requirements:
+    _role: 'athlete+parent_guardian_registering_athlete_+coach+bfss_manager+bfss_administrator'
+    # _permission: 'access content'
+
 bfss_assessment.multistep_one:
   path: '/assessment/type/{node_id}'
   defaults:
@@ -217,11 +227,4 @@ bfss_assessment.admin_settings:
   requirements:
     _role: 'administrator'
 
-# bfss_assessment.calendar_modal_show:
-#   path: '/calendar-modal-show/{nid}'
-#   defaults:
-#     _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::modalNodeViewCalPopup'
-#     _title: 'Calendar modal'
-#     node_id: null
-#   requirements:
-#     _permission: 'access content'
+
