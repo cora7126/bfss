@@ -32,9 +32,9 @@ class EditAssessments extends ControllerBase {
 
 
      $tb = '<div class="wrapped_div_main user_pro_block">
-      <h2>Assessments</h2>
+      
       <div class="block-bfss-assessors">
-      <div class="table-responsive">
+      <div class="table-responsive-wrap">
      <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
         <thead>
           <tr>

@@ -4,7 +4,7 @@ bfss_assessment.assessment_prices:
     _form: '\Drupal\bfss_assessment\Form\AssessmentPriceForm'
     _title: 'Assessment Price Form'
   requirements:
-    _role: 'athlete+parent_guardian_registering_athlete_'
+    _role: 'bfss_administrator+administrator'
   #   _permission: 'access administration pages'
   # options:
   #   _admin_route: TRUE
@@ -26,7 +26,17 @@ bfss_assessment.modal_node_view:
     _title: 'Assessment'
     node_id: null
   requirements:
-    _role: 'athlete+parent_guardian_registering_athlete_'
+    _role: 'athlete+parent_guardian_registering_athlete_+coach+bfss_manager+bfss_administrator'
+    # _permission: 'access content'
+
+bfss_assessment.modal_node_view_scheduled:
+  path: '/assessment/scheduled/node/{node_id}'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::modalNodeViewForScheduled'
+    _title: 'Assessment'
+    node_id: null
+  requirements:
+    _role: 'athlete+parent_guardian_registering_athlete_+coach+bfss_manager+bfss_administrator'
     # _permission: 'access content'
 
 bfss_assessment.multistep_one:
@@ -216,3 +226,5 @@ bfss_assessment.admin_settings:
     _title: 'Payment settings'
   requirements:
     _role: 'administrator'
+
+

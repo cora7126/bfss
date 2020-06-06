@@ -47,54 +47,54 @@ class CompleteRegistrationForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    $form['phone_section'] = [
-      '#title'=> $this->t('Next, Set up 2 Step Authentication'),
-      '#type' => 'fieldset',
-    ];
+    // $form['phone_section'] = [
+    //   '#title'=> $this->t('Next, Set up 2 Step Authentication'),
+    //   '#type' => 'fieldset',
+    // ];
 
-    $form['phone_section']['description'] = [
-      '#type' => 'item',
-      '#markup' => t('<p>2 step authentication will send a code to your cell for your login authentication.</p>')
-    ];
+    // $form['phone_section']['description'] = [
+    //   '#type' => 'item',
+    //   '#markup' => t('<p>2 step authentication will send a code to your cell for your login authentication.</p>')
+    // ];
 
-    $form['phone_section']['phone'] = [
-      '#type' => 'tel',
-      '#title' => $this->t('Cell Phone'),
-      '#title_display' => 'invisible',
-      '#placeholder' => $this->t('Cell Phone'),
-      '#default_value' => $form_state->getValue('phone')
-    ];
+    // $form['phone_section']['phone'] = [
+    //   '#type' => 'tel',
+    //   '#title' => $this->t('Cell Phone'),
+    //   '#title_display' => 'invisible',
+    //   '#placeholder' => $this->t('Cell Phone'),
+    //   '#default_value' => $form_state->getValue('phone')
+    // ];
 
-    $form['phone_section']['confirm_phone'] = [
-      '#type' => 'tel',
-      '#title' => $this->t('Confirm Cell Phone'),
-      '#title_display' => 'invisible',
-      '#placeholder' => $this->t('Confirm Cell Phone'),
-      '#default_value' => $form_state->getValue('confirm_phone')
-    ];
+    // $form['phone_section']['confirm_phone'] = [
+    //   '#type' => 'tel',
+    //   '#title' => $this->t('Confirm Cell Phone'),
+    //   '#title_display' => 'invisible',
+    //   '#placeholder' => $this->t('Confirm Cell Phone'),
+    //   '#default_value' => $form_state->getValue('confirm_phone')
+    // ];
 
-    $form['phone_section']['confirm_code'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Confirm Code'),
-      '#title_display' => 'invisible',
-      '#placeholder' => $this->t('Confirm Code'),
-    ];
+    // $form['phone_section']['confirm_code'] = [
+    //   '#type' => 'textfield',
+    //   '#title' => $this->t('Confirm Code'),
+    //   '#title_display' => 'invisible',
+    //   '#placeholder' => $this->t('Confirm Code'),
+    // ];
 
-    $form['phone_section']['send_code'] = [
-      '#type' => 'button',
-      '#value' => $this->t('Send Code'),
-      '#placeholder' => $this->t('Send Code'),
-      '#name' => 'send_code',
-      '#attributes' => [
-        'class' => ['btn-send-code']
-      ],
-     /*'#ajax' => [
-        'callback' => [$this, 'sendCode'],
-        'wrapper' => 'send-code-wrapper'
-      ],
-      '#prefix' => '<div id="send-code-wrapper" class="send-code-wrapper">',
-      '#sufffix' => '</div>',*/
-    ];
+    // $form['phone_section']['send_code'] = [
+    //   '#type' => 'button',
+    //   '#value' => $this->t('Send Code'),
+    //   '#placeholder' => $this->t('Send Code'),
+    //   '#name' => 'send_code',
+    //   '#attributes' => [
+    //     'class' => ['btn-send-code']
+    //   ],
+    //  /*'#ajax' => [
+    //     'callback' => [$this, 'sendCode'],
+    //     'wrapper' => 'send-code-wrapper'
+    //   ],
+    //   '#prefix' => '<div id="send-code-wrapper" class="send-code-wrapper">',
+    //   '#sufffix' => '</div>',*/
+    // ];
 
     $form['additional_info'] = [
       '#type' => 'container',
@@ -109,25 +109,25 @@ class CompleteRegistrationForm extends FormBase {
       '#markup' => '<div id="resend-message" class="resend-message"></div>'
     ];
 
-    $form['additional_info']['resend_code'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Resend code'),
-      '#url' => Url::fromRoute('user.register'),
-      '#attributes' => [
-        'class' => ['btn-resend-code']
-      ],
-      '#weight'=> 19
-    ];
+    // $form['additional_info']['resend_code'] = [
+    //   '#type' => 'link',
+    //   '#title' => $this->t('Resend code'),
+    //   '#url' => Url::fromRoute('user.register'),
+    //   '#attributes' => [
+    //     'class' => ['btn-resend-code']
+    //   ],
+    //   '#weight'=> 19
+    // ];
 
-    $form['additional_info']['trouble'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Having trouble getting a code?'),
-      '#url' => Url::fromRoute('user.register'),  //  @todo: here should be link to trouble page
-      '#weight'=> 20,
-      '#attributes' => [
-        'class' => ['btn-trouble']
-      ],
-    ];
+    // $form['additional_info']['trouble'] = [
+    //   '#type' => 'link',
+    //   '#title' => $this->t('Having trouble getting a code?'),
+    //   '#url' => Url::fromRoute('user.register'),  //  @todo: here should be link to trouble page
+    //   '#weight'=> 20,
+    //   '#attributes' => [
+    //     'class' => ['btn-trouble']
+    //   ],
+    // ];
 
     $form['actions'] = ['#type' => 'actions', '#weight'=> 9];
     $form['actions']['submit'] = [
@@ -153,34 +153,34 @@ class CompleteRegistrationForm extends FormBase {
    */
   function validateForm(array &$form, FormStateInterface $form_state) {
     //  set new password
-    parent::validateForm($form, $form_state);
+    //parent::validateForm($form, $form_state);
 
     //  check if phone not same
-    $phone = $form_state->getValue('phone');
-    $confirm_phone = $form_state->getValue('confirm_phone');
+    // $phone = $form_state->getValue('phone');
+    // $confirm_phone = $form_state->getValue('confirm_phone');
 
-    $is_phones = 0;
-    if ($phone != $confirm_phone) {
-      $is_phones = 1;
-      $form_state->setErrorByName('phone', $this->t('The phones do not match or empty.'));
-    }
+    // $is_phones = 0;
+    // if ($phone != $confirm_phone) {
+    //   $is_phones = 1;
+    //   $form_state->setErrorByName('phone', $this->t('The phones do not match or empty.'));
+    // }
 
-    $errors = $form_state->getErrors();
+    // $errors = $form_state->getErrors();
 
-    $el = $form_state->getTriggeringElement();
+    // $el = $form_state->getTriggeringElement();
 
-    if ($el['#name'] == 'send_code') {
-      $form_state->clearErrors();
+    // if ($el['#name'] == 'send_code') {
+    //   $form_state->clearErrors();
 
-      if ($is_phones) {
-        $form_state->setErrorByName('phone', $this->t('The phones do not match or empty.'));
-      }
-    }
+    //   if ($is_phones) {
+    //     $form_state->setErrorByName('phone', $this->t('The phones do not match or empty.'));
+    //   }
+    // }
 
-    if (!empty($errors)) {
-      $form_state->setRebuild();
-      return $form;
-    }
+    // if (!empty($errors)) {
+    //   $form_state->setRebuild();
+    //   return $form;
+    // }
 
   }
 
@@ -200,15 +200,15 @@ class CompleteRegistrationForm extends FormBase {
     \Drupal::messenger()->addStatus($this->t('Password successfully set'));
 
     //  check if phone not same
-    $phone = $form_state->getValue('phone');
-    $confirm_phone = $form_state->getValue('confirm_phone');
+    // $phone = $form_state->getValue('phone');
+    // $confirm_phone = $form_state->getValue('confirm_phone');
 
-    $confirm_code = $form_state->getValue('confirm_code');
+    // $confirm_code = $form_state->getValue('confirm_code');
 
-    if ($phone == $confirm_phone && $confirm_code == '4111') { //@todo need replace that on service
-      //  @todo:  save phone field here
-      \Drupal::messenger()->addStatus($this->t('Phone successfully confirmed'));
-    }
+    // if ($phone == $confirm_phone && $confirm_code == '4111') { //@todo need replace that on service
+    //   //  @todo:  save phone field here
+    //   \Drupal::messenger()->addStatus($this->t('Phone successfully confirmed'));
+    // }
 	/*$dest_url = "/user/";
 	$url = Url::fromUri('internal:' . $dest_url);
 	$form_state->setRedirectUrl($url);*/

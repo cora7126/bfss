@@ -9,7 +9,11 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\node\Entity\Node;
 Use Drupal\node\NodeInterface;
 use Drupal\bfss_assessment\AssessmentService;
-
+use \Drupal\user\Entity\User;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\UrlHelper;
+Use Drupal\paragraphs\Entity\Paragraph;
 /**
  * Class AssessmentController.
  */
@@ -59,15 +63,22 @@ class AssessmentController extends ControllerBase {
   /**
    * @return markup
    */
-  public function modalNodeView() {
+  public function modalNodeView() { #data send in model 
     global $base_url;
+    $uid = \Drupal::currentUser()->id();
+    $user = User::load($uid);
+    $roles = $user->getRoles();
+    $param = \Drupal::request()->query->all();
     $nid = \Drupal::request()->get('node_id');
+    $current_path = \Drupal::service('path.current')->getPath();
     $data = [];
     if ($this->assessmentService->check_assessment_node($nid)) {
       $data = $this->assessmentService->getNodeData($nid);
     }
     if (isset($data['schedules']) && !empty($data['schedules'])) {
       $data['url'] = $base_url.'/assessment/type/'.$nid;
+      $data['roles'] = $roles;
+      // $data['booking_status'] = $current_path;
       return [
           '#theme' => 'modal_assessment',
           '#data' => $data,
@@ -78,9 +89,81 @@ class AssessmentController extends ControllerBase {
           ],
         ];
     }
+$popupmess ='<div class="sucss-popup slot-not-available">
+  <div class=" requestCallback sitepopup-default-bfss" style="">
+    <div class="sitepopup-wrap">
+    <div class="spb-popup-main-wrapper spb_top_center alertmessage">
+      <div  class="sitepopup-default-bfss-content">
+        <div class="popup_header change_password_header">
+          <h3>Alert! 
+            <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true" data-dismiss="modal"></i>
+          </h3>
+        </div>
+        <div class="success-msg">The event you are looking for book is not available! Please select another.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>';
     return [
       '#type' => 'markup',
-      '#markup' => $this->t('The event you are looking for book is not available! Please select another.'),
+      '#markup' => Markup::create($popupmess),
+      '#attached' =>[
+        'library' => [
+          'bfss_assessment/custom',
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * @return markup
+   */
+  public function modalNodeViewForScheduled() { #data send in model 
+    global $base_url;
+    $uid = \Drupal::currentUser()->id();
+    $user = User::load($uid);
+    $roles = $user->getRoles();
+    $param = \Drupal::request()->query->all();
+    $nid = \Drupal::request()->get('node_id');
+    $current_path = \Drupal::service('path.current')->getPath();
+    $data = [];
+    if ($this->assessmentService->check_assessment_node($nid)) {
+      $data = $this->assessmentService->getNodeData($nid);
+    }
+    if (isset($data['schedules']) && !empty($data['schedules'])) {
+      $data['url'] = $base_url.'/assessment/scheduled/type/'.$nid;
+      $data['roles'] = $roles;
+      // $data['booking_status'] = $current_path;
+      return [
+          '#theme' => 'modal_assessment_scheduled',
+          '#data' => $data,
+          '#attached' =>[
+            'library' => [
+              'bfss_assessment/custom',
+            ],
+          ],
+        ];
+    }
+$popupmess ='<div class="sucss-popup slot-not-available">
+  <div class=" requestCallback sitepopup-default-bfss" style="">
+    <div class="sitepopup-wrap">
+    <div class="spb-popup-main-wrapper spb_top_center alertmessage">
+      <div  class="sitepopup-default-bfss-content">
+        <div class="popup_header change_password_header">
+          <h3>Alert! 
+            <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true" data-dismiss="modal"></i>
+          </h3>
+        </div>
+        <div class="success-msg">The event you are looking for book is not available! Please select another.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>';
+    return [
+      '#type' => 'markup',
+      '#markup' => Markup::create($popupmess),
       '#attached' =>[
         'library' => [
           'bfss_assessment/custom',
@@ -108,7 +191,9 @@ class AssessmentController extends ControllerBase {
    * @return markup
    */
   public function scheduledAppointments() {
+
     $data = [];
+     $param = \Drupal::request()->query->all();
     $requriedFields = [
       'id',
       'time',
@@ -122,6 +207,8 @@ class AssessmentController extends ControllerBase {
         ->condition('time', time(), ">")
         ->sort('time','ASC')
         ->execute();
+        // print_r($entity_ids);
+        // die;
     #if there is data
     if ($entity_ids) {
       foreach ($entity_ids as $entity_id) {
@@ -134,8 +221,10 @@ class AssessmentController extends ControllerBase {
               $val[$field] = $entity->get($field)->value;
             }
           }
+          // print_r($val['assessment']);
+          // die;
           #if assessment avail
-          if (isset($val['assessment'])) {
+          if (isset($val['assessment'])) { // node id 
             $nodeData = $this->assessmentService->getNodeData($val['assessment']);
               #udpate title
               if (isset($nodeData['title']) && !empty($nodeData['title'])) {
@@ -147,6 +236,7 @@ class AssessmentController extends ControllerBase {
               $val['location'] = isset($nodeData['field_location']) ? $nodeData['field_location'] : null;
               #body
               $val['body'] = isset($nodeData['body']) ? $nodeData['body'] : null;
+              $val['booking_status'] = "purchased";
           }
           if ($val) {
             $data[] = $val;
@@ -160,7 +250,7 @@ class AssessmentController extends ControllerBase {
     // $data = [];
 	
 	
-	$block = \Drupal\block\Entity\Block::load('upcominggroupassessments');
+	  $block = \Drupal\block\Entity\Block::load('myscheduledassessmentblock');
     $block_content = \Drupal::entityManager()
       ->getViewBuilder('block')
       ->view($block);
@@ -172,14 +262,33 @@ class AssessmentController extends ControllerBase {
       ->view($block1);
     $assessments_block1 = \Drupal::service('renderer')->renderRoot($block_content1);
 	
+    //Month view block
+    $block_m_v = \Drupal\block\Entity\Block::load('monthviewblock');
+    $block_content_m_v = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block_m_v);
+    $assessments_block_m_v = \Drupal::service('renderer')->renderRoot($block_content_m_v);
+
+     if($param['MonthView'] =='MonthView'){
+                $BlockData = $assessments_block_m_v;
+        }else{
+         $BlockData = $assessments_block;
+        }
+  //FILTERS FROM
+  $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
+  $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
+  $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+
 	return [
       '#cache' => ['max-age' => 0,],
       '#theme' => 'scheduled__appointments',
-      '#assessments_block' => $assessments_block,
-      '#month_block' => $assessments_block1,
+      '#assessments_block' => $BlockData,
+      '#month_block' => $form,
+      '#search_filter_block' => $SearchFilterForm,
+      '#month_view_filter_block' => $MonthViewFilterForm,
       '#attached' => [
         'library' => [
-          'acme/acme-styles', //include our custom library for this response
+           'bfss_month_view/month_view_lib', //include our custom library for this response
         ]
       ]
     ];

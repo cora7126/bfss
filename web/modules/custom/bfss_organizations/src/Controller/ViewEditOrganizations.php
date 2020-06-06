@@ -30,7 +30,7 @@ class ViewEditOrganizations extends ControllerBase {
      $tb1 = '<form class="edit-view-org-form" action="" method="post" id="edit-view-org-form" onsubmit="return false;" accept-charset="UTF-8"><div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
-          <div class="table-responsive">
+          <div class="table-responsive-wrap">
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
@@ -67,6 +67,7 @@ class ViewEditOrganizations extends ControllerBase {
 			
                    
             $tb1 .= '<div class="unfollow-sub"><a value="EDIT" id="edit-organizations-plx" >EDIT</a></div>
+
             </tbody>
             </table>
              </div>

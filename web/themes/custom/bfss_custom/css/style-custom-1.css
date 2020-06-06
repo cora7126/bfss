@@ -1,0 +1,83 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ACCOUNT CREATED POP UP CSS STARTS HERE */
+.sitepopup-wrap{height:100%;width:100%;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-align-content:center;-webkit-align-content:center;align-content:center;-moz-justify-content:center;-webkit-justify-content:center;justify-content:center;}
+.sitepopup-wrap .spb-popup-main-wrapper.spb_top_center{position:relative;padding:0;left:0;right:0;max-width:420px;}
+.sitepopup-wrap .spb-popup-main-wrapper .spb-controls{right:15px;}
+.sitepopup-wrap .spb-popup-main-wrapper .spb-controls .close{opacity:1;color:#EB6E06;text-shadow:none;font-size:24px;line-height:30px;padding:4px 0;}
+.sitepopup-wrap .sitepopup-default-bfss-content{width:100%;float:left;display:block;}
+.sitepopup-wrap .sitepopup-default-bfss-content .popup_header{background-color:#000;margin:0;width:100%;float:left;display:block;}
+.sitepopup-wrap .sitepopup-default-bfss-content .popup_header h3{color:#fff;padding:11px 15px;width:100%;float:left;display:block;margin:0;font-size:14px;line-height:14px;height:40px;}
+.sitepopup-wrap .sitepopup-default-bfss-content .success-msg{padding:25px 20px;width:100%;float:left;display:block;}
+.sitepopup-wrap .sitepopup-default-bfss-content .success-msg p{margin:0 0 30px;}
+.sitepopup-wrap .sitepopup-default-bfss-content .success-msg p:last-child{margin:0;}
+/* ACCOUNT CREATED POP UP CSS ENDS HERE */
+
+/*.position2{display: none;}
+.position3,.position_12,.position_13,.position_22,.position_23{display: none;}*/
+
+
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position2.js-form-item-position2.form-no-label.form-group {
+    margin: 0px;
+}
+input#edit-position2 {
+    margin-bottom: 30px;
+}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position3.js-form-item-position3.form-no-label.form-group {
+    margin-bottom: 0px;
+}
+input#edit-position3 {
+    margin-bottom: 30px;
+}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-12.js-form-item-position-12.form-no-label.form-group {
+    margin-bottom: 0px;
+}
+input#edit-position-12 {
+    margin-bottom: 30px;
+}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-13.js-form-item-position-13.form-no-label.form-group {
+    margin-bottom: 0px;
+}
+input#edit-position-13 {
+    margin-bottom: 30px;
+}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-22.js-form-item-position-22.form-no-label.form-group {
+    margin-bottom: 0px;
+}
+
+input#edit-position-22 {
+    margin-bottom: 30px;
+}
+
+.add-group-assessments .form-item-image label {
+    color: #f4650f;
+}
+.edit-user .fa.fa-times.right-icon.changepassdiv-modal-close.spb_close {
+    top: 24px;
+}
+.edit-assessments .user_pro_block .block-bfss-assessors{border:none;}
+.form-item-venue-state span.input-group-addon,.form-item-venue-loaction span.input-group-addon{display:none;}
+.form-item-venue-state .select-wrapper,  .add-assessments .form-item-venue-loaction .input-group{width:100%}
+.edit-assessments-data .alert.alert-.alert-dismissible .close span,.add-assessments .alert.alert-.alert-dismissible .close {
+    font-size: 30px;
+    color: #fff;
+    text-shadow: none;
+}
+
+.edit-assessments-data .alert.alert-.alert-dismissible .close,.add-assessments .alert.alert-.alert-dismissible .close {
+    top: 22px;
+    right: 25px;
+}
+.bell-icon-sec {
+    text-align: right!important;
+}
+.approve-organization-popup .left_section .athlete_left > .items_div {border:none;}
+.no_pennding_organization {
+    text-align: center;
+}
+/******************* RESPONSIVE CSS STARTS HERE *********************/
+
+@media(min-width:100px) and (max-width:579px) {	
+	.sitepopup-wrap .spb-popup-main-wrapper.spb_top_center{max-width:90%;}
+}

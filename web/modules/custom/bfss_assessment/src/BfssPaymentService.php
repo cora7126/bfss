@@ -36,6 +36,7 @@ class BfssPaymentService {
 	  }
 
 		 public function createTransaction($data) {
+
 		    $config = $this->configFactory->get('bfss_assessment.settings');
 		    $auth_login = $config->get('api_login_id');
 		    $auth_key = $config->get('transaction_key');
@@ -84,6 +85,7 @@ class BfssPaymentService {
         $tresponse = $response->getTransactionResponse();
         if ($tresponse != null && $tresponse->getMessages() != null) {
           return [
+            "transaction_status" => $response->getMessages()->getResultCode(),
             "status" => true,
             "message" =>  " Successfully created transaction." . $tresponse->getMessages()[0]->getDescription() . "\n",
             "transaction_id" => $tresponse->getTransId()
@@ -92,6 +94,7 @@ class BfssPaymentService {
         else {
           if ($tresponse->getErrors() != null) {
             return [
+              "transaction_status"=> $response->getMessages()->getResultCode(),
               "status" => false,
               "message" =>  "Transaction Failed. \n " . $tresponse->getErrors()[0]->getErrorText() . "\n"
             ];
@@ -103,11 +106,13 @@ class BfssPaymentService {
         $tresponse = $response->getTransactionResponse();
         if ($tresponse != null && $tresponse->getErrors() != null) {
           return [
+            "transaction_status"=> $response->getMessages()->getResultCode(),
             "status" => false,
             "message" => "Transaction Failed. \n " . $tresponse->getErrors()[0]->getErrorText()
           ];
         } else {
           return [
+            "transaction_status"=> $response->getMessages()->getResultCode(),
             "status" => false,
             "message" => "Transaction Failed. \n " . $response->getMessages()->getMessage()[0]->getText()
           ];
@@ -115,6 +120,7 @@ class BfssPaymentService {
       }
     } else {
       return [
+        "transaction_status"=> $response->getMessages()->getResultCode(),
         "status" => false,
         "message" => "No response returned \n"
       ];
@@ -221,9 +227,9 @@ class BfssPaymentService {
     // $card_number = $data['credit_card_number'];
     // $card_expiry_date = $data['expiration_date'];
     // $card_cvv = $data['credit_card_cvv'];
-  	$card_number = '4111111111111111';
-    $card_expiry_date = '1226';
-    $card_cvv = '123';
+  	$card_number = $data['credit_card_number'];
+    $card_expiry_date = $data['expiration_year'].'-'.$data['expiration_month'];
+    $card_cvv = $data['cvv'];
     // Create the payment data for a credit card
     $creditCard = new AnetAPI\CreditCardType();
     $creditCard->setCardNumber($card_number);

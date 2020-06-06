@@ -61,3 +61,12 @@ bfss_admin.editable_tamplates:
     _title: 'Editable Templates'
   requirements:
     _access: 'TRUE'
+
+
+bfss_admin.users_editable_account_url:
+  path: '/users-editable-account'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\BfssUsersEditableAccountController::Bfss_Users_Editable_Account'
+    _title: 'Users Editable Account'
+  requirements:
+    _access: 'TRUE'

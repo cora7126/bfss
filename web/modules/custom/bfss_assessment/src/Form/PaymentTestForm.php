@@ -118,9 +118,9 @@ class PaymentTestForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-  	 $formState = $form_state->cleanValues()->getValues();
-  	 $data['amount'] = (!empty($formState['price']) ? $formState['price'] : $formState['price']);
-  	 $data['amount_text'] = $formState['special_note'];
+   $formState = $form_state->cleanValues()->getValues();
+   $data['amount'] = (!empty($formState['price']) ? $formState['price'] : $formState['price']);
+   $data['amount_text'] = $formState['special_note'];
  	 $data['fname'] = $formState['fname'];
  	 $data['lname'] = $formState['lname'];
  	 $data['address'] = $formState['address'];
@@ -131,6 +131,7 @@ class PaymentTestForm extends FormBase {
  	 $data['phone'] = $formState['phone'];
  	 if (!empty($data['amount'])) {
       $paymentdone = $this->payment->createTransaction($data);
+  
        if (is_array($paymentdone) && isset($paymentdone['status'])) {
         if ($paymentdone['status'] == true) {
           drupal_set_message('Payment successfully received.');
@@ -141,9 +142,6 @@ class PaymentTestForm extends FormBase {
       }
   	 }
 
-  	// echo "<pre>";
-  	// print_r($data['price']);
-  	// die;
   }
 
 }

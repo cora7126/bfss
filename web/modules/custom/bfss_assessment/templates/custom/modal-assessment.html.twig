@@ -1,3 +1,6 @@
+<!--<pre>
+	{{ dump(data) }}
+</pre> -->
 <script>
 jQuery(document).ready(function() {
 jQuery(".share a.share_assessment").click(function(){
@@ -30,6 +33,7 @@ jQuery(".share a.share_assessment").click(function(){
 		</div>
 	</div>
 	<div class="ticketing">
+		
 		<div class="share">
 		<span><a class="share_assessment"><i class="fas fa-share"></i>  Share</a></span>
 				<div class="social_share_links" style="display:none;">
@@ -61,8 +65,9 @@ jQuery(".share a.share_assessment").click(function(){
 			        </ul>
              </div>
 		</div>
+		
 		<div class="ticket">
-		<span><i class="fa fa-ticket" aria-hidden="true"></i>   TICKETING</span>
+		<span><i class="fal fa-ticket-alt"></i>   TICKETING</span>
 		</div>
 	</div>
 	<div class="details">
@@ -91,10 +96,13 @@ jQuery(".share a.share_assessment").click(function(){
 				<p>LOCATION</p>
 				{{ data.field_location }}
 			<div>
+			{% set role = 'athlete' %}
+			{% if role in data.roles %}
 			<div class="ticketing">
 				<p>TICKETING</p>
 				<a href="{{ data.url }}" class="book-now">Book Now</a>
 			<div>
+			{% endif %}
 		</div>
 	</div>
 </div>

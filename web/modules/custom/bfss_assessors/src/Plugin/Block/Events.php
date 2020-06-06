@@ -38,7 +38,7 @@ class Events extends BlockBase {
      	
     	  $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
-        $query->condition('field_assessors', $current_assessors_id , '=');
+        #$query->condition('field_assessors', $current_assessors_id , '=');
         #$query->pager(10, (int) $ele);
         $nids = $query->execute(); 
   
@@ -55,17 +55,18 @@ class Events extends BlockBase {
             ->condition('time',$timeslot,'=')
             ->execute();
             $attendees = count($booked_ids);
-
-           $date = date('M d Y',$timeslot);
-           $time =  date('h:i a',$timeslot);
-           $result[] = [
-              'time' => $time,
-              'date' => $date,
-              'title' => $title,
-              'attendees' => $attendees,
-              'timeslot' => $timeslot,
-              'nid' => $nid,
-           ];
+            if($attendees>0){
+              $date = date('M d Y',$timeslot);
+              $time =  date('h:i a',$timeslot);
+              $result[] = [
+                'time' => $time,
+                'date' => $date,
+                'title' => $title,
+                'attendees' => $attendees,
+                'timeslot' => $timeslot,
+                'nid' => $nid,
+              ];
+            }
           }
         }
        
@@ -169,9 +170,9 @@ class Events extends BlockBase {
                 if ($pGraph->hasField('field_timing')/* && $pGraph->hasField('field_duration')*/) {
                   $timing = (int) $pGraph->get('field_timing')->value;
                 
-                  //if ($timing > time()) {
+                  if ($timing > time()) {
                     $data[$timing] = $timing;
-                  //}
+                  }
                 }
               }
             }
