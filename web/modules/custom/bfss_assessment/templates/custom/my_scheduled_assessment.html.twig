@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row assessment_block  my_scheduled_assessment" id="my_scheduled_assessment_plx">
+  	{% for row in data %}
+	    <div class="col use-ajax assessment_inner" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;:750, &quot;dialogClass&quot;: &quot;assessments-popup-md&quot;}" href="{{ row.url }}">
+	    	<div class="top-head">
+				<div class="timing">
+					<h2>
+						{{ row.title }}
+					</h2>
+					<span>
+						{% if row.latest_timing %}
+							{{ row.latest_timing|date("h:i a") }}
+						{% endif %}	
+					</span>
+				</div>
+
+					<div class="timing-date">
+
+					<span>
+						{% if row.latest_timing %}
+							<span class="m">
+							{{ row.latest_timing|date("M") }}
+							</span>
+							<span class="d">
+							{{ row.latest_timing|date("d") }}
+							</span>
+							<span class="y">
+							{{ row.latest_timing|date("Y") }}
+							</span>
+						{% endif %}
+					</span>
+				</div>
+
+			</div>
+			<div class='image'>
+				<img src='{{ row.field_image }}' alt='{{ row.title }}' />
+			</div>
+			<div class='categories-tags'>
+				<ul><li>TAGS</li><li>CAT HERE</li></ul>
+			</div>
+			<div class='node-body'>
+				{{ row.body|striptags|slice(0,100) }}
+			</div>
+		</div>
+	{% endfor %}
+  </div>
+</div>

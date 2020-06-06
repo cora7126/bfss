@@ -432,8 +432,8 @@ class UserByPermissionsTableForm extends FormBase {
       $form['actions']['#type'] = 'actions';
       $form['actions']['submit'] = [
           '#type' => 'submit',
-          '#value' => $this->t('SAVE'),
-          '#prefix' => '<div id="athlete_submit" class="athlete_submit">',
+          '#value' => Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'),
+          '#prefix' => '<div class="bfss_save_all save_all_changes">',
           '#suffix' => '</div>',
           '#button_type' => 'primary',
            // '#ajax' => [

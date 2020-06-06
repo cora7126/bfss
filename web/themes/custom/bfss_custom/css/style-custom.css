@@ -11,11 +11,13 @@ html body{margin-top:0 !important;padding:0 !important;}
 .form-item input:hover, .form-item input:focus{outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
 .modal-header .close{z-index:1;opacity:1;}
 .close span{font-size:30px;color:#EB6E06;text-shadow:none;}
-#edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus{box-shadow:none;outline:0;}
+#edit-actions button.save-button-plx:hover, #edit-actions button.save-button-plx:focus, .add-group-assessments .nice-select.form-select > span:hover, .nice-select.form-select > span:focus, .add-group-assessments .select-wrapper .nice-select.form-select:hover, .add-group-assessments .select-wrapper .nice-select.form-select:focus{box-shadow:none;outline:0;}
 #edit-actions button.save-button-plx{font-size:14px;background-color:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;border-radius:2px;border:2px solid #EB6E06;padding:8px 15px;height:40px;margin:10;}
 
-.wrapper form input[type="text"], .wrapper form input[type="email"], .wrapper form input[type="number"], .wrapper form select, .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;}
-.right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select, .wrapper form select{background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
+.add-group-assessments .select-wrapper .nice-select.form-select{height:auto;padding:0;}
+.add-group-assessments .nice-select.form-select > span{opacity:.6;}
+.add-group-assessments .nice-select.form-select > span, .wrapper form input[type="text"], .wrapper form input[type="email"], .wrapper form input[type="number"], .wrapper form select, .left_section .athlete_left .form-item input, .right_section .athlete_right .form-item input, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select{border-radius:2px;height:40px;font-size:14px;margin:0;width:100%;display:block;line-height:24px;}
+.add-group-assessments .nice-select.form-select > span, .right_section .athlete_right .form-item select, .left_section .athlete_left .form-item select, .wrapper form select{padding:7px 40px 7px 8px;background:transparent url(../images/select-arrow.png) no-repeat right 10px center/15px auto;-moz-appearance:none;-webkit-appearance:none;appearance:none;}
 .left_section .athlete_left .form-item textarea{border-radius:2px;font-size:14px;padding:10px;}
 /**************** DASHBOARD HEADER CSS STARTS HERE *******************/
 .dashboard .custom-nav-box{display:block;}
@@ -34,9 +36,10 @@ html body{margin-top:0 !important;padding:0 !important;}
 /**************** DASHBOARD MAIN CONTENT LAYOUT CSS ENDS HERE *******************/
 	
 /*********** SITE DEFAULT BUTTON CSS STARTS HERE *************/
-i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor: pointer;}
-.btn.button{border:1px solid #EB6E06;background:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;height:35px;line-height:23px;padding:5px 20px;font-size:14px;}
-.btn.button:hover, .btn.button:focus{box-shadow:none;outline:0;border:1px solid #EB6E06;background:#EB6E06;opacity:.8;}
+i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor:pointer;}
+.block-month-view-block .fc-toolbar h2{color:#EB6E06;}
+.btn.button, .block-month-view-block .fc-button-primary{border:1px solid #EB6E06;background:#EB6E06;color:white;box-shadow:none;outline:0;width:auto;text-transform:uppercase;height:35px;line-height:23px;padding:5px 20px;font-size:14px;}
+.btn.button:hover, .btn.button:focus, .block-month-view-block .fc-button-primary:hover, .block-month-view-block .fc-button-primary:focus, .block-month-view-block .fc-button-primary:active, .fc-button-primary:not(:disabled):active:focus, .fc-button-primary:not(:disabled).fc-button-active:focus{box-shadow:none;outline:0;border:1px solid #EB6E06;background:#EB6E06;opacity:.8;}
 .form-actions.js-form-wrapper a.btn{margin:0 15px 0 0;}
 .form-actions.js-form-wrapper a.btn, .form-actions.js-form-wrapper button.button{outline:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;height:35px;border:1px solid #f4650f;font-size:14px;line-height:20px;opacity:1;}
 .form-actions.js-form-wrapper a.btn:hover, .form-actions.js-form-wrapper a.btn:focus, .form-actions.js-form-wrapper button.button:hover, .assessment-time .form-actions.js-form-wrapper button.button:focus{color:#fff;opacity:.8;outline:0;box-shadow:none;}
@@ -45,7 +48,6 @@ i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor: pointer;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit p{margin:0;font-size:14px;line-height:20px;display:inline-block;float:left;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit p i{margin-right:10px;}
 .form-actions.js-form-wrapper .add_item_plx.button.js-form-submit p:empty-child{display:none;}
-.form-actions.js-form-wrapper .delete_item_plx.cancel.button{margin:0 15px;padding:0;border:0;background:transparent;}
 .form-actions.js-form-wrapper .delete_item_plx.cancel.button:hover, .main_section_plx .athlete_left .delete_item_plx.cancel.button:focus{background:transparent;border-color:#fff;}
 .form-actions.js-form-wrapper .delete_item_plx.cancel.button i{font-size:14px;color:#EB6E06;}
 .assessment-time .form-actions.js-form-wrapper button.button{text-transform:none;}
@@ -95,7 +97,6 @@ i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor: pointer;}
 .dash-sub-main i.edit_image_solid{width:72px;height:72px;margin-right:12px;border:2px solid #EB6E06;border-radius:50%;padding:13.5px 5px;text-align:center;}
 .dash-sub-main i.edit_image_solid::before{width:48px;height:auto;display:inline-block;overflow:hidden;line-height:45px;text-align:center;color:#EB6E06;font-size:32px;}
 .view-edit-organizations .dash-sub-main i.edit_image_solid::before{line-height:40px;}
-.view-edit-organizations .unfollow-sub{padding-bottom:12px;}
 .right_section .athlete_right label.control-label{padding:0 15px;margin:15px 0;}
 .right_section.box-pre .athlete_right label.control-label{padding:0;margin:0;}
 .right_section.box-pre .athlete_right label.control-label br{display:none;}
@@ -126,14 +127,10 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
  .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
-.dashboard .my-assessment.manager_desh.pending-approval .panel_row p {
-    color: #000;
-}
+.dashboard .my-assessment.manager_desh.pending-approval .panel_row p{color:#000;}
 .dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:1;}
 /* ---------Quick-Link-ACCORDIAN CSS ENDS HERE *******************/
-.dashboard .my-assessment.admin_desh.pending-approval .panel_row p {
-    color: #000;
-}
+.dashboard .my-assessment.admin_desh.pending-approval .panel_row p{color:#000;}
 .right_side_section .tab-main-sec .col-xl-9.col-lg-8.col-md-6.col-6, .right_side_section .tab-main-sec .col-xl-3.search_icon{margin:0;}
 .tab-main-sec .tab-main-sec-heading h2{font-size:16px;margin:0;opacity:.6;}
 .tab-main-sec .tab-main-sec-heading h2 span{position:relative;}
@@ -181,10 +178,10 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .bfss-main .content-bfss p .switch .slider.round::before{border-radius:50%;}
 
 /* --------- DASHBOARD ASSESMENT BLOCK CSS STARTS HERE *******************/
-.assessment_block .timing h2{color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:60px;overflow:hidden;}
+.assessment_block .timing h2{line-height:20px;color:#000;font-size:16px;padding-right:25px;font-family:Montserrat;font-weight:bold;max-height:60px;overflow:hidden;opacity:1;}
 .block-bfss-assessment{width:100%;float:left;display:block;}
 .block-bfss-assessment .container{padding:0;margin:0;}
-.block-bfss-assessment .container .assessment_block{margin:0 -7.5px;float:left;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
+.block-bfss-assessment .container .assessment_block{margin:0 -7.5px;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
 .block-bfss-assessment .container .assessment_block .col.assessment_inner{padding:5px;background:#f1f3f2;margin:5px 7.5px;width:calc(33.3% - 15px);border-color:#b4b6b5;float:left;-ms-flex-preferred-size:unset; flex-basis:unset;-ms-flex-positive:unset;flex-grow:unset;}
 
 
@@ -196,23 +193,37 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .simple-popup-blocks-global form .left_section{width:70%;float:left;display:block;padding-bottom:50px;}
 .simple-popup-blocks-global form .left_section .athlete_left h3, .simple-popup-blocks-global form .right_section .athlete_right h3{font-weight:400;font-size:13px;border:1px solid #000;padding:10px 15px;}
 .simple-popup-blocks-global form .left_section .athlete_left h3 i, .simple-popup-blocks-global form .right_section .athlete_right h3 i{font-weight:400;}
-.simple-popup-blocks-global form .left_section .athlete_left h3 .right-icon, .simple-popup-blocks-global form .right_section .athlete_right h3 .right-icon{top:12px;right:0;}
+.simple-popup-blocks-global form .left_section .athlete_left h3 .right-icon, .simple-popup-blocks-global form .right_section .athlete_right h3 .right-icon{top:15px;right:5px;}
 .simple-popup-blocks-global form .left_section .items_div, .simple-popup-blocks-global form .right_section .items_div{border:1px solid #4c4c4c;padding:40px 0;}
 .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item{padding:0 10px;margin:0 0 30px;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item:last-child{margin:0;}
-.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:40px;margin:0;outline:none;font-size:13px;}
+.simple-popup-blocks-global form .left_section .items_div > .form-item.js-form-item:last-child, .simple-popup-blocks-global form .right_section .items_div > .form-item.js-form-item:last-child{margin:0;}
+
+.simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item input.form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .right_section .items_div .form-item.js-form-item .form-control:focus{height:40px;margin:0;outline:none;font-size:13px;}
 .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:hover, .simple-popup-blocks-global form .left_section .items_div .form-item.js-form-item .form-control:focus{background:#f1f3f2;outline:none;}
 .simple-popup-blocks-global form .left_section .items_div .add_pos_div{padding:0;float:left;width:100%;display:block;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item{margin:0 0 40px;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item{margin:0 0 30px;}
 .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first{margin-right:15px !important;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first, .simple-popup-blocks-global form .left_section .items_div .add_pos_div .remove_pos_first{position:relative;margin:0;top:-30px;left:15px;font-size:13px;}
-.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first i , .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.remove_pos_first i{padding-right:5px;font-weight:400;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first, .simple-popup-blocks-global form .left_section .items_div .add_pos_div .remove_pos_first{position:relative;margin:0;top:-5px;left:15px;font-size:13px;}
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div a.add_pos_first i, .simple-popup-blocks-global form .left_section .items_div .add_pos_div a.remove_pos_first i, .add_pos_second i{padding-right:10px;font-weight:400;}
 .simple-popup-blocks-global form .left_section a.add_org.popup_add_org{padding:0;}
 .simple-popup-blocks-global form .left_section a.add_org.popup_add_org i{font-weight:400;}
-
+.simple-popup-blocks-global form .left_section .items_div .add_pos_div .form-item.js-form-item.form-type-textarea.js-form-type-textarea{margin:0;}
 
 .simple-popup-blocks-global form .right_section{width:calc(30% - 25px);float:right;display:block;margin-left:25px;}
 .simple-popup-blocks-global form .right_section > .form-item.js-form-item{margin:0;}
+
+/********first time popup start from here**********/
+
+.full-width-inp.orgtype .select-wrapper{width:100%;}
+.full-width-inp.orgtype span.input-group-addon{display:none;}
+.dashboard-profile .simple-popup-blocks-global form .left_section .athlete_left h3, .dashboard-profile .simple-popup-blocks-global form .right_section .athlete_right h3{padding:0 15px;}
+.dashboard-profile i.fa.fa-trash{padding-top:5px;}
+ul.ui-widget.ui-widget-content.ui-autocomplete, .ui-datepicker.ui-widget-content, .ui-datepicker.ui-widget-content .tooltip.cutsom-tooltip{z-index:999999999;}
+div.tooltip{z-index:99999999999999999999999999999999999999;}
+ul.ui-widget.ui-widget-content.ui-autocomplete li a{display:block;background:transparent;border-color:transparent;}
+ul.ui-widget.ui-widget-content.ui-autocomplete li a:hover, ul.ui-widget.ui-widget-content.ui-autocomplete li a:focus{background:transparent;color:#EB6E06;border-color:transparent;}
+
+/********first time popup end from here**********/
 
 /*************** MY AUTHENTIC PROFILE POP UP CSS STARTS HERE ****************************/
 
@@ -281,12 +292,13 @@ form.edit-form .js-form-managed-file.form-managed-file .js-form-file.form-file{p
 .athletes_follow_dv, .athletes-unfollow-form, .wrapped_div_main{width:100%;float:left;display:block;}
 .athletes_follow_dv .search_athlete_main{padding:0;}
 .athletes_follow_dv .search_athlete_main .block-bfss-assessors{border:0;padding:20px 10px;}
-.athletes_follow_dv .search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;/*top:30px;*/}
-.athletes_follow_dv .search_athlete_main .unfollow-sub i{color:#EB6E06;font-size:14px;line-height:22px;position:relative;top:1px;}
-.athletes_follow_dv .search_athlete_main .unfollow-sub input[type="submit"]{border:0;background:none;color:#EB6E06;font-size:13px;text-transform:capitalize;line-height:22px;font-weight:500;}
+.search_athlete_main .unfollow-sub{position:absolute;left:160px;z-index:9;/*top:30px;*/}
+.search_athlete_main .unfollow-sub i{color:#EB6E06;font-size:14px;line-height:22px;position:relative;top:1px;}
+.search_athlete_main .unfollow-sub input[type="submit"], .search_athlete_main .unfollow-sub a{border:0;background:none;color:#EB6E06;font-size:13px;text-transform:capitalize;line-height:24px;font-weight:500;cursor:pointer;padding:0 10px;}
+.search_athlete_main .unfollow-sub input[type="submit"]:focus, .search_athlete_main .unfollow-sub a:hover, .search_athlete_main .unfollow-sub input[type="submit"]:focus, .search_athlete_main .unfollow-sub a:focus{outline:0;box-shadow:none;color:#EB6E06;}
 /**************** ATHLETES FOLLOW CSS ENDS HERE *******************/
 .eventlisting_main.user_pro_block{margin:0 0 30px;}
-.private_assess_listing_main.user_pro_block{padding:0;}
+.dashboard .private_assess_listing_main.user_pro_block{padding:0 15px;}
 .eventlisting_main.user_pro_block h2, .private_assess_listing_main.user_pro_block h2{margin:0;}
 .submit-follow-label i{color:#fc6703;font-size:18px;}
 .dashboard .region-footer .footer_bt{padding:0;}
@@ -338,9 +350,9 @@ a.drop:hover{text-decoration:none;}
 .open li a:hover{background-color:#3498db;color:#fff;}
 .open-caret{transform:rotate(180deg);transition:all .25s ease-out;}
 span.open-caret:before{color:#fff;}
-
+.pending-approval .accordion > a{float:right;width:15px;}
 /* -------profile-pop-css----------- */
-
+.add-assessments .left_section .athlete_left{width:100%;float:left;display:block;}
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button{background-color:#555;color:white;padding:16px 20px;border:none;cursor:pointer;opacity:0.8;position:fixed;bottom:23px;right:28px;width:280px;}
 
@@ -492,7 +504,7 @@ div.orgtextarea textarea{display:none;}
 /********************Nice select css end************************/
 
 /*************** ASSESSORS CSS STARTS HERE ******************/
-.table-responsive-wrap{width:100%;float:left;display:block;}
+.table-responsive-wrap{width:100%;float:left;display:block;padding:0 0 20px;}
 .table-responsive-wrap div.table-responsive{overflow-y:hidden;margin:0 0 20px;border:0;}
 .table-responsive-wrap div.table-responsive table{margin:0;border:1px solid #6d6e72;border-collapse:unset;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 .table-responsive .hide_role{display:none;}
@@ -516,6 +528,7 @@ div.form-item-current-pass{padding-top:31px;margin-top:20px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{content:"\e252";}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td{border:0;color:#000;font-size:13px;padding:15px 12px;text-transform:capitalize;position:relative;vertical-align:middle;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td.long-td, .user_pro_block .block-bfss-assessors .table-responsive table tbody th.long-th{width:400px;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#EB6E06;position:relative;padding-right:30px;font-size:13px;font-weight:700;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
@@ -630,6 +643,7 @@ a.pr-3.assessment-search-icon {cursor: pointer;}
 .centeralizeRow h4{font-weight:bold;}
 .centeralizeRow.white h4{color:#000;}
 .strengthRow{position:relative;width:100%;background:url('/modules/custom/bfss_assessment/img/reactive strength.jpg')no-repeat center top/cover;padding: 30px 0;}
+.strengthRow:before{position:absolute;top:0;left:0;width:100%;height:100%;display:block;background:rgba(0 0 0 .5%);content:" ";}
 .strengthRow p{font-size:18px;color:#fff;}
 .infoRow .sideIcon{max-width:50px;float:right;position:relative;z-index:9;}
 .infoRow span{font-size:60px;font-weight:bold;color:#EB6E06;margin-right:40px;font-family:'ALISEO';}
@@ -642,7 +656,7 @@ a.pr-3.assessment-search-icon {cursor: pointer;}
 .accelaration .row > div{width:calc(50% - 8px);display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#e6e8e9;position:relative;position:relative;z-index:9;border:2px solid #6d6e72;}
 .accelaration .row > .leftBg1{background:url('/modules/custom/bfss_assessment/img/Speedjpg.jpg')no-repeat center top/cover;}
 .accelaration .row > .leftBg2{background:url('/modules/custom/bfss_assessment/img/Elastic Strength.jpg')no-repeat center top/cover;}
-/*.accelaration .row > .leftBg.infoRow:before, .assessmentshot .strengthRow:before{content:"";background:rgba(0, 0, 0, .5);height:100%;width:100%;display:block;position:absolute;left:0;top:0;}*/
+.accelaration .row > .leftBg.infoRow:before, .assessmentshot .strengthRow:before{content:"";background:rgba(0, 0, 0, .5);height:100%;width:100%;display:block;position:absolute;left:0;top:0;}
 .assessmentshot .strengthRow .centeralizeRow, .accelaration .row > .leftBg.infoRow > div{position:relative;z-index:9;}
 .accelaration .centeralizeRow{max-width:100%;margin:0;}
 .centeralizeRow.large span{font-size:80px;}
@@ -717,7 +731,7 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 .main_section_plx form .left_section{width:calc(100% - 36rem);float:left;padding:0 20px 0 0;}
 .main_section_plx form .right_section{width:36rem;float:left;}
 .edit-sub{width:100%;float:left;display:block;margin:0 0 15px;text-align:right;}
-a#edit-organizations-plx, .drupal-approve-org .modal-footer .modal-buttons button.button, .drupal-edit-org .modal-footer .modal-buttons button.button{color:#fff;padding:5px 0;background:#EB6E06;font-size:14px;cursor:pointer;line-height:23px;height:35px;border:1px solid #EB6E06;display:inline-block;width:100px;text-align:center;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}
+.drupal-approve-org .modal-footer .modal-buttons button.button, .drupal-edit-org .modal-footer .modal-buttons button.button{color:#fff;padding:5px 0;background:#EB6E06;font-size:14px;cursor:pointer;line-height:23px;height:35px;border:1px solid #EB6E06;display:inline-block;width:100px;text-align:center;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}
 
 .drupal-approve-org{max-width:450px;margin:0 auto;}
 .drupal-approve-org .approve-organization-popup .items_div, .drupal-edit-org .edit-organization-popup .items_div{padding:20px 15px;}
@@ -732,8 +746,8 @@ a#edit-organizations-plx, .drupal-approve-org .modal-footer .modal-buttons butto
 .drupal-approve-org .modal-footer .modal-buttons, .drupal-edit-org .modal-footer .modal-buttons{margin:0;}
 .drupal-approve-org .modal-footer .modal-buttons button.button, .drupal-edit-org .modal-footer .modal-buttons button.button{padding:5px 30px;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;font-weight:700;width:auto;}
 .main_section_plx select:hover, .main_section_plx select:focus, .main_section_plx button:hover, .main_section_plx button:focus{-webkit-box-shadow:none !important;-moz-box-shadow:none !important;box-shadow:none !important;outline:0 !important;}
-.main_section_plx form .right_section .items_div .input-group .select-wrapper{display:block;width:calc(100% - 40px);float:left;}
-.main_section_plx form .right_section .items_div .input-group .input-group-addon{float:right;width:40px;background:transparent;}
+.main_section_plx form .right_section .items_div .input-group .select-wrapper{display:block;width:100%;float:left;}
+.main_section_plx form .right_section .items_div .input-group .input-group-addon{float:right;width:40px;background:transparent;display:none;}
 .main_section_plx form .right_section .items_div .input-group .input-group-addon .glyphicon{top:6px;}
 
 .drupal-edit-org .edit-organization-popup .form-group.js-form-wrapper.form-wrapper input{color:#000;}
@@ -841,15 +855,22 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .bfssAthleteProfile .ui-menu.ui-widget-content a:hover, .bfssAthleteProfile .ui-menu.ui-widget-content a:focus{background:transparent;outline:none;border:0;}
 /************* DASHBOARD CALENDER CSS STARTS HERE ********************/
 .block-bfss-month-view #calendar{max-width:100%;}
-#calendar .fc-toolbar.fc-header-toolbar{display:none;}
+/* #calendar .fc-toolbar.fc-header-toolbar{display:none;}*/
 #calendar .fc-content-skeleton thead tr td, #calendar .fc-content-skeleton tbody tr td{padding:5px 10px;}
-#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event{background:transparent;border:0;margin:0;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event{background:transparent;border:0;margin:0;padding:0;}
 #calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
-#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-time{-moz-order:2;-webkit-order:2;order:2;}
-#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-title{-moz-order:1;-webkit-order:1;order:1;/*white-space:normal;*/}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-time{-moz-order:2;-webkit-order:2;order:2;display:block;color:#000;font-weight:normal;width:100%;}
+#calendar .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-title{-moz-order:1;-webkit-order:1;order:1;white-space:normal;display:block;width:100%;}
 #calendar .fc-content-skeleton tbody tr td .fc-title{color:#EB6E06;}
 
-.assessments-popup-md .modal-header.ui-dialog-titlebar{position:absolute;width:100%;left:0;top:0;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;}
+#calendar-scheduled .fc-content-skeleton thead tr td, #calendar-scheduled .fc-content-skeleton tbody tr td{padding:5px 10px;}
+#calendar-scheduled .fc-content-skeleton tbody tr td a.fc-h-event.fc-event{background:transparent;border:0;margin:0;padding:0;}
+#calendar-scheduled .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}
+#calendar-scheduled .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-time{-moz-order:2;-webkit-order:2;order:2;display:block;color:#000;font-weight:normal;width:100%;}
+#calendar-scheduled .fc-content-skeleton tbody tr td a.fc-h-event.fc-event .fc-content .fc-title{-moz-order:1;-webkit-order:1;order:1;white-space:normal;display:block;width:100%;}
+#calendar-scheduled .fc-content-skeleton tbody tr td .fc-title{color:#EB6E06;}
+
+.assessments-popup-md .modal-header.ui-dialog-titlebar{position:absolute;width:100%;left:0;top:0;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end;border:0;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close{padding:0;margin:0;top:10px;position:relative;height:30px;width:30px;right:0;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span{color:#6d6e72;}
 .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:hover, .assessments-popup-md .modal-header.ui-dialog-titlebar button.close span:focus{color:#EB6E06;}
@@ -880,6 +901,34 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .html_body_wrap .filter-help.form-group{margin:0;}
 .date_duration #edit-resident-0-field-timing{display:inline-block;float:left;}
 .wrapper form#multistep-form-two .form-actions{margin:20px 0;}
+
+.sucss-popup.slot-not-available .sitepopup-wrap .spb-popup-main-wrapper.spb_top_center{max-width:100%;width:100%;}
+.popup_header.change_password_header h3 i{color:#EB6E06;background:transparent;}
+.popup_header.change_password_header{padding:0;}
+
+.left_section .athlete_left .form-item.remove-org, .form-actions.js-form-wrapper .delete_item_plx.cancel.button{position:absolute;top:-37px;right:0;width:45px;text-align:center;}
+.form-actions.js-form-wrapper .delete_item_plx.cancel.button{margin:0;padding:0 15px;border:0;background:transparent;top:-40px !important;}
+.form-actions.js-form-wrapper .delete_item_plx.cancel.button span{display:none;}
+
+.edit-assessments .left_section .athlete_left.schedule_plx:first_of_type .items_div, .add-assessments .left_section .athlete_left.schedule_plx:first_of_type .items_div{position:relative;z-index:9999;}
+.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:25%;}
+.add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list{width:100%;margin:0;border:1px solid #ced4da;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;background:#fff;max-height:285px;overflow-x:hidden;overflow-y:auto;}
+.add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list li{width:100%;float:left;display:block;border-bottom:1px solid #ced4da;font-size:14px;}
+.add-assessments .schedule_plx .select-wrapper .nice-select.form-select ul.list li:last-child{border:0;}
+.bfss_save_all.save_all_changes button.button .mobile{display:none;}
+.bfss_save_all.save_all_changes button.button em{font-style:normal;margin:0 10px;}
+.bfss_save_all.save_all_changes{position:fixed;bottom:5px;right:0;width:auto;z-index:9999;}
+.bfss_save_all.save_all_changes button.button{width:300px;border-radius:0;height:40px;line-height:25px;}
+.add-assessments .tokenize > .tokens-container > .token{padding:5px 25px 5px 10px;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;font-size:12px;}
+.add-assessments .tokenize > .tokens-container > .token > .dismiss{font-size:20px;line-height:18px;right:7.5px;}
+.tokenize-dropdown.dropdown > .dropdown-menu{max-height:100%;padding:15px;}
+.tokenize-dropdown.dropdown > .dropdown-menu li{border:0;}
+.tokenize-dropdown.dropdown > .dropdown-menu li a{display:block;width:100%;border:0;}
+.tokenize-dropdown.dropdown > .dropdown-menu li.active{background:#EB6E06;border:0;}
+.tokenize-dropdown.dropdown > .dropdown-menu li.active a{color:#fff;}
+.tokenize-dropdown.dropdown > .dropdown-menu li a:hover, .tokenize-dropdown.dropdown > .dropdown-menu li a:focus{background:transparent;}
+.bfss-success-msg{background-color:#1e7e34;color:#fff;padding:15px;}
+.data .file-size{padding:0 1em 1rem;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
@@ -908,11 +957,14 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.html_body_wrap .form-item.js-form-item.form-type-select, .html_body_wrap .form-item.js-form-item.form-type-select select{width:100%;}
 	.html_body_wrap .form-item.js-form-item .filter-help{width:100%;float:left;padding:0 15px 10px;}
 	.html_body_wrap > .js-form-item.form-item .js-filter-wrapper.filter-wrapper{height:auto;}
+	.block-month-view-block .fc-toolbar h2{font-size:1.4rem;}
+	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:100%;}
 }
 
 @media(min-width:580px) and (max-width:767px) {	
 	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:calc(50% - 15px);}	
 	div#upcoming_bk, .bfssmanager-dashboard div#upcoming_bk{grid-template-columns:1fr 1fr !important;}
+	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:30%;}
 }	
 
 @media (max-width:767px) {
@@ -929,7 +981,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.sm_cls{width:100%;margin:15px 0;}
 	#assessor_popup_form .accessorform_inner{padding:25px;}
 	.drupal-assess-fm .modal-footer{padding:0 25px 25px;}
-	.user_pro_block .block-bfss-assessors{padding:20px;}
+	.user_pro_block .block-bfss-assessors, .assessor-profile-desh .user_pro_block .block-bfss-assessors{padding:20px;}
 	.myassess_main_pxl.user_pro_block .block-bfss-assessors{padding:0;}
 	.bfss_manager_page{grid-template-columns:1fr;}
 	.bfss_manager{margin:10px 0 0;}
@@ -937,17 +989,26 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.add-assessments .athlete_submit button{width:100%;}
 	.assessment_inner .top-head{min-height:60px;}
 	.bfss-funds .remove_padding .search_athlete_main.user_pro_block .block-bfss-assessors{padding:20px 15px;}
+	.upcoming-group-assessments .assessment_block .timing h2{font-size:18px;line-height:24px;}
+	.bfss_save_all.save_all_changes button.button .mobile{display:inline-block;}
+	.bfss_save_all.save_all_changes button.button .desktop{display:none;}
+	.bfss_save_all.save_all_changes{width:100%;bottom:0;}
+	.bfss_save_all.save_all_changes button.button{width:100%;}
+	.add-assessments .region.region-footer{margin-bottom:40px;}
 }
 
 @media (min-width:768px) and (max-width:1023px) {
 	.custom-nav-box .header_rightbar .top_right, .custom-nav-box .header_rightbar .profile_img_section{width:250px;flex: 0 0 250px;max-width:250px;}
+	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:30%;}
 }
 @media (min-width:768px) {
-	.add-assessments .form-actions.js-form-wrapper .athlete_submit{position:fixed;bottom:5px;right:0;width:auto;}
-	.add-assessments .form-actions.js-form-wrapper .athlete_submit button.button{width:300px;border-radius:0;}
+	.add-assessments .tokenize > .tokens-container{max-width:60%;min-height:130px;}
 }
 
 @media (max-width:1023px) {
+	.simple-popup-blocks-global form .left_section, .simple-popup-blocks-global form .right_section{width:100%;}
+	.simple-popup-blocks-global form .right_section{margin:0;}
+	.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{margin:0 auto;width:90%;left:0;right:0;}
 	.centeralizeRow .rightText h4{width:100%;float:left;display:block;padding-right:60px;}
 	.centeralizeRow p{display:block;float:left;width:100%;}
 	.profile-right-modal .container{padding:0;}	
@@ -964,7 +1025,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	div.dataTables_wrapper .dataTables_length label select{font-size:12px;}
 	.calender_event_pop_up .tophead .image, .calender_event_pop_up .tophead .title-timing, .calender_event_pop_up .details .body, .calender_event_pop_up .details .date-location{width:100%;}
 	.calender_event_pop_up .details .date-location{padding:25px 0 0;}
-	.calender_event_pop_up .details .body, .date-and-time span, .date-and-time div.location, .dash-main-right h1{font-size:14px !important;}
+	.calender_event_pop_up .details .body, .date-and-time span, .date-and-time div.location, .dash-main-right h1{font-size:12px !important;}
 	.dash-sub-main h2{font-size:21px;margin:0;padding:6px 0;}
 	.accelaration .row > div{width:100% !important;padding:15px;}
 	.accelaration .row > div:first-child{margin:0 0 15px;}
@@ -1050,6 +1111,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 
 @media (min-width:1024px) and (max-width:1199px) {
 	.dashboard .athletic_profile{height:auto;}
+	.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{left:10%;right:10%;}
 	.centeralizeRow.large span{font-size:60px;}
 	.infoRow span{margin-right:20px;}
 	.centeralizeRow h4, .infoRow h4{font-size:18px;}
@@ -1062,5 +1124,9 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.tab-main-sec.assessments-sec div.col-lg-8, .quick-link div.col-lg-8, .quick-link div.col-lg-4{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%;}
 	.dashboard .my-assessment .panel{position:relative;}
 	.dashboard .my-assessment{margin:30px 0 0;}
+	.edit-form{grid-template-columns:1fr 30rem;}
 }
 /*************************** RESPONSIVE CSS ENDS HERE ****************/
+
+#block-eventslisting .table{width:99% !important}
+.eventlisting_main.user_pro_block .block-bfss-assessors .table-responsive table tbody tr{border:none !important}

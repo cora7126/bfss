@@ -57,6 +57,7 @@ class delparent extends ControllerBase {
 
 					// Save the user
 					$user->save();
+					user_logout();
 					}else{$response = 'ab';
 						drupal_set_message('NEW PASS MISMATCH ERROR','error');
 					}

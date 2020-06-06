@@ -121,12 +121,13 @@
 {% endblock %}
 <div class="sucss-popup">
 <!-- POP UP  -->
-  <div class="customModal requestCallback " style="" id="requestCallbackModal">
+  <div class="customModal requestCallback sitepopup-default-bfss" style="" id="requestCallbackModal">
+    <div class="sitepopup-wrap">
     <div class="spb-popup-main-wrapper spb_top_center">
       <div class="spb-controls">
-        <span class="" onclick="closeModal('#requestCallbackModal');">×</span>
+        <span class="closepopup close" onclick="closeModal('#requestCallbackModal');">×</span>
       </div>
-      <div id="" class="">
+      <div  class="sitepopup-default-bfss-content">
         <div class="popup_header change_password_header">
           <h3>Account Created
             <i class="fa fa-times right-icon changepassdiv-modal-close spb_close" aria-hidden="true"></i>
@@ -136,18 +137,8 @@
       </div>
     </div>
   </div>
+  </div>
 <!-- POP UP END -->
-
-  <!--
-<div class="customModal requestCallback" id="requestCallbackModal">
-    <div class="customModalContent">
-        <div class="contentWrapper requestCallbackContent"> 
-        <span class="close_modal" onclick="closeModal('#requestCallbackModal');">x</span>
-            <div class="success-msg"> page.popupmessage </div>
-        </div>
-    </div>
-</div>
--->
 </div>
 {% if page.footer %}
   {% block footer %}

@@ -185,7 +185,12 @@ class CoachEditProfileForm extends FormBase {
         '#default_value' => $results18['field_city'],
       ];
 
-      $gender_arr =  ['' => 'Select Gender','male' => 'Male','female' => 'Female','other' => 'Other'];
+      $gender_arr =  [
+        '' => 'Select Gender',
+        'male' => 'Male',
+        'female' => 'Female',
+        #'other' => 'Other'
+      ];
       $form['sextype'] = [
         '#type' => 'select',
         '#suffix' => '</div>
@@ -485,24 +490,24 @@ $form['html_image_athlete_start'] = [
                   </div>',
     ];
 
-    $form['label_text'] = array(
-  '#type' => 'label',
-  '#title' => 'No longer need your account and want to deactivate<br/>
-it? You can request deactivating you account via our<br/>
-ticketing system.',
-  '#prefix' => '</div>
-  </div>
-  <div class ="right_section box-pre"><div class = "athlete_right">',
-  '#suffix' => '</div></div>',
-  '#attributes' => array('id => parent_label'),
-  );
+//     $form['label_text'] = array(
+//   '#type' => 'label',
+//   '#title' => 'No longer need your account and want to deactivate<br/>
+// it? You can request deactivating you account via our<br/>
+// ticketing system.',
+//   '#prefix' => '
+//   <div class ="right_section box-pre"><div class = "athlete_right">',
+//   '#suffix' => '</div></div>',
+//   '#attributes' => array('id => parent_label'),
+//   );
 
   $form['instagram_account'] = array(
   '#type' => 'textfield',
   '#placeholder' => t('TEAM Instagram Account(Optional)'),
   '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
 
-  '#prefix' => '
+  '#prefix' => '</div>
+  </div>
   <div class = "athlete_right">
                     <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
                   <div class=items_div>',
@@ -622,8 +627,8 @@ $form['html_image_athlete_end'] = [
     //end change password
    $form['submit'] = [
       '#type' => 'submit',
-      '#value' => 'SAVE', 
-      '#prefix' => '<div id="athlete_submit">',
+      '#value' =>  Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'), 
+      '#prefix' => '<div class="bfss_save_all save_all_changes">',
       '#suffix' => '</div>',
     ];
     return $form;

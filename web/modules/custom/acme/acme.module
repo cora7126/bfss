@@ -20,6 +20,11 @@ function acme_theme() {
     'template' => 'hello',
   ];
 
+  $theme['submit_a_ticking_page'] = [
+    'variables' => ['name' => NULL,'submit_a_ticking' => NULL],
+    'template' => 'submit_a_ticking',
+  ];
+
   $theme['athletic_Profile_form_page'] = [
     'variables' => ['name' => NULL,'athletic_Profile_form_block' => NULL],
     'template' => 'athletic_Profile_form',

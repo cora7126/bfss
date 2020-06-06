@@ -1,6 +1,11 @@
 jQuery(document).ready(function() {
 
-
+jQuery('.athlete_left i.fa.fa-info.right-icon,.athlete_right i.fa.fa-info.right-icon').click(function (evt){
+	return false;
+});
+	jQuery('#requestCallbackModal span.closepopup').click(function(){
+	window.location = "/user/login";
+});
 	jQuery(".user_pro_block .table-responsive-wrap table").wrap("<div class='table-responsive'></div>");
 
 	jQuery("i.fal.fa-caret-down, i.fal.fa-calendar-alt").click(function(){
@@ -23,12 +28,36 @@ jQuery("[name=image_athlete_remove_button]").wrap('<div class="remove_btn_wrap">
 jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-type','modal');
 jQuery('#calendar .fc-view-container td.fc-event-container a').attr('data-dialog-options','{&quot;width&quot;:800, &quot;dialogClass&quot;: &quot;assessments-popup-md&quot;}');
     //jQuery( "#sortable_faqs" ).disableSelection();
-    jQuery(document).on('click', 'a[href^="#"]', function (e) {
+    jQuery(document).on('click', 'a[href^="#assessment-event-section"]', function (e) {
     e.preventDefault();
     jQuery('html, body').stop().animate({
         scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2
     }, 1000, 'linear');
 	});
+	 jQuery(document).on('click', 'a[href^="#assessment-private-section"]', function (e) {
+    e.preventDefault();
+    jQuery('html, body').stop().animate({
+        scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2
+    }, 1000, 'linear');
+	});
+
+	jQuery(document).on('click', 'a[href^="#Pending_section"]', function (e) {
+    e.preventDefault();
+    jQuery('html, body').stop().animate({
+        scrollTop: jQuery(jQuery(this).attr('href')).offset().top - 2
+    }, 1000, 'linear');
+    return false;
+	});
+
+	jQuery(document).on('click', 'a[href^="#Paid_section_ppp"]', function (e) {
+    e.preventDefault();
+    jQuery('html, body').stop().animate({
+        scrollTop: jQuery(jQuery(this).attr('href')).offset().top 
+    }, 1000, 'linear');
+    
+    return false;
+	});
+
 jQuery( ".user-login-form input[name=name]" ).attr('tabindex','1');
 jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
  	jQuery('#select_faqs_by_user').niceSelect();

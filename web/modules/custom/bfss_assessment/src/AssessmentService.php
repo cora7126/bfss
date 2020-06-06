@@ -39,16 +39,17 @@ class AssessmentService {
    * query
    */
   private function getAssessmentQuery(){
-    
+
         return \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('status', 1)
               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
-    
+
   }
 
   public function assessment_after_month_filter($element){
     $param = \Drupal::request()->query->all();
+    $current_date = date('Y/m/d');
     if(isset($param['showdate'])){
       $exp = explode("/",$param['showdate']);
       $M =  $exp[0];
@@ -73,19 +74,32 @@ class AssessmentService {
         $paragraph = Paragraph::load($target);
         $timesamp = $paragraph->field_timing->value;
         $monthdata[] = [
+        	'timesamp' => $timesamp,
+        	'date' =>  date('Y/m/d', $timesamp),
+        	'day' =>  date('d', $timesamp),
             'month' =>  date('m', $timesamp),
             'year' =>  date('Y', $timesamp),
             'nid' => $entity_id,
           ];
        }
       }
-      
-      $NIDS = [];   
-      foreach ($monthdata as $month_data) {
-        if($month_data['month'] == $M && $month_data['year'] == $Y){
-          $NIDS[] = $month_data['nid'];
-        } 
-      }
+
+      $NIDS = [];
+      	if(isset($param['showdate'])){
+	      foreach ($monthdata as $month_data) {
+	        if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+	    else{
+	       foreach ($monthdata as $month_data) {
+	        if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+
     }
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
   }
@@ -95,6 +109,7 @@ class AssessmentService {
   public function assessment_after_month_filter_upcoming($element){
     // print_r($_GET['showdate']);
     // die;
+     $current_date = date('Y/m/d');
     $param = \Drupal::request()->query->all();
     if(isset($param['showdate'])){
       $exp = explode("/",$param['showdate']);
@@ -107,11 +122,13 @@ class AssessmentService {
       $Y =  $date_arr[0];
     }
     if( !empty($M) && !empty($Y) ){
+
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
+
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
        $node = Node::load($entity_id);
@@ -120,19 +137,112 @@ class AssessmentService {
         $paragraph = Paragraph::load($target);
         $timesamp = $paragraph->field_timing->value;
         $monthdata[] = [
+            'timesamp' => $timesamp,
+        	  'date' =>  date('Y/m/d', $timesamp),
+        	  'day' =>  date('d', $timesamp),
             'month' =>  date('m', $timesamp),
             'year' =>  date('Y', $timesamp),
             'nid' => $entity_id,
           ];
        }
       }
-        
-      $NIDS = [];   
-      foreach ($monthdata as $month_data) {
-        if($month_data['month'] == $M && $month_data['year'] == $Y){
+
+      $NIDS = [];
+      if(isset($param['showdate'])){
+	      foreach ($monthdata as $month_data) {
+	        if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+	    else{
+	       foreach ($monthdata as $month_data) {
+	        if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+    }
+
+    return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
+  }
+//My Scheduled Assessment
+ public function My_Scheduled_Assessment_Block($element){
+  $requriedFields = [
+      'id',
+      'time',
+      'assessment_title',
+      'assessment',
+      'until',
+      'created',
+    ];
+    $current_date = date('Y/m/d');
+    $param = \Drupal::request()->query->all();
+    if(isset($param['showdate'])){
+      $exp = explode("/",$param['showdate']);
+      $M =  $exp[0];
+      $Y = $exp[1];
+    }else{
+      $current_date = date("Y/m/d");
+      $date_arr = explode('/',$current_date);
+      $M = $date_arr[1];
+      $Y =  $date_arr[0];
+    }
+    if( !empty($M) && !empty($Y) ){
+      // $assessment = \Drupal::entityQuery('node')
+      //         ->condition('type', 'assessment')
+      //         ->condition('field_type_of_assessment','group', '=')
+      //         ->condition('status', 1);
+      // $entity_ids = $assessment->execute();
+       $booked_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('user_id', \Drupal::currentUser()->id())
+        ->condition('time', time(), ">")
+        ->sort('time','ASC')
+        ->execute();
+         #if there is data
+         $entity_ids = []; 
+      if ($booked_ids) {
+        foreach ($booked_ids as $booked_id) {
+          #load entity
+           $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+              if($entity->assessment->value != 9999999999){
+               $entity_ids[] = $entity->assessment->value;
+              }
+        }
+      }
        
-          $NIDS[] = $month_data['nid'];
-        } 
+      $monthdata = [];
+      foreach ($entity_ids as $entity_id) {
+       $node = Node::load($entity_id);
+       $target_id = array_column($node->field_schedules->getValue(), 'target_id');
+       foreach ($target_id as $target) {
+        $paragraph = Paragraph::load($target);
+        $timesamp = $paragraph->field_timing->value;
+        $monthdata[] = [
+            'timesamp' => $timesamp,
+            'date' =>  date('Y/m/d', $timesamp),
+            'day' =>  date('d', $timesamp),
+            'month' =>  date('m', $timesamp),
+            'year' =>  date('Y', $timesamp),
+            'nid' => $entity_id,
+          ];
+       }
+      }
+
+      $NIDS = [];
+      if(isset($param['showdate'])){
+        foreach ($monthdata as $month_data) {
+          if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+            $NIDS[] = $month_data['nid'];
+          }
+        }
+      }
+      else{
+         foreach ($monthdata as $month_data) {
+          if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+            $NIDS[] = $month_data['nid'];
+          }
+        }
       }
     }
 
@@ -142,7 +252,7 @@ class AssessmentService {
 //ASSESSMENTS SEARCH FILTER  FOR  ASSESSMENTS
   public function Assessments_Search_Filter($element,$search_val,$assess_type){
     if(isset($search_val) && $assess_type=='group'){
-    
+
           $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
@@ -150,9 +260,9 @@ class AssessmentService {
               ->condition('title','%'.$search_val.'%','LIKE')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
-     
+
     }elseif(isset($search_val) && $assess_type=='private'){
-      
+
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','private', '=')
@@ -160,8 +270,39 @@ class AssessmentService {
               ->condition('title','%'.$search_val.'%','LIKE')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
+    }elseif(isset($search_val) && $assess_type=='scheduled'){
+
+       $booked_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('user_id', \Drupal::currentUser()->id())
+        ->condition('time', time(), ">")
+        ->condition('assessment_title','%'.$search_val.'%','LIKE')
+        ->sort('time','ASC')
+        ->execute();
+         #if there is data
+         $entity_ids = []; 
+      if ($booked_ids) {
+        foreach ($booked_ids as $booked_id) {
+          #load entity
+           $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+              if($entity->assessment->value != 9999999999){
+               $entity_ids[] = $entity->assessment->value;
+              }
+        }
+      }
+     
+
+
+
+      // $assessment = \Drupal::entityQuery('node')
+      //         ->condition('type', 'assessment')
+      //         ->condition('field_type_of_assessment','private', '=')
+      //          ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
+      //         ->condition('title','%'.$search_val.'%','LIKE')
+      //         ->condition('status', 1);
+      // $entity_ids = $assessment->execute();
+
     }else{
-    
+
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('title','%'.$search_val.'%','LIKE')
@@ -170,7 +311,7 @@ class AssessmentService {
       $entity_ids = $assessment->execute();
     }
     return !empty(array_unique($entity_ids)) ? array_unique($entity_ids): null;
-    
+
   }
 
 
@@ -181,6 +322,7 @@ class AssessmentService {
   public function assessment_after_month_filter_private($element){
     // print_r($_GET['showdate']);
     // die;
+     $current_date = date('Y/m/d');
     $param = \Drupal::request()->query->all();
     if(isset($param['showdate'])){
       $exp = explode("/",$param['showdate']);
@@ -207,20 +349,31 @@ class AssessmentService {
         $paragraph = Paragraph::load($target);
         $timesamp = $paragraph->field_timing->value;
         $monthdata[] = [
+             'timesamp' => $timesamp,
+        	'date' =>  date('Y/m/d', $timesamp),
+        	'day' =>  date('d', $timesamp),
             'month' =>  date('m', $timesamp),
             'year' =>  date('Y', $timesamp),
             'nid' => $entity_id,
           ];
        }
       }
-        
-      $NIDS = [];   
-      foreach ($monthdata as $month_data) {
-        if($month_data['month'] == $M && $month_data['year'] == $Y){
-       
-          $NIDS[] = $month_data['nid'];
-        } 
-      }
+
+      $NIDS = [];
+       if(isset($param['showdate'])){
+	      foreach ($monthdata as $month_data) {
+	        if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
+	    else{
+	       foreach ($monthdata as $month_data) {
+	        if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+	          $NIDS[] = $month_data['nid'];
+	        }
+	      }
+	    }
     }
 
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
@@ -263,6 +416,12 @@ class AssessmentService {
       global $base_url;
       $current_path = \Drupal::service('path.current')->getPath();
       $data['current_page'] = $base_url;
+      $data['assess_type'] = $node->field_type_of_assessment->value;
+    
+      // echo "<pre>";
+      // print_r($data['assess_type']);
+      // die;
+       // $data['assessment_type'] = $node->get('field_type_of_assessment')->value;
       if ($node instanceof NodeInterface) {
         $data['title'] = $node->getTitle();
         if ($node->hasField('body')) {
@@ -271,8 +430,14 @@ class AssessmentService {
         if ($node->hasField('field_location')) {
           $data['field_location'] = t($node->get('field_location')->value);
         }
+
         if ($node->hasField('field_image')) {
-          $data['field_image'] = file_create_url($node->get('field_image')->entity->getFileUri());
+        	$imageurl = $node->get('field_image')->entity->uri->value;
+        	if(isset($imageurl)){
+        		$data['field_image'] = file_create_url($imageurl);
+        	}
+        	        
+          //$data['field_image'] = file_create_url($node->get('field_image')->getFileUri());
         }
         if ($node->hasField('field_schedules')) {
           $field_schedules = $node->get('field_schedules')->getValue();
@@ -297,6 +462,7 @@ class AssessmentService {
                       $latest_duration = $duration;
                     }
                   }
+
                   if ($timing > time()) {
                     $data['schedules'][] = [
                       'field_timing' => $timing,

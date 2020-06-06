@@ -31,12 +31,12 @@ class AthelticController extends ControllerBase {
   * @var \Drupal\bfss_assessment\AssessmentService
   */
   protected $assessmentService;
-
+  
   /*
    * current user id
    */
   protected $atheleteUserId = null;
-
+  
   /*
    * a database connection
    */
@@ -89,14 +89,14 @@ class AthelticController extends ControllerBase {
    * check id exists
    */
   private function getUserNameValiditity($username = '') {
-
+  
     if ($username) {
       $query = $this->db->select('athlete_web', 'tb');
       $query->fields('tb');
       $query->condition('athlete_web_name', $username,'=');
       $query->condition('athlete_web_visibility', 1,'=');
       $result = $query->execute()->fetchAssoc();
-
+     
 
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
@@ -107,7 +107,7 @@ class AthelticController extends ControllerBase {
       $query->condition('athlete_addweb_name', $username,'=');
       $query->condition('athlete_addweb_visibility', 1,'=');
       $result = $query->execute()->fetchAssoc();
-
+       
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
       }
@@ -152,7 +152,7 @@ class AthelticController extends ControllerBase {
     [athlete_school_type] => Organization Type 1
     [athlete_school_pos2] => er
     [athlete_school_pos3] => ert*/
-
+   
     $data['athlete_info'] = $this->getUserInfo('athlete_info', '','athlete_uid');
     /*
     [id] => 3
@@ -179,7 +179,7 @@ class AthelticController extends ControllerBase {
         case 3:
           $val = 'Other';
           break;
-
+        
         default:
           $val = '';
           break;
@@ -198,13 +198,13 @@ class AthelticController extends ControllerBase {
     #result-12
     $data['athlete_uni'] = $this->getUserInfo('athlete_uni','','athlete_uid');
     $data['athlete_web'] = $this->getUserInfo('athlete_web','','athlete_uid');
-    /*[athlete_web_name] =>
+    /*[athlete_web_name] => 
     [athlete_web_visibility] => 1*/
     $data['athlete_addweb'] = $this->getUserInfo('athlete_addweb','','athlete_uid');
-    // [athlete_addweb_name] =>
-    // [athlete_addweb_visibility] =>
+    // [athlete_addweb_name] => 
+    // [athlete_addweb_visibility] =>  
     //$imgID = $this->getUserInfo('user__user_picture','user_picture_target_id');
-
+    
      $imgID = $this->Get_ath_Data('athlete_prof_image', 'atsim','athlete_id',$uid)['athlete_target_image_id'];
      // print_r($imgID);
      // die;
@@ -214,13 +214,13 @@ class AthelticController extends ControllerBase {
         $data['image'] = ImageStyle::load('medium')->buildUrl($file->getFileUri());
       }
     }
-    // $data['image'] =
+    // $data['image'] = 
     // 298
     $data['addschool'] = $this->getUserInfo('athlete_addschool','','athlete_uid');
-
+   
     $data['athlete_clubweb'] = $this->getUserInfo('athlete_clubweb','','athlete_uid');
-     /*[athlete_clubweb_name] =>
-    [athlete_clubweb_visibility] => */
+     /*[athlete_clubweb_name] => 
+    [athlete_clubweb_visibility] => */ 
     $data['mydata'] = $this->getUserInfo('mydata','','uid');
 
     /* [id] => 23
@@ -228,17 +228,17 @@ class AthelticController extends ControllerBase {
     [field_bloggs] => Perry
     [field_az] => 2
     [field_city] => Scottsdale
-    [field_birth_gender] =>
-    [field_dob] =>
-    [field_height] =>
-    [field_weight] =>
+    [field_birth_gender] => 
+    [field_dob] => 
+    [field_height] => 
+    [field_weight] => 
     [field_organization_type] => 0
     [field_organization_name] => 0
-    [field_coach_lname] =>
-    [field_sport] =>
-    [field_position] =>
-    [field_instagram] =>
-    [field_youtube] =>
+    [field_coach_lname] => 
+    [field_sport] => 
+    [field_position] => 
+    [field_instagram] => 
+    [field_youtube] => 
     [popup_flag] => filled
     [uid] => 101*/
     #$this->assessmentService->check_assessment_node($nid);
@@ -258,7 +258,7 @@ class AthelticController extends ControllerBase {
 
       // Verify valid Instagram URL
         if ( preg_match( $regex, $instagram_url, $matches ) ) {
-              $data['mydata']['field_instagram'] = $matches[1];
+              $data['mydata']['field_instagram'] = $matches[1]; 
           }
     }
 
@@ -269,12 +269,12 @@ class AthelticController extends ControllerBase {
     if (isset($data['mydata']['field_youtube']) && !empty($data['mydata']['field_youtube'])) {
       $url     = $data['mydata']['field_youtube'];
       $xml_url = $this->getYouTubeXMLUrl($url);
-      $xmlfile = file_get_contents($xml_url);
-      // Convert xml string into an object
-      $new = simplexml_load_string($xmlfile);
-      // Convert into json
-      $con = json_encode($new);
-      // Convert into associative array
+      $xmlfile = file_get_contents($xml_url);  
+      // Convert xml string into an object 
+      $new = simplexml_load_string($xmlfile); 
+      // Convert into json 
+      $con = json_encode($new); 
+      // Convert into associative array 
       $newArr = json_decode($con, true);
       $video_id = explode("?v=",  isset($newArr['entry'][0]['link']['@attributes']['href']) ? $newArr['entry'][0]['link']['@attributes']['href'] : null);
       $video_id = isset($video_id[1]) ? $video_id[1] : null;
@@ -292,9 +292,9 @@ class AthelticController extends ControllerBase {
         $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
         $data['mydata']['bfss_assessments'] = $assessments_block;
       }
-    }
+    } 
       //$data['mydata']['bfss_assessments'] = 'field_youtube1';
-
+    
   }
 
   private function getYouTubeXMLUrl( $url, $return_id_only = false ) {
@@ -340,9 +340,9 @@ class AthelticController extends ControllerBase {
      $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\FollowUnfollowForm');
 
      $data['mydata']['follow_unfollow'] = $form;
-
-
-
+     
+    
+     
   }
   public function updateInfoForTmeplate(&$data, $username = null) {
     // echo "<pre>";
@@ -359,7 +359,7 @@ class AthelticController extends ControllerBase {
           }
         }
 
-
+       
       //}
 
       if (isset($data['athlete_addweb']['athlete_addweb_name']) && $data['athlete_addweb']['athlete_addweb_name'] == $username) {
@@ -418,7 +418,7 @@ class AthelticController extends ControllerBase {
         case 3:
           $newval = 'Other';
           break;
-
+        
         default:
           $newval = '';
           break;
@@ -476,7 +476,7 @@ class AthelticController extends ControllerBase {
     // $resulttype->condition('athlete_uid', $current_user, '=');
     // $resulttype->condition('id', $id1, '=');
     // $resulttype1 = $resulttype->execute()->fetchAssoc();
-
+      
     if(isset($_GET['uid'])){
      $uid =$_GET['uid'];
     }
@@ -516,7 +516,7 @@ class AthelticController extends ControllerBase {
     $this->atheleteUserId = $profileuser;
     $data = $this->getBasicData();
     $data['username'] = $username;
-
+    
     $this->YoutubeUrl($data);
     $this->Bfss_assessments($data);
     $this->InstagramUrl($data);
@@ -539,7 +539,7 @@ class AthelticController extends ControllerBase {
   }
 
 
-
+	
 
 /**
    * @return markup
@@ -551,8 +551,8 @@ class AthelticController extends ControllerBase {
     }else{
       $this->atheleteUserId = \Drupal::currentUser()->id();
     }
-
-
+      
+    
     $data = $this->getBasicData();
     $this->YoutubeUrl($data);
     $this->Bfss_assessments($data);
@@ -572,7 +572,7 @@ class AthelticController extends ControllerBase {
         ],
       ];
   }
-
+	
     public function Get_ath_Data($table,$atr,$uid_key,$current_user){
       //if($table){
         $query = \Drupal::database()->select($table, $atr);
@@ -581,6 +581,6 @@ class AthelticController extends ControllerBase {
         $result = $query->execute()->fetchAssoc();
       //}
       return isset($result)?$result:'null';
-    }
-
+    }		
+	
 }

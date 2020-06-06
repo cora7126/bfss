@@ -17,6 +17,11 @@ use \Drupal\node\Entity\Node;
  * @return mixed
  */
 function bfss_admin_theme() {
+
+  $theme['users_editable_account_page'] = [
+    'variables' => ['name' => NULL,'users_editable_account_block' => NULL],
+    'template' => 'users_editable_account',
+  ];
   
   $theme['manager_assessor_account_page'] = [
     'variables' => ['name' => NULL,'manager_assessor_account_block' => NULL],

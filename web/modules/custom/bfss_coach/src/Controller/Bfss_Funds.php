@@ -84,9 +84,10 @@ class Bfss_Funds extends ControllerBase {
 
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'bfss_organizations');
-        $query->condition('uid', 321, 'IN');
-        $query->condition('status', 1, 'IN');
+        $query->condition('uid', $current_user, 'IN');
+        //$query->condition('status', 1, 'IN');
         $nids = $query->execute();
+
         $orgnames = [];
         foreach ($nids as $nid) {
            $node = Node::load($nid);
@@ -97,7 +98,8 @@ class Bfss_Funds extends ControllerBase {
         foreach ($orgnames as $orgname_v) {  
            $orgname_ar[$orgname_v] = $orgname_v;
         }
-
+        // print_r($orgname_ar);
+        // die;
         $arrradios = array('Williams Field High School'=>'Williams Field High School') + $orgname_ar;
      
         $radios = '<div class="org-radio">';
@@ -127,7 +129,7 @@ class Bfss_Funds extends ControllerBase {
         }
         $radios .= '</div>';
        
-	  	$tb1 = '<div class="search_athlete_main user_pro_block">
+	  	$tb1 = '<div class="search_athlete_main user_pro_block" >
           <div class="org_name_tabs">
           <form class="org-tab-form" action="/bfss-funds" method="get" id="org-tab-form-plx" accept-charset="UTF-8">
             '.$radios.'
@@ -136,12 +138,12 @@ class Bfss_Funds extends ControllerBase {
           </div>
           <div class="paid-unpaid">
           <ul>
-          <li><i class="fal fa-money-bill-wave"></i> Pending</li>
-          <li><i class="far fa-usd-circle"></i> Paid</li>
+          <li><i class="fal fa-money-bill-wave"></i> <a href="#Pending_section">Pending</a></li>
+          <li><i class="far fa-usd-circle"></i> <a href="#Paid_section_ppp">Paid</a></li>
           </ul>
           </div>
           <div class="wrapped_div_main">
-           <h2>BFSS Payments Pending</h2>
+           <h2 id="Pending_section">BFSS Payments Pending</h2>
           <div class="block-bfss-assessors">
           <div class="table-responsive-wrap">
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
@@ -224,7 +226,7 @@ class Bfss_Funds extends ControllerBase {
         }
 	    $tb2 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
-           <h2>BFSS Payments Paid</h2>
+           <h2  id="Paid_section_ppp">BFSS Payments Paid</h2>
           <div class="block-bfss-assessors">
           <div class="table-responsive-wrap">
          <table id="bfss_payment_paid_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
@@ -244,7 +246,7 @@ class Bfss_Funds extends ControllerBase {
                 </th> 
             </tr>
             </thead>
-            <tbody>';
+            <tbody >';
       foreach ($TableRowsPaid as $RowValue) {
         	$tb2 .= '<tr>
                 <td>'.$RowValue['booking_date'].'</td>
