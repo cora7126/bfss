@@ -1,0 +1,108 @@
+<?php
+//module name - bfss_register_user_payments
+function bfss_register_user_payments_schema() {
+  $schema['bfss_register_user_payments'] = array(
+     'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'uid'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      #amount details
+      'program_term'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'amount'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      #billing details
+      'bi_first_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'bi_last_name'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'bi_address'=>array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'bi_city'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'bi_state'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ),
+      'bi_postal_code'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'bi_country'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      #card details
+      'name_on_card'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'credit_card_number'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+        ),
+      'expiration_month'=>array(
+        'type' => 'varchar',
+        'length' => 25,
+        'not null' => FALSE,
+      ),
+      'expiration_year'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'cvv'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+	   'notes'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+     'payment_status'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      #user created
+      'created'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

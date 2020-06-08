@@ -8,6 +8,8 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\user\Entity\User;
+use Drupal\bfss_assessment\BfssPaymentService;
+use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_help().
@@ -734,7 +736,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
     //  add to current step to frontEnd
     $form['#attached']['drupalSettings']['bfss_registration_form']['step'] = $step;
-
+    $form['actions']['submit']['#submit'][] =  'bfss_user_payment_save';
 
     $form['#cache'] = ['max-age' => 0];
 
@@ -742,7 +744,86 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
 }
 
+function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
+  $errors = $form_state->getErrors();
+  // if($errors){
+  //   return;
+  // }
+    
+        $uid = $form_state->getformObject()->getEntity()->id();
+        $user = USER::load($uid);
+         #Payment Service START from here
+        foreach ($form_state->getValue('field_program_term') as $key => $value) {
+          $targetid = $value['target_id'];
+          $price = '';
+          if($value['target_id'] == 1){
+            $price = '29.99';
+          }elseif($value['target_id'] == 2){
+            $price = '69.99';
+          }elseif($value['target_id'] == 3){
+            $price = '299.99';
+          }else{
+            $price = $value['target_id'];
+          }
+        }
+        $data['service'] = $price;
+        if(isset($data['service'])){ 
+         $pay_data['amount'] = (!empty($data['service']) ? $data['service'] : $data['service']);
+         $pay_data['amount_text'] = 'payment';
+         $pay_data['fname'] = $form_state->getValue('bi_first_name');
+         $pay_data['lname'] = $form_state->getValue('bi_last_name');
+         $pay_data['address'] =  $form_state->getValue('bi_address');
+         $pay_data['city'] =  $form_state->getValue('bi_city');
+         $pay_data['state'] =  $form_state->getValue('bi_state');
+         $pay_data['country'] =  $form_state->getValue('bi_country');
+         $pay_data['zip'] =  $form_state->getValue('bi_postal_code');
+         $pay_data['phone'] = '';
 
+         $pay_data['expiration_month'] = $form_state->getValue('cck_month');
+         $pay_data['expiration_year'] = $form_state->getValue('cck_year');
+         $pay_data['cvv'] = $form_state->getValue('cck_csv');
+         $pay_data['credit_card_number'] = $form_state->getValue('cck_number');
+         $payment_service = \Drupal::service('bfss_assessment.payment');
+         $paymentdone = $payment_service->createTransaction($pay_data);
+         $payment_status = ((isset($paymentdone['status']) && $paymentdone['status'] == true) ? 'paid' : 'unpaid');
+          if (is_array($paymentdone) && isset($paymentdone['status'])) {
+            if ($paymentdone['status'] == true) {
+             // drupal_set_message('Payment successfully received.');
+            } else {
+              //drupal_set_message('Something went wrong! Payment was interrupted. Please try again.','error');
+              //drupal_set_message( (isset($paymentdone['message'])? $paymentdone['message'] : ''),'error');
+            }
+          }
+        }
+         #Payment Service END from here
+
+         #payment or billing details save [START FROM HERE]
+
+         $conn = Database::getConnection();
+         $conn->insert('bfss_register_user_payments')->fields(array(
+          'uid' => $uid,
+          'program_term' => $targetid,
+          'amount' => $price,
+          'bi_first_name' => $form_state->getValue('bi_first_name'),
+          'bi_last_name' => $form_state->getValue('bi_last_name'),
+          'bi_address' => $form_state->getValue('bi_address'),
+          'bi_city' => $form_state->getValue('bi_city'),
+          'bi_state' => $form_state->getValue('bi_state'),
+          'bi_postal_code' => $form_state->getValue('bi_postal_code'),
+          'bi_country' => $form_state->getValue('bi_country'),
+          'name_on_card' => $form_state->getValue('cck_name'),
+          'credit_card_number' => $form_state->getValue('cck_number'),
+          'expiration_month' => $form_state->getValue('cck_month'),
+          'expiration_year' => $form_state->getValue('cck_year'),
+          'cvv' => $form_state->getValue('cck_csv'),
+          'notes' => 'note',
+          'payment_status' => $payment_status,
+          'created' => $user->created->value,
+         ))->execute();
+         #payment or billing details save [END HERE]
+    
+   
+}
 /**
  * Implements hook_ENTITY_TYPE_INSERT().
  */
@@ -763,6 +844,8 @@ function bfss_registration_form_user_insert(User $user) {
  * Ajax callback for user type
  */
 function ajax_register_user_register_form_submit(array &$form, FormStateInterface $form_state) {
+
+
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
@@ -770,6 +853,7 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
 
   $form_state->disableRedirect();
 //  $form_state['redirect'] = false;
+  
 }
 
 /**

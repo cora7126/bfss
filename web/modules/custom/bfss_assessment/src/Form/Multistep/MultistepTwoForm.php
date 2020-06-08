@@ -48,10 +48,14 @@ class MultistepTwoForm extends MultistepFormBase {
       $private_nids = $query->execute();
       $timings_private = [];
       foreach ($private_nids as $private_nid) {
-        $timings_private[] = $this->assessmentService->getSchedulesofAssessment($private_nid);
+        //$timings_private[] = $this->assessmentService->getSchedulesofAssessment($private_nid);
+          $timings_private[] = [
+          'private_nid' => $private_nid,
+          'schedule' => $this->assessmentService->getSchedulesofAssessment($private_nid),
+        ];
       }
-      $timings_private = array_filter($timings_private);
-      arsort($timings_private);
+      // $timings_private = array_filter($timings_private);
+      // arsort($timings_private);
       //  echo "<pre>";
        
       // print_r($timings_private);
@@ -80,10 +84,11 @@ class MultistepTwoForm extends MultistepFormBase {
 	  );
  if($nid == '9999999999'){
       foreach ($timings_private as $timings_pri) {
-            
-           foreach ($timings_pri as $key => $value) {
+          // print_r($timings_pri); 
+           foreach ($timings_pri['schedule'] as $key => $value) {
+          //  echo $value."<br>";
                 $value = date('h:i a',$value);
-                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
+                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn" data-nid="'.$timings_pri['private_nid'].'"></span>'.$value.'<span>';
         }
       }
   //     echo "<pre>";
@@ -127,12 +132,16 @@ class MultistepTwoForm extends MultistepFormBase {
  }
 
         
-     $form['test1'] = array(
+    $form['test1'] = array(
     '#type' => 'markup',
     '#markup' => '&nbsp;',
     '#prefix' => "</div>",
     );
 
+    $form['entity_id'] = array(
+      '#type' => 'hidden',
+      '#value' => '',
+    );
     $form['actions']['previous'] = array(
       '#type' => 'link',
       '#title' => $this->t('Back'),
