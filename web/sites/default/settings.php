@@ -782,4 +782,4 @@ $settings['config_sync_directory'] = 'sites/default/files/config_2RrciJktdxW87eb
 // if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 //   include $app_root . '/' . $site_path . '/settings.local.php';
 // }
-//$config['system.logging']['error_level'] = 'verbose';
+// $config['system.logging']['error_level'] = 'verbose';

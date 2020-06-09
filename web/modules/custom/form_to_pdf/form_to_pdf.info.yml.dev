@@ -1,5 +1,0 @@
-name: 'PDF generate service'
-type: module
-description: 'A module that takes an array of form POST variables, and Fills a PDF template's form fields'
-core: 8.x
-package: 'Custom'

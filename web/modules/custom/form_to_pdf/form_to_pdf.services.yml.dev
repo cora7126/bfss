@@ -1,3 +1,0 @@
-services:
-  form_to_pdf.fillPdf:
-    class: Drupal\form_to_pdf\FillForm
