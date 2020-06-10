@@ -33,12 +33,16 @@ class Bfss_Funds extends ControllerBase {
 
         #GET ATHLETE IDS
         $athlete_uids = $this->get_uids_by_orgname($orgname);
+        // print_r($athlete_uids);
+        // die;
        
         foreach ($athlete_uids as $athlete_uid) {
     	  	$booked_ids = \Drupal::entityQuery('bfsspayments')
                 ->condition('user_id',$athlete_uid->athlete_uid, '=')
-    			->condition('payment_status','pending', '=')
+    			->condition('payment_status','unpaid', '=')
             	->execute();
+                //print_r($booked_ids);
+                //die;
             $TableRowsPending = [];
         	foreach ($booked_ids as $booked_id) {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);

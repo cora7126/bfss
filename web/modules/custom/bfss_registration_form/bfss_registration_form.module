@@ -734,10 +734,11 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
 
     }
 
+
     //  add to current step to frontEnd
     $form['#attached']['drupalSettings']['bfss_registration_form']['step'] = $step;
     $form['actions']['submit']['#submit'][] =  'bfss_user_payment_save';
-
+    
     $form['#cache'] = ['max-age' => 0];
 
   }
@@ -786,10 +787,24 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
          $payment_service = \Drupal::service('bfss_assessment.payment');
          $paymentdone = $payment_service->createTransaction($pay_data);
          $payment_status = ((isset($paymentdone['status']) && $paymentdone['status'] == true) ? 'paid' : 'unpaid');
+
           if (is_array($paymentdone) && isset($paymentdone['status'])) {
+            $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
             if ($paymentdone['status'] == true) {
-             // drupal_set_message('Payment successfully received.');
+
+              
+              $computed_settings = [
+                'payment_status' => true,
+              ];
+              $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
+            //  drupal_set_message('Payment successfully received.');
             } else {
+              $computed_settings = [
+                'payment_status' => false,
+              ];
+              $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
+              $user->delete(); #if payment fail user will not register
+
               //drupal_set_message('Something went wrong! Payment was interrupted. Please try again.','error');
               //drupal_set_message( (isset($paymentdone['message'])? $paymentdone['message'] : ''),'error');
             }
@@ -849,7 +864,7 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
-  $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
+  
 
   $form_state->disableRedirect();
 //  $form_state['redirect'] = false;
