@@ -798,13 +798,14 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
               ];
               $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
             //  drupal_set_message('Payment successfully received.');
+
             } else {
               $computed_settings = [
                 'payment_status' => false,
               ];
               $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
-              $user->delete(); #if payment fail user will not register
-
+             // $user->delete(); #if payment fail user will not register
+              //throw new \Exception(t('Fields are not unique!'));
               //drupal_set_message('Something went wrong! Payment was interrupted. Please try again.','error');
               //drupal_set_message( (isset($paymentdone['message'])? $paymentdone['message'] : ''),'error');
             }
