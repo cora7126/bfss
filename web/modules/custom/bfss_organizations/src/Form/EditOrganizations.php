@@ -257,7 +257,7 @@ class EditOrganizations extends FormBase {
 
                    $form['actions']['submit'] = [
                       '#type' => 'submit',
-                      '#value' => Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'),
+                      '#value' => 'SAVE ALL CHANGES',
                       '#prefix' => '<div class="bfss_save_all save_all_changes">',
                       '#suffix' => '</div>'
                     ];

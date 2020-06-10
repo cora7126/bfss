@@ -959,7 +959,8 @@ class ContributeForm extends FormBase {
 
 
     }
-    $form['submit'] = ['#type' => 'submit', '#value' => Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>'), '#prefix' => ' </div><div class="bfss_save_all save_all_changes">', '#suffix' => '</div>',
+   // $valsave = Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>');
+    $form['submit'] = ['#type' => 'submit', '#value' => 'SAVE ALL CHANGES', '#prefix' => ' </div><div class="bfss_save_all save_all_changes">', '#suffix' => '</div>',
       //'#value' => t('Submit'),
       ];
     // $form['#theme'] = 'athlete_form';
