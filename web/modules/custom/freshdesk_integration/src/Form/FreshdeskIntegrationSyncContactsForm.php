@@ -30,7 +30,9 @@ class FreshdeskIntegrationSyncContactsForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $unsynced_users = _freshdesk_integration_get_number_of_unsynced_users();
-    
+
+    ksm();
+
     $form['#markup'] = '<div>There are currently ' . $unsynced_users . ' unsynchronized users.</div>';
     
     $form['actions']['submit'] = array(

@@ -35,6 +35,14 @@ function freshdesk_integration_help($route_name, RouteMatchInterface $route_matc
   }
 }
 
+/***
+ * BFSS Customization
+ * Convert User Role id (which is a drupla "Machine Name" of type string) into a numeric value.
+  function machineNameToId($machineId) {
+    return gmp_strval(gmp_init(substr(md5($machineId), 0, 16), 16), 10);
+  }
+*/
+
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
@@ -94,14 +102,10 @@ function _freshdesk_integration_create($user) {
   // Load module configuration.
   $config = \Drupal::config('freshdesk_integration.settings');
 
-  print '=====<pre>';
-  var_dump(get_defined_vars());
-  print '</pre>';
-
   // Set up parameters for API call.
   $params = [
     'email' => $user->mail->getString(),
-    'phone' => $user->field_user_phone->getString(),
+    'phone' => $user->field_user_phone ? $user->field_user_phone->getString() : '',
     'unique_external_id' => $user->id(),
   ];
 
@@ -115,6 +119,7 @@ function _freshdesk_integration_create($user) {
 
   // Check if user needs a company set.
   $company_id = _freshdesk_integration_company_from_user_by_role($user);
+
   if (is_numeric($company_id)) {
     $params['company_id'] = $company_id;
   }
@@ -123,7 +128,7 @@ function _freshdesk_integration_create($user) {
   }
 
   // Check if user has profile image.
-  if (isset($user->field_user_image->getValue()[0]['target_id'])) {
+  if ($user->field_user_image && isset($user->field_user_image->getValue()[0]['target_id'])) {
     // Load user profile photo.
     $file = File::load($user->field_user_image->getValue()[0]['target_id']);
 
@@ -160,11 +165,14 @@ function _freshdesk_integration_create($user) {
   curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Content-Type: multipart/form-data',
   ]);
-  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
+  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
   curl_setopt($ch, CURLOPT_POST, TRUE);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+  ksm($params);
+  ksm($server_output);
 
   // Make call to API.
   $server_output = curl_exec($ch);
@@ -278,7 +286,7 @@ function _freshdesk_integration_update($user) {
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
       'Content-Type: multipart/form-data',
     ]);
-    curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
+    curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
     curl_setopt($ch, CURLOPT_POST, TRUE);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -336,7 +344,7 @@ function _freshdesk_integration_invite($id) {
   // Make cURL call.
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, 'https://' . $config->get('url') . '.freshdesk.com/api/v2/contacts/' . $id . '/send_invite');
-  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
+  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
@@ -403,7 +411,7 @@ function _freshdesk_integration_send_message($mail, $subject, $message) {
   try {
     $response = $client->post($uri, [
       'headers' => ['Content-Type' => 'application/json'],
-      'auth' => [$config->get('apikey'), '999999'],
+      'auth' => [$config->get('apikey'), 'moDT1AZIlZcAcCKYe7p'],
       'timeout' => 30,
       'body' => json_encode($params),
     ]);
@@ -444,8 +452,10 @@ function _freshdesk_integration_company_from_user_by_role($user) {
   if ($config->get('push')) {
     $config_roles = $config->get('roles_companies');
     if (is_array($config_roles)) {
+      ksm($config_roles);
       foreach ($config_roles as $role => $settings) {
         if (in_array($role, $user->getRoles())) {
+          // bfss custom  if (in_array('authenticated', $user->getRoles())) {
           // User has role with company configuration
           // Return company ID.
           return($settings['company']);
@@ -472,7 +482,7 @@ function _freshdesk_integration_contact_exists_by_uid($uid) {
   // Make cURL call.
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, 'https://' . $config->get('url') . '.freshdesk.com/api/v2/contacts?unique_external_id=' . $uid);
-  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
+  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
