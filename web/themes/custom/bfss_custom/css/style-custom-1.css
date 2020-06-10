@@ -76,6 +76,7 @@ input#edit-position-22 {
 .no_pennding_organization {
     text-align: center;
 }
+.view-payments-and-receipts .user_pro_block .block-bfss-assessors {border: none;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

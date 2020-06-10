@@ -95,6 +95,11 @@ function bfss_register_user_payments_schema() {
         'length' => 40,
         'not null' => FALSE,
       ),
+      'firsttime_purchase_status'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
       #user created
       'created'=>array(
         'type' => 'varchar',

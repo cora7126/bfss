@@ -96,6 +96,12 @@ return [
         ],
         'template'=>'custom/modal-assessment',
     ],
+    'view_payments_and_receipts_page' => [
+        'variables' => [
+          'name' => NULL,'view_payments_and_receipts_block' => NULL
+        ],
+        'template'=>'custom/view_payments_and_receipts',
+    ],
     'modal_assessment_scheduled' => [
         'variables' => [
           'data'=>[],

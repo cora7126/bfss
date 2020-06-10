@@ -18,7 +18,8 @@ Use Drupal\node\NodeInterface;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\bfss_assessment\BfssPaymentService;
-
+use \Drupal\user\Entity\User;
+use Drupal\Core\Database\Database;
 abstract class MultistepFormBase extends FormBase {
   /**
    * Drupal\bfss_assessment\BfssPaymentService definition.
@@ -208,6 +209,15 @@ abstract class MultistepFormBase extends FormBase {
     $until = $this->assessmentService->checkDuration($this->store->get('assessment'), $this->store->get('time'));
     $data['until'] = $until;
     
+  $free_credit_check = $this->register_time_payment_details();
+   if(!empty($this->store->get('service'))){
+     $service = explode( "_",$this->store->get('service'));
+    }else{
+      $service = [];
+    }
+  if($free_credit_check['firsttime_purchase_status'] == 'PurchasePending' && in_array('freecredit', $service)){
+    //code 
+  }else{
     #payment code  start
    $pay_data['amount'] = (!empty($data['service']) ? $data['service'] : $data['service']);
    $pay_data['amount_text'] = 'payment';
@@ -242,10 +252,19 @@ abstract class MultistepFormBase extends FormBase {
     }
     $data['payment_status'] = ((isset($paymentdone['status']) && $paymentdone['status'] == true) ? 'paid' : 'unpaid');
     #payment code  end
+  }
 
     # load entity and save payment
     $pay = \Drupal\bfss_assessment\Entity\BfssPayments::create($data);
     $pay->save();
+
+    $uid = \Drupal::currentUser()->id();
+    if($pay){
+      \Drupal::database()->update('bfss_register_user_payments')->condition('uid', $uid, '=')->fields(array(
+        'firsttime_purchase_status' => 'Purchased', 
+        ))->execute();
+    }
+
     #delete temp storage
     $this->deleteStore();
     drupal_set_message($this->t('Thank you!'));
@@ -287,5 +306,13 @@ abstract class MultistepFormBase extends FormBase {
     foreach ($keys as $key) {
       $this->store->delete($key);
     }
+  }
+  public function register_time_payment_details(){
+    $uid = \Drupal::currentUser()->id();
+    $Query = \Drupal::database()->select('bfss_register_user_payments', 'ats');
+    $Query->fields('ats');
+    $Query->condition('uid', $uid,'=');
+    $results = $Query->execute()->fetchAssoc();
+    return !empty($results)?$results:'';
   }
 }
