@@ -834,6 +834,7 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
           'cvv' => $form_state->getValue('cck_csv'),
           'notes' => 'note',
           'payment_status' => $payment_status,
+          'firsttime_purchase_status' => 'PurchasePending',#for first time
           'created' => $user->created->value,
          ))->execute();
          #payment or billing details save [END HERE]

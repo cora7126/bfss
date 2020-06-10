@@ -228,3 +228,10 @@ bfss_assessment.admin_settings:
     _role: 'administrator'
 
 
+bfss_assessment.view_payments_and_receipts:
+  path: '/view-payments-and-receipts'
+  defaults:
+    _controller: '\Drupal\bfss_assessment\Controller\ViewPaymentsAndReceipts::view_payments_and_receipts'
+    _title: 'View Payments And Receipts'
+  requirements:
+    _permission: 'access content'

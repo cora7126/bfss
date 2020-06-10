@@ -673,8 +673,8 @@ a.side_button.menulink.my_assess{color:#fff;}
 /******************MY Assessments Page End here***********************/
 .form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-no-label.form-group i.fas.fa-trash{ font-size: 14px;
     color: #EB6E06;cursor: pointer;}
-.assessment-payment #multistep-form-four select{height:calc(1.5em + .75rem + 2px);color:#555555;font-size:14px}
-.assessment-payment #multistep-form-four #edit-state{height:calc(1.5em + .75rem + 2px);color:#555555;font-size:14px}
+.assessment-payment #multistep-form-four select{height:calc(2.2em + .75rem + 2px);color:#555555;font-size:14px}
+.assessment-payment #multistep-form-four #edit-state{height:calc(2.2em + .75rem + 2px);color:#555555;font-size:14px}
 
 /********************my assessment score bar start here**********/
 .change_pass{padding:0 15px;font-size:14px;}
