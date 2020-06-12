@@ -50,7 +50,25 @@ function bfss_admin_theme() {
     'template' => 'editable_tamplates',
   ];
 
+  $theme['managers_pending_payment_page'] = [
+    'variables' => ['name' => NULL,'managers_pending_payment_block' => NULL],
+    'template' => 'managers_pending_payment',
+  ];
 
+  $theme['managers_paid_payment_page'] = [
+    'variables' => ['name' => NULL,'managers_paid_payment_block' => NULL],
+    'template' => 'managers_paid_payment',
+  ];
+
+  $theme['organizations_pending_payment_page'] = [
+    'variables' => ['name' => NULL,'organizations_pending_payment_block' => NULL],
+    'template' => 'organizations_pending_payment',
+  ];
+
+  $theme['organizations_paid_payment_page'] = [
+    'variables' => ['name' => NULL,'organizations_paid_payment_block' => NULL],
+    'template' => 'organizations_paid_payment',
+  ];
   return $theme;
 }
 

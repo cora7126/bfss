@@ -235,3 +235,11 @@ bfss_assessment.view_payments_and_receipts:
     _title: 'View Payments And Receipts'
   requirements:
     _permission: 'access content'
+
+# bfss_assessment.payment_receipts:
+#   path: '/payment-receipts'
+#   defaults:
+#     _controller: '\Drupal\bfss_assessment\Controller\ViewPaymentsAndReceipts::payment_receipts'
+#     _title: 'Payment Receipts'
+#   requirements:
+#     _permission: 'access content'

@@ -184,6 +184,7 @@ public function userform()
     function My_assessments($uid){
           $query = \Drupal::entityQuery('node');
           $query->condition('type', 'assessment');
+          $query->range(0, 10);
           $nids = $query->execute();
 
           $result = array();
@@ -192,6 +193,7 @@ public function userform()
                 $booked_ids = \Drupal::entityQuery('bfsspayments')
                 ->condition('assessment', $nid,'IN')
                 ->condition('user_id',$uid,'IN')
+                ->sort('created', 'DESC') 
                 ->execute();
                 if(!empty($booked_ids) && is_array($booked_ids)){
                   foreach ($booked_ids  as $key => $booked_id) {
