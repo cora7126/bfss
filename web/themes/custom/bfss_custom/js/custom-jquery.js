@@ -1,5 +1,18 @@
 jQuery(document).ready(function() {
 
+//SAVE BUTTON TEXT CHANGE ON MOBILE [START HERE] 
+function checkWidth() {
+   if (jQuery(window).width() < 514) {
+   jQuery('.bfss_save_all.save_all_changes').addClass('save-mobile');
+   jQuery(".bfss_save_all.save_all_changes button").text("SAVE");
+	} else {
+	    jQuery('.bfss_save_all.save_all_changes').removeClass('save-mobile');
+	    jQuery(".bfss_save_all.save_all_changes button").text("SAVE ALL CHANGES");
+	}
+}
+jQuery(window).resize(checkWidth);
+//SAVE BUTTON TEXT CHANGE ON MOBILE [END HERE] 
+
 jQuery('.athlete_left i.fa.fa-info.right-icon,.athlete_right i.fa.fa-info.right-icon').click(function (evt){
 	return false;
 });

@@ -85,6 +85,8 @@ class BfssPaymentService {
         $tresponse = $response->getTransactionResponse();
         if ($tresponse != null && $tresponse->getMessages() != null) {
           return [
+            "AUTH_CODE" => $tresponse->getAuthCode(),
+            "TRANS_ID" => $tresponse->getTransId(),
             "transaction_status" => $response->getMessages()->getResultCode(),
             "status" => true,
             "message" =>  " Successfully created transaction." . $tresponse->getMessages()[0]->getDescription() . "\n",
@@ -94,6 +96,8 @@ class BfssPaymentService {
         else {
           if ($tresponse->getErrors() != null) {
             return [
+              "AUTH_CODE" => $tresponse->getAuthCode(),
+              "TRANS_ID" => $tresponse->getTransId(),
               "transaction_status"=> $response->getMessages()->getResultCode(),
               "status" => false,
               "message" =>  "Transaction Failed. \n " . $tresponse->getErrors()[0]->getErrorText() . "\n"
@@ -106,12 +110,16 @@ class BfssPaymentService {
         $tresponse = $response->getTransactionResponse();
         if ($tresponse != null && $tresponse->getErrors() != null) {
           return [
+            "AUTH_CODE" => $tresponse->getAuthCode(),
+            "TRANS_ID" => $tresponse->getTransId(),
             "transaction_status"=> $response->getMessages()->getResultCode(),
             "status" => false,
             "message" => "Transaction Failed. \n " . $tresponse->getErrors()[0]->getErrorText()
           ];
         } else {
           return [
+            "AUTH_CODE" => $tresponse->getAuthCode(),
+            "TRANS_ID" => $tresponse->getTransId(),
             "transaction_status"=> $response->getMessages()->getResultCode(),
             "status" => false,
             "message" => "Transaction Failed. \n " . $response->getMessages()->getMessage()[0]->getText()
@@ -120,6 +128,8 @@ class BfssPaymentService {
       }
     } else {
       return [
+        "AUTH_CODE" => $tresponse->getAuthCode(),
+        "TRANS_ID" => $tresponse->getTransId(),
         "transaction_status"=> $response->getMessages()->getResultCode(),
         "status" => false,
         "message" => "No response returned \n"
