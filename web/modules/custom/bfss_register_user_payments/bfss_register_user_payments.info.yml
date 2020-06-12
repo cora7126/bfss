@@ -1,0 +1,4 @@
+name: Bfss Register User Payments
+description: 'Provides Store Register Payment data in db'
+type: module
+core: 8.x

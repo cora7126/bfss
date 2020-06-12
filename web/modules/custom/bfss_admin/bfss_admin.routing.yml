@@ -70,3 +70,35 @@ bfss_admin.users_editable_account_url:
     _title: 'Users Editable Account'
   requirements:
     _access: 'TRUE'
+
+bfss_admin.managers_pending_payment:
+  path: '/managers-pending-payment'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\ManagersPendingPaymentController::managers_pending_payment'
+    _title: 'Managers Pending Payment'
+  requirements:
+    _role: 'bfss_administrator'
+
+bfss_admin.managers_paid_payment:
+  path: '/managers-paid-payment'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\ManagersPaidPaymentController::managers_paid_payment'
+    _title: 'Managers Paid Payment'
+  requirements:
+    _role: 'bfss_administrator'
+
+bfss_admin.organizations_pending_payment:
+  path: '/organizations-pending-payment'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\OrganizationsPendingPayment::organizations_pending_payment'
+    _title: 'Organizations Pending Payment'
+  requirements:
+    _role: 'bfss_administrator'
+
+bfss_admin.organizations_paid_payment:
+  path: '/organizations-paid-payment'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\OrganizationsPaidPayment::organizations_paid_payment'
+    _title: 'Organizations Paid Payment'
+  requirements:
+    _role: 'bfss_administrator'

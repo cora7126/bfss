@@ -48,10 +48,14 @@ class MultistepTwoForm extends MultistepFormBase {
       $private_nids = $query->execute();
       $timings_private = [];
       foreach ($private_nids as $private_nid) {
-        $timings_private[] = $this->assessmentService->getSchedulesofAssessment($private_nid);
+        //$timings_private[] = $this->assessmentService->getSchedulesofAssessment($private_nid);
+          $timings_private[] = [
+          'private_nid' => $private_nid,
+          'schedule' => $this->assessmentService->getSchedulesofAssessment($private_nid),
+        ];
       }
-      $timings_private = array_filter($timings_private);
-      arsort($timings_private);
+      // $timings_private = array_filter($timings_private);
+      // arsort($timings_private);
       //  echo "<pre>";
        
       // print_r($timings_private);
@@ -80,15 +84,14 @@ class MultistepTwoForm extends MultistepFormBase {
 	  );
  if($nid == '9999999999'){
       foreach ($timings_private as $timings_pri) {
-            
-           foreach ($timings_pri as $key => $value) {
+ 
+           foreach ($timings_pri['schedule'] as $key => $value) {
+
                 $value = date('h:i a',$value);
-                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
+                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn" data-nid="'.$timings_pri['private_nid'].'"></span>'.$value.'<span>';
         }
       }
-  //     echo "<pre>";
-		// print_r($sortedTimings);
-  //   die;
+
         foreach ($sortedTimings as $key => $value) {
           $maintitle = current(array_keys($value));
             $form['time'.$key] = array(
@@ -127,12 +130,17 @@ class MultistepTwoForm extends MultistepFormBase {
  }
 
         
-     $form['test1'] = array(
+    $form['test1'] = array(
     '#type' => 'markup',
     '#markup' => '&nbsp;',
     '#prefix' => "</div>",
     );
 
+    $form['entity_id'] = array(
+      '#type' => 'hidden',
+      '#prefix' => '<div class="timeslots-nid">',
+      '#suffix' => '</div>',
+    );
     $form['actions']['previous'] = array(
       '#type' => 'link',
       '#title' => $this->t('Back'),
@@ -162,6 +170,12 @@ class MultistepTwoForm extends MultistepFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+  	// $entity_id = $form_state->getValue('entity_id');
+  	// print_r($form_state->getValues());
+  	// die;
+  	if(!empty($form_state->getValue('entity_id'))){
+  		$this->store->set('assessment',$form_state->getValue('entity_id'));
+ 	 }
     $time = $this->getSelectedTime($form_state);
     if ($time) {
       $this->store->set('time', $time);

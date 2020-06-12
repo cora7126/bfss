@@ -33,3 +33,4 @@ ajax-popup:
   dependencies:
     - core/jquery
     - core/jquery.once
+    - core/drupalSettings
