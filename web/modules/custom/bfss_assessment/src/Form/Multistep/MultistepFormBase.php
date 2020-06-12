@@ -251,6 +251,7 @@ abstract class MultistepFormBase extends FormBase {
       }
     }
     $data['payment_status'] = ((isset($paymentdone['status']) && $paymentdone['status'] == true) ? 'paid' : 'unpaid');
+    $data['extra'] = $paymentdone['AUTH_CODE'].'/'.$paymentdone['TRANS_ID'];
     #payment code  end
   }
 

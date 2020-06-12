@@ -60,8 +60,9 @@ class CoachEditProfileForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
-
+// $orgname = $this->getORG();
+// print_r($orgname);
+// die;
     $current_user = \Drupal::currentUser()->id();
     $userdt = User::load($current_user);
     $field_state =  $userdt->get('field_state')->value;
@@ -701,13 +702,22 @@ $form['html_image_athlete_end'] = [
    if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
         $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
     }
+
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-  
+      $orgname = $this->getORG();
+      foreach ($form_state->getValues('resident')['resident'] as $key => $value) {
+        
+        if( in_array($value['organization_name'], $orgname)){
+         drupal_set_message(t('"'.$value['organization_name'].'" organization name already exist.'), 'error');
+         return;
+        }
+      }
+
   	//old data update
   	foreach ($form_state->getValues('resident1')['resident1'] as $key => $value) {
   		if($value['nid']){
@@ -888,6 +898,20 @@ $form['html_image_athlete_end'] = [
     //drupal_set_message(t('An error occurred and processing did not complete.'), 'success');
   }
 
+  public function getORG(){
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'bfss_organizations') //content type
+      ->sort('created' , 'DESC');
+    $nids = $query->execute();
+    if(!empty($nids)){
+      $old_org_data = [];
+      foreach ($nids as $nid) {
+        $node = \Drupal\node\Entity\Node::load($nid);
+        $old_org_data[] = $node->field_organization_name->value;
+      }
+    }
+    return $old_org_data;
+  }
 
   public function getStates() {
       return $st=array(
