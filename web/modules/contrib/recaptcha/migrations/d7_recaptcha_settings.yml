@@ -6,6 +6,7 @@ migration_tags:
 source:
   plugin: variable
   variables:
+    - recaptcha_noscript
     - recaptcha_site_key
     - recaptcha_size
     - recaptcha_secret_key
@@ -24,6 +25,7 @@ process:
   'widget/type': recaptcha_type
   'widget/size': recaptcha_size
   'widget/tabindex': recaptcha_tabindex
+  'widget/noscript': recaptcha_noscript
 destination:
   plugin: config
   config_name: recaptcha.settings

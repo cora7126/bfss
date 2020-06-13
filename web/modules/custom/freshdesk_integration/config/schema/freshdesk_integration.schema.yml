@@ -1,0 +1,15 @@
+# Schema for the configuration files of the freshdesk_integration module.
+
+freshdesk_integration.settings:
+  type: config_object
+  label: 'Freshdesk Integration settings'
+  mapping:
+    url:
+      type: string
+      label: 'Freshdesk URL subdomain'
+    apikey:
+      type: string
+      label: 'Freshdesk API key'
+    image_style:
+      type: string
+      label: 'Image style for Freshdesk profile'

@@ -50,7 +50,7 @@
     {# Heading #}
     {% if heading %}
         {% block heading %}
-            <div class="panel-heading">
+            <div class="panel-heading" style="padding:0; background-color: white; border-bottom: 3px solid white;">
                 {% set heading_classes = [
                     'panel-title',
                     required ? 'form-required' : '',

@@ -400,7 +400,7 @@ class StarterProfessionalAssessments extends FormBase {
             $form['actions']['#type'] = 'actions';
             $form['actions']['draft'] = array(
               '#type' => 'submit',
-              '#value' => $this->t('SAVE - INCOMPLETE'),
+              '#value' => $this->t('ASSESSORS - SAVE'),
               '#button_type' => 'primary',
                '#ajax' => [
                   'callback' => '::submitForm', // don't forget :: when calling a class method.
@@ -414,22 +414,22 @@ class StarterProfessionalAssessments extends FormBase {
                   ],
                 ]
             );
-            $form['actions']['submit'] = array(
-              '#type' => 'submit',
-              '#value' => $this->t('SAVE - ALL FIELDS COMPLETED'),
-              '#button_type' => 'primary',
-               '#ajax' => [
-                  'callback' => '::submitForm', // don't forget :: when calling a class method.
-                  //'callback' => [$this, 'myAjaxCallback'], //alternative notation
-                  'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
-                  'event' => 'click',
-                  'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
-                  'progress' => [
-                    'type' => 'throbber',
-                    'message' => $this->t('Verifying entry...'),
-                  ],
-                ]
-            );
+            // $form['actions']['submit'] = array(
+            //   '#type' => 'submit',
+            //   '#value' => $this->t('SAVE - ALL FIELDS COMPLETED'),
+            //   '#button_type' => 'primary',
+            //    '#ajax' => [
+            //       'callback' => '::submitForm', // don't forget :: when calling a class method.
+            //       //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+            //       'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+            //       'event' => 'click',
+            //       'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+            //       'progress' => [
+            //         'type' => 'throbber',
+            //         'message' => $this->t('Verifying entry...'),
+            //       ],
+            //     ]
+            // );
 
             return $form;
       }else{
@@ -580,7 +580,7 @@ class StarterProfessionalAssessments extends FormBase {
       }
 
       if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-draft') !== false ) {
-          // if "SAVE - INCOMPLETE" button trigger
+          // if "ASSESSORS - SAVE" button trigger
            if(!is_numeric($form_state->getValue('starter_weight_rea_str')) || empty($form_state->getValue('starter_weight_rea_str'))){
               $message = '<p style="color:red;">"Weight (N) Calculated into Ibs" Required</p>';
            }else{
