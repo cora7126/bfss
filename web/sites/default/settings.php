@@ -765,9 +765,9 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 $config['system.logging']['error_level'] = 'verbose';
 
 $databases['default']['default'] = array (
-  'database' => 'justinc3_bfss_stage', // bfss_dev_pdf
-  'username' => 'justinc3_bfss_st',
-  'password' => 'nephimlehi',
+  'database' => 'bfss_dev_pdf_popups',
+  'username' => 'root',
+  'password' => 'GibTri05X*IV',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
