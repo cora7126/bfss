@@ -882,11 +882,13 @@ class PendingAssessmentsForm extends FormBase {
             );
 
 
+
             $form['actions']['submit'] = array(
               '#type' => 'submit',
-              '#value' => $this->t('MANAGER - APPROVED'),
+              '#name' => 'save_published',
+              '#value' => $this->t('MANAGER - SAVE & PUBLISH'),
               '#button_type' => 'primary',
-               '#ajax' => [
+              '#ajax' => [
                   'callback' => '::submitForm', // don't forget :: when calling a class method.
                   //'callback' => [$this, 'myAjaxCallback'], //alternative notation
                   'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
