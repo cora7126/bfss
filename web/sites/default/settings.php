@@ -685,16 +685,10 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  * @code
  */
 
-/*
 $settings['trusted_host_patterns'] = array(
   '^mindimage\.net$',
-  '^.+\.mindimage\.net$',
   '^bfss\.mindimage\.net$',
-);
-*/
-$settings['trusted_host_patterns'] = array(
-  '^5ppsystem\.com$',
-  '^www\.5ppsystem\.com$',
+  '^bfss\-stage\.5pintsdev\.com$',
 );
 /*
  * @endcode
@@ -762,14 +756,18 @@ $settings['entity_update_backup'] = TRUE;
  *
  * Keep this code block at the end of this file to take full effect.
  */
-#
-# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-#   include $app_root . '/' . $site_path . '/settings.local.php';
-# }
+// ksm();
+
+$settings['rebuild_access'] = TRUE;
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}
+$config['system.logging']['error_level'] = 'verbose';
+
 $databases['default']['default'] = array (
-  'database' => 'bfss',
-  'username' => 'root',
-  'password' => 'GibTri05X*IV',
+  'database' => 'justinc3_bfss_stage', // bfss_dev_pdf
+  'username' => 'justinc3_bfss_st',
+  'password' => 'nephimlehi',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
@@ -778,8 +776,3 @@ $databases['default']['default'] = array (
 );
 $settings['config_sync_directory'] = 'sites/default/files/config_2RrciJktdxW87ebUQLPunOlhNelI9tOkfP86OAm9IIqEV5THiX7bLIVUh-r5Q02Pe_4tGyhc8w/sync';
 
-//$settings['rebuild_access'] = TRUE;
-// if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-//   include $app_root . '/' . $site_path . '/settings.local.php';
-// }
-//$config['system.logging']['error_level'] = 'verbose';
