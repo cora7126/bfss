@@ -64,6 +64,9 @@ class AssessmentsViewBlock extends BlockBase implements ContainerFactoryPluginIn
    // $data['current_page'] = $res;
     foreach($nids as $nid){
       $arr = $this->assessmentService->getNodeData($nid);
+      // echo "<pre>";
+      // print_r($arr);
+      // die;
       if ($arr) {
         // $arr['url'] = $base_url.'/assessment/node/'.$nid;
         // $arr['url'] = 'http://bfss.mindimage.net/assessment/node/'.$nid;

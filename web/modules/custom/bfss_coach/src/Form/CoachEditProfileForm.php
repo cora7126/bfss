@@ -60,8 +60,9 @@ class CoachEditProfileForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
-
+// $orgname = $this->getORG();
+// print_r($orgname);
+// die;
     $current_user = \Drupal::currentUser()->id();
     $userdt = User::load($current_user);
     $field_state =  $userdt->get('field_state')->value;
@@ -185,7 +186,12 @@ class CoachEditProfileForm extends FormBase {
         '#default_value' => $results18['field_city'],
       ];
 
-      $gender_arr =  ['' => 'Select Gender','male' => 'Male','female' => 'Female','other' => 'Other'];
+      $gender_arr =  [
+        '' => 'Select Gender',
+        'male' => 'Male',
+        'female' => 'Female',
+        #'other' => 'Other'
+      ];
       $form['sextype'] = [
         '#type' => 'select',
         '#suffix' => '</div>
@@ -485,24 +491,24 @@ $form['html_image_athlete_start'] = [
                   </div>',
     ];
 
-    $form['label_text'] = array(
-  '#type' => 'label',
-  '#title' => 'No longer need your account and want to deactivate<br/>
-it? You can request deactivating you account via our<br/>
-ticketing system.',
-  '#prefix' => '</div>
-  </div>
-  <div class ="right_section box-pre"><div class = "athlete_right">',
-  '#suffix' => '</div></div>',
-  '#attributes' => array('id => parent_label'),
-  );
+//     $form['label_text'] = array(
+//   '#type' => 'label',
+//   '#title' => 'No longer need your account and want to deactivate<br/>
+// it? You can request deactivating you account via our<br/>
+// ticketing system.',
+//   '#prefix' => '
+//   <div class ="right_section box-pre"><div class = "athlete_right">',
+//   '#suffix' => '</div></div>',
+//   '#attributes' => array('id => parent_label'),
+//   );
 
   $form['instagram_account'] = array(
   '#type' => 'textfield',
   '#placeholder' => t('TEAM Instagram Account(Optional)'),
   '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
 
-  '#prefix' => '
+  '#prefix' => '</div>
+  </div>
   <div class = "athlete_right">
                     <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
                   <div class=items_div>',
@@ -622,8 +628,8 @@ $form['html_image_athlete_end'] = [
     //end change password
    $form['submit'] = [
       '#type' => 'submit',
-      '#value' => 'SAVE', 
-      '#prefix' => '<div id="athlete_submit">',
+      '#value' => 'SAVE ALL CHANGES', 
+      '#prefix' => '<div class="bfss_save_all save_all_changes">',
       '#suffix' => '</div>',
     ];
     return $form;
@@ -696,13 +702,22 @@ $form['html_image_athlete_end'] = [
    if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
         $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
     }
+
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-  
+      $orgname = $this->getORG();
+      foreach ($form_state->getValues('resident')['resident'] as $key => $value) {
+        
+        if( in_array($value['organization_name'], $orgname)){
+         drupal_set_message(t('"'.$value['organization_name'].'" organization name already exist.'), 'error');
+         return;
+        }
+      }
+
   	//old data update
   	foreach ($form_state->getValues('resident1')['resident1'] as $key => $value) {
   		if($value['nid']){
@@ -883,6 +898,20 @@ $form['html_image_athlete_end'] = [
     //drupal_set_message(t('An error occurred and processing did not complete.'), 'success');
   }
 
+  public function getORG(){
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'bfss_organizations') //content type
+      ->sort('created' , 'DESC');
+    $nids = $query->execute();
+    if(!empty($nids)){
+      $old_org_data = [];
+      foreach ($nids as $nid) {
+        $node = \Drupal\node\Entity\Node::load($nid);
+        $old_org_data[] = $node->field_organization_name->value;
+      }
+    }
+    return $old_org_data;
+  }
 
   public function getStates() {
       return $st=array(

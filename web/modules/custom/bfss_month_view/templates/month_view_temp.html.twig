@@ -1,2 +1,8 @@
-
+<!-- <pre>
+{{ dump(data) }}
+</pre> -->
+{% if data.current_path =='/appointments/scheduled' %}
+<div id='calendar-scheduled'></div>
+{% else %}
 <div id='calendar'></div>
+{% endif %}

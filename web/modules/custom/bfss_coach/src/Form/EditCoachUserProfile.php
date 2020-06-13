@@ -167,7 +167,12 @@ class EditCoachUserProfile extends FormBase {
         '#placeholder' => t('City (Organization)'),
         '#default_value' => $results18['field_city'],
       );
-      $gender_arr =  array('' => 'Select Gender','male' => 'Male','female' => 'Female','other' => 'Other');
+      $gender_arr =  [
+      '' => 'Select Gender',
+      'male' => 'Male',
+      'female' => 'Female',
+     # 'other' => 'Other'
+      ];
       $form['sextype'] = array(
       '#type' => 'textfield',
       '#suffix' => '</div></div>',

@@ -30,6 +30,7 @@ class SearchForm extends FormBase {
    * {@inheritdoc}
    */
   	public function buildForm(array $form, FormStateInterface $form_state) {
+      $param = \Drupal::request()->query->all();
  			$form['search_query'] = [
 		      '#type' => 'textfield',
 		      //'#title' => t('Search'),

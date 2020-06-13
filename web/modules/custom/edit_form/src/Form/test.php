@@ -11,6 +11,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 use \Drupal\user\Entity\User;
+use Drupal\Core\Render\Markup;
 /**
  * Contribute form.
  */
@@ -84,21 +85,26 @@ class test extends FormBase {
       );
     if(in_array('assessors', $roles_user)){
       $hd_title = "ASSESSORS&#39; Information";
+	  $dis_status=true;
     }elseif(in_array('coach', $roles_user)){
       $hd_title = "COACHES&#39;s Information";
+	  $dis_status=false;
     }elseif(in_array('athlete', $roles_user)){
-      $hd_title = "ATHLETE&#39;s Information"; 
+      $hd_title = "ATHLETE&#39;s Information";
+	$dis_status=false;	  
     }elseif(in_array('bfss_administrator', $roles_user)){
       $hd_title = "ADMIN&#39;s Information"; 
+	   $dis_status=false;
     }else{
       $hd_title = "USER&#39;s Information"; 
+	   $dis_status=false;
     }
 	$form['email'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Email'),
       '#required' => TRUE,
       '#default_value' => $results4['mail'],
-      #'#attributes' => array('disabled'=>true),
+      '#attributes' => array('disabled'=>$dis_status),
 	  '#prefix' => '',
 	  '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a></div></div><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>'.$hd_title.'</h3><div class=items_div>',
       );
@@ -226,12 +232,13 @@ $form['html_image_athlete'] = [
     }
     //end change password
      if(!in_array('assessors', $roles_user)){
-	   	$form['submit'] = ['#type' => 'submit', 
-	      '#value' => 'SAVE', 
-	      '#prefix' => '</div><div id="athlete_submit" class="athlete_submit">',
-	      '#suffix' => '</div>',
-	      //'#value' => t('Submit'),
-	    ];
+	    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => 'SAVE ALL CHANGES',
+      '#prefix' => '<div class="bfss_save_all save_all_changes">',
+      '#suffix' => '</div>'
+     
+    ];
   	}
     return $form;
   }

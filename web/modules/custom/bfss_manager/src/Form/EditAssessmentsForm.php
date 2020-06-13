@@ -14,7 +14,9 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Ajax\InvokeCommand;
 use \Drupal\user\Entity\User;
 use Drupal\file\Entity\File;
-use Drupal\Core\Datetime\DrupalDateTime;
+use \Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\date_popup\DatePopup;
+use Drupal\date_popup\DatetimePopup;
 /**
  * Class EditAssessmentsForm.
  */
@@ -78,12 +80,29 @@ class EditAssessmentsForm extends FormBase {
     $zip = $node->field_zip_us->value;
 
     $type =  $node->field_type_of_assessment->value;
+    $field_venue_location_assess = $node->field_venue_location_assess->value;
+    $field_venue_state_assess = $node->field_venue_state_assess->value;
+
     $schedules =  $node->get('field_schedules')->getValue(); 
-   
+
+    $cat_target_id = [];
+    if( !empty( $node->get('field_categories')->getValue() ) ){
+      foreach ($node->get('field_categories')->getValue() as $key => $target_id) {
+       $cat_target_id[] =  $target_id['target_id'];
+      }
+    }
+
+    $tags_target_id = [];
+    if( !empty( $node->get('field_event_tags')->getValue() ) ){
+      foreach ($node->get('field_event_tags')->getValue() as $key => $target_id) {
+       $tags_target_id[] =  $target_id['target_id'];
+      }
+    }
+
     
     $form['#tree'] = TRUE;
-
-    $form['#prefix'] = '<div class="main_section_plx left_full_width_plx">';
+    $form['#attached']['library'][] = 'bfss_manager/tokenize2';       //here can add library
+    $form['#prefix'] = '<div class="add-assessments main_section_plx left_full_width_plx add-group-assessments">';
     $form['#suffix'] = '</div>';
  
     
@@ -128,7 +147,7 @@ class EditAssessmentsForm extends FormBase {
 
     
 
-    $types = [''=>'Select','group'=>'Group','private'=>'Private'];
+    $types = [''=>'Select Type','group'=>'Group','private'=>'Private'];
     $form['type'] = [
         '#type' => 'select',
         '#options' => $types,
@@ -202,26 +221,46 @@ class EditAssessmentsForm extends FormBase {
       foreach ($schedules as $key => $value) {
           //$target_id[] = $value['target_id'];
         if(isset($value['target_id'])){
-            $pGraph = Paragraph::load($value['target_id']);
-            // print_r($pGraph->field_timing->value);
-            // die;
-
-          $form['update'][$key]['field_duration'] = [
-            '#placeholder' => t('Duration'),
-            '#type' => 'number',
-            '#required' => TRUE,
-            '#default_value' => $pGraph->field_duration->value,
-            '#prefix' => '<div class="duration-pl">',
-            '#suffix' => '',
+          $pGraph = Paragraph::load($value['target_id']);
+          // echo "<pre>";
+          // print_r($pGraph);
+          // die;
+          $form['update'][$key]['field_date'] = [
+            '#type' => 'textfield',
+            '#placeholder' => t('Select Date'),
+           # '#required' => TRUE,
+            '#default_value' => date('m/d/Y',$pGraph->field_timing->value),
+            '#format' => 'm/d/Y',
+            '#attributes' => array('id' => array('datepicker')),
+            '#prefix' => '<div class="date_duration date_duration_update">',
           ];
 
-          $form['update'][$key]['field_timing'] = [
-            '#type' => 'datetime',
-            '#placeholder' => t('Timing'),
-            '#required' => TRUE,
-            '#default_value' => DrupalDateTime::createFromTimestamp($pGraph->field_timing->value),
-            '#prefix' => '',
+          $time = $this->gettime();
+          $time = ['' => 'Start Time'] + $time;
+          $form['update'][$key]['field_time'] = [
+            '#type' => 'select',
+            '#options' => $time,
+            '#placeholder' => t('Start Time'),
+            #'#required' => TRUE,
+            '#default_value' => date('h:i:s',$pGraph->field_timing->value),
+            '#prefix' => '<div class="box niceselect times edit-update-time">',
             '#suffix' => '</div>',
+          ];
+
+          $hours = [];
+          for ($k=1; $k <=5 ; $k++) { 
+            $hours[$k]=$k;
+          }
+
+          $hours = ['' => 'Duration (Hours)'] + $hours;
+          $form['update'][$key]['field_duration'] = [
+            #'#placeholder' => t('Duration (Hours)'),
+            '#options' => $hours,
+            '#type' => 'select',
+           # '#required' => TRUE,
+            '#default_value' => $pGraph->field_duration->value,
+            '#prefix' => '<div class="box niceselect duration">',
+            '#suffix' => '</div></div>',
           ];
         }
       }
@@ -247,21 +286,43 @@ class EditAssessmentsForm extends FormBase {
    
 
     for ($i = 0; $i <= $this->residentCount; $i++) {
-      //$states = $this->get_state();
-       $form['resident'][$i]['field_timing'] = [
-        '#type' => 'datetime',
-        '#placeholder' => t('Timing'),
+      
+      $form['resident'][$i]['field_date'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('Select Date'),
        # '#required' => TRUE,
-        '#default_value' => '',
-         '#prefix' => '<div class="date_duration">',
-        '#suffix' => '',
+        '#default_value' => date('m/d/Y'),
+        '#format' => 'm/d/Y',
+        '#attributes' => array('id' => array('datepicker')),
+        '#prefix' => '<div class="date_duration">',
       ];
-      $form['resident'][$i]['field_duration'] = [
-        '#placeholder' => t('Duration'),
-        '#type' => 'number',
-        #'#required' => TRUE,
-       
+
+      $time = $this->gettime();
+      $time = ['' => 'Start Time'] + $time;
+      $form['resident'][$i]['field_time'] = [
+        '#type' => 'select',
+        '#options' => $time,
+        '#placeholder' => t('Start Time'),
+       # '#required' => TRUE,
+        '#default_value' =>'',
+        '#prefix' => '<div class="box niceselect times">',
         '#suffix' => '</div>',
+      ];
+
+      $hours = [];
+      for ($k=1; $k <=5 ; $k++) { 
+        $hours[$k]=$k;
+      }
+
+      $hours = ['' => 'Duration (Hours)'] + $hours;
+      $form['resident'][$i]['field_duration'] = [
+        #'#placeholder' => t('Duration (Hours)'),
+        '#options' => $hours,
+        '#type' => 'select',
+        #'#required' => TRUE,
+        '#default_value' =>'',
+        '#prefix' => '<div class="box niceselect duration">',
+        '#suffix' => '</div></div>',
       ];
 
      
@@ -313,7 +374,12 @@ class EditAssessmentsForm extends FormBase {
         </div>'
     ];
 
+    $form['left_imageuploader_start'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="athlete_left assessment-image-uploader">',
+    ];
     $form['image'] = [
+      '#title' => 'EVENT IMAGE',
       '#type' => 'managed_file',
       '#upload_validators' => [
         'file_validate_extensions' => ['gif png jpg jpeg'],
@@ -331,6 +397,88 @@ class EditAssessmentsForm extends FormBase {
       ],
     ];
 
+    $form['left_imageuploader_end'] = [
+      '#type' => 'markup',
+      '#markup' => '</div>',
+    ];
+
+    $cat_vid = 'categories';
+    $cat_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($cat_vid);    
+    $cat_arr = [];
+    foreach ($cat_terms as $cat_term) {
+     $cat_arr[$cat_term->tid] = $cat_term->name;
+    }
+    $form['categories'] = [
+        '#type' => 'select',
+        '#options' => $cat_arr,
+        '#placeholder' => t('categories'),
+        #'#required' => TRUE,
+         '#multiple' => TRUE,
+        '#default_value' => $cat_target_id,
+       '#prefix' => '<div class="athlete_left">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Categories</h3>
+                       <div class="items_div">',
+        '#suffix' => '</div></div>',
+        '#attributes' => array('class' => 'tokenize-remote-demo1'),
+    ];
+
+    /*
+    *Venue Start from here
+    */
+    $form_state_values = $form_state->getValues();
+    $venue_state = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:'AZ';
+
+    $venue_state_op = $this->getStates();
+    $form['venue_state'] = array(
+      '#type' => 'select',
+      '#options' => $venue_state_op,
+      '#default_value' => $field_venue_state_assess,
+      #'#attributes' => array('class' => array('full-width-inp')),
+      '#prefix' => '<div class="athlete_left schedule_plx venue_plx">
+                      <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Location (Cities)</h3>
+                     <div class="items_div"><div class="box niceselect duration">',
+       '#suffix' => '</div>',
+     # '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
+      '#ajax' => [
+        'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
+        'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+        'event' => 'change',
+        'wrapper' => 'edit-output-2', // This element is updated with this AJAX callback.
+      ]
+      );
+
+      
+      $form['venue_loaction'] = [
+          '#type' => 'textfield',
+          '#placeholder' => t('Location Name'),
+          '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+          '#autocomplete_route_parameters' => array('field_name' => $venue_state, 'count' => 10), 
+          '#prefix' => '<div id="edit-output-2" class="org-3">',
+          '#suffix' => '</div></div></div>',
+          '#default_value' => $field_venue_location_assess,
+      ];
+    /*
+    *Venue end from here
+    */
+    $tags_vid = 'tags';
+    $tags_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($tags_vid);    
+    $tags_arr = [];
+    foreach ($tags_terms as $tags_term) {
+     $tags_arr[$tags_term->tid] = $tags_term->name;
+    }
+    $form['tags'] = [
+        '#type' => 'select',
+        '#options' => $tags_arr,
+        '#placeholder' => t('tags'),
+        #'#required' => TRUE,
+         '#multiple' => TRUE,
+        '#default_value' => $tags_target_id,
+       '#prefix' => '<div class="athlete_left">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Tags</h3>
+                       <div class="items_div">',
+        '#suffix' => '</div></div>',
+        '#attributes' => array('class' => 'tokenize-remote-demo1'),
+    ];
 
     $form['left_section_end'] = [
       '#type' => 'markup',
@@ -343,10 +491,10 @@ class EditAssessmentsForm extends FormBase {
       '#type' => 'actions',
     ];
 
-    $form['actions']['submit'] = [
+   $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Save'),
-      '#prefix' => ' <div id="athlete_submit" class="athlete_submit">',
+      '#value' => 'SAVE ALL CHANGES',
+      '#prefix' => '<div class="bfss_save_all save_all_changes">',
       '#suffix' => '</div>'
      
     ];
@@ -379,23 +527,25 @@ class EditAssessmentsForm extends FormBase {
     if(!empty($form_state->getValues('resident')['resident'])){
                
                foreach($form_state->getValues('resident')['resident'] as $values) {   
-                if(!empty($values['field_timing'])){
+                $date = new DrupalDateTime($values['field_date'].$values['field_time']);
+                if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
                   $data[] = [
                       'field_duration' => $values['field_duration'],
-                      'field_timing' => $values['field_timing']->getTimestamp(),
+                      'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
                     ]; 
-                }    
+                }   
                }
     }
 
     if(!empty($form_state->getValue('update'))){
       foreach($form_state->getValue('update') as $values) {   
-        if(!empty($values['field_timing'])){
-          $data[] = [
-              'field_duration' => $values['field_duration'],
-              'field_timing' => $values['field_timing']->getTimestamp(),
-            ]; 
-        }    
+                $date = new DrupalDateTime($values['field_date'].$values['field_time']);
+                if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
+                  $data[] = [
+                      'field_duration' => $values['field_duration'],
+                      'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
+                    ]; 
+                }   
       }
     }
 
@@ -434,8 +584,24 @@ class EditAssessmentsForm extends FormBase {
 
 
         $node->field_type_of_assessment->value = $form_state->getValue('type');
+
+        if(!empty($form_state->getValue('categories'))){
+          foreach ($form_state->getValue('categories') as $key => $target_id) {
+            $node->field_categories[] = ['target_id' => $target_id];
+          }
+        }
+        
+        if(!empty($form_state->getValue('tags'))){
+          foreach ($form_state->getValue('tags') as $key => $target_id) {
+            $node->field_event_tags[] = ['target_id' => $target_id];
+          }
+        }
+        //venue 
+        $node->field_venue_state_assess->value = $form_state->getValue('venue_state');
+        $node->field_venue_location_assess->value = $form_state->getValue('venue_loaction');
         //$node->field_image[] = ['target_id' => $img_id, 'alt'=> 'img'];
         $node->save();
+        drupal_set_message(t('<p class="bfss-success-msg">Successfully updated Assessment.</p>'), 'success');
       }    
         
   }
@@ -500,6 +666,7 @@ class EditAssessmentsForm extends FormBase {
 
       function getStates() {
         return $states=array(
+        ''=> t('Select State'),
         'AL'=> t('AL'),
         'AK'=> t('AK'),
         'AZ'=> t('AZ'),
@@ -552,4 +719,18 @@ class EditAssessmentsForm extends FormBase {
         'WY'=> t('WY'));
       }
 
+      public function gettime(){
+          $start_time = "05:00:00";
+          $end_time = "23:00:00";
+          $time_op=[];
+          while(strtotime($start_time) < strtotime($end_time)){
+             $start_time = date("H:i:s", strtotime("$start_time +30 minutes"));
+             $time_op[$start_time] = date("H:i A", strtotime($start_time));
+          }//end while
+          return $time_op;
+      }
+
+      public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){  
+        return  $form['venue_loaction']; 
+      }
 }

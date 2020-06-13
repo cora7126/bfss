@@ -295,15 +295,11 @@ class AddOrganizations extends FormBase {
         '#type' => 'actions',
       ];
 
-      $form['actions']['submit'] = [
-        '#type' => 'submit',
-        '#value' => $this->t('Save'),
-        // '#attributes' => [
-        //   'class' => ['btn button--primary'],
-        // ],
-        '#prefix' => ' <div class="add_org_submit">',
-        '#suffix' => '</div>'
-       
+     $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => 'SAVE ALL CHANGES',
+      '#prefix' => '<div class="bfss_save_all save_all_changes">',
+      '#suffix' => '</div>'
       ];
       $form['#attached']['library'][] = 'bfss_organizations/add_organization';
     }else{

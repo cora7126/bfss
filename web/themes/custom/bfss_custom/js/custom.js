@@ -221,7 +221,10 @@ jQuery('.faqct li.q').on('click', function(){
 							}else if(data=='a2'){
 								alert("INCORRECT PASS.");
 							}else{
+
 								alert("Password changed successfully");
+								 window.location= "/user/login";
+
 							}
 							
 						},

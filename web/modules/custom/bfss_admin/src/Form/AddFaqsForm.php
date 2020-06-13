@@ -80,8 +80,8 @@ class AddFaqsForm extends FormBase {
       $form['actions']['#type'] = 'actions';
       $form['actions']['submit'] = [
           '#type' => 'submit',
-          '#value' => $this->t('SAVE'),
-          '#prefix' => '<div id="athlete_submit" class="athlete_submit">',
+          '#value' => 'SAVE ALL CHANGES',
+          '#prefix' => '<div class="bfss_save_all save_all_changes">',
           '#suffix' => '</div>
           </div>
            </div></div>',

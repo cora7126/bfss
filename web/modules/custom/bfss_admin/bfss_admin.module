@@ -17,6 +17,11 @@ use \Drupal\node\Entity\Node;
  * @return mixed
  */
 function bfss_admin_theme() {
+
+  $theme['users_editable_account_page'] = [
+    'variables' => ['name' => NULL,'users_editable_account_block' => NULL],
+    'template' => 'users_editable_account',
+  ];
   
   $theme['manager_assessor_account_page'] = [
     'variables' => ['name' => NULL,'manager_assessor_account_block' => NULL],
@@ -45,7 +50,25 @@ function bfss_admin_theme() {
     'template' => 'editable_tamplates',
   ];
 
+  $theme['managers_pending_payment_page'] = [
+    'variables' => ['name' => NULL,'managers_pending_payment_block' => NULL],
+    'template' => 'managers_pending_payment',
+  ];
 
+  $theme['managers_paid_payment_page'] = [
+    'variables' => ['name' => NULL,'managers_paid_payment_block' => NULL],
+    'template' => 'managers_paid_payment',
+  ];
+
+  $theme['organizations_pending_payment_page'] = [
+    'variables' => ['name' => NULL,'organizations_pending_payment_block' => NULL],
+    'template' => 'organizations_pending_payment',
+  ];
+
+  $theme['organizations_paid_payment_page'] = [
+    'variables' => ['name' => NULL,'organizations_paid_payment_block' => NULL],
+    'template' => 'organizations_paid_payment',
+  ];
   return $theme;
 }
 

@@ -9,7 +9,8 @@
 namespace Drupal\bfss_assessment\Form\Multistep;
 
 use Drupal\Core\Form\FormStateInterface;
-
+use \Drupal\user\Entity\User;
+use Drupal\Core\Database\Database;
 class MultistepOneForm extends MultistepFormBase {
 
   /**
@@ -24,6 +25,19 @@ class MultistepOneForm extends MultistepFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
+
+    $uid = \Drupal::currentUser()->id();
+    $Query = \Drupal::database()->select('bfss_register_user_payments', 'ats');
+    $Query->fields('ats');
+    $Query->condition('uid', $uid,'=');
+    $results = $Query->execute()->fetchAssoc(); 
+    if(!empty($results) && isset($results['program_term'])){
+          $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($results['program_term']);
+    }
+
+    // echo "<pre>"; 
+    // print_r($term->name->value);
+    // die;
 
     $nid = \Drupal::request()->get('node_id');
     if ($nid || !$this->store->get('is_private')) {
@@ -84,6 +98,12 @@ class MultistepOneForm extends MultistepFormBase {
         "199.99" => "Elite - $199.99",
       ];
     }
+    //$options = $options + [$results['amount'] => $term->name];
+   // print_r($results['amount']);die;
+    if(!empty($results) && isset($results['amount']) && !empty($term) && $results['firsttime_purchase_status']=='PurchasePending'){
+      $options = [$results['amount'].'_freecredit' => $term->name->value.' ( free credit )'] + $options; 
+    }
+   
 
     $form['service'] = array(
       '#type' => 'select',
