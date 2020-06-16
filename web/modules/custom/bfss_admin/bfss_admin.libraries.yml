@@ -22,3 +22,11 @@ forget_pass_alert:
       #css/multiform.css: {}
   js:
     js/forget_pass_alert.js: {}
+
+bfss_admin_lab_dash:
+  version: 1.x
+  css:
+    layout:
+      #css/multiform.css: {}
+  js:
+    js/bfss_admin_lab_dash.js: {}

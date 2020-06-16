@@ -40,7 +40,7 @@ class OrganizationsPaidPayment extends ControllerBase {
 				$queryorg->fields('ats');
 				$queryorg->condition('athlete_uid', $uid, '=');
 				$resultorg = $queryorg->execute()->fetchAssoc();
-
+				$coach = $this->GetCoach($resultorg['athlete_school_name']);
 		       	$data[] = [
 		       		'purchased_date' => $paid_date,
 		       		'program' => $program,
@@ -50,6 +50,8 @@ class OrganizationsPaidPayment extends ControllerBase {
 		       		'city' => $city,
 		       		'state' => $state,
 		       		'organizations_name' => $resultorg['athlete_school_name'],
+		       		'coach' => $coach,
+		       		'user_id' => $entity->user_id->value,
 		       	];
         }	
 		$tb1 = '<div class="search_athlete_main user_pro_block">
@@ -69,23 +71,25 @@ class OrganizationsPaidPayment extends ControllerBase {
                 </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>State</a>
                 </th>
-                <th class="th-hd long-th th-fisrt"><a><span></span>Program</a>
-                </th>
+               
                  <th class="th-hd long-th th-fisrt"><a><span></span>Amount</a>
+                </th>
+                  <th class="th-hd long-th th-fisrt"><a><span></span>Coach</a>
                 </th>
               </tr>
             </thead>
             <tbody>';
 
         foreach ($data as $value) {
+        	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
 	        <td>'.$value['purchased_date'].'</td>
-	        <td><a>'.$value['organizations_name'].'</a></td>
+	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['organizations_name'].'</a></td>
 	        <td>'.$value['customer_name'].'</td>
 	        <td>'.$value['city'].'</td>
 	        <td>'.$value['state'].'</td>
-	        <td>'.$value['program'].'</td>
 	        <td>'.$value['amount'].'</td>
+	         <td>'.$value['coach'].'</td>
 	         </tr>';
         }
          
@@ -108,4 +112,18 @@ class OrganizationsPaidPayment extends ControllerBase {
   		]; 
 	   
   	}
+
+  		public function GetCoach($organization_name){
+			if(!empty($organization_name)){
+				$query = \Drupal::entityQuery('node');
+				$query->condition('type', 'bfss_organizations');
+				$query->condition('field_organization_name',$organization_name, '=');
+				$nids = $query->execute();
+				foreach($nids as $nid){
+					$node = Node::load($nid);
+					$coach = $node->field_coach_title->value;
+				}
+			}
+			return $coach;
+		}
 }

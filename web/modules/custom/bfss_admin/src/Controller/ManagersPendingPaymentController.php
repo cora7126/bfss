@@ -42,6 +42,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 		       		'customer_name' => $full_name,
 		       		'city' => $city,
 		       		'state' => $state,
+		       		'user_id' => $entity->user_id->value,
 		       	];
         }	
 		$tb1 = '<div class="search_athlete_main user_pro_block">
@@ -68,9 +69,10 @@ class ManagersPendingPaymentController extends ControllerBase {
             <tbody>';
 
         foreach ($data as $value) {
+        	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
 	        <td>'.$value['purchased_date'].'</td>
-	        <td>'.$value['customer_name'].'</td>
+	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['customer_name'].'</a></td>
 	        <td>'.$value['city'].'</td>
 	        <td>'.$value['state'].'</td>
 	        <td>'.$value['program'].'</td>
