@@ -13,7 +13,8 @@ bfss_coach.search_athlete:
     _controller: '\Drupal\bfss_coach\Controller\SearchAthlete::content' 
     _title: 'Search Athlete'
   requirements: 
-    _permission: 'access content' 
+    #_permission: 'access content' 
+    _role: 'coach+bfss_administrator+bfss_manager'
 
 bfss_coach.bfss_funds:
   path: '/bfss-funds' 
@@ -57,8 +58,8 @@ bfss_coach.coach_edit_form:
     _controller: '\Drupal\bfss_coach\Controller\CoachEditProfile::content' 
     _title: 'Edit Profile'
   requirements: 
-    _permission: 'access content'
-    #_role: 'coach'
+    #_permission: 'access content'
+    _role: 'coach'
 
 bfss_coach.delete_org_from_coach:
   path: '/delete-org-from-coach/{nid}' 
@@ -66,4 +67,5 @@ bfss_coach.delete_org_from_coach:
     _controller: '\Drupal\bfss_coach\Controller\DeleteOrgFromCoachProfile::deleteaorg' 
     _title: 'Delete'
   requirements: 
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'coach'

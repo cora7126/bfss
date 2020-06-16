@@ -4,7 +4,8 @@ edit_form.contribute_form:
     _form: '\Drupal\edit_form\Form\ContributeForm'
     _title: 'Conribute page'
   requirements:
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
     
 edit_form.athlete_form:
   path: /bfssAthleteProfile
@@ -12,7 +13,8 @@ edit_form.athlete_form:
     _controller: '\Drupal\edit_form\Controller\AthleticProfile::content'
     _title: 'Athlete Form'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'athlete+parent_guardian_registering_athlete_'
     
 #edit_form.edit_user_form:
 #  path: 'edit/user'
@@ -28,7 +30,8 @@ edit_form.changepass_form:
     _form: '\Drupal\edit_form\Form\changepass'
     _title: 'Change Password'
   requirements:
-    _access: 'TRUE'    
+   # _access: 'TRUE'   
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_' 
     
 edit_form.test_form:
   path: 'edit/user'
@@ -36,7 +39,8 @@ edit_form.test_form:
     _controller: '\Drupal\edit_form\Controller\EditUserProfile::content'
     _title: 'Edit User'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
     
 edit_form.parent_form:
   path: 'edit/parent'
@@ -44,7 +48,8 @@ edit_form.parent_form:
     _controller: '\Drupal\edit_form\Controller\EditParentProfile::content'
     _title: 'Edit Parent/Guardian'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
     
 edit_form.delparent:
   path: 'delete/parent/{id}/{delta}'
@@ -52,7 +57,8 @@ edit_form.delparent:
     _controller: '\Drupal\edit_form\Controller\delparent::deleteparent'
     _title: 'Delete Parent/Guardian'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
     
 edit_form.delathlete:
   path: 'delete/athlete/{aid}/{orgname}'
@@ -60,7 +66,8 @@ edit_form.delathlete:
     _controller: '\Drupal\edit_form\Controller\delathlete::deleteathlete'
     _title: 'Delete Athlete'
   requirements:
-    _access: 'TRUE'
+    #_access: 'TRUE'
+    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
     
 edit_form.changepassajax:
   path: 'changepass/{oldpass}/{newpass}/{newpassconfirm}'
@@ -68,12 +75,14 @@ edit_form.changepassajax:
     _controller: '\Drupal\edit_form\Controller\delparent::changepass'
     _title: 'Change Password'
   requirements:
-    _access: 'TRUE'
-
+    #_access: 'TRUE'
+    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
+    
 edit_form.autocomplete:
   path: '/get-data-autocomplete/{field_name}/{count}'
   defaults:
     _controller: '\Drupal\edit_form\Controller\AutocompleteController::handleAutocomplete'
     _format: json
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'

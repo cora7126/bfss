@@ -15,3 +15,15 @@ function edit_form_theme($existing, $type, $theme, $path) {
   	];
 }
 
+// function edit_form_form_alter(&$form, $form_state, $form_id) {
+// 	//print_r($form_id);
+// 	//$form['actions']['submit']['#submit'][] = 'alert_message'; 
+//   if($form['#form_id'] == 'user_login_form') {
+//     //$form['actions']['submit']['#submit'][] = '::submitForm';
+//     $form['actions']['submit']['#submit'][] = 'alert_message'; 
+//   }
+// }
+
+// function alert_message(&$form, $form_state){
+// 	\Drupal::logger('form_state')->notice('@type', array('@type' => print_r($form_state, 1) ));
+// }

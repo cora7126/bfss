@@ -184,7 +184,7 @@ public function userform()
     function My_assessments($uid){
           $query = \Drupal::entityQuery('node');
           $query->condition('type', 'assessment');
-          $query->range(0, 10);
+          $query->range(0, 8);
           $nids = $query->execute();
 
           $result = array();
