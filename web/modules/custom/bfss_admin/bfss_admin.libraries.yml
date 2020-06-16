@@ -14,3 +14,11 @@ bfss_admin_popupfaq:
       #css/multiform.css: {}
   js:
     js/popupfaq.js: {}
+
+forget_pass_alert:
+  version: 1.x
+  css:
+    layout:
+      #css/multiform.css: {}
+  js:
+    js/forget_pass_alert.js: {}

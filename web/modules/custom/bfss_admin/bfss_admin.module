@@ -125,6 +125,7 @@ function bfss_admin_mail_alter(&$message){
         //subject
         $message['subject'] = '';
         $message['subject'] = $SUBJECT;
+       
     }
  // \Drupal::logger('message array')->notice('@type', array('@type' => print_r($message['body'], 1) ));
   //\Drupal::logger('body_array array')->notice('@type', array('@type' => print_r($body_array, 1) ));

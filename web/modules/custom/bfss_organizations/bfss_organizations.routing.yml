@@ -4,7 +4,8 @@ bfss_organizations.add_organizations:
    _title: 'Add Organizations'
    _controller: '\Drupal\bfss_organizations\Controller\AddOrganizations::Add_Organizations'
  requirements:
-   _permission: 'access content'
+   #_permission: 'access content'
+   _role: 'bfss_administrator+bfss_manager'
 
 bfss_organizations.view_edit_organizations:
  path: '/view-edit-organizations'
@@ -12,7 +13,8 @@ bfss_organizations.view_edit_organizations:
    _title: 'View Edit Organizations'
    _controller: '\Drupal\bfss_organizations\Controller\ViewEditOrganizations::view_edit_organizations'
  requirements:
-   _permission: 'access content'
+  # _permission: 'access content'
+  _role: 'bfss_administrator+bfss_manager'
 
 bfss_organizations.edit_organizations:
  path: '/edit-organizations'
@@ -20,7 +22,8 @@ bfss_organizations.edit_organizations:
    _title: 'Edit Organizations'
    _controller: '\Drupal\bfss_organizations\Controller\EditOrganizations::edit_organizations'
  requirements:
-   _permission: 'access content'
+  # _permission: 'access content'
+  _role: 'bfss_administrator+bfss_manager'
 
 bfss_organizations.pending_organizations:
  path: '/pending-approval'
@@ -28,7 +31,8 @@ bfss_organizations.pending_organizations:
    _title: 'Pending Approval'
    _controller: '\Drupal\bfss_organizations\Controller\PendingApproval::pending_approval'
  requirements:
-   _permission: 'access content'
+  # _permission: 'access content'
+  _role: 'bfss_administrator+bfss_manager'
 
 bfss_organizations.approve_organization_popup:
  path: '/approve-organization-popup'
@@ -36,7 +40,9 @@ bfss_organizations.approve_organization_popup:
    _title: 'Approve Organization Popup'
    _form: '\Drupal\bfss_organizations\Form\ApproveOrganizationPopup'
  requirements:
-   _permission: 'access content'
+   #_permission: 'access content'
+   _role: 'bfss_administrator+bfss_manager'
+
 
 bfss_organizations.edit_organization_popup:
  path: '/edit-organization-popup'
@@ -44,7 +50,8 @@ bfss_organizations.edit_organization_popup:
    _title: 'Edit Organization Popup'
    _form: '\Drupal\bfss_organizations\Form\EditOrganizationPopup'
  requirements:
-   _permission: 'access content'
+  # _permission: 'access content'
+  _role: 'bfss_administrator+bfss_manager'
 
 bfss_organizations.search_organization:
  path: '/search-organization'
@@ -52,4 +59,5 @@ bfss_organizations.search_organization:
    _title: 'Search Organization'
    _form: '\Drupal\bfss_organizations\Form\OrganizationSearchForm'
  requirements:
-   _permission: 'access content'
+   #_permission: 'access content'
+   _role: 'bfss_administrator+bfss_manager'

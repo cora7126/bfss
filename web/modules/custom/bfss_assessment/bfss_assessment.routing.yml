@@ -114,6 +114,7 @@ bfss_assessment.preview_atheltic_profile:
   requirements:
     _permission: 'access content'
     # _role: 'athlete+parent_guardian_registering_athlete_'
+    
 
 bfss_assessment.upcoming_group:
   path: '/upcoming-group-assessments'
@@ -121,7 +122,8 @@ bfss_assessment.upcoming_group:
     _controller: '\Drupal\bfss_assessment\Controller\UpcomingGroupAssessments::UpcomingGroup'
     _title: 'upcoming group assessments'
   requirements:
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
 
 bfss_assessment.private_assessments_listing:
   path: '/private-assessments'
@@ -147,7 +149,8 @@ bfss_assessment.scheduled_appointments:
     _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::scheduledAppointments'
     _title: "Scheduled Appointments"
   requirements:
-    _permission: 'access content'
+   # _permission: 'access content'
+   _role: 'athlete+parent_guardian_registering_athlete_'
     
 bfss_assessment.bfss_manager:
   path: '/bfss-manager'
@@ -155,7 +158,8 @@ bfss_assessment.bfss_manager:
     _controller: '\Drupal\bfss_assessment\Controller\BfssManager::Bfss_Manager'
     _title: "bfss manager"
   requirements:
-    _permission: 'access content'
+   # _permission: 'access content'
+   _role: 'athlete+parent_guardian_registering_athlete_'
 
 bfss_assessment.payment_receipts:
   path: '/payment-receipts'
@@ -163,7 +167,8 @@ bfss_assessment.payment_receipts:
     _controller: '\Drupal\bfss_assessment\Controller\PaymentReceipts::payment_receipts'
     _title: "Payment Receipts"
   requirements:
-    _permission: 'access content'
+   # _permission: 'access content'
+    _role: 'athlete+parent_guardian_registering_athlete_'
 
 bfss_assessment.bfss_faq:
   path: '/faqs'
@@ -171,7 +176,8 @@ bfss_assessment.bfss_faq:
     _controller: '\Drupal\bfss_assessment\Controller\FaqListing::faq_listing'
     _title: "FAQ"
   requirements:
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
 
 bfss_assessment.myassessments:
   path: '/my_assessments'
@@ -199,7 +205,8 @@ bfss_assessment.month_filter:
     _title: 'Assessment Type'
     node_id: null
   requirements:
-    _permission: 'access content'
+   # _permission: 'access content'
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
 
 bfss_assessment.assessment_search_query:
   path: '/assessment-search'
@@ -208,7 +215,8 @@ bfss_assessment.assessment_search_query:
     _title: 'Assessment Search'
     node_id: null
   requirements:
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
 
 bfss_assessment.test_payment_form:
   path: '/test-payment-form'
@@ -217,7 +225,8 @@ bfss_assessment.test_payment_form:
     _title: 'PaymentTestForm'
     node_id: null
   requirements:
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
 
 bfss_assessment.admin_settings:
   path: '/admin/config/payment_settings'
@@ -234,7 +243,8 @@ bfss_assessment.view_payments_and_receipts:
     _controller: '\Drupal\bfss_assessment\Controller\ViewPaymentsAndReceipts::view_payments_and_receipts'
     _title: 'View Payments And Receipts'
   requirements:
-    _permission: 'access content'
+    #_permission: 'access content'
+    _role: 'athlete'
 
 # bfss_assessment.payment_receipts:
 #   path: '/payment-receipts'
