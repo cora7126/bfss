@@ -337,6 +337,7 @@ class ContributeForm extends FormBase {
     */
     $type_org_1 = isset($athlete_school['athlete_school_type']) ? $athlete_school['athlete_school_type'] : 'school';
     $orgnames_op1 = $this->Get_Org_Name_For_default($type_org_1);
+     //$orgnames_op1 = 'Williams Field High School';
     $form_state_values = $form_state->getValues();
     $orgtype = [
       #""=>t('Organization Type'),
@@ -448,6 +449,7 @@ class ContributeForm extends FormBase {
     */
     $type_org_2 =  isset($athlete_club['athlete_school_type']) ? $athlete_club['athlete_school_type'] : 'school';
     $orgnames_op = $this->Get_Org_Name_For_default($type_org_2);
+    // $orgnames_op = "Williams Field High School";
     if (!empty($athlete_club['athlete_club_name']) && !empty($athlete_club['athlete_school_type'])) {
 
       $form['education_1'] = array( // uni
@@ -618,6 +620,7 @@ class ContributeForm extends FormBase {
     */
 	    $type_org_3 =  isset($athlete_uni['athlete_uni_type']) ? $athlete_uni['athlete_uni_type'] : 'school';
       $orgnames_op3 = $this->Get_Org_Name_For_default($type_org_3);
+	  //  $orgnames_op3 = "Williams Field High School";
       $type__3 = isset($type_org_3)?$type_org_3:'school';
       $type_organization_3 = isset($form_state_values['education_2'])?$form_state_values['education_2']:$type__3;
      if (!empty($athlete_uni['athlete_uni_name']) && !empty($athlete_uni['athlete_uni_type'])) {
@@ -1577,6 +1580,7 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
  	  $query = \Drupal::entityQuery('node');
       $query->condition('type', 'bfss_organizations');
       $query->condition('field_type', $type, 'IN');
+      $query->range(0, 10);
       $nids = $query->execute();
       $org_name=[];
       foreach($nids as $nid){
