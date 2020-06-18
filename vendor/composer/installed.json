@@ -2758,6 +2758,7 @@
         ]
     },
     {
+<<<<<<< HEAD
         "name": "drupal/contentimport",
         "version": "4.1.0",
         "version_normalized": "4.1.0.0",
@@ -2807,6 +2808,8 @@
         }
     },
     {
+=======
+>>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
         "name": "drupal/core",
         "version": "8.8.6",
         "version_normalized": "8.8.6.0",

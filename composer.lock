@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "c8792e68e2692734683edd75a3880f0d",
+=======
+    "content-hash": "1fcb83dffbafb93805b0e9f696455d5e",
+>>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2168,6 +2172,7 @@
             }
         },
         {
+<<<<<<< HEAD
             "name": "drupal/contentimport",
             "version": "4.1.0",
             "source": {
@@ -2215,6 +2220,8 @@
             }
         },
         {
+=======
+>>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
             "name": "drupal/core",
             "version": "8.8.6",
             "source": {
@@ -4460,12 +4467,20 @@
             "version": "0.9.1",
             "source": {
                 "type": "git",
+<<<<<<< HEAD
                 "url": "https://github.com/easyrdf/easyrdf.git",
+=======
+                "url": "https://github.com/njh/easyrdf.git",
+>>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
                 "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566"
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/easyrdf/easyrdf/zipball/acd09dfe0555fbcfa254291e433c45fdd4652566",
+=======
+                "url": "https://api.github.com/repos/njh/easyrdf/zipball/acd09dfe0555fbcfa254291e433c45fdd4652566",
+>>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
                 "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566",
                 "shasum": ""
             },
