@@ -15,15 +15,25 @@ function edit_form_theme($existing, $type, $theme, $path) {
   	];
 }
 
-// function edit_form_form_alter(&$form, $form_state, $form_id) {
-// 	//print_r($form_id);
-// 	//$form['actions']['submit']['#submit'][] = 'alert_message'; 
-//   if($form['#form_id'] == 'user_login_form') {
-//     //$form['actions']['submit']['#submit'][] = '::submitForm';
-//     $form['actions']['submit']['#submit'][] = 'alert_message'; 
-//   }
+// function edit_form_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+// 	// if($form['#form_id'] == 'user_pass'){
+// 	// 	 foreach (array_keys($form['actions']) as $action) {
+// 	// 	    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+// 	// 	      $form['actions'][$action]['#submit'][] = 'alert_message';
+// 	// 	    }
+// 	//   	}
+//  // 	 }
+	
 // }
 
-// function alert_message(&$form, $form_state){
-// 	\Drupal::logger('form_state')->notice('@type', array('@type' => print_r($form_state, 1) ));
+// function alert_message(array $form, FormStateInterface $form_state){
+// 	if($form['#form_id'] == 'user_pass'){
+// 		//\Drupal::logger('$form_id112')->notice('@type', array('@type' => print_r($form['#form_id'], 1) ));
+// 	  $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
+//       $computed_settings = [
+//         'payment_status' => 'FORGETPASSWORD',
+//       ];
+//       $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
+// 	}
+	
 // }

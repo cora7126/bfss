@@ -95,7 +95,9 @@
             <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i>Pending Approval<a href="pending-approval" target="_blank"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></button>
             <div class="panel">
                {% if Pending_Approval_Data_Block is empty %}
+              <div class="no_pending_approvel">
                <p>No Pending Approval!</p>
+              </div>
                {% else %}
                {% for Data in Pending_Approval_Data_Block %}
                <div class="panel_row">

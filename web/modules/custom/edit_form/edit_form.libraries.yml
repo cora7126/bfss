@@ -8,3 +8,11 @@ edit_form_lab:
   js:
     js/edit_form.js: {}
     js/tooltip.js: {}
+
+edit_form_popup_lab:
+  version: 1.x
+  css:
+    layout:
+  js:
+    js/edit_form_popup.js: {}
+    
