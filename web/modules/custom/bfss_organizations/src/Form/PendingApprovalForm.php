@@ -47,15 +47,17 @@ class PendingApprovalForm extends FormBase {
             '#type' => 'markup',
             '#markup' => '<div class="left_section popup_left_section">',
     ];
-    $form['resident'] = [
-      '#type' => 'container',
-      '#attributes' => ['id' => 'resident-details'],
-      '#prefix' => '',
-      '#suffix' =>'',
-    ];
+    if(!empty($nids)){
+    	
+	    $form['resident'] = [
+	      '#type' => 'container',
+	      '#attributes' => ['id' => 'resident-details'],
+	      '#prefix' => '',
+	      '#suffix' =>'',
+	    ];
 
      
-    if(!empty($nids)){
+  
         foreach ($nids as $i => $nid) {
           if(isset($nid)){
             $node = Node::load($nid);

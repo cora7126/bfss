@@ -37,7 +37,7 @@ input#edit-position-22 {margin-bottom: 30px;}
 .approve-organization-popup .left_section .athlete_left > .items_div {border:none;}
 .no_pennding_organization {text-align: center;}
 .view-payments-and-receipts .user_pro_block .block-bfss-assessors {border: none;}
-
+.no_pending_approvel p {text-align: center;padding: 20px 0px 20px 0px;}
 body.user-login .registration-area .user-pass p{font-size: 13px;color: #808285;}
 .organizations-paid-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a,.organizations-pending-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a {font-weight: 500;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
