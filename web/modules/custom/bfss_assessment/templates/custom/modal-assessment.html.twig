@@ -32,6 +32,9 @@
 			</div>
 		</div>
 	</div>
+	{% if 'bfss_administrator' in data.roles %}
+	{% else %}
+	
 	<div class="ticketing">
 		
 		<div class="share">
@@ -70,6 +73,7 @@
 		<span><i class="fal fa-ticket-alt"></i>   TICKETING</span>
 		</div>
 	</div>
+	{% endif %}
 	<div class="details">
 		<div class="body">
 			
@@ -101,6 +105,13 @@
 			<div class="ticketing">
 				<p>TICKETING</p>
 				<a href="{{ data.url }}" class="book-now">Book Now</a>
+			<div>
+			{% endif %}
+
+			{% if 'bfss_administrator' in data.roles %}
+			<div class="ticketing">
+				<p>ASSESSMENT TYPE</p>
+				<p style="color:#000;">{{data.assess_type}}</p>
 			<div>
 			{% endif %}
 		</div>
