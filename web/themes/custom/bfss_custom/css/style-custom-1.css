@@ -40,6 +40,8 @@ input#edit-position-22 {margin-bottom: 30px;}
 .no_pending_approvel p {text-align: center;padding: 20px 0px 20px 0px;}
 body.user-login .registration-area .user-pass p{font-size: 13px;color: #808285;}
 .organizations-paid-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a,.organizations-pending-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a {font-weight: 500;}
+.full-width-inp .input-group-addon {display: none;}
+.full-width-inp .select-wrapper{width: 100%;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

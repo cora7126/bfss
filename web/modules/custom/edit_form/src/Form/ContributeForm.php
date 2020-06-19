@@ -222,16 +222,23 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Preferred Contact Email'),
       '#default_value' => $results4['mail'],
-	  '#required' => TRUE,
+	    '#required' => TRUE,
       );
-	     $states = getStates();
+	 
+    $states = getStates();
     $form['az'] = array(
-      //'#title' => t('az'),
-      '#type' => 'select',
-      //'#description' => 'Select the desired pizza crust size.',
-	  '#options'=>$states,
-      '#default_value' => $state,
-	  '#required' => TRUE,
+        '#type' => 'select',
+	      '#options' => $states,
+        '#default_value' => $state,
+	      '#required' => TRUE,
+        '#prefix' => '<div class="full-width-inp">',
+        '#suffix' => '</div>',
+        '#ajax' => [
+          'callback' => '::StateNamesAjaxCallback', // don't forget :: when calling a class method.
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-5', // This element is updated with this AJAX callback.
+        ]
       );
 	  //print '<pre>';print_r($results18);die;
     $form['city'] = array(
@@ -339,6 +346,10 @@ class ContributeForm extends FormBase {
     $orgnames_op1 = $this->Get_Org_Name_For_default($type_org_1);
      //$orgnames_op1 = 'Williams Field High School';
     $form_state_values = $form_state->getValues();
+    $state = isset($state)?$state:'AZ';
+    $state_name = isset($form_state_values['az'])?$form_state_values['az']:$state; 
+// print_r($state);
+// die();
     $orgtype = [
       #""=>t('Organization Type'),
       "school"=>t('School'),
@@ -368,7 +379,7 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Orginization Name'),
       '#autocomplete_route_name' => 'edit_form.autocomplete',
-      '#autocomplete_route_parameters' => array('field_name' => $type_organization_1, 'count' => 10), 
+      '#autocomplete_route_parameters' => array('state_name' => $state_name, 'field_name' => $type_organization_1, 'count' => 10), 
       '#prefix' => '<div id="edit-output" class="orgtextarea1">',
       '#suffix' => '</div>',
       '#default_value' => $athlete_school['athlete_school_name'] ,
@@ -475,7 +486,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $state_name, 'field_name' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_club['athlete_club_name'],
@@ -547,7 +558,7 @@ class ContributeForm extends FormBase {
          '#suffix' => '</div>',
         '#default_value' => isset($athlete_club['athlete_school_type'])?$athlete_club['athlete_school_type']:'school',
               '#ajax' => [
-			    'callback' => '::OrgNamesAjaxCallback_2', // don't forget :: when calling a class method.
+			    'callback' => '::OrgNamesAjaxCallback_two', // don't forget :: when calling a class method.
 			    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
 			    'event' => 'change',
 			    'wrapper' => 'edit-output-1', // This element is updated with this AJAX callback.
@@ -561,7 +572,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $state_name, 'field_name' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => '',
@@ -648,7 +659,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $state_name, 'field_name' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -727,7 +738,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $state_name, 'field_name' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -1475,77 +1486,82 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
   return  $form['schoolname_2']; 
 }
 
- 	public function OrgNamesAjaxCallback_1(array &$form, FormStateInterface $form_state) {
-	 	$op = [''=>'Organizations Name'];	
-	 	//ORG-1		
-		if ($selectedValue = $form_state->getValue('organizationType')) {
-			$selectedText = $form['organizationType']['#options'][$selectedValue];
-			$orgNames = $this->Get_Org_Name($selectedText);
-			$arrName = explode(',',$orgNames);
-			$selArr = [];
-		    foreach ($arrName as $key => $value) {
-		      $selArr[$value] = $value;
-		    }
-		    $selArr = ['' => 'Organization Name'] + $selArr;
-					if(!empty($arrName)){
-			        	$form['organizationName'] = [
-			                '#placeholder' => t('Organization Name'),
-			                '#type' => 'select', 
-			                '#options' => $selArr,
-			                '#prefix' => '<div id="edit-output" class="org-1">',
-			                '#suffix' => '</div>',
-			                '#attributes' => array('disabled' => FALSE),
-			            ];
-		            }else{
-		           		$form['organizationName'] = [
-			                '#placeholder' => t('Organization Name'),
-			                '#type' => 'select', 
-			                '#options' => ['' => 'Organization Name'],
-			                '#prefix' => '<div id="edit-output" class="org-1">',
-			                '#suffix' => '</div>',
-			                '#attributes' => array('disabled' => FALSE),
-			            ];
+public function StateNamesAjaxCallback(array &$form, FormStateInterface $form_state){
+        //ORG-3   
+  return  $form['az']; 
+}
+
+ // 	public function OrgNamesAjaxCallback_1(array &$form, FormStateInterface $form_state) {
+	//  	$op = [''=>'Organizations Name'];	
+	//  	//ORG-1		
+	// 	if ($selectedValue = $form_state->getValue('organizationType')) {
+	// 		$selectedText = $form['organizationType']['#options'][$selectedValue];
+	// 		$orgNames = $this->Get_Org_Name($selectedText);
+	// 		$arrName = explode(',',$orgNames);
+	// 		$selArr = [];
+	// 	    foreach ($arrName as $key => $value) {
+	// 	      $selArr[$value] = $value;
+	// 	    }
+	// 	    $selArr = ['' => 'Organization Name'] + $selArr;
+	// 				if(!empty($arrName)){
+	// 		        	$form['organizationName'] = [
+	// 		                '#placeholder' => t('Organization Name'),
+	// 		                '#type' => 'select', 
+	// 		                '#options' => $selArr,
+	// 		                '#prefix' => '<div id="edit-output" class="org-1">',
+	// 		                '#suffix' => '</div>',
+	// 		                '#attributes' => array('disabled' => FALSE),
+	// 		            ];
+	// 	            }else{
+	// 	           		$form['organizationName'] = [
+	// 		                '#placeholder' => t('Organization Name'),
+	// 		                '#type' => 'select', 
+	// 		                '#options' => ['' => 'Organization Name'],
+	// 		                '#prefix' => '<div id="edit-output" class="org-1">',
+	// 		                '#suffix' => '</div>',
+	// 		                '#attributes' => array('disabled' => FALSE),
+	// 		            ];
 			                
-		           }
+	// 	           }
 		  
-        }
-     	return  $form['organizationName'];    		
-	}
-	//ORG-2
-	public function OrgNamesAjaxCallback_2(array &$form, FormStateInterface $form_state) {
-		if ($selectedValue = $form_state->getValue('education_1')) {
-				$selectedText = $form['education_1']['#options'][$selectedValue];
-				$orgNames = $this->Get_Org_Name($selectedText);
-				$arrName = explode(',',$orgNames);
-				$selArr = [];
-			    foreach ($arrName as $key => $value) {
-			      $selArr[$value] = $value;
-			    }
-			    $selArr = ['' => 'Organization Name'] + $selArr;
-						if(!empty($arrName)){
-				        	$form['schoolname_1'] = [
-				                '#placeholder' => t('Organization Name'),
-				                '#type' => 'select', 
-				                '#options' => $selArr,
-				                '#prefix' => '<div id="edit-output-1" class="org-2">',
-				                '#suffix' => '</div>',
-				                '#attributes' => array('disabled' => FALSE),
-				            ];
-			            }else{
-			           		$form['schoolname_1'] = [
-				                '#placeholder' => t('Organization Name'),
-				                '#type' => 'select', 
-				                '#options' => ['' => 'Organization Name'],
-				                '#prefix' => '<div id="edit-output-1" class="org-2">',
-				                '#suffix' => '</div>',
-				                '#attributes' => array('disabled' => FALSE),
-				            ];
+ //        }
+ //     	return  $form['organizationName'];    		
+	// }
+	// //ORG-2
+	// public function OrgNamesAjaxCallback_2(array &$form, FormStateInterface $form_state) {
+	// 	if ($selectedValue = $form_state->getValue('education_1')) {
+	// 			$selectedText = $form['education_1']['#options'][$selectedValue];
+	// 			$orgNames = $this->Get_Org_Name($selectedText);
+	// 			$arrName = explode(',',$orgNames);
+	// 			$selArr = [];
+	// 		    foreach ($arrName as $key => $value) {
+	// 		      $selArr[$value] = $value;
+	// 		    }
+	// 		    $selArr = ['' => 'Organization Name'] + $selArr;
+	// 					if(!empty($arrName)){
+	// 			        	$form['schoolname_1'] = [
+	// 			                '#placeholder' => t('Organization Name'),
+	// 			                '#type' => 'select', 
+	// 			                '#options' => $selArr,
+	// 			                '#prefix' => '<div id="edit-output-1" class="org-2">',
+	// 			                '#suffix' => '</div>',
+	// 			                '#attributes' => array('disabled' => FALSE),
+	// 			            ];
+	// 		            }else{
+	// 		           		$form['schoolname_1'] = [
+	// 			                '#placeholder' => t('Organization Name'),
+	// 			                '#type' => 'select', 
+	// 			                '#options' => ['' => 'Organization Name'],
+	// 			                '#prefix' => '<div id="edit-output-1" class="org-2">',
+	// 			                '#suffix' => '</div>',
+	// 			                '#attributes' => array('disabled' => FALSE),
+	// 			            ];
 				                
-			           }
+	// 		           }
 			    
-	    }
-	    return  $form['schoolname_1'];
-	}
+	//     }
+	//     return  $form['schoolname_1'];
+	// }
 
 
 	public function Get_Org_Name($type){

@@ -851,10 +851,7 @@ class PopupForm extends FormBase {
     $query = \Drupal::entityQuery('node');
       $query->condition('type', 'bfss_organizations');
       $query->condition('field_type', $type, 'IN');
-<<<<<<< HEAD
       $query->range(0, 10);
-=======
->>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
       $nids = $query->execute();
       $org_name=[];
       foreach($nids as $nid){

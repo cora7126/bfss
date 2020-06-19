@@ -1,0 +1,91 @@
+<?php
+//module name - bfss_us_cities
+function bfss_us_cities_schema() {
+  $schema['bfss_us_cities'] = array(
+     'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'name'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+       'county'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'state_code'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'state'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+        ),
+      'zip_codes'=>array(
+        'type' => 'varchar',
+        'length' => 2701,
+        'not null' => FALSE,
+      ),
+      'field_year_one'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'latitude'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'longitude'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+       'area_code'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'population'=>array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => FALSE,
+      ),
+      'households'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'median_income'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'land_area'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'water_area'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      'time_zone'=>array(
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => FALSE,
+      ),
+      #user created
+
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

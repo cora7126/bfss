@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\Element\EntityAutocomplete;
+use Drupal\Core\Database\Database;
 /**
  * Defines a route controller for entity autocomplete form elements.
  */
@@ -38,6 +39,7 @@ class GetLoactionAutocompleteController extends ControllerBase {
      * Handler for autocomplete request.
      */
     public function handleAutocomplete(Request $request, $field_name, $count) {
+      $conn = Database::getConnection();
       $results = [];
       $input = $request->query->get('q');
       // Get the typed string from the URL, if it exists.
@@ -45,35 +47,24 @@ class GetLoactionAutocompleteController extends ControllerBase {
         return new JsonResponse($results);
       }
         $input = Xss::filter($input);
-        $query = $this->nodeStroage->getQuery()
-              ->condition('type', 'venue')
-              ->condition('field_venue_location', $input, 'CONTAINS')
-              ->condition('field_venue_state', $field_name, 'IN')
-              ->condition('status', 1)
-              ->groupBy('nid')
-              ->sort('created', 'DESC')
-              ->range(0, 10);
-        $ids = $query->execute();
-            $nodes = $ids ? $this->nodeStroage->loadMultiple($ids) : [];
-        foreach ($nodes as $node) {
-              switch ($node->isPublished()) {
-                case TRUE:
-                  $availability = '✅';
-                  break;
-        case FALSE:
-                default:
-                  $availability = '🚫';
-                  break;
-              }
+
+        $results = \Drupal::database()->select('us_cities', 'athw')
+                  ->fields('athw')
+                  ->condition('state_code',$field_name, '=')
+                  ->range(0, 10)
+                  ->execute()->fetchAll();
+         
+        foreach ($results as $result) {
+
         $label = [
-                $node->field_venue_location->value,
+                $result->name,
               ];
-        $results[] = [
+        $results_arr[] = [
                 'value' => $label,
-                'label' => implode(' ', $label),
+                'label' => $label,
               ];
             }
-        return new JsonResponse($results);
+        return new JsonResponse($results_arr);
     }
 
 }
