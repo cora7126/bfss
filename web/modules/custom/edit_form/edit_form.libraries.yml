@@ -16,3 +16,9 @@ edit_form_popup_lab:
   js:
     js/edit_form_popup.js: {}
     
+bfssAthleteProfile_lab:
+  version: 1.x
+  css:
+    layout:
+  js:
+    js/bfssAthleteProfile.js: {}

@@ -378,7 +378,7 @@ class ContributeForm extends FormBase {
    
     // $state_name = isset($form_state_values['az']) ? $form_state_values['az'] : $state;
     $orgtype = [
-      #""=>t('Organization Type'),
+      ""=>t('Organization Type'),
       "school"=>t('School'),
       "club"=>t('Club'),
       "university"=>t('University')
@@ -1632,6 +1632,7 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
 	}
 
     public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
+      $form['#attached']['library'][] = 'edit_form/bfssAthleteProfile_lab';       //here can add
       return  $form['venue_loaction']; 
     }
 
