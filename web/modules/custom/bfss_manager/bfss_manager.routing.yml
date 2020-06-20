@@ -144,5 +144,5 @@ bfss_manager.get_location_autocomplete:
     _controller: '\Drupal\bfss_manager\Controller\GetLoactionAutocompleteController::handleAutocomplete'
     _format: json
   requirements:
-    #_access: 'TRUE'
-    _role: 'bfss_manager+bfss_administrator'
+    _access: 'TRUE'
+   # _role: 'bfss_manager+bfss_administrator'

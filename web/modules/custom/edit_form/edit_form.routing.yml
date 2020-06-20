@@ -86,3 +86,4 @@ edit_form.autocomplete:
   requirements:
    # _access: 'TRUE'
    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
+
