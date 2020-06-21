@@ -35,7 +35,7 @@ class BfssAssessmentListBlock extends BlockBase {
         $athlete_uid = $param['uid'];
       }
     }
-    
+
 
     	  $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
@@ -51,7 +51,7 @@ class BfssAssessmentListBlock extends BlockBase {
         	foreach ($booked_ids  as $key => $booked_id) {
             		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
                 $address_1 = $entity->address_1->value;
-              
+
                 $timestamp = $entity->time->value;
                 $booking_date = date("m/d/Y",$timestamp);
                 $booking_time = date("h:i a",$timestamp);
@@ -66,11 +66,11 @@ class BfssAssessmentListBlock extends BlockBase {
                 $query5 = \Drupal::database()->select('athlete_school', 'ats');
                 $query5->fields('ats');
                 $query5->condition('athlete_uid', $athlete_uid,'=');
-                $results5 = $query5->execute()->fetchAssoc();            
+                $results5 = $query5->execute()->fetchAssoc();
                 $sport = $results5['athlete_school_sport'];
 
-                  if($entity->service->value == '199.99'){
-                      $formtype = 'elete';
+                  if($entity->service->value == '299.99'){
+                      $formtype = 'elite';
                   }elseif($entity->service->value == '29.99'){
                       $formtype = 'starter';
                   }
@@ -89,7 +89,7 @@ class BfssAssessmentListBlock extends BlockBase {
                     $node1 = Node::load($value);
                     $field_status = $node1->field_status->value;
                     $assess_nid = $value;
-                  } 
+                  }
                 }else{
                    $field_status = 'No Show';
                    $st = 0;
@@ -107,9 +107,9 @@ class BfssAssessmentListBlock extends BlockBase {
                   'assess_nid' => $assess_nid,
                   'address_1' => $address_1,
                   'sport' => $sport,
-                ); 
-        	}   
-        } 
+                );
+        	}
+        }
         /**************drupal table start*****************/
         $header = array(
           array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
@@ -176,7 +176,7 @@ class BfssAssessmentListBlock extends BlockBase {
                 $st = $item['st'];
                 $user_name = $item['user_name'];
                 // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
-              
+
                 $formtype = Markup::create('<p><a style="color:#f4650f;">'.ucfirst($item['formtype']).'</a></p>');
                 $rows[] = array(
                   #'id' => $item['booked_id'],
@@ -192,7 +192,7 @@ class BfssAssessmentListBlock extends BlockBase {
                 <td>'.$item['address_1'].'</td>
               </tr>';
               }
-             
+
               $tb .= '</tbody>
           </table>
            </div>
@@ -203,7 +203,7 @@ class BfssAssessmentListBlock extends BlockBase {
             '#markup' => $tb,
         ];
         /**********For JS Library end********/
-         
+
   }
 
 

@@ -1,0 +1,14 @@
+name = PDFTK
+description = PDF manipulation using PDFTK.
+core = 7.x
+package = Media
+dependencies[] = file
+dependencies[] = token
+dependencies[] = libraries (>=2.x)
+
+; Information added by drupal.org packaging script on 2013-07-18
+version = "7.x-1.0"
+core = "7.x"
+project = "pdftk"
+datestamp = "1374148870"
+

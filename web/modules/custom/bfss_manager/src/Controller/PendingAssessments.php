@@ -9,7 +9,7 @@ use Drupal\Core\Database\Database;
 class PendingAssessments extends ControllerBase {
   public function pending_assessments() {
         $param = \Drupal::request()->query->all();
-        
+
         $booked_ids = \Drupal::entityQuery('bfsspayments')
         //->condition('assessment',$param['nid'],'IN')
         //->condition('time',$param['timeslot'],'=')
@@ -21,7 +21,7 @@ class PendingAssessments extends ControllerBase {
 
             $node_id =  $entity->assessment->value;
             if($node_id != '9999999999'){
-              $nid = $node_id; 
+              $nid = $node_id;
             }else{
               $nid = '';
             }
@@ -29,7 +29,7 @@ class PendingAssessments extends ControllerBase {
             $assess_id = $entity->assessment->value;
             $user_id = $entity->user_id->value;
             $timestamp = $entity->time->value;
-         
+
             $query1 = \Drupal::entityQuery('node');
             $query1->condition('type', 'athlete_assessment_info');
             $query1->condition('field_booked_id',$booked_id, 'IN');
@@ -49,7 +49,7 @@ class PendingAssessments extends ControllerBase {
             if(!$nids1){
                     $booking_date = date("Y/m/d",$timestamp);
                     $booking_time = date("h:i:sa",$timestamp);
-                    if($entity->service->value == '199.99'){
+                    if($entity->service->value == '299.99'){
                         $formtype = 'elete';
                     }elseif($entity->service->value == '29.99'){
                         $formtype = 'starter';
@@ -60,7 +60,7 @@ class PendingAssessments extends ControllerBase {
                     }else{
                       $Assess_type = 'private';
                      }
-                    
+
                     $result[] = array(
                       'booked_id' => $booked_id,
                       'id' => $entity->id->value,
@@ -121,12 +121,12 @@ class PendingAssessments extends ControllerBase {
         $st = $item['st'];
         $user_name = $item['user_name'];
         $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
-       
+
         $first_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
 
         $last_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
 
-    
+
          $tb .= '<tr>
                 <td>'.$item['booking_date'].'</td>
                 <td>'.$first_name.'</td>
@@ -141,7 +141,7 @@ class PendingAssessments extends ControllerBase {
            </div>
           </div>
            </div>
-          
+
           ';
 
       //$rows = $this->_records_nonsql_sort($rows, $header);
@@ -169,7 +169,7 @@ class PendingAssessments extends ControllerBase {
         $element['pager'] = array(
           '#type' => 'pager',
         );
-       
+
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'pending_assessments_page',

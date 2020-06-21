@@ -69,7 +69,7 @@ class PrivateAccessmentsBlock extends BlockBase {
   	            $sport = $results5['athlete_school_sport'];
                 $postion = $results5['athlete_school_pos'];
 
-                  if($entity->service->value == '199.99'){
+                  if($entity->service->value == '299.99'){
                       $formtype = 'elete';
                   }elseif($entity->service->value == '29.99'){
                       $formtype = 'starter';
@@ -91,7 +91,7 @@ class PrivateAccessmentsBlock extends BlockBase {
                     $node1 = Node::load($value);
                     $field_status = $node1->field_status->value;
                     $assess_nid = $value;
-                  } 
+                  }
                 }else{
                    $field_status = 'No Show';
                    $st = 0;
@@ -112,9 +112,9 @@ class PrivateAccessmentsBlock extends BlockBase {
                   'address_1' => $address_1,
                   'sport' => $sport,
                   'postion' => $postion,
-                ); 
-        	}   
-        } 
+                );
+        	}
+        }
 
         $header = array(
           #array('data' => t('id'), 'field' => 'id'),
@@ -137,7 +137,7 @@ class PrivateAccessmentsBlock extends BlockBase {
         $user_name = $item['user_name'];
 
         $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
-       
+
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
         $rows[] = array(

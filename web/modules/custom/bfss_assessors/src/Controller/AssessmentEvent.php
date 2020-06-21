@@ -28,14 +28,14 @@ class AssessmentEvent extends ControllerBase {
             $query1->condition('type', 'athlete_assessment_info');
             $query1->condition('field_booked_id',$booked_id, 'IN');
             $nids1 = $query1->execute();
-        
+
             if(!empty($nids1)){
                foreach ($nids1 as $key => $value) {
                  $assess_nid = $value;
                  $node1 = Node::load($value);
                  $field_status = $node1->field_status->value;
-                 
-              } 
+
+              }
               $st = 1;
             }else{
                $assess_nid = '';
@@ -47,15 +47,15 @@ class AssessmentEvent extends ControllerBase {
             $query5 = \Drupal::database()->select('athlete_school', 'ats');
             $query5->fields('ats');
             $query5->condition('athlete_uid', $user_id,'=');
-            $results5 = $query5->execute()->fetchAssoc();            
+            $results5 = $query5->execute()->fetchAssoc();
             $sport = $results5['athlete_school_sport'];
             $postion = $results5['athlete_school_pos'];
 
-      
+
 
             $booking_date = date("Y/m/d",$timestamp);
             $booking_time = date("h:i:sa",$timestamp);
-            if($entity->service->value == '199.99'){
+            if($entity->service->value == '299.99'){
                 $formtype = 'elete';
             }elseif($entity->service->value == '29.99'){
                 $formtype = 'starter';
@@ -66,7 +66,7 @@ class AssessmentEvent extends ControllerBase {
             }else{
               $Assess_type = 'private';
              }
-            
+
         		$result[] = array(
               'booked_id' => $booked_id,
         		  'id' => $entity->id->value,
@@ -84,9 +84,9 @@ class AssessmentEvent extends ControllerBase {
               'first_name' =>$entity->first_name->value,
               'last_name' =>$entity->last_name->value,
               'postion' => $postion,
-        		);	
+        		);
         	}
-        
+
         $header = array(
           array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
           array('data' => Markup::create('Sport <span></span>'), 'field' => 'sport'),
@@ -116,7 +116,7 @@ class AssessmentEvent extends ControllerBase {
                 </th>
                 <th class="th-hd"><a><span></span> Office</a>
                 </th>
-              
+
               </tr>
             </thead>
             <tbody>';
@@ -128,7 +128,7 @@ class AssessmentEvent extends ControllerBase {
         $st = $item['st'];
         $user_name = $item['user_name'];
         $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
-       
+
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
         // $rows[] = array(
         //   'user_name' => $user_name,
@@ -146,7 +146,7 @@ class AssessmentEvent extends ControllerBase {
            </div>
           </div>
            </div>
-          
+
           ';
 
       //$rows = $this->_records_nonsql_sort($rows, $header);
@@ -174,7 +174,7 @@ class AssessmentEvent extends ControllerBase {
         $element['pager'] = array(
           '#type' => 'pager',
         );
-       
+
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'assessment_events_page',

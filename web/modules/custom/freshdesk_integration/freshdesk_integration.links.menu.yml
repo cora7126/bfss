@@ -1,0 +1,6 @@
+freshdesk_integration.admin_settings_form:
+  title: 'Freshdesk Integration'
+  route_name:   freshdesk_integration.admin_settings_form
+  parent: system.admin_config_services
+  description: 'Configure Freshdesk Integration.'
+  

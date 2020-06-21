@@ -1,0 +1,207 @@
+<?php
+/**
+ * @file
+ * A module that uses PDFTK to allow PDF manipulation.
+ *
+ * This module requires the PHP PDFTK Toolkit.
+ * @URL: https://github.com/bensquire/php-pdtfk-toolkit
+ */
+
+/**
+ * Load PHP PDFTK Toolkit library files.
+ *
+ * Check to make sure the main PHP PDFTK Toolkit files (external content) exist
+ * and require them for the module to actually work. The default location
+ * is sites/all/libraries/php-pdtfk-toolkit-master/pdftk/
+ *
+ * Please make sure to configure php-pdtfk-toolkit-master/pdftk/pdftk.php
+ * see readme at https://github.com/bensquire/php-pdtfk-toolkit
+ *
+ * @return bool
+ *   Returns TRUE if files exist and are read, otherwise returns FALSE
+ */
+function _pdftk_load_includes($pdftk_status = FALSE) {
+  $pdftk_path = libraries_get_path('php-pdtfk-toolkit-master');
+  $pdftk_library = $pdftk_path . '/pdftk/pdftk.php';
+  if (file_exists($pdftk_library) && is_file($pdftk_library)) {
+    require_once $pdftk_library;
+    if (class_exists('pdftk')) {
+      $pdftk_status = TRUE;
+    }
+  }
+  return $pdftk_status;
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ *
+ * TODO:
+ * This is a dirty hack for issues with uploaded files not
+ * being available to for file manipulation at hook_node_insert()
+ * (or any hook that I have found)
+ */
+function pdftk_cron_queue_info() {
+  $pdftk_queues['pdftk'] = array(
+    'worker callback' => '_pdftk_node_save',
+    'time' => 60,
+  );
+  return $pdftk_queues;
+}
+
+/**
+ * Check requirements have been met before allowing module to operate.
+ *
+ * @return bool
+ *   Returns TRUE if requirements are met, otherwise returns FALSE
+ */
+function _pdftk_requirements_check($pdftk_status = FALSE) {
+  if (_pdftk_load_includes() && _pdftk_is_fn_available('proc_open')) {
+    $pdftk_status = TRUE;
+  }
+  return $pdftk_status;
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function pdftk_node_insert($node) {
+  _pdftk_init($node);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function pdftk_node_update($node) {
+  _pdftk_init($node);
+}
+
+/**
+ * Initiates pdftk functionality.
+ */
+function _pdftk_init($node) {
+  if (!user_access('use pdftk')) {
+    return;
+  }
+  if (!isset($node->field_merge_files[$node->language][0]['value']) || $node->field_merge_files[$node->language][0]['value'] != 1) {
+    return;
+  }
+  if (isset($node->field_pdftk_merged[$node->language]) && count($node->field_pdftk_merged[$node->language]) > 0) {
+     // isset($node->field_merge_files[$node->language]) && $node->field_merge_files[$node->language][0]['safe_value'] == 1  && 
+    if (!_pdftk_requirements_check()) {
+      drupal_set_message(t("PDFTK will not run for this node because the requirements have not been met. Check the Status report for more information."));
+      watchdog('PDFTK', "PDFTK will not run for node %node_id because the requirements have not been met. Check the Status report for more information.", array('%node_id' => $node->nid), WATCHDOG_ERROR);
+    }
+    else {
+      // Get E.T.A. of the next cron run.
+      $pdftk_cron_safe = variable_get('cron_safe_threshold', DRUPAL_CRON_DEFAULT_THRESHOLD);
+      $pdftk_cron_last = REQUEST_TIME - variable_get('cron_last');
+      $pdftk_cron_next = $pdftk_cron_safe - $pdftk_cron_last;
+
+      drupal_set_message(t("Your file will appear after the file is done being processed. This will approximately be %next_cron",
+        array('%next_cron' => format_interval($pdftk_cron_next))));
+
+      // Create a cron queue item.
+      // TODO: see pdftk_cron_queue_info()
+      $pdftk_queue = DrupalQueue::get('pdftk');
+      $pdftk_element = array('gid' => $node->nid);
+      $pdftk_queue->createItem($pdftk_element);
+    }
+  }
+}
+
+/**
+ * Main function where file manipulation occurs.
+ *
+ * Take uploaded files from existing node (FIELD machinename: field_pdftk_merged)
+ * and merge into a file, insert into file field machinename field_pdftk_merged.
+ */
+function _pdftk_node_save($pdftk_item) {
+  _pdftk_load_includes();
+  if (isset($pdftk_item['gid'])) {
+    $node = node_load($pdftk_item['gid']);
+    $pdftk_pdftk = new pdftk();
+
+    // Populate a list of files to be merged.
+    if (isset($node->field_pdftk_merged[$node->language])) {
+      foreach ($node->field_pdftk_merged[$node->language] as $pdftk_key => $pdftk_value) {
+        $pdftk_filename = $node->field_pdftk_merged[$node->language][$pdftk_key]['uri'];
+        $pdftk_path = str_replace('public:/', variable_get('file_public_path', 'sites/default/files'), $pdftk_filename);
+        $pdftk_path = drupal_realpath(".") . '/' . $pdftk_path;
+        $pdftk_pdftk->setInputFile(array("filename" => $pdftk_path));
+      }
+
+      // Remove pdf extension if it was entered, prevents file.pdf.pdf.
+      $pdftk_outputfilename = $node->field_pdftk_output_filename[$node->language][0]['safe_value'];
+      if (substr($pdftk_outputfilename, -4) == '.pdf') {
+        // Place altered value back in the node.
+        $node->field_pdftk_output_filename[$node->language][0]['safe_value'] = substr($pdftk_outputfilename, 0, -4);
+      }
+
+      // Filename to use for output.
+      $pdftk_tmpfilename = token_replace($pdftk_outputfilename) . '.pdf';
+      $pdftk_output = file_directory_temp() . '/' . $pdftk_tmpfilename;
+
+      // Create the merged document.
+      $pdftk_pdftk->setOutputFile($pdftk_output);
+      $pdftk_renderpdf = $pdftk_pdftk->_renderPdf();
+
+      if (file_exists($pdftk_output) && is_file($pdftk_output)) {
+        // Make the file available for module use.
+        $pdftk_image = file_get_contents($pdftk_output);
+        $pdftk_file = file_save_data($pdftk_image, file_default_scheme() . '://' . $pdftk_tmpfilename, FILE_EXISTS_RENAME);
+
+        // Publish node.
+        $node->status = 1;
+
+        // Remove the files that were merged, as they are no longer needed.
+        $node->field_pdftk_merged = array();
+
+        $node->field_merge_files = 0;
+
+        // Add merged file to node.
+        $node->field_pdftk_merged[$node->language][0]['display'] = 1;
+        $node->field_pdftk_merged[$node->language][0]['fid'] = $pdftk_file->fid;
+
+        node_save($node);
+      }
+      else {
+        watchdog('PDFTK', "PDFTK could not create the merged file on node %node_id", array('%node_id' => $node->nid), WATCHDOG_ERROR);
+      }
+    }
+  }
+}
+
+/**
+ * Check to see if PHP functions have been disabled.
+ *
+ *
+ * @return bool
+ *   Returns TRUE if function exist and is enabled, otherwise returns FALSE.
+ */
+function _pdftk_is_fn_available($pdftk_argument, $pdftk_available = FALSE) {
+  if (function_exists($pdftk_argument)) {
+    $pdftk_disabledfunctions = ini_get('disable_functions');
+    $pdftk_blacklistfunctions = ini_get('suhosin.executor.func.blacklist');
+    $pdftk_tmp = preg_split('/,\s*/', "$pdftk_disabledfunctions,$pdftk_blacklistfunctions");
+    if (!in_array($pdftk_argument, $pdftk_tmp)) {
+      $pdftk_available = TRUE;
+    }
+  }
+  return $pdftk_available;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function pdftk_permission() {
+  return array(
+    'administer pdftk' => array(
+      'title' => t('Administer PDFTK'),
+      'description' => t('Allows a user to configure PDFTK.'),
+    ),
+    'use pdftk' => array(
+      'title' => t('Use PDFTK'),
+      'description' => t('Determines whether or not users are allowed to use PDFTK.'),
+    ),
+  );
+}

@@ -1,0 +1,126 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the PDFTK module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function pdftk_requirements($phase) {
+  // Will allow module to be installed regardless, but will not be
+  // functional until requirements have been attended to.
+  if ($phase == 'runtime') {
+    $t = get_t();
+    global $base_url;
+    $bpdftk_load_includes = _pdftk_load_includes();
+    $opdftk = new pdftk();
+
+    // Check if PHP function proc_open() is enabled, required by PHP
+    // PDFTK Toolkit.
+    $bproc_open_available = _pdftk_is_fn_available('proc_open');
+
+    $requirements = array();
+    if ($bpdftk_load_includes) {
+      $apdftk = $opdftk->getPdftkVersion();
+      if ($opdftk::VERSION) {
+        $spdftkversion = $opdftk::VERSION;
+        if ($spdftkversion >= '0.1.2') {
+          $requirements['php-pdftk-toolkit'] = array(
+            'value' => $spdftkversion,
+            'severity' => REQUIREMENT_OK,
+          );
+        }
+        else {
+          $requirements['php-pdftk-toolkit'] = array(
+            'value' => $spdftkversion,
+            'severity' => REQUIREMENT_WARNING,
+            'description' => $t('PHP PDFTK toolkit is installed, but is not the recommended version (>= 0.1.2). See the <code>!readme</code> for exact installation details.',
+            array(
+              '!readme' => l($t('README'), $base_url . drupal_get_path('module', 'pdftk') . '/README'))),
+          );
+        }
+      }
+      // Cannot check version information.
+      else {
+        $requirements['php-pdftk-toolkit'] = array(
+          'value' => "Installed",
+          'severity' => REQUIREMENT_INFO,
+          'description' => $t('PHP PDFTK toolkit is installed, but the version could not be checked. Please verify that you have installed version 0.1.2 or greater.'),
+        );
+      }
+    }
+    else {
+      $requirements['php-pdftk-toolkit'] = array(
+        'value' => "Not Installed",
+        'severity' => REQUIREMENT_WARNING,
+        'description' => $t('The PHP PDFTK Toolkit library is not installed or is misconfigured. See the <code>!readme</code> for exact installation details.',
+        array(
+          '!readme' => l($t('README'), $base_url . drupal_get_path('module', 'pdftk') . '/README'))),
+      );
+    }
+    $requirements['php-pdftk-toolkit']['title'] = $t('PHP PDFTK Toolkit');
+
+    if (isset($apdftk)) {
+      if ($apdftk['stdout'] >= '1.45') {
+        $requirements['pdftk-bin'] = array(
+          'value' => $apdftk['stdout'],
+          'severity' => REQUIREMENT_OK,
+        );
+      }
+      else {
+        $requirements['pdftk-bin'] = array(
+          'value' => $apdftk['stdout'],
+          'severity' => REQUIREMENT_WARNING,
+          'description' => $t('PDFTK binary is installed, but is not the recommended version (>= 1.45). See the <code>!readme</code> for exact installation details.',
+          array(
+            '!readme' => l($t('README'), $base_url . drupal_get_path('module', 'pdftk') . '/README'))),
+        );
+      }
+    }
+    else {
+      $requirements['pdftk-bin'] = array(
+        'value' => $t('PDFTK Binary not installed'),
+        'severity' => REQUIREMENT_WARNING,
+        'description' =>
+        $t('Required PDFTK binary not found. See the <code>!readme</code> for installation details.',
+          array(
+            '!readme' => l($t('README'), $base_url . drupal_get_path('module', 'pdftk') . '/README'))),
+      );
+    }
+    $requirements['pdftk-bin']['title'] = $t('PDFTK Binary');
+
+    if ($bproc_open_available) {
+      $requirements['proc_open'] = array(
+        'value' => "Enabled",
+        'severity' => REQUIREMENT_OK,
+      );
+    }
+    else {
+      $requirements['proc_open'] = array(
+        'value' => $t('proc_open() not enabled.'),
+        'severity' => REQUIREMENT_WARNING,
+        'description' => $t('Required PHP function proc_open() is disabled.'),
+      );
+    }
+    $requirements['proc_open']['title'] = $t('PHP proc_open() function');
+
+    return $requirements;
+  }
+}
+
+/**
+ * Implements hook_enable().
+ *
+ * Gives administrators permission by default.
+ */
+function pdftk_enable() {
+  $admin_rid = variable_get('user_admin_role');
+  user_role_change_permissions(
+    $admin_rid, array('administer pdftk' => TRUE)
+  );
+  user_role_change_permissions(
+    $admin_rid, array('use pdftk' => TRUE)
+  );
+}

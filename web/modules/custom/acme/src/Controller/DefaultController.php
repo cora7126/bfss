@@ -193,7 +193,7 @@ public function userform()
                 $booked_ids = \Drupal::entityQuery('bfsspayments')
                 ->condition('assessment', $nid,'IN')
                 ->condition('user_id',$uid,'IN')
-                ->sort('created', 'DESC') 
+                ->sort('created', 'DESC')
                 ->execute();
                 if(!empty($booked_ids) && is_array($booked_ids)){
                   foreach ($booked_ids  as $key => $booked_id) {
@@ -288,7 +288,7 @@ public function userform()
                 $sport = $results5['athlete_school_sport'];
                 $postion = $results5['athlete_school_pos'];
 
-                  if($entity->service->value == '199.99'){
+                  if($entity->service->value == '299.99'){
                       $formtype = 'elete';
                   }elseif($entity->service->value == '29.99'){
                       $formtype = 'starter';
@@ -310,7 +310,7 @@ public function userform()
                     $node1 = Node::load($value);
                     $field_status = $node1->field_status->value;
                     $assess_nid = $value;
-                  } 
+                  }
                 }else{
                    $field_status = 'No Show';
                    $st = 0;
@@ -331,9 +331,9 @@ public function userform()
                   'address_1' => $address_1,
                   'sport' => $sport,
                   'postion' => $postion,
-                ); 
-          }   
-        } 
+                );
+          }
+        }
          $tb1 = '
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
@@ -342,22 +342,22 @@ public function userform()
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Date</a>
-                </th> 
+                </th>
                   <th class="th-hd"><a><span></span>Time</a>
-                </th>  
+                </th>
                 <th class="th-hd"><a><span></span>Name</a>
                 </th>
-              
+
                 <th class="th-hd"><a><span></span>Assessment Type</a>
                 </th>
                 <th class="th-hd"><a><span></span>Location</a>
                 </th>
-               
+
               </tr>
             </thead>
             <tbody>';
 
-            
+
           foreach ($result as $item) {
           $nid = $item['nid'];
           $type = $item['formtype'];
@@ -367,7 +367,7 @@ public function userform()
           $user_name = $item['user_name'];
 
         $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
-       
+
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
         $tb1 .= '<tr>
@@ -376,9 +376,9 @@ public function userform()
           <td>'.$user_name.'</td>
           <td>'.$item['formtype'].'</td>
           <td>'.$item['address_1'].'</td>
-          </tr>'; 
+          </tr>';
 
-      
+
       }
       $tb1 .= '</tbody>
             </table>
@@ -401,20 +401,20 @@ public function userform()
         }else{
             $current_assessors_id = '';
         }
-      
+
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
         #$query->condition('field_assessors', $current_assessors_id , '=');
         #$query->pager(10, (int) $ele);
-        $nids = $query->execute(); 
-  
+        $nids = $query->execute();
+
         $result = array();
         foreach ($nids as $nid) {
-        
+
           $node = Node::load($nid);
           $title = $node->title->value;
           $timeslots = $this->getSchedulesofAssessment_slots($nid);
-         
+
           foreach ($timeslots as $timeslot) {
             $booked_ids = \Drupal::entityQuery('bfsspayments')
             ->condition('assessment',$nid,'IN')
@@ -443,13 +443,13 @@ public function userform()
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Date</a>
-                </th> 
+                </th>
                   <th class="th-hd"><a><span></span>Time</a>
-                </th>  
+                </th>
                 <th class="th-hd"><a><span></span>Event Name</a>
                 </th>
                 <th class="th-hd"><a><span></span>Attendees</a>
-                </th>               
+                </th>
               </tr>
             </thead>
             <tbody>';
@@ -457,7 +457,7 @@ public function userform()
       foreach ($result as $item) {
           $url = 'assessment-event?nid='.$item['nid'].'&timeslot='.$item['timeslot'].'&title='.$item['title'];
           $title = Markup::create('<a href="'.$url.'">'.$item['title'].'</a>');
-       
+
          $tb1 .= '<tr>
           <td>'.$item['date'].'</td>
           <td>'.$item['time'].'</td>
@@ -486,7 +486,7 @@ public function userform()
                 $pGraph = Paragraph::load($element['target_id'] );
                 if ($pGraph->hasField('field_timing')/* && $pGraph->hasField('field_duration')*/) {
                   $timing = (int) $pGraph->get('field_timing')->value;
-                
+
                   if ($timing > time()) {
                     $data[$timing] = $timing;
                   }
