@@ -111,3 +111,12 @@ bfss_admin.organizations_paid_payment:
     _title: 'Organizations Paid Payment'
   requirements:
     _role: 'bfss_administrator'
+
+bfss_admin.get_state_autocomplete:
+  path: '/get-state-autocomplete/{var1}/{var2}'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\GetStateAutocomplete::get_state_autocomplete'
+    _title: 'Get state autocomplete'
+  requirements:
+    _access: 'TRUE'
+    #_role: 'bfss_administrator'

@@ -199,7 +199,7 @@ class ContributeForm extends FormBase {
     $img_id = $results['athlete_target_image_id'];
     $form['prefix'] = "<div class=athlete_edit_class>";
     $form['suffix'] = "</div>";
-
+    $form['#attached']['library'][] = 'edit_form/bfssAthleteProfile_lab';       //here can add
     $form['fname'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Firstname'),
@@ -225,15 +225,19 @@ class ContributeForm extends FormBase {
 	  '#required' => TRUE,
       );
 	     $states = getStates();
-        $form_state_values = $form_state->getValues();
-        $VNS = !empty($form_state_values['venue_state'])?$form_state_values['venue_state']:$state;
+       $form_state_values = $form_state->getValues();
+       //print_r($form_state_values);
+      if(empty($form_state_values)){
+        $VNS = $state;
+      }else{
+        $VNS = $form_state_values['venue_state'];
+      }
+      //$VNS = !empty($form_state_values['venue_state'])?$form_state_values['venue_state']:$state;
+
       $form['venue_state'] = array(
         '#type' => 'select',
         '#options' => $states,
         '#default_value' => $state,
-        #'#attributes' => array('class' => array('full-width-inp')),
-    
-       # '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
         '#ajax' => [
           'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
           'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
@@ -251,7 +255,6 @@ class ContributeForm extends FormBase {
             '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10), 
             '#prefix' => '<div id="edit-output-22" class="org-3">',
             '#suffix' => '</div>',
-           # '#default_value' => '',
         ];
 
    //  $form['az'] = array(
@@ -1632,7 +1635,7 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
 	}
 
     public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
-      $form['#attached']['library'][] = 'edit_form/bfssAthleteProfile_lab';       //here can add
+
       return  $form['venue_loaction']; 
     }
 

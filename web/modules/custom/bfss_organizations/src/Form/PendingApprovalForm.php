@@ -160,47 +160,74 @@ class PendingApprovalForm extends FormBase {
     ];
 
      $states = $this->get_state();
-      $form['search_state'] = [
-      '#type' => 'select',
-       '#placeholder' => t('State'),
-      '#options' => $states,
-      '#ajax' => [
-        'callback' => '::myAjaxCallback', // don't forget :: when calling a class method.
-        //'callback' => [$this, 'myAjaxCallback'], //alternative notation
-        'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
-        'event' => 'change',
-        'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
-        // 'progress' => [
-        //   'type' => 'throbber',
-        //   'message' => $this->t('Verifying entry...'),
-        // ],
-      ]
-    ];
+    //   $form['search_state'] = [
+    //   '#type' => 'select',
+    //    '#placeholder' => t('State'),
+    //   '#options' => $states,
+    //   '#ajax' => [
+    //     'callback' => '::myAjaxCallback', // don't forget :: when calling a class method.
+    //     //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+    //     'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+    //     'event' => 'change',
+    //     'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+    //     // 'progress' => [
+    //     //   'type' => 'throbber',
+    //     //   'message' => $this->t('Verifying entry...'),
+    //     // ],
+    //   ]
+    // ];
 
-    $form['search_org'] = [
-      '#placeholder' => t('Search'),
-      '#type' => 'textarea', 
-      '#default_value' => '',
-       '#rows' => 4,
-      '#cols' => 5,
-      '#prefix' => '<div id="edit-output" class="orgtextarea">',
-      '#suffix' => '</div>',
-    ];
+    // $form['search_org'] = [
+    //   '#placeholder' => t('Search'),
+    //   '#type' => 'textarea', 
+    //   '#default_value' => '',
+    //    '#rows' => 4,
+    //   '#cols' => 5,
+    //   '#prefix' => '<div id="edit-output" class="orgtextarea">',
+    //   '#suffix' => '</div>',
+    // ];
 
 
-    $form['orgNames_search'] = [
-      '#placeholder' => t('Search'),
-      '#type' => 'textfield', 
-      // '#default_value' => '',
-      //  '#rows' => 4,
-      // '#cols' => 5,
-       '#attributes' => [
-        'class' => ['orgNames_searchs'],
-      ],
-      '#prefix' => '<div id="orgNames_search" class="orgNames_search">',
-      '#suffix' => '</div>',
-    ];
-   
+    // $form['orgNames_search'] = [
+    //   '#placeholder' => t('Search'),
+    //   '#type' => 'textfield', 
+    //   // '#default_value' => '',
+    //   //  '#rows' => 4,
+    //   // '#cols' => 5,
+    //    '#attributes' => [
+    //     'class' => ['orgNames_searchs'],
+    //   ],
+    //   '#prefix' => '<div id="orgNames_search" class="orgNames_search">',
+    //   '#suffix' => '</div>',
+    // ];
+     $form_state_values = $form_state->getValues();
+       
+      if(empty($form_state_values)){
+        $VNS = 'AZ';
+      }else{
+        $VNS = $form_state_values['venue_state'];
+      }
+       $form['venue_state'] = array(
+        '#type' => 'select',
+        '#options' => $states,
+        '#default_value' => $state,
+        '#ajax' => [
+          'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback.
+        ]
+        );
+
+      $form['venue_loaction'] = [
+            '#type' => 'textfield',
+            '#placeholder' => t('Search'),
+             '#default_value' => $results18['field_city'],
+            '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+            '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10), 
+            '#prefix' => '<div id="edit-output-22" class="org-3">',
+            '#suffix' => '</div>',
+        ];
 
     $form['right_section_end'] = [
       '#type' => 'markup',
@@ -343,5 +370,7 @@ public function test(array &$form, FormStateInterface $form_state) {
        ];
        return $states;
   }
-
+   public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
+      return  $form['venue_loaction']; 
+    }
 }

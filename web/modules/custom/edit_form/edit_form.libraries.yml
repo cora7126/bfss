@@ -22,3 +22,6 @@ bfssAthleteProfile_lab:
     layout:
   js:
     js/bfssAthleteProfile.js: {}
+  # dependencies:
+  #   - core/jquery
+  #   - core/jquery.once

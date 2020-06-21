@@ -26,7 +26,16 @@
 .wrapper #multistep-form-four div.form-item-expiration-month,.wrapper #multistep-form-four div.form-item-cvv{display:inline-block;width:33%;}
 .wrapper #multistep-form-four div.form-item-expiration-year{display:inline-block;width:23%;}
 .wrapper #multistep-form-four div.form-item-city, .wrapper #multistep-form-four div.form-item-country{display:inline-block;width:60%;}
-.wrapper #multistep-form-four div.form-item-state, .wrapper #multistep-form-four div.form-item-zip{display:inline-block;width:18%;}
+/*.wrapper #multistep-form-four div.form-item-state, .wrapper #multistep-form-four div.form-item-zip{display:inline-block;width:18%;}*/
+.wrapper #multistep-form-four div.form-item-state{display:inline-block;width:100%;}
+.full-width-inp.half-width-inp {
+    width: 49%;
+}
+.form-inline.form-item.js-form-item.form-type-number.js-form-type-number.form-item-zip.js-form-item-zip.form-no-label.form-group {
+    margin-top: 26px;
+}
+
+.wrapper #multistep-form-four div.form-item-zip{display:inline-block;width:49%;}
 .wrapper .first h6{font-weight:600;}
 .wrapper div.one div.main-head div.first div.bar, .wrapper .first div.three div.main-head div.first div.bar{border-top-left-radius:10px !important;border-bottom-left-radius:10px !important;height:12px;color:#145213;border:none;}
 .wrapper .main-head h6{color:#010101;font-weight:600;}

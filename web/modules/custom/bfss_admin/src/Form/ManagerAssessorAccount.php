@@ -126,22 +126,51 @@ class ManagerAssessorAccount extends FormBase {
         '#suffix' => '',
     ];
 
-    $form['manager_city'] = [
+    // $form['manager_city'] = [
+    //     '#type' => 'textfield',
+    //     '#placeholder' => t('City'),
+    //     '#required' => TRUE,
+    //     '#default_value' => '',
+    //     '#prefix' => '',
+    //     '#suffix' => '',
+    // ];
+     $form_state_values = $form_state->getValues();
+     $state_name = isset($form_state_values['state'])?$form_state_values['state']:'AZ';
+     
+     $form['manager_state'] = [
+          '#type' => 'select',
+          '#options' => $states,
+           '#default_value' => '',
+          '#placeholder' => t('State'),
+          '#required' => TRUE,
+           '#prefix' => '<div  class="full-width-inp">',
+          '#suffix' => '</div>',
+          '#ajax' => [
+            'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
+            //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+            'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+            'event' => 'change',
+            'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback. 
+          ]
+      ];
+       $form['manager_city'] = [
         '#type' => 'textfield',
-        '#placeholder' => t('City'),
-        '#required' => TRUE,
+        '#placeholder' => t('City'),  
         '#default_value' => '',
-        '#prefix' => '',
-        '#suffix' => '',
-    ];
+        '#required' => TRUE,  
+        '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+        '#autocomplete_route_parameters' => array('field_name' => $state_name, 'count' => 10), 
+        '#prefix' => '<div id="edit-output-22" class="full-width-inp">',
+        '#suffix' => '</div>',
+      ];
   
-    $form['manager_state'] = [
-         '#placeholder' => t('State'),
-        '#type' => 'select',
-         '#required' => TRUE,
-        '#options' => $states,
-        '#default_value' => '',
-    ];
+    // $form['manager_state'] = [
+    //      '#placeholder' => t('State'),
+    //     '#type' => 'select',
+    //      '#required' => TRUE,
+    //     '#options' => $states,
+    //     '#default_value' => '',
+    // ];
 
     $form['zip'] = [
         '#type' => 'textfield',
@@ -514,5 +543,8 @@ class ManagerAssessorAccount extends FormBase {
     $password = substr( str_shuffle( $chars ), 0, $length );
     return $password;
   }
+    public function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+        return $form['manager_city']; 
+      }
 
 }

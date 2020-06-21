@@ -1,5 +1,23 @@
 jQuery(document).ready(function() {
 
+// jQuery(document).on('change', '.form-item-bi-state select', function(){
+// 	var Orgname = jQuery(this).data("org");
+
+// 	jQuery.ajax({
+// 		url : 'http://5ppsystem.com/get-state-autocomplete/'+'AK'+'/'+'10',
+// 		dataType: 'json',
+// 		cache: false,
+// 		success: function(data){
+// 			// jQuery('.delete_athlete').remove();
+// 			// jQuery('#confirmModal').modal('hide');
+// 			console.log(data);
+// 		},
+// 		error :function (data){
+
+// 		}
+// 	});
+// });
+
 //SAVE BUTTON TEXT CHANGE ON MOBILE [START HERE] 
 function checkWidth() {
    if (jQuery(window).width() < 514) {

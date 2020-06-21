@@ -11,6 +11,12 @@ use Drupal\user\Entity\User;
 use Drupal\bfss_assessment\BfssPaymentService;
 use Drupal\Core\Database\Database;
 
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\AlertCommand;
+use Drupal\Core\Ajax\InvokeCommand;
+
 /**
  * Implements hook_help().
  */
@@ -641,13 +647,17 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#type' => 'textfield',
           '#default_value' => $form_state->getValue('bi_address', ''),
         ];
-
+        $bi_state = !empty($form_state->getValue('bi_state'))?$form_state->getValue('bi_state'):'AZ';
         $form['step_4']['cck']['billing_info']['bi_city'] = [
           '#title' => t('Billing City'),
           '#title_display' => 'invisible',
           '#placeholder' => t('Billing City'),
           '#type' => 'textfield',
           '#default_value' => $form_state->getValue('bi_city', ''),
+          '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+          '#autocomplete_route_parameters' => array('field_name' => $bi_state, 'count' => 10), 
+          '#prefix' => '<div id="edit-output-22" class="full-width-inp">',
+          '#suffix' => '</div>',
         ];
 
         $states = getStates();
@@ -660,6 +670,15 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#empty_option' => 'States',
           '#options' => $states,
           '#default_value' => $form_state->getValue('bi_state', ''),
+           '#ajax' => [
+            'progress' => array('type' => 'none'),
+            'callback' => 'StateAjaxCallback', // don't forget :: when calling a class method.
+            //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+            'disable-refocus' => TRUE, // Or TRUE to prevent re-focusing on the triggering element.
+            'event' => 'change',
+            'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback. 
+          ],
+
         ];
 
         $form['step_4']['cck']['billing_info']['bi_postal_code'] = [
@@ -1398,4 +1417,8 @@ function getStates() {
     'AA' => 'AA',
     'AP' => 'AP',
   ];
+}
+
+ function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+  return $form['step_4']['cck']['billing_info']['bi_city']; 
 }

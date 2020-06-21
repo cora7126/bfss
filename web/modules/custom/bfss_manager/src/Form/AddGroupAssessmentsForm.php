@@ -73,6 +73,7 @@ class AddGroupAssessmentsForm extends FormBase {
       '#markup' => '<div class="left_section">',
     ];
 
+    $form_state_values = $form_state->getValues();
     
     $form['title'] = [
         '#type' => 'textfield',
@@ -107,7 +108,8 @@ class AddGroupAssessmentsForm extends FormBase {
     //     '#prefix' => '',
     // ]; 
 
-    
+
+
 
    $types = [''=>'Select Type','group'=>'Group','private'=>'Private'];
     $form['type'] = [
@@ -149,25 +151,56 @@ class AddGroupAssessmentsForm extends FormBase {
         '#suffix' => '',
       ];
 
-      $form['city'] = [
-        '#type' => 'textfield',
-        '#placeholder' => t('City'),
-        '#required' => TRUE,
-        '#default_value' => '',
-        '#prefix' => '',
-        '#suffix' => '',
-      ];
-
-      $states_op = $this->getStates();
-      $form['state'] = [
+    $states_op = $this->getStates();
+    $state_name = isset($form_state_values['state'])?$form_state_values['state']:'AZ';
+    $form['state'] = [
         '#type' => 'select',
         '#options' => $states_op,
         '#placeholder' => t('State'),
         '#required' => TRUE,
-        '#default_value' => '',
-        '#prefix' => '',
-        '#suffix' => '',
+         '#prefix' => '<div  class="full-width-inp">',
+        '#suffix' => '</div>',
+        '#ajax' => [
+          'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
+          //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback. 
+        ]
+    ];
+    $form['city'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('City'),  
+        '#required' => TRUE,  
+        '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+        '#autocomplete_route_parameters' => array('field_name' => $state_name, 'count' => 10), 
+        '#prefix' => '<div id="edit-output-22" class="full-width-inp">',
+        '#suffix' => '</div>',
       ];
+
+
+
+
+
+      // $form['city'] = [
+      //   '#type' => 'textfield',
+      //   '#placeholder' => t('City'),
+      //   '#required' => TRUE,
+      //   '#default_value' => '',
+      //   '#prefix' => '',
+      //   '#suffix' => '',
+      // ];
+
+      
+      // $form['state'] = [
+      //   '#type' => 'select',
+      //   '#options' => $states_op,
+      //   '#placeholder' => t('State'),
+      //   '#required' => TRUE,
+      //   '#default_value' => '',
+      //   '#prefix' => '',
+      //   '#suffix' => '',
+      // ];
 
       $form['zip'] = [
         '#type' => 'textfield',
@@ -358,38 +391,65 @@ class AddGroupAssessmentsForm extends FormBase {
       /*
       *Venue Start from here
       */
-      $form_state_values = $form_state->getValues();
+
       $venue_state = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:'AZ';
 
       $venue_state_op = $this->getStates();
-      $form['venue_state'] = array(
+      // $form['venue_state'] = array(
+      //   '#type' => 'select',
+      //   '#options' => $venue_state_op,
+      //   '#default_value' => '',
+      //   #'#attributes' => array('class' => array('full-width-inp')),
+      //   '#prefix' => '<div class="athlete_left schedule_plx venue_plx">
+      //                   <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Location (Cities)</h3>
+      //                  <div class="items_div"><div class="box niceselect duration">',
+      //    '#suffix' => '</div>',
+      //  # '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
+      //   '#ajax' => [
+      //     'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
+      //     'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+      //     'event' => 'change',
+      //     'wrapper' => 'edit-output-2', // This element is updated with this AJAX callback.
+      //   ]
+      //   );
+
+        
+      //   $form['venue_loaction'] = [
+      //       '#type' => 'textfield',
+      //       '#placeholder' => t('Location Name'),
+      //       '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+      //       '#autocomplete_route_parameters' => array('field_name' => $venue_state, 'count' => 10), 
+      //       '#prefix' => '<div id="edit-output-2" class="org-3">',
+      //       '#suffix' => '</div></div></div>',
+      //      # '#default_value' => '',
+      //   ];
+      $form['venue_state'] = [
         '#type' => 'select',
         '#options' => $venue_state_op,
-        '#default_value' => '',
-        #'#attributes' => array('class' => array('full-width-inp')),
         '#prefix' => '<div class="athlete_left schedule_plx venue_plx">
                         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Location (Cities)</h3>
                        <div class="items_div"><div class="box niceselect duration">',
          '#suffix' => '</div>',
-       # '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
+        '#placeholder' => t('State'),
+        '#required' => TRUE,
         '#ajax' => [
-          'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
+          'callback' => '::VenueAjaxCallback', // don't forget :: when calling a class method.
+          //'callback' => [$this, 'myAjaxCallback'], //alternative notation
           'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
           'event' => 'change',
-          'wrapper' => 'edit-output-2', // This element is updated with this AJAX callback.
+          'wrapper' => 'edit-output-222', // This element is updated with this AJAX callback. 
         ]
-        );
-
-        
-        $form['venue_loaction'] = [
-            '#type' => 'textfield',
-            '#placeholder' => t('Location Name'),
-            '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $venue_state, 'count' => 10), 
-            '#prefix' => '<div id="edit-output-2" class="org-3">',
+      ];
+    $form['venue_loaction'] = [
+        '#type' => 'textfield',
+        '#placeholder' => t('City'),  
+        '#required' => TRUE,  
+        '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+        '#autocomplete_route_parameters' => array('field_name' => $venue_state, 'count' => 10), 
+            '#prefix' => '<div id="edit-output-222" class="org-3">',
             '#suffix' => '</div></div></div>',
-           # '#default_value' => '',
-        ];
+      ];
+
     /*
     *Venue end from here
     */
@@ -659,5 +719,13 @@ class AddGroupAssessmentsForm extends FormBase {
           }//end while
           return $time_op;
        }
+
+       public function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+        return $form['city']; 
+      }
+
+       public function VenueAjaxCallback(array &$form, FormStateInterface $form_state) {
+        return $form['venue_loaction']; 
+      }
 
 }
