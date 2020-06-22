@@ -135,8 +135,8 @@ bfss_manager.get_categories_data:
     _controller: 'Drupal\bfss_manager\Controller\TagsDataGet::categories_data_get'
     _title: 'Get categories'
   requirements:
-    #_access: 'TRUE' 
-    _role: 'bfss_manager+bfss_administrator'
+    _access: 'TRUE' 
+    #_role: 'bfss_manager+bfss_administrator'
 
 bfss_manager.get_location_autocomplete:
   path: '/get-location-autocomplete/{field_name}/{count}'

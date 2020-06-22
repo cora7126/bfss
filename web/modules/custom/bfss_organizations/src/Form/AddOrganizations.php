@@ -66,7 +66,7 @@ class AddOrganizations extends FormBase {
     // $form['#attributes']['class'][] = 'card';
     $form['#prefix'] = '<div class="main_section_plx">';
     $form['#suffix'] = '</div>';
-
+    $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add
   
 
     // $form['loader-container']['loader'] = [
@@ -103,14 +103,7 @@ class AddOrganizations extends FormBase {
 
      
 
-      $states = $this->get_state();
-      $form['resident'][$i]['state'] = [
-        '#placeholder' => t('State'),
-        '#type' => 'select',
-         '#required' => TRUE,
-        '#options' => $states,
-        '#default_value' => '',
-      ];
+
 
       $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
       $form['resident'][$i]['type'] = [
@@ -145,12 +138,32 @@ class AddOrganizations extends FormBase {
         '#default_value' => '',
       ];
 
+      $states = $this->get_state();
+      $form['resident'][$i]['state'] = [
+        '#placeholder' => t('State'),
+        '#type' => 'select',
+         '#required' => TRUE,
+        '#options' => $states,
+        '#default_value' => '',
+        '#prefix' => '<div id="cover-area-state-'.$i.'" class="cover_area_state_wrapp">',
+        '#suffix' => '',
+        '#attributes' => [
+              'class' => ['cover_area_state']
+            ]
+      ];
+
       $form['resident'][$i]['city'] = [
         '#type' => 'textfield',
         '#placeholder' => t('City'),
         #'#title' => $this->t('City'),
         '#required' => TRUE,
         '#default_value' => '',
+        '#prefix' => '',
+        '#suffix' => '</div>',
+        '#attributes' => [
+              'class' => ['cover_area_city'],
+              'id' => ['cover_area_city-'.$i]
+            ]
       ];
 
       $form['resident'][$i]['zip'] = [
@@ -258,11 +271,11 @@ class AddOrganizations extends FormBase {
     // ];
      $form_state_values = $form_state->getValues();
        
-      if(empty($form_state_values)){
-        $VNS = 'AZ';
-      }else{
-        $VNS = $form_state_values['venue_state'];
-      }
+      // if(empty($form_state_values)){
+      //   $VNS = 'AZ';
+      // }else{
+        $VNS = !empty($form_state_values['venue_state'])?$form_state_values['venue_state']:'AZ';
+      //}
        $form['venue_state'] = array(
         '#type' => 'select',
         '#options' => $states,

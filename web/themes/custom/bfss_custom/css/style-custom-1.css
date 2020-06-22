@@ -42,6 +42,12 @@ body.user-login .registration-area .user-pass p{font-size: 13px;color: #808285;}
 .organizations-paid-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a,.organizations-pending-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a {font-weight: 500;}
 .full-width-inp .input-group-addon {display: none;}
 .full-width-inp .select-wrapper{width: 100%;}
+
+ul.ui-autocomplete li.ui-menu-item div{display:block;background:transparent;border-color:transparent;}
+ul.ui-autocomplete li.ui-menu-item div:hover, ui-autocomplete li.ui-menu-item div:focus{background:transparent;color:#EB6E06;border-color:transparent;}
+.form-item-city span.input-group-addon {display: none;}
+
+.dashboard-edit-coach-profile .form-item-city .input-group{margin-bottom: 40px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

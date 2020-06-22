@@ -162,6 +162,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#suffix' => '</div>',
         '#ajax' => [
           'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
+          'progress' => array('type' => 'none'),
           //'callback' => [$this, 'myAjaxCallback'], //alternative notation
           'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
           'event' => 'change',

@@ -50,6 +50,7 @@ class GetLoactionAutocompleteController extends ControllerBase {
 
         $results = \Drupal::database()->select('us_cities', 'athw')
                   ->fields('athw')
+                  ->condition('name',"%".$input."%",'LIKE')
                   ->condition('state_code',$field_name, '=')
                   ->range(0, 10)
                   ->execute()->fetchAll();

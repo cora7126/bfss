@@ -157,15 +157,29 @@ class EditCoachUserProfile extends FormBase {
 
    
       $states = $this->getStates();
+      $form_state_values = $form_state->getValues();
+      $state_name = isset($form_state_values['az'])?$form_state_values['az']:'AZ';
       $form['az'] = array(
       '#type' => 'select',
       '#options'=>$states,
       '#default_value' => $city,
+      '#ajax' => [
+          'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
+          'progress' => array('type' => 'none'),
+          //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-222', // This element is updated with this AJAX callback. 
+        ]
         );
       $form['city'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('City (Organization)'),
         '#default_value' => $results18['field_city'],
+        '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+        '#autocomplete_route_parameters' => array('field_name' => $state_name, 'count' => 10), 
+         '#prefix' => '<div id="edit-output-222" >',
+         '#suffix' => '</div>',
       );
       $gender_arr =  [
       '' => 'Select Gender',
@@ -174,7 +188,7 @@ class EditCoachUserProfile extends FormBase {
      # 'other' => 'Other'
       ];
       $form['sextype'] = array(
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#suffix' => '</div></div>',
       '#placeholder' => t("Your Athlete's Gender"),
       '#options' => $gender_arr,
@@ -544,6 +558,7 @@ class EditCoachUserProfile extends FormBase {
 
   public function getStates() {
       return $st=array(
+          ''=> t('Select State'),
           'AL'=> t('AL'),
           'AK'=> t('AK'),
           'AZ'=> t('AZ'),
@@ -557,9 +572,9 @@ class EditCoachUserProfile extends FormBase {
           'GA'=> t('GA'),
           'HI'=> t('HI'),
           'ID'=> t('ID'),
-           'IL'=> t('IL'),
-           'IN'=> t('IN'),
-           'IA'=> t('IA'),
+          'IL'=> t('IL'),
+          'IN'=> t('IN'),
+          'IA'=> t('IA'),
           'KS'=>  t('KS'),
            'KY'=> t('KY'),
            'LA'=> t('LA'),
@@ -595,5 +610,8 @@ class EditCoachUserProfile extends FormBase {
             'WI'=>  t('WI'),
             'WY'=>  t('WY'));
     }
+       public function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+        return $form['city']; 
+      }
 }
 ?>

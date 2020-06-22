@@ -59,7 +59,7 @@ class ManagerAssessorAccount extends FormBase {
 
     $form['#prefix'] = '<div class="main_section_plx">';
     $form['#suffix'] = '</div>';
- 
+   $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add
     
   
     
@@ -211,6 +211,11 @@ class ManagerAssessorAccount extends FormBase {
          '#required' => TRUE,
         '#options' => $states,
         '#default_value' => '',
+        '#prefix' => '<div id="cover-area-state-'.$i.'" class="cover_area_state_wrapp">',
+        '#suffix' => '',
+        '#attributes' => [
+              'class' => ['cover_area_state']
+            ]
       ];
 
       $form['resident'][$i]['cover_area_city'] = [
@@ -218,7 +223,23 @@ class ManagerAssessorAccount extends FormBase {
         '#placeholder' => t('City'),
         '#required' => TRUE,
         '#default_value' => '',
+        '#prefix' => '',
+        '#suffix' => '</div>',
+        '#attributes' => [
+              'class' => ['cover_area_city'],
+              'id' => ['cover_area_city-'.$i]
+            ]
       ];
+
+      // $form['resident'][$i]['test_city'] = [
+      //   '#type' => 'textfield',
+      //   '#placeholder' => t('Test City'),
+      //   '#required' => TRUE,
+      //   '#default_value' => '',
+      //   '#attributes' => [
+      //         'class' => ['auto1']
+      //       ]
+      // ];
 
 
       $form['resident'][$i]['actions'] = [

@@ -120,3 +120,12 @@ bfss_admin.get_state_autocomplete:
   requirements:
     _access: 'TRUE'
     #_role: 'bfss_administrator'
+
+bfss_admin.get_cities:
+  path: '/get-cities'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\GetCitiesJQueryTokenize2::get_cities'
+    _title: 'Get cities jQuery tokenize2'
+  requirements:
+    _access: 'TRUE'
+    #_role: 'bfss_administrator'

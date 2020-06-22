@@ -135,7 +135,8 @@ class PopupForm extends FormBase {
       // }else{
       //   $VNS = $form_state_values['city'];
       // }
-    $VNS = !empty($form_state_values['state'])?$form_state_values['state']:'AZ';
+    $default_state = isset($state)?$state:'AZ';
+    $VNS = !empty($form_state_values['state'])?$form_state_values['state']:$default_state;
     $form['state'] = array(
     '#type' => 'select',
     '#options' => $st,
@@ -747,7 +748,7 @@ class PopupForm extends FormBase {
   {
     if(empty($athlete_uni)){
     $FIELDS_athlete_uni = [
-    	
+
     'athlete_uid' => $current_user,
     'athlete_uni_name' => !empty($form_state->getValue('schoolname_2'))?$form_state->getValue('schoolname_2') : '',
     #'athlete_uni_coach' => !empty($form_state->getValue('coach_2')) ? $form_state->getValue('coach_2') : '',
