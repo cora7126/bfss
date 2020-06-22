@@ -158,50 +158,52 @@ class BackendProxy implements BackendProxyInterface {
     $query->range(0, 50);
     $nids = $query->execute();
 
-// ksm('$nid', $nids);
+    /**
+     * TODO: Fix this mess!  So many old bastardized vars.
+     * Note: this only loops once, so yeah, fix Jody.
+     */
+    // ksm('$nid', $nids);
     foreach ($nids as $nid) {
       $booked_ids = \Drupal::entityQuery('bfsspayments')
         ->condition('assessment', $nid,'IN')
         ->condition('user_id',$uid->id(),'IN')
         ->sort('time','DESC')
         ->execute();
-ksm('$booked_ids', $booked_ids);
-        foreach ($booked_ids  as $key => $booked_id) {
+      // ksm('$booked_ids', $booked_ids);
 
-          $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id_param);
-          ksm('$$entity', $entity);
-          $address_1 = $entity->address_1->value;
+      foreach ($booked_ids  as $key => $booked_id) {
 
-          $timestamp = $entity->time->value;
-          $booking_date = date("F d,Y",$timestamp);
-          $booking_time = date("h:i a",$timestamp);
+        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id_param);
+        // ksm('$entity', $entity);
+        $address_1 = $entity->address_1->value;
 
-          $query1 = \Drupal::entityQuery('node');
-          $query1->condition('type', 'athlete_assessment_info');
-          $query1->condition('field_booked_id',$booked_id_param, 'IN');
-          $nids1 = $query1->execute();
+        $timestamp = $entity->time->value;
+        $booking_date = date("F d,Y",$timestamp);
+        $booking_time = date("h:i a",$timestamp);
 
-            //sport
-          $query5 = \Drupal::database()->select('athlete_school', 'ats');
-          $query5->fields('ats');
-          $query5->condition('athlete_uid', $uid->id(),'=');
-          $results5 = $query5->execute()->fetchAssoc();
-          $sport = $results5['athlete_school_sport'];
+        $query1 = \Drupal::entityQuery('node');
+        $query1->condition('type', 'athlete_assessment_info');
+        $query1->condition('field_booked_id',$booked_id_param, 'IN');
+        $nids1 = $query1->execute();
 
-          ksm('$sport', $sport);
+          //sport
+        $query5 = \Drupal::database()->select('athlete_school', 'ats');
+        $query5->fields('ats');
+        $query5->condition('athlete_uid', $uid->id(),'=');
+        $results5 = $query5->execute()->fetchAssoc();
+        $sport = $results5['athlete_school_sport'];
 
-          $realFormType = $this->getFormTypeFromPrice($entity->service->value);
-          // $pdf_template_fid = $this->getPdfTemplateId($form_data['field_form_type']);
+        $realFormType = $this->getFormTypeFromPrice($entity->service->value);
 
-          if(!empty($entity->assessment->value)){
-            $Assess_type = 'individual';
-          }else{
-            $Assess_type = 'private';
-          }
+        if(!empty($entity->assessment->value)){
+          $Assess_type = 'individual';
+        }else{
+          $Assess_type = 'private';
+        }
 
         $st ='';
         $assess_nid = '';
-        if(!empty($nids1)){
+        if(!empty($nids1)) {
           $st = 1;
           foreach ($nids1 as $key => $value) {
             $node1 = Node::load($value);
@@ -231,7 +233,7 @@ ksm('$booked_ids', $booked_ids);
               'user_name' =>$entity->user_name->value,
               'nid' => $nid,
               'formtype' => $realFormType,
-              'Assess_type' => $Assess_type,
+              // 'Assess_type' => $Assess_type,
               'booking_date'  => $booking_date,
               'booking_time'  => $booking_time,
               'booked_id' => $booked_id_param,
@@ -243,12 +245,12 @@ ksm('$booked_ids', $booked_ids);
               'time' => $booking_time,
             );
 
-            ksm('$mappingsWithValues, $assAry, $oldResult', $mappingsWithValues, $assAry, $oldResult);
+            // ksm('$mappingsWithValues, $assAry, $oldResult', $mappingsWithValues, $assAry, $oldResult);
 
             return $mappingsWithValues;
           }
         }else{
-          ksm('error in BackendProxy');
+          // ksm('error in BackendProxy');
         }
       }
     }

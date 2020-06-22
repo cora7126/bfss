@@ -71,7 +71,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 		$query1->condition('field_booked_id',$booked_id, 'IN');
 		$nids1 = $query1->execute();
 
-		ksm(['$booked_id, nids1', $booked_id, $nids1]);
+		// ksm(['$booked_id, nids1', $booked_id, $nids1]);
 
 		//sport
 		// $query5 = \Drupal::database()->select('athlete_school', 'ats');
@@ -132,7 +132,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 		}
 	}
 
-	ksm(['user id, assessmentData, nids...', $uid->id(), $assessmentData, $nids]);
+	// ksm(['user id, assessmentData, nids...', $uid->id(), $assessmentData, $nids]);
 
   	$html = '<div class="user_pro_block">
 		<section class="assessmentshot">
