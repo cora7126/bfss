@@ -1,4 +1,4 @@
 web/sites/default/settings.php
 settings.php
-web/modules/contrib/webform/modules/webform_options_custom/*
 tests/*
+.vscode/sftp.json
