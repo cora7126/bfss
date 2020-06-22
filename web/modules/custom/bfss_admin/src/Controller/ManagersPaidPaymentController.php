@@ -8,8 +8,15 @@ use Drupal\Core\Database\Database;
 use Drupal\user\Entity\Role;
 
 class ManagersPaidPaymentController extends ControllerBase {
-	  
+
+
 	 public function managers_paid_payment() {
+	 	// $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
+   //                ->fields('athw')
+   //                ->execute()->fetchAll();
+   //      echo "<pre>";
+   //      print_r($reg_payments);
+
 	 	$booked_ids = \Drupal::entityQuery('bfsspayments')
 		->condition('payment_status','paid', '=')
         ->execute();
@@ -42,8 +49,12 @@ class ManagersPaidPaymentController extends ControllerBase {
 		       		'customer_name' => $full_name,
 		       		'city' => $city,
 		       		'state' => $state,
+		       		'user_id' => $entity->user_id->value,
 		       	];
         }	
+
+
+
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
@@ -68,9 +79,10 @@ class ManagersPaidPaymentController extends ControllerBase {
             <tbody>';
 
         foreach ($data as $value) {
+        	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
 	        <td>'.$value['purchased_date'].'</td>
-	        <td>'.$value['customer_name'].'</td>
+	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['customer_name'].'</a></td>
 	        <td>'.$value['city'].'</td>
 	        <td>'.$value['state'].'</td>
 	        <td>'.$value['program'].'</td>
@@ -96,5 +108,9 @@ class ManagersPaidPaymentController extends ControllerBase {
     		]
   		]; 
 	   
+  	}
+
+  	function GET_bfss_register_user_payments(){
+
   	}
 }

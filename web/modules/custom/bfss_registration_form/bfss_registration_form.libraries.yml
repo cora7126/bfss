@@ -1,5 +1,8 @@
 ajax-registration:
   version: 1.x
+  css:
+      theme:
+        css/bfss_registration_form.css: {}
   js:
     js/ajax-registration.js: {}
   dependencies:

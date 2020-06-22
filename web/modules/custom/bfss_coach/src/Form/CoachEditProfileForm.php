@@ -172,11 +172,22 @@ class CoachEditProfileForm extends FormBase {
       ]; 
 
       $states = $this->getStates();
+      $form_state_values = $form_state->getValues();
+      $def_state = isset($results18['field_az'])?$results18['field_city']:'AZ';
+      $state_name = isset($form_state_values['az'])?$form_state_values['az']:$def_state;
       $form['az'] = [
         '#type' => 'select',
         '#options'=>$states,
         '#default_value' => $results18['field_az'],
         '#required' => TRUE,
+        '#ajax' => [
+          'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
+          'progress' => array('type' => 'none'),
+          //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-222', // This element is updated with this AJAX callback. 
+        ]
       ];
 
       $form['city'] = [
@@ -184,6 +195,10 @@ class CoachEditProfileForm extends FormBase {
         '#placeholder' => t('City'),
         '#required' => TRUE,
         '#default_value' => $results18['field_city'],
+        '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+        '#autocomplete_route_parameters' => array('field_name' => $state_name, 'count' => 10), 
+        '#prefix' => '<div id="edit-output-222" >',
+        '#suffix' => '</div>',
       ];
 
       $gender_arr =  [
@@ -966,5 +981,8 @@ $form['html_image_athlete_end'] = [
             'WI'=>  t('WI'),
             'WY'=>  t('WY'));
     }
+    public function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+        return $form['city']; 
+      }
 }
 ?>

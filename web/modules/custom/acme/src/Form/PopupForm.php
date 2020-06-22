@@ -129,17 +129,36 @@ class PopupForm extends FormBase {
       '#default_value' => $results1['field_last_name_value'],
       );
     $st=getStates();
+    $form_state_values = $form_state->getValues();
+      // if(empty($form_state_values)){
+      //   $VNS = isset($state)?$state:'AZ';
+      // }else{
+      //   $VNS = $form_state_values['city'];
+      // }
+    $default_state = isset($state)?$state:'AZ';
+    $VNS = !empty($form_state_values['state'])?$form_state_values['state']:$default_state;
     $form['state'] = array(
     '#type' => 'select',
-   '#options' => $st,
-   '#default_value' => $state,
+    '#options' => $st,
+    '#default_value' => $state,
+     '#ajax' => [
+     	  'progress' => array('type' => 'none'),
+          'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
+          //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback. 
+        ]
       );
     $form['city'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#placeholder' => t('City'),
       '#default_value' => $results18['field_city'],
-  //  '#suffix' => '</div></div>',
+	  '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+	  '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10),
+	  '#prefix' => '<div id="edit-output-22" class="full-width-inp">',
+	  '#suffix' => '</div>',
       );
     
    $arr = [
@@ -192,9 +211,12 @@ class PopupForm extends FormBase {
     
     $type_org_1 = isset($athlete_school['athlete_school_type']) ? $athlete_school['athlete_school_type'] : 'school';
     $orgnames_op1 = $this->Get_Org_Name_For_default($type_org_1);
-    $form_state_values = $form_state->getValues();
+    
     $type__1 = isset($type_org_1)?$type_org_1:'school';
+
     $type_organization_1 = isset($form_state_values['organizationType'])?$form_state_values['organizationType']:$type__1;
+    
+  
     $orgtype = [
       #""=>t('Organization Type'),
       "school"=>t('School'),
@@ -221,7 +243,7 @@ class PopupForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Orginization Name'),
       '#autocomplete_route_name' => 'edit_form.autocomplete',
-      '#autocomplete_route_parameters' => array('field_name' => $type_organization_1, 'count' => 10), 
+      '#autocomplete_route_parameters' => array('state_name' => $VNS,'field_name' => $type_organization_1, 'count' => 10), 
       '#prefix' => '<div id="edit-output" class="orgtextarea1 full-width-inp orgtype">',
       '#suffix' => '</div>',
       '#default_value' => $athlete_school['athlete_school_name'] ,
@@ -304,7 +326,7 @@ class PopupForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => 'school', 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2 full-width-inp orgtype">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_club['athlete_club_name'],
@@ -381,7 +403,7 @@ class PopupForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3 full-width-inp orgtype">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -487,6 +509,9 @@ class PopupForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+  	// print_r($form_state->getValue('education_2'));
+  	// print_r($form_state->getValue('schoolname_2'));
+  	// die;
       $popupFlag = 'filled';
     $field=$form_state->getValues();
     $jodi=$field['fname'];
@@ -723,6 +748,7 @@ class PopupForm extends FormBase {
   {
     if(empty($athlete_uni)){
     $FIELDS_athlete_uni = [
+
     'athlete_uid' => $current_user,
     'athlete_uni_name' => !empty($form_state->getValue('schoolname_2'))?$form_state->getValue('schoolname_2') : '',
     #'athlete_uni_coach' => !empty($form_state->getValue('coach_2')) ? $form_state->getValue('coach_2') : '',
@@ -733,7 +759,8 @@ class PopupForm extends FormBase {
     'athlete_uni_stat' => !empty($form_state->getValue('stats_2'))? $form_state->getValue('stats_2') : '',
     'athlete_uni_type' => !empty($form_state->getValue('education_2')) ? $form_state->getValue('education_2') : '',
     ];
-    $conn->insert('athlete_uni')->fields($FIELDS_athlete_un)->execute();  
+    $conn->insert('athlete_uni')->fields($FIELDS_athlete_uni)->execute();
+
     }else{
     $FIELDS_athlete_uni = [
     'athlete_uni_name' => !empty($form_state->getValue('schoolname_2'))?$form_state->getValue('schoolname_2') : '',
@@ -851,6 +878,7 @@ class PopupForm extends FormBase {
     $query = \Drupal::entityQuery('node');
       $query->condition('type', 'bfss_organizations');
       $query->condition('field_type', $type, 'IN');
+      $query->range(0, 10);
       $nids = $query->execute();
       $org_name=[];
       foreach($nids as $nid){
@@ -881,6 +909,10 @@ class PopupForm extends FormBase {
     //ORG-3   
     return  $form['schoolname_2']; 
   }
+
+    public function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+        return $form['city']; 
+      }
 
 }
 

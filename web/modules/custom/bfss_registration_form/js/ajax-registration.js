@@ -103,12 +103,20 @@
 
   $(document).ready(function () {
 
-    $(document).ajaxSend(function( event, xhr, settings ) {
-      if (settings.url.indexOf('/user/register?') !== -1) {
-        // $('.panel-body.in').throbber('show');
-        $('.panel-body.in').throbber().throbber('show');
-      }
-    });
+     // $(document).ajaxSend(function( event, xhr, settings ) {
+     
+     //   // console.log(settings.extraData._triggering_element_name);
+     //   // console.log(settings.extraData);
+     //   // if(settings.extraData._triggering_element_name == "bi_state"){
+
+     //   // }else if(settings.url.indexOf('/user/register?') == -1){
+
+     //   // }else{
+     //   //   //$('.panel-body.in').throbber('show');
+     //   //  $('.panel-body.in').throbber().throbber('show');
+     //   // }
+     
+     // });
 
     $(document).ajaxComplete(function( event, xhr, settings ) {
       if (settings.url.indexOf('/user/register?') !== -1) {

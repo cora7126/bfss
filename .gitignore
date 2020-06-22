@@ -1,2 +1,6 @@
 web/sites/default/settings.php
+<<<<<<< HEAD
+web/sites/default/files/contentimportlog.txt
+=======
+>>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
 settings.php

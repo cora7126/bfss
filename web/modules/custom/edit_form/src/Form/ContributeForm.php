@@ -199,7 +199,7 @@ class ContributeForm extends FormBase {
     $img_id = $results['athlete_target_image_id'];
     $form['prefix'] = "<div class=athlete_edit_class>";
     $form['suffix'] = "</div>";
-
+    $form['#attached']['library'][] = 'edit_form/bfssAthleteProfile_lab';       //here can add
     $form['fname'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Firstname'),
@@ -225,22 +225,62 @@ class ContributeForm extends FormBase {
 	  '#required' => TRUE,
       );
 	     $states = getStates();
-    $form['az'] = array(
-      //'#title' => t('az'),
-      '#type' => 'select',
-      //'#description' => 'Select the desired pizza crust size.',
-	  '#options'=>$states,
-      '#default_value' => $state,
-	  '#required' => TRUE,
-      );
-	  //print '<pre>';print_r($results18);die;
-    $form['city'] = array(
-      '#type' => 'textfield',
-      //'#title' => t('City'),
-       '#required' => TRUE,
-      '#placeholder' => t('City'),
-      '#default_value' => $results18['field_city'],
-      );
+       $form_state_values = $form_state->getValues();
+       //print_r($form_state_values);
+      if(empty($form_state_values)){
+        $VNS = $state;
+      }else{
+        $VNS = $form_state_values['venue_state'];
+      }
+      //$VNS = !empty($form_state_values['venue_state'])?$form_state_values['venue_state']:$state;
+
+      $form['venue_state'] = array(
+        '#type' => 'select',
+        '#options' => $states,
+        '#default_value' => $state,
+        '#ajax' => [
+          'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback.
+        ]
+        );
+
+        
+        $form['venue_loaction'] = [
+            '#type' => 'textfield',
+            '#placeholder' => t('city'),
+             '#default_value' => $results18['field_city'],
+            '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+            '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10), 
+            '#prefix' => '<div id="edit-output-22" class="org-3">',
+            '#suffix' => '</div>',
+        ];
+
+   //  $form['az'] = array(
+   //    //'#title' => t('az'),
+   //    '#type' => 'select',
+   //    //'#description' => 'Select the desired pizza crust size.',
+	  // '#options'=>$states,
+   //    '#default_value' => $state,
+	  // '#required' => TRUE,
+   //    '#prefix' => '<div class="full-width-inp">',
+   //      '#suffix' => '</div>',
+   //   '#ajax' => [
+   //        'callback' => '::StateNamesAjaxCallback', // don't forget :: when calling a class method.
+   //        'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+   //        'event' => 'change',
+   //        'wrapper' => 'edit-output-5', // This element is updated with this AJAX callback.
+   //      ]
+   //    );
+	  // //print '<pre>';print_r($results18);die;
+   //  $form['city'] = array(
+   //    '#type' => 'textfield',
+   //    //'#title' => t('City'),
+   //     '#required' => TRUE,
+   //    '#placeholder' => t('City'),
+   //    '#default_value' => $results18['field_city'],
+   //    );
 
 	 $arr = [
     '' => t('Gender'),
@@ -337,9 +377,11 @@ class ContributeForm extends FormBase {
     */
     $type_org_1 = isset($athlete_school['athlete_school_type']) ? $athlete_school['athlete_school_type'] : 'school';
     $orgnames_op1 = $this->Get_Org_Name_For_default($type_org_1);
-    $form_state_values = $form_state->getValues();
+     //$orgnames_op1 = 'Williams Field High School';
+   
+    // $state_name = isset($form_state_values['az']) ? $form_state_values['az'] : $state;
     $orgtype = [
-      #""=>t('Organization Type'),
+      ""=>t('Organization Type'),
       "school"=>t('School'),
       "club"=>t('Club'),
       "university"=>t('University')
@@ -363,11 +405,12 @@ class ContributeForm extends FormBase {
 
     $type__1 = isset($type_org_1)?$type_org_1:'school';
     $type_organization_1 = isset($form_state_values['organizationType'])?$form_state_values['organizationType']:$type__1; 
+   
     $form['organizationName'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Orginization Name'),
       '#autocomplete_route_name' => 'edit_form.autocomplete',
-      '#autocomplete_route_parameters' => array('field_name' => $type_organization_1, 'count' => 10), 
+      '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_1, 'count' => 10), 
       '#prefix' => '<div id="edit-output" class="orgtextarea1">',
       '#suffix' => '</div>',
       '#default_value' => $athlete_school['athlete_school_name'] ,
@@ -448,6 +491,7 @@ class ContributeForm extends FormBase {
     */
     $type_org_2 =  isset($athlete_club['athlete_school_type']) ? $athlete_club['athlete_school_type'] : 'school';
     $orgnames_op = $this->Get_Org_Name_For_default($type_org_2);
+    // $orgnames_op = "Williams Field High School";
     if (!empty($athlete_club['athlete_club_name']) && !empty($athlete_club['athlete_school_type'])) {
 
       $form['education_1'] = array( // uni
@@ -473,7 +517,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_club['athlete_club_name'],
@@ -559,7 +603,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => '',
@@ -618,6 +662,7 @@ class ContributeForm extends FormBase {
     */
 	    $type_org_3 =  isset($athlete_uni['athlete_uni_type']) ? $athlete_uni['athlete_uni_type'] : 'school';
       $orgnames_op3 = $this->Get_Org_Name_For_default($type_org_3);
+	  //  $orgnames_op3 = "Williams Field High School";
       $type__3 = isset($type_org_3)?$type_org_3:'school';
       $type_organization_3 = isset($form_state_values['education_2'])?$form_state_values['education_2']:$type__3;
      if (!empty($athlete_uni['athlete_uni_name']) && !empty($athlete_uni['athlete_uni_type'])) {
@@ -645,7 +690,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -724,7 +769,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -984,8 +1029,8 @@ class ContributeForm extends FormBase {
     /* if (!$form_state->getValue('sex') || empty($form_state->getValue('sex'))) {
       $form_state->setErrorByName('sex', $this->t('Gender should not be empty.'));
     } */
-    if (!$form_state->getValue('city') || empty($form_state->getValue('city'))) {
-      $form_state->setErrorByName('city', $this->t('City should not be empty.'));
+    if (!$form_state->getValue('venue_loaction') || empty($form_state->getValue('venue_loaction'))) {
+      $form_state->setErrorByName('venue_loaction', $this->t('City should not be empty.'));
     }
     if (!$form_state->getValue('grade') || empty($form_state->getValue('grade'))) {
       $form_state->setErrorByName('grade', $this->t('Grade should not be empty.'));
@@ -1134,8 +1179,8 @@ class ContributeForm extends FormBase {
     $conn->update('user__field_last_name')->condition('entity_id', $current_user, '=')->fields(array('field_last_name_value' => $form_state->getValue('lname'), ))->execute();
     $conn->update('users_field_data')->condition('uid', $current_user, '=')->fields(array('mail' => $form_state->getValue('email'), ))->execute();
 
-    if(!empty($form_state->getValue('az'))){
-    $conn->update('user__field_state')->condition('entity_id', $current_user, '=')->fields(array('field_state_value' => $form_state->getValue('az') ))->execute();
+    if(!empty($form_state->getValue('venue_state'))){
+    $conn->update('user__field_state')->condition('entity_id', $current_user, '=')->fields(array('field_state_value' => $form_state->getValue('venue_state') ))->execute();
 	}
 
     $query3 = \Drupal::database()->select('user__field_date', 'ufln3');
@@ -1177,16 +1222,16 @@ class ContributeForm extends FormBase {
     if (empty($results_mydata)) {
       $conn->insert('mydata')->fields(array(
         'uid' => $current_user,
-        'field_az' => $form_state->getValue('az'),
-        'field_city' => $form_state->getValue('city'),
+        'field_az' => $form_state->getValue('venue_state'),
+        'field_city' => $form_state->getValue('venue_loaction'),
         'field_birth_gender' => $form_state->getValue('sextype'),
         'field_grade' => $form_state->getValue('grade'),
         ))->execute();
     } else {
 		
       $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
-        'field_az' => $form_state->getValue('az'),
-        'field_city' => $form_state->getValue('city'),
+        'field_az' => $form_state->getValue('venue_state'),
+        'field_city' => $form_state->getValue('venue_loaction'),
         'field_birth_gender' => $form_state->getValue('sextype'),
         'field_grade' => $form_state->getValue('grade'),
         ))->execute();
@@ -1577,6 +1622,7 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
  	  $query = \Drupal::entityQuery('node');
       $query->condition('type', 'bfss_organizations');
       $query->condition('field_type', $type, 'IN');
+      $query->range(0, 10);
       $nids = $query->execute();
       $org_name=[];
       foreach($nids as $nid){
@@ -1588,6 +1634,10 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
       return $empty_val + $org_name;
 	}
 
+    public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
+
+      return  $form['venue_loaction']; 
+    }
 
 }
 

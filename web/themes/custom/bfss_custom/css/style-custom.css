@@ -529,7 +529,7 @@ div.form-item-current-pass{padding-top:31px;margin-top:20px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td{border:0;color:#000;font-size:13px;padding:15px 12px;text-transform:capitalize;position:relative;vertical-align:middle;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td.long-td, .user_pro_block .block-bfss-assessors .table-responsive table tbody th.long-th{width:400px;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#EB6E06;position:relative;padding-right:30px;font-size:13px;font-weight:700;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#EB6E06;position:relative;padding-right:30px;font-size:13px;font-weight:500;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a.delete-assess-pl{background:red;}

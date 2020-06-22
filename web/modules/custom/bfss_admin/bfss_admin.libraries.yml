@@ -14,3 +14,29 @@ bfss_admin_popupfaq:
       #css/multiform.css: {}
   js:
     js/popupfaq.js: {}
+
+forget_pass_alert:
+  version: 1.x
+  css:
+    layout:
+      #css/multiform.css: {}
+  js:
+    js/forget_pass_alert.js: {}
+
+bfss_admin_lab_dash:
+  version: 1.x
+  css:
+    layout:
+      #css/multiform.css: {}
+  js:
+    js/bfss_admin_lab_dash.js: {}
+
+bfss_admin_autocomplete_lib:
+  version: 1.x
+  css:
+    layout:
+      #css/multiform.css: {}
+  js:
+    js/Autocomplete/jquery.autocomplete.js: {}
+    js/Autocomplete/autocomplete-cutom.js: {}
+    

@@ -1,0 +1,1 @@
+ loadModal('#ForgetPassModal');

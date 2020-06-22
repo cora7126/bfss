@@ -44,9 +44,14 @@ class AddFaqs extends ControllerBase {
 			}
 		  	$HTML = '
 		  	<ul id="sortable_faqs" class="faq faqct">';
+		  		
 		  	foreach ($nids as $nid) {
 		   	 $node = Node::load($nid);
-		   	 $uid = isset($node->get('uid')->getValue()[0]['target_id'])?$node->get('uid')->getValue()[0]['target_id']:'';
+		   	if($node){
+		   	 if( $node->hasField('uid')){
+		   	 	$uid = isset($node->get('uid')->getValue()[0]['target_id'])?$node->get('uid')->getValue()[0]['target_id']:'';
+		   	 }
+
 	   		 if(isset($uid)){
 	   			$user = User::load($uid);
 	   		 }
@@ -71,6 +76,7 @@ class AddFaqs extends ControllerBase {
 							</div>
 							</li>
 							</div>';
+						}
 		   	}	
 							
 			$HTML .='</ul>';

@@ -11,6 +11,13 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use \Drupal\user\Entity\User;
 use Drupal\Core\Database\Database;
+
+use Drupal\Core\Form\FormBase;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Ajax\AjaxResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Ajax\InvokeCommand;
 class MultistepFourForm extends MultistepFormBase {
 
   /**
@@ -38,6 +45,7 @@ class MultistepFourForm extends MultistepFormBase {
           $year_options[$i] = $i;
         }
     		 $states = [
+        ''   => 'Select State',
         'AL' => 'AL',
         'AK' => 'AK',
         'AS' => 'AS',
@@ -215,21 +223,29 @@ class MultistepFourForm extends MultistepFormBase {
       '#default_value' => $this->store->get('address_2') ? $this->store->get('address_2') : '',
     );
 
-    $form['city'] = array(
-      '#type' => 'textfield',
-      '#placeholder' => $this->t('City'),
-      '#prefix' => $this->t('<div class="expiration">'),
-      '#default_value' => $this->store->get('city') ? $this->store->get('city') : '',
-      '#required' => true,
-    );
+    $form_state_values = $form_state->getValues();
+
+      // print_r($form_state_values);
+      if(empty($form_state_values['state'])){
+        $VNS = 'AZ';
+      }else{
+        $VNS = $form_state_values['state'];
+      }
 
     $form['state'] = array(
       '#type' => 'select',
       '#options'=>$states,
       '#placeholder' => $this->t('State'),
-    # '#prefix' => $this->t('<div class="expiration">'),
+      '#prefix' => $this->t('<div class="expiration"><div class="full-width-inp half-width-inp">'),
+      '#suffix' => $this->t('</div>'),
       '#default_value' => $this->store->get('state') ? $this->store->get('state') : '',
       '#required' => true,
+      '#ajax' => [
+          'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
+          'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+          'event' => 'change',
+          'wrapper' => 'edit-output-wrapper', // This element is updated with this AJAX callback.
+        ]
     );
 
     $form['zip'] = array(
@@ -239,7 +255,17 @@ class MultistepFourForm extends MultistepFormBase {
       '#required' => true,
       '#suffix' => $this->t('</div>'),
     );
-
+     $form['city'] = array(
+      '#type' => 'textfield',
+      '#placeholder' => $this->t('City'),
+      #'#prefix' => $this->t(''),
+      '#default_value' => $this->store->get('city') ? $this->store->get('city') : '',
+      '#required' => true,
+      '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+      '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10), 
+      '#prefix' => '<div id="edit-output-wrapper" class="full-width-inp">',
+      '#suffix' => '</div>',
+    );
     /*$form['country'] = array(
       '#type' => 'textfield',
       '#placeholder' => $this->t('Country'),
@@ -317,5 +343,8 @@ class MultistepFourForm extends MultistepFormBase {
     $Query->condition('uid', $uid,'=');
     $results = $Query->execute()->fetchAssoc();
     return !empty($results)?$results:'';
+  }
+   public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
+      return  $form['city']; 
   }
 }

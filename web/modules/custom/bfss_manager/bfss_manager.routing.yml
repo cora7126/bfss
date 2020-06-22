@@ -12,7 +12,8 @@ bfss_manager_defaultprofile.organization_info:
     _form: '\Drupal\bfss_manager\Form\AddOrganizationForm'
     _title: 'Add Organization'
   requirements:
-    _access: 'TRUE'  
+   # _access: 'TRUE'  
+   _role: 'bfss_manager+bfss_administrator'
 
 bfss_manager.view_edit_active:
   path: '/view-edit-active'
@@ -20,7 +21,8 @@ bfss_manager.view_edit_active:
     _controller: 'Drupal\bfss_manager\Controller\ViewEditActive::view_edit_active'
     _title: 'View Edit Active'
   requirements:
-    _access: 'TRUE' 
+    #_access: 'TRUE' 
+    _role: 'bfss_manager+bfss_administrator'
 
 bfss_manager.view_edit_deactive:
   path: '/view-edit-deactive'
@@ -28,7 +30,8 @@ bfss_manager.view_edit_deactive:
     _controller: 'Drupal\bfss_manager\Controller\ViewEditDeactive::view_edit_deactive'
     _title: 'View Edit Deactive'
   requirements:
-    _access: 'TRUE' 
+    #_access: 'TRUE' 
+    _role: 'bfss_manager+bfss_administrator'
 
 bfss_manager.pending_assessments:
   path: '/pending-assessments'
@@ -36,7 +39,8 @@ bfss_manager.pending_assessments:
     _controller: 'Drupal\bfss_manager\Controller\PendingAssessments::pending_assessments'
     _title: 'Pending Assessments'
   requirements:
-    _access: 'TRUE' 
+    #_access: 'TRUE' 
+    _role: 'bfss_manager+bfss_administrator'
 
 
 bfss_manager.add_assessments:
@@ -45,7 +49,8 @@ bfss_manager.add_assessments:
     _controller: 'Drupal\bfss_manager\Controller\AddGroupAssessments::add_group_assessments'
     _title: 'Add Assessments'
   requirements:
-    _access: 'TRUE' 
+   # _access: 'TRUE' 
+    _role: 'bfss_manager'
 
 bfss_manager.edit_assessments:
   path: '/edit-assessments'
@@ -53,7 +58,8 @@ bfss_manager.edit_assessments:
     _controller: 'Drupal\bfss_manager\Controller\EditAssessments::edit_assessments'
     _title: 'Edit Assessments'
   requirements:
-    _access: 'TRUE' 
+   # _access: 'TRUE' 
+   _role: 'bfss_manager'
 
 bfss_manager.edit_assessments_form:
   path: '/edit-assessments-form'
@@ -61,7 +67,8 @@ bfss_manager.edit_assessments_form:
     _form: '\Drupal\bfss_manager\Form\EditAssessmentsForm'
     _title: 'Edit-Assessments'
   requirements:
-    _access: 'TRUE' 
+    #_access: 'TRUE' 
+    _role: 'bfss_manager'
 
 
 bfss_manager.edit_assessments_data:
@@ -70,7 +77,8 @@ bfss_manager.edit_assessments_data:
     _controller: 'Drupal\bfss_manager\Controller\EditAssessmentsFormController::edit_assessments_form_controller'
     _title: 'Edit-Assessments'
   requirements:
-    _access: 'TRUE' 
+    #_access: 'TRUE' 
+    _role: 'bfss_manager'
 
 
 bfss_manager.delete_assessments_data:
@@ -79,7 +87,8 @@ bfss_manager.delete_assessments_data:
     _controller: 'Drupal\bfss_manager\Controller\Deleteassessment::content'
     _title: 'delete-Assessments'
   requirements:
-    _access: 'TRUE' 
+    #_access: 'TRUE' 
+    _role: 'bfss_manager'
 
 bfss_manager.pending_assessments_form:
   path: '/pending-assessments-form'
@@ -87,7 +96,8 @@ bfss_manager.pending_assessments_form:
     _form: '\Drupal\bfss_manager\Form\PendingAssessmentsForm'
     _title: 'pending-Assessments'
   requirements:
-    _access: 'TRUE' 
+   # _access: 'TRUE' 
+    _role: 'bfss_manager'
 
 bfss_manager.role_update_con:
   path: 'user-role-update/{uid}/{oldrole}/{newrole}/{dropdown}'
@@ -95,7 +105,8 @@ bfss_manager.role_update_con:
     _controller: 'Drupal\bfss_manager\Controller\UserRoleUpdate::content'
     _title: 'role-update'
   requirements:
-    _access: 'TRUE' 
+    #_access: 'TRUE' 
+    _role: 'bfss_manager+bfss_administrator'
 
 
 bfss_manager.deactive_user_status:
@@ -104,7 +115,8 @@ bfss_manager.deactive_user_status:
     _controller: 'Drupal\bfss_manager\Controller\DeactivateUser::content'
     _title: 'Deactive user status'
   requirements:
-    _access: 'TRUE' 
+   # _access: 'TRUE' 
+    _role: 'bfss_manager+bfss_administrator'
 
 
 
@@ -114,7 +126,8 @@ bfss_manager.get_tags_data:
     _controller: 'Drupal\bfss_manager\Controller\TagsDataGet::tags_data_get'
     _title: 'Get tags'
   requirements:
-    _access: 'TRUE' 
+   # _access: 'TRUE' 
+    _role: 'bfss_manager+bfss_administrator'
 
 bfss_manager.get_categories_data:
   path: '/get-categories'
@@ -123,6 +136,7 @@ bfss_manager.get_categories_data:
     _title: 'Get categories'
   requirements:
     _access: 'TRUE' 
+    #_role: 'bfss_manager+bfss_administrator'
 
 bfss_manager.get_location_autocomplete:
   path: '/get-location-autocomplete/{field_name}/{count}'
@@ -131,3 +145,4 @@ bfss_manager.get_location_autocomplete:
     _format: json
   requirements:
     _access: 'TRUE'
+   # _role: 'bfss_manager+bfss_administrator'

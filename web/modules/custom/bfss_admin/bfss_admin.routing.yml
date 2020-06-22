@@ -4,7 +4,8 @@ bfss_admin.manager_assessor_account:
     _controller: 'Drupal\bfss_admin\Controller\ManagerAssessorAccount::manager_assessor_account'
     _title: 'Create Manager/Assessor Account'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator'
 
 bfss_admin.user_by_select_faqs:
   path: '/user-by-select-faqs'
@@ -12,7 +13,8 @@ bfss_admin.user_by_select_faqs:
     _controller: 'Drupal\bfss_admin\Controller\UserBySelectFaqs::user_by_select_faqs'
     _title: 'FAQs'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator'
 
 bfss_admin.add_faqs_pl:
   path: '/add-faqs-user'
@@ -20,7 +22,8 @@ bfss_admin.add_faqs_pl:
     _controller: 'Drupal\bfss_admin\Controller\AddFaqs::add_faqs'
     _title: 'FAQs'
   requirements:
-    _access: 'TRUE'
+    #_access: 'TRUE'
+    _role: 'bfss_administrator'
 
 bfss_admin.get_faqs_nids:
   path: '/faq-nids/{nids}/{user_role}'
@@ -28,7 +31,8 @@ bfss_admin.get_faqs_nids:
     _controller: 'Drupal\bfss_admin\Controller\GetFaqsNids::get_faqs_nids'
     _title: 'faq-nids'
   requirements:
-    _access: 'TRUE' 
+   # _access: 'TRUE' 
+   _role: 'bfss_administrator'
 
 bfss_admin.faq_edit_form:
   path: '/faq-edit-form'
@@ -36,7 +40,8 @@ bfss_admin.faq_edit_form:
     _form: 'Drupal\bfss_admin\Form\FaqEditForm'
     _title: 'edit-faq'
   requirements:
-    _access: 'TRUE' 
+   # _access: 'TRUE' 
+   _role: 'bfss_administrator'
 
 bfss_admin.faq_delete_form:
   path: '/faq-delete-form'
@@ -44,7 +49,8 @@ bfss_admin.faq_delete_form:
     _form: 'Drupal\bfss_admin\Form\FaqDeleteForm'
     _title: 'delete-faq'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator'
 
 bfss_admin.user_type_permissions:
   path: '/user-type-permissions'
@@ -52,7 +58,8 @@ bfss_admin.user_type_permissions:
     _controller: 'Drupal\bfss_admin\Controller\UserTypePermissions::user_type_permissions'
     _title: 'User Type Permissions'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator'
 
 bfss_admin.editable_tamplates:
   path: '/editable-tamplates'
@@ -60,7 +67,8 @@ bfss_admin.editable_tamplates:
     _controller: 'Drupal\bfss_admin\Controller\EditableTemplates::editable_tamplates'
     _title: 'Editable Templates'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator'
 
 
 bfss_admin.users_editable_account_url:
@@ -69,7 +77,8 @@ bfss_admin.users_editable_account_url:
     _controller: 'Drupal\bfss_admin\Controller\BfssUsersEditableAccountController::Bfss_Users_Editable_Account'
     _title: 'Users Editable Account'
   requirements:
-    _access: 'TRUE'
+   # _access: 'TRUE'
+   _role: 'bfss_administrator'
 
 bfss_admin.managers_pending_payment:
   path: '/managers-pending-payment'
@@ -102,3 +111,21 @@ bfss_admin.organizations_paid_payment:
     _title: 'Organizations Paid Payment'
   requirements:
     _role: 'bfss_administrator'
+
+bfss_admin.get_state_autocomplete:
+  path: '/get-state-autocomplete/{var1}/{var2}'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\GetStateAutocomplete::get_state_autocomplete'
+    _title: 'Get state autocomplete'
+  requirements:
+    _access: 'TRUE'
+    #_role: 'bfss_administrator'
+
+bfss_admin.get_cities:
+  path: '/get-cities'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\GetCitiesJQueryTokenize2::get_cities'
+    _title: 'Get cities jQuery tokenize2'
+  requirements:
+    _access: 'TRUE'
+    #_role: 'bfss_administrator'

@@ -98,7 +98,9 @@
             <button class="accordion">PENDING APPROVAL<a href="pending-approval" target="_blank"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></button>
             <div class="panel">
                {% if Pending_Approval_Data_Block is empty %}
-               <p>No Pending Approval!</p>
+               <div class="no_pending_approvel">
+                  <p>No Pending Approval!</p>
+               </div>
                {% else %}
                {% for Data in Pending_Approval_Data_Block %}
                <div class="panel_row">
@@ -116,10 +118,10 @@
 <!----------Tabs Section -----Start------->
 <div class="tab-main-sec">
 <div class="row" style="margin-left: 0px;margin-right: 0px;">
-   <div class="col-lg-8 col-md-12">
+   <div class="col-lg-12 col-md-12">
       <!-----------Profile Card---HTML----Start-->
       <div class="latest_revenue">
-         <h3>LATEST REVENUE</h3>
+         <h3>LATEST REVENUE</h3><br/>
          {{ admin_profile_block }}
       </div>
       <!-- ---------Profile Card---HTML----End-->

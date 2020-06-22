@@ -14,69 +14,40 @@
 .sitepopup-wrap .sitepopup-default-bfss-content .success-msg p:last-child{margin:0;}
 /* ACCOUNT CREATED POP UP CSS ENDS HERE */
 
-/*.position2{display: none;}
-.position3,.position_12,.position_13,.position_22,.position_23{display: none;}*/
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position2.js-form-item-position2.form-no-label.form-group {margin: 0px;}
+input#edit-position2 {margin-bottom: 30px;}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position3.js-form-item-position3.form-no-label.form-group {margin-bottom: 0px;}
+input#edit-position3 { margin-bottom: 30px;}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-12.js-form-item-position-12.form-no-label.form-group {margin-bottom: 0px;}
+input#edit-position-12 {margin-bottom: 30px;}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-13.js-form-item-position-13.form-no-label.form-group {margin-bottom: 0px;}
+input#edit-position-13 {margin-bottom: 30px;}
+.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-22.js-form-item-position-22.form-no-label.form-group {margin-bottom: 0px;}
+input#edit-position-22 {margin-bottom: 30px;}
 
-
-.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position2.js-form-item-position2.form-no-label.form-group {
-    margin: 0px;
-}
-input#edit-position2 {
-    margin-bottom: 30px;
-}
-.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position3.js-form-item-position3.form-no-label.form-group {
-    margin-bottom: 0px;
-}
-input#edit-position3 {
-    margin-bottom: 30px;
-}
-.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-12.js-form-item-position-12.form-no-label.form-group {
-    margin-bottom: 0px;
-}
-input#edit-position-12 {
-    margin-bottom: 30px;
-}
-.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-13.js-form-item-position-13.form-no-label.form-group {
-    margin-bottom: 0px;
-}
-input#edit-position-13 {
-    margin-bottom: 30px;
-}
-.form-item.js-form-item.form-type-textfield.js-form-type-textfield.form-item-position-22.js-form-item-position-22.form-no-label.form-group {
-    margin-bottom: 0px;
-}
-
-input#edit-position-22 {
-    margin-bottom: 30px;
-}
-
-.add-group-assessments .form-item-image label {
-    color: #f4650f;
-}
-.edit-user .fa.fa-times.right-icon.changepassdiv-modal-close.spb_close {
-    top: 24px;
-}
+.add-group-assessments .form-item-image label {color: #f4650f;}
+.edit-user .fa.fa-times.right-icon.changepassdiv-modal-close.spb_close {top: 24px;}
 .edit-assessments .user_pro_block .block-bfss-assessors{border:none;}
 .form-item-venue-state span.input-group-addon,.form-item-venue-loaction span.input-group-addon{display:none;}
 .form-item-venue-state .select-wrapper,  .add-assessments .form-item-venue-loaction .input-group{width:100%}
-.edit-assessments-data .alert.alert-.alert-dismissible .close span,.add-assessments .alert.alert-.alert-dismissible .close {
-    font-size: 30px;
-    color: #fff;
-    text-shadow: none;
-}
+.edit-assessments-data .alert.alert-.alert-dismissible .close span,.add-assessments .alert.alert-.alert-dismissible .close {font-size: 30px;color: #fff;text-shadow: none;}
 
-.edit-assessments-data .alert.alert-.alert-dismissible .close,.add-assessments .alert.alert-.alert-dismissible .close {
-    top: 22px;
-    right: 25px;
-}
-.bell-icon-sec {
-    text-align: right!important;
-}
+.edit-assessments-data .alert.alert-.alert-dismissible .close,.add-assessments .alert.alert-.alert-dismissible .close {top: 22px;right: 25px;}
+.bell-icon-sec { text-align: right!important;}
 .approve-organization-popup .left_section .athlete_left > .items_div {border:none;}
-.no_pennding_organization {
-    text-align: center;
-}
+.no_pennding_organization {text-align: center;}
 .view-payments-and-receipts .user_pro_block .block-bfss-assessors {border: none;}
+.no_pending_approvel p {text-align: center;padding: 20px 0px 20px 0px;}
+body.user-login .registration-area .user-pass p{font-size: 13px;color: #808285;}
+.organizations-paid-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a,.organizations-pending-payment .user_pro_block .block-bfss-assessors .table-responsive table tbody td a {font-weight: 500;}
+.full-width-inp .input-group-addon {display: none;}
+.full-width-inp .select-wrapper{width: 100%;}
+
+ul.ui-autocomplete li.ui-menu-item div{display:block;background:transparent;border-color:transparent;}
+ul.ui-autocomplete li.ui-menu-item div:hover, ui-autocomplete li.ui-menu-item div:focus{background:transparent;color:#EB6E06;border-color:transparent;}
+.form-item-city span.input-group-addon {display: none;}
+
+.dashboard-edit-coach-profile .form-item-city .input-group{margin-bottom: 40px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	
