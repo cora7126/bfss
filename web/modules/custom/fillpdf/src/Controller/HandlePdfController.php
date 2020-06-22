@@ -140,8 +140,6 @@ class HandlePdfController extends ControllerBase {
     $fillpdf_form = FillPdfForm::load($context['fid']);
     $entities = $this->contextManager->loadEntities($context);
 
-    // ksm(['get.........', $_GET, $fillpdf_form, $entities, $context]);
-
     $populated_pdf = $this->backendProxy->merge($fillpdf_form, $entities, $context);
 
     if (empty($populated_pdf)) {

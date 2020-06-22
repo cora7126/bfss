@@ -370,14 +370,6 @@ class StarterProfessionalAssessments extends FormBase {
         $formtype_val = '';
       }
 
-      if($Assess_type == 'individual'){
-        $Assess_type_val = 'individual';
-      }elseif($Assess_type == 'private'){
-        $Assess_type_val = 'private';
-      }else{
-        $Assess_type_val = '';
-      }
-
       $form['assessment_type'] = array(
         '#type' => 'hidden',
         '#value' => 'individual',

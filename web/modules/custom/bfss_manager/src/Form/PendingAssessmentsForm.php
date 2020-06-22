@@ -709,14 +709,6 @@ class PendingAssessmentsForm extends FormBase {
         $formtype_val = 'professional';
       }
 
-      if($Assess_type == 'individual'){
-        $Assess_type_val = 'individual';
-      }elseif($Assess_type == 'private'){
-        $Assess_type_val = 'private';
-      }else{
-        $Assess_type_val = '';
-      }
-
       $formFields['field_assessment_type'] = array(
         '#type' => 'hidden',
         '#value' => 'individual',

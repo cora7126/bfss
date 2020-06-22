@@ -9,9 +9,18 @@ use Drupal\fillpdf\FieldMapping\TextFieldMapping;
 use Drupal\fillpdf\FillPdfFormInterface;
 use Drupal\fillpdf\Plugin\PdfBackendManager;
 use Drupal\fillpdf\TokenResolverInterface;
-use Drupal\node\Entity\Node;
+
+<<<<<<< bfss-integration-mindimage-2
+use Drupal\Core\Controller\ControllerBase;
+use  \Drupal\user\Entity\User;
+use \Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Render\Markup;
+Use Drupal\paragraphs\Entity\Paragraph;
 
 
+=======
+>>>>>>> jody-ryan-integration
 /**
  * BackendProxy service.
  */
@@ -72,14 +81,26 @@ class BackendProxy implements BackendProxyInterface {
     // Populate mappings array.
     $fieldMappings = [];
 
+<<<<<<< bfss-integration-mindimage-2
     //jjj hack, added all "session" stuff here, to create pdf.
     // session_start();
 
     foreach ($fillPdfForm->getFormFields() as $pdf_key => $field) {
       // if (isset($_SESSION['temp-session-form-values'])) {
       //   $fieldMappings[$pdf_key] = new TextFieldMapping($_SESSION['temp-session-form-values'][$pdf_key]);
-      // } else if ($mergeOptions['sample']) {
+      // } else
       if ($mergeOptions['sample']) {
+=======
+
+    //jjj added all "session" stuff here, to create pdf.
+    session_start();
+
+    foreach ($fillPdfForm->getFormFields() as $pdf_key => $field) {
+      if (isset($_SESSION['temp-session-form-values'])) {
+        $fieldMappings[$pdf_key] = new TextFieldMapping($_SESSION['temp-session-form-values'][$pdf_key]);
+      }
+      elseif ($mergeOptions['sample']) {
+>>>>>>> jody-ryan-integration
         $fieldMappings[$pdf_key] = new TextFieldMapping("<$pdf_key>");
       }
       else {
@@ -99,6 +120,9 @@ class BackendProxy implements BackendProxyInterface {
         // Resolve tokens.
         $text = count($field->value) ? $field->value->value : '';
         $fieldMappings[$pdf_key] = $this->tokenResolver->replace($text, $entities, $options);
+<<<<<<< bfss-integration-mindimage-2
+
+        // ksm(['$pdf_key, $fieldMappings[$pdf_key], $text, $options', $pdf_key, $fieldMappings[$pdf_key], $text, $options]);
       }
     }
 
@@ -123,6 +147,11 @@ class BackendProxy implements BackendProxyInterface {
     // ksm('$myAssessments', $myAssessments);
 
 
+=======
+      }
+    }
+
+>>>>>>> jody-ryan-integration
     // Now load the backend plugin.
     /** @var \Drupal\fillpdf\FillPdfBackendPluginInterface|\Drupal\fillpdf\Plugin\PdfBackendInterface $backend */
     $backend = $this->backendManager->createInstance($config->get('backend'), $config->get());
@@ -142,8 +171,6 @@ class BackendProxy implements BackendProxyInterface {
 
     return $mergedPdf;
   }
-
-
 
 
   protected function My_assessments($uid, $booked_id_param, $fieldMappings){
