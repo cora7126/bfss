@@ -29,6 +29,8 @@ AddEncoding gzip svgz
 
 # PHP 5, Apache 1 and 2.
 <IfModule mod_php5.c>
+  php_value post_max_size                   30M
+  php_value upload_max_filesize             30M
   php_value assert.active                   0
   php_flag session.auto_start               off
   php_value mbstring.http_input             pass

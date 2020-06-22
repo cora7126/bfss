@@ -693,8 +693,8 @@ $settings['trusted_host_patterns'] = array(
 );
 */
 $settings['trusted_host_patterns'] = array(
-  '^5ppsystem\.com$',
-  '^www\.5ppsystem\.com$',
+  '^mindimage\.net$',
+  '^bfss\.mindimage\.net$',
 );
 /*
  * @endcode
@@ -767,7 +767,7 @@ $settings['entity_update_backup'] = TRUE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 $databases['default']['default'] = array (
-  'database' => 'bfss',
+  'database' => 'bfss_dev_pdf',
   'username' => 'root',
   'password' => 'GibTri05X*IV',
   'prefix' => '',
@@ -782,4 +782,4 @@ $settings['config_sync_directory'] = 'sites/default/files/config_2RrciJktdxW87eb
 // if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 //   include $app_root . '/' . $site_path . '/settings.local.php';
 // }
-//$config['system.logging']['error_level'] = 'verbose';
+// $config['system.logging']['error_level'] = 'verbose';
