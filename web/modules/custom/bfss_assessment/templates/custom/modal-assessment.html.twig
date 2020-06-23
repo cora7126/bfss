@@ -32,12 +32,10 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
+
 	{% if 'bfss_administrator' in data.roles %}
 	{% else %}
 	
-=======
->>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
 	<div class="ticketing">
 		
 		<div class="share">
@@ -49,22 +47,22 @@
 			                 
 			        </li>
 			        <li>
-			        <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;title={{ data.title }}&amp;source={{data.current_page}}" title="Linkedin">
+			        <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;title={{ data.title }}&amp;source={{data.current_page}}&amp;summary=Date:{{ data.latest_timing|date('M d, Y h:i A') }}, Time:{{ data.latest_timing|date('h:i A') }}, Location:{{ data.field_location }}" title="Linkedin">
                       <img alt="Linkedin" src="/modules/contrib/social_media/icons/linkedin.svg">
                   	</a>
 			        </li>
 			        <li>
-			            <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url={{data.current_page}}&amp;url={{data.current_page}}&amp;hashtags={{ data.title }}" title="Twitter">
+			            <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url={{data.current_page}}&amp;text= Date:{{ data.latest_timing|date('M d, Y h:i A') }}, Time:{{ data.latest_timing|date('h:i A') }}, Location:{{ data.field_location }}, Description:{{ data.body|striptags|truncate(60) }}...&amp;hashtags={{ data.title|replace({' ': ''}) }}" title="Twitter">
 	                      <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
 	                  </a>
 	                  </li>
 	                  <li>
-        				<a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url={{data.current_page}}&amp;description={{ data.title }}" title="Pinterest">
+        				<a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url={{data.current_page}}&amp;description={{ data.title }}, Date:{{ data.latest_timing|date('M d, Y h:i A') }}, Time:{{ data.latest_timing|date('h:i A') }}, Location:{{ data.field_location }}, Description:{{ data.body|striptags|truncate(60) }}..." title="Pinterest">
                       	<img alt="Pinterest" src="/modules/contrib/social_media/icons/pinterest.svg">
                   		</a>
      			 	  </li>
      			 	  <li>
-     			 	  <a class="email share" href="mailto:?subject={{ data.title }}&amp;body=Check out this site {{data.current_page}}" title="Email">
+     			 	  <a class="email share" href="mailto:?subject={{ data.title }}&amp;body=Check out this site {{data.current_page}}, Time:{{ data.latest_timing|date('h:i A') }}, Location:{{ data.field_location }}, Description:{{ data.body|striptags|truncate(60) }}..." title="Email">
                       <img alt="Email" src="http://5ppsystem.com/modules/contrib/social_media/icons/email.svg">
                   		</a>
                   		 </li>
@@ -76,10 +74,9 @@
 		<span><i class="fal fa-ticket-alt"></i>   TICKETING</span>
 		</div>
 	</div>
-<<<<<<< HEAD
+
 	{% endif %}
-=======
->>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
+
 	<div class="details">
 		<div class="body">
 			
@@ -113,7 +110,7 @@
 				<a href="{{ data.url }}" class="book-now">Book Now</a>
 			<div>
 			{% endif %}
-<<<<<<< HEAD
+
 
 			{% if 'bfss_administrator' in data.roles %}
 			<div class="ticketing">
@@ -121,8 +118,6 @@
 				<p style="color:#000;">{{data.assess_type}}</p>
 			<div>
 			{% endif %}
-=======
->>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
 		</div>
 	</div>
 </div>

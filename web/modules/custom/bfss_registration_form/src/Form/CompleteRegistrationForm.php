@@ -12,8 +12,9 @@ namespace Drupal\bfss_registration_form\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-//use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Ajax\HtmlCommand;
 
 class CompleteRegistrationForm extends FormBase {
 
@@ -36,9 +37,12 @@ class CompleteRegistrationForm extends FormBase {
 
     $form['pass_section']['description'] = [
       '#type' => 'item',
-      '#markup' => t('<p>Your password must be at least 8 characters and contain at least one number, one uppercase letter and one special character.</p>')
+      '#markup' => t('<div class="result_message"></p></div>')
     ];
-
+ // $form['message'] = [ //for custom message "like: ajax msgs"
+ //          '#type' => 'markup',
+ //          '#markup' => '<div class="result_message"></div>',
+ //         ];
     $form['pass_section']['pass'] = [
       '#title'=> $this->t('Password'),
       '#title_display' => 'invisible',
@@ -189,51 +193,7 @@ class CompleteRegistrationForm extends FormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    */
   function submitForm(array &$form, FormStateInterface $form_state) {
-    if (!empty($_SESSION['user_first_login'])) {
-      unset($_SESSION['user_first_login']);
-    }
-
-    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-    $user->setPassword($form_state->getValue('pass'));
-    $user->save();
-
-    \Drupal::messenger()->addStatus($this->t('Password successfully set'));
-
-    //  check if phone not same
-    // $phone = $form_state->getValue('phone');
-    // $confirm_phone = $form_state->getValue('confirm_phone');
-
-    // $confirm_code = $form_state->getValue('confirm_code');
-
-    // if ($phone == $confirm_phone && $confirm_code == '4111') { //@todo need replace that on service
-    //   //  @todo:  save phone field here
-    //   \Drupal::messenger()->addStatus($this->t('Phone successfully confirmed'));
-    // }
-	/*$dest_url = "/user/";
-	$url = Url::fromUri('internal:' . $dest_url);
-	$form_state->setRedirectUrl($url);*/
-	
-	//return new RedirectResponse(Url::fromUri('/node/add'));
-	
-	
-    $response = new \Drupal\Core\Ajax\AjaxResponse();
-
-    //$response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('.resend-message', $this->t('<div class="alert alert-success alert-dismissible">Code successfully sent</div>')));
-
- //   $response->addCommand(new \Drupal\Core\Ajax\SettingsCommand(['bfss_registration_form' => ['code_sent' => 1]], TRUE), TRUE);
-
-
-    $current_user = \Drupal::currentUser()->id();
-    $roles_user = \Drupal::currentUser()->getRoles();
-     if(in_array('coach', $roles_user)){
-     $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('bfss_coach.edit_coach_profile')->toString();
-     }else{
-          $form['#attached']['drupalSettings']['bfss_registration_form']['redirect_too'] = \Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => \Drupal::currentUser()->id()])->toString();
-          $url = '/user/logout/';
-          $response->addCommand(new RedirectCommand($url));
-          return $response;
-     }
-
+  
   }
 
   /**
@@ -243,20 +203,39 @@ class CompleteRegistrationForm extends FormBase {
    * @return array
    */
   function ajaxSubmit(array &$form, FormStateInterface $form_state) {
-    $current_user = \Drupal::currentUser()->id();
-    $roles_user = \Drupal::currentUser()->getRoles();
-    if(in_array('coach', $roles_user)){
-        $response = new \Drupal\Core\Ajax\AjaxResponse();
-        $url = '/dashboard/edit-coach-profile';
-        $response->addCommand(new RedirectCommand($url));
+     if(!preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/", $form_state->getValue('pass'))) {
+        $message = '<p style="color:red">Password must be at least 8 characters and contain at least one number, one uppercase letter, one lowercase char and one special character.<p>';
+        $response = new AjaxResponse();
+        $response->addCommand(
+          new HtmlCommand(
+            '.result_message',
+            '<div class="success_message">'.$message.'</div>'
+          )
+        );
         return $response;
     }else{
-         $response = new \Drupal\Core\Ajax\AjaxResponse();
-          $url = '/user/logout/';
-          $response->addCommand(new RedirectCommand($url));
-          return $response;
-    }  
-   
+              if (!empty($_SESSION['user_first_login'])) {
+                unset($_SESSION['user_first_login']);
+              }
+              #password update here
+              $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+              $user->setPassword($form_state->getValue('pass'));
+              $user->save();
+
+              $current_user = \Drupal::currentUser()->id();
+              $roles_user = \Drupal::currentUser()->getRoles();
+              if(in_array('coach', $roles_user)){
+                  $response = new \Drupal\Core\Ajax\AjaxResponse();
+                  $url = '/dashboard/edit-coach-profile';
+                  $response->addCommand(new RedirectCommand($url));
+                  return $response;
+              }else{
+                   $response = new \Drupal\Core\Ajax\AjaxResponse();
+                    $url = '/user/logout/';
+                    $response->addCommand(new RedirectCommand($url));
+                    return $response;
+              }  
+   }
   }
 
   /**

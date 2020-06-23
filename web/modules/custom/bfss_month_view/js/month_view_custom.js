@@ -67,13 +67,16 @@ jQuery(document).ready(function(){
     // var M = month_arr[0];
     // var Y = month_arr[1];
     //current date start
-    var fulldate = new Date();
-    var d = fulldate.getDate();
-    d = ("0" + d).slice(-2);
-    var m =  fulldate.getMonth();
-    m = ("0" + m).slice(-2);
-    var y = fulldate.getFullYear();
-    var def_date = y+'-'+m+'-'+d; 
+    var d = new Date();
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+    var output = d.getFullYear() + '-' +
+    (month<10 ? '0' : '') + month + '-' +
+    (day<10 ? '0' : '') + day;
+   
+    //var def_date = y+'-'+m+'-'+d; 
+    var def_date = output;
+    console.log(def_date);
     //current date end
     var default_date = def_date;
     var calendarEl = document.getElementById('calendar');
@@ -83,6 +86,9 @@ jQuery(document).ready(function(){
       defaultDate: default_date,
       //editable: true,
       eventLimit: true, // allow "more" link when too many events
+      validRange: {
+        start: def_date, 
+      },
       events: {url: 'http://5ppsystem.com/event-data'},
       eventRender: function (event,isMirror,isMirror,isStart,isEnd,view) {
         jQuery('.event-orange').addClass('yourClass'); 
@@ -111,13 +117,20 @@ jQuery(document).ready(function(){
   document.addEventListener('DOMContentLoaded', function() {
      
     //current date start
-    var fulldate = new Date();
-    var d = fulldate.getDate();
-    d = ("0" + d).slice(-2);
-    var m =  fulldate.getMonth();
-    m = ("0" + m).slice(-2);
-    var y = fulldate.getFullYear();
-    var def_date = y+'-'+m+'-'+d; 
+    // var fulldate = new Date();
+    // var d = fulldate.getDate();
+    // d = ("0" + d).slice(-2);
+    // var m =  fulldate.getMonth();
+    // m = ("0" + m).slice(-2);
+    // var y = fulldate.getFullYear();
+    // var def_date = y+'-'+m+'-'+d; 
+    var d = new Date();
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+    var output = d.getFullYear() + '-' +
+    (month<10 ? '0' : '') + month + '-' +
+    (day<10 ? '0' : '') + day;
+    var def_date = output; 
     //current date end
     var default_date = def_date;
     var calendarEl = document.getElementById('calendar-scheduled');
@@ -125,6 +138,9 @@ jQuery(document).ready(function(){
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
       defaultDate: default_date,
+      validRange: {
+        start: def_date, 
+      },
       //editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: {url: 'http://5ppsystem.com/scheduled-event-data'},
