@@ -109,7 +109,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     // Get user type from url
     //    $type_from_url = Drupal::routeMatch()->getParameter('type');
     $type_from_url = Drupal::request()->query->get('type'); // form param
-    
+
 //    $package_from_url = !empty($_GET['package']) ? $_GET['package'] : '';
     $package_from_url = \Drupal::request()->query->get('package'); // form param
 
@@ -264,7 +264,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#weight' => -2,
         ];
 
-        if ($type == 'parent_guardian_registering_athlete_') { 
+        if ($type == 'parent_guardian_registering_athlete_') {
           $sub_title = t('Athlete\'s Information');
         }
         else {
@@ -362,7 +362,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           unset($form['account']['name']);
           unset($form['account']['mail']);
           //  set fields for "Parent Guardian Registering Athlete"
-          if (in_array($type, ['parent_guardian_registering_athlete_'])) { 
+          if (in_array($type, ['parent_guardian_registering_athlete_'])) {
             $form['step_2']['fields_list_title_2']['#access'] = TRUE;
             $form['step_2']['parent_conf_email']['#access'] = TRUE;
 
@@ -548,8 +548,8 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
         //      if ($parent_permission_show == 'show') {
 			//print $is_over_16_years.'<br/>';
 		//	print $parent_permission.'<br/>';
-		
-			
+
+
         $form['step_4']['cck'] = [
           '#title' => t('Credit Card Information'),
           '#type' => 'fieldset',
@@ -560,8 +560,8 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
         ];
 
 
-		
-		
+
+
         $form['step_4']['cck']['cck_name'] = [
           '#title' => t('Credit Card Name'),
           '#title_display' => 'invisible',
@@ -569,8 +569,8 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           //'#required' => TRUE,
           '#type' => 'textfield',
         ];
-		
-		
+
+
 
         $form['step_4']['cck']['cck_number'] = [
           '#title' => t('Credit Card Number'),
@@ -655,7 +655,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
           '#type' => 'textfield',
           '#default_value' => $form_state->getValue('bi_city', ''),
           '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
-          '#autocomplete_route_parameters' => array('field_name' => $bi_state, 'count' => 10), 
+          '#autocomplete_route_parameters' => array('field_name' => $bi_state, 'count' => 10),
           '#prefix' => '<div id="edit-output-22" class="full-width-inp">',
           '#suffix' => '</div>',
         ];
@@ -676,7 +676,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
             //'callback' => [$this, 'myAjaxCallback'], //alternative notation
             'disable-refocus' => TRUE, // Or TRUE to prevent re-focusing on the triggering element.
             'event' => 'change',
-            'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback. 
+            'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback.
           ],
 
         ];
@@ -757,7 +757,7 @@ function bfss_registration_form_form_user_register_form_alter(&$form, FormStateI
     //  add to current step to frontEnd
     $form['#attached']['drupalSettings']['bfss_registration_form']['step'] = $step;
     $form['actions']['submit']['#submit'][] =  'bfss_user_payment_save';
-    
+
     $form['#cache'] = ['max-age' => 0];
 
   }
@@ -769,11 +769,11 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
   // if($errors){
   //   return;
   // }
-  $userType = $form_state->getValue('user_type');  
+  $userType = $form_state->getValue('user_type');
   //\Drupal::logger('userType')->notice('@type', array('@type' => print_r($userType, 1) ));
   if($userType == 'coach'){
      $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
-    
+
       $computed_settings = [
         'payment_status' => 'NOTNEED',
       ];
@@ -796,7 +796,7 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
           }
         }
         $data['service'] = $price;
-        if(isset($data['service'])){ 
+        if(isset($data['service'])){
          $pay_data['amount'] = (!empty($data['service']) ? $data['service'] : $data['service']);
          $pay_data['amount_text'] = 'payment';
          $pay_data['fname'] = $form_state->getValue('bi_first_name');
@@ -820,7 +820,7 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
             $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
             if ($paymentdone['status'] == true) {
 
-              
+
               $computed_settings = [
                 'payment_status' => true,
               ];
@@ -867,7 +867,7 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
          ))->execute();
          #payment or billing details save [END HERE]
   }
-  
+
 }
 /**
  * Implements hook_ENTITY_TYPE_INSERT().
@@ -894,11 +894,11 @@ function ajax_register_user_register_form_submit(array &$form, FormStateInterfac
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
-  
+
 
   $form_state->disableRedirect();
 //  $form_state['redirect'] = false;
-  
+
 }
 
 /**
@@ -976,8 +976,8 @@ if ($is_over_16_years == 'no' && $parent_permission == 'no') {
         $form['step_4']['cck']['cck_number']['#access']=false;
         $form['step_4']['cck']['cck_month']['#access']=false;
         $form['step_4']['cck']['cck_year']['#access']=false;
-        $form['step_4']['cck']['cck_csv']['#access']=false; 
-       
+        $form['step_4']['cck']['cck_csv']['#access']=false;
+
 }
   switch ($te_name) {
     case 'next_step_1':
@@ -1065,13 +1065,13 @@ if ($is_over_16_years == 'no' && $parent_permission == 'no') {
       }
 
       if ($is_over_16_years == 'no' && $parent_permission == 'no') {
-        $form_state->setErrorByName('parent_permission_error', t('<div class="error er">Sed ut perspiciatis unde omnis ...</div>'));
+        $form_state->setErrorByName('parent_permission_error', t('<div class="error er">Sorry you may not continue without your parents permission. Please ask your parents to sign up for you</div>'));
 		 $form['step_4']['cck']['#access']=false;
 		$form['step_4']['cck']['cck_name']['#access']=false;
 		$form['step_4']['cck']['cck_number']['#access']=false;
 		$form['step_4']['cck']['cck_month']['#access']=false;
 		$form['step_4']['cck']['cck_year']['#access']=false;
-		$form['step_4']['cck']['cck_csv']['#access']=false; 
+		$form['step_4']['cck']['cck_csv']['#access']=false;
       }else{
 		//$form_state->set('cck', 'show');
 	  }
@@ -1112,9 +1112,9 @@ $is_over_16_years = $form_state->getValue('is_over_16_years');
         $luhn_check = !luhn_check($credit_card_number);
         $is_cck_number = $credit_card_number == '4111111111111111'; //  @todo: should be replaced
         if (!$luhn_check && !$is_cck_number) {
-			
+
 			 if ($is_over_16_years == 'no' && $parent_permission == 'no') {
-				
+
 			 }else{
 				$form_state->setErrorByName('cck_number', t('Please set valid Credit Card Number.'));
 			 }
@@ -1131,7 +1131,7 @@ $is_over_16_years = $form_state->getValue('is_over_16_years');
         if ($expires < $now) {
           // expired
 		  if ($is_over_16_years == 'no' && $parent_permission == 'no') {
-          
+
 		  }else{
 			$form_state->setErrorByName('cck_month', t('Please set valid Credit Card Expiration Date.'));
 		}
@@ -1420,5 +1420,5 @@ function getStates() {
 }
 
  function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
-  return $form['step_4']['cck']['billing_info']['bi_city']; 
+  return $form['step_4']['cck']['billing_info']['bi_city'];
 }

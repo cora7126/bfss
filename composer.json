@@ -23,10 +23,6 @@
         "drupal/bbr": "^1.1",
         "drupal/bootstrap": "^3.21",
         "drupal/bootstrap_datetime_picker": "^1.2",
-<<<<<<< HEAD
-        "drupal/contentimport": "^4.1",
-=======
->>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-project-message": "^8.8",
         "drupal/core-recommended": "^8.8",
@@ -52,10 +48,7 @@
         "drupal/user_current_paths": "^1.1",
         "drupal/webform": "^5.8",
         "drush/drush": "^9.7",
-<<<<<<< HEAD
-=======
         "authorizenet/authorizenet": "~1.9.7",
->>>>>>> 988a767f2c56ea4d2a549c47331c790f00b10b07
         "mpdf/mpdf": "^8.0"
     },
     "require-dev": {
