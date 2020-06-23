@@ -391,8 +391,6 @@ class PendingAssessmentsForm extends FormBase {
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) BALLISTIC STRENGTH', 'In'); // 12
 
 
-/*ttttttttttttttttttttt
-
         $fieldName = 'field_10m_time_sec_sprint_e'; $fieldNameAry[] = 'field_10m_time_sec_sprint_e';
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(E) ACCELERATION/SPEED', 'Sec'); // 13
         $fieldName = 'field_peak_force_n_maximal_e'; $fieldNameAry[] = 'field_peak_force_n_maximal_e';
@@ -622,11 +620,12 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_summary_relative_b'; $fieldNameAry[] = 'field_summary_relative_b';
         $formFields['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) RELATIVE STRENGTH (##TH PERCENTILE)'); // 73
 
-vvvvvvvvvvvvvvvv*/
+      }
+
 
       //------------------------------------------ elite-only form fields
-      }
-      else if($realFormType == 'elite')
+
+      if($realFormType == 'elite')
       {
 
         //~~~~~~~~~~~~~~~~~~~~ Results: Supine Med Ball Chest Throw
@@ -682,96 +681,98 @@ vvvvvvvvvvvvvvvv*/
 
 
 
-      /*********** elite fields start ************/
-      // if( 0   &&   $realFormType == 'elite'){
-      //   $required = TRUE;
-      // }else{
-      //   $required = FALSE;
-      // }
-      // if( 0   &&   $realFormType == 'elite') {
-      //     //UE Power (SPM Ball Throw)
-      //     $formFields['form_fields_wrap']['ue_power'] = array(
-      //       '#type' => 'fieldset',
-      //       '#title' => $this->t('UE Power (SSM Ball Throw)'),
-      //       '#prefix' => '<div id="ue_power1" class="sm_cls">',
-      //       '#suffix' => '</div>',
-      //     );
+        /*********** elite fields start ************/
+        // if( 0   &&   $realFormType == 'elite'){
+        //   $required = TRUE;
+        // }else{
+        //   $required = FALSE;
+        // }
+        // if( 0   &&   $realFormType == 'elite') {
+        //     //UE Power (SPM Ball Throw)
+        //     $formFields['form_fields_wrap']['ue_power'] = array(
+        //       '#type' => 'fieldset',
+        //       '#title' => $this->t('UE Power (SSM Ball Throw)'),
+        //       '#prefix' => '<div id="ue_power1" class="sm_cls">',
+        //       '#suffix' => '</div>',
+        //     );
 
-      //     $formFields['form_fields_wrap']['ue_power']['power'] = array (
-      //       '#type' => 'textfield',
-      //       '#default_value' => $field_power_w_ssm_ipe,
-      //       #'#required' => $required,
-      //       '#attributes' => array(
-      //         'placeholder' => t('Power (W)'),
-      //       ),
-      //     );
+        //     $formFields['form_fields_wrap']['ue_power']['power'] = array (
+        //       '#type' => 'textfield',
+        //       '#default_value' => $field_power_w_ssm_ipe,
+        //       #'#required' => $required,
+        //       '#attributes' => array(
+        //         'placeholder' => t('Power (W)'),
+        //       ),
+        //     );
 
-      //       //UE Power (SPM Ball Throw)
-      //       $formFields['form_fields_wrap']['ue_power_spm'] = array(
-      //       '#type' => 'fieldset',
-      //       '#title' => $this->t('UE Power (SPM Ball Throw)'),
-      //       '#prefix' => '<div id="ue_power2" class="sm_cls">',
-      //       '#suffix' => '</div>',
-      //     );
+        //       //UE Power (SPM Ball Throw)
+        //       $formFields['form_fields_wrap']['ue_power_spm'] = array(
+        //       '#type' => 'fieldset',
+        //       '#title' => $this->t('UE Power (SPM Ball Throw)'),
+        //       '#prefix' => '<div id="ue_power2" class="sm_cls">',
+        //       '#suffix' => '</div>',
+        //     );
 
-      //     $formFields['form_fields_wrap']['ue_power_spm']['power_spm'] = array (
-      //       '#type' => 'textfield',
-      //       '#default_value' => $field_power_w_spm_ipe,
-      //       #'#required' => $required,
-      //       '#attributes' => array(
-      //         'placeholder' => t('Power (W)'),
-      //       ),
-      //     );
-      //     //UE Power (RM Ball Throw)
-      //       $formFields['form_fields_wrap']['ue_power_rm'] = array(
-      //       '#type' => 'fieldset',
-      //       '#title' => $this->t('UE Power (RM Ball Throw)'),
-      //       '#prefix' => '<div id="ue_power3" class="sm_cls">',
-      //       '#suffix' => '</div>',
-      //     );
-      //     $formFields['form_fields_wrap']['ue_power_rm']['power_rm'] = array (
-      //       '#type' => 'textfield',
-      //       '#default_value' => $field_power_w_rm_ipe,
-      //       #'#required' => $required,
-      //       '#attributes' => array(
-      //         'placeholder' => t('Power (W)'),
-      //       ),
-      //     );
+        //     $formFields['form_fields_wrap']['ue_power_spm']['power_spm'] = array (
+        //       '#type' => 'textfield',
+        //       '#default_value' => $field_power_w_spm_ipe,
+        //       #'#required' => $required,
+        //       '#attributes' => array(
+        //         'placeholder' => t('Power (W)'),
+        //       ),
+        //     );
+        //     //UE Power (RM Ball Throw)
+        //       $formFields['form_fields_wrap']['ue_power_rm'] = array(
+        //       '#type' => 'fieldset',
+        //       '#title' => $this->t('UE Power (RM Ball Throw)'),
+        //       '#prefix' => '<div id="ue_power3" class="sm_cls">',
+        //       '#suffix' => '</div>',
+        //     );
+        //     $formFields['form_fields_wrap']['ue_power_rm']['power_rm'] = array (
+        //       '#type' => 'textfield',
+        //       '#default_value' => $field_power_w_rm_ipe,
+        //       #'#required' => $required,
+        //       '#attributes' => array(
+        //         'placeholder' => t('Power (W)'),
+        //       ),
+        //     );
 
-      //     //Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)
-      //     $formFields['form_fields_wrap']['strength_endurance'] = array(
-      //       '#type' => 'fieldset',
-      //       '#title' => $this->t('Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)'),
-      //       '#prefix' => '<div id="strength_endurance" class="sm_cls">',
-      //       '#suffix' => '</div>',
-      //     );
+        //     //Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)
+        //     $formFields['form_fields_wrap']['strength_endurance'] = array(
+        //       '#type' => 'fieldset',
+        //       '#title' => $this->t('Strength Endurance (Pull-ups,Push-ups,Single Leg Squats)'),
+        //       '#prefix' => '<div id="strength_endurance" class="sm_cls">',
+        //       '#suffix' => '</div>',
+        //     );
 
-      //       $formFields['form_fields_wrap']['strength_endurance']['repetitions'] = array (
-      //       '#type' => 'textfield',
-      //       '#default_value' => $field_repetitions_se_ipe,
-      //       #'#required' => $required,
-      //       '#attributes' => array(
-      //         'placeholder' => t('Repetitions (#)'),
-      //       ),
-      //     );
+        //       $formFields['form_fields_wrap']['strength_endurance']['repetitions'] = array (
+        //       '#type' => 'textfield',
+        //       '#default_value' => $field_repetitions_se_ipe,
+        //       #'#required' => $required,
+        //       '#attributes' => array(
+        //         'placeholder' => t('Repetitions (#)'),
+        //       ),
+        //     );
 
-      //     //Change of Direction (5-10-5 Pro Agility Test)
-      //         $formFields['form_fields_wrap']['change_of_direction'] = array(
-      //       '#type' => 'fieldset',
-      //       '#title' => $this->t('Change of Direction (5-10-5 Pro Agility Test)'),
-      //       '#prefix' => '<div id="change_of_direction" class="sm_cls">',
-      //       '#suffix' => '</div>',
-      //     );
+        //     //Change of Direction (5-10-5 Pro Agility Test)
+        //         $formFields['form_fields_wrap']['change_of_direction'] = array(
+        //       '#type' => 'fieldset',
+        //       '#title' => $this->t('Change of Direction (5-10-5 Pro Agility Test)'),
+        //       '#prefix' => '<div id="change_of_direction" class="sm_cls">',
+        //       '#suffix' => '</div>',
+        //     );
 
-      //       $formFields['form_fields_wrap']['change_of_direction']['power_ch'] = array (
-      //       '#type' => 'textfield',
-      //       '#default_value' => $field_power_w_cfd_ipe,
-      //       #'#required' => $required,
-      //       '#attributes' => array(
-      //         'placeholder' => t('Power (W)'),
-      //       ),
-      //     );
+        //       $formFields['form_fields_wrap']['change_of_direction']['power_ch'] = array (
+        //       '#type' => 'textfield',
+        //       '#default_value' => $field_power_w_cfd_ipe,
+        //       #'#required' => $required,
+        //       '#attributes' => array(
+        //         'placeholder' => t('Power (W)'),
+        //       ),
+        //     );
+
       }
+
       /*********** elite fields start ************/
 
         //hidden fields
