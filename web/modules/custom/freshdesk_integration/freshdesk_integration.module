@@ -18,6 +18,9 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Component\Utility\Environment;
+
+Environment::setTimeLimit(2400); // 20 mins
 
 /**
  * Implements hook_help().
@@ -70,10 +73,12 @@ function freshdesk_integration_user_update($user) {
   // Check and update user in Freshdesk system based on UID incase fields have changed.
   if ($config->get('push') && is_numeric($user->freshdesk_id->getString()) && empty($lock)) {
     // Call Freshdesk API only on field update to preserve rate limit.
+    $field_user_phone = @$user->field_user_phone ? $user->field_user_phone->getString() : '';
+    $orig_field_user_phone = @$user->original->field_user_phone ? $user->original->field_user_phone->getString() : '';
     if (($user->field_first_name->getString() != $user->original->field_first_name->getString())
     || ($user->field_last_name->getString() != $user->original->field_last_name->getString())
     || ($user->mail->getString() != $user->original->mail->getString())
-    || ($user->field_user_phone->getString() != $user->original->field_user_phone->getString())
+    || ($field_user_phone != $orig_field_user_phone)
     || ($user->getRoles(TRUE) != $user->original->getRoles(TRUE))) {
       _freshdesk_integration_update($user);
     }
@@ -99,6 +104,7 @@ function freshdesk_integration_user_delete($user) {
  *   A user account object.
  */
 function _freshdesk_integration_create($user) {
+
   // Load module configuration.
   $config = \Drupal::config('freshdesk_integration.settings');
 
@@ -118,14 +124,17 @@ function _freshdesk_integration_create($user) {
   }
 
   // Check if user needs a company set.
-  $company_id = _freshdesk_integration_company_from_user_by_role($user);
+  $params['company_id'] = (int)_freshdesk_integration_company_from_user_by_role($user);
 
-  if (is_numeric($company_id)) {
-    $params['company_id'] = $company_id;
-  }
-  else {
-    // Need value to pass to remove company, waiting on API fix from Freshdesk.
-  }
+  // if (is_numeric($company_id) && $company_id >= 0) {
+  //   $params['company_id'] = (int)$company_id;
+  // }
+  // else {
+  //   //TODO: Maybe Need value to pass to remove company, waiting on API fix from Freshdesk.
+  //   if (@$company_id) {
+  //     $debugMsg = 'company_id MUST be integer or empty';
+  //   }
+  // }
 
   // Check if user has profile image.
   if ($user->field_user_image && isset($user->field_user_image->getValue()[0]['target_id'])) {
@@ -159,20 +168,28 @@ function _freshdesk_integration_create($user) {
     // Add avatar image to parameters.
     $params['avatar'] = new \CurlFile($temp_file_path, $image_mime, $image_filename);
   }
+
+  // Example GET:  curl -v -u abcdefghij1234567890:X    -H "Content-Type: application/json" -X GET 'https://domain.freshdesk.com/api/v2/tickets'
+  // Example POST: curl -v -u user@yourcompany.com:test -H 'Content-Type: application/json' -X POST -d '{ "name":"Super Man", "email":"superman@freshdesk.com", "other_emails": ["lex@freshdesk.com", "louis@freshdesk.com"] }' 'https://domain.freshdesk.com/api/v2/contacts'
+  // reality: curl
+
+  $CURLOPT_URL = $config->get('url') . '/api/v2/contacts';
+  $CURLOPT_USERPWD = $config->get('apikey') . ':999999';
+  $fields = (is_array($params)) ? json_encode($params, JSON_FORCE_OBJECT) : $params;
+
+  ksm(['aaaaa', $CURLOPT_URL, $CURLOPT_USERPWD, $fields, $params]);
+
   // Make cURL call.
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, 'https://' . $config->get('url') . '.freshdesk.com/api/v2/contacts');
-  curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Content-Type: multipart/form-data',
-  ]);
-  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
-  curl_setopt($ch, CURLOPT_POST, TRUE);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+  curl_setopt($ch, CURLOPT_URL, $CURLOPT_URL);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json', ]); // -H  for images, use 'Content-Type: multipart/form-data'
+  curl_setopt($ch, CURLOPT_USERPWD, $CURLOPT_USERPWD);
+  curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS); // HTTPS
+  // curl_setopt($ch, CURLOPT_POST, TRUE); // POST
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); // -X POST  (needed for the -d option)
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields); // -d
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-
-  ksm($params);
-  ksm($server_output);
 
   // Make call to API.
   $server_output = curl_exec($ch);
@@ -182,6 +199,10 @@ function _freshdesk_integration_create($user) {
   $response = substr($server_output, $header_size);
 
   $http_headers = get_headers($info['url']);
+
+  ksm(['bbbbbbbb', $headers, $server_output, $server_output, $info]);
+
+
   // Search for rate limit remaining line.
   foreach ($http_headers as $header_value) {
     if (substr($header_value, 0, 21) == 'x-ratelimit-remaining') {
@@ -240,14 +261,15 @@ function _freshdesk_integration_update($user) {
       $params['name'] = substr($user->field_first_name->getString() . ' ' . $user->field_last_name->getString(), 0, 255);
     }
 
-    // Check if user needs a company set.
-    $company_id = _freshdesk_integration_company_from_user_by_role($user);
-    if (is_numeric($company_id)) {
-      $params['company_id'] = $company_id;
-    }
-    else {
-      // Need value to pass to remove company.
-    }
+    // Check if user` needs a company set.
+    $params['company_id'] = (int)_freshdesk_integration_company_from_user_by_role($user);
+    // if (is_numeric($company_id) && $company_id >= 0) {
+    //   $params['company_id'] = (int)$company_id;
+    // }
+    // else {
+    //   // Need value to pass to remove company.
+    //   $params['company_id'] = (int)$company_id;
+    // }
     // Check if user has profile image.
     if (isset($user->field_user_image->getValue()[0]['target_id'])) {
       // Load user profile photo.
@@ -282,11 +304,11 @@ function _freshdesk_integration_update($user) {
     }
     // Make cURL call.
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://' . $config->get('url') . '.freshdesk.com/api/v2/contacts/' . $user->freshdesk_id->getString());
+    curl_setopt($ch, CURLOPT_URL, $config->get('url') . '/api/v2/contacts/' . $user->freshdesk_id->getString());
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
       'Content-Type: multipart/form-data',
     ]);
-    curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
+    curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
     curl_setopt($ch, CURLOPT_POST, TRUE);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -343,8 +365,8 @@ function _freshdesk_integration_invite($id) {
 
   // Make cURL call.
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, 'https://' . $config->get('url') . '.freshdesk.com/api/v2/contacts/' . $id . '/send_invite');
-  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
+  curl_setopt($ch, CURLOPT_URL, $config->get('url') . 'api/v2/contacts/' . $id . '/send_invite');
+  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
@@ -396,7 +418,7 @@ function _freshdesk_integration_send_message($mail, $subject, $message) {
 
   // Load module configuration.
   $config = \Drupal::config('freshdesk_integration.settings');
-  $uri = 'https://' . $config->get('url') . '.freshdesk.com/api/v2/tickets/outbound_email';
+  $uri = $config->get('url') . '/api/v2/tickets/outbound_email';
 
   // Required params.
   $params = [
@@ -411,7 +433,7 @@ function _freshdesk_integration_send_message($mail, $subject, $message) {
   try {
     $response = $client->post($uri, [
       'headers' => ['Content-Type' => 'application/json'],
-      'auth' => [$config->get('apikey'), 'moDT1AZIlZcAcCKYe7p'],
+      'auth' => [$config->get('apikey'), '999999'],
       'timeout' => 30,
       'body' => json_encode($params),
     ]);
@@ -452,7 +474,6 @@ function _freshdesk_integration_company_from_user_by_role($user) {
   if ($config->get('push')) {
     $config_roles = $config->get('roles_companies');
     if (is_array($config_roles)) {
-      ksm($config_roles);
       foreach ($config_roles as $role => $settings) {
         if (in_array($role, $user->getRoles())) {
           // bfss custom  if (in_array('authenticated', $user->getRoles())) {
@@ -481,8 +502,8 @@ function _freshdesk_integration_contact_exists_by_uid($uid) {
 
   // Make cURL call.
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, 'https://' . $config->get('url') . '.freshdesk.com/api/v2/contacts?unique_external_id=' . $uid);
-  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':moDT1AZIlZcAcCKYe7p');
+  curl_setopt($ch, CURLOPT_URL, $config->get('url') . '/api/v2/contacts?unique_external_id=' . $uid);
+  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($ch, CURLOPT_TIMEOUT, 30);
