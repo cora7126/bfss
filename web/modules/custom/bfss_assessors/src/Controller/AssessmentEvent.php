@@ -84,6 +84,7 @@ class AssessmentEvent extends ControllerBase {
               'first_name' =>$entity->first_name->value,
               'last_name' =>$entity->last_name->value,
               'postion' => $postion,
+              'user_id' => $user_id,
         		);	
         	}
         
@@ -127,7 +128,7 @@ class AssessmentEvent extends ControllerBase {
         $booked_id = $item['booked_id'];
         $st = $item['st'];
         $user_name = $item['user_name'];
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
+        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&user_id='.$item['user_id'];
        
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
         // $rows[] = array(

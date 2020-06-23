@@ -514,7 +514,7 @@ class StarterProfessionalAssessments extends FormBase {
         $node->set('field_power_w_cfd_ipe', $form_data['power_ch']);
         //user target id
         $node->set('field_user', ['target_id' => $user_id]);
-
+        $node->set('field_athelete_uid', $param['user_id']);
       if (isset($triggerElement['#id']) && strpos($triggerElement['#id'], 'edit-submit') !== false) {
             // if "SAVE - ALL FIELDS COMPLETED" trigger
             $node->set('field_status', 'complete');
