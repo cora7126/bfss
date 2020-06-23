@@ -1,0 +1,13 @@
+name: 'FillPDF legacy backend support'
+type: module
+description: 'Provides support to legacy backend plugins.'
+core_version_requirement: ^8.7.7
+package: Other
+configure: fillpdf.settings
+dependencies:
+  - drupal:fillpdf
+
+# Information added by Drupal.org packaging script on 2020-04-24
+version: '8.x-4.11'
+project: 'fillpdf'
+datestamp: 1587734049

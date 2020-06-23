@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Legacy functionality and plugins.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fillpdf_legacy_form_fillpdf_settings_alter(array &$form, FormStateInterface $form_state) {
+  $label = new TranslatableMarkup('Local PHP/JavaBridge');
+  $description = new TranslatableMarkup('Legacy. Use FillPDF LocalServer instead.');
+  $form['backend']['#options']['local'] = "<strong>{$label}</strong>: {$description}";
+
+  $form['local']['warning'] = [
+    '#type' => 'item',
+    '#markup' => '<div class="messages messages--warning">' . new TranslatableMarkup('Please note that the Local PHP/JavaBridge backend is deprecated and will be removed from FillPDF 5.x. Use FillPDF LocalServer instead.') . '</div>',
+    '#states' => [
+      'visible' => [
+        ':radio[name="backend"]' => ['value' => 'local'],
+      ],
+    ],
+  ];
+
+  $form['#validate'][] = '_fillpdf_legacy_form_fillpdf_settings_validate';
+}
+
+/**
+ * Extra validation handler for fillpdf_legacy_form_fillpdf_settings_alter().
+ *
+ * @see fillpdf_legacy_form_fillpdf_settings_alter()
+ */
+function _fillpdf_legacy_form_fillpdf_settings_validate($form, FormStateInterface $form_state) {
+  if ($form_state->getValue('backend') == 'local') {
+    $status = file_exists(drupal_get_path('module', 'fillpdf') . '/lib/JavaBridge/java/Java.inc');
+    if ($status === FALSE) {
+      $form_state->setError($form['backend'], new TranslatableMarkup('JavaBridge is not installed locally.'));
+    }
+  }
+}
