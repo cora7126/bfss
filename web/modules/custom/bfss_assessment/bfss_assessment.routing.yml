@@ -97,7 +97,7 @@ entity.bfsspayments.collection:
     _permission: 'administrator'
 
 bfss_assessment.atheltic_profile:
-  path: '/users/{username}'
+  path: '/profile/{username}'
   defaults:
     _controller: '\Drupal\bfss_assessment\Controller\AthelticController::profilePage'
     _title: "Atheltic Profile"
@@ -253,3 +253,5 @@ bfss_assessment.view_payments_and_receipts:
 #     _title: 'Payment Receipts'
 #   requirements:
 #     _permission: 'access content'
+
+

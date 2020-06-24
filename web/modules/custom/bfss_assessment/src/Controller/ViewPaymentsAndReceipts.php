@@ -41,13 +41,16 @@ class ViewPaymentsAndReceipts extends ControllerBase {
       	}
 
        	$data[] = [
-       		'invoice' => $booked_id,
+          'invoice_id' => $booked_id,
+       		'invoice' => '#M-'.$booked_id,
        		'paid_date' => $paid_date,
        		'description' => $description,
        		'amount' => $amount,
        		'assessment_date' => $assessmentDate,
+          'form' => 'multistep',
        	];
-      	
+      	$reg_data = $this->register_form_payment_receipts_listing();
+        $PaymentData = array_merge($data,$reg_data);
       }
 
       // echo "<pre>";
@@ -72,9 +75,9 @@ class ViewPaymentsAndReceipts extends ControllerBase {
                     </tr>
                   </thead>
                   <tbody>';
-          foreach($data as $value){
+          foreach($PaymentData as $value){
           	 $tb1 .= '<tr>
-      	     <td><a href="/view-payments-and-receipts?invoice='.$value['invoice'].'">'.$value['invoice'].'</a></td>
+      	     <td><a href="/view-payments-and-receipts?invoice_id='.$value['invoice_id'].'&f_type='.$value['form'].'">'.$value['invoice'].'</a></td>
       	     <td>'.$value['paid_date'].'</td>
       	     <td>'.$value['description'].'</td>
       	     <td>'.$value['amount'].'</td>
@@ -90,8 +93,11 @@ class ViewPaymentsAndReceipts extends ControllerBase {
            </div>
           </div>';
 
-         if($param['invoice']){
-          $out = $this->payment_receipts($param['invoice']);
+         if(isset($param['invoice_id']) && $param['f_type'] == 'multistep'){
+          $out = $this->payment_receipts($param['invoice_id']);
+          $page_data = $out;
+         }elseif(isset($param['invoice_id']) && $param['f_type'] == 'register'){
+           $out = $this->register_form_payment_receipts($param['invoice_id']);
           $page_data = $out;
          }else{
             $page_data = $tb1;
@@ -140,7 +146,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
           $description = '';
         }
         $html = '<div><p>Full Name : '.$entity->first_name->value.' '.$entity->last_name->value.'</p>
-                      <p>Invoice Number : '.$booked_id.'</p>
+                      <p>Invoice Number : #M-'.$booked_id.'</p>
                       <p>Invoice Date : '.$paid_date.'</p>
                       <p>Assessment Date : '.$assessmentDate.'</p>
                       <p>Assessment Type : '.$description.'</p>
@@ -150,4 +156,53 @@ class ViewPaymentsAndReceipts extends ControllerBase {
                 </div>';
         return $html;
   }
+
+  public function register_form_payment_receipts($id){
+        $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
+        ->fields('rup')
+        ->condition('payment_status','paid', '=')
+         ->condition('id',$id, '=')
+        ->execute()->fetchAssoc();
+        
+
+       $html = '<div><p>Full Name : '.$reg_payments['bi_first_name'].' '.$reg_payments['bi_last_name'].'</p>
+                    <p>Invoice Number : #R-'.$id.'</p>
+                    <p>Invoice Date : '.date('F d, Y',$reg_payments['created']).'</p>
+                    <p>Total: $'.$reg_payments['amount'].'</p>
+              </div>';
+      return $html;
+
+  }
+    public function register_form_payment_receipts_listing(){
+      $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
+        ->fields('rup')
+        ->condition('payment_status','paid', '=')
+        ->execute()->fetchAll();
+        $data = [];
+        foreach ($reg_payments as $key => $value) {
+          $user = User::load($value->uid);
+          if($value->program_term == 1){
+            $description = 'Starter Assessment';
+          }elseif($value->program_term == 2){
+            $description = 'Professional Assessment';
+          }elseif($value->program_term == 3){
+            $description = 'Elite Assessment';
+          }else{
+            $description = '';
+          }
+        
+          if($user){
+            $data[] = [
+              'invoice_id' => $value->id,
+              'invoice' => '#R-'.$value->id,
+              'paid_date' => date('F d, Y',$value->created),
+              'description' => $description,
+              'amount' => $value->amount,
+              'assessment_date' => '',
+              'form' => 'register',
+            ];
+          }
+        }
+        return $data;
+    }
 }

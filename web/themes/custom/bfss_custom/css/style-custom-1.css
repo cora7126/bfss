@@ -48,6 +48,7 @@ ul.ui-autocomplete li.ui-menu-item div:hover, ui-autocomplete li.ui-menu-item di
 .form-item-city span.input-group-addon {display: none;}
 
 .dashboard-edit-coach-profile .form-item-city .input-group{margin-bottom: 40px;}
+.edit-form .right_section .image-widget .data{top:0px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

@@ -12,7 +12,6 @@ class ManagersPaidPaymentController extends ControllerBase {
 
 	 public function managers_paid_payment() {
 
-
 	 	$booked_ids = \Drupal::entityQuery('bfsspayments')
 		->condition('payment_status','paid', '=')
         ->execute();
@@ -107,10 +106,25 @@ class ManagersPaidPaymentController extends ControllerBase {
   	}
 
   	function GET_bfss_register_user_payments(){
-  			 	$reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
+  			$reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
                   ->fields('athw')
+                  ->condition('payment_status','paid', '=')
                   ->execute()->fetchAll();
-        echo "<pre>";
-        print_r($reg_payments);
+            $register_payment_data = [];
+            foreach ($variable as $key => $value) {
+            	$user = User::load($value['uid']);
+				if($user){
+					$register_payment_data[] = [
+						'purchased_date' => $value['created'],
+						'customer_name' => $value['bi_first_name'].' '.$value['bi_last_name'],
+						'city' => $value['bi_city'],
+						'state' => $value['bi_state'],
+						//'program' => $value['bi_state'],
+						'amount' => $value['amount'],
+					];
+				}
+            }
+                  
+			
   	}
 }

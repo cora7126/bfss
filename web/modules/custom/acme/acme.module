@@ -82,7 +82,7 @@ function acme_theme() {
   ];
 
   $theme['payment_receipts_page'] = [
-    'variables' => ['name' => NULL,'assessments_block' => NULL],
+    'variables' => ['name' => NULL,'invoice_history_section' => NULL],
     'template' => 'payment_receipts',
   ];
   
