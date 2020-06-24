@@ -19,18 +19,9 @@ class PaymentReceipts extends ControllerBase {
    *   A simple renderable array.
    */
   public function payment_receipts() {
-    
-    // $block = \Drupal\block\Entity\Block::load('paymentreceipts');
-    // $block_content = \Drupal::entityManager()
-    //   ->getViewBuilder('block')
-    //   ->view($block);
-    // $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
- 
+     
       
       $reg_payments_data = $this->GET_bfss_register_user_payments();
-          // echo "<pre>";
-          //     print_r($reg_payments);
-          //     die("here");
       $uid = \Drupal::currentUser()->id();
       $param = \Drupal::request()->query->all();
       $booked_ids = \Drupal::entityQuery('bfsspayments')
@@ -79,25 +70,26 @@ class PaymentReceipts extends ControllerBase {
       ]
     ];
   }
-        function GET_bfss_register_user_payments(){
-              $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
-                    ->fields('rup')
-                    ->condition('payment_status','paid', '=')
-                    ->execute()->fetchAll();
-              $register_payment_data = [];
-              foreach ($reg_payments as $key => $value) {
-                $user = User::load($value->uid);
-                if($user){
-                  $register_payment_data[] = [
-                    'id'=> $value->id,
-                    'invoice' => '#R-'.$value->id,
-                    'paid_date' => date('F d, Y',$value->created),
-                    'form' => 'register',
-                  ];
-                }
-              }
-              return $register_payment_data;
+  
+  function GET_bfss_register_user_payments(){
+        $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
+              ->fields('rup')
+              ->condition('payment_status','paid', '=')
+              ->execute()->fetchAll();
+        $register_payment_data = [];
+        foreach ($reg_payments as $key => $value) {
+          $user = User::load($value->uid);
+          if($user){
+            $register_payment_data[] = [
+              'id'=> $value->id,
+              'invoice' => '#R-'.$value->id,
+              'paid_date' => date('F d, Y',$value->created),
+              'form' => 'register',
+            ];
           }
+        }
+        return $register_payment_data;
+    }
 
 
 }

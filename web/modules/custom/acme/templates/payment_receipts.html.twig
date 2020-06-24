@@ -96,7 +96,7 @@
                            <ul>
                             {% for invoices in invoice_history_section %}
                               <li>
-                                 <a href="/view-payments-and-receipts?invoice={{invoices.id}}&f_type={{invoices.form}}">invoice {{invoices.invoice}}</a>
+                                 <a href="/view-payments-and-receipts">invoice {{invoices.invoice}}</a>
                                  <p>{{invoices.paid_date}}</p>
                               </li>
                               

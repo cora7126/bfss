@@ -41,11 +41,13 @@ class ViewPaymentsAndReceipts extends ControllerBase {
       	}
 
        	$data[] = [
-       		'invoice' => $booked_id,
+          'invoice_id' => $booked_id,
+       		'invoice' => '#M-'.$booked_id,
        		'paid_date' => $paid_date,
        		'description' => $description,
        		'amount' => $amount,
        		'assessment_date' => $assessmentDate,
+          'form' => 'multistep',
        	];
       	$reg_data = $this->register_form_payment_receipts_listing();
         $PaymentData = array_merge($data,$reg_data);
@@ -75,7 +77,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
                   <tbody>';
           foreach($PaymentData as $value){
           	 $tb1 .= '<tr>
-      	     <td><a href="/view-payments-and-receipts?invoice='.$value['invoice'].'">'.$value['invoice'].'</a></td>
+      	     <td><a href="/view-payments-and-receipts?invoice_id='.$value['invoice_id'].'&f_type='.$value['form'].'">'.$value['invoice'].'</a></td>
       	     <td>'.$value['paid_date'].'</td>
       	     <td>'.$value['description'].'</td>
       	     <td>'.$value['amount'].'</td>
@@ -91,11 +93,11 @@ class ViewPaymentsAndReceipts extends ControllerBase {
            </div>
           </div>';
 
-         if(isset($param['invoice']) && $param['f_type'] == 'multistep'){
-          $out = $this->payment_receipts($param['invoice']);
+         if(isset($param['invoice_id']) && $param['f_type'] == 'multistep'){
+          $out = $this->payment_receipts($param['invoice_id']);
           $page_data = $out;
-         }elseif(isset($param['invoice']) && $param['f_type'] == 'register'){
-           $out = $this->register_form_payment_receipts($param['invoice']);
+         }elseif(isset($param['invoice_id']) && $param['f_type'] == 'register'){
+           $out = $this->register_form_payment_receipts($param['invoice_id']);
           $page_data = $out;
          }else{
             $page_data = $tb1;
@@ -179,13 +181,25 @@ class ViewPaymentsAndReceipts extends ControllerBase {
         $data = [];
         foreach ($reg_payments as $key => $value) {
           $user = User::load($value->uid);
+          if($value->program_term == 1){
+            $description = 'Starter Assessment';
+          }elseif($value->program_term == 2){
+            $description = 'Professional Assessment';
+          }elseif($value->program_term == 3){
+            $description = 'Elite Assessment';
+          }else{
+            $description = '';
+          }
+        
           if($user){
             $data[] = [
-              'invoice' => $value->id,
+              'invoice_id' => $value->id,
+              'invoice' => '#R-'.$value->id,
               'paid_date' => date('F d, Y',$value->created),
-              'description' => 'st',
+              'description' => $description,
               'amount' => $value->amount,
               'assessment_date' => '',
+              'form' => 'register',
             ];
           }
         }
