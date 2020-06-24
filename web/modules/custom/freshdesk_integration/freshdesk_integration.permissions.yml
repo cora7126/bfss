@@ -1,0 +1,3 @@
+administer freshdesk_integration:
+  title: 'Administer Freshdesk Integration'
+  description: 'Allows users to administer Freshdesk settings.'
