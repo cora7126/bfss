@@ -25,12 +25,7 @@ class PaymentReceipts extends ControllerBase {
     //   ->getViewBuilder('block')
     //   ->view($block);
     // $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
-    $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
-        ->fields('rup')
-        ->condition('payment_status','paid', '=')
-         ->condition('id',1, '=')
-        ->execute()->fetchAssoc();
-        print_r($reg_payments);
+ 
       
       $reg_payments_data = $this->GET_bfss_register_user_payments();
           // echo "<pre>";
@@ -96,12 +91,11 @@ class PaymentReceipts extends ControllerBase {
                   $register_payment_data[] = [
                     'id'=> $value->id,
                     'invoice' => '#R-'.$value->id,
-                    'paid_date' => $value->created,
+                    'paid_date' => date('F d, Y',$value->created),
                     'form' => 'register',
                   ];
                 }
               }
-          
               return $register_payment_data;
           }
 

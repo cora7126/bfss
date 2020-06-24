@@ -47,7 +47,8 @@ class ViewPaymentsAndReceipts extends ControllerBase {
        		'amount' => $amount,
        		'assessment_date' => $assessmentDate,
        	];
-      	
+      	$reg_data = $this->register_form_payment_receipts_listing();
+        $PaymentData = array_merge($data,$reg_data);
       }
 
       // echo "<pre>";
@@ -72,7 +73,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
                     </tr>
                   </thead>
                   <tbody>';
-          foreach($data as $value){
+          foreach($PaymentData as $value){
           	 $tb1 .= '<tr>
       	     <td><a href="/view-payments-and-receipts?invoice='.$value['invoice'].'">'.$value['invoice'].'</a></td>
       	     <td>'.$value['paid_date'].'</td>
@@ -92,6 +93,9 @@ class ViewPaymentsAndReceipts extends ControllerBase {
 
          if(isset($param['invoice']) && $param['f_type'] == 'multistep'){
           $out = $this->payment_receipts($param['invoice']);
+          $page_data = $out;
+         }elseif(isset($param['invoice']) && $param['f_type'] == 'register'){
+           $out = $this->register_form_payment_receipts($param['invoice']);
           $page_data = $out;
          }else{
             $page_data = $tb1;
@@ -140,7 +144,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
           $description = '';
         }
         $html = '<div><p>Full Name : '.$entity->first_name->value.' '.$entity->last_name->value.'</p>
-                      <p>Invoice Number : '.$booked_id.'</p>
+                      <p>Invoice Number : #M-'.$booked_id.'</p>
                       <p>Invoice Date : '.$paid_date.'</p>
                       <p>Assessment Date : '.$assessmentDate.'</p>
                       <p>Assessment Type : '.$description.'</p>
@@ -152,5 +156,39 @@ class ViewPaymentsAndReceipts extends ControllerBase {
   }
 
   public function register_form_payment_receipts($id){
+        $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
+        ->fields('rup')
+        ->condition('payment_status','paid', '=')
+         ->condition('id',$id, '=')
+        ->execute()->fetchAssoc();
+        
+
+       $html = '<div><p>Full Name : '.$reg_payments['bi_first_name'].' '.$reg_payments['bi_last_name'].'</p>
+                    <p>Invoice Number : #R-'.$id.'</p>
+                    <p>Invoice Date : '.date('F d, Y',$reg_payments['created']).'</p>
+                    <p>Total: $'.$reg_payments['amount'].'</p>
+              </div>';
+      return $html;
+
   }
+    public function register_form_payment_receipts_listing(){
+      $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
+        ->fields('rup')
+        ->condition('payment_status','paid', '=')
+        ->execute()->fetchAll();
+        $data = [];
+        foreach ($reg_payments as $key => $value) {
+          $user = User::load($value->uid);
+          if($user){
+            $data[] = [
+              'invoice' => $value->id,
+              'paid_date' => date('F d, Y',$value->created),
+              'description' => 'st',
+              'amount' => $value->amount,
+              'assessment_date' => '',
+            ];
+          }
+        }
+        return $data;
+    }
 }
