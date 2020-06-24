@@ -40,14 +40,10 @@ class ContributeForm extends FormBase {
     #/preview/profile
     $url = \Drupal\Core\Url::fromRoute('bfss_assessment.preview_atheltic_profile');
     // print_r($url);die;
-    $link = \Drupal\Core\Link::fromTextAndUrl($this->t('<span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes'), $url);
+    
     $form['#attached']['library'][] = 'edit_form/edit_form_lab';
     $form['#attributes']['class'][] = 'edit_profile_form';
-
-    if ($link) {
-      $link = $link->toRenderable();
-      $link['#attributes'] = ['target' => '__blank', 'class' => ['button', 'previewButton'], ];
-    }
+   
 	
 	$vid = 'sports';
 	$terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
@@ -195,6 +191,30 @@ class ContributeForm extends FormBase {
     *table athlete_about
     */
     $results9 = $this->Get_Data_From_Tables('athlete_about','aa',$current_user);
+
+    // Preview Changes - 1
+    $pasth1 = isset($results_web_type_delta0['athlete_web_name'])?'/profile'.$results_web_type_delta0['athlete_web_name']:$url;
+    $link1 = \Drupal\Core\Link::fromTextAndUrl($this->t('<span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes'), $pasth1);
+    if ($link1) {
+      $link1 = $link1->toRenderable();
+      $link1['#attributes'] = ['target' => '__blank', 'class' => ['button', 'previewButton'], ];
+    }
+
+     // Preview Changes - 2
+    $pasth2 = isset($query_web_type_delta1['athlete_addweb_name'])?'/profile'.$query_web_type_delta1['athlete_addweb_name']:$url;
+    $link2 = \Drupal\Core\Link::fromTextAndUrl($this->t('<span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes'), $pasth2);
+    if ($link2) {
+      $link2 = $link2->toRenderable();
+      $link2['#attributes'] = ['target' => '__blank', 'class' => ['button', 'previewButton'], ];
+    }
+
+     // Preview Changes - 2
+    $pasth3 = isset($query_web_type_delta2['athlete_clubweb_name'])'/profile'.?$query_web_type_delta2['athlete_clubweb_name']:$url;
+    $link3 = \Drupal\Core\Link::fromTextAndUrl($this->t('<span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes'), $pasth3);
+    if ($link3) {
+      $link3 = $link3->toRenderable();
+      $link3['#attributes'] = ['target' => '__blank', 'class' => ['button', 'previewButton'], ];
+    }
 
     $img_id = $results['athlete_target_image_id'];
     $form['prefix'] = "<div class=athlete_edit_class>";
@@ -879,16 +899,16 @@ class ContributeForm extends FormBase {
       );
     $form['label_1'] = array(
       '#type' => 'label',
-      '#title' => ' http://bfsscience.com/users/',
+      '#title' => ' http://bfsscience.com/profile/',
       '#attributes' => array('id' => 'label_1', 'class' => array('weblabel')),
       );
     $form['label_2'] = array(
       '#type' => 'label',
-      '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+      '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
       );
     $form['preview_1'] = array(
       '#type' => 'markup',
-      '#markup' => render($link),
+      '#markup' => render($link1),
       '#prefix' => "<div class='previewdiv' data-id='1'>",
       '#suffix' => "</div>",
       );
@@ -926,16 +946,16 @@ class ContributeForm extends FormBase {
         );
       $form['label_12'] = array(
         '#type' => 'label',
-        '#title' => ' http://bfsscience.com/users/',
+        '#title' => ' http://bfsscience.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_22'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       $form['preview_12'] = array(
         '#type' => 'markup',
-        '#markup' => render($link),
+        '#markup' => render($link2),
         '#prefix' => "<div class='previewdiv' data-id='2'>",
         '#suffix' => "</div>",
         );
@@ -975,16 +995,16 @@ class ContributeForm extends FormBase {
         );
       $form['label_13'] = array(
         '#type' => 'label',
-        '#title' => 'http://bfsscience.com/users/',
+        '#title' => 'http://bfsscience.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_23'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/users/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       $form['preview_13'] = array(
         '#type' => 'markup',
-        '#markup' => render($link),
+        '#markup' => render($link3),
         '#prefix' => "<div class='previewdiv' data-id='3'>",
         '#suffix' => "</div>",
         // '#type' => 'button',

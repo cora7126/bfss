@@ -528,6 +528,7 @@ class AthelticController extends ControllerBase {
     // print_r($data);die;
     // send output here
     return [
+        '#cache' => ['max-age' => 0,],
         '#theme' => 'atheltic__profile',
         '#data' => $data,
         '#attached' =>[
@@ -563,6 +564,7 @@ class AthelticController extends ControllerBase {
     $this->updateTempInfoForTmeplate($data, $username);
     #send the output
     return [
+        '#cache' => ['max-age' => 0,],
         '#theme' => 'atheltic__profile',
         '#data' => $data,
         '#attached' =>[
