@@ -918,7 +918,8 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .bfss_save_all.save_all_changes button.button .mobile{display:none;}
 .bfss_save_all.save_all_changes button.button em{font-style:normal;margin:0 10px;}
 .bfss_save_all.save_all_changes{position:fixed;bottom:5px;right:0;width:auto;z-index:9999;}
-.bfss_save_all.save_all_changes button.button{width:300px;border-radius:0;height:40px;line-height:25px;}
+.bfss_save_all.save_all_changes button.button{width:300px;border-radius:0;height:40px;line-height:25px;background:green;border-color:green}
+.bfss_save_all.save_all_changes button.button:hover, .bfss_save_all.save_all_changes button.button:focus{background:#EB6E06;border-color:#EB6E06;opacity:1;}
 .add-assessments .tokenize > .tokens-container > .token{padding:5px 25px 5px 10px;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;font-size:12px;}
 .add-assessments .tokenize > .tokens-container > .token > .dismiss{font-size:20px;line-height:18px;right:7.5px;}
 .tokenize-dropdown.dropdown > .dropdown-menu{max-height:100%;padding:15px;}

@@ -39,7 +39,7 @@ jQuery('.athlete_left i.fa.fa-info.right-icon,.athlete_right i.fa.fa-info.right-
 });
 	jQuery(".user_pro_block .table-responsive-wrap table").wrap("<div class='table-responsive'></div>");
 
-	jQuery("i.fal.fa-caret-down, i.fal.fa-calendar-alt").click(function(){
+	jQuery(".search_icon_field i.fal.fa-caret-down,.search_icon_field i.fal.fa-calendar-alt").click(function(){
 	 	jQuery(".month-view-form .nice-select.form-select.form-control").toggleClass('open');
     	return false;
 	});

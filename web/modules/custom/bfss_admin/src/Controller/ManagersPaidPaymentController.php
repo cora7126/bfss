@@ -11,11 +11,7 @@ class ManagersPaidPaymentController extends ControllerBase {
 
 
 	 public function managers_paid_payment() {
-	 	// $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
-   //                ->fields('athw')
-   //                ->execute()->fetchAll();
-   //      echo "<pre>";
-   //      print_r($reg_payments);
+
 
 	 	$booked_ids = \Drupal::entityQuery('bfsspayments')
 		->condition('payment_status','paid', '=')
@@ -111,6 +107,10 @@ class ManagersPaidPaymentController extends ControllerBase {
   	}
 
   	function GET_bfss_register_user_payments(){
-
+  			 	$reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
+                  ->fields('athw')
+                  ->execute()->fetchAll();
+        echo "<pre>";
+        print_r($reg_payments);
   	}
 }
