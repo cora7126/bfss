@@ -114,8 +114,8 @@
 
 			{% if 'bfss_administrator' in data.roles %}
 			<div class="ticketing">
-				<p>ASSESSMENT TYPE</p>
-				<p style="color:#000;">{{data.assess_type}}</p>
+				<p class="title-hde">ASSESSMENT TYPE</p>
+				<p style="color:#000;">{{ data.assess_type|capitalize }}</p>
 			<div>
 			{% endif %}
 		</div>

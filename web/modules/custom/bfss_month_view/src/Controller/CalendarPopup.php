@@ -33,6 +33,7 @@ class CalendarPopup extends ControllerBase {
 		    $data = [];
 		 
 		    $node = Node::load($nid);
+		    $assessment_type = $node->field_type_of_assessment->value;
 		    $data['title'] = $node->getTitle();
 		     if ($node->hasField('body')) {
 		      $data['body'] = t($node->get('body')->value);
@@ -114,8 +115,9 @@ class CalendarPopup extends ControllerBase {
 		                              <span class="loca">'.$data['field_location'].'</span>
 		                            </div>
 		                          </div>
-		                        </div>
-		                        <div class="ticketing">
+		                        </div>';
+		        if(!in_array('bfss_administrator', $roles)){                
+		        $html .=  '<div class="ticketing">
 		                          <div class="share">
 		                          <span><a class="share_assessment"><i class="fas fa-share"></i>  Share</a></span>
 		                              <div class="social_share_links" style="display:none;">
@@ -151,8 +153,9 @@ class CalendarPopup extends ControllerBase {
 		                          <div class="ticket">
 		                          <span><i class="fal fa-ticket-alt"></i> TICKETING</span>
 		                          </div>
-		                        </div>
-		                        <div class="details">
+		                     </div>';
+		                 }
+		                 $html .= '<div class="details">
 		                          <div class="body">
 		                            
 		                            <div class="node-body">
@@ -173,10 +176,16 @@ class CalendarPopup extends ControllerBase {
 		                              <p>LOCATION</p>
 		                             '.$data['field_location'].'
 		                            <div>';
+
 		                            if(in_array('athlete', $roles)){
 		                            $html .= '<div class="ticketing">
 		                              <p>TICKETING</p>
 		                              <a href="/assessment/type/'.$nid.'" class="book-now">Book Now</a>
+		                            <div>';
+		                           	}else{
+		                           	$html .= '<div class="ticketing">
+		                              <p>ASSESSMENT TYPE</p>
+		                             <p style="color:#000;">'.ucfirst($assessment_type).'</p>
 		                            <div>';
 		                           	}
 		                        $html .=  '</div>
