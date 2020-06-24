@@ -22,6 +22,15 @@ Debug:
    ksm($var);
    kpm()
 
+########################## github
+you need to:
+gco master
+git pull
+gco -b my_new_branch
+git commit -am "First commit"
+git push -u origin my_new_branch
+
+
 ########################### UNIX COMMANDS
 
 TAR Backup: bfss-jodi-pdf-2.tgz
@@ -32,4 +41,5 @@ UNTAR:
 
 find . -type f -print | xargs grep -i 'pdftk'
 
+ wget --no-check-certificate --content-disposition https://github.com/cleggy28/bfss/archive/master.zip
 
