@@ -8,9 +8,12 @@ use \Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Render\Markup;
 Use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 class DefaultController extends ControllerBase {
 
   public function dashboard() {
+  
     //get current user
     $uid = \Drupal::currentUser()->id();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
@@ -182,19 +185,12 @@ public function userform()
 
 
     function My_assessments($uid){
-          $query = \Drupal::entityQuery('node');
-          $query->condition('type', 'assessment');
-          $query->range(0, 8);
-          $nids = $query->execute();
-
           $result = array();
-          if(!empty($nids) && is_array($nids)){
-              foreach ($nids as $nid) {
-                $booked_ids = \Drupal::entityQuery('bfsspayments')
-                ->condition('assessment', $nid,'IN')
-                ->condition('user_id',$uid,'IN')
-                ->sort('created', 'DESC') 
-                ->execute();
+          $booked_ids = \Drupal::entityQuery('bfsspayments')
+          ->condition('user_id',$uid,'IN')
+          ->sort('created', 'DESC') 
+          ->execute();
+               // print_r($booked_ids);die;
                 if(!empty($booked_ids) && is_array($booked_ids)){
                   foreach ($booked_ids  as $key => $booked_id) {
                             $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
@@ -214,9 +210,6 @@ public function userform()
                             ];
                   }
                 }
-
-              }
-          }
           return !empty($result)?$result:null;
     }
 
