@@ -1,4 +1,7 @@
 
+<!-- <pre>
+{{ dump(invoice_history_section) }}
+<pre> -->
 <div class="dash-main-right">
   <h1><i class="fas fa-home" 1123></i> > <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Payment Receipts</h1>
   <div class="dash-sub-main">
@@ -11,7 +14,99 @@
   <div class="row" style="margin-left: 0px;margin-right: 0px;">
      <div class="col-lg-12 col-md-12">
         <!-- ---------Profile Card---HTML----Start-->
-        {{ assessments_block }}
+                     <div class="bfss_manager_page">
+               <div class="bfss_manager">
+                  <div class="bfss_manager_black_layer">
+                     <h4>Credit Card Information</h4>
+                  </div>
+                  <div class="bfss_manager_inner">
+                     <div class="bfss_manager_form">
+                        <form>
+                           <div class="full_inputs">
+                              <input class="form-control" type="text" placeholder="Name on the card" >
+                              <input type="number" placeholder="Credit Card Number" class="form-control">
+                           </div>
+                           <div class="half_inputs">
+                              <div>
+                                 <select id="cars" class="form-control">
+                                    {% for key,value in monthlisting %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                 </select>
+                              </div>
+                              <div>
+                                 <select id="cars" class="form-control">
+                                    {% for key,value in yearlisting %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="number"><input placeholder="3 Digits(CVV)" class="form-control" type="number"></div>
+                        </form>
+                     </div>
+                  </div>
+                  <div class="bfss_manager_inner_sec">
+                     <div class="bfss_manager_black_layer">
+                        <h4>Billing Information</h4>
+                     </div>
+                     <div class="bfss_manager_inner">
+                        <div class="bfss_manager_form">
+                           <form>
+                              <div class="full_inputs">
+                                 <input type="text" placeholder="Address 1" class="form-control">
+                                 <input type="number" placeholder="Address 2" class="form-control">
+                              </div>
+                              <div class="half_inputs_feild">
+                                 <div >
+                                    <input class="form-control" id="cars" type="text" placeholder="City" >
+                                 </div>
+                                 <div>
+                                    <select id="state" class="form-control">
+                                       {% for key,value in states %}
+                                       <option value="{{ key }}">{{ value }}</option>
+                                       {% endfor %}
+                                    </select>
+                                 </div>
+                                 <div>
+                                    <input class="form-control" id="cars" type="text" placeholder="Zip/Post Code" >
+                                 </div>
+                              </div>
+                              <div class="half_inputs_feild" style="margin-top:12px;">
+                                 <select id="country" class="form-control">
+                                    {% for key,value in country %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                 </select>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                     <div class="submit_btn_wrap"><input type="submit" value="SAVE / UPDATE"></div>
+                  </div>
+               </div>
+               <div class="bfss_manager_right">
+                  <div class="bfss_manager">
+                     <div class="bfss_manager_black_layer">
+                        <h4>Invoice History</h4>
+                     </div>
+                     <div class="left_manager_inner">
+                        <div class="">
+
+                           <ul>
+                            {% for invoices in invoice_history_section %}
+                              <li>
+                                 <a href="/view-payments-and-receipts?invoice={{invoices.id}}&f_type={{invoices.form}}">invoice {{invoices.invoice}}</a>
+                                 <p>{{invoices.paid_date}}</p>
+                              </li>
+                              
+                              {% endfor %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
         <!-- ---------Profile Card---HTML----End-->
      </div>
      <div class="col-md-1"></div>

@@ -886,7 +886,12 @@ class ContributeForm extends FormBase {
       '#type' => 'label',
       '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
       );
-    $pasth1 = isset($results_web_type_delta0['athlete_web_name'])?'/profile/'.$results_web_type_delta0['athlete_web_name']:$url;
+    if(!empty($results_web_type_delta0) && is_array($results_web_type_delta0)){
+      $pasth1 = !empty($results_web_type_delta0['athlete_web_name'])?'/profile/'.$results_web_type_delta0['athlete_web_name']:'/preview/profile';
+    }else{
+      $pasth1 = '/preview/profile';
+    }
+    
     $form['preview_1'] = array(
       '#type' => 'markup',
       '#markup' => '<a href="'.$pasth1.'" target="__blank" class="btn previewButton"><span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes</a>',
@@ -934,10 +939,15 @@ class ContributeForm extends FormBase {
         '#type' => 'label',
         '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
-      //$pasth2 = isset($query_web_type_delta1['athlete_addweb_name'])?'/profile/'.$query_web_type_delta1['athlete_addweb_name']:$url;
+      if(!empty($results_web_type_delta1) && is_array($results_web_type_delta1)){
+        $pasth2 = isset($results_web_type_delta1['athlete_web_name'])?'/profile/'.$results_web_type_delta1['athlete_web_name']:'/preview/profile';
+      }else{
+        $pasth2 = $url;
+      }
+      
       $form['preview_12'] = array(
         '#type' => 'markup',
-        '#markup' => '<a href="/profile" target="__blank" class="btn previewButton"><span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes1</a>',
+        '#markup' => '<a href="'.$pasth2.'" target="__blank" class="btn previewButton"><span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes</a>',
         '#prefix' => "<div class='previewdiv' data-id='2'>",
         '#suffix' => "</div>",
         );
@@ -984,10 +994,16 @@ class ContributeForm extends FormBase {
         '#type' => 'label',
         '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
-       ///$pasth3 = isset($query_web_type_delta2['athlete_clubweb_name'])?'/profile/'.$query_web_type_delta2['athlete_clubweb_name']:$url;
+      if(!empty($results_web_type_delta2) && is_array($results_web_type_delta2)){
+       $pasth3 = isset($results_web_type_delta2['athlete_web_name'])?'/profile/'.$results_web_type_delta2['athlete_web_name']:'/preview/profile';
+      }else{
+        $pasth3 = $url;
+      }
+
+      
       $form['preview_13'] = array(
         '#type' => 'markup',
-        '#markup' => '<a href="/profile" target="__blank" class="btn previewButton"><span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes</a>',
+        '#markup' => '<a href="'.$pasth3.'" target="__blank" class="btn previewButton"><span class="icon glyphicon glyphicon-eye-open" aria-hidden="true"></span> Preview Changes</a>',
         '#prefix' => "<div class='previewdiv' data-id='3'>",
         '#suffix' => "</div>",
         // '#type' => 'button',

@@ -90,7 +90,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
            </div>
           </div>';
 
-         if($param['invoice']){
+         if(isset($param['invoice']) && $param['f_type'] == 'multistep'){
           $out = $this->payment_receipts($param['invoice']);
           $page_data = $out;
          }else{
@@ -149,5 +149,8 @@ class ViewPaymentsAndReceipts extends ControllerBase {
                       <p>Transaction ID : '.(isset($data_tr[1])?$data_tr[1]:'').'</p>
                 </div>';
         return $html;
+  }
+
+  public function register_form_payment_receipts($id){
   }
 }
