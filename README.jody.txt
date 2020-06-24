@@ -24,11 +24,11 @@ Debug:
 
 ########################## github
 you need to:
-git checkout master
-git pull
-git checkout -b bfss-jody-0623
-git commit -am "First commit"
-git push -u origin my_new_branch
+git checkout master                   // Switches to the specified branch and updates the working directory
+git pull                              // Updates your current local working branch with all new commits from the corresponding remote branch on GitHub
+git checkout -b bfss-jody-0623        // daily branch creation
+git commit -am "First commit"         // -a automatically stage all tracked, modified files before the commit.  -m is for message "First Commit"
+git push -u origin bfss-jody-0623      // Uploads all local branch commits to GitHub
 
 
 ########################### UNIX COMMANDS

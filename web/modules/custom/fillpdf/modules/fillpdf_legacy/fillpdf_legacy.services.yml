@@ -1,0 +1,10 @@
+services:
+  plugin.manager.fillpdf_backend:
+    class: Drupal\fillpdf_legacy\Plugin\FillPdfBackendManager
+    parent: default_plugin_manager
+    deprecated: The "%service_id%" service is deprecated. You should use the 'plugin.manager.fillpdf.pdf_backend' service instead.
+
+  plugin.manager.fillpdf_backend_service:
+    class: Drupal\fillpdf_legacy\Plugin\BackendServiceManager
+    parent: default_plugin_manager
+    deprecated: The "%service_id%" service is deprecated. You should use the 'plugin.manager.fillpdf.pdf_backend' service instead.
