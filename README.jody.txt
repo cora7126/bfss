@@ -22,13 +22,28 @@ Debug:
    ksm($var);
    kpm()
 
-########################## github
+##########################  github
+
 you need to:
 git checkout master                   // Switches to the specified branch and updates the working directory
 git pull                              // Updates your current local working branch with all new commits from the corresponding remote branch on GitHub
-git checkout -b bfss-jody-0623        // daily branch creation
+git checkout -b bfss-jody-0624        // daily branch creation
 git commit -am "First commit"         // -a automatically stage all tracked, modified files before the commit.  -m is for message "First Commit"
-git push -u origin bfss-jody-0623      // Uploads all local branch commits to GitHub
+git push -u origin bfss-jody-0624     // Uploads all local branch commits to GitHub
+------------
+When you are done with a branch make sure to add any files that may have been added or removed(1), then commit(2) and  then push it to the repository(3). Then I"ll merge it to master. Once its merged then you need to switch back to master(4) and make sure to get all the new updates(5) and then cut a new branch from master(6) make a quick commit(7) and push it to the repository(8) then start your work on that branch.
+(1) git add -A
+(2) git commit -am "Commit Message"
+(3) git push -u origin name_of_branch
+(4) gco master
+(5) git pull
+(6) gco -b new_branch_for_day
+(7) git commit -am "First Commit"
+(8) git push -u origin name_of_branch
+-------------
+you are supposed to install it with composer
+composer require drupal/module_name
+this will download and install the module and register it with the package.json so that if we take this site to any other server we can simply run a composer install and it will install all modules and everything that this site needs to run properly.
 
 
 ########################### UNIX COMMANDS
