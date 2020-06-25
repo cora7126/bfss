@@ -169,7 +169,7 @@ class CalendarPopup extends ControllerBase {
 		                                </span>
 		                              <p>UNTIL</p>
 		                              <span>
-		                          '.$data['field_location'].'
+		                          '.$data['latest_duration'].'
 		                              </span>
 		                            <div>
 		                            <div class="location">

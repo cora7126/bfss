@@ -108,7 +108,7 @@ class AssessmentService {
 //group Assessments function
   public function assessment_after_month_filter_upcoming($element){
     // print_r($_GET['showdate']);
-    // die;
+    //die;
      $current_date = date('Y/m/d');
     $param = \Drupal::request()->query->all();
     if(isset($param['showdate'])){
@@ -126,6 +126,7 @@ class AssessmentService {
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
+              ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
 
