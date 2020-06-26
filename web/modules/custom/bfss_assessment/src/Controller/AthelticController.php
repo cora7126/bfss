@@ -91,6 +91,8 @@ class AthelticController extends ControllerBase {
   private function getUserNameValiditity($username = '') {
   
     if ($username) {
+      // print_r($username);
+      // die;
       $query = $this->db->select('athlete_web', 'tb');
       $query->fields('tb');
       $query->condition('athlete_web_name', $username,'=');
@@ -404,9 +406,9 @@ class AthelticController extends ControllerBase {
 
 
     }
-    echo "<pre>";
-   print_r($data);
-   die;
+   //  echo "<pre>";
+   // print_r($data);
+   // die;
 
   }
 
