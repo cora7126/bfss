@@ -91,8 +91,7 @@ class AthelticController extends ControllerBase {
   private function getUserNameValiditity($username = '') {
   
     if ($username) {
-      // print_r($username);
-      // die;
+     
       $query = $this->db->select('athlete_web', 'tb');
       $query->fields('tb');
       $query->condition('athlete_web_name', $username,'=');
@@ -123,6 +122,7 @@ class AthelticController extends ControllerBase {
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
       }
+
     }
     return false;
   }
@@ -370,7 +370,9 @@ class AthelticController extends ControllerBase {
      
   }
   public function updateInfoForTmeplate(&$data, $username = null) {
- 
+    // echo "<pre>";
+    // print_r($data);
+    // die;
     if ($username) {
       if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
         // $data['org_info']['name']
@@ -385,23 +387,24 @@ class AthelticController extends ControllerBase {
 
       if (isset($data['athlete_addweb']['athlete_addweb_name']) && $data['athlete_addweb']['athlete_addweb_name'] == $username) {
          
-        $relSchl = isset($data['athlete_uni']) ? $data['athlete_uni'] : null;
+       $relSchl = isset($data['athlete_club']) ? $data['athlete_club'] : null;
+        if ($relSchl) {
+          foreach ($relSchl as $key => $value) {
+            $data['org_info'][str_replace(['athlete_club_','athlete_school_'],'', $key)] = $value;
+          }
+        } 
+      }
+
+      if (isset($data['athlete_clubweb']['athlete_clubweb_name']) && $data['athlete_clubweb']['athlete_clubweb_name'] == $username) {
+       $relSchl = isset($data['athlete_uni']) ? $data['athlete_uni'] : null;
        
         if ($relSchl) {
           foreach ($relSchl as $key => $value) {
             $data['org_info'][str_replace('athlete_uni_','', $key)] = $value;
           }
         }
-      }
-
-      if (isset($data['athlete_clubweb']['athlete_clubweb_name']) && $data['athlete_clubweb']['athlete_clubweb_name'] == $username) {
-         die("13");
-        $relSchl = isset($data['athlete_club']) ? $data['athlete_club'] : null;
-        if ($relSchl) {
-          foreach ($relSchl as $key => $value) {
-            $data['org_info'][str_replace(['athlete_club_','athlete_school_'],'', $key)] = $value;
-          }
-        }
+        
+        
       }
 
 
@@ -540,6 +543,7 @@ class AthelticController extends ControllerBase {
     #if username doesn't exist
     if (!$profileuser) {
       return [
+        '#cache' => ['max-age' => 0,],
         '#type' => 'markup',
         '#markup' => t('<h3 style="padding: 10px;color:#db0000;font-weight: bold;">OOPS! The profile you are looking for is not available!</h3>'),
       ];
