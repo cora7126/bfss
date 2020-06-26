@@ -362,8 +362,10 @@ class ContributeForm extends FormBase {
     $form['instagram'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('You Instagram Handle'),
-      '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Social Media<i class="fa fa-info right-icon" aria-hidden="true" data-tooltip="Tooltip Content"></i></h3><div class=items_div>',
+      '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Social Media<i class="fa fa-info right-icon" aria-hidden="true" data-tooltip="[ ex: add your Instagram account link like https://www.instagram.com/username or username], [ ex: add your youtube channel link like https://www.youtube.com/channel/channelID], [ ex: add youtube link like https://www.youtube.com/watch?v=VideoID], [ ex: add vimeo link like https://vimeo.com/VideoID] "></i></h3><div class=items_div>',
       '#default_value' => $results10['athlete_social_1'],
+      #'#help_text' => '[ ex: add your Instagram account link like https://www.instagram.com/username or username]',
+      #'#description' => t('[ ex: add your Instagram account link like https://www.instagram.com/username or username]'),
       );
     $form['youtube'] = array(
       '#type' => 'textfield',

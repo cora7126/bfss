@@ -1,4 +1,5 @@
 <?php
+use Drupal\Core\Database\Database;
 //module name - bfss_register_user_payments
 function bfss_register_user_payments_schema() {
   $schema['bfss_register_user_payments'] = array(
@@ -110,4 +111,27 @@ function bfss_register_user_payments_schema() {
     'primary key' => array('id'),
   );
   return $schema;
+}
+
+function bfss_register_user_payments_update_8001(){
+   $booking_id = [
+    'type' => 'varchar',
+    'length' => 20,
+    'not null' => FALSE,
+  ]; 
+  $transaction_id = [
+    'type' => 'varchar',
+    'length' => 40,
+    'not null' => FALSE,
+  ]; 
+  $authorized_code = [
+    'type' => 'varchar',
+    'length' => 40,
+    'not null' => FALSE,
+  ]; 
+  $schema = Database::getConnection()->schema();
+  $schema->addField('bfss_register_user_payments', 'booking_id', $booking_id);
+  $schema->addField('bfss_register_user_payments', 'transaction_id', $transaction_id);
+  $schema->addField('bfss_register_user_payments', 'authorized_code', $authorized_code);
+
 }

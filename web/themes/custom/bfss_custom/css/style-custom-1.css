@@ -49,6 +49,30 @@ ul.ui-autocomplete li.ui-menu-item div:hover, ui-autocomplete li.ui-menu-item di
 
 .dashboard-edit-coach-profile .form-item-city .input-group{margin-bottom: 40px;}
 .edit-form .right_section .image-widget .data{top:0px;}
+/**********INVOICE START FROM HERE*************/
+.payments_receipts_print_main .invoice-header{background: #f1f3f2;padding:20px 0;text-align: center;border:solid #ccc;border-width:2px 2px 0;}
+.payments_receipts_print_main .brand-info{margin-top: 12px;}
+.payments_receipts_print_main .brand-info span{padding:0 15px;font-size: 13px;line-height: 13px;}
+.payments_receipts_print_main .brand-info span:nth-child(2){border:solid #000;border-width: 0 2px;}
+.payments_receipts_print_main .invoice-body{padding:35px 20px;border:2px solid #ccc;}
+.payments_receipts_print_main .invoice-body span{font-size: 14px;display: inline-block;}
+.payments_receipts_print_main .invoice-body label{font-size: 16px;}
+.payments_receipts_print_main .customer-info label{display: block;margin-bottom: 5px;}
+.payments_receipts_print_main .customer-info{margin-bottom: 30px;}
+.payments_receipts_print_main .invoice-body li{list-style:none;}
+.payments_receipts_print_main .invoice-body li span:first-child{min-width:150px;}
+.payments_receipts_print_main .invoice-total-detail{margin-top: 60px;}
+.payments_receipts_print_main .invoice-total-detail li{display: flex;justify-content: space-between;align-items: center;padding-bottom: 10px;}
+.payments_receipts_print_main .invoice-total-detail li:last-child{margin-top: 12px;}
+.payments_receipts_print_main .invoice-total-detail li:first-child{margin-bottom: 12px;}
+.payments_receipts_print_main .invoice-total-detail li span:first-child{font-weight: 600;}
+
+.payments_receipts_print_main .invoice-footer{text-align: center;}
+.payments_receipts_print_main .invoice-footer .total{font-size: 80px;color: #ff6217;margin-bottom: 40px;}
+.payments_receipts_print_main .invoice-footer .total sup{font-size: 50px;}
+.payments_receipts_print_main .invoice-footer p{font-size: 14px;padding-bottom: 8px;}
+/***********INVOICE END FROM HERE************/
+
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

@@ -122,27 +122,29 @@ class CalendarPopup extends ControllerBase {
 		                          <span><a class="share_assessment"><i class="fas fa-share"></i>  Share</a></span>
 		                              <div class="social_share_links" style="display:none;">
 		                            <ul>
-		                            <li><a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u="'.$data['current_page'].'"&amp;title='.$data['title'].'" title="Facebook">
-		                                                  <img alt="Facebook" src="/modules/contrib/social_media/icons/facebook_share.svg"> </a>
+		                            <li>
+		                            	<a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u="'.$data['current_page'].'"&amp;title='.$data['title'].'" title="Facebook">
+		                                     <img alt="Facebook" src="/modules/contrib/social_media/icons/facebook_share.svg">
+		                                </a>
 		                                             
 		                            </li>
 		                             <li>
-		                                    <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;title='.$data['title'].'&amp;source='.$data['current_page'].'" title="Linkedin">
+		                                 <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;title='.$data['title'].'&amp;source='.$data['current_page'].'&amp;summary=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Linkedin">
 		                                            <img alt="Linkedin" src="/modules/contrib/social_media/icons/linkedin.svg">
-		                                          </a>
+		                                 </a>
 		                            </li>
 		                            <li>
-                                        <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;url="'.$data['current_page'].'"&amp;hashtags='.$data['title'].'" title="Twitter">
+                                        <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;text=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'...&amp;hashtags='.str_replace('-','',str_replace(' ', '',$data['title'])).'" title="Twitter">
                                               <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
-                                          </a>
+                                         </a>
                                     </li>
                                     <li>
-                                      <a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url="'.$data['current_page'].'"&amp;description='.$data['title'].'" title="Pinterest">
+                                      <a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url='.$data['current_page'].'&amp;description='.$data['title'].', Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Pinterest">
                                               <img alt="Pinterest" src="/modules/contrib/social_media/icons/pinterest.svg">
                                             </a>
                                     </li>
                                     <li>
-                                    <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Check out this site '.$data['current_page'].' title="Email">
+                                    <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Check out this site '.$data['current_page'].', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Email">
                                             <img alt="Email" src="http://5ppsystem.com/modules/contrib/social_media/icons/email.svg">
                                             </a>
                                     </li>

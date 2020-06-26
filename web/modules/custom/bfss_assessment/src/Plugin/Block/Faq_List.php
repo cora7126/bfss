@@ -57,6 +57,7 @@ class Faq_List extends BlockBase implements ContainerFactoryPluginInterface {
         if(in_array('athlete', $roles) && !empty($roles)){
          $faq_nids = $this->Get_Data('athlete');
          $nids = explode(',', $faq_nids['faq_nids']);
+
         }elseif( in_array('coach', $roles) && !empty($roles) ){
 
            $faq_nids = $this->Get_Data('coach');
@@ -72,13 +73,15 @@ class Faq_List extends BlockBase implements ContainerFactoryPluginInterface {
         $data = [];
         foreach ($nids as $nid) {
           $node = Node::load($nid);
-          $title = $node->title->value; 
-     
-            $body =  Markup::create($node->body->value);
-          $data[] = [
-            'que' => $title,
-            'ans' => $body
-          ];
+          if($node){
+            $title = $node->title->value; 
+       
+              $body =  Markup::create($node->body->value);
+            $data[] = [
+              'que' => $title,
+              'ans' => $body
+            ];
+          }
         }
        
       if (!empty($data)) {
