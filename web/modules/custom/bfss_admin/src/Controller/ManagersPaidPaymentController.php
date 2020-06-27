@@ -18,7 +18,7 @@ class ManagersPaidPaymentController extends ControllerBase {
         $data = [];
         foreach ($booked_ids as $booked_id) {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-        		$paid_date = date('F d, Y',$entity->created->value);
+        		$paid_date = $entity->created->value;
 		      	$amount = $entity->service->value;
 		      	$nid = $entity->assessment->value;
 		      	$assessmentDate = date('F d, Y',$entity->time->value);
@@ -55,6 +55,13 @@ class ManagersPaidPaymentController extends ControllerBase {
         $reg_payments = $this->GET_bfss_register_user_payments();
      
         $data = array_merge($data,$reg_payments);
+        foreach ($data as $key => $part) {
+       		$data[$key] = $part['purchased_date'];
+  		}
+  		array_multisort($data, SORT_DESC, $originalArray);
+        echo "<pre>";
+        print_r($data);
+        die;
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
@@ -81,7 +88,7 @@ class ManagersPaidPaymentController extends ControllerBase {
         foreach ($data as $value) {
         	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
-	        <td>'.$value['purchased_date'].'</td>
+	        <td>'.date('F d, Y',$value['purchased_date']).'</td>
 	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['customer_name'].'</a></td>
 	        <td>'.$value['city'].'</td>
 	        <td>'.$value['state'].'</td>
@@ -130,7 +137,7 @@ class ManagersPaidPaymentController extends ControllerBase {
 	        	$user = User::load($value->uid);
 				if($user){
 					$register_payment_data[] = [
-						'purchased_date' => date('F d, Y',$value->created),
+						'purchased_date' => $value->created,
 						'program' =>$description,
 						'amount' => $value->amount,
 						'assessment_date' => date('F d, Y',$value->assessment_date),
@@ -144,4 +151,6 @@ class ManagersPaidPaymentController extends ControllerBase {
     	}
        return $register_payment_data;     	
   	}
+  	
+
 }
