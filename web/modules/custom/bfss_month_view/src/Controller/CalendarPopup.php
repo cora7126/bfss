@@ -158,7 +158,7 @@ class CalendarPopup extends ControllerBase {
 		                    			#code here for this condition
 		                     }else{
 		                     	$html .= '<div class="ticket">
-		                          <span><i class="fal fa-ticket-alt"></i> TICKETING</span>
+		                          <a href="/assessment/type/'.$nid.'"><span><i class="fal fa-ticket-alt"></i> TICKETING</span></a>
 		                          </div>';
 		                     }
 		                     $html .= '</div>';
