@@ -36,20 +36,24 @@ class ManagersPaidPaymentController extends ControllerBase {
 		      	$full_name = $entity->first_name->value.' '.$entity->last_name->value;
 		      	$city = $entity->city->value;
 		      	$state = $entity->state->value;
-		       	$data[] = [
-		       		'purchased_date' => $paid_date,
-		       		'program' => $program,
-		       		'amount' => $amount,
-		       		'assessment_date' => $assessmentDate,
-		       		'customer_name' => $full_name,
-		       		'city' => $city,
-		       		'state' => $state,
-		       		'user_id' => $entity->user_id->value,
-		       	];
+		      	 if (strpos($amount, 'freecredit') !== false) {
+          		#code for this condition
+        		}else{
+			       	$data[] = [
+			       		'purchased_date' => $paid_date,
+			       		'program' => $program,
+			       		'amount' => $amount,
+			       		'assessment_date' => $assessmentDate,
+			       		'customer_name' => $full_name,
+			       		'city' => $city,
+			       		'state' => $state,
+			       		'user_id' => $entity->user_id->value,
+			       	];
+		       }
         }	
 
         $reg_payments = $this->GET_bfss_register_user_payments();
-        print_r($reg_payments);
+     
         $data = array_merge($data,$reg_payments);
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
