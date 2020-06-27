@@ -32,4 +32,26 @@ jQuery(function() {
 
 	});
 
+	jQuery(document).on('click', '.org_name_get', function(){
+		var wrp = jQuery(this).attr('id');
+		var wrp_id = jQuery("#"+wrp).parent().parent().attr('id');
+	    var type_val  = jQuery('#'+wrp_id).find('.org_type_get').val();
+		var state_val = jQuery('#edit-az').val();
+		// console.log(type_val);
+		// console.log("here");
+		jQuery.ajax({
+			url : 'http://5ppsystem.com/get_org_name?type='+type_val+'&state='+state_val,
+			dataType: 'json',
+			cache: false,
+			success: function(data){
+				jQuery(".org_name_get").autocomplete({
+					 source:data
+					});
+			},
+			error :function (data){
+
+			}
+		});
+	});
+
 });

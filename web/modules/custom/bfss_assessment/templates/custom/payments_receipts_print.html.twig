@@ -1,0 +1,77 @@
+<!-- <pre>
+{{ dump(data) }}
+</pre> -->
+<div class="dash-main-right">
+  <h1><i class="fas fa-home" 1123></i> > <a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold; color: #333333;">Dashboard</a>> Payments & Receipts</h1>
+   <div class="dash-sub-main">
+      <i class="fas fa-user-alt edit_image_solid" aria-hidden="true"></i>
+       <h2><span>VIEW</span><br>Payments & Receipts</h2>
+   </div>
+</div>
+<!----------Tabs Section -----Start------->
+<div class="tab-main-sec">
+   <div class="row" style="margin-left: 0px;margin-right: 0px;">
+      <div class="col-lg-12 col-md-12">
+         <!-- ---------Payments & Receipts---HTML----Start-->
+         <div class="payments_receipts_print_main">    
+				<div class="invoice-header">
+					<div class="branding">
+						<img src="http://5ppsystem.com/themes/custom/bfss_custom/images/images-dashboard/logo.png"/>
+					</div>
+					<div class="brand-info">
+						<span>2898 Citadel Ct,Gilbert,AZ 85298 </span>
+						<span><a href="tel:(480) 620-9018">Tel (480) 620-9018</a></span>
+						<span><a href="mailto:info@bfsscience.com">info@bfsscience.com</a></span>
+					</div>	
+				</div>
+				<div class="invoice-body">
+					<div class="customer-info">
+						<label>INVOICE TO</label>
+						<span>{{ data.full_name }}</span>
+					</div>
+					<div class="invoice-detail">
+						<ul>
+						    <li><span>Invoice Number:</span> <span>{{ data.invoice_number }}</span></li>
+						    <li><span>Invoice Date:</span> <span>{{ data.invoice_date }}</span></li>
+						    <li><span>Assessment Date:</span> <span>{{ data.assessment_date }}</span></li>	    
+						</ul>
+					</div>
+
+					<div class="invoice-total-detail">
+						<ul>		
+							<li>
+								<span>{{ data.assessment_type }}</span>
+								<span>{{ data.total }}</span>
+							</li>
+							<li>
+								<span>TAX</span>
+								<span>$0</span>
+							</li>
+							<li>
+								<span>SUB TOTAL</span>
+								<span>{{ data.total }}</span>
+							</li>
+							<li>
+								<span>TOTAL</span>
+								<span>{{ data.total }}</span>
+							</li>
+						</ul>
+					</div>
+
+					<div class="invoice-footer">
+						<div class="total"><sup>$</sup>{{ data.total }}</div>
+						<div class="bottom-message">
+							<p>Thankyou for your message</p>
+							<p>PAID BY: {{ data.paid_by }}</p>
+							<p>Transaction ID: {{ data.transaction_id }}</p>
+							<p>AUTHORIZED CODE: {{ data.authorized_code }}</p>
+						</div>
+					</div>
+				</div>
+         </div>
+         <!-- ---------Payments & Receipts---HTML----End-->
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-3"></div>
+   </div>
+</div>

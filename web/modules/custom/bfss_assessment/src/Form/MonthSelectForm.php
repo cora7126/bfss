@@ -34,6 +34,9 @@ class MonthSelectForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    global $base_url;
+    $current_path = \Drupal::service('path.current')->getPath();
+
     $year = date("Y");
     $month = [];
     for ($i = 1; $i < 12; $i++) {
@@ -41,22 +44,14 @@ class MonthSelectForm extends FormBase {
       $val = date('F, Y', strtotime("+$i month"));
       $month[$key] = $val; 
     }
-    $month = array(date('m/Y') => date('F, Y')) + $month;
-    //print_r($month);
-    // $month = [
-    //         '01/'.$year.'' =>'January '.$year.'',
-    //         '02/'.$year.'' =>'February '.$year.'',
-    //         '03/'.$year.'' =>'March '.$year.'',
-    //         '04/'.$year.'' =>'April '.$year.'',
-    //         '05/'.$year.'' =>'May '.$year.'',
-    //         '06/'.$year.'' =>'June '.$year.'',
-    //         '07/'.$year.'' =>'July '.$year.'',
-    //         '08/'.$year.'' =>'August '.$year.'',
-    //         '09/'.$year.'' =>'September '.$year.'',
-    //         '10/'.$year.'' =>'October '.$year.'',
-    //         '11/'.$year.'' =>'November '.$year.'',
-    //         '12/'.$year.'' =>'December '.$year.'',
-    //       ];
+
+    if($current_path == '/upcoming-group-assessments'){
+       $month =  array('m/Y'=>'Select Month',date('m/Y') => date('F, Y')) + $month;
+    }else{
+       $month =  array(date('m/Y') => date('F, Y')) + $month;
+    }
+   
+  
     $current_date = date("Y/m/d");
     $date_arr = explode('/',$current_date);
     if(isset($_GET['showdate'])){
@@ -70,7 +65,7 @@ class MonthSelectForm extends FormBase {
       $month_crr = $M.'/'.$Y;  
     }
 	
-	global $base_url;
+	
 
 	$monthcrr = str_replace("/", "-", $month_crr);
 	$prev_month_ts = strtotime('01-'.$monthcrr.' -1 month');
@@ -80,28 +75,35 @@ class MonthSelectForm extends FormBase {
 	
 	if(isset($_GET['showdate'])){
 		$valueinfo=$_GET['showdate'];
-		global $base_url;
-		//print '01/'.$month_crr;die;
+	
+
 		$monthcrr = str_replace("/", "-", $month_crr);
 		$prev_month_ts = strtotime('01-'.$monthcrr.' -1 month');
 		$next_month_ts = strtotime('01-'.$monthcrr.' +1 month');
 		$getlastmonth=date('m/Y',$prev_month_ts);
 		$getnextmonth=date('m/Y',$next_month_ts);
-		//echo $getnextmonth;die;
-		
-		//print $getlastmonth;die;
+
 		$getlastval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getlastmonth.'"><i class="fal fa-angle-left mr-2"></i></a>';
 		$getnextval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getnextmonth.'"><i class="fal fa-angle-right ml-2"></i></a>';
 	}else{
 		$getlastval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getlastmonth.'"><i class="fal fa-angle-left mr-2"></i></a>';
 		$getnextval='<a href="'.$base_url.'/upcoming-group-assessments?showdate='.$getnextmonth.'"><i class="fal fa-angle-right ml-2"></i></a>';
 	}
+
+  if($current_path == '/upcoming-group-assessments' && empty($_GET['showdate']) && !isset($_GET['showdate'])){
+    $month_crr = "";
+  }elseif($_GET['showdate']== 'm/Y'){
+    $month_crr = "";
+  }
+  else{
+    $month_crr = $month_crr;
+  }
+
     $form['showdate'] = [
       '#type' => 'select',
       '#options' => $month,
       '#default_value' => $month_crr,
-      //'#required' => TRUE,
-      //'#title' => $this->t('Date of Show:'),
+
       '#prefix' => '<div class="box niceselect"><span id="dateofshow">',
       '#suffix' => '</span></div>',
       '#ajax' => [
@@ -116,19 +118,6 @@ class MonthSelectForm extends FormBase {
           ],
         ],
       ];
-
-
-
-    // $form['#method'] = 'get'; 
-    // $form['actions']['#type'] = 'actions';
-    // $form['actions']['submit'] = array(
-    //   '#type' => 'submit',
-    //   '#value' => $this->t('Filter'),
-    //   '#button_type' => 'primary',
-    //    '#prefix' => '<div class="filter_btn">',
-    //   '#suffix' => '</div>',
-    // );
-    
 
     return $form;
   }

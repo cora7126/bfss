@@ -34,16 +34,22 @@ class ManagersPendingPaymentController extends ControllerBase {
 		      	$full_name = $entity->first_name->value.' '.$entity->last_name->value;
 		      	$city = $entity->city->value;
 		      	$state = $entity->state->value;
-		       	$data[] = [
-		       		'purchased_date' => $paid_date,
-		       		'program' => $program,
-		       		'amount' => $amount,
-		       		'assessment_date' => $assessmentDate,
-		       		'customer_name' => $full_name,
-		       		'city' => $city,
-		       		'state' => $state,
-		       		'user_id' => $entity->user_id->value,
-		       	];
+
+
+		      	if (strpos($amount, 'freecredit') !== false) {
+          			#code for this condition
+        		}else{
+			       	$data[] = [
+			       		'purchased_date' => $paid_date,
+			       		'program' => $program,
+			       		'amount' => $amount,
+			       		'assessment_date' => $assessmentDate,
+			       		'customer_name' => $full_name,
+			       		'city' => $city,
+			       		'state' => $state,
+			       		'user_id' => $entity->user_id->value,
+			       	];
+		       	}
         }	
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
@@ -67,7 +73,12 @@ class ManagersPendingPaymentController extends ControllerBase {
               </tr>
             </thead>
             <tbody>';
-
+         $reg_payments = $this->GET_bfss_register_user_payments();
+		 $data = array_merge($data,$reg_payments);
+		 foreach ($data as $key => $part) {
+       		$sort[$key] = $part['purchased_date'];
+  		 }
+  		array_multisort($sort, SORT_DESC, $data);
         foreach ($data as $value) {
         	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
@@ -99,5 +110,40 @@ class ManagersPendingPaymentController extends ControllerBase {
     		]
   		]; 
 	   
+  	}
+
+  	function GET_bfss_register_user_payments(){
+		$reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
+          ->fields('athw')
+          ->condition('payment_status','unpaid', '=')
+          ->execute()->fetchAll();
+        $register_payment_data = [];
+        if(!empty($reg_payments) && is_array($reg_payments)){
+	        foreach ($reg_payments as $key => $value) {
+        	 	if($value->program_term == 1){
+		          $description = 'Starter';
+		        }elseif($value->program_term == 2){
+		          $description = 'Professional';
+		        }elseif($value->program_term == 3){
+		          $description = 'Elite';
+		        }else{
+		          $description = '';
+		        }
+	        	$user = User::load($value->uid);
+				if($user){
+					$register_payment_data[] = [
+						'purchased_date' => date('F d, Y',$value->created),
+						'program' =>$description,
+						'amount' => $value->amount,
+						'assessment_date' => date('F d, Y',$value->assessment_date),
+						'customer_name' => $value->bi_first_name.' '.$value->bi_last_name,
+						'city' => $value->bi_city,
+						'state' => $value->bi_state,
+						'user_id' => $value->uid,
+					];
+				}
+	        }
+    	}
+       return $register_payment_data;     	
   	}
 }

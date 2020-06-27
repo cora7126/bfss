@@ -21,7 +21,7 @@ class GetCitiesJQueryTokenize2 extends ControllerBase {
 			$results = \Drupal::database()->select('us_cities', 'athw')
                   ->fields('athw')
                   ->condition('state_code',$param['state'], '=')
-                  ->range(0, 10)
+                  ->range(0, 100)
                   ->execute()->fetchAll();
                   foreach ($results as $result) {
                   	$cities[] = $result->name;

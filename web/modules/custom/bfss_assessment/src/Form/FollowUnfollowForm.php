@@ -23,10 +23,10 @@ class FollowUnfollowForm extends FormBase {
 			//print_r($user->field_coachs_follow->value);
 			if($user->field_coachs_follow->value == 'follow'){
 				$checked = array('follow');
-				$FollowUn = '<span><i class="fas fa-star"></i>COACHES FOLLOWS THIS ATHLES</span>';
+				$FollowUn = '<span><i class="fas fa-star"></i>Coaches - Follow This Athlete</span>';
 			}else{
 				$checked = '';
-				$FollowUn = '<span><i class="far fa-star"></i></i>COACHES FOLLOWS THIS ATHLES</span>';
+				$FollowUn = '<span><i class="far fa-star"></i></i>Coaches - Follow This Athlete</span>';
 			}
 			$FollowUnHtml = Markup::create($FollowUn);
 			$options = array();

@@ -90,6 +90,12 @@ return [
         ],
         'template'=>'custom/page-assessment',
     ],
+    'payments_receipts_print_page' => [
+        'variables' => [
+          'data'=>[],
+        ],
+        'template'=>'custom/payments_receipts_print',
+    ],
     'modal_assessment' => [
         'variables' => [
           'data'=>[],

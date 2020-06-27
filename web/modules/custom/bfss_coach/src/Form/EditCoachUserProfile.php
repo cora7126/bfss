@@ -64,6 +64,8 @@ class EditCoachUserProfile extends FormBase {
 
 
     $current_user = \Drupal::currentUser()->id();
+    $userdt = User::load($current_user);
+    $field_state =  $userdt->get('field_state')->value;
     $roles_user = \Drupal::currentUser()->getRoles();
 
 
@@ -129,7 +131,7 @@ class EditCoachUserProfile extends FormBase {
   </div>';
 
   
-      
+      $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add 
     $form['#tree'] = TRUE;
     $form['fname'] = array(
     '#type' => 'textfield',
@@ -162,7 +164,7 @@ class EditCoachUserProfile extends FormBase {
       $form['az'] = array(
       '#type' => 'select',
       '#options'=>$states,
-      '#default_value' => $city,
+      '#default_value' => $field_state,
       '#ajax' => [
           'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
           'progress' => array('type' => 'none'),
@@ -232,6 +234,11 @@ class EditCoachUserProfile extends FormBase {
            '#required' => TRUE,
           '#options' => $types,
           '#default_value' => '',
+          '#attributes' => [
+              'class' => ['org_type_get'],
+            ],
+          '#prefix' => '<div id="org_type_name_wrapper_'.$i.'" class="org_type_name_wrapper">',
+          '#suffix' => '',
         ];
 
 
@@ -241,6 +248,11 @@ class EditCoachUserProfile extends FormBase {
         #'#title' => $this->t('Organization Name'),
         '#required' => TRUE,
         '#default_value' => '',
+        '#attributes' => [
+              'class' => ['org_name_get'],
+        ],
+        '#prefix' => '',
+        '#suffix' => '</div>',
       ];
 
       $sports_arr = [''=>'Select Sport'] +  $sports_arr;
@@ -251,6 +263,8 @@ class EditCoachUserProfile extends FormBase {
         #'#title' => $this->t('Organization Name'),$sports_arr
         '#required' => TRUE,
         '#default_value' => '',
+        // '#prefix' => '<div class="sport_name_wrapper">',
+        // '#suffix' => '</div>',
       ];
 
       $form['resident'][$i]['coach_title'] = [
@@ -437,7 +451,10 @@ class EditCoachUserProfile extends FormBase {
     $current_user = \Drupal::currentUser()->id();
     $roles_user = \Drupal::currentUser()->getRoles();
     $conn = Database::getConnection();
-
+    
+    $userdt = User::load($current_user);
+    $userdt->field_state->value = $form_state->getValue('az');
+    $userdt->save();
 
     /*
     *ORGANIZATION SAVE START

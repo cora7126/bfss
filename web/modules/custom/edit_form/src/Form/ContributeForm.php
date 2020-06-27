@@ -106,26 +106,7 @@ class ContributeForm extends FormBase {
     $query18->condition('uid', $current_user, '=');
     $results18 = $query18->execute()->fetchAssoc();
 
-    //web start
-  	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
-  	$query_web_type_delta0->fields('athw');
-  	$query_web_type_delta0->condition('athlete_uid', $current_user, '=');
-  	$query_web_type_delta0->condition('athlete_web_type', 1, '=');
-  	$results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAssoc();
-  		
-  		
-  	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
-  	$query_web_type_delta1->fields('athw');
-  	$query_web_type_delta1->condition('athlete_uid', $current_user, '=');
-  	$query_web_type_delta1->condition('athlete_web_type', 2, '=');
-  	$results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAssoc();
-  		
-  	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
-  	$query_web_type_delta2->fields('athw');
-  	$query_web_type_delta2->condition('athlete_uid', $current_user, '=');
-  	$query_web_type_delta2->condition('athlete_web_type', 3, '=');
-  	$results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAssoc();
-	  //web end
+    
 
 	  $date_of_birth =  \Drupal::database()->select('user__field_date_of_birth', 'ufln4');
     $date_of_birth->addField('ufln4', 'field_date_of_birth_value');
@@ -144,6 +125,12 @@ class ContributeForm extends FormBase {
 	}else{
 		$state=$results18['field_az'];
 	}
+
+  //web start
+    $results_web = $this->Get_Data_From_Tables('athlete_web','web',$current_user); //FOR web-1
+    $results_addweb = $this->Get_Data_From_Tables('athlete_addweb','addweb',$current_user); //FOR web-2
+    $results_clubweb = $this->Get_Data_From_Tables('athlete_clubweb','clubweb',$current_user); //FOR web-3
+  //web end
 
 	 /**
     *ORGANIZATIONS DATA GET
@@ -208,31 +195,28 @@ class ContributeForm extends FormBase {
       <div class="athlete_left">
         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information</h3>
         <div class=items_div>  ',
-	  '#required' => TRUE,
-	  '#attributes' => array('readonly' => 'readonly'),
+	    '#required' => TRUE,
+	    '#attributes' => array('readonly' => 'readonly'),
       );
     $form['lname'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Lastname'),
       '#default_value' => $results2['field_last_name_value'],
-	  '#required' => TRUE,
-	  '#attributes' => array('readonly' => 'readonly'),
+	    '#required' => TRUE,
+	    '#attributes' => array('readonly' => 'readonly'),
       );
     $form['email'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Preferred Contact Email'),
       '#default_value' => $results4['mail'],
-	  '#required' => TRUE,
-      );
-	     $states = getStates();
-       $form_state_values = $form_state->getValues();
+	    '#required' => TRUE,
+    );
+
+    $states = getStates();
+    $form_state_values = $form_state->getValues();
        //print_r($form_state_values);
-      if(empty($form_state_values)){
-        $VNS = $state;
-      }else{
-        $VNS = $form_state_values['venue_state'];
-      }
-      //$VNS = !empty($form_state_values['venue_state'])?$form_state_values['venue_state']:$state;
+      
+    $stateName = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:(isset($state)?$state:'AZ');
 
       $form['venue_state'] = array(
         '#type' => 'select',
@@ -244,18 +228,18 @@ class ContributeForm extends FormBase {
           'event' => 'change',
           'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback.
         ]
-        );
+      );
 
         
-        $form['venue_loaction'] = [
-            '#type' => 'textfield',
-            '#placeholder' => t('city'),
-             '#default_value' => $results18['field_city'],
-            '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10), 
-            '#prefix' => '<div id="edit-output-22" class="org-3">',
-            '#suffix' => '</div>',
-        ];
+      $form['venue_loaction'] = [
+          '#type' => 'textfield',
+          '#placeholder' => t('city'),
+           '#default_value' => $results18['field_city'],
+          '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+          '#autocomplete_route_parameters' => array('field_name' => $stateName, 'count' => 10), 
+          '#prefix' => '<div id="edit-output-22" class="org-3">',
+          '#suffix' => '</div>',
+      ];
 
    //  $form['az'] = array(
    //    //'#title' => t('az'),
@@ -362,8 +346,10 @@ class ContributeForm extends FormBase {
     $form['instagram'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('You Instagram Handle'),
-      '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Social Media<i class="fa fa-info right-icon" aria-hidden="true" data-tooltip="Tooltip Content"></i></h3><div class=items_div>',
+      '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Social Media<i class="fa fa-info right-icon" aria-hidden="true" data-tooltip="[ ex: add your Instagram account link like https://www.instagram.com/username or username], [ ex: add your youtube channel link like https://www.youtube.com/channel/channelID], [ ex: add youtube link like https://www.youtube.com/watch?v=VideoID], [ ex: add vimeo link like https://vimeo.com/VideoID] "></i></h3><div class=items_div>',
       '#default_value' => $results10['athlete_social_1'],
+      #'#help_text' => '[ ex: add your Instagram account link like https://www.instagram.com/username or username]',
+      #'#description' => t('[ ex: add your Instagram account link like https://www.instagram.com/username or username]'),
       );
     $form['youtube'] = array(
       '#type' => 'textfield',
@@ -410,7 +396,7 @@ class ContributeForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Orginization Name'),
       '#autocomplete_route_name' => 'edit_form.autocomplete',
-      '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_1, 'count' => 10), 
+      '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_1, 'count' => 10), 
       '#prefix' => '<div id="edit-output" class="orgtextarea1">',
       '#suffix' => '</div>',
       '#default_value' => $athlete_school['athlete_school_name'] ,
@@ -517,7 +503,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_club['athlete_club_name'],
@@ -589,7 +575,7 @@ class ContributeForm extends FormBase {
          '#suffix' => '</div>',
         '#default_value' => isset($athlete_club['athlete_school_type'])?$athlete_club['athlete_school_type']:'school',
               '#ajax' => [
-			    'callback' => '::OrgNamesAjaxCallback_2', // don't forget :: when calling a class method.
+			    'callback' => '::OrgNamesAjaxCallback_two', // don't forget :: when calling a class method.
 			    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
 			    'event' => 'change',
 			    'wrapper' => 'edit-output-1', // This element is updated with this AJAX callback.
@@ -603,7 +589,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => '',
@@ -690,7 +676,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -769,7 +755,7 @@ class ContributeForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
             '#autocomplete_route_name' => 'edit_form.autocomplete',
-            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -872,7 +858,7 @@ class ContributeForm extends FormBase {
     $form['name_web'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Pick a Name'),
-      '#default_value' => $results_web_type_delta0['athlete_web_name'],
+      '#default_value' => $results_web['athlete_web_name'],
       '#prefix' => '<div class="container-inline web_name webfield">',
       '#suffix' => '</div>',
       '#attributes' => array('id' => 'name_1'),
@@ -886,8 +872,8 @@ class ContributeForm extends FormBase {
       '#type' => 'label',
       '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
       );
-    if(!empty($results_web_type_delta0) && is_array($results_web_type_delta0)){
-      $pasth1 = !empty($results_web_type_delta0['athlete_web_name'])?'/profile/'.$results_web_type_delta0['athlete_web_name']:'/preview/profile';
+    if(!empty($results_web) && is_array($results_web)){
+      $pasth1 = !empty($results_web['athlete_web_name'])?'/profile/'.$results_web['athlete_web_name']:'/preview/profile';
     }else{
       $pasth1 = '/preview/profile';
     }
@@ -904,7 +890,7 @@ class ContributeForm extends FormBase {
         t('Website Visibility'),
         t('On'),
         t('Off')),
-      '#default_value' => $results_web_type_delta0['athlete_web_visibility'],
+      '#default_value' => $results_web['athlete_web_visibility'],
       '#suffix' => '</div></div>',
       );
 
@@ -925,7 +911,7 @@ class ContributeForm extends FormBase {
       $form['name_web2'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $results_web_type_delta1['athlete_web_name'],
+        '#default_value' => $results_addweb['athlete_addweb_name'],
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -939,8 +925,8 @@ class ContributeForm extends FormBase {
         '#type' => 'label',
         '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
-      if(!empty($results_web_type_delta1) && is_array($results_web_type_delta1)){
-        $pasth2 = isset($results_web_type_delta1['athlete_web_name'])?'/profile/'.$results_web_type_delta1['athlete_web_name']:'/preview/profile';
+      if(!empty($results_addweb) && is_array($results_addweb)){
+        $pasth2 = isset($results_addweb['athlete_addweb_name'])?'/profile/'.$results_addweb['athlete_addweb_name']:'/preview/profile';
       }else{
         $pasth2 = $url;
       }
@@ -957,7 +943,7 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $results_web_type_delta1['athlete_web_visibility'],
+        '#default_value' => $results_addweb['athlete_addweb_visibility'],
         '#suffix' => '</div></div>',
         );
     }
@@ -980,7 +966,7 @@ class ContributeForm extends FormBase {
       $form['name_web3'] = array(
         '#type' => 'textfield',
         '#placeholder' => t('Pick a Name'),
-        '#default_value' => $results_web_type_delta2['athlete_web_name'],
+        '#default_value' => $results_clubweb['athlete_clubweb_name'],
         '#prefix' => '<div class="container-inline web_name webfield">',
         '#suffix' => '</div>',
         '#attributes' => array('id' => 'name_2'),
@@ -994,8 +980,8 @@ class ContributeForm extends FormBase {
         '#type' => 'label',
         '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
-      if(!empty($results_web_type_delta2) && is_array($results_web_type_delta2)){
-       $pasth3 = isset($results_web_type_delta2['athlete_web_name'])?'/profile/'.$results_web_type_delta2['athlete_web_name']:'/preview/profile';
+      if(!empty($results_clubweb) && is_array($results_clubweb)){
+       $pasth3 = isset($results_clubweb['athlete_web_name'])?'/profile/'.$results_clubweb['athlete_web_name']:'/preview/profile';
       }else{
         $pasth3 = $url;
       }
@@ -1015,7 +1001,7 @@ class ContributeForm extends FormBase {
           t('Website Visibility'),
           t('on'),
           t('off')),
-        '#default_value' => $results_web_type_delta2['athlete_web_visibility'],
+        '#default_value' => $results_clubweb['athlete_clubweb_visibility'],
         '#suffix' => '</div>
         </div>
        ',
@@ -1409,26 +1395,11 @@ class ContributeForm extends FormBase {
 	/**
 	*WEB PAGE START HERE
 	*/
-	$query_web_type_delta0 = \Drupal::database()->select('athlete_web', 'athw');
-	$query_web_type_delta0->fields('athw');
-	$query_web_type_delta0->condition('athlete_uid', $current_user, '=');
-	$query_web_type_delta0->condition('athlete_web_type', 1, '=');
-	$results_web_type_delta0 = $query_web_type_delta0->execute()->fetchAll();
+    $results_web = $this->Get_Data_From_Tables('athlete_web','web',$current_user); //FOR web-1
+    $results_addweb = $this->Get_Data_From_Tables('athlete_addweb','addweb',$current_user); //FOR web-2
+    $results_clubweb = $this->Get_Data_From_Tables('athlete_clubweb','clubweb',$current_user); //FOR web-3	
 		
-		
-	$query_web_type_delta1 = \Drupal::database()->select('athlete_web', 'athw');
-	$query_web_type_delta1->fields('athw');
-	$query_web_type_delta1->condition('athlete_uid', $current_user, '=');
-	$query_web_type_delta1->condition('athlete_web_type', 2, '=');
-	$results_web_type_delta1 = $query_web_type_delta1->execute()->fetchAll();
-		
-	$query_web_type_delta2 = \Drupal::database()->select('athlete_web', 'athw');
-	$query_web_type_delta2->fields('athw');
-	$query_web_type_delta2->condition('athlete_uid', $current_user, '=');
-	$query_web_type_delta2->condition('athlete_web_type', 3, '=');
-	$results_web_type_delta2 = $query_web_type_delta2->execute()->fetchAll();
-
-	if (empty($results_web_type_delta0)) {
+	if (empty($results_web)) {
       $conn->insert('athlete_web')->fields(array(
         'athlete_uid' => $current_user,
         'athlete_web_name' => $form_state->getValue('name_web'),
@@ -1437,48 +1408,13 @@ class ContributeForm extends FormBase {
         'delta' => 0,
         ))->execute();
     } else {
-      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 1, '=')->condition('delta', 0, '=')->fields(array(
+      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->fields(array(
         'athlete_web_name' => $form_state->getValue('name_web'),
         'athlete_web_visibility' => $form_state->getValue('web_visible_1'),
         ))->execute();
     }
 
-    if (empty($results_web_type_delta1)) {
-      $conn->insert('athlete_web')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_web_name' => $form_state->getValue('name_web2'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
-        'athlete_web_type' =>  2,
-        'delta' => 1,
-        ))->execute();
-    } else {
-      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 2, '=')->condition('delta', 1, '=')->fields(array(
-        'athlete_web_name' => $form_state->getValue('name_web2'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_2'),
-        ))->execute();
-    }
-
-
-	if (empty($results_web_type_delta2)) {
-      $conn->insert('athlete_web')->fields(array(
-        'athlete_uid' => $current_user,
-        'athlete_web_name' => $form_state->getValue('name_web3'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
-        'athlete_web_type' =>  3,
-        'delta' => 2,
-        ))->execute();
-    } else {
-      $conn->update('athlete_web')->condition('athlete_uid', $current_user, '=')->condition('athlete_web_type', 3, '=')->condition('delta', 2, '=')->fields(array(
-        'athlete_web_name' => $form_state->getValue('name_web3'),
-        'athlete_web_visibility' => $form_state->getValue('web_visible_3'),
-        ))->execute();
-    }
-
-    //	for getUserNameValiditity
-    $query_addweb = \Drupal::database()->select('athlete_addweb', 'athaw');
-    $query_addweb->fields('athaw');
-    $query_addweb->condition('athlete_uid', $current_user, '=');
-    $results_addweb = $query_addweb->execute()->fetchAll();
+   
     
     if (empty($results_addweb)) {
       $conn->insert('athlete_addweb')->fields(array(
@@ -1493,10 +1429,7 @@ class ContributeForm extends FormBase {
         ))->execute();
     }
 
-    $query_clubweb = \Drupal::database()->select('athlete_clubweb', 'athawa');
-    $query_clubweb->fields('athawa');
-    $query_clubweb->condition('athlete_uid', $current_user, '=');
-    $results_clubweb = $query_clubweb->execute()->fetchAll();
+   
     if (empty($results_clubweb)) {
       $conn->insert('athlete_clubweb')->fields(array(
         'athlete_uid' => $current_user,
@@ -1516,10 +1449,13 @@ class ContributeForm extends FormBase {
 
   }
 
+
   /*
   *AJAX FUNCTIONS
   */
-
+  public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
+      return  $form['venue_loaction']; 
+    }
 public function OrgNamesAjaxCallback_one(array &$form, FormStateInterface $form_state){
       //ORG-1   
   return  $form['organizationName']; 
@@ -1535,79 +1471,6 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
         //ORG-3   
   return  $form['schoolname_2']; 
 }
-
- 	public function OrgNamesAjaxCallback_1(array &$form, FormStateInterface $form_state) {
-	 	$op = [''=>'Organizations Name'];	
-	 	//ORG-1		
-		if ($selectedValue = $form_state->getValue('organizationType')) {
-			$selectedText = $form['organizationType']['#options'][$selectedValue];
-			$orgNames = $this->Get_Org_Name($selectedText);
-			$arrName = explode(',',$orgNames);
-			$selArr = [];
-		    foreach ($arrName as $key => $value) {
-		      $selArr[$value] = $value;
-		    }
-		    $selArr = ['' => 'Organization Name'] + $selArr;
-					if(!empty($arrName)){
-			        	$form['organizationName'] = [
-			                '#placeholder' => t('Organization Name'),
-			                '#type' => 'select', 
-			                '#options' => $selArr,
-			                '#prefix' => '<div id="edit-output" class="org-1">',
-			                '#suffix' => '</div>',
-			                '#attributes' => array('disabled' => FALSE),
-			            ];
-		            }else{
-		           		$form['organizationName'] = [
-			                '#placeholder' => t('Organization Name'),
-			                '#type' => 'select', 
-			                '#options' => ['' => 'Organization Name'],
-			                '#prefix' => '<div id="edit-output" class="org-1">',
-			                '#suffix' => '</div>',
-			                '#attributes' => array('disabled' => FALSE),
-			            ];
-			                
-		           }
-		  
-        }
-     	return  $form['organizationName'];    		
-	}
-	//ORG-2
-	public function OrgNamesAjaxCallback_2(array &$form, FormStateInterface $form_state) {
-		if ($selectedValue = $form_state->getValue('education_1')) {
-				$selectedText = $form['education_1']['#options'][$selectedValue];
-				$orgNames = $this->Get_Org_Name($selectedText);
-				$arrName = explode(',',$orgNames);
-				$selArr = [];
-			    foreach ($arrName as $key => $value) {
-			      $selArr[$value] = $value;
-			    }
-			    $selArr = ['' => 'Organization Name'] + $selArr;
-						if(!empty($arrName)){
-				        	$form['schoolname_1'] = [
-				                '#placeholder' => t('Organization Name'),
-				                '#type' => 'select', 
-				                '#options' => $selArr,
-				                '#prefix' => '<div id="edit-output-1" class="org-2">',
-				                '#suffix' => '</div>',
-				                '#attributes' => array('disabled' => FALSE),
-				            ];
-			            }else{
-			           		$form['schoolname_1'] = [
-				                '#placeholder' => t('Organization Name'),
-				                '#type' => 'select', 
-				                '#options' => ['' => 'Organization Name'],
-				                '#prefix' => '<div id="edit-output-1" class="org-2">',
-				                '#suffix' => '</div>',
-				                '#attributes' => array('disabled' => FALSE),
-				            ];
-				                
-			           }
-			    
-	    }
-	    return  $form['schoolname_1'];
-	}
-
 
 	public function Get_Org_Name($type){
 	    if(isset($type)){
@@ -1653,10 +1516,7 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
       return $empty_val + $org_name;
 	}
 
-    public function VenueLocationAjaxCallback(array &$form, FormStateInterface $form_state){
-
-      return  $form['venue_loaction']; 
-    }
+  
 
 }
 

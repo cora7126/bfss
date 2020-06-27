@@ -9,15 +9,12 @@ use Drupal\Core\Render\Markup;
 class ViewPaymentsAndReceipts extends ControllerBase {
 
  public function view_payments_and_receipts()
- {
+   {
       $uid = \Drupal::currentUser()->id();
       $register_paytment = $this->register_time_payment_details();
       $param = \Drupal::request()->query->all();
-      // echo "<pre>";
-      // print_r($register_paytment);
-      // die;
       $booked_ids = \Drupal::entityQuery('bfsspayments')
-             	->condition('user_id', $uid,'IN')
+             	->condition('user_id',$uid,'IN')
              	->condition('payment_status', 'paid','=')
               ->execute();
         $data = [];      
@@ -39,16 +36,20 @@ class ViewPaymentsAndReceipts extends ControllerBase {
       	}else{
       		$description = '';
       	}
-
-       	$data[] = [
-          'invoice_id' => $booked_id,
-       		'invoice' => '#M-'.$booked_id,
-       		'paid_date' => $paid_date,
-       		'description' => $description,
-       		'amount' => $amount,
-       		'assessment_date' => $assessmentDate,
-          'form' => 'multistep',
-       	];
+        if (strpos($amount, 'freecredit') !== false) {
+          #code for this condition
+        }else{
+          $data[] = [
+            'invoice_id' => $booked_id,
+            'invoice' => '#M-'.$booked_id,
+            'paid_date' => $paid_date,
+            'description' => $description,
+            'amount' => $amount,
+            'assessment_date' => $assessmentDate,
+            'form' => 'multistep',
+          ];
+        }
+       	
       	$reg_data = $this->register_form_payment_receipts_listing();
         $PaymentData = array_merge($data,$reg_data);
       }
@@ -94,11 +95,25 @@ class ViewPaymentsAndReceipts extends ControllerBase {
           </div>';
 
          if(isset($param['invoice_id']) && $param['f_type'] == 'multistep'){
-          $out = $this->payment_receipts($param['invoice_id']);
-          $page_data = $out;
+          $data = $this->payment_receipts($param['invoice_id']);
+          return [
+            'results' => [
+                  '#cache' => ['max-age' => 0,],
+                  '#theme' => 'payments_receipts_print_page',
+                  '#data' => $data,
+                  '#empty' => 'no',
+                ],
+           ];
          }elseif(isset($param['invoice_id']) && $param['f_type'] == 'register'){
-           $out = $this->register_form_payment_receipts($param['invoice_id']);
-          $page_data = $out;
+           $data = $this->register_form_payment_receipts($param['invoice_id']);
+           return [
+            'results' => [
+                  '#cache' => ['max-age' => 0,],
+                  '#theme' => 'payments_receipts_print_page',
+                  '#data' => $data,
+                  '#empty' => 'no',
+                ],
+           ];
          }else{
             $page_data = $tb1;
          }
@@ -145,37 +160,59 @@ class ViewPaymentsAndReceipts extends ControllerBase {
         }else{
           $description = '';
         }
-        $html = '<div><p>Full Name : '.$entity->first_name->value.' '.$entity->last_name->value.'</p>
-                      <p>Invoice Number : #M-'.$booked_id.'</p>
-                      <p>Invoice Date : '.$paid_date.'</p>
-                      <p>Assessment Date : '.$assessmentDate.'</p>
-                      <p>Assessment Type : '.$description.'</p>
-                      <p>Total: $'.$amount.'</p>
-                      <p>AUTHORIZED CODE : '.(isset($data_tr[0])?$data_tr[0]:'').'</p>
-                      <p>Transaction ID : '.(isset($data_tr[1])?$data_tr[1]:'').'</p>
-                </div>';
-        return $html;
+
+        $data = [
+          'invoice_number' => '#M-'.$booked_id,
+          'full_name' => $entity->first_name->value.' '.$entity->last_name->value,
+          'invoice_date' => $paid_date,
+          'assessment_date' => $assessmentDate,
+          'assessment_type' => $description,
+          'total' => $amount,
+          'authorized_code' =>(isset($data_tr[0])?$data_tr[0]:''),
+          'transaction_id' => (isset($data_tr[1])?$data_tr[1]:''),
+          'paid_by' => $entity->name_on_card->value,
+        ];
+        return $data;
   }
 
-  public function register_form_payment_receipts($id){
-        $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
-        ->fields('rup')
-        ->condition('payment_status','paid', '=')
-         ->condition('id',$id, '=')
-        ->execute()->fetchAssoc();
-        
+    public function register_form_payment_receipts($id){
+      $uid = \Drupal::currentUser()->id();
+      $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
+      ->fields('rup')
+      ->condition('payment_status','paid', '=')
+      ->condition('uid',$uid, '=')
+      ->condition('id',$id, '=')
+      ->execute()->fetchAssoc();
 
-       $html = '<div><p>Full Name : '.$reg_payments['bi_first_name'].' '.$reg_payments['bi_last_name'].'</p>
-                    <p>Invoice Number : #R-'.$id.'</p>
-                    <p>Invoice Date : '.date('F d, Y',$reg_payments['created']).'</p>
-                    <p>Total: $'.$reg_payments['amount'].'</p>
-              </div>';
-      return $html;
+           if($reg_payments['program_term'] == 1){
+            $description = 'Starter Assessment';
+          }elseif($reg_payments['program_term'] == 2){
+            $description = 'Professional Assessment';
+          }elseif($reg_payments['program_term'] == 3){
+            $description = 'Elite Assessment';
+          }else{
+            $description = '';
+          }
 
-  }
+        $data = [
+          'invoice_number' => '#R-'.$id,
+          'full_name' => $reg_payments['bi_first_name'].' '.$reg_payments['bi_last_name'],
+          'invoice_date' => date('F d, Y',$reg_payments['created']),
+          'assessment_date' => date('F d, Y',$reg_payments['assessment_date']),
+          'assessment_type' => $description,
+          'total' => $reg_payments['amount'],
+          'authorized_code' => $reg_payments['authorized_code'],
+          'transaction_id' => $reg_payments['transaction_id'],
+          'paid_by' => $reg_payments['card_name'],
+        ];
+      return $data;  
+    }
+
     public function register_form_payment_receipts_listing(){
+      $uid = \Drupal::currentUser()->id();
       $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
         ->fields('rup')
+        ->condition('uid',$uid, '=')
         ->condition('payment_status','paid', '=')
         ->execute()->fetchAll();
         $data = [];
@@ -198,7 +235,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
               'paid_date' => date('F d, Y',$value->created),
               'description' => $description,
               'amount' => $value->amount,
-              'assessment_date' => '',
+              'assessment_date' => date('F d, Y',$value->assessment_date),
               'form' => 'register',
             ];
           }

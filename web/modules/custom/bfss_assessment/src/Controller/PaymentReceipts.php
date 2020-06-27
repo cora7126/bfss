@@ -47,13 +47,16 @@ class PaymentReceipts extends ControllerBase {
         }else{
           $description = '';
         }
-
-        $data[] = [
-          'id' => $booked_id,
-          'invoice' => '#M-'.$booked_id,
-          'paid_date' => $paid_date,
-          'form' => 'multistep',
-        ];
+        if (strpos($amount, 'freecredit') !== false) {
+          #code for this condition
+        }else{
+          $data[] = [
+            'id' => $booked_id,
+            'invoice' => '#M-'.$booked_id,
+            'paid_date' => $paid_date,
+            'form' => 'multistep',
+          ];
+        }
       }
       $data = array_merge($data,$reg_payments_data);
       // echo"<pre>";
@@ -72,8 +75,10 @@ class PaymentReceipts extends ControllerBase {
   }
   
   function GET_bfss_register_user_payments(){
+    $uid = \Drupal::currentUser()->id();
         $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
               ->fields('rup')
+              ->condition('uid',$uid, '=')
               ->condition('payment_status','paid', '=')
               ->execute()->fetchAll();
         $register_payment_data = [];

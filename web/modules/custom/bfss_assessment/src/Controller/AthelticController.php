@@ -91,6 +91,7 @@ class AthelticController extends ControllerBase {
   private function getUserNameValiditity($username = '') {
   
     if ($username) {
+     
       $query = $this->db->select('athlete_web', 'tb');
       $query->fields('tb');
       $query->condition('athlete_web_name', $username,'=');
@@ -121,6 +122,7 @@ class AthelticController extends ControllerBase {
       if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
         return $result['athlete_uid'];
       }
+
     }
     return false;
   }
@@ -130,6 +132,7 @@ class AthelticController extends ControllerBase {
      if(isset($_GET['uid'])){
      $uid =$_GET['uid'];
     }
+
     $data['first_name'] = $this->getUserInfo('user__field_first_name', 'field_first_name_value');
     $data['last_name'] = $this->getUserInfo('user__field_last_name', 'field_last_name_value');
     $data['date'] = $this->getUserInfo('user__field_date', 'field_date_value');
@@ -142,6 +145,8 @@ class AthelticController extends ControllerBase {
     $data['athlete_school'] = $this->getUserInfo('athlete_school', '','athlete_uid');
     $data['athlete_uni'] = $this->getUserInfo('athlete_uni', '','athlete_uid');
     $data['athlete_club'] = $this->getUserInfo('athlete_club','','athlete_uid');
+
+
     /*[id] => 3
     [athlete_uid] => 101
     [athlete_school_name] => Organization Name 1
@@ -244,41 +249,61 @@ class AthelticController extends ControllerBase {
     #$this->assessmentService->check_assessment_node($nid);
     #get only channel id
     // field_dob
+    $data['mydata']['person_year'] = $this->DOB_get_year($uid);
     return $data;
   }
 
 
   public function InstagramUrl(&$data, $preview =false) {
-    //print_r($data['athlete_social']['athlete_social_1']);die;
+    
     if (!$preview) {
       $data['mydata']['field_instagram'] = $instagram_url = isset($data['athlete_social']['athlete_social_1']) ? $data['athlete_social']['athlete_social_1'] : null;
     }
       // $instagram_url = $data['athlete_social']['athlete_social_1'];
       $regex = '/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im';
 
-      // Verify valid Instagram URL
+      if (strpos($instagram_url, 'https://www.instagram.com') !== false) {
+         // Verify valid Instagram URL
         if ( preg_match( $regex, $instagram_url, $matches ) ) {
               $data['mydata']['field_instagram'] = $matches[1]; 
-          }
+        }
+      }else{
+         $data['mydata']['field_instagram'] = $instagram_url; 
+      }
+      
     }
 
   public function YoutubeUrl(&$data, $preview =false) {
     if (!$preview) {
       $data['mydata']['field_youtube'] = isset($data['athlete_social']['athlete_social_2']) ? $data['athlete_social']['athlete_social_2'] : null;
     }
+
     if (isset($data['mydata']['field_youtube']) && !empty($data['mydata']['field_youtube'])) {
-      $url     = $data['mydata']['field_youtube'];
-      $xml_url = $this->getYouTubeXMLUrl($url);
-      $xmlfile = file_get_contents($xml_url);  
-      // Convert xml string into an object 
-      $new = simplexml_load_string($xmlfile); 
-      // Convert into json 
-      $con = json_encode($new); 
-      // Convert into associative array 
-      $newArr = json_decode($con, true);
-      $video_id = explode("?v=",  isset($newArr['entry'][0]['link']['@attributes']['href']) ? $newArr['entry'][0]['link']['@attributes']['href'] : null);
-      $video_id = isset($video_id[1]) ? $video_id[1] : null;
-      $data['mydata']['field_youtube'] = $video_id;
+      if (strpos($data['athlete_social']['athlete_social_2'], 'https://www.youtube.com/channel') !== false) {
+        $url     = $data['mydata']['field_youtube'];
+        $xml_url = $this->getYouTubeXMLUrl($url);
+        $xmlfile = file_get_contents($xml_url);  
+        // Convert xml string into an object 
+        $new = simplexml_load_string($xmlfile); 
+        // Convert into json 
+        $con = json_encode($new); 
+        // Convert into associative array 
+        $newArr = json_decode($con, true);
+        $video_id = explode("?v=",  isset($newArr['entry'][0]['link']['@attributes']['href']) ? $newArr['entry'][0]['link']['@attributes']['href'] : null);
+        $video_id = isset($video_id[1]) ? $video_id[1] : null;
+        $data['mydata']['field_youtube'] = $video_id;
+      }elseif(strpos($data['athlete_social']['athlete_social_2'], 'https://www.youtube.com/watch') !== false){
+        preg_match_all("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", 
+                            $data['athlete_social']['athlete_social_2'], $matches); 
+        // print_r($matches);
+        // die;
+         $data['mydata']['field_youtube'] = isset($matches[0][0])?$matches[0][0]:null;
+
+      }elseif( strpos($data['mydata']['field_youtube'], 'https://vimeo.com') !== false ){
+         $data['mydata']['field_vimeo'] = substr(parse_url($data['mydata']['field_youtube'], PHP_URL_PATH), 1);
+         $data['mydata']['field_youtube'] = '';
+      }
+
     }
   }
 
@@ -348,42 +373,45 @@ class AthelticController extends ControllerBase {
     // echo "<pre>";
     // print_r($data);
     // die;
-
     if ($username) {
-      //if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
+      if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
         // $data['org_info']['name']
+        
         $relSchl = isset($data['athlete_school']) ? $data['athlete_school'] : null;
         if ($relSchl) {
           foreach ($relSchl as $key => $value) {
             $data['org_info'][str_replace('athlete_school_','', $key)] = $value;
           }
         }
-
-       
-      //}
+      }
 
       if (isset($data['athlete_addweb']['athlete_addweb_name']) && $data['athlete_addweb']['athlete_addweb_name'] == $username) {
-        // $data['org_info']['name']
-        $relSchl = isset($data['athlete_uni']) ? $data['athlete_uni'] : null;
+         
+       $relSchl = isset($data['athlete_club']) ? $data['athlete_club'] : null;
+        if ($relSchl) {
+          foreach ($relSchl as $key => $value) {
+            $data['org_info'][str_replace(['athlete_club_','athlete_school_'],'', $key)] = $value;
+          }
+        } 
+      }
+
+      if (isset($data['athlete_clubweb']['athlete_clubweb_name']) && $data['athlete_clubweb']['athlete_clubweb_name'] == $username) {
+       $relSchl = isset($data['athlete_uni']) ? $data['athlete_uni'] : null;
+       
         if ($relSchl) {
           foreach ($relSchl as $key => $value) {
             $data['org_info'][str_replace('athlete_uni_','', $key)] = $value;
           }
         }
-      }
-
-      if (isset($data['athlete_clubweb']['athlete_clubweb_name']) && $data['athlete_clubweb']['athlete_clubweb_name'] == $username) {
-        // $data['org_info']['name']
-        $relSchl = isset($data['athlete_club']) ? $data['athlete_club'] : null;
-        if ($relSchl) {
-          foreach ($relSchl as $key => $value) {
-            $data['org_info'][str_replace(['athlete_club_','athlete_school_'],'', $key)] = $value;
-          }
-        }
+        
+        
       }
 
 
     }
+   //  echo "<pre>";
+   // print_r($data);
+   // die;
 
   }
 
@@ -490,6 +518,11 @@ class AthelticController extends ControllerBase {
       $data['org_info']['stat'] = $org['athlete_school_stat'];
       $data['org_info']['pos2'] = $org['athlete_school_pos2'];
       $data['org_info']['pos3'] = $org['athlete_school_pos3'];
+
+      // $user = User::load($uid);
+      // $dob = $user->field_date_of_birth->value;
+      // $diff = (date('Y') - date('Y',strtotime($dob)));
+       $data['mydata']['person_year'] = $this->DOB_get_year($uid);
    // }
     //}
 
@@ -503,12 +536,14 @@ class AthelticController extends ControllerBase {
 
     $data = [];
     $username = \Drupal::request()->get('username');
+    $postReq = \Drupal::request()->request->all();
 
     $profileuser = $this->getUserNameValiditity($username);
-  //  print '<pre>'; print_r($profileuser);die;
+  
     #if username doesn't exist
     if (!$profileuser) {
       return [
+        '#cache' => ['max-age' => 0,],
         '#type' => 'markup',
         '#markup' => t('<h3 style="padding: 10px;color:#db0000;font-weight: bold;">OOPS! The profile you are looking for is not available!</h3>'),
       ];
@@ -547,10 +582,14 @@ class AthelticController extends ControllerBase {
    *url bfss_assessment.preview_atheltic_profile
    */
   public function previewProfile() {
+
     if(isset($_GET['uid'])){
       $this->atheleteUserId = $_GET['uid'];
+      $this->DOB_get_year($_GET['uid']);
     }else{
-      $this->atheleteUserId = \Drupal::currentUser()->id();
+      $uid = \Drupal::currentUser()->id();
+      $this->atheleteUserId = $uid;
+      $this->DOB_get_year($uid);
     }
       
     
@@ -563,6 +602,7 @@ class AthelticController extends ControllerBase {
     #update data with new things
     $this->updateTempInfoForTmeplate($data, $username);
     #send the output
+
     return [
         '#cache' => ['max-age' => 0,],
         '#theme' => 'atheltic__profile',
@@ -584,5 +624,12 @@ class AthelticController extends ControllerBase {
       //}
       return isset($result)?$result:'null';
     }		
-	
+	public function DOB_get_year($uid){
+    if($uid){
+        $user = \Drupal\user\Entity\User::load($uid);
+        $dob = $user->field_date_of_birth->value;
+        $diff = (date('Y') - date('Y',strtotime($dob)));
+    }
+    return $diff;
+  }
 }

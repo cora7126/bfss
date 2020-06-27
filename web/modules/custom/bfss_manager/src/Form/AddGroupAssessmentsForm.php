@@ -210,12 +210,41 @@ class AddGroupAssessmentsForm extends FormBase {
         '#default_value' => '',
         '#prefix' => '',
         '#suffix' => '</div>
-        </div><div class="athlete_left schedule_plx">
-                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHEDULE</h3>
-                       <div class="items_div" style="">',
+        </div>',
       ];
 
+    $form['left_imageuploader_start'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="athlete_left assessment-image-uploader">
+                      <div class="athlete_left">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>EVENT IMAGE</h3>
+                       <div class="items_div">',
+    ];
+    $form['image'] = [
+      #'#title' => 'EVENT IMAGE',
+      '#type' => 'managed_file',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['gif png jpg jpeg'],
+        'file_validate_size' => [25600000],
+      ],
+      '#theme' => 'image_widget',
+      '#preview_image_style' => 'medium',
+      '#upload_location' => 'public://',
+      '#required' => FALSE,
+      '#default_value' => '',
+      '#prefix' => '<div class="imgupload">',
+      '#suffix' => '</div>',
+      '#attributes' => [
+        'class' => ['imageuplode1']
+      ],
+    ];
 
+    $form['left_imageuploader_end'] = [
+      '#type' => 'markup',
+      '#markup' => '</div></div></div><div class="athlete_left schedule_plx">
+                        <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHEDULE</h3>
+                       <div class="items_div" style="">',
+    ];
     $form['resident'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'resident-details'],
@@ -341,33 +370,7 @@ class AddGroupAssessmentsForm extends FormBase {
     // ];
     //categories end 
 
-    $form['left_imageuploader_start'] = [
-      '#type' => 'markup',
-      '#markup' => '<div class="athlete_left assessment-image-uploader">',
-    ];
-    $form['image'] = [
-      '#title' => 'EVENT IMAGE',
-      '#type' => 'managed_file',
-      '#upload_validators' => [
-        'file_validate_extensions' => ['gif png jpg jpeg'],
-        'file_validate_size' => [25600000],
-      ],
-      '#theme' => 'image_widget',
-      '#preview_image_style' => 'medium',
-      '#upload_location' => 'public://',
-      '#required' => FALSE,
-      '#default_value' => '',
-      '#prefix' => '<div class="imgupload">',
-      '#suffix' => '</div>',
-      '#attributes' => [
-        'class' => ['imageuplode1']
-      ],
-    ];
 
-    $form['left_imageuploader_end'] = [
-      '#type' => 'markup',
-      '#markup' => '</div>',
-    ];
   
 
     $cat_vid = 'categories';

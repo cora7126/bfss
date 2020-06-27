@@ -1,14 +1,7 @@
 <!--<pre>
 	{{ dump(data) }}
 </pre> -->
-<script>
-// jQuery(document).ready(function() {
-// jQuery(".share a.share_assessment").click(function(){
-//   		jQuery(".social_share_links").toggle('slow');
-//   		console.log("here toogle");
-// 	});
-// 	});
-</script>
+
 <div class="calender_event_pop_up">
 <div class="container">
 	<div class="tophead">
@@ -33,7 +26,7 @@
 		</div>
 	</div>
 
-	{% if 'bfss_administrator' in data.roles %}
+	{% if ('bfss_administrator' in data.roles and data.assess_type == 'private') or ('coach' in data.roles and data.assess_type == 'private') or ('bfss_manager' in data.roles and data.assess_type == 'private') %}
 	{% else %}
 	
 	<div class="ticketing">
@@ -69,10 +62,12 @@
 			        </ul>
              </div>
 		</div>
-		
-		<div class="ticket">
-		<span><i class="fal fa-ticket-alt"></i>   TICKETING</span>
-		</div>
+		{% if 'bfss_administrator' in data.roles or 'coach' in data.roles or 'bfss_manager' in data.roles  %}
+		{% else %}
+			<div class="ticket">
+			<a href="{{ data.url }}"><span><i class="fal fa-ticket-alt"></i>   TICKETING</span></a>
+			</div>
+		{% endif %}
 	</div>
 
 	{% endif %}
@@ -112,7 +107,7 @@
 			{% endif %}
 
 
-			{% if 'bfss_administrator' in data.roles %}
+			{% if 'bfss_administrator' in data.roles or 'coach' in data.roles or 'bfss_manager' in data.roles %}
 			<div class="ticketing">
 				<p class="title-hde">ASSESSMENT TYPE</p>
 				<p style="color:#000;">{{ data.assess_type|capitalize }}</p>

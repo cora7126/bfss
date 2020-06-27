@@ -42,7 +42,7 @@ bfss_coach.athletes_unfollow_form:
  requirements:
    #_permission: 'access content'
    _role: 'coach'
-
+#POPUP
 bfss_coach.edit_coach_profile:
  path: '/dashboard/edit-coach-profile'
  defaults:

@@ -1,6 +1,6 @@
 <!--    <pre>
 	{{ dump(data) }}
-</pre>   -->
+</pre>  --> 
 
  <!-- Modal START-->
   <div class="modal fade" id="social_share_us" role="dialog">
@@ -62,8 +62,8 @@
 		              	<div class="col-6 bio_data">
 		              		<p>{{ data.mydata.field_birth_gender }}</p>
 			                <p>{{ data.athlete_info.athlete_state }}</p>
-			                <p>{{ data.date }} yrs</p>
-			                <p>Sophomore year</p>
+			                <p>{{ data.mydata.person_year }} yrs</p>
+			                <p>{{ data.mydata.field_grade }}</p>
 			                <p>Graduates {{data.athlete_info.athlete_year}}</p>
 			                <p>{{ data.athlete_info.field_height }}"</p>
 			                <p>{{ data.athlete_info.field_weight }} lbs</p>
@@ -223,6 +223,8 @@
 	  				<div class="toggle-content">
 	  					{% if data.mydata.field_youtube is not empty %}
 	  						<iframe src="https://www.youtube.com/embed/{{data.mydata.field_youtube}}" width="100%" height="400"></iframe>
+	  					{% elseif data.mydata.field_vimeo is not empty %}
+	  						<iframe src="https://player.vimeo.com/video/{{data.mydata.field_vimeo}}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 	  					{% else %}
 	  						<!-- <p> No videos available! </p> -->
 	  						<iframe width="100%" height="315" src="https://www.youtube.com/embed/yAoLSRbwxL8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
