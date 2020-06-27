@@ -31,7 +31,7 @@ git checkout -b bfss-jody-0624        // daily branch creation
 git commit -am "First commit"         // -a automatically stage all tracked, modified files before the commit.  -m is for message "First Commit"
 git push -u origin bfss-jody-0624     // Uploads all local branch commits to GitHub
 ------------
-When you are done with a branch make sure to add any files that may have been added or removed(1), then commit(2) and  then push it to the repository(3). Then I"ll merge it to master. Once its merged then you need to switch back to master(4) and make sure to get all the new updates(5) and then cut a new branch from master(6) make a quick commit(7) and push it to the repository(8) then start your work on that branch.
+When you are done with a branch make sure to add any files that may have been added or removed(1), then commit(2) and  then push it to the repository(3). Then I"ll merge it to master.  Once its merged then you need to switch back to master(4) and make sure to get all the new updates(5) and then cut a new branch from master(6) make a quick commit(7) and push it to the repository(8) then start your work on that branch.
 (1) git add -A
 (2) git commit -am "Commit Message"
 (3) git push -u origin name_of_branch
@@ -57,4 +57,18 @@ UNTAR:
 find . -type f -print | xargs grep -i 'pdftk'
 
  wget --no-check-certificate --content-disposition https://github.com/cleggy28/bfss/archive/master.zip
+
+
+I installed a Drupal module called iframe, and am hoping Ryan could create an iframe in the bfss Create Ticketing area using the support url alias  -- seems to be good documentation on drupal iframes here:  https://www.drupal.org/project/iframe
+Or if he's busy I will try to figure it out - I spent like 15 mins, but
+Ryan could maybe do it fast.
+
+I installed a Drupal module called iframe, and I am having trouble understanding the documentation https://www.drupal.org/project/iframe
+If this is second-nature for you, it would save me much time if you could create an iframe here: http://bfss.mindimage.net/node/198  (iframe url would be CNAME http://support.5ppdev1.com/support/tickets/new)
+
+and am hoping you could create an iframe in the Create Ticketing area, probably http://bfss.mindimage.net/node/198 or
+I created a CNAME http://support.5ppdev1.com/support/tickets/new which points to freshdesk.com site.  It would be nice if we could place this alias
+using the support url alias  -- seems to be good documentation on drupal iframes here:  https://www.drupal.org/project/iframe
+Or if he's busy I will try to figure it out - I spent like 15 mins, but
+Ryan could maybe do it fast.
 
