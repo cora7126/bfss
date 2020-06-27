@@ -217,6 +217,7 @@ abstract class MultistepFormBase extends FormBase {
     }
   if($free_credit_check['firsttime_purchase_status'] == 'PurchasePending' && in_array('freecredit', $service)){
     //code 
+    $data['payment_status'] = 'paid'; #payment is already made from registeration
   }else{
     #payment code  start
    $pay_data['amount'] = (!empty($data['service']) ? $data['service'] : $data['service']);
@@ -255,14 +256,22 @@ abstract class MultistepFormBase extends FormBase {
     #payment code  end
   }
 
+     $data['expiration_month']= NULL;
+     $data['expiration_year']= NULL;
+     $data['cvv']= NULL;
+     $data['credit_card_number'] = NULL;
     # load entity and save payment
     $pay = \Drupal\bfss_assessment\Entity\BfssPayments::create($data);
     $pay->save();
 
     $uid = \Drupal::currentUser()->id();
     if($pay){
+      #UPDATE DATA
       \Drupal::database()->update('bfss_register_user_payments')->condition('uid', $uid, '=')->fields(array(
-        'firsttime_purchase_status' => 'Purchased', 
+        'assessment_title' => $data['assessment_title'],
+        'assessment_date' => $data['time'],
+        'booking_id' => $pay->id(), 
+        'firsttime_purchase_status' => 'Purchased',
         ))->execute();
     }
 

@@ -64,6 +64,8 @@ class EditCoachUserProfile extends FormBase {
 
 
     $current_user = \Drupal::currentUser()->id();
+    $userdt = User::load($current_user);
+    $field_state =  $userdt->get('field_state')->value;
     $roles_user = \Drupal::currentUser()->getRoles();
 
 
@@ -162,7 +164,7 @@ class EditCoachUserProfile extends FormBase {
       $form['az'] = array(
       '#type' => 'select',
       '#options'=>$states,
-      '#default_value' => $city,
+      '#default_value' => $field_state,
       '#ajax' => [
           'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
           'progress' => array('type' => 'none'),
@@ -437,7 +439,10 @@ class EditCoachUserProfile extends FormBase {
     $current_user = \Drupal::currentUser()->id();
     $roles_user = \Drupal::currentUser()->getRoles();
     $conn = Database::getConnection();
-
+    
+    $userdt = User::load($current_user);
+    $userdt->field_state->value = $form_state->getValue('az');
+    $userdt->save();
 
     /*
     *ORGANIZATION SAVE START

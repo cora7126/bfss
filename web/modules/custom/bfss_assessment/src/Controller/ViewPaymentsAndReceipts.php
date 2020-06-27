@@ -14,7 +14,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
       $register_paytment = $this->register_time_payment_details();
       $param = \Drupal::request()->query->all();
       $booked_ids = \Drupal::entityQuery('bfsspayments')
-             	->condition('user_id', $uid,'IN')
+             	->condition('user_id',$uid,'IN')
              	->condition('payment_status', 'paid','=')
               ->execute();
         $data = [];      
@@ -36,16 +36,20 @@ class ViewPaymentsAndReceipts extends ControllerBase {
       	}else{
       		$description = '';
       	}
-
-       	$data[] = [
-          'invoice_id' => $booked_id,
-       		'invoice' => '#M-'.$booked_id,
-       		'paid_date' => $paid_date,
-       		'description' => $description,
-       		'amount' => $amount,
-       		'assessment_date' => $assessmentDate,
-          'form' => 'multistep',
-       	];
+        if (strpos($amount, 'freecredit') !== false) {
+          #code for this condition
+        }else{
+          $data[] = [
+            'invoice_id' => $booked_id,
+            'invoice' => '#M-'.$booked_id,
+            'paid_date' => $paid_date,
+            'description' => $description,
+            'amount' => $amount,
+            'assessment_date' => $assessmentDate,
+            'form' => 'multistep',
+          ];
+        }
+       	
       	$reg_data = $this->register_form_payment_receipts_listing();
         $PaymentData = array_merge($data,$reg_data);
       }
@@ -166,15 +170,18 @@ class ViewPaymentsAndReceipts extends ControllerBase {
           'total' => $amount,
           'authorized_code' =>(isset($data_tr[0])?$data_tr[0]:''),
           'transaction_id' => (isset($data_tr[1])?$data_tr[1]:''),
+          'paid_by' => $entity->name_on_card->value,
         ];
         return $data;
   }
 
     public function register_form_payment_receipts($id){
+      $uid = \Drupal::currentUser()->id();
       $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
       ->fields('rup')
       ->condition('payment_status','paid', '=')
-       ->condition('id',$id, '=')
+      ->condition('uid',$uid, '=')
+      ->condition('id',$id, '=')
       ->execute()->fetchAssoc();
 
            if($reg_payments['program_term'] == 1){
@@ -186,22 +193,26 @@ class ViewPaymentsAndReceipts extends ControllerBase {
           }else{
             $description = '';
           }
+
         $data = [
           'invoice_number' => '#R-'.$id,
           'full_name' => $reg_payments['bi_first_name'].' '.$reg_payments['bi_last_name'],
           'invoice_date' => date('F d, Y',$reg_payments['created']),
-          'assessment_date' => '',
+          'assessment_date' => date('F d, Y',$reg_payments['assessment_date']),
           'assessment_type' => $description,
           'total' => $reg_payments['amount'],
-          'authorized_code' => '',
-          'transaction_id' => '',
+          'authorized_code' => $reg_payments['authorized_code'],
+          'transaction_id' => $reg_payments['transaction_id'],
+          'paid_by' => $reg_payments['card_name'],
         ];
       return $data;  
     }
 
     public function register_form_payment_receipts_listing(){
+      $uid = \Drupal::currentUser()->id();
       $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')
         ->fields('rup')
+        ->condition('uid',$uid, '=')
         ->condition('payment_status','paid', '=')
         ->execute()->fetchAll();
         $data = [];
@@ -224,7 +235,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
               'paid_date' => date('F d, Y',$value->created),
               'description' => $description,
               'amount' => $value->amount,
-              'assessment_date' => '',
+              'assessment_date' => date('F d, Y',$value->assessment_date),
               'form' => 'register',
             ];
           }

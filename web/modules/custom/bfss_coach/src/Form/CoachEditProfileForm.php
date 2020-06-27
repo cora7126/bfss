@@ -141,7 +141,7 @@ class CoachEditProfileForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Email'),
       '#required' => TRUE,
-      '#default_value' => $results4['mail'],
+      '#default_value' => $userdt->mail->value,
      # '#attributes' => ['disabled'=>true],
       '#prefix' => '',
       '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a>
@@ -173,12 +173,12 @@ class CoachEditProfileForm extends FormBase {
 
       $states = $this->getStates();
       $form_state_values = $form_state->getValues();
-      $def_state = isset($results18['field_az'])?$results18['field_city']:'AZ';
+      $def_state = isset($field_state)?$field_state:'AZ';
       $state_name = isset($form_state_values['az'])?$form_state_values['az']:$def_state;
       $form['az'] = [
         '#type' => 'select',
         '#options'=>$states,
-        '#default_value' => $results18['field_az'],
+        '#default_value' => $field_state,
         '#required' => TRUE,
         '#ajax' => [
           'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
@@ -843,7 +843,9 @@ $form['html_image_athlete_end'] = [
       }
 
   
-
+    $userdt = User::load($current_user);
+    $userdt->field_state->value = $form_state->getValue('az');
+    $userdt->save();
     
 
     //mydata
