@@ -48,8 +48,9 @@ class ManagersPaidPaymentController extends ControllerBase {
 		       	];
         }	
 
-
-
+        $reg_payments = $this->GET_bfss_register_user_payments();
+        print_r($reg_payments);
+        $data = array_merge($data,$reg_payments);
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
@@ -105,26 +106,38 @@ class ManagersPaidPaymentController extends ControllerBase {
 	   
   	}
 
-  	function GET_bfss_register_user_payments(){
-  			$reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
-                  ->fields('athw')
-                  ->condition('payment_status','paid', '=')
-                  ->execute()->fetchAll();
-            $register_payment_data = [];
-            foreach ($variable as $key => $value) {
-            	$user = User::load($value['uid']);
+	function GET_bfss_register_user_payments(){
+		$reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
+          ->fields('athw')
+          ->condition('payment_status','paid', '=')
+          ->execute()->fetchAll();
+        $register_payment_data = [];
+        if(!empty($reg_payments) && is_array($reg_payments)){
+	        foreach ($reg_payments as $key => $value) {
+        	 	if($value->program_term == 1){
+		          $description = 'Starter';
+		        }elseif($value->program_term == 2){
+		          $description = 'Professional';
+		        }elseif($value->program_term == 3){
+		          $description = 'Elite';
+		        }else{
+		          $description = '';
+		        }
+	        	$user = User::load($value->uid);
 				if($user){
 					$register_payment_data[] = [
-						'purchased_date' => $value['created'],
-						'customer_name' => $value['bi_first_name'].' '.$value['bi_last_name'],
-						'city' => $value['bi_city'],
-						'state' => $value['bi_state'],
-						//'program' => $value['bi_state'],
-						'amount' => $value['amount'],
+						'purchased_date' => date('F d, Y',$value->created),
+						'program' =>$description,
+						'amount' => $value->amount,
+						'assessment_date' => date('F d, Y',$value->assessment_date),
+						'customer_name' => $value->bi_first_name.' '.$value->bi_last_name,
+						'city' => $value->bi_city,
+						'state' => $value->bi_state,
+						'user_id' => $value->uid,
 					];
 				}
-            }
-                  
-			
+	        }
+    	}
+       return $register_payment_data;     	
   	}
 }
