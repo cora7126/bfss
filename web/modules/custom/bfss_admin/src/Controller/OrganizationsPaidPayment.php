@@ -16,7 +16,7 @@ class OrganizationsPaidPayment extends ControllerBase {
         $data = [];
         foreach ($booked_ids as $booked_id) {
         		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-        		$paid_date = date('F d, Y',$entity->created->value);
+        		$paid_date = $entity->created->value;
 		      	$amount = $entity->service->value;
 		      	$nid = $entity->assessment->value;
 		      	$assessmentDate = date('F d, Y',$entity->time->value);
@@ -41,18 +41,22 @@ class OrganizationsPaidPayment extends ControllerBase {
 				$queryorg->condition('athlete_uid', $uid, '=');
 				$resultorg = $queryorg->execute()->fetchAssoc();
 				$coach = $this->GetCoach($resultorg['athlete_school_name']);
-		       	$data[] = [
-		       		'purchased_date' => $paid_date,
-		       		'program' => $program,
-		       		'amount' => $amount,
-		       		'assessment_date' => $assessmentDate,
-		       		'customer_name' => $full_name,
-		       		'city' => $city,
-		       		'state' => $state,
-		       		'organizations_name' => $resultorg['athlete_school_name'],
-		       		'coach' => $coach,
-		       		'user_id' => $entity->user_id->value,
-		       	];
+				 if (strpos($amount, 'freecredit') !== false) {
+          		#code for this condition
+        		}else{
+			       	$data[] = [
+			       		'purchased_date' => $paid_date,
+			       		'program' => $program,
+			       		'amount' => $amount,
+			       		'assessment_date' => $assessmentDate,
+			       		'customer_name' => $full_name,
+			       		'city' => $city,
+			       		'state' => $state,
+			       		'organizations_name' => $resultorg['athlete_school_name'],
+			       		'coach' => $coach,
+			       		'user_id' => $entity->user_id->value,
+			       	];
+		       }
         }	
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
@@ -79,11 +83,16 @@ class OrganizationsPaidPayment extends ControllerBase {
               </tr>
             </thead>
             <tbody>';
-
+         $reg_payments = $this->GET_bfss_register_user_payments();
+		 $data = array_merge($data,$reg_payments);
+		 foreach ($data as $key => $part) {
+       		$sort[$key] = $part['purchased_date'];
+  		 }
+  		array_multisort($sort, SORT_DESC, $data);
         foreach ($data as $value) {
         	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
-	        <td>'.$value['purchased_date'].'</td>
+	        <td>'.date('F d, Y',$value['purchased_date']).'</td>
 	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['organizations_name'].'</a></td>
 	        <td>'.$value['customer_name'].'</td>
 	        <td>'.$value['city'].'</td>
@@ -126,4 +135,48 @@ class OrganizationsPaidPayment extends ControllerBase {
 			}
 			return $coach;
 		}
+
+
+  	function GET_bfss_register_user_payments(){
+		$reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'athw')
+          ->fields('athw')
+          ->condition('payment_status','paid', '=')
+          ->execute()->fetchAll();
+        $register_payment_data = [];
+        if(!empty($reg_payments) && is_array($reg_payments)){
+	        foreach ($reg_payments as $key => $value) {
+        	 	if($value->program_term == 1){
+		          $description = 'Starter';
+		        }elseif($value->program_term == 2){
+		          $description = 'Professional';
+		        }elseif($value->program_term == 3){
+		          $description = 'Elite';
+		        }else{
+		          $description = '';
+		        }
+		        $queryorg = \Drupal::database()->select('athlete_school', 'ats');
+				$queryorg->fields('ats');
+				$queryorg->condition('athlete_uid', $uid, '=');
+				$resultorg = $queryorg->execute()->fetchAssoc();
+				$coach = $this->GetCoach($resultorg['athlete_school_name']);
+
+	        	$user = User::load($value->uid);
+				if($user){
+					$register_payment_data[] = [
+						'purchased_date' => date('F d, Y',$value->created),
+						'program' =>$description,
+						'amount' => $value->amount,
+						'assessment_date' => date('F d, Y',$value->assessment_date),
+						'customer_name' => $value->bi_first_name.' '.$value->bi_last_name,
+						'city' => $value->bi_city,
+						'state' => $value->bi_state,
+						'organizations_name' => $resultorg['athlete_school_name'],
+		       			'coach' => $coach,
+						'user_id' => $value->uid,
+					];
+				}
+	        }
+    	}
+       return $register_payment_data;     	
+  	}
 }

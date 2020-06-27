@@ -81,7 +81,7 @@ class AutocompleteController extends ControllerBase {
 /**
    * Handler for autocomplete request.
    */
-  public function handleAutocomplete(Request $request,$state_name , $org_type, $count) {
+  public function handleAutocomplete(Request $request,$state_name , $field_name, $count) {
     //print_r($state_name);
     $results = [];
     $input = $request->query->get('q');
@@ -93,12 +93,12 @@ $input = Xss::filter($input);
 $query = $this->nodeStroage->getQuery()
       ->condition('type', 'bfss_organizations')
       ->condition('field_organization_name', $input, 'CONTAINS')
-      ->condition('field_type', $org_type, 'IN')
+      ->condition('field_type', $field_name, 'IN')
       ->condition('field_state', $state_name, 'IN')
       ->condition('status', 1)
       ->groupBy('nid')
       ->sort('created', 'DESC')
-      ->range(0, 100);
+      ->range(0, 50);
 $ids = $query->execute();
     $nodes = $ids ? $this->nodeStroage->loadMultiple($ids) : [];
 foreach ($nodes as $node) {

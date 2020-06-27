@@ -129,3 +129,12 @@ bfss_admin.get_cities:
   requirements:
     _access: 'TRUE'
     #_role: 'bfss_administrator'
+
+bfss_admin.get_org_name:
+  path: '/get_org_name'
+  defaults:
+    _controller: 'Drupal\bfss_admin\Controller\GetOrgName::get_org_name'
+    _title: 'Get Org Name'
+  requirements:
+    _access: 'TRUE'
+    #_role: 'bfss_administrator'

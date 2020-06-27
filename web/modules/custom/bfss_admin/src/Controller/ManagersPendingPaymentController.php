@@ -75,6 +75,10 @@ class ManagersPendingPaymentController extends ControllerBase {
             <tbody>';
          $reg_payments = $this->GET_bfss_register_user_payments();
 		 $data = array_merge($data,$reg_payments);
+		 foreach ($data as $key => $part) {
+       		$sort[$key] = $part['purchased_date'];
+  		 }
+  		array_multisort($sort, SORT_DESC, $data);
         foreach ($data as $value) {
         	$uid = $value['user_id'];
 	        $tb1 .= '<tr>

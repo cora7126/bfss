@@ -56,12 +56,10 @@ class ManagersPaidPaymentController extends ControllerBase {
      
         $data = array_merge($data,$reg_payments);
         foreach ($data as $key => $part) {
-       		$data[$key] = $part['purchased_date'];
+       		$sort[$key] = $part['purchased_date'];
   		}
-  		array_multisort($data, SORT_DESC, $originalArray);
-        echo "<pre>";
-        print_r($data);
-        die;
+  		array_multisort($sort, SORT_DESC, $data);
+
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">

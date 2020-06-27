@@ -118,7 +118,7 @@ class CoachEditProfileForm extends FormBase {
   }
 
     $form['#tree'] = TRUE;
-
+     $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add
     $form['left_section_'] = [
       '#type' => 'markup',
       '#markup' => '<div class="left_section">',
@@ -272,8 +272,13 @@ class CoachEditProfileForm extends FormBase {
 	          '#placeholder' => t('Type'),
 	          '#type' => 'select',
 	           '#required' => TRUE,
+             '#attributes' => [
+              'class' => ['org_type_get'],
+            ],
 	          '#options' => $types,
 	          '#default_value' => $value['field_type'],
+            '#prefix' => '<div id="org_type_name_wrapper_'.$i.'" class="org_type_name_wrapper">',
+            '#suffix' => '',
 	        ];
 
 			 $form['resident1'][$i]['organization_name'] = [
@@ -281,6 +286,11 @@ class CoachEditProfileForm extends FormBase {
 		        '#placeholder' => t('Organization Name'),
 		        #'#title' => $this->t('Organization Name'),
 		       # '#required' => TRUE,
+            '#attributes' => [
+              'class' => ['org_name_get'],
+            ],
+            '#prefix' => '',
+            '#suffix' => '</div>',
 		        '#default_value' => $value['field_organization_name'],
 		     ];
 
@@ -364,6 +374,11 @@ class CoachEditProfileForm extends FormBase {
          #  '#required' => TRUE,
           '#options' => $types,
           '#default_value' => '',
+          '#attributes' => [
+              'class' => ['org_type_get'],
+          ],
+          '#prefix' => '<div id="org_type_name_wrapper_'.$i.'" class="org_type_name_wrapper">',
+          '#suffix' => '',
         ];
 
 
@@ -373,6 +388,11 @@ class CoachEditProfileForm extends FormBase {
         #'#title' => $this->t('Organization Name'),
        # '#required' => TRUE,
         '#default_value' => '',
+        '#attributes' => [
+              'class' => ['org_name_get'],
+            ],
+        '#prefix' => '',
+        '#suffix' => '</div>',
       ];
       $sports_arr = [''=>'Select Sport'] +  $sports_arr;
       $form['resident'][$i]['sport'] = [
@@ -724,27 +744,7 @@ $form['html_image_athlete_end'] = [
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-      $orgname = $this->getORG();
-      foreach ($form_state->getValues('resident')['resident'] as $key => $value) {
-        
-        if( in_array($value['organization_name'], $orgname)){
-         drupal_set_message(t('"'.$value['organization_name'].'" organization name already exist.'), 'error');
-         return;
-        }
-      }
 
-  	//old data update
-  	foreach ($form_state->getValues('resident1')['resident1'] as $key => $value) {
-  		if($value['nid']){
-	  		$node = Node::load($value['nid']);
-	  		$node->field_type->value = $value['type'];
-	  		$node->field_organization_name->value = $value['organization_name'];
-	  		$node->field_sport->value = $value['sport'];
-	  		$node->field_coach_title->value = $value['coach_title'];
-	  		$node->field_year->value = $value['grade'];
-	  		$node->save();
-  		}
-  	}
     $current_user = \Drupal::currentUser()->id();
     $roles_user = \Drupal::currentUser()->getRoles();
     $conn = Database::getConnection();
@@ -755,44 +755,74 @@ $form['html_image_athlete_end'] = [
       $role = 'coach';
     }else{
       $role = '';
-    } 
+    }
+
+      // $orgname = $this->getORG(); 
+      
+      // if(!empty($form_state->getValues('resident')['resident']) && is_array($form_state->getValues('resident')['resident'])){
+      //   foreach ($form_state->getValues('resident')['resident'] as $key => $value) {
+      //     if( in_array($value['organization_name'], $orgname)){
+      //      drupal_set_message(t('"'.$value['organization_name'].'" organization name already exist.'), 'error');
+      //      return;
+      //     }
+      //   }
+      // }
+
+  	//old data update
+    if(!empty($form_state->getValues('resident1')['resident1'])){
+      	foreach ($form_state->getValues('resident1')['resident1'] as $key => $value) {
+      		if($value['nid']){
+    	  		$node = Node::load($value['nid']);
+    	  		$node->field_type->value = $value['type'];
+    	  		$node->field_organization_name->value = $value['organization_name'];
+    	  		$node->field_sport->value = $value['sport'];
+    	  		$node->field_coach_title->value = $value['coach_title'];
+    	  		$node->field_year->value = $value['grade'];
+    	  		$node->save();
+      		}
+      	}
+    }
+ 
     /*
     *ORGANIZATION SAVE START
     */
      $data=[];
-     foreach($form_state->getValues('resident')['resident'] as $values) {   
-      if(!empty($values['organization_name'])){
-        $data[] = [
-            'type' => $values['type'],
-            'organization_name' => $values['organization_name'],
-            'sport' => $values['sport'],
-            'coach_title' => $values['coach_title'],
-            'grade' => $values['grade'],
-            'city' => isset($form_state->getValues()['city'])?$form_state->getValues()['city']:'',
-            'az' =>isset($form_state->getValues()['az'])?$form_state->getValues()['az']:'',
-            // 'organization_name' => $values['organization_name'],
-            // 'type' => $values['type'],
-          ]; 
-      }    
-     }
-
-      foreach ($data as $key => $value) {
-        $node = Node::create([
-               'type' => 'bfss_organizations',
-        ]);
-        $node->field_type->value = $value['type'];
-        $node->field_organization_name->value = $value['organization_name'];
-        $node->field_sport->value = $value['sport'];
-        $node->field_coach_title->value = $value['coach_title'];
-        $node->field_year->value = $value['grade'];
-        $node->field_user_role->value = isset($role)?$role:'';
-        $node->field_organization_name->value = $value['organization_name'];
-        $node->field_type->value = $value['type'];
-        $node->title->value = $value['type'].'-'.$value['organization_name'];
-        $node->field_city->value = $value['city'];
-        $node->field_state->value = $value['az'];
-        $node->setPublished(FALSE);
-        $node->save();
+    if(!empty($form_state->getValues('resident')['resident']) && is_array($form_state->getValues('resident')['resident'])){
+         foreach($form_state->getValues('resident')['resident'] as $values) {   
+          if(!empty($values['organization_name'])){
+            $data[] = [
+                'type' => $values['type'],
+                'organization_name' => $values['organization_name'],
+                'sport' => $values['sport'],
+                'coach_title' => $values['coach_title'],
+                'grade' => $values['grade'],
+                'city' => isset($form_state->getValues()['city'])?$form_state->getValues()['city']:'',
+                'az' =>isset($form_state->getValues()['az'])?$form_state->getValues()['az']:'',
+                // 'organization_name' => $values['organization_name'],
+                // 'type' => $values['type'],
+              ]; 
+          }    
+         }
+      }
+      if(!empty($data) && is_array($data)){
+        foreach ($data as $key => $value) {
+          $node = Node::create([
+                 'type' => 'bfss_organizations',
+          ]);
+          $node->field_type->value = $value['type'];
+          $node->field_organization_name->value = $value['organization_name'];
+          $node->field_sport->value = $value['sport'];
+          $node->field_coach_title->value = $value['coach_title'];
+          $node->field_year->value = $value['grade'];
+          $node->field_user_role->value = isset($role)?$role:'';
+          $node->field_organization_name->value = $value['organization_name'];
+          $node->field_type->value = $value['type'];
+          $node->title->value = $value['type'].'-'.$value['organization_name'];
+          $node->field_city->value = $value['city'];
+          $node->field_state->value = $value['az'];
+          $node->setPublished(FALSE);
+          $node->save();
+        }
       }
     /*
     *ORGANIZATION SAVE END
@@ -843,9 +873,9 @@ $form['html_image_athlete_end'] = [
       }
 
   
-    $userdt = User::load($current_user);
-    $userdt->field_state->value = $form_state->getValue('az');
-    $userdt->save();
+    // $userdt = User::load($current_user);
+    // $userdt->field_state->value = $form_state->getValue('az');
+    // $userdt->save();
     
 
     //mydata
@@ -915,20 +945,20 @@ $form['html_image_athlete_end'] = [
     //drupal_set_message(t('An error occurred and processing did not complete.'), 'success');
   }
 
-  public function getORG(){
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'bfss_organizations') //content type
-      ->sort('created' , 'DESC');
-    $nids = $query->execute();
-    if(!empty($nids)){
-      $old_org_data = [];
-      foreach ($nids as $nid) {
-        $node = \Drupal\node\Entity\Node::load($nid);
-        $old_org_data[] = $node->field_organization_name->value;
-      }
-    }
-    return $old_org_data;
-  }
+  // public function getORG(){
+  //   $query = \Drupal::entityQuery('node')
+  //     ->condition('type', 'bfss_organizations') //content type
+  //     ->sort('created' , 'DESC');
+  //   $nids = $query->execute();
+  //   if(!empty($nids)){
+  //     $old_org_data = [];
+  //     foreach ($nids as $nid) {
+  //       $node = \Drupal\node\Entity\Node::load($nid);
+  //       $old_org_data[] = $node->field_organization_name->value;
+  //     }
+  //   }
+  //   return $old_org_data;
+  // }
 
   public function getStates() {
       return $st=array(

@@ -50,7 +50,7 @@ class GetStateAutocomplete extends ControllerBase {
 		        $results = \Drupal::database()->select('us_cities', 'athw')
 		                  ->fields('athw')
 		                  ->condition('state_code','AK', '=')
-		                  ->range(0, 10)
+		                  ->range(0, 100)
 		                  ->execute()->fetchAll();
 		         
 		        foreach ($results as $result) {

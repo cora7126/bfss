@@ -131,7 +131,7 @@ class EditCoachUserProfile extends FormBase {
   </div>';
 
   
-      
+      $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add 
     $form['#tree'] = TRUE;
     $form['fname'] = array(
     '#type' => 'textfield',
@@ -234,6 +234,11 @@ class EditCoachUserProfile extends FormBase {
            '#required' => TRUE,
           '#options' => $types,
           '#default_value' => '',
+          '#attributes' => [
+              'class' => ['org_type_get'],
+            ],
+          '#prefix' => '<div id="org_type_name_wrapper_'.$i.'" class="org_type_name_wrapper">',
+          '#suffix' => '',
         ];
 
 
@@ -243,6 +248,11 @@ class EditCoachUserProfile extends FormBase {
         #'#title' => $this->t('Organization Name'),
         '#required' => TRUE,
         '#default_value' => '',
+        '#attributes' => [
+              'class' => ['org_name_get'],
+        ],
+        '#prefix' => '',
+        '#suffix' => '</div>',
       ];
 
       $sports_arr = [''=>'Select Sport'] +  $sports_arr;
@@ -253,6 +263,8 @@ class EditCoachUserProfile extends FormBase {
         #'#title' => $this->t('Organization Name'),$sports_arr
         '#required' => TRUE,
         '#default_value' => '',
+        // '#prefix' => '<div class="sport_name_wrapper">',
+        // '#suffix' => '</div>',
       ];
 
       $form['resident'][$i]['coach_title'] = [
