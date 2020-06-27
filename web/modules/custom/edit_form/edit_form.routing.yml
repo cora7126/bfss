@@ -79,7 +79,7 @@ edit_form.changepassajax:
     _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
     
 edit_form.autocomplete:
-  path: '/get-data-autocomplete/{state_name}/{field_name}/{count}'
+  path: '/get-data-autocomplete/{state_name}/{org_type}/{count}'
   defaults:
     _controller: '\Drupal\edit_form\Controller\AutocompleteController::handleAutocomplete'
     _format: json
