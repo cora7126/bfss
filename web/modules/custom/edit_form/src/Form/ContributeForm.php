@@ -195,27 +195,28 @@ class ContributeForm extends FormBase {
       <div class="athlete_left">
         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Athletic Information</h3>
         <div class=items_div>  ',
-	  '#required' => TRUE,
-	  '#attributes' => array('readonly' => 'readonly'),
+	    '#required' => TRUE,
+	    '#attributes' => array('readonly' => 'readonly'),
       );
     $form['lname'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Lastname'),
       '#default_value' => $results2['field_last_name_value'],
-	  '#required' => TRUE,
-	  '#attributes' => array('readonly' => 'readonly'),
+	    '#required' => TRUE,
+	    '#attributes' => array('readonly' => 'readonly'),
       );
     $form['email'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Preferred Contact Email'),
       '#default_value' => $results4['mail'],
-	  '#required' => TRUE,
-      );
-	     $states = getStates();
-       $form_state_values = $form_state->getValues();
+	    '#required' => TRUE,
+    );
+
+    $states = getStates();
+    $form_state_values = $form_state->getValues();
        //print_r($form_state_values);
       
-      $stateName = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:(isset($state)?$state:'AZ');
+    $stateName = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:(isset($state)?$state:'AZ');
 
       $form['venue_state'] = array(
         '#type' => 'select',
@@ -227,18 +228,18 @@ class ContributeForm extends FormBase {
           'event' => 'change',
           'wrapper' => 'edit-output-22', // This element is updated with this AJAX callback.
         ]
-        );
+      );
 
         
-      //   $form['venue_loaction'] = [
-      //       '#type' => 'textfield',
-      //       '#placeholder' => t('city'),
-      //        '#default_value' => $results18['field_city'],
-      //       '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
-      //       '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10), 
-      //       '#prefix' => '<div id="edit-output-22" class="org-3">',
-      //       '#suffix' => '</div>',
-      //   ];
+      $form['venue_loaction'] = [
+          '#type' => 'textfield',
+          '#placeholder' => t('city'),
+           '#default_value' => $results18['field_city'],
+          '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+          '#autocomplete_route_parameters' => array('field_name' => $stateName, 'count' => 10), 
+          '#prefix' => '<div id="edit-output-22" class="org-3">',
+          '#suffix' => '</div>',
+      ];
 
    //  $form['az'] = array(
    //    //'#title' => t('az'),
@@ -501,8 +502,8 @@ class ContributeForm extends FormBase {
       $form['schoolname_1'] = [
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
-            // '#autocomplete_route_name' => 'edit_form.autocomplete',
-            // '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_club['athlete_club_name'],
@@ -587,8 +588,8 @@ class ContributeForm extends FormBase {
       $form['schoolname_1'] = [
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
-            // '#autocomplete_route_name' => 'edit_form.autocomplete',
-            // '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_2, 'count' => 10), 
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_2, 'count' => 10), 
             '#prefix' => '<div id="edit-output-1" class="org-2">',
             '#suffix' => '</div>',
             '#default_value' => '',
@@ -674,8 +675,8 @@ class ContributeForm extends FormBase {
       	$form['schoolname_2'] = [
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
-            // '#autocomplete_route_name' => 'edit_form.autocomplete',
-            // '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
@@ -753,8 +754,8 @@ class ContributeForm extends FormBase {
 		$form['schoolname_2'] = [
             '#type' => 'textfield',
             '#placeholder' => t('Orginization Name'),
-            // '#autocomplete_route_name' => 'edit_form.autocomplete',
-            // '#autocomplete_route_parameters' => array('state_name' => $VNS, 'field_name' => $type_organization_3, 'count' => 10), 
+            '#autocomplete_route_name' => 'edit_form.autocomplete',
+            '#autocomplete_route_parameters' => array('state_name' => $stateName, 'org_type' => $type_organization_3, 'count' => 10), 
             '#prefix' => '<div id="edit-output-2" class="org-3">',
             '#suffix' => '</div>',
             '#default_value' => $athlete_uni['athlete_uni_name'],
