@@ -16,8 +16,10 @@ $yourdomain = "ashnsugar";
 $url = "https://$yourdomain.freshdesk.com/api/v2/tickets"; // ?filter=new_and_my_open";
 
 
-// $allUsers = fetchAllUsers($url, $api_key, $password);
-
+$allUsers = fetchAllUsers($url, $api_key, $password);
+echo '<pre>';
+var_dump($allUsers);
+echo '</pre>';
 
 $allTickets = fetchAllTickets($url, $api_key, $password);
 
