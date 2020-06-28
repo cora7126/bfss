@@ -199,77 +199,6 @@ class PendingAssessmentsForm extends FormBase {
         $node = array();
       }
 
-      //XXXXXXXXXXXXXXXXXXXXXXX delete
-      // $defaultValues = array();
-      // $defaultValues['field_age']           = @$node->field_age->value; //dd
-      // $defaultValues['field_weight']           = @$node->field_weight->value; //dd
-      // $defaultValues['field_sex']           = @$node->field_sex->value; //dd
-      // $defaultValues['field_rsi_reactive_b']           = @$node->field_rsi_reactive_b->value;
-      // $defaultValues['field_elite_age_e']           = @$node->field_elite_age_e->value;
-      // $defaultValues['field_jump_height_in_elastic_e']           = @$node->field_jump_height_in_elastic_e->value;
-      // $defaultValues['field_jump_height_in_ballistic_e']           = @$node->field_jump_height_in_ballistic_e->value;
-      // $defaultValues['field_10m_time_sec_sprint_e']           = @$node->field_10m_time_sec_sprint_e->value;
-      // $defaultValues['field_peak_force_n_maximal_e']           = @$node->field_peak_force_n_maximal_e->value;
-      // $defaultValues['field_jump_height_in_ballistic_b']           = @$node->field_jump_height_in_ballistic_b->value;
-      // $defaultValues['field_10m_time_sec_sprint_b']           = @$node->field_10m_time_sec_sprint_b->value;
-      // $defaultValues['field_peak_force_n_maximal_b']           = @$node->field_peak_force_n_maximal_b->value;
-      // $defaultValues['rebound_jump_rank'] = @$node->rebound_jump_rank->value;;
-      // $defaultValues['rebound_jump_rsi'] = @$node->rebound_jump_rsi->value;;
-      // $defaultValues['rebound_jump_height'] = @$node->rebound_jump_height->value;;
-      // $defaultValues['rebound_jump_ground_contact_time'] = @$node->rebound_jump_ground_contact_time->value;;
-      // $defaultValues['rebound_jump_low_rsi'] = @$node->rebound_jump_low_rsi->value;;
-      // $defaultValues['rebound_jump_medium_rsi'] = @$node->rebound_jump_medium_rsi->value;;
-      // $defaultValues['rebound_jump_high_rsi'] = @$node->rebound_jump_high_rsi->value;;
-      // $defaultValues['cmj_rank'] = @$node->cmj_rank->value;;
-      // $defaultValues['cmj_height'] = @$node->cmj_height->value;;
-      // $defaultValues['cmj_height_e'] = @$node->cmj_height_e->value;;
-      // $defaultValues['cmj_force'] = @$node->cmj_force->value;;
-      // $defaultValues['cmj_force_e'] = @$node->cmj_force_e->value;;
-      // $defaultValues['squat_jump_rank'] = @$node->squat_jump_rank->value;;
-      // $defaultValues['squat_jump_jump_height'] = @$node->squat_jump_jump_height->value;;
-      // $defaultValues['squat_jump_jump_height_e'] = @$node->squat_jump_jump_height_e->value;;
-      // $defaultValues['squat_jump_force'] = @$node->squat_jump_force->value;;
-      // $defaultValues['squat_jump_force_e'] = @$node->squat_jump_force_e->value;;
-      // $defaultValues['eur_score'] = @$node->eur_score->value;;
-      // $defaultValues['sprint_rank'] = @$node->sprint_rank->value;;
-      // $defaultValues['sprint_10m'] = @$node->sprint_10m->value;;
-      // $defaultValues['sprint_10m_e'] = @$node->sprint_10m_e->value;;
-      // $defaultValues['sprint_40m'] = @$node->sprint_40m->value;;
-      // $defaultValues['sprint_40m_e'] = @$node->sprint_40m_e->value;;
-      // $defaultValues['sprint_10m_recommend'] = @$node->sprint_10m_recommend->value;;
-      // $defaultValues['sprint_40m_recommend'] = @$node->sprint_40m_recommend->value;;
-      // $defaultValues['mid_thigh_rank'] = @$node->mid_thigh_rank->value;;
-      // $defaultValues['mid_thigh_your_weight'] = @$node->mid_thigh_your_weight->value;;
-      // $defaultValues['mid_thigh_abs_strength_n'] = @$node->mid_thigh_abs_strength_n->value;;
-      // $defaultValues['mid_thigh_abs_strength_lbs'] = @$node->mid_thigh_abs_strength_lbs->value;;
-      // $defaultValues['mid_thigh_abs_strength_n_e'] = @$node->mid_thigh_abs_strength_n_e->value;;
-      // $defaultValues['mid_thigh_abs_strength_lbs_e'] = @$node->mid_thigh_abs_strength_lbs_e->value;;
-      // $defaultValues['mid_thigh_rel_strength'] = @$node->mid_thigh_rel_strength->value;;
-      // $defaultValues['mid_thigh_rel_strength_e'] = @$node->mid_thigh_rel_strength_e->value;;
-      // $defaultValues['force_rate_peak'] = @$node->force_rate_peak->value;;
-      // $defaultValues['force_rate_your_weight'] = @$node->force_rate_your_weight->value;;
-      // $defaultValues['force_rate_peak_weight'] = @$node->force_rate_peak_weight->value;;
-      // $defaultValues['force_rate_force_n'] = @$node->force_rate_force_n->value;;
-      // $defaultValues['force_rate_rfd'] = @$node->force_rate_rfd->value;;
-      // $defaultValues['force_rate_low_peak'] = @$node->force_rate_low_peak->value;;
-      // $defaultValues['force_rate_medium_peak'] = @$node->force_rate_medium_peak->value;;
-      // $defaultValues['force_rate_high_peak'] = @$node->force_rate_high_peak->value;;
-      // $defaultValues['dynamic_strength_impt_peak'] = @$node->dynamic_strength_impt_peak->value;;
-      // $defaultValues['dynamic_strength_cmj_peak'] = @$node->dynamic_strength_cmj_peak->value;;
-      // $defaultValues['dynamic_strength_dsi_score'] = @$node->dynamic_strength_dsi_score->value;;
-      // $defaultValues['summary_reactive'] = @$node->summary_reactive->value;;
-      // $defaultValues['summary_reactive_e'] = @$node->summary_reactive_e->value;;
-      // $defaultValues['summary_reactive_b'] = @$node->summary_reactive_b->value;;
-      // $defaultValues['summary_dynamic'] = @$node->summary_dynamic->value;;
-      // $defaultValues['summary_dynamic_e'] = @$node->summary_dynamic_e->value;;
-      // $defaultValues['summary_dynamic_b'] = @$node->summary_dynamic_b->value;;
-      // $defaultValues['summary_ecc'] = @$node->summary_ecc->value;;
-      // $defaultValues['summary_summary_ecc_e'] = @$node->summary_summary_ecc_e->value;;
-      // $defaultValues['summary_summary_ecc_b'] = @$node->summary_summary_ecc_b->value;;
-      // $defaultValues['summary_relative'] = @$node->summary_relative->value;;
-      // $defaultValues['summary_relative_e'] = @$node->summary_relative_e->value;;
-      // $defaultValues['summary_relative_b'] = @$node->summary_relative_b->value;;
-
       //---------------------------------- Common to all: starter, professional, elite:
       $formFields['field_wrap_1'] = array(
         '#type' => 'fieldset',
@@ -422,7 +351,7 @@ class PendingAssessmentsForm extends FormBase {
 
         $fieldName = 'field_rebound_jump_height'; $fieldNameAry[] = 'field_rebound_jump_height';
         $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'JUMP HEIGHT', 'In'); // 22
-        $fieldName = 'field_rebound_jump_ground_contact_time'; $fieldNameAry[] = 'field_rebound_jump_ground_contact_time';
+        $fieldName = 'field_rj_ground_contact_time'; $fieldNameAry[] = 'field_rj_ground_contact_time';
         $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'GROUND CONTACT TIME', 'ms'); // 23
 
         $fieldName = 'field_rebound_jump_low_rsi'; $fieldNameAry[] = 'field_rebound_jump_low_rsi';
@@ -524,14 +453,14 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_mid_thigh_your_weight'; $fieldNameAry[] = 'field_mid_thigh_your_weight';
         $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'YOUR WEIGHT', 'Lbs'); // 44
 
-        $fieldName = 'field_mid_thigh_abs_strength_n'; $fieldNameAry[] = 'field_mid_thigh_abs_strength_n';
+        $fieldName = 'field_mt_abs_strength_lbs'; $fieldNameAry[] = 'field_mt_abs_strength_lbs';
         $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'ABSOLUTE STRENGTH', 'N'); // 45
-        $fieldName = 'field_mid_thigh_abs_strength_lbs'; $fieldNameAry[] = 'field_mid_thigh_abs_strength_lbs';
+        $fieldName = 'field_mt_abs_strength_n'; $fieldNameAry[] = 'field_mt_abs_strength_n';
         $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ABSOLUTE STRENGTH', 'Lbs'); // 46
 
-        $fieldName = 'field_mid_thigh_abs_strength_n_e'; $fieldNameAry[] = 'field_mid_thigh_abs_strength_n_e';
+        $fieldName = 'field_mt_abs_strength_lbs_e'; $fieldNameAry[] = 'field_mt_abs_strength_lbs_e';
         $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(E) ABSOLUTE STRENGTH', 'N'); // 47
-        $fieldName = 'field_mid_thigh_abs_strength_lbs_e'; $fieldNameAry[] = 'field_mid_thigh_abs_strength_lbs_e';
+        $fieldName = 'field_mt_abs_strength_n_e'; $fieldNameAry[] = 'field_mt_abs_strength_n_e';
         $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) ABSOLUTE STRENGTH', 'Lbs'); // 48
 
         $fieldName = 'field_mid_thigh_rel_strength'; $fieldNameAry[] = 'field_mid_thigh_rel_strength';
@@ -608,10 +537,10 @@ class PendingAssessmentsForm extends FormBase {
 
         $fieldName = 'field_summary_ecc'; $fieldNameAry[] = 'field_summary_ecc';
         $formFields['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'ECC. RATIO', '#.##'); // 68
-        $fieldName = 'field_summary_summary_ecc_e'; $fieldNameAry[] = 'field_summary_summary_ecc_e';
+        $fieldName = 'field_summary_ecc_e'; $fieldNameAry[] = 'field_summary_ecc_e';
         $formFields['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) ECC. RATIO', '#.##'); // 69
 
-        $fieldName = 'field_summary_summary_ecc_b'; $fieldNameAry[] = 'field_summary_summary_ecc_b';
+        $fieldName = 'field_summary_ecc_b'; $fieldNameAry[] = 'field_summary_ecc_b';
         $formFields['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) ECC. RATIO', 'N/A'); // 70
         $fieldName = 'field_summary_relative'; $fieldNameAry[] = 'field_summary_relative';
         $formFields['field_wrap_91'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'RELATIVE STRENGTH', 'Lbs'); // 71
@@ -649,26 +578,31 @@ class PendingAssessmentsForm extends FormBase {
 
         $fieldName = 'field_rot_ball_throw_e'; $fieldNameAry[] = 'field_rot_ball_throw_e';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Rotational med Ball Throw', ''); // 1
-        $fieldName = 'field_chin_ups_reps'; $fieldNameAry[] = 'field_chin_ups_reps';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Chin Up Reps', 'per/sec'); // 1
+        $fieldName = 'field_rot_rank'; $fieldNameAry[] = 'field_rot_rank';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational med Ball Throw Rank', ''); // 1
 
         $fieldName = 'field_chin_ups_reps'; $fieldNameAry[] = 'field_chin_ups_reps';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Chin Up Reps', 'per/sec'); // 1
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Chin Up Reps', 'per/sec'); // 1
+        $fieldName = 'field_chin_ups_reps_e'; $fieldNameAry[] = 'field_chin_ups_reps_e';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Chin Up Reps', 'per/sec'); // 1
+
         $fieldName = 'field_push_ups_reps'; $fieldNameAry[] = 'field_push_ups_reps';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Push Up Reps', 'per/sec'); // 1
-
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Push Up Reps', 'per/sec'); // 1
         $fieldName = 'field_push_ups_reps_e'; $fieldNameAry[] = 'field_push_ups_reps_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Push Up Reps', 'per/sec'); // 1
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Push Up Reps', 'per/sec'); // 1
+
         $fieldName = 'field_single_leg_squat'; $fieldNameAry[] = 'field_single_leg_squat';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Single Leg squat', 'per/sec'); // 1
-
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg squat', 'per/sec'); // 1
         $fieldName = 'field_single_leg_squat_e'; $fieldNameAry[] = 'field_single_leg_squat_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Single Leg squat', ''); // 1
-        $fieldName = 'field_5_10_5_agile'; $fieldNameAry[] = 'field_5_10_5_agile';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '5-10-5 Agility', 'secs'); // 1
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Single Leg squat', ''); // 1
 
+        $fieldName = 'field_5_10_5_agile'; $fieldNameAry[] = 'field_5_10_5_agile';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility', 'secs'); // 1
         $fieldName = 'field_5_10_5_agile_e'; $fieldNameAry[] = 'field_5_10_5_agile_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite 5-10-5 Agility', 'secs'); // 1
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite 5-10-5 Agility', 'secs'); // 1
+
+        $fieldName = 'field_5_10_5_rank'; $fieldNameAry[] = 'field_5_10_5_rank';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Rank', ''); // 1
         $fieldName = 'field_1_5_mile_bike'; $fieldNameAry[] = 'field_1_5_mile_bike';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '1.5 mile Bike Test', ''); // 1
 
