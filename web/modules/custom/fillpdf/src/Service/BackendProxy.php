@@ -102,8 +102,6 @@ class BackendProxy implements BackendProxyInterface {
       }
     }
 
-    // $entityNodeType = $entities['node'][$_GET['entity_id']];
-
     /** custom fieldmappings redo for bfss, as tokenResolver->replace has issues. by Jody Brabec
      * Notes on this issue:
      *  $entityNodeType->getEntityTypeId() is "node"
@@ -113,15 +111,7 @@ class BackendProxy implements BackendProxyInterface {
      * $entities is of type:  \Drupal\Core\Entity\EntityInterface[][]
      */
 
-    //assessment get by current assessors
-    $uid = \Drupal::currentUser();
-    $user = \Drupal\user\Entity\User::load($uid->id());
-    // $roles = $user->getRoles();
-
-    $fieldMappings = $this->My_assessments($uid, $_GET['entity_id'], $fieldMappings);
-
-    // ksm('$myAssessments', $myAssessments);
-
+    $fieldMappings = $this->My_assessments($_GET['entity_id'], $fieldMappings);
 
     // Now load the backend plugin.
     /** @var \Drupal\fillpdf\FillPdfBackendPluginInterface|\Drupal\fillpdf\Plugin\PdfBackendInterface $backend */
@@ -144,115 +134,31 @@ class BackendProxy implements BackendProxyInterface {
   }
 
 
-
-
-  protected function My_assessments($uid, $booked_id_param, $fieldMappings){
-    $query = \Drupal::entityQuery('node');
-    $query->condition('type', 'assessment');
-    $query->range(0, 50);
-    $nids = $query->execute();
-
-    /**
-     * TODO: Fix this mess!  So many old bastardized vars.
-     * Note: this only loops once, so yeah, fix Jody.
-     */
-    // ksm('$nid', $nids);
-    foreach ($nids as $nid) {
-      $booked_ids = \Drupal::entityQuery('bfsspayments')
-        ->condition('assessment', $nid,'IN')
-        ->condition('user_id',$uid->id(),'IN')
-        ->sort('time','DESC')
-        ->execute();
-      // ksm('$booked_ids', $booked_ids);
-
-      foreach ($booked_ids  as $key => $booked_id) {
-
-        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id_param);
-        // ksm('$entity', $entity);
-        $address_1 = $entity->address_1->value;
-
-        $timestamp = $entity->time->value;
-        $booking_date = date("F d,Y",$timestamp);
-        $booking_time = date("h:i a",$timestamp);
-
-        $query1 = \Drupal::entityQuery('node');
-        $query1->condition('type', 'athlete_assessment_info');
-        $query1->condition('field_booked_id',$booked_id_param, 'IN');
-        $nids1 = $query1->execute();
-
-          //sport
-        $query5 = \Drupal::database()->select('athlete_school', 'ats');
-        $query5->fields('ats');
-        $query5->condition('athlete_uid', $uid->id(),'=');
-        $results5 = $query5->execute()->fetchAssoc();
-        $sport = $results5['athlete_school_sport'];
-
-        $realFormType = $this->getFormTypeFromPrice($entity->service->value);
-
-        if(!empty($entity->assessment->value)){
-          $Assess_type = 'individual';
-        }else{
-          $Assess_type = 'private';
+  protected function My_assessments($booked_id_param, $fieldMappings){
+    $query1 = \Drupal::entityQuery('node');
+    $query1->condition('type', 'athlete_assessment_info');
+    $query1->condition('field_booked_id',$booked_id_param, 'IN');
+    $nids1 = $query1->execute();
+    if(!empty($nids1)) {
+      foreach ($nids1 as $key => $value) {
+        $node1 = Node::load($value);
+        foreach ($node1->getFields() as $fieldName => $value) {
+          $assAry[$fieldName] = $value->getValue($fieldName)[0]['value'];
+          //No workie: $assAry[$fieldName] = $value->get($fieldName)->getValue();
         }
-
-        $st ='';
-        $assess_nid = '';
-        if(!empty($nids1)) {
-          $st = 1;
-          foreach ($nids1 as $key => $value) {
-            $node1 = Node::load($value);
-            $assess_nid = $value;
-
-            $field_status = $node1->field_status->value;
-            foreach ($node1->getFields() as $fieldName => $value) {
-              $assAry[$fieldName] = $value->getValue($fieldName)[0]['value'];
-              //No workie: $assAry[$fieldName] = $value->get($fieldName)->getValue();
-            }
-            $mappingsWithValues = $fieldMappings;
-            foreach ($fieldMappings as $pdf_key => $emptyValue) {
-              if (isset($assAry[$pdf_key])) {
-                $mappingsWithValues[$pdf_key] =  new TextFieldMapping($assAry[$pdf_key]);
-              }
-            }
-
-            if ($entity->first_name->value) {
-              $mappingsWithValues['first_name'] =  new TextFieldMapping($entity->first_name->value);
-              $mappingsWithValues['last_name'] =  new TextFieldMapping($entity->last_name->value);
-            }
-            $mappingsWithValues['sport'] =  new TextFieldMapping($sport);
-
-
-            $oldResult = array(
-              'id' => $entity->id->value,
-              'user_name' =>$entity->user_name->value,
-              'nid' => $nid,
-              'formtype' => $realFormType,
-              // 'Assess_type' => $Assess_type,
-              'booking_date'  => $booking_date,
-              'booking_time'  => $booking_time,
-              'booked_id' => $booked_id_param,
-              'st' =>  $st,
-              'assess_nid' => $assess_nid,
-              'address_1' => $address_1,
-              'sport' => $sport,
-              'status' => $field_status,
-              'time' => $booking_time,
-            );
-
-            // ksm('$mappingsWithValues, $assAry, $oldResult', $mappingsWithValues, $assAry, $oldResult);
-
-            return $mappingsWithValues;
+        $mappingsWithValues = $fieldMappings;
+        foreach ($fieldMappings as $pdf_key => $emptyValue) {
+          if (isset($assAry[$pdf_key])) {
+            $mappingsWithValues[$pdf_key] =  new TextFieldMapping($assAry[$pdf_key]);
           }
-        }else{
-          // ksm('error in BackendProxy');
         }
+        return $mappingsWithValues;
       }
     }
-    return $fieldMappings;
   }
 
-    /** TODO: make utility class
-   * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
+  /** TODO: make utility class
+   * Use this to extract "professional" because $param['formtype'] only contains 'starter' OR 'elite'
    * @param string $assessmentPrice
    */
   public function getFormTypeFromPrice($assessmentPrice) {
