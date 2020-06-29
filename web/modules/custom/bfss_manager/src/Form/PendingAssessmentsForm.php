@@ -28,6 +28,17 @@ class PendingAssessmentsForm extends FormBase {
     }
   }
 
+  /** TODO: make utility class;
+   * Return a url to download the assessment pdf.
+   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
+   */
+  protected function getFillPdfUrl($pdf_template_fid, $nid) {
+    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
+    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
+    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
+
+  }
+
   /** TODO: make utility class
    * Find the pdf template "fid" -- see /admin/structure/fillpdf
    * @param string $form_type
@@ -43,17 +54,6 @@ class PendingAssessmentsForm extends FormBase {
     default:
         return -1111;
     }
-  }
-
-  /** TODO: make utility class;
-   * Return a url to download the assessment pdf.
-   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
-   */
-  protected function getFillPdfUrl($pdf_template_fid, $nid) {
-    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
-    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
-    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
-
   }
 
 
@@ -124,11 +124,12 @@ class PendingAssessmentsForm extends FormBase {
     $Assess_type = $param['Assess_type'];
     $field_booked_id = $param['booked_id'];
     $st = $param['st'];
+    $field_status = $param['field_status'];
     $assess_nid = $param['assess_nid'];
     $first_name = $param['first_name'];
     $last_name = $param['last_name'];
 
-    // ksm(['rrrrrr', $realFormType, $sport, $param, ]);
+    ksm('rrrrrr', $param);
 
     if($nid && $formtype && $Assess_type)
     {
@@ -191,9 +192,16 @@ class PendingAssessmentsForm extends FormBase {
         '#markup' => '<div class="result_message form_fields_wrap"></div>',
       ];
 
-      if( !empty($assess_nid) ) {
+      if($assess_nid) { // from PendingAssessments.php, assess_nid is 0 by default.
         //default values here
+        // may need this:
+        // $query1 = \Drupal::entityQuery('node');
+        // $query1->condition('type', 'athlete_assessment_info');
+        // $query1->condition('field_booked_id',$field_booked_id, 'IN');
+        // $nids1 = $query1->execute();
+
         $node = Node::load($assess_nid);
+        ksm('nnnnnnnnbbbbbbbbbbbbbbb',$assess_nid);
       }
       else {
         $node = array();
@@ -225,8 +233,9 @@ class PendingAssessmentsForm extends FormBase {
 
 
 
+      // $defaultValues variable NOT USED
+      /****xxxxx
       // $defaultValues['starter_weight_rea_str']          = @$node->starter_weight_rea_str->value;       //dd  LEGACY:  starter_weight_rea_str (title???)
-
       //################ TODO: Remove these and replace $defaultValues[$key]  with @$node->{$fieldName}->value
       $defaultValues['field_peak_propulsive_elastic']   = @$node->field_peak_propulsive_elastic->value;   //dd  LEGACY:  starter_peak_pro_ela_str
       $defaultValues['field_peak_power_w_elastic']      = @$node->field_peak_power_w_elastic->value;      //dd  LEGACY:  starter_peak_power_ela_str
@@ -247,7 +256,7 @@ class PendingAssessmentsForm extends FormBase {
       // $defaultValues['field_form_type']                 = @$node->field_form_type->value;                 //dd  LEGACY:  form_type
       $defaultValues['field_athelete_nid']              = @$node->field_athelete_nid->value;              //dd  LEGACY:  athelete_nid
       $defaultValues['field_booked_id']                 = @$node->field_booked_id->value;                 //dd  LEGACY:  booked_id
-
+      ****/
 
       //get rid of fieldNameAry
 
@@ -291,6 +300,7 @@ class PendingAssessmentsForm extends FormBase {
       $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'N');  // 9
       $fieldName = 'field_rsi_reactive'; $fieldNameAry[] = 'field_rsi_reactive';  //dd  LEGACY:  starter_rsi_rea_str
       $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH', 'In'); // 10
+      // ksm('dddddddddddddddddddddddddddddd', $fieldNameAry, $node);
 
       //------------------------------------ starter form
       if($realFormType == 'starter')
@@ -966,6 +976,7 @@ class PendingAssessmentsForm extends FormBase {
       // }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elite'){
       //   $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
       // }
+
         }
         else
         {
@@ -992,6 +1003,8 @@ class PendingAssessmentsForm extends FormBase {
               }
             }
           }
+
+          ksm('$form_data', $form_data);
 
           // $node->set('field_age', $form_data['field_age']); //dd
           // $node->set('field_sport_assessment', $form_data['field_sport_assessment']); //dd
