@@ -128,8 +128,6 @@ class PendingAssessmentsForm extends FormBase {
     $first_name = $param['first_name'];
     $last_name = $param['last_name'];
 
-    // ksm(['rrrrrr', $realFormType, $sport, $param, ]);
-
     if($nid && $formtype && $Assess_type)
     {
       //jody - use this to extract "professional" (because $formtype only contains 'starter' OR 'elite')
@@ -141,6 +139,8 @@ class PendingAssessmentsForm extends FormBase {
       $realFormType = $this->getFormTypeFromPrice($entity->service->value);
 
       $realFormType = $realFormType ? $realFormType : $param['formtype'];
+
+      // ksm(['rrrrrr', $realFormType, $sport, $param, $Assess_type]);
 
       if($realFormType == 'starter' && $Assess_type == 'individual'){
         $form_title = 'STARTER ASSESSMENT';
@@ -160,8 +160,6 @@ class PendingAssessmentsForm extends FormBase {
       elseif($realFormType == 'elite' && $Assess_type == 'private'){
           $form_title = 'ELITE ASSESSMENT';
       }
-
-      //ksm([' realFormType form_title param', $realFormType, $form_title, $param]);
 
       $formFields['#attached']['library'][] = 'bfss_assessors/bfss_assessors';
       $formFields['#prefix'] = '
@@ -206,27 +204,10 @@ class PendingAssessmentsForm extends FormBase {
         '#suffix' => '</div>',
       );
 
-      //-------------------------- debug: auto-fill empty form values.
-      // $start_value = 200;
-      // $debug_fill_inc = 1;
-      // foreach ($defaultValues as $key => $val) {
-      //   if ($key == 'field_sport_assessment') {
-      //     $defaultValues[$key] = 'DEBUG SPORT'; // ALWAYS FORCE-CHANGE THIS VALUE SO WE KNOW WE DUBUGGING.
-      //   }
-      //   else if ($key == 'field_sex') {
-      //     $defaultValues[$key] = $defaultValues[$key] ? $defaultValues[$key] : 'male';
-      //   }
-      //   else {
-      //     $defaultValues[$key] = $defaultValues[$key] ? $defaultValues[$key] : $start_value;
-      //     // $defaultValues[$key] = $start_value;
-      //   }
-      //   $start_value += $debug_fill_inc;
-      // }
 
-
-
+      // $defaultValues var NOT USED
+      /****xxxxxxx
       // $defaultValues['starter_weight_rea_str']          = @$node->starter_weight_rea_str->value;       //dd  LEGACY:  starter_weight_rea_str (title???)
-
       //################ TODO: Remove these and replace $defaultValues[$key]  with @$node->{$fieldName}->value
       $defaultValues['field_peak_propulsive_elastic']   = @$node->field_peak_propulsive_elastic->value;   //dd  LEGACY:  starter_peak_pro_ela_str
       $defaultValues['field_peak_power_w_elastic']      = @$node->field_peak_power_w_elastic->value;      //dd  LEGACY:  starter_peak_power_ela_str
@@ -247,7 +228,7 @@ class PendingAssessmentsForm extends FormBase {
       // $defaultValues['field_form_type']                 = @$node->field_form_type->value;                 //dd  LEGACY:  form_type
       $defaultValues['field_athelete_nid']              = @$node->field_athelete_nid->value;              //dd  LEGACY:  athelete_nid
       $defaultValues['field_booked_id']                 = @$node->field_booked_id->value;                 //dd  LEGACY:  booked_id
-
+      ****/
 
       //get rid of fieldNameAry
 

@@ -120,7 +120,7 @@ class ManagerAssessorAccount extends FormBase {
     $form['address_2'] = [
         '#type' => 'textfield',
         '#placeholder' => t('Address 2'),
-        '#required' => TRUE,
+        #'#required' => TRUE,
         '#default_value' => '',
         '#prefix' => '',
         '#suffix' => '',

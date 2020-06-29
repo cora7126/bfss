@@ -4,7 +4,7 @@ use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Render\Markup;
-
+use Drupal\Core\Database\Database;
 function bfss_custom_preprocess_html(&$variables) {
     $variables['attributes']['class'][] = 'dashboard';
 
@@ -46,8 +46,13 @@ function bfss_custom_preprocess_page(&$variables) {
   $user = \Drupal\user\Entity\User::load($uid);
   $current_path = \Drupal::service('path.current')->getPath();
   $result = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
-
+  $results_web = Get_Data_From_Tables('athlete_web','web',$uid); //FOR web-1
  
+  if($results_web['athlete_web_visibility'] == 1){
+    $variables['athlete_web_name'] = $results_web['athlete_web_name'];  
+  }
+  
+
   $roles = $user->getRoles();
 
 
@@ -79,7 +84,7 @@ function bfss_custom_preprocess_page(&$variables) {
     $variables['user_role'] = 0;
   }
   
- $variables['current_path'] = $current_path;
+  $variables['current_path'] = $current_path;
 	$current_user = \Drupal::currentUser()->id();
 	$query18 = \Drupal::database()->select('athlete_web', 'md');
 	$query18->fields('md');
@@ -110,6 +115,16 @@ function bfss_custom_preprocess_user(&$variables) {
   $variables['username'] = $account->getDisplayName();
 }
 
+ function Get_Data_From_Tables($TableName,$atr,$uid){
+      if($TableName){
+        $conn = Database::getConnection();
+      $query = $conn->select($TableName, $atr);
+        $query->fields($atr);
+        $query->condition('athlete_uid', $uid, '=');
+        $results = $query->execute()->fetchAssoc();
+      }
+      return $results;
+}
 
 // function bfss_custom_preprocess(&$variables, $hook)
 // {

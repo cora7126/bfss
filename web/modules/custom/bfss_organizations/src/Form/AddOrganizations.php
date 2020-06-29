@@ -134,7 +134,7 @@ class AddOrganizations extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Address 2'),
         #'#title' => $this->t('Address 2'),
-        '#required' => TRUE,
+       # '#required' => TRUE,
         '#default_value' => '',
       ];
 

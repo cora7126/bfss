@@ -143,7 +143,7 @@ class EditOrganizations extends FormBase {
                       $form['resident'][$i]['address_2'] = [
                         '#type' => 'textfield',
                         '#placeholder' => t('Address 2'),
-                        '#required' => TRUE,
+                        #'#required' => TRUE,
                         '#default_value' => $field_address_2,
                       ];
 

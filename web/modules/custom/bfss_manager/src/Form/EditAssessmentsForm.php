@@ -180,7 +180,7 @@ class EditAssessmentsForm extends FormBase {
       $form['address_2'] = [
         '#type' => 'textarea',
         '#placeholder' => t('Address 2'),
-        '#required' => TRUE,
+        #'#required' => TRUE,
         '#default_value' => $address_2,
         '#prefix' => '',
         '#suffix' => '',

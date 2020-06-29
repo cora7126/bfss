@@ -46,7 +46,7 @@ class EditOrganizationPopup extends FormBase {
               $field_type = $node->field_type->value;
               $title = $node->title->value;
           }
-
+          
               $form['left_section_start'] = [
                   '#type' => 'markup',
                   '#markup' => '<div class="left_section popup_left_section">
@@ -91,6 +91,7 @@ class EditOrganizationPopup extends FormBase {
                 '#required' => TRUE,
                 '#options' => $states,
                 '#default_value' => $field_state,
+                
               ];
           
 
@@ -112,6 +113,11 @@ class EditOrganizationPopup extends FormBase {
            //          '#value' => $this->t(strtoupper("update")),
            //          '#button_type' => 'primary',
            //        ];
+           $form['detail_text'] = [
+                  '#type' => 'markup',
+                  '#markup' => '<p class="detail_text_update_org">Please review edits to make sure there are no spellings errors and confirm a search of the<br/>
+system has been performed before updating this organization.</p>',
+          ];
 
            $form['actions']['submit'] = [
                     '#type' => 'submit',
