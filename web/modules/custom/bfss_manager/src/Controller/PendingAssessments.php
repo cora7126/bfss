@@ -83,7 +83,7 @@ class PendingAssessments extends ControllerBase {
             //   $vvvAry[$booked_id][] = $entity->{$kkk} ? $entity->{$kkk}->value : $kkk;
             // }
 
-            // Get latest recorder status for current assessment - see if complete or incomplete.
+            // Get latest recorded status for current assessment - see if complete or incomplete.
             $field_status = 'not started';
             $nidPrev = 0;
             if($nids1){
