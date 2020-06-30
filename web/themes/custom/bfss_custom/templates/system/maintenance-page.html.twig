@@ -21,7 +21,7 @@
             ]
             %}
             {#<section{{ content_attributes.addClass(content_classes) }}>#}
-            <section class="registration-area col-lg-3 col-md-4 col-sm-5 col-xs-9">
+            <section class="registration-area col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12 col-xs-12">
                 {# Content #}
                 {% block content %}
                     <a id="main-content"></a>
@@ -33,7 +33,10 @@
                     </div>
 
                     <div class="maintenance-message">
-                        {{ page.content }}
+                      <!--  {{ page.content }}-->
+                      <p>Our site is currently undergoing scheduled maintenance</br>
+                        and upgrades, but will return shortly.We apologize</br>
+                        for the inconveniece, thank you for your patience.</p>
                     </div>
                 {% endblock %}
             </section>

@@ -1071,6 +1071,8 @@ class ContributeForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array & $form, FormStateInterface $form_state) {
+    // print_r($form_state->getValue('image_athlete'));
+    // die;
 
     $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
@@ -1113,12 +1115,12 @@ class ContributeForm extends FormBase {
     $query_school->condition('athlete_uid', $current_user, '=');
     $results_school = $query_school->execute()->fetchAll();
 	
-	$count_school_num_results = count($results_school);
+	   $count_school_num_results = count($results_school);
     $query_uni = \Drupal::database()->select('athlete_uni', 'au');
     $query_uni->fields('au');
     $query_uni->condition('athlete_uid', $current_user, '=');
     $results_uni = $query_uni->execute()->fetchAll();
-	$count_uni_num_results = count($results_uni);
+	  $count_uni_num_results = count($results_uni);
 	
     $query_fname = \Drupal::database()->select('user__field_first_name', 'uffn');
     $query_fname->fields('uffn');
@@ -1136,19 +1138,12 @@ class ContributeForm extends FormBase {
     $results_mail = $query_mail->execute()->fetchAssoc();
 	
 
-	
-
-	
-   
-	
-
-	
     $query_club = \Drupal::database()->select('athlete_club', 'athawac');
     $query_club->fields('athawac');
     $query_club->condition('athlete_uid', $current_user, '=');
     $results_club = $query_club->execute()->fetchAll();
 	
-	$count_club_num_results = count($results_club);
+	  $count_club_num_results = count($results_club);
 	
     $query_mydata = \Drupal::database()->select('mydata', 'md');
     $query_mydata->fields('md');
@@ -1157,26 +1152,26 @@ class ContributeForm extends FormBase {
 
     $imgid = $form_state->getValue('image_athlete');
 
-	
-	
-	
-	$query_pic = \Drupal::database()->select('athlete_prof_image', 'uup');
+
+  	$query_pic = \Drupal::database()->select('athlete_prof_image', 'uup');
     $query_pic->fields('uup');
     $query_pic->condition('athlete_id', $current_user, '=');
     $results_pic = $query_pic->execute()->fetchAll();
-	$count_pic = count($results_pic);
-	if ($count_pic==0) {
-		$conn->insert('athlete_prof_image')->fields(array(
-        'athlete_id' => $current_user,
-        'athlete_target_image_id' => $imgid[0],
+
+  	$count_pic = count($results_pic);
+
+  	if (empty($results_pic)) {
+  		  $conn->insert('athlete_prof_image')->fields(array(
+          'athlete_id' => $current_user,
+          'athlete_target_image_id' => isset($imgid[0])?$imgid[0]:NULL,
         ))->execute();
-	}else{
-		if (!empty($imgid[0])) {
-        $conn->update('athlete_prof_image')->condition('athlete_id', $current_user, '=')->fields(array('athlete_target_image_id' => $imgid[0], ))->execute();
-      } else {
-        $conn->update('athlete_prof_image')->condition('athlete_id', $current_user, '=')->fields(array('athlete_target_image_id' => '240', ))->execute();
-      }
-	}	
+  	}else{
+  	
+          $conn->update('athlete_prof_image')->condition('athlete_id', $current_user, '=')
+          ->fields(array('athlete_target_image_id' => isset($imgid[0])?$imgid[0]:NULL ))
+          ->execute();
+   
+  	}	
 	
 
     $conn->update('user__field_first_name')->condition('entity_id', $current_user, '=')->fields(array('field_first_name_value' => $form_state->getValue('fname'), ))->execute();
@@ -1491,7 +1486,7 @@ public function OrgNamesAjaxCallback_three(array &$form, FormStateInterface $for
   	public function Get_Data_From_Tables($TableName,$atr,$current_user){
   		if($TableName){
   			$conn = Database::getConnection();
-			$query = $conn->select($TableName, $atr);
+			  $query = $conn->select($TableName, $atr);
 		    $query->fields($atr);
 		    $query->condition('athlete_uid', $current_user, '=');
 		    $results = $query->execute()->fetchAssoc();

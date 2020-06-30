@@ -551,23 +551,6 @@ class EditCoachUserProfile extends FormBase {
         ])
         ->execute();
     }
-
-    //first name 
-    $conn->update('user__field_first_name')
-    ->condition('entity_id',$current_user,'=')
-    ->fields([
-      'field_first_name_value' => $form_state->getValue('fname'),
-    ])
-    ->execute();
-
-    //email
-    $conn->update('users_field_data')
-    ->condition('uid',$current_user,'=')
-    ->fields([
-      'mail' => $form_state->getValue('email'),
-    ])
-    ->execute();
-
     
      $form_state->setRedirect('acme_hello');
   }

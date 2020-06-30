@@ -120,6 +120,22 @@ footer.user-profile-fo.footer.container {
     top: 20.5px!important;
     left: 330px!important;
 }
+.add-organizations button.close {
+    margin: 22px 25px 0px 0px;
+}
+
+
+.maintenance-page section#block-copyright {
+    text-align: center;
+    margin: 90px 0px 0px 0px;
+}
+
+.maintenance-page .registration-area {
+    padding: 40px 0px 0px 0px;
+}
+.maintenance-message p {
+    font-size: 13px;
+    }
 /***********INVOICE END FROM HERE************/
 
 /******************* RESPONSIVE CSS STARTS HERE *********************/
