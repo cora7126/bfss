@@ -75,7 +75,7 @@ class PendingApprovalForm extends FormBase {
                 '#markup' => ' <div class="athlete_left">
                                   <h3><div class="toggle_icon">
                                       <i class="fa fa-minus"></i><i class="fa fa-plus hide"></i>
-                                    </div>ORGANIZATION APPROVAL
+                                    </div>ORGANIZATION APPROVAL<i id="'.$nid.'" class="pending-del-org fa fa-trash right-icon delete_icon" aria-hidden="true"></i>
                                   </h3>
                             <div class="items_div">',
             ];   

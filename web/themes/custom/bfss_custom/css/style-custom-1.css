@@ -116,6 +116,10 @@ footer.user-profile-fo.footer.container {
 .user-webpage-footer ul li:nth-child(2), .user-webpage-footer ul li:nth-child(3) {border-left: 1px solid #808080;}
 .edit-organization-popup .left_section .athlete_left > .items_div{border:none;}
 .edit-organization-popup p.detail_text_update_org{padding-top: 20px;font-size: 14px;color: #000;}
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.drupal-edit-faq-fm.delete-faq.ui-dialog-buttons,.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.drupal-edit-faq-fm.edit-faq.ui-dialog-buttons {
+    top: 20.5px!important;
+    left: 330px!important;
+}
 /***********INVOICE END FROM HERE************/
 
 /******************* RESPONSIVE CSS STARTS HERE *********************/

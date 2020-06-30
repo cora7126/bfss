@@ -61,3 +61,12 @@ bfss_organizations.search_organization:
  requirements:
    #_permission: 'access content'
    _role: 'bfss_administrator+bfss_manager'
+
+bfss_organizations.delete_organization:
+ path: '/delete-organization/{nid}'
+ defaults:
+   _title: 'delete Organization'
+   _controller: '\Drupal\bfss_organizations\Controller\DeletePendingOrg::delete_pending_org'
+ requirements:
+   #_permission: 'access content'
+   _role: 'bfss_administrator+bfss_manager'

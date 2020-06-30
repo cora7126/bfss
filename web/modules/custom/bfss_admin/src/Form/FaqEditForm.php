@@ -35,6 +35,7 @@ class FaqEditForm extends FormBase {
 
     if($faqs['edit']==1 || $faqs['admin']==1){
       $form['#attached']['library'][] = 'bfss_admin/bfss_admin_lab'; //here can add library
+      $form['#attached']['library'][] = 'bfss_admin/bfss_admin_popupfaq'; //here can add library
       $form['message'] = [ //for custom message "like: ajax msgs"
         '#type' => 'markup',
         '#markup' => '',
