@@ -125,11 +125,30 @@ class PendingAssessmentsForm extends FormBase {
     $field_booked_id = $param['booked_id'];
     $st = $param['st'];
     $field_status = $param['field_status'];
-    $assess_nid = $param['assess_nid'];
+    // $assess_nid = $param['assess_nid'];
     $first_name = $param['first_name'];
     $last_name = $param['last_name'];
 
-    ksm('rrrrrr', $param);
+    if ($field_booked_id) {
+      // See if assessment has been started by assessor or mgr.
+      // And get latest recorded status (and $assess_nid) for current assessment - see if complete or incomplete.
+      $field_status = 'not started';
+      $nidPrev = 0;
+      $queryStat = \Drupal::entityQuery('node');
+      $queryStat->condition('type', 'athlete_assessment_info');
+      $queryStat->condition('field_booked_id',$field_booked_id, 'IN');
+      $nidsStat = $queryStat->execute();
+      if($nidsStat){
+        foreach ($nidsStat as $nid) {
+          if ($nid > $nidPrev) {
+            $nidPrev = $nid;
+            $assessmentNode = Node::load($nid);
+            $field_status = $assessmentNode->get('field_status')->getValue()[0]['value'];
+          }
+        }
+      }
+      $assess_nid = $nidPrev;
+    }
 
     if($nid && $formtype && $Assess_type)
     {
@@ -193,26 +212,12 @@ class PendingAssessmentsForm extends FormBase {
       ];
 
       if($assess_nid) { // from PendingAssessments.php, assess_nid is 0 by default.
-        //default values here
-        // may need this:
-        // $query1 = \Drupal::entityQuery('node');
-        // $query1->condition('type', 'athlete_assessment_info');
-        // $query1->condition('field_booked_id',$field_booked_id, 'IN');
-        // $nids1 = $query1->execute();
-
         $node = Node::load($assess_nid);
-        ksm('nnnnnnnnbbbbbbbbbbbbbbb',$assess_nid);
+        // ksm('nnnnnnnnbbbbbbbbbbbbbbb',$assess_nid);
       }
       else {
         $node = array();
       }
-
-      //---------------------------------- Common to all: starter, professional, elite:
-      $formFields['field_wrap_1'] = array(
-        '#type' => 'fieldset',
-        '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
-        '#suffix' => '</div>',
-      );
 
       //-------------------------- debug: auto-fill empty form values.
       // $start_value = 200;
@@ -274,75 +279,111 @@ class PendingAssessmentsForm extends FormBase {
       // $fieldNameAry[] = 'field_peak_force_n_maximal';
       // $fieldNameAry[] = 'field_peak_force_n_maximal';
 
-
-      $fieldName = 'field_assessment_age'; $fieldNameAry[] = 'field_assessment_age';  //dd
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'AGE'); // 1
-      $fieldName = 'field_sport_assessment'; $fieldNameAry[] = 'field_sport_assessment';  // d
-      $default_sport = @$node->{$fieldName}->value ? @$node->{$fieldName}->value : $sport;
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $default_sport, 'SPORT'); // 2
-
-      $fieldName = 'field_weight'; $fieldNameAry[] = 'field_weight';  //dd
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'WEIGHT', 'Lbs', 'Lbs'); // 3
-      $fieldName = 'field_sex'; $fieldNameAry[] = 'field_sex';  //dd
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'SEX'); // 4
-
-      $fieldName = 'field_jump_height_in_reactive'; $fieldNameAry[] = 'field_jump_height_in_reactive';  //dd  LEGACY:  starter_jump_height_rea_str
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'REACTIVE STRENGTH', 'In'); // 5
-      $fieldName = 'field_jump_height_in_elastic'; $fieldNameAry[] = 'field_jump_height_in_elastic';  //dd  LEGACY:  starter_jump_height_ela_str
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ELASTIC STRENGTH', 'In'); // 6
-
-      $fieldName = 'field_jump_height_in_ballistic'; $fieldNameAry[] = 'field_jump_height_in_ballistic';  //dd  LEGACY:  starter_jump_height_ballistic
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'BALLISTIC STRENGTH', 'In'); // 7
-      $fieldName = 'field_10m_time_sec_sprint'; $fieldNameAry[] = 'field_10m_time_sec_sprint';  //dd  LEGACY:  starter_10m
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ACCELERATION/SPEED', 'Sec'); // 8
-
-      $fieldName = 'field_peak_force_n_maximal'; $fieldNameAry[] = 'field_peak_force_n_maximal';  //dd  LEGACY:  starter_peak_for_max
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'N');  // 9
-      $fieldName = 'field_rsi_reactive'; $fieldNameAry[] = 'field_rsi_reactive';  //dd  LEGACY:  starter_rsi_rea_str
-      $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH', 'In'); // 10
-      // ksm('dddddddddddddddddddddddddddddd', $fieldNameAry, $node);
-
       //------------------------------------ starter form
       if($realFormType == 'starter')
       {
-        //xxxx $formFields['field_wrap_1']['title'] = array(
-        //   '#type' => 'hidden',
-        //   '#value' => 'Starter Assessment',
-        // );
+        $formFields['field_wrap_1'] = array(
+          '#type' => 'fieldset',
+          '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+          '#suffix' => '</div>',
+        );
+
+        $fieldName = 'field_age'; $fieldNameAry[] = 'field_age';  //dd
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'AGE'); // 1
+        $fieldName = 'field_sport_assessment'; $fieldNameAry[] = 'field_sport_assessment';  // d
+        $default_sport = @$node->{$fieldName}->value ? @$node->{$fieldName}->value : $sport;
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $default_sport, 'SPORT'); // 2
+
+        $fieldName = 'field_weight'; $fieldNameAry[] = 'field_weight';  //dd
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'WEIGHT', 'Lbs', 'Lbs'); // 3
+        $fieldName = 'field_sex'; $fieldNameAry[] = 'field_sex';  //dd
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'SEX'); // 4
+
+        $fieldName = 'field_jump_height_in_reactive'; $fieldNameAry[] = 'field_jump_height_in_reactive';  //dd  LEGACY:  starter_jump_height_rea_str
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'REACTIVE STRENGTH', 'In'); // 5
+        $fieldName = 'field_jump_height_in_elastic'; $fieldNameAry[] = 'field_jump_height_in_elastic';  //dd  LEGACY:  starter_jump_height_ela_str
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ELASTIC STRENGTH', 'In'); // 6
+
+        $fieldName = 'field_jump_height_in_ballistic'; $fieldNameAry[] = 'field_jump_height_in_ballistic';  //dd  LEGACY:  starter_jump_height_ballistic
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'BALLISTIC STRENGTH', 'In'); // 7
+        $fieldName = 'field_10m_time_sec_sprint'; $fieldNameAry[] = 'field_10m_time_sec_sprint';  //dd  LEGACY:  starter_10m
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ACCELERATION/SPEED', 'Sec'); // 8
+
+        // Note: field_rsi_reactive should be called field_jump_height_in_reactive_e
+        // Note: field_rsi_reactive_b should be called field_jump_height_in_reactive_b
+
+        $fieldName = 'field_peak_force_n_maximal'; $fieldNameAry[] = 'field_peak_force_n_maximal';  //dd  LEGACY:  starter_peak_for_max
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'N');  // 9
+        $fieldName = 'field_rsi_reactive'; $fieldNameAry[] = 'field_rsi_reactive';  //dd  LEGACY:  starter_rsi_rea_str
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH', 'In'); // 10
+
         $fieldName = 'field_rsi_reactive_b'; $fieldNameAry[] = 'field_rsi_reactive_b';  //dd
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH'); // 11
-        $fieldName = 'field_elite_age_e'; $fieldNameAry[] = 'field_elite_age_e';  //dd
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ELITE PERFORMERS AGE (Yrs)'); // *ELITE PERFORMERS AGE
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH', 'In'); // 11
       }
-      //------------------------------------------ professional form
+
+      //------------------------------------------ professional and elite form
       else if($realFormType == 'professional' || $realFormType == 'elite')
       {
-        //xxxxxx $formFields['field_wrap_1']['title'] = array(
-        //   '#type' => 'hidden',
-        //   '#value' => 'Professional Assessment',
-        // );
+        $formFields['field_wrap_1'] = array(
+          '#type' => 'fieldset',
+          '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+          '#suffix' => '</div>',
+        );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ASSESSMENT TABLE
         $formFields['field_wrap_1']['#title'] = $this->t('<div style="text-align: center; font-weight: bold;">ASSESSMENT TABLE</div>');
 
+        $fieldName = 'field_age'; $fieldNameAry[] = 'field_age';  //dd
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'AGE'); // 1
+        $fieldName = 'field_sport_assessment'; $fieldNameAry[] = 'field_sport_assessment';  // d
+        $default_sport = @$node->{$fieldName}->value ? @$node->{$fieldName}->value : $sport;
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $default_sport, 'SPORT'); // 2
+
+        $fieldName = 'field_weight'; $fieldNameAry[] = 'field_weight';  //dd
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'WEIGHT', 'Lbs', 'Lbs'); // 3
+        $fieldName = 'field_sex'; $fieldNameAry[] = 'field_sex';  //dd
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'SEX'); // 4
+
+        $fieldName = 'field_jump_height_in_reactive'; $fieldNameAry[] = 'field_jump_height_in_reactive';  //dd  LEGACY:  starter_jump_height_rea_str
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'REACTIVE STRENGTH', 'In'); // 5
+        $fieldName = 'field_jump_height_in_elastic'; $fieldNameAry[] = 'field_jump_height_in_elastic';  //dd  LEGACY:  starter_jump_height_ela_str
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ELASTIC STRENGTH', 'In'); // 6
+
+        $fieldName = 'field_jump_height_in_ballistic'; $fieldNameAry[] = 'field_jump_height_in_ballistic';  //dd  LEGACY:  starter_jump_height_ballistic
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'BALLISTIC STRENGTH', 'In'); // 7
+        $fieldName = 'field_10m_time_sec_sprint'; $fieldNameAry[] = 'field_10m_time_sec_sprint';  //dd  LEGACY:  starter_10m
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ACCELERATION/SPEED', 'Sec'); // 8
+
+        // Note: field_rsi_reactive should be called field_jump_height_in_reactive_e
+        // Note: field_rsi_reactive_b should be called field_jump_height_in_reactive_b
+
+        $fieldName = 'field_peak_force_n_maximal'; $fieldNameAry[] = 'field_peak_force_n_maximal';  //dd  LEGACY:  starter_peak_for_max
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'N');  // 9
+        $fieldName = 'field_rsi_reactive'; $fieldNameAry[] = 'field_rsi_reactive';  //dd  LEGACY:  starter_rsi_rea_str
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH', 'In'); // 10
+
+        $fieldName = 'field_rsi_reactive_b'; $fieldNameAry[] = 'field_rsi_reactive_b';  //dd
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH', 'In'); // 11
         $fieldName = 'field_jump_height_in_elastic_e'; $fieldNameAry[] = 'field_jump_height_in_elastic_e';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(E) ELASTIC STRENGTH', 'In'); // 11
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) ELASTIC STRENGTH', 'In'); // 11
+
         $fieldName = 'field_jump_height_in_ballistic_e'; $fieldNameAry[] = 'field_jump_height_in_ballistic_e';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) BALLISTIC STRENGTH', 'In'); // 12
-
-
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(E) BALLISTIC STRENGTH', 'In'); // 12
         $fieldName = 'field_10m_time_sec_sprint_e'; $fieldNameAry[] = 'field_10m_time_sec_sprint_e';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(E) ACCELERATION/SPEED', 'Sec'); // 13
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) ACCELERATION/SPEED', 'Sec'); // 13
+
         $fieldName = 'field_peak_force_n_maximal_e'; $fieldNameAry[] = 'field_peak_force_n_maximal_e';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) MAXIMAL STRENGTH', 'Lbs'); // 14
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(E) MAXIMAL STRENGTH', 'Lbs'); // 14
+        $fieldName = 'field_jump_height_in_elastic_b'; $fieldNameAry[] = 'field_jump_height_in_elastic_b';
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) ELASTIC STRENGTH', 'In');
 
         $fieldName = 'field_jump_height_in_ballistic_b'; $fieldNameAry[] = 'field_jump_height_in_ballistic_b';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) BALLISTIC STRENGTH'); // 17
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) BALLISTIC STRENGTH', 'In'); // 17
         $fieldName = 'field_10m_time_sec_sprint_b'; $fieldNameAry[] = 'field_10m_time_sec_sprint_b';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) ACCELERATION/SPEED'); // 18
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) ACCELERATION/SPEED', 'Sec'); // 18
 
         $fieldName = 'field_peak_force_n_maximal_b'; $fieldNameAry[] = 'field_peak_force_n_maximal_b';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) MAXIMAL STRENGTH'); // 19
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) MAXIMAL STRENGTH', 'Lbs'); // 19
         $fieldName = 'field_elite_age_e'; $fieldNameAry[] = 'field_elite_age_e';
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ELITE PERFORMERS AGE'); // *ELITE PERFORMERS AGE
 
@@ -352,7 +393,7 @@ class PendingAssessmentsForm extends FormBase {
           '#suffix' => '</div>',
         );
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REBOUND JUMP
-        $formFields['field_wrap_1']['#title'] = $this->t('<div style="text-align: center; font-weight: bold;">REBOUND JUMP</div>');
+        $formFields['field_wrap_2']['#title'] = $this->t('<div style="text-align: center; font-weight: bold;">REBOUND JUMP</div>');
 
         $fieldName = 'field_rebound_jump_rank'; $fieldNameAry[] = 'field_rebound_jump_rank';
         $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'YOUR RANK IS', 'Good'); // 20
@@ -564,12 +605,68 @@ class PendingAssessmentsForm extends FormBase {
 
 
       //------------------------------------------ elite-only form fields
-
       if($realFormType == 'elite')
       {
 
-        //~~~~~~~~~~~~~~~~~~~~ Results: Supine Med Ball Chest Throw
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BFS Testing: Performance Tests
         $formFields['field_wrap_100'] = array(
+          '#type' => 'fieldset',
+          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">BFS Testing: Performance Tests</div>'),
+          '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+          '#suffix' => '</div>',
+        );
+
+        // Files which will probably be hidden or calculated:
+        //    'field_elite_percent_e'
+
+        $fieldName = 'field_static_ball_throw'; $fieldNameAry[] = 'field_static_ball_throw';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Static Med Ball Throw', 'W');
+        $fieldName = 'field_static_ball_throw_e'; $fieldNameAry[] = 'field_static_ball_throw_e';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Static Med Ball Throw', 'W');
+
+        $fieldName = 'field_static_ball_throw_b'; $fieldNameAry[] = 'field_static_ball_throw_b';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Static Med Ball Throw Benchmark', 'W');
+        $fieldName = 'field_rotate_ball_throw'; $fieldNameAry[] = 'field_rotate_ball_throw';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational Med Ball Throw', 'W');
+
+        $fieldName = 'field_rotate_ball_throw_e'; $fieldNameAry[] = 'field_rotate_ball_throw_e';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Rotational Med Ball Throw', 'W');
+        $fieldName = 'field_rotate_ball_throw_b'; $fieldNameAry[] = 'field_rotate_ball_throw_b';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational Med Ball Throw Benchmark', 'W');
+
+        $fieldName = 'field_single_leg_strength'; $fieldNameAry[] = 'field_single_leg_strength';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg Strength', '#');
+        $fieldName = 'field_single_leg_strength_e'; $fieldNameAry[] = 'field_single_leg_strength_e';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Single Leg Strength', '#');
+
+        $fieldName = 'field_single_leg_strength_b'; $fieldNameAry[] = 'field_single_leg_strength_b';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg Strength Benchmark', '#');
+        $fieldName = 'field_push_ups_num'; $fieldNameAry[] = 'field_push_ups_num';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Push-Ups', '#');
+
+        $fieldName = 'field_push_ups_num_e'; $fieldNameAry[] = 'field_push_ups_num_e';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Push-Ups', '#');
+        $fieldName = 'field_push_ups_num_b'; $fieldNameAry[] = 'field_push_ups_num_b';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Push-Ups Benchmark', '#');
+
+        $fieldName = 'field_agility_sec'; $fieldNameAry[] = 'field_agility_sec';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility Test', 'Secs');
+        $fieldName = 'field_agility_sec_e'; $fieldNameAry[] = 'field_agility_sec_e';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite 5-10-5 Agility Test', 'Secs');
+
+        $fieldName = 'field_agility_sec_b'; $fieldNameAry[] = 'field_agility_sec_b';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility Test Benchmark', 'Secs');
+        $fieldName = 'field_bike_test_time'; $fieldNameAry[] = 'field_bike_test_time';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '1.5 Mile Bike Test', 'Time');
+
+        $fieldName = 'field_bike_test_time_e'; $fieldNameAry[] = 'field_bike_test_time_e';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite 1.5 Mile Bike Test', 'Time');
+        $fieldName = 'field_bike_test_time_b'; $fieldNameAry[] = 'field_bike_test_time_b';
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '1.5 Mile Bike Test Benchmark', 'Time');
+
+
+        //~~~~~~~~~~~~~~~~~~~~ Results: Supine Med Ball Chest Throw
+        $formFields['field_wrap_101'] = array(
           '#type' => 'fieldset',
           '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Supine Med Ball Chest Throw</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
@@ -577,52 +674,89 @@ class PendingAssessmentsForm extends FormBase {
         );
 
         $fieldName = 'field_static_chest_throw'; $fieldNameAry[] = 'field_static_chest_throw';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Static Chest Throw', ''); // 1
+        $formFields['field_wrap_101'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Static Chest Throw', '');
         $fieldName = 'field_polyometric_chest_throw'; $fieldNameAry[] = 'field_polyometric_chest_throw';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Plyometric Chest Throw', ''); // 1
+        $formFields['field_wrap_101'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Plyometric Chest Throw', '');
 
         $fieldName = 'field_eccentric_ratio_eur'; $fieldNameAry[] = 'field_eccentric_ratio_eur';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Eccentric Utilization Ratio (EUR)', ''); // 1
-        $fieldName = 'field_rot_ball_throw'; $fieldNameAry[] = 'field_rot_ball_throw';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational med Ball Throw', ''); // 1
+        $formFields['field_wrap_101'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Eccentric Utilization Ratio (EUR)', '');
 
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Results: Rotational med Ball Throw Test
+        $formFields['field_wrap_102'] = array(
+          '#type' => 'fieldset',
+          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Results: Rotational med Ball Throw Test</div>'),
+          '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+          '#suffix' => '</div>',
+        );
+
+        $fieldName = 'field_rot_ball_throw'; $fieldNameAry[] = 'field_rot_ball_throw';
+        $formFields['field_wrap_102'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational Power', 'W');
         $fieldName = 'field_rot_ball_throw_e'; $fieldNameAry[] = 'field_rot_ball_throw_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Rotational med Ball Throw', ''); // 1
+        $formFields['field_wrap_102'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Rotational Power', 'W');
+
         $fieldName = 'field_rot_rank'; $fieldNameAry[] = 'field_rot_rank';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational med Ball Throw Rank', ''); // 1
+        $formFields['field_wrap_102'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational Power Rank', '');
+
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Results: Strength Endurance Testing
+        $formFields['field_wrap_103'] = array(
+          '#type' => 'fieldset',
+          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Results: Strength Endurance Testing</div>'),
+          '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+          '#suffix' => '</div>',
+        );
 
         $fieldName = 'field_chin_ups_reps'; $fieldNameAry[] = 'field_chin_ups_reps';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Chin Up Reps', 'per/sec'); // 1
+        $formFields['field_wrap_103'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Chin Up Reps', 'per/sec');
         $fieldName = 'field_chin_ups_reps_e'; $fieldNameAry[] = 'field_chin_ups_reps_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Chin Up Reps', 'per/sec'); // 1
+        $formFields['field_wrap_103'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Chin Up Reps', 'per/sec');
 
         $fieldName = 'field_push_ups_reps'; $fieldNameAry[] = 'field_push_ups_reps';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Push Up Reps', 'per/sec'); // 1
+        $formFields['field_wrap_103'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Push Up Reps', 'per/sec');
         $fieldName = 'field_push_ups_reps_e'; $fieldNameAry[] = 'field_push_ups_reps_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Push Up Reps', 'per/sec'); // 1
+        $formFields['field_wrap_103'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Push Up Reps', 'per/sec');
 
         $fieldName = 'field_single_leg_squat'; $fieldNameAry[] = 'field_single_leg_squat';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg squat', 'per/sec'); // 1
+        $formFields['field_wrap_103'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg squat', 'per/sec');
         $fieldName = 'field_single_leg_squat_e'; $fieldNameAry[] = 'field_single_leg_squat_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Single Leg squat', ''); // 1
+        $formFields['field_wrap_103'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Single Leg squat', '');
+
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Results: 5-10-5 Agility Test
+        $formFields['field_wrap_104'] = array(
+          '#type' => 'fieldset',
+          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Results: 5-10-5 Agility Test</div>'),
+          '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+          '#suffix' => '</div>',
+        );
 
         $fieldName = 'field_5_10_5_agile'; $fieldNameAry[] = 'field_5_10_5_agile';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility', 'secs'); // 1
+        $formFields['field_wrap_104'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility', 'secs');
         $fieldName = 'field_5_10_5_agile_e'; $fieldNameAry[] = 'field_5_10_5_agile_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite 5-10-5 Agility', 'secs'); // 1
+        $formFields['field_wrap_104'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite 5-10-5 Agility', 'secs');
 
         $fieldName = 'field_5_10_5_rank'; $fieldNameAry[] = 'field_5_10_5_rank';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Rank', ''); // 1
+        $formFields['field_wrap_104'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Rank', '');
+
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Results: 1.5 Mile Bike Test
+        $formFields['field_wrap_105'] = array(
+          '#type' => 'fieldset',
+          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Results: 1.5 Mile Bike Test</div>'),
+          '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
+          '#suffix' => '</div>',
+        );
+
         $fieldName = 'field_1_5_mile_bike'; $fieldNameAry[] = 'field_1_5_mile_bike';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '1.5 mile Bike Test', ''); // 1
-
+        $formFields['field_wrap_105'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '1.5 mile Bike Test', '');
         $fieldName = 'field_1_5_mile_bike_e'; $fieldNameAry[] = 'field_1_5_mile_bike_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite 1.5 mile Bike Test', ''); // 1
-        $fieldName = 'field_heart_rate_recover'; $fieldNameAry[] = 'field_heart_rate_recover';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Heart Rate Recovery', ''); // 1
+        $formFields['field_wrap_105'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite 1.5 mile Bike Test', '');
 
+        $fieldName = 'field_heart_rate_recover'; $fieldNameAry[] = 'field_heart_rate_recover';
+        $formFields['field_wrap_105'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Heart Rate Recovery', '');
         $fieldName = 'field_heart_rate_recover_e'; $fieldNameAry[] = 'field_heart_rate_recover_e';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Heart Rate Recovery', ''); // 1
+        $formFields['field_wrap_105'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Heart Rate Recovery', '');
 
 
 
@@ -782,7 +916,7 @@ class PendingAssessmentsForm extends FormBase {
       $formFields['actions']['draft'] = array(
         '#type' => 'submit',
         '#name' => 'save_unpublished',
-        '#value' => $this->t('SAVE & UN-PUBLISH'),
+        '#value' => $this->t('SAVE'),
         '#button_type' => 'primary',
           '#ajax' => [
             'callback' => '::submitForm', // don't forget :: when calling a class method.
@@ -802,7 +936,7 @@ class PendingAssessmentsForm extends FormBase {
       $formFields['actions']['submit'] = array(
         '#type' => 'submit',
         '#name' => 'save_published',
-        '#value' => $this->t('MANAGER - SAVE & PUBLISH'),
+        '#value' => $this->t('SAVE & PUBLISH'),
         '#button_type' => 'primary',
         '#ajax' => [
             'callback' => '::submitForm', // don't forget :: when calling a class method.
@@ -905,7 +1039,7 @@ class PendingAssessmentsForm extends FormBase {
     if (@$form_data['save_published']) {
       $message .= ' Saved and Published!';
     } else if (@$form_data['save_unpublished']) {
-      $message .= ' Saved and Un-published!';
+      $message .= ' Saved!';
     }
 
     // ksm(['$pdf_template_fid, $assess_nid, form_data, $param', $pdf_template_fid, $assess_nid, $form_data, $param]);
@@ -1004,7 +1138,7 @@ class PendingAssessmentsForm extends FormBase {
             }
           }
 
-          ksm('$form_data', $form_data);
+          // ksm('$form_data', $form_data);
 
           // $node->set('field_age', $form_data['field_age']); //dd
           // $node->set('field_sport_assessment', $form_data['field_sport_assessment']); //dd
