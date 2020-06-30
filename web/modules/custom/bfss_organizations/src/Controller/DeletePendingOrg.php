@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\node\Entity\Node;
 class DeletePendingOrg extends ControllerBase {
 	  public function delete_pending_org($nid) {
-	    $node = Node::load();
+	    $node = Node::load($nid);
 	    if ($node) {
-  			//$node->delete();
+  			$node->delete();
 		}
-		print_r($nid);
+
 	  	$response = array($nid);
 	    return new JsonResponse($response);
   	}

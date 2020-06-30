@@ -41,7 +41,7 @@ class PendingApprovalForm extends FormBase {
     $form['#tree'] = TRUE;
     $form['#prefix'] = '<div class="main_section_plx">';
     $form['#suffix'] = '</div>';
-   
+    $form['#attached']['library'][] = 'bfss_organizations/add_organization';
 
     $form['left_section_start'] = [
             '#type' => 'markup',
