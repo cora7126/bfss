@@ -32,7 +32,7 @@ class PendingApprovalForm extends FormBase {
 
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'bfss_organizations');
-    //$query->condition('field_user_role', 'coach', 'CONTAINS');
+    $query->condition('uid', 1, '!=');
     $query->condition('status', 0, '=');
     $nids = $query->execute();
 

@@ -433,6 +433,7 @@ public function test(array &$form, FormStateInterface $form_state) {
               $node->title->value = $value['type'].'-'.$value['organization_name'];
               $node->setPublished(TRUE);
               $node->save();
+              drupal_set_message(t('<p class="bfss-success-msg">Successfully inserted organization.</p>'), 'success');
             }
               
     }
