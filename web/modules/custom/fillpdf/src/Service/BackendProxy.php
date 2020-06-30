@@ -135,25 +135,31 @@ class BackendProxy implements BackendProxyInterface {
 
 
   protected function My_assessments($booked_id_param, $fieldMappings){
-    $query1 = \Drupal::entityQuery('node');
-    $query1->condition('type', 'athlete_assessment_info');
-    $query1->condition('field_booked_id',$booked_id_param, 'IN');
-    $nids1 = $query1->execute();
-    if(!empty($nids1)) {
-      foreach ($nids1 as $key => $value) {
-        $node1 = Node::load($value);
-        foreach ($node1->getFields() as $fieldName => $value) {
-          $assAry[$fieldName] = $value->getValue($fieldName)[0]['value'];
-          //No workie: $assAry[$fieldName] = $value->get($fieldName)->getValue();
-        }
-        $mappingsWithValues = $fieldMappings;
-        foreach ($fieldMappings as $pdf_key => $emptyValue) {
-          if (isset($assAry[$pdf_key])) {
-            $mappingsWithValues[$pdf_key] =  new TextFieldMapping($assAry[$pdf_key]);
+    // And get latest recorded status (and $assess_nid) for current assessment - see if complete or incomplete.
+    $nidPrev = 0;
+    $queryStat = \Drupal::entityQuery('node');
+    $queryStat->condition('type', 'athlete_assessment_info');
+    $queryStat->condition('field_booked_id',$booked_id_param, 'IN');
+    $nidsStat = $queryStat->execute();
+    if(!empty($nidsStat)) {
+      foreach ($nidsStat as $nid) {
+        if ($nid > $nidPrev) {
+          $nidPrev = $nid;
+          $assessmentNode = Node::load($nid);
+          $assAry = [];
+          foreach ($assessmentNode->getFields() as $fieldName => $nid) {
+            $assAry[$fieldName] = $nid->getValue($fieldName)[0]['value'];
+            //No workie: $assAry[$fieldName] = $nid->get($fieldName)->getValue();
+          }
+          $mappingsWithValues = $fieldMappings;
+          foreach ($fieldMappings as $pdf_key => $emptyValue) {
+            if (isset($assAry[$pdf_key])) {
+              $mappingsWithValues[$pdf_key] =  new TextFieldMapping($assAry[$pdf_key]);
+            }
           }
         }
-        return $mappingsWithValues;
       }
+      return $mappingsWithValues;
     }
   }
 

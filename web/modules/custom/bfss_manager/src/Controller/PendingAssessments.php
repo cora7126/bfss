@@ -7,184 +7,234 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Database\Database;
 
 class PendingAssessments extends ControllerBase {
+
+
+  /** TODO: make utility class
+   * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
+   * @param string $assessmentPrice
+   */
+  public function getFormTypeFromPrice($assessmentPrice) {
+    if($assessmentPrice == '299.99'){
+      return 'elite';
+    }elseif($assessmentPrice == '29.99'){
+      return 'starter';
+    }elseif($assessmentPrice == '69.99'){
+      return 'professional';
+    }else{
+      return 'UNKNOWN';
+    }
+  }
+
+  /** TODO: make utility class;
+   * Return a url to download the assessment pdf.
+   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
+   */
+  protected function getFillPdfUrl($pdf_template_fid, $nid) {
+    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
+    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
+    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
+
+  }
+
+
   public function pending_assessments() {
-        $param = \Drupal::request()->query->all();
-        
-        $booked_ids = \Drupal::entityQuery('bfsspayments')
-        //->condition('assessment',$param['nid'],'IN')
-        //->condition('time',$param['timeslot'],'=')
-        ->execute();
+      $param = \Drupal::request()->query->all();
 
-          $result = array();
-          foreach ($booked_ids  as $key => $booked_id) {
-            $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+      $booked_ids = \Drupal::entityQuery('bfsspayments')
+      //->condition('assessment',$param['nid'],'IN')
+      //->condition('time',$param['timeslot'],'=')
+      ->execute();
 
-            $node_id =  $entity->assessment->value;
-            if($node_id != '9999999999'){
-              $nid = $node_id; 
-            }else{
-              $nid = '';
+      $result = array();
+      foreach ($booked_ids  as $key => $booked_id) {
+        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+
+        $node_id =  $entity->assessment->value;
+        if($node_id != '9999999999'){
+          $nid = $node_id;
+        }else{
+          $nid = '';
+        }
+
+        $assess_id = $entity->assessment->value;
+        $user_id = $entity->user_id->value;
+        $timestamp = $entity->time->value;
+
+        $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$user_id,'athlete_uid'); //FOR ORG-1
+        $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
+        $mydata = $this->Get_Data_From_Tables('mydata','md',$user_id,'uid');
+        $city = isset($mydata['field_city']) ? $mydata['field_city'] : '';
+
+        if(empty($mydata['field_az'])){
+          $statequery =  $this->Get_Data_From_Tables('user__field_state','ufln',$user_id,'entity_id');
+          $state = isset($statequery['field_state_value']) ? $statequery['field_state_value'] : '';
+        }else{
+          $state = $mydata['field_az'];
+        }
+
+        // See if assessment has been started by assessor or mgr.
+        // And get latest recorded status (and $assess_nid) for current assessment - see if complete or incomplete.
+        $field_status = 'not started';
+        $nidPrev = 0;
+        $queryStat = \Drupal::entityQuery('node');
+        $queryStat->condition('type', 'athlete_assessment_info');
+        $queryStat->condition('field_booked_id',$booked_id, 'IN');
+        $nidsStat = $queryStat->execute();
+        if($nidsStat){
+          foreach ($nidsStat as $nid) {
+            if ($nid > $nidPrev) {
+              $nidPrev = $nid;
+              $assessmentNode = Node::load($nid);
+              $field_status = $assessmentNode->get('field_status')->getValue()[0]['value'];
             }
+          }
+        }
+        $assess_nid = $nidPrev;
 
-            $assess_id = $entity->assessment->value;
-            $user_id = $entity->user_id->value;
-            $timestamp = $entity->time->value;
-         
-            $query1 = \Drupal::entityQuery('node');
-            $query1->condition('type', 'athlete_assessment_info');
-            $query1->condition('field_booked_id',$booked_id, 'IN');
-            $nids1 = $query1->execute();
-            $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$user_id,'athlete_uid'); //FOR ORG-1
-            $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
-            $mydata = $this->Get_Data_From_Tables('mydata','md',$user_id,'uid');
-            $city = isset($mydata['field_city']) ? $mydata['field_city'] : '';
+        // ksm($booked_id, $assess_nid, $field_status);
 
-            if(empty($mydata['field_az'])){
-              $statequery =  $this->Get_Data_From_Tables('user__field_state','ufln',$user_id,'entity_id');
-              $state = isset($statequery['field_state_value']) ? $statequery['field_state_value'] : '';
-            }else{
-              $state = $mydata['field_az'];
-            }
+        if(!$nidsStat || $field_status == 'incomplete'){
+          $booking_date = date("Y/m/d",$timestamp);
+          $booking_time = date("h:i:sa",$timestamp);
 
-            if(!$nids1){
-                    $booking_date = date("Y/m/d",$timestamp);
-                    $booking_time = date("h:i:sa",$timestamp);
-                    if($entity->service->value == '199.99'){
-                        $formtype = 'elete';
-                    }elseif($entity->service->value == '29.99'){
-                        $formtype = 'starter';
-                    }
+          $formtype = $this->getFormTypeFromPrice($entity->service->value);
 
-                    if(!empty($entity->assessment->value)){
-                      $Assess_type = 'individual';
-                    }else{
-                      $Assess_type = 'private';
-                     }
-                    
-                    $result[] = array(
-                      'booked_id' => $booked_id,
-                      'id' => $entity->id->value,
-                      'user_name' => $entity->user_name->value,
-                      'nid' => $nid,
-                      'formtype' => $formtype,
-                      'Assess_type' => $Assess_type,
-                      'booking_date'  => $booking_date,
-                      'booking_time'  => $booking_time,
-                      'assess_nid' => $assess_nid,
-                      'first_name' => $entity->first_name->value,
-                      'last_name' => $entity->last_name->value,
-                      'org_name' => $org_name,
-                      'city' => $city,
-                      'state' => $state,
-                    );
-
-            }
-
+          if(!empty($entity->assessment->value)){
+            $Assess_type = 'individual';
+          }else{
+            $Assess_type = 'private';
           }
 
-
-        if(!empty($_GET['par_page_item'])){
-          $parpage = $_GET['par_page_item'];
-        }else{
-          $parpage = 10;
+          $result[] = array(
+            'booked_id' => $booked_id,
+            'id' => $entity->id->value,
+            'user_name' => $entity->user_name->value,
+            'nid' => $nid,
+            'formtype' => $formtype,
+            'Assess_type' => $Assess_type,
+            'field_status' => $field_status,
+            'booking_date'  => $booking_date,
+            'booking_time'  => $booking_time,
+            'assess_nid' => $assess_nid,
+            'first_name' => $entity->first_name->value,
+            'last_name' => $entity->last_name->value,
+            'org_name' => $org_name,
+            'city' => $city,
+            'state' => $state,
+          );
         }
-        //$result = $this->_return_pager_for_array($result, $parpage);
-      // Wrapper for rows
-
-
-         $tb = '<div class="wrapped_div_main user_pro_block">
-          <div class="block-bfss-assessors">
-          <div class="table-responsive-wrap">
-         <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
-            <thead>
-              <tr>
-               <th class="th-hd"><a><span></span> Date</a>
-                </th>
-                <th class="th-hd"><a><span></span> First Name</a>
-                </th>
-                <th class="th-hd"><a><span></span> Last Name</a>
-                </th>
-                <th class="th-hd"><a><span></span> Organization</a>
-                </th>
-                <th class="th-hd"><a><span></span> State</a>
-                </th>
-                <th class="th-hd"><a><span></span> City</a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>';
-      foreach ($result as $item) {
-        $nid = $item['nid'];
-        $type = $item['formtype'];
-        $Assesstype = $item['Assess_type'];
-        $booked_id = $item['booked_id'];
-        $st = $item['st'];
-        $user_name = $item['user_name'];
-        $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
-       
-        $first_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
-
-        $last_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
-
-    
-         $tb .= '<tr>
-                <td>'.$item['booking_date'].'</td>
-                <td>'.$first_name.'</td>
-                <td>'.$last_name.'</td>
-                <td>'.$item['org_name'].'</td>
-                <td>'.$item['state'].'</td>
-                <td>'.$item['city'].'</td>
-              </tr>';
       }
-      $tb .= '</tbody>
-          </table>
-           </div>
+
+
+      if(!empty($_GET['par_page_item'])){
+        $parpage = $_GET['par_page_item'];
+      }else{
+        $parpage = 10;
+      }
+      //$result = $this->_return_pager_for_array($result, $parpage);
+      // Wrapper for rows
+      $tb = '<div class="wrapped_div_main user_pro_block">
+      <div class="block-bfss-assessors">
+      <div class="table-responsive-wrap">
+      <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
+        <thead>
+          <tr>
+            <th class="th-hd"><a><span></span> Date</a>
+            </th>
+            <th class="th-hd"><a><span></span> First Name</a>
+            </th>
+            <th class="th-hd"><a><span></span> Last Name</a>
+            </th>
+            <th class="th-hd"><a><span></span> Form Type</a>
+            </th>
+            <th class="th-hd"><a><span></span> Status</a>
+            </th>
+            <th class="th-hd"><a><span></span> Organization</a>
+            </th>
+            <th class="th-hd"><a><span></span> State</a>
+            </th>
+            <th class="th-hd"><a><span></span> City</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>';
+
+    foreach ($result as $item) {
+      $nid = $item['nid'];
+      $type = $item['formtype'];
+      $Assesstype = $item['Assess_type'];
+      $booked_id = $item['booked_id'];
+      $st = $item['st'];
+      $user_name = $item['field_status'];
+      $field_status = $item['field_status'];
+      $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status']; // .'&assess_nid='.$item['assess_nid']
+
+      $first_name = $item['last_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
+
+      $last_name = $item['last_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
+
+      $field_status = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['field_status'].'</a></p>');
+
+        $tb .= '<tr>
+              <td>'.$item['booking_date'].'</td>
+              <td>'.$first_name.'</td>
+              <td>'.$last_name.'</td>
+              <td>'.$type.'</td>
+              <td>'.$field_status.'</td>
+              <td>'.$item['org_name'].'</td>
+              <td>'.$item['state'].'</td>
+              <td>'.$item['city'].'</td>
+            </tr>';
+    }
+    $tb .= '</tbody>
+        </table>
           </div>
-           </div>
-          
-          ';
+        </div>
+          </div>
 
-      //$rows = $this->_records_nonsql_sort($rows, $header);
+        ';
 
-      // Create table and pager
-        $out = array(
-          '#type' => 'markup',
-          '#markup' => 'This block list the article.',
-        );
-         $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
-         $element['#suffix'] = '</div>';
-        //$form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessors\Form\ParPageItemShow');
-        //$element['out'] = $form;
-        // $par_page_item = $_GET['par_page_item'];
-        $element['table'] = array(
-          '#theme' => 'table',
-          '#prefix' => '<div class="block-bfss-assessors">',
-          '#suffix' => '</div>',
-          '#header' => $header,
-          '#attributes'=>['id' => ['dtBasicExample']],
-          '#rows' => $rows,
-          '#empty' => t('There is no data available.'),
-        );
+    //$rows = $this->_records_nonsql_sort($rows, $header);
 
-        $element['pager'] = array(
-          '#type' => 'pager',
-        );
-       
-          return [
-          '#cache' => ['max-age' => 0,],
-          '#theme' => 'pending_assessments_page',
-          '#name' => 'G.K',
-          // '#prefix' => '<div class="block-bfss-assessors">',
-          // '#suffix' => '</div>',
-          '#pending_assessments_block' => Markup::create($tb),
-          '#attached' => [
-            'library' => [
-              'acme/acme-styles', //include our custom library for this response
-            ]
+    // Create table and pager
+      $out = array(
+        '#type' => 'markup',
+        '#markup' => 'This block list the article.',
+      );
+        $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
+        $element['#suffix'] = '</div>';
+      //$form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessors\Form\ParPageItemShow');
+      //$element['out'] = $form;
+      // $par_page_item = $_GET['par_page_item'];
+      $element['table'] = array(
+        '#theme' => 'table',
+        '#prefix' => '<div class="block-bfss-assessors">',
+        '#suffix' => '</div>',
+        '#header' => $header,
+        '#attributes'=>['id' => ['dtBasicExample']],
+        '#rows' => $rows,
+        '#empty' => t('There is no data available.'),
+      );
+
+      $element['pager'] = array(
+        '#type' => 'pager',
+      );
+
+        return [
+        '#cache' => ['max-age' => 0,],
+        '#theme' => 'pending_assessments_page',
+        '#name' => 'G.K',
+        // '#prefix' => '<div class="block-bfss-assessors">',
+        // '#suffix' => '</div>',
+        '#pending_assessments_block' => Markup::create($tb),
+        '#attached' => [
+          'library' => [
+            'acme/acme-styles', //include our custom library for this response
           ]
-        ];
-      //return $element;
-   }
+        ]
+      ];
+    //return $element;
+  }
 
 public function Get_Data_From_Tables($TableName,$atr,$current_user,$user_key){
       if($TableName){
