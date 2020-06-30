@@ -63,7 +63,7 @@
 {% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
 {# Main #}
 {% block main %}
-  <div role="main" class="main-container remove_padding js-quickedit-main-content">
+  <div role="main" class="main-container remove_padding js-quickedit-main-content user-profile-webpage-plx">
     <div class="container">
 
       {# Header #}
@@ -135,6 +135,8 @@
           <a id="main-content"></a>
           {{ page.content }}
         {% endblock %}
+        
+
       </section>
 
       {# Sidebar Second #}
@@ -148,7 +150,13 @@
     </div>
   </div>
 {% endblock %}
-
+<div class="user-webpage-footer">
+<ul>
+  <li><a href="#">SiteMap</a></li>
+  <li><a href="/privacy-policy" target="_blank">Privacy Policy</a></li>
+  <li><a href="/terms-and-conditions" target="_blank">Terms &amp; Conditions</a></li>
+</ul>
+</div>
 {% if page.footer %}
   {% block footer %}
     <footer class="footer {{ container }}" role="contentinfo">

@@ -331,7 +331,8 @@
 
                         <ul class="dropdown-menu">
                            <li><a class="side_button"  href="/bfssAthleteProfile">Edit My Athletic Profile</a></li>
-                           <li><a href="/preview/profile">View My Webpage</a></li>
+
+                           <li><a {% if athlete_web_name is not empty %} href="/profile/{{ athlete_web_name }}" {% else %}  href="/preview/profile" {% endif %}>View My Webpage</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -570,7 +571,7 @@
 
 {% if page.footer %}
   {% block footer %}
-    <footer class="footer {{ container }}" role="contentinfo">
+    <footer class="ff footer {{ container }}" role="contentinfo">
       <div id="calpopup-plx"></div>
       {{ page.footer }}
     </footer>

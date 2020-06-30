@@ -32,7 +32,7 @@ class PendingApprovalForm extends FormBase {
 
     $query = \Drupal::entityQuery('node');
     $query->condition('type', 'bfss_organizations');
-    //$query->condition('field_user_role', 'coach', 'CONTAINS');
+    $query->condition('uid', 1, '!=');
     $query->condition('status', 0, '=');
     $nids = $query->execute();
 
@@ -41,7 +41,7 @@ class PendingApprovalForm extends FormBase {
     $form['#tree'] = TRUE;
     $form['#prefix'] = '<div class="main_section_plx">';
     $form['#suffix'] = '</div>';
-   
+    $form['#attached']['library'][] = 'bfss_organizations/add_organization';
 
     $form['left_section_start'] = [
             '#type' => 'markup',
@@ -75,7 +75,7 @@ class PendingApprovalForm extends FormBase {
                 '#markup' => ' <div class="athlete_left">
                                   <h3><div class="toggle_icon">
                                       <i class="fa fa-minus"></i><i class="fa fa-plus hide"></i>
-                                    </div>ORGANIZATION APPROVAL
+                                    </div>ORGANIZATION APPROVAL<i id="'.$nid.'" class="pending-del-org fa fa-trash right-icon delete_icon" aria-hidden="true"></i>
                                   </h3>
                             <div class="items_div">',
             ];   

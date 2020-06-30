@@ -134,7 +134,7 @@ class AddOrganizations extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Address 2'),
         #'#title' => $this->t('Address 2'),
-        '#required' => TRUE,
+       # '#required' => TRUE,
         '#default_value' => '',
       ];
 
@@ -433,6 +433,7 @@ public function test(array &$form, FormStateInterface $form_state) {
               $node->title->value = $value['type'].'-'.$value['organization_name'];
               $node->setPublished(TRUE);
               $node->save();
+              drupal_set_message(t('<p class="bfss-success-msg">Successfully inserted organization.</p>'), 'success');
             }
               
     }

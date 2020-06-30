@@ -52,7 +52,7 @@ class ViewEditOrganizations extends ControllerBase {
     	$query = \Drupal::entityQuery('node');
 			$query->condition('type', 'bfss_organizations');
       $query->condition('status', 1, 'IN');
-      $query->condition('uid', $current_user, '=');
+      $query->condition('uid', 1, '!=');
 			$nids = $query->execute();
 			foreach ($nids as $nid) {
 				$node = Node::load($nid);

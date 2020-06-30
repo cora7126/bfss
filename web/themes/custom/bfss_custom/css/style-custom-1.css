@@ -74,6 +74,68 @@ ul.ui-autocomplete li.ui-menu-item div:hover, ui-autocomplete li.ui-menu-item di
 .edit-coach-form-popup .org_type_name_wrapper {float: left;width: 100%;margin-bottom: 40px;}
 .ui-autocomplete{ margin:4px, 4px; padding:4px; width: 500px; height: 200px; overflow-x: hidden; overflow-y: auto; text-align:justify;} 
 .coach-edit-form .right_section .image-widget .data {top:0px;}
+.atheltic-profile .item_image .mail_athlete{margin-top: 60px;}
+.atheltic-profile .item_image .image img{max-height: 275px;}
+footer.user-profile-fo.footer.container {
+    display: block;
+}
+.footer-main {
+    margin-left: 15px;
+}
+.user-profile-webpage-plx .region.region-content {
+    padding: 0 0 0rem!important;;
+}
+.user-webpage-footer ul li {
+    float: left;
+    list-style-type: none;
+}
+.user-webpage-footer a {
+    font-size: 11px;
+    padding: 0px 10px 0px 12px;
+    color: #808080;
+    text-transform: capitalize;
+}
+.user-webpage-footer {
+    background: #000;
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    padding: 20px 15px;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+   padding: 15px 0px 35px 0px;
+
+}
+
+.user-webpage-footer ul {
+    float: right;
+       margin-right: 160px;
+}
+.user-webpage-footer a:hover{color:#fff;}
+.user-webpage-footer ul li:nth-child(2), .user-webpage-footer ul li:nth-child(3) {border-left: 1px solid #808080;}
+.edit-organization-popup .left_section .athlete_left > .items_div{border:none;}
+.edit-organization-popup p.detail_text_update_org{padding-top: 20px;font-size: 14px;color: #000;}
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.drupal-edit-faq-fm.delete-faq.ui-dialog-buttons,.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.drupal-edit-faq-fm.edit-faq.ui-dialog-buttons {
+    top: 20.5px!important;
+    left: 330px!important;
+}
+.add-organizations button.close {
+    margin: 22px 25px 0px 0px;
+}
+
+
+.maintenance-page section#block-copyright {
+    text-align: center;
+    margin: 90px 0px 0px 0px;
+}
+
+.maintenance-page .registration-area {
+    padding: 40px 0px 0px 0px;
+}
+.maintenance-message p {
+    font-size: 13px;
+    }
 /***********INVOICE END FROM HERE************/
 
 /******************* RESPONSIVE CSS STARTS HERE *********************/

@@ -216,7 +216,7 @@ class AthelticController extends ControllerBase {
     if ($imgID) {
       $file = File::load($imgID);
       if ($file) {
-        $data['image'] = ImageStyle::load('medium')->buildUrl($file->getFileUri());
+        $data['image'] = ImageStyle::load('large')->buildUrl($file->getFileUri());
       }
     }
     // $data['image'] = 
@@ -559,6 +559,7 @@ class AthelticController extends ControllerBase {
     $this->follow_unfollow($data);
     #data on username
     $this->updateInfoForTmeplate($data, $username);
+    $this->Get_footer($data);
     // echo "<pre>";
     // print_r($data);die;
     // send output here
@@ -601,6 +602,7 @@ class AthelticController extends ControllerBase {
     $this->follow_unfollow($data);
     #update data with new things
     $this->updateTempInfoForTmeplate($data, $username);
+    $this->Get_footer($data);
     #send the output
 
     return [
@@ -615,6 +617,18 @@ class AthelticController extends ControllerBase {
       ];
   }
 	
+public function Get_footer(&$data){
+    $block = \Drupal\block\Entity\Block::load('copyright');
+    if ($block) {
+      $block_content = \Drupal::entityManager()->getViewBuilder('block')->view($block);
+      if ($block_content) {
+        $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
+        $data['mydata']['copyright'] = $assessments_block;
+      }
+    }
+}
+
+
     public function Get_ath_Data($table,$atr,$uid_key,$current_user){
       //if($table){
         $query = \Drupal::database()->select($table, $atr);

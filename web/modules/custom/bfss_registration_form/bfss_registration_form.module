@@ -871,6 +871,7 @@ function bfss_user_payment_save(array &$form, FormStateInterface $form_state) {
  * Implements hook_ENTITY_TYPE_INSERT().
  */
 function bfss_registration_form_user_insert(User $user) {
+ // \Drupal::logger('$user array')->notice('@type', array('@type' => print_r($user->get('mail')->value, 1) ));
   $role = $_SESSION['bfss_registration_form_user_type'];
   $user->addRole($role);
 
@@ -888,7 +889,7 @@ function bfss_registration_form_user_insert(User $user) {
  */
 function ajax_register_user_register_form_submit(array &$form, FormStateInterface $form_state) {
 
-
+ // \Drupal::logger('mail array')->notice('@type', array('@type' => print_r($form_state->getValue('mail'), 1) ));
   $userType = $form_state->getValue('user_type');
   $_SESSION['bfss_registration_form_user_type'] = $userType;
 
