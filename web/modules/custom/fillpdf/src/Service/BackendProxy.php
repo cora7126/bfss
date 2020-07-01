@@ -112,6 +112,7 @@ class BackendProxy implements BackendProxyInterface {
      */
 
     $fieldMappings = $this->My_assessments($_GET['entity_id'], $fieldMappings);
+    // ksm($fieldMappings['field_peak_force_n_maximal'], $fieldMappings);
 
     // Now load the backend plugin.
     /** @var \Drupal\fillpdf\FillPdfBackendPluginInterface|\Drupal\fillpdf\Plugin\PdfBackendInterface $backend */
@@ -134,6 +135,29 @@ class BackendProxy implements BackendProxyInterface {
   }
 
 
+  // protected function My_assessments($booked_id_param, $fieldMappings){
+  //   $query1 = \Drupal::entityQuery('node');
+  //   $query1->condition('type', 'athlete_assessment_info');
+  //   $query1->condition('field_booked_id',$booked_id_param, 'IN');
+  //   $nids1 = $query1->execute();
+  //   if(!empty($nids1)) {
+  //     foreach ($nids1 as $key => $value) {
+  //       $node1 = Node::load($value);
+  //       foreach ($node1->getFields() as $fieldName => $value) {
+  //         $assAry[$fieldName] = $value->getValue($fieldName)[0]['value'];
+  //         //No workie: $assAry[$fieldName] = $value->get($fieldName)->getValue();
+  //       }
+  //       $mappingsWithValues = $fieldMappings;
+  //       foreach ($fieldMappings as $pdf_key => $emptyValue) {
+  //         if (isset($assAry[$pdf_key])) {
+  //           $mappingsWithValues[$pdf_key] =  new TextFieldMapping($assAry[$pdf_key]);
+  //         }
+  //       }
+  //       return $mappingsWithValues;
+  //     }
+  //   }
+  // }
+
   protected function My_assessments($booked_id_param, $fieldMappings){
     // And get latest recorded status (and $assess_nid) for current assessment - see if complete or incomplete.
     $nidPrev = 0;
@@ -151,10 +175,12 @@ class BackendProxy implements BackendProxyInterface {
             $assAry[$fieldName] = $nid->getValue($fieldName)[0]['value'];
             //No workie: $assAry[$fieldName] = $nid->get($fieldName)->getValue();
           }
-          $mappingsWithValues = $fieldMappings;
+          // ksm($assAry);
+          $mappingsWithValues = [];//$fieldMappings;
           foreach ($fieldMappings as $pdf_key => $emptyValue) {
             if (isset($assAry[$pdf_key])) {
-              $mappingsWithValues[$pdf_key] =  new TextFieldMapping($assAry[$pdf_key]);
+              $tmp = new TextFieldMapping($assAry[$pdf_key]);
+              $mappingsWithValues[$pdf_key] = $tmp->getData();
             }
           }
         }
@@ -162,6 +188,7 @@ class BackendProxy implements BackendProxyInterface {
       return $mappingsWithValues;
     }
   }
+
 
   /** TODO: make utility class
    * Use this to extract "professional" because $param['formtype'] only contains 'starter' OR 'elite'
