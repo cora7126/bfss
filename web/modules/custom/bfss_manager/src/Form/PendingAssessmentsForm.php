@@ -289,7 +289,7 @@ class PendingAssessmentsForm extends FormBase {
         );
 
         $fieldName = 'field_age'; $fieldNameAry[] = 'field_age';  //dd
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'AGE'); // 1
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'AGE', 'y/o'); // 1
         $fieldName = 'field_sport_assessment'; $fieldNameAry[] = 'field_sport_assessment';  // d
         $default_sport = @$node->{$fieldName}->value ? @$node->{$fieldName}->value : $sport;
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, $default_sport, 'SPORT'); // 2
@@ -313,12 +313,12 @@ class PendingAssessmentsForm extends FormBase {
         // Note: field_rsi_reactive_b should be called field_jump_height_in_reactive_b
 
         $fieldName = 'field_peak_force_n_maximal'; $fieldNameAry[] = 'field_peak_force_n_maximal';  //dd  LEGACY:  starter_peak_for_max
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'N');  // 9
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'Lbs');  // 9
         $fieldName = 'field_rsi_reactive'; $fieldNameAry[] = 'field_rsi_reactive';  //dd  LEGACY:  starter_rsi_rea_str
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH', 'In'); // 10
 
         $fieldName = 'field_rsi_reactive_b'; $fieldNameAry[] = 'field_rsi_reactive_b';  //dd
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH', 'In'); // 11
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH', 'Percentile'); // 11
       }
 
       //------------------------------------------ professional and elite form
@@ -358,12 +358,12 @@ class PendingAssessmentsForm extends FormBase {
         // Note: field_rsi_reactive_b should be called field_jump_height_in_reactive_b
 
         $fieldName = 'field_peak_force_n_maximal'; $fieldNameAry[] = 'field_peak_force_n_maximal';  //dd  LEGACY:  starter_peak_for_max
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'N');  // 9
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'MAXIMAL STRENGTH', 'Lbs');  // 9
         $fieldName = 'field_rsi_reactive'; $fieldNameAry[] = 'field_rsi_reactive';  //dd  LEGACY:  starter_rsi_rea_str
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH', 'In'); // 10
 
         $fieldName = 'field_rsi_reactive_b'; $fieldNameAry[] = 'field_rsi_reactive_b';  //dd
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH', 'In'); // 11
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH', 'Percentile'); // 11
         $fieldName = 'field_jump_height_in_elastic_e'; $fieldNameAry[] = 'field_jump_height_in_elastic_e';
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(E) ELASTIC STRENGTH', 'In'); // 11
 
@@ -375,17 +375,17 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_peak_force_n_maximal_e'; $fieldNameAry[] = 'field_peak_force_n_maximal_e';
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(E) MAXIMAL STRENGTH', 'Lbs'); // 14
         $fieldName = 'field_jump_height_in_elastic_b'; $fieldNameAry[] = 'field_jump_height_in_elastic_b';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) ELASTIC STRENGTH', 'In');
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) ELASTIC STRENGTH', 'Percentile');
 
         $fieldName = 'field_jump_height_in_ballistic_b'; $fieldNameAry[] = 'field_jump_height_in_ballistic_b';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) BALLISTIC STRENGTH', 'In'); // 17
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) BALLISTIC STRENGTH', 'Percentile'); // 17
         $fieldName = 'field_10m_time_sec_sprint_b'; $fieldNameAry[] = 'field_10m_time_sec_sprint_b';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) ACCELERATION/SPEED', 'Sec'); // 18
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '(B) ACCELERATION/SPEED', 'Percentile'); // 18
 
         $fieldName = 'field_peak_force_n_maximal_b'; $fieldNameAry[] = 'field_peak_force_n_maximal_b';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) MAXIMAL STRENGTH', 'Lbs'); // 19
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '(B) MAXIMAL STRENGTH', 'Percentile'); // 19
         $fieldName = 'field_elite_age_e'; $fieldNameAry[] = 'field_elite_age_e';
-        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ELITE PERFORMERS AGE'); // *ELITE PERFORMERS AGE
+        $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'ELITE PERFORMERS AGE', 'range'); // *ELITE PERFORMERS AGE
 
         $formFields['field_wrap_2'] = array(
           '#type' => 'fieldset',
@@ -625,14 +625,14 @@ class PendingAssessmentsForm extends FormBase {
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Static Med Ball Throw', 'W');
 
         $fieldName = 'field_static_ball_throw_b'; $fieldNameAry[] = 'field_static_ball_throw_b';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Static Med Ball Throw Benchmark', 'W');
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Static Med Ball Throw Benchmark', 'Percentile');
         $fieldName = 'field_rotate_ball_throw'; $fieldNameAry[] = 'field_rotate_ball_throw';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational Med Ball Throw', 'W');
 
         $fieldName = 'field_rotate_ball_throw_e'; $fieldNameAry[] = 'field_rotate_ball_throw_e';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Rotational Med Ball Throw', 'W');
         $fieldName = 'field_rotate_ball_throw_b'; $fieldNameAry[] = 'field_rotate_ball_throw_b';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational Med Ball Throw Benchmark', 'W');
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Rotational Med Ball Throw Benchmark', 'Percentile');
 
         $fieldName = 'field_single_leg_strength'; $fieldNameAry[] = 'field_single_leg_strength';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg Strength', '#');
@@ -640,14 +640,14 @@ class PendingAssessmentsForm extends FormBase {
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite Single Leg Strength', '#');
 
         $fieldName = 'field_single_leg_strength_b'; $fieldNameAry[] = 'field_single_leg_strength_b';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg Strength Benchmark', '#');
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Single Leg Strength Benchmark', 'Percentile');
         $fieldName = 'field_push_ups_num'; $fieldNameAry[] = 'field_push_ups_num';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Push-Ups', '#');
 
         $fieldName = 'field_push_ups_num_e'; $fieldNameAry[] = 'field_push_ups_num_e';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite Push-Ups', '#');
         $fieldName = 'field_push_ups_num_b'; $fieldNameAry[] = 'field_push_ups_num_b';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Push-Ups Benchmark', '#');
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Push-Ups Benchmark', 'Percentile');
 
         $fieldName = 'field_agility_sec'; $fieldNameAry[] = 'field_agility_sec';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility Test', 'Secs');
@@ -655,14 +655,14 @@ class PendingAssessmentsForm extends FormBase {
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, 'Elite 5-10-5 Agility Test', 'Secs');
 
         $fieldName = 'field_agility_sec_b'; $fieldNameAry[] = 'field_agility_sec_b';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility Test Benchmark', 'Secs');
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, '5-10-5 Agility Test Benchmark', 'Percentile');
         $fieldName = 'field_bike_test_time'; $fieldNameAry[] = 'field_bike_test_time';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '1.5 Mile Bike Test', 'Time');
 
         $fieldName = 'field_bike_test_time_e'; $fieldNameAry[] = 'field_bike_test_time_e';
         $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 0, @$node->{$fieldName}->value, 'Elite 1.5 Mile Bike Test', 'Time');
         $fieldName = 'field_bike_test_time_b'; $fieldNameAry[] = 'field_bike_test_time_b';
-        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '1.5 Mile Bike Test Benchmark', 'Time');
+        $formFields['field_wrap_100'][$fieldName] = $this->getFormField($fieldName, 1, @$node->{$fieldName}->value, '1.5 Mile Bike Test Benchmark', 'Percentile');
 
 
         //~~~~~~~~~~~~~~~~~~~~ Results: Supine Med Ball Chest Throw
