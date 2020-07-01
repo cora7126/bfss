@@ -180,7 +180,7 @@ class BackendProxy implements BackendProxyInterface {
           foreach ($fieldMappings as $pdf_key => $emptyValue) {
             if (isset($assAry[$pdf_key])) {
               $tmp = new TextFieldMapping($assAry[$pdf_key]);
-              $mappingsWithValues[$pdf_key] = $tmp->getData();
+              $mappingsWithValues[$pdf_key] = $tmp; // ->getData();
             }
           }
         }
