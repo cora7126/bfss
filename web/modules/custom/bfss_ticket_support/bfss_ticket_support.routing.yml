@@ -1,7 +1,7 @@
-bfss_ticket_support.createTicket:
-  path: /ticket/create
+bfss_ticket_support:
+  path: /ticketing
   defaults:
-    _form: '\Drupal\bfss_ticket_support\Form\CreateTicket'
-    _title: 'Create Ticket'
+    _title: "Ticketing"
+    _controller: '\Drupal\bfss_ticket_support\TicketingController::content'
   requirements:
-    _access: 'TRUE' 
+    _permission: 'access content'
