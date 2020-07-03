@@ -169,11 +169,12 @@ class PendingAssessments extends ControllerBase {
       $field_status = $item['field_status'];
       $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status']; // .'&assess_nid='.$item['assess_nid']
 
-      $first_name = $item['last_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
+      $first_name = $item['first_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
 
       $last_name = $item['last_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
 
-      $field_status = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['field_status'].'</a></p>');
+      // $field_status = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$field_status.'</a></p>');
+      $type = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$type.'</a></p>');
 
         $tb .= '<tr>
               <td>'.$item['booking_date'].'</td>

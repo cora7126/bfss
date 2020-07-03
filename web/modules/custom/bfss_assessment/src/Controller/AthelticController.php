@@ -1,649 +1,281 @@
 <?php
-
 namespace Drupal\bfss_assessment\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\node\Entity\Node;
-Use Drupal\node\NodeInterface;
-use Drupal\Core\Database\Database;
-use Drupal\file\Entity\File;
-use Drupal\image\Entity\ImageStyle;
-use Drupal\bfss_assessment\AssessmentService;
+use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
+use Drupal\Core\Render\Markup;
+
 /**
- * Class AthelticController.
+ * Provides route responses for the Example module.
  */
-class AthelticController extends ControllerBase {
+class MyAssessments extends ControllerBase {
 
-  /**
-   * Symfony\Component\HttpFoundation\RequestStack definition.
-   *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
+  /** TODO: make utility class
+   * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
+   * @param string $assessmentPrice
    */
-  protected $requestStack;
-
-  /**
-  * Drupal\bfss_assessment\AssessmentService definition.
-  *
-  * @var \Drupal\bfss_assessment\AssessmentService
-  */
-  protected $assessmentService;
-  
-  /*
-   * current user id
-   */
-  protected $atheleteUserId = null;
-  
-  /*
-   * a database connection
-   */
-  protected $db;
-
-
-
-  /**
-   * Constructs a new AthelticController object.
-   */
-  public function __construct(RequestStack $request_stack, ConfigFactoryInterface $config_factory, AssessmentService $assessment_service) {
-    $this->requestStack = $request_stack;
-    $this->configFactory = $config_factory;
-    $this->assessmentService = $assessment_service;
-    $this->db = Database::getConnection();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('request_stack'),
-      $container->get('config.factory'),
-      $container->get('bfss_assessment.default')
-    );
-  }
-
-  /*
-   * get data using d-b query
-   */
-  private function getUserInfo($table_name = '', $field_name = '', $cond = 'entity_id') {
-    $result = null;
-    if ($this->atheleteUserId) {
-      $query = $this->db->select($table_name, 'tb');
-      if ($field_name) {
-          $query->fields('tb', [$field_name]);
-      }else{
-          $query->fields('tb');
-      }
-      $query->condition($cond, $this->atheleteUserId,'=');
-      $result = $query->execute()->fetchAssoc();
-      if ($field_name && isset($result[$field_name])) {
-        return $result[$field_name];
-      }
-    }
-    return $result;
-  }
-  /*
-   * check id exists
-   */
-  private function getUserNameValiditity($username = '') {
-  
-    if ($username) {
-     
-      $query = $this->db->select('athlete_web', 'tb');
-      $query->fields('tb');
-      $query->condition('athlete_web_name', $username,'=');
-      $query->condition('athlete_web_visibility', 1,'=');
-      $result = $query->execute()->fetchAssoc();
-     
-
-      if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
-        return $result['athlete_uid'];
-      }
-      #check another username
-      $query = $this->db->select('athlete_addweb', 'tb');
-      $query->fields('tb');
-      $query->condition('athlete_addweb_name', $username,'=');
-      $query->condition('athlete_addweb_visibility', 1,'=');
-      $result = $query->execute()->fetchAssoc();
-       
-      if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
-        return $result['athlete_uid'];
-      }
-      #check last username
-      $query = $this->db->select('athlete_clubweb', 'tb');
-      $query->fields('tb');
-      $query->condition('athlete_clubweb_name', $username,'=');
-      $query->condition('athlete_clubweb_visibility', 1,'=');
-      $result = $query->execute()->fetchAssoc();
-
-      if (isset($result['athlete_uid']) && !empty($result['athlete_uid'])) {
-        return $result['athlete_uid'];
-      }
-
-    }
-    return false;
-  }
-
-  public function getBasicData(){
-     $uid = \Drupal::currentUser()->id();
-     if(isset($_GET['uid'])){
-     $uid =$_GET['uid'];
-    }
-
-    $data['first_name'] = $this->getUserInfo('user__field_first_name', 'field_first_name_value');
-    $data['last_name'] = $this->getUserInfo('user__field_last_name', 'field_last_name_value');
-    $data['date'] = $this->getUserInfo('user__field_date', 'field_date_value');
-    if ($data['date']) {
-      $from = new \DateTime($data['date']);
-      $to   = new \DateTime('today');
-      $data['date'] = $from->diff($to)->y;
-    }
-    $data['mail'] = $this->getUserInfo('users_field_data', 'mail','uid');
-    $data['athlete_school'] = $this->getUserInfo('athlete_school', '','athlete_uid');
-    $data['athlete_uni'] = $this->getUserInfo('athlete_uni', '','athlete_uid');
-    $data['athlete_club'] = $this->getUserInfo('athlete_club','','athlete_uid');
-
-
-    /*[id] => 3
-    [athlete_uid] => 101
-    [athlete_school_name] => Organization Name 1
-    [athlete_school_coach] => sfdg
-    [athlete_school_sport] => Tennis
-    [athlete_school_pos] => ert
-    [athlete_school_stat] => sfsdfsd
-    [athlete_school_type] => Organization Type 1
-    [athlete_school_pos2] => er
-    [athlete_school_pos3] => ert*/
-   
-    $data['athlete_info'] = $this->getUserInfo('athlete_info', '','athlete_uid');
-    /*
-    [id] => 3
-    [athlete_uid] => 101
-    [athlete_email] => rperry@mindimage.net
-    [athlete_state] => 1
-    [athlete_city] => 13
-    [athlete_coach] => sfdg
-    [athlete_year] => 13
-    [field_height] => 13
-    [field_weight] => 13
-    [popup_flag] => */
-    #prepare gender
-    if (isset($data['athlete_info']['athlete_state'])) {
-      switch ($data['athlete_info']['athlete_state']) {
-        case 1:
-          $val = 'Male';
-          break;
-
-        case 2:
-          $val = 'Female';
-          break;
-
-        case 3:
-          $val = 'Other';
-          break;
-        
-        default:
-          $val = '';
-          break;
-      }
-      $data['athlete_info']['athlete_state'] = $val;
-    }
-    $data['state'] = $this->getUserInfo('user__field_state','field_state_value');
-    $data['athlete_about_me'] = $this->getUserInfo('athlete_about','athlete_about_me','athlete_uid');
-    #result-10
-    $data['athlete_social'] = $this->getUserInfo('athlete_social','','athlete_uid');
-
-    /*[id] => 3
-    [athlete_uid] => 101
-    [athlete_social_1] => Ryan Perry
-    [athlete_social_2] => safsdaffsd*/
-    #result-12
-    $data['athlete_uni'] = $this->getUserInfo('athlete_uni','','athlete_uid');
-    $data['athlete_web'] = $this->getUserInfo('athlete_web','','athlete_uid');
-    /*[athlete_web_name] => 
-    [athlete_web_visibility] => 1*/
-    $data['athlete_addweb'] = $this->getUserInfo('athlete_addweb','','athlete_uid');
-    // [athlete_addweb_name] => 
-    // [athlete_addweb_visibility] =>  
-    //$imgID = $this->getUserInfo('user__user_picture','user_picture_target_id');
-    
-     $imgID = $this->Get_ath_Data('athlete_prof_image', 'atsim','athlete_id',$uid)['athlete_target_image_id'];
-     // print_r($imgID);
-     // die;
-    if ($imgID) {
-      $file = File::load($imgID);
-      if ($file) {
-        $data['image'] = ImageStyle::load('large')->buildUrl($file->getFileUri());
-      }
-    }
-    // $data['image'] = 
-    // 298
-    $data['addschool'] = $this->getUserInfo('athlete_addschool','','athlete_uid');
-   
-    $data['athlete_clubweb'] = $this->getUserInfo('athlete_clubweb','','athlete_uid');
-     /*[athlete_clubweb_name] => 
-    [athlete_clubweb_visibility] => */ 
-    $data['mydata'] = $this->getUserInfo('mydata','','uid');
-
-    /* [id] => 23
-    [field_jodi] => Ryan
-    [field_bloggs] => Perry
-    [field_az] => 2
-    [field_city] => Scottsdale
-    [field_birth_gender] => 
-    [field_dob] => 
-    [field_height] => 
-    [field_weight] => 
-    [field_organization_type] => 0
-    [field_organization_name] => 0
-    [field_coach_lname] => 
-    [field_sport] => 
-    [field_position] => 
-    [field_instagram] => 
-    [field_youtube] => 
-    [popup_flag] => filled
-    [uid] => 101*/
-    #$this->assessmentService->check_assessment_node($nid);
-    #get only channel id
-    // field_dob
-    $data['mydata']['person_year'] = $this->DOB_get_year($uid);
-    return $data;
-  }
-
-
-  public function InstagramUrl(&$data, $preview =false) {
-    
-    if (!$preview) {
-      $data['mydata']['field_instagram'] = $instagram_url = isset($data['athlete_social']['athlete_social_1']) ? $data['athlete_social']['athlete_social_1'] : null;
-    }
-      // $instagram_url = $data['athlete_social']['athlete_social_1'];
-      $regex = '/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im';
-
-      if (strpos($instagram_url, 'https://www.instagram.com') !== false) {
-         // Verify valid Instagram URL
-        if ( preg_match( $regex, $instagram_url, $matches ) ) {
-              $data['mydata']['field_instagram'] = $matches[1]; 
-        }
-      }else{
-         $data['mydata']['field_instagram'] = $instagram_url; 
-      }
-      
-    }
-
-  public function YoutubeUrl(&$data, $preview =false) {
-    if (!$preview) {
-      $data['mydata']['field_youtube'] = isset($data['athlete_social']['athlete_social_2']) ? $data['athlete_social']['athlete_social_2'] : null;
-    }
-
-    if (isset($data['mydata']['field_youtube']) && !empty($data['mydata']['field_youtube'])) {
-      if (strpos($data['athlete_social']['athlete_social_2'], 'https://www.youtube.com/channel') !== false) {
-        $url     = $data['mydata']['field_youtube'];
-        $xml_url = $this->getYouTubeXMLUrl($url);
-        $xmlfile = file_get_contents($xml_url);  
-        // Convert xml string into an object 
-        $new = simplexml_load_string($xmlfile); 
-        // Convert into json 
-        $con = json_encode($new); 
-        // Convert into associative array 
-        $newArr = json_decode($con, true);
-        $video_id = explode("?v=",  isset($newArr['entry'][0]['link']['@attributes']['href']) ? $newArr['entry'][0]['link']['@attributes']['href'] : null);
-        $video_id = isset($video_id[1]) ? $video_id[1] : null;
-        $data['mydata']['field_youtube'] = $video_id;
-      }elseif(strpos($data['athlete_social']['athlete_social_2'], 'https://www.youtube.com/watch') !== false){
-        preg_match_all("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", 
-                            $data['athlete_social']['athlete_social_2'], $matches); 
-        // print_r($matches);
-        // die;
-         $data['mydata']['field_youtube'] = isset($matches[0][0])?$matches[0][0]:null;
-
-      }elseif( strpos($data['mydata']['field_youtube'], 'https://vimeo.com') !== false ){
-         $data['mydata']['field_vimeo'] = substr(parse_url($data['mydata']['field_youtube'], PHP_URL_PATH), 1);
-         $data['mydata']['field_youtube'] = '';
-      }
-
-    }
-  }
-
-
-    public function Bfss_assessments(&$data, $preview =false) {
-
-    $block = \Drupal\block\Entity\Block::load('bfssassessmentlistblock');
-    if ($block) {
-      $block_content = \Drupal::entityManager()->getViewBuilder('block')->view($block);
-      if ($block_content) {
-        $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
-        $data['mydata']['bfss_assessments'] = $assessments_block;
-      }
-    } 
-      //$data['mydata']['bfss_assessments'] = 'field_youtube1';
-    
-  }
-
-  private function getYouTubeXMLUrl( $url, $return_id_only = false ) {
-      $xml_youtube_url_base = 'https://www.youtube.com/feeds/videos.xml';
-      $preg_entities        = [
-          'channel_id'  => '\/channel\/(([^\/])+?)$', //match YouTube channel ID from url
-          'user'        => '\/user\/(([^\/])+?)$', //match YouTube user from url
-          'playlist_id' => '\/playlist\?list=(([^\/])+?)$',  //match YouTube playlist ID from url
-      ];
-      foreach ( $preg_entities as $key => $preg_entity ) {
-          if ( preg_match( '/' . $preg_entity . '/', $url, $matches ) ) {
-              if ( isset( $matches[1] ) ) {
-                  if($return_id_only === false){
-                      return $xml_youtube_url_base . '?' . $key . '=' . $matches[1];
-                  }else{
-                      return [
-                          'type' => $key,
-                          'id' => $matches[1],
-                      ];
-                  }
-
-              }
-          }
-      }
-
-  }
-  public function getShareBlock(&$data) {
-    $block = \Drupal\block\Entity\Block::load('socialsharingblock');
-    if ($block) {
-      $block_content = \Drupal::entityManager()->getViewBuilder('block')->view($block);
-      if ($block_content) {
-        $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
-        $data['mydata']['social_share'] = $assessments_block;
-      }
-    }
-  }
-
-  public function follow_unfollow(&$data) {
-
-     $uid = \Drupal::currentUser()->id();
-     $user = \Drupal\user\Entity\User::load($uid);
-     $roles = $user->getRoles();
-     $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\FollowUnfollowForm');
-
-     $data['mydata']['follow_unfollow'] = $form;
-     
-    
-     
-  }
-  public function updateInfoForTmeplate(&$data, $username = null) {
-    // echo "<pre>";
-    // print_r($data);
-    // die;
-    if ($username) {
-      if (isset($data['athlete_web']['athlete_web_name']) && $data['athlete_web']['athlete_web_name'] == $username) {
-        // $data['org_info']['name']
-        
-        $relSchl = isset($data['athlete_school']) ? $data['athlete_school'] : null;
-        if ($relSchl) {
-          foreach ($relSchl as $key => $value) {
-            $data['org_info'][str_replace('athlete_school_','', $key)] = $value;
-          }
-        }
-      }
-
-      if (isset($data['athlete_addweb']['athlete_addweb_name']) && $data['athlete_addweb']['athlete_addweb_name'] == $username) {
-         
-       $relSchl = isset($data['athlete_club']) ? $data['athlete_club'] : null;
-        if ($relSchl) {
-          foreach ($relSchl as $key => $value) {
-            $data['org_info'][str_replace(['athlete_club_','athlete_school_'],'', $key)] = $value;
-          }
-        } 
-      }
-
-      if (isset($data['athlete_clubweb']['athlete_clubweb_name']) && $data['athlete_clubweb']['athlete_clubweb_name'] == $username) {
-       $relSchl = isset($data['athlete_uni']) ? $data['athlete_uni'] : null;
-       
-        if ($relSchl) {
-          foreach ($relSchl as $key => $value) {
-            $data['org_info'][str_replace('athlete_uni_','', $key)] = $value;
-          }
-        }
-        
-        
-      }
-
-
-    }
-   //  echo "<pre>";
-   // print_r($data);
-   // die;
-
-  }
-
-  public function updateTempInfoForTmeplate(&$data) {
-    $req = $this->requestStack->getCurrentRequest();
-    // echo "<pre>";
-    // print_r($req);
-    // die;
-    $uid = \Drupal::currentUser()->id();
-    #update values
-    if ($val = $req->get('fname')) {
-      $data['first_name'] = $val;
-    }
-    if ($val = $req->get('lname')) {
-      $data['last_name'] = $val;
-    }
-    if ($val = $req->get('email')) {
-      $data['mail'] = $val;
-    }
-
-
-    if ($val = $req->get('sex')) {
-      switch ($val) {
-        case 1:
-          $newval = 'Male';
-          break;
-
-        case 2:
-          $newval = 'Female';
-          break;
-
-        case 3:
-          $newval = 'Other';
-          break;
-        
-        default:
-          $newval = '';
-          break;
-      }
-      $data['athlete_info']['athlete_state'] = $newval;
-    }
-
-    if ($val = $req->get('gradyear')) {
-      $data['athlete_info']['athlete_year'] = $val;
-    }
-
-    if ($val = $req->get('height')) {
-      $data['athlete_info']['field_height'] = $val;
-    }
-
-    if ($val = $req->get('weight')) {
-      $data['athlete_info']['field_weight'] = $val;
-    }
-
-    if ($val = $req->get('aboutme')) {
-      $data['athlete_about_me'] = $val;
-    }
-
-    if ($val = $req->get('instagram')) {
-      $data['mydata']['field_instagram'] = $val;
-      $this->InstagramUrl($data, true);
-    }
-
-    if ($val = $req->get('youtube')) {
-      $data['mydata']['field_youtube'] = $val;
-    $this->YoutubeUrl($data, true);
-
-    }
-
-   // $data['mydata']['field_youtube1'] = 'field_youtube1';
-
-    // if ($val = $req->get('btnId')) {
-    //   $pr = $name = $type = '';
-    //   if ($val == 1) {
-    //     $pr = '';
-    //     $name = 'organizationName';
-    //     $type = 'organizationType';
-    //   }elseif ($val == 2) {
-    //     $pr = '_1';
-    //     $name = 'schoolname_1';
-    //     $type = 'education_1';
-    //   }elseif ($val == 3) {
-    //     $pr = '_2';
-    //     $name = 'schoolname_2';
-    //     $type = 'education_2';
-    //   }
-
-    // $resulttype = \Drupal::database()->select('athlete_school', 'ats');
-    // $resulttype->fields('ats');
-    // $resulttype->condition('athlete_uid', $current_user, '=');
-    // $resulttype->condition('id', $id1, '=');
-    // $resulttype1 = $resulttype->execute()->fetchAssoc();
-      
-    if(isset($_GET['uid'])){
-     $uid =$_GET['uid'];
-    }
-    $org = $this->Get_ath_Data('athlete_school', 'ats','athlete_uid',$uid);
-   // if($org)
-      $data['org_info']['name'] = $org['athlete_school_name'];
-      $data['org_info']['type'] = $org['athlete_school_type'];
-      $data['org_info']['coach'] = $org['athlete_school_coach'];
-      $data['org_info']['sport'] = $org['athlete_school_sport'];
-      $data['org_info']['pos'] = $org['athlete_school_pos'];
-      $data['org_info']['stat'] = $org['athlete_school_stat'];
-      $data['org_info']['pos2'] = $org['athlete_school_pos2'];
-      $data['org_info']['pos3'] = $org['athlete_school_pos3'];
-
-      // $user = User::load($uid);
-      // $dob = $user->field_date_of_birth->value;
-      // $diff = (date('Y') - date('Y',strtotime($dob)));
-       $data['mydata']['person_year'] = $this->DOB_get_year($uid);
-   // }
-    //}
-
-
-  }
-  /**
-   * @return markup
-   *url bfss_assessment.atheltic_profile
-   */
-  public function profilePage() {
-
-    $data = [];
-    $username = \Drupal::request()->get('username');
-    $postReq = \Drupal::request()->request->all();
-
-    $profileuser = $this->getUserNameValiditity($username);
-  
-    #if username doesn't exist
-    if (!$profileuser) {
-      return [
-        '#cache' => ['max-age' => 0,],
-        '#type' => 'markup',
-        '#markup' => t('<h3 style="padding: 10px;color:#db0000;font-weight: bold;">OOPS! The profile you are looking for is not available!</h3>'),
-      ];
-    }
-    $this->atheleteUserId = $profileuser;
-    $data = $this->getBasicData();
-    $data['username'] = $username;
-    
-    $this->YoutubeUrl($data);
-    $this->Bfss_assessments($data);
-    $this->InstagramUrl($data);
-    $this->getShareBlock($data);
-    $this->follow_unfollow($data);
-    #data on username
-    $this->updateInfoForTmeplate($data, $username);
-    $this->Get_footer($data);
-    // echo "<pre>";
-    // print_r($data);die;
-    // send output here
-    return [
-        '#cache' => ['max-age' => 0,],
-        '#theme' => 'atheltic__profile',
-        '#data' => $data,
-        '#attached' =>[
-          'library' => [
-            'bfss_assessment/athletic',
-          ],
-        ],
-      ];
-  }
-
-
-	
-
-/**
-   * @return markup
-   *url bfss_assessment.preview_atheltic_profile
-   */
-  public function previewProfile() {
-
-    if(isset($_GET['uid'])){
-      $this->atheleteUserId = $_GET['uid'];
-      $this->DOB_get_year($_GET['uid']);
+  protected function getFormTypeFromPrice($assessmentPrice) {
+    if($assessmentPrice == '299.99'){
+      return 'elite';
+    }elseif($assessmentPrice == '29.99'){
+      return 'starter';
+    }elseif($assessmentPrice == '69.99'){
+      return 'professional';
     }else{
-      $uid = \Drupal::currentUser()->id();
-      $this->atheleteUserId = $uid;
-      $this->DOB_get_year($uid);
+      return 'UNKNOWN';
     }
-      
-    
-    $data = $this->getBasicData();
-    $this->YoutubeUrl($data);
-    $this->Bfss_assessments($data);
-    $this->InstagramUrl($data);
-    $this->getShareBlock($data);
-    $this->follow_unfollow($data);
-    #update data with new things
-    $this->updateTempInfoForTmeplate($data, $username);
-    $this->Get_footer($data);
-    #send the output
-
-    return [
-        '#cache' => ['max-age' => 0,],
-        '#theme' => 'atheltic__profile',
-        '#data' => $data,
-        '#attached' =>[
-          'library' => [
-            'bfss_assessment/athletic',
-          ],
-        ],
-      ];
   }
-	
-public function Get_footer(&$data){
-    $block = \Drupal\block\Entity\Block::load('copyright');
-    if ($block) {
-      $block_content = \Drupal::entityManager()->getViewBuilder('block')->view($block);
-      if ($block_content) {
-        $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
-        $data['mydata']['copyright'] = $assessments_block;
+  /** TODO: make utility class
+   * Find the pdf template "fid" -- see /admin/structure/fillpdf
+   * @param string $form_type
+   */
+  public function getPdfTemplateId($form_type) {
+    switch ($form_type) {
+      case 'starter':
+        return '12';
+      case 'professional':
+        return '11';
+      case 'elite':
+        return '10';
+      default:
+       return -1111;
+    }
+   }
+
+  /** TODO: make utility class;
+   * Return a url to download the assessment pdf.
+   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
+   */
+  protected function getFillPdfUrl($pdf_template_fid, $nid) {
+    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
+    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
+    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
+
+  }
+
+
+  /**
+   * Returns a simple page.
+   *
+   * @return array
+   *   A simple renderable array.
+   */
+  public function my_assessments()
+  {
+    $block = \Drupal\block\Entity\Block::load('assessmentsnapshotblock');
+    // ksm(['block...',$block]);
+    $block_content = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block);
+    // ksm(['block_content...',$block_content]);
+    $assessments_block = \Drupal::service('renderer')->renderRoot($block_content);
+    // ksm(['assessments_block...',$assessments_block]);
+
+    //assessment get by current assessors
+    $uid = \Drupal::currentUser();
+    $user = \Drupal\user\Entity\User::load($uid->id());
+    $roles = $user->getRoles();
+
+    $query = \Drupal::entityQuery('node');
+    $query->condition('type', 'assessment');
+    $nids = $query->execute();
+
+    // ksm(['$uid->id(), roles, nids...', $uid->id(), $roles, $nids]);
+
+    $result = array();
+
+    foreach ($nids as $nid) {
+      $booked_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('assessment', $nid,'IN')
+        ->condition('user_id',$uid->id(),'IN')
+        ->sort('time','DESC')
+        ->execute();
+      foreach ($booked_ids  as $key => $booked_id) {
+          $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+          $address_1 = $entity->address_1->value;
+
+          $timestamp = $entity->time->value;
+          $booking_date = date("F d,Y",$timestamp);
+          $booking_time = date("h:i a",$timestamp);
+
+          $query1 = \Drupal::entityQuery('node');
+          $query1->condition('type', 'athlete_assessment_info');
+          $query1->condition('field_booked_id',$booked_id, 'IN');
+          $nids1 = $query1->execute();
+
+            //sport
+          $query5 = \Drupal::database()->select('athlete_school', 'ats');
+          $query5->fields('ats');
+          $query5->condition('athlete_uid', $uid->id(),'=');
+          $results5 = $query5->execute()->fetchAssoc();
+          $sport = $results5['athlete_school_sport'];
+
+          $realFormType = $this->getFormTypeFromPrice($entity->service->value);
+
+          if(!empty($entity->assessment->value)){
+            $Assess_type = 'individual';
+          }else{
+            $Assess_type = 'private';
+          }
+
+        $st ='';
+        $assess_nid = '';
+        if(!empty($nids1)){
+          $st = 1;
+          foreach ($nids1 as $key => $value) {
+            $node1 = Node::load($value);
+            $field_status = $node1->field_status->value;
+            $assess_nid = $value;
+          }
+        }else{
+            $field_status = Markup::create('<span class="green">Upcoming</span>');
+            $st = 0;
+        }
+        $result[] = array(
+          'id' => $entity->id->value,
+          'user_name' =>$entity->user_name->value,
+          'nid' => $nid,
+          'formtype' => $realFormType,
+          'Assess_type' => $Assess_type,
+          'booking_date'  => $booking_date,
+          'booking_time'  => $booking_time,
+          'booked_id' => $booked_id,
+          'st' =>  $st,
+          'assess_nid' => $assess_nid,
+          'address_1' => $address_1,
+          'sport' => $sport,
+          'status' => $field_status,
+          'time' => $booking_time,
+        );
       }
     }
-}
+    /**************drupal table start*****************/
+    $header = array(
+      array('data' => Markup::create('Date <span></span>'), 'field' => 'date'),
+      array('data' => Markup::create('Reports (PDFs) <span></span>'), 'field' => 'program'),
+      #array('data' => Markup::create('Sport <span></span>'), 'field' => 'sport'),
+      array('data' => Markup::create('Location <span></span>'), 'field' => 'location'),
+      array('data' => Markup::create('Status <span></span>'), 'field' => 'status'),
+    );
+    $result = $this->_return_pager_for_array($result, 10);
+    // Wrapper for rows
+    foreach ($result as $item) {
+      $nid = $item['nid'];
 
+      // old pdf way:
+      //xxxxx $type = $item['formtype'];
+      // $Assesstype = $item['Assess_type'];
+      // $booked_id = $item['booked_id'];
+      // $st = $item['st'];
+      // $user_name = $item['user_name'];
+      // // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
+      //xxxxxx $pdf_arr = [
+      //   'date' => $item['booking_date'],
+      //   'user_name' => $user_name,
+      //   'Assesstype' => $Assesstype,
+      //   'type' => $type,
+      //   'status' => $item['status'],
+      //   'location' => $item['address_1'],
+      //   'sport' => $item['sport'],
+      //   'time' => $item['time'],
+      // ];
+      //xxxxx $url = '/pdf-download?'.http_build_query($pdf_arr); // <a href="'.$url.'">
 
-    public function Get_ath_Data($table,$atr,$uid_key,$current_user){
-      //if($table){
-        $query = \Drupal::database()->select($table, $atr);
-        $query->fields($atr);
-        $query->condition($uid_key, $current_user, '=');
-        $result = $query->execute()->fetchAssoc();
-      //}
-      return isset($result)?$result:'null';
-    }		
-	public function DOB_get_year($uid){
-    if($uid){
-        $user = \Drupal\user\Entity\User::load($uid);
-        $dob = $user->field_date_of_birth->value;
-        $diff = (date('Y') - date('Y',strtotime($dob)));
+      $urlhtml = $formtype = '';
+      if($item['status'] == 'complete' || $item['status'] == 'incomplete'){
+        $pdf_template_fid = $this->getPdfTemplateId($item['formtype']);
+
+        // ksm('iiiiiiiiiiiiiiiiiiiiiiiiii', $item);
+
+        $fillPdfUrl = $this->getFillPdfUrl($pdf_template_fid, $item['booked_id']);
+        $urlhtml = '<a href="'.$fillPdfUrl.'" target="_blank">';
+      }
+      if(!empty($item['formtype'])){
+        $formtype = Markup::create('<p>'.$urlhtml.ucfirst($item['formtype']).' Assessment</a></p>');
+      }
+      $rows[] = array(
+        'date' => $item['booking_date'],
+        'program' => $formtype,
+        #'sport' => $item['sport'],
+        'location' => $item['address_1'],
+        'status' => $item['status'],
+      );
     }
-    return $diff;
+    $rows = $this->_records_nonsql_sort($rows, $header);
+    // Create table and pager
+    $element['table'] = array(
+      '#theme' => 'table',
+      '#prefix' => '<div class="">',
+      '#suffix' => '</div>',
+      '#header' => $header,
+      '#rows' => $rows,
+      '#empty' => t('There is no data available.'),
+    );
+
+    $element['pager'] = array(
+      '#type' => 'pager',
+    );
+    //return $element;
+
+    return [
+      '#cache' => ['max-age' => 0,],
+      '#theme' => 'my_assessments_page',
+      '#my_assessments_block' => $assessments_block,
+      '#my_assessments_records_block' => $element,
+      '#attached' => [
+        'library' => [
+          'acme/acme-styles', //include our custom library for this response
+        ]
+      ]
+    ];
+  }
+
+  //sorting rows
+  function _records_nonsql_sort($rows, $header, $flag = SORT_STRING|SORT_FLAG_CASE) {
+    if(isset($_GET['sort'])){
+      $order = tablesort_get_order($header);
+      $sort = tablesort_get_sort($header);
+      $column = $order['sql'];
+      foreach ($rows as $row) {
+        $temp_array[] = $row[$column];
+      }
+      if ($sort == 'asc') {
+        asort($temp_array, $flag);
+      }
+      else {
+        arsort($temp_array, $flag);
+      }
+      foreach ($temp_array as $index => $data) {
+        $new_rows[] = $rows[$index];
+      }
+      return $new_rows;
+    }else{
+      return $rows;
+    }
+
+  }
+
+  /**
+   * Split array for pager.
+   *
+   * @param array $items
+   *   Items which need split
+   *
+   * @param integer $num_page
+   *   How many items view in page
+   *
+   * @return array
+   */
+  function _return_pager_for_array($items, $num_page) {
+    // Get total items count
+    $total = count($items);
+    // Get the number of the current page
+    $current_page = pager_default_initialize($total, $num_page);
+    // Split an array into chunks
+    $chunks = array_chunk($items, $num_page);
+    // Return current group item
+    $current_page_items = $chunks[$current_page];
+    return $current_page_items;
   }
 }

@@ -69,7 +69,7 @@ class BfssAssessmentListBlock extends BlockBase {
                 $results5 = $query5->execute()->fetchAssoc();            
                 $sport = $results5['athlete_school_sport'];
 
-                  if($entity->service->value == '199.99'){
+                  if($entity->service->value == '299.99'){
                       $formtype = 'elete';
                   }elseif($entity->service->value == '29.99'){
                       $formtype = 'starter';

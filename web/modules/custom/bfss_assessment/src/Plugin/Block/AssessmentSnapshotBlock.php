@@ -43,14 +43,14 @@ class AssessmentSnapshotBlock extends BlockBase {
    */
   public function getPdfTemplateId($form_type) {
 	switch ($form_type) {
-		case 'starter':
-			return '7';
+      case 'starter':
+			return '12';
 		case 'professional':
-			return '8';
+			return '11';
 		case 'elite':
-			return '9';
-	  default:
-		 return -1111;
+			return '10';
+		default:
+		 	return -1111;
 	}
  }
 
@@ -81,6 +81,18 @@ class AssessmentSnapshotBlock extends BlockBase {
 		// $sport = $results5['athlete_school_sport'];
 
 		// $realFormType = $this->getFormTypeFromPrice($entity->service->value);
+
+		$assmntData['field_status'] = 0;
+		$assmntData['field_age'] = 0;
+		$assmntData['field_sport_assessment'] = 0;
+		$assmntData['field_weight'] = 0;
+		$assmntData['field_sex'] = 0;
+		$assmntData['field_jump_height_in_reactive'] = 0;
+		$assmntData['field_jump_height_in_elastic'] = 0;
+		$assmntData['field_jump_height_in_ballistic'] = 0;
+		$assmntData['field_10m_time_sec_sprint'] = 0;
+		$assmntData['field_peak_force_n_maximal'] = 0;
+		$assmntData['field_rsi_reactive'] = 0;
 
 		if(!empty($nids1)){
 			foreach ($nids1 as $key => $value) {
@@ -145,7 +157,9 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<span>'.$assessmentData['field_jump_height_in_ballistic'].'</span>
 							</div>
 							<div class="rightText">
-								<h4>MY REACTIVE STRENGTH (IN) <img src="/modules/custom/bfss_assessment/img/coin.png" class="sideIcon" alt=""></h4>
+								<h4>MY REACTIVE<br>
+								STRENGTH (IN)
+								<img src="/modules/custom/bfss_assessment/img/coin.png" class="sideIcon" alt=""></h4>
 								<p>Rebound Jump Test (RSI)</p>
 							</div>
 						</div>
@@ -159,7 +173,8 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="infoRow leftBg leftBg1">
 						<div class="inner">
 							<span>'.$assessmentData['field_10m_time_sec_sprint'].' / '.$assessmentData['field_10m_time_sec_sprint'].'</span>
-							<h4 style="white-space:nowrap;">SPEED / ACCELERATION 40M / 10M (SECS)</h4>
+							<h4 style="white-space:nowrap;">SPEED / ACCELERATION<br>
+							40M / 10M (SECS)</h4>
 						</div>
 						<img src="/modules/custom/bfss_assessment/img/run.svg" class="sideIcon" alt="">
 					</div>
@@ -169,7 +184,8 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<span>'.$assessmentData['field_peak_force_n_maximal'].'</span>
 							</div>
 							<div class="rightText">
-								<h4>MAXIMAL STRENGTH (LBS)</h4>
+								<h4>MAXIMAL<br>
+								STRENGTH (LBS)</h4>
 								<p>Isometric <br> Mid-Thigh Pull</p>
 							</div>
 						</div>
@@ -183,7 +199,8 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<span>'.$assessmentData['field_jump_height_in_ballistic'].'</span>
 							</div>
 							<div class="rightText">
-								<h4>BALLISTIC</br> STRENGTH (IN)</h4>
+								<h4>BALLISTIC<br>
+								STRENGTH (IN)</h4>
 								<p>Squat Jump</p>
 							</div>
 						</div>
@@ -195,7 +212,8 @@ class AssessmentSnapshotBlock extends BlockBase {
 								<span>'.$assessmentData['field_jump_height_in_elastic'].'</span>
 							</div>
 							<div class="rightText">
-								<h4>ELASTIC</br> STRENGTH (IN)</h4>
+								<h4>ELASTIC<br>
+								STRENGTH (IN)</h4>
 								<p>Countermovement Jump</p>
 							</div>
 						</div>

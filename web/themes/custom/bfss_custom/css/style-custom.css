@@ -34,7 +34,7 @@ html body{margin-top:0 !important;padding:0 !important;}
 .region-footer{padding:15px;margin:100px 0 0;position:absolute;bottom:0;}
 .dashboard footer.footer{display:none;}
 /**************** DASHBOARD MAIN CONTENT LAYOUT CSS ENDS HERE *******************/
-	
+
 /*********** SITE DEFAULT BUTTON CSS STARTS HERE *************/
 i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor:pointer;}
 .block-month-view-block .fc-toolbar h2{color:#EB6E06;}
@@ -126,7 +126,7 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
     overflow: auto;}
 .dashboard .my-assessment .panel .panel_row{width:100%;float:left;display:block;padding:15px;border-bottom:1px solid #ced4da;}
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
- .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
+ .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;}
 .dashboard .my-assessment .panel .panel_row:first-child p{color:darkgreen;opacity:1;}
 .dashboard .my-assessment.manager_desh.pending-approval .panel_row p{color:#000;}
 .dashboard .my-assessment .panel .panel_row p{font-size:14px;font-weight:500;line-height:18px;opacity:1;}
@@ -262,7 +262,7 @@ ul.ui-widget.ui-widget-content.ui-autocomplete li a:hover, ul.ui-widget.ui-widge
 #edit-coach-profile-form-modal .edit-coach-form-popup{width:100%;float:left;display:block;}
 #edit-coach-profile-form-modal .left_section .athlete_left h3, #edit-coach-profile-form-modal .right_section .athlete_right h3{height:40px;/*padding:11px 15px;*/font-size:13px;font-weight:500;}
 #edit-coach-profile-form-modal .left_section .athlete_left h3 i, #edit-coach-profile-form-modal .right_section .athlete_right h3 i{top:12px;}
-#edit-coach-profile-form-modal .left_section .athlete_left h3 > i, #edit-coach-profile-form-modal .right_section .athlete_right h3 > i{padding:0;right:15px;}	
+#edit-coach-profile-form-modal .left_section .athlete_left h3 > i, #edit-coach-profile-form-modal .right_section .athlete_right h3 > i{padding:0;right:15px;}
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div, #edit-coach-profile-form-modal .right_section .athlete_right .items_div{padding:35px 15px;}
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div .form-item, #edit-coach-profile-form-modal .right_section .athlete_right .items_div .form-item{margin:0 0 40px;padding:0;float:left;width:100%;display:block;}
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div .form-item:last-child, #edit-coach-profile-form-modal .right_section .athlete_right .items_div .form-item:last-child{margin:0;}
@@ -621,6 +621,9 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 .drupal-assess-fm .modal-footer button:last-child{float:right;background:#105714;border-color:#105714;}
 .accessorform_inner form .form-control{margin:0;border-radius:0;color:#000;font-size:13px;padding:10px;}
 
+/*** Jody TODO: get rid of ui-dialog-buttonpane, and name it something else. */
+.ui-dialog-buttonpane {position: sticky; bottom: 0; background-color: white; padding-top: 4px;}
+/*** .sticky-tops {position: sticky; top: 0; background-color: white; float: left; z-index: 5;} */
 
 #block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color:#EB6E06;cursor:pointer;}
 ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;color:#fff;}
@@ -638,16 +641,15 @@ a.pr-3.assessment-search-icon {cursor: pointer;}
 .wrapper #multistep-form-three div.js-form-item{float:left;margin:0 0 20px;}
 .wrapper #multistep-form-three div.js-form-item input{margin:0;font-size:14px;}
 .myassess_main_pxl.user_pro_block .block-bfss-assessors{border:0;}
-.centeralizeRow span{font-size:110px;font-weight:bold;color:#EB6E06;margin-right:30px;font-family:'ALISEO';}
+.centeralizeRow span{font-size:110px;font-weight:normal;color:#EB6E06;margin-right:30px;font-family:'ALISEO';}
 .centeralizeRow{max-width:620px;margin:0 auto;display:flex;align-items:center;}
-.centeralizeRow h4, .infoRow h4{font-size:22px;color:#fff;margin-bottom:10px;max-width:290px;}
-.centeralizeRow h4{font-weight:bold;}
+.centeralizeRow h4, .infoRow h4{line-height:1.3;font-weight:bold;font-size:20px;color:#fff;margin-bottom:10px;max-width:255px;}
 .centeralizeRow.white h4{color:#000;}
-.strengthRow{position:relative;width:100%;background:url('/modules/custom/bfss_assessment/img/reactive strength.jpg')no-repeat center top/cover;padding: 30px 0;}
+.strengthRow{position:relative;width:100%;background:url('/modules/custom/bfss_assessment/img/reactive strength.jpg')no-repeat center top/cover;padding: 10px 0;}
 .strengthRow:before{position:absolute;top:0;left:0;width:100%;height:100%;display:block;background:rgba(0 0 0 .5%);content:" ";}
 .strengthRow p{font-size:18px;color:#fff;}
 .infoRow .sideIcon{max-width:50px;float:right;position:relative;z-index:9;}
-.infoRow span{font-size:60px;font-weight:bold;color:#EB6E06;margin-right:40px;font-family:'ALISEO';}
+.infoRow span{font-size:65px;color:#EB6E06;margin-right:40px;font-family:'ALISEO';}
 
 .assessmentshot, .accelaration, .my_assessment_snap{width:100%;float:left;display:block;}
 .assessmentshot .row{margin:0;}
@@ -660,8 +662,8 @@ a.pr-3.assessment-search-icon {cursor: pointer;}
 .accelaration .row > .leftBg.infoRow:before, .assessmentshot .strengthRow:before{content:"";background:rgba(0, 0, 0, .5);height:100%;width:100%;display:block;position:absolute;left:0;top:0;}
 .assessmentshot .strengthRow .centeralizeRow, .accelaration .row > .leftBg.infoRow > div{position:relative;z-index:9;}
 .accelaration .centeralizeRow{max-width:100%;margin:0;}
-.centeralizeRow.large span{font-size:80px;}
-.centeralizeRow.small span{font-size:60px;}
+.centeralizeRow.large span{font-size:105px;}
+.centeralizeRow.small span{font-size:68px;}
 .centeralizeRow.small h4{font-size:18px;}
 .centeralizeRow.whiteDesc p{color:#fff;}
 .centeralizeRow p{font-size:16px;}
@@ -700,7 +702,7 @@ a.change_pass, a.change_pass:hover{color:#EB6E06;}
 .scoreChartBlock .rightCol .smallScores:first-child{margin:0 0 1.5rem;}
 .smallScores{width:100%;display:flex;align-items: center;justify-content: center;flex-wrap: wrap;border:1px solid;padding:4px;}
 .smallScores span{margin-right: 25px!important;font-size: 46px!important;line-height: 64px!important;}
-.twoColInside{flex-direction: column;justify-content: space-between!important;} 
+.twoColInside{flex-direction: column;justify-content: space-between!important;}
 .scoreChartBlock .circleLeft .circlular{width:12rem;}
 .scoreChartBlock .circleLeft .circlular svg{width:100% !important;height:auto !important;}
 .scoreChartBlock .circleLeft .circleScore{width:calc(100% - 14rem);margin:0 0 0 2rem;}
@@ -716,8 +718,8 @@ i.fas.fa-star.edit_image_follow{width:72px;height:72px;margin-right:12px;font-si
 .accordion_tabs_block .eventlisting_main.user_pro_block{padding:0;margin:0;}
 .accordion_tabs_block .user_pro_block .block-bfss-assessors{padding:0;}
 .left_section .athlete_left h3 >  i, .right_section .athlete_right h3 > i{padding:0;right:5px;top:13px;display:block;width:24px;text-align:center;height:20px;}
-.centeralizeRow .rightText h4{float:left;position:relative;padding-right:50px;font-family:'ALISEO';}
-.centeralizeRow .rightText h4 img{position:absolute;top:0;right:0;}
+/*jody .centeralizeRow .rightText h4{float:left;position:relative;padding-right:50px;font-family:'ALISEO';} */
+.centeralizeRow .rightText h4 img{position:absolute;top:36%;right:11%;}
 
 /**************** BFSS MANAGER CSS STARTS HERE *******************/
 .edit-approve-btn{width:100%;float:left;display:block;padding:0 15px;margin:10px 0 0;}
@@ -943,7 +945,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
-@media(min-width:100px) and (max-width:579px) {	
+@media(min-width:100px) and (max-width:579px) {
 	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:100%;margin:5px 0;}
 	.scoreChartBlock .row > div, .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:100%;}
 	.left_section .athlete_left.schedule_plx .form-group.js-form-wrapper .container-inline.form-inline{clear:both;}
@@ -973,11 +975,11 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:100%;}
 }
 
-@media(min-width:580px) and (max-width:767px) {	
-	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:calc(50% - 15px);}	
+@media(min-width:580px) and (max-width:767px) {
+	.block-bfss-assessment .container .assessment_block .col.assessment_inner{width:calc(50% - 15px);}
 	div#upcoming_bk, .bfssmanager-dashboard div#upcoming_bk{grid-template-columns:1fr 1fr !important;}
 	.add-assessments .left_section .athlete_left.schedule_plx .form-item.js-form-item{width:30%;}
-}	
+}
 
 @media (max-width:767px) {
 	div.dataTables_wrapper .dataTables_info{width:100%;margin:0 0 10px;padding:0;}
@@ -987,7 +989,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.centeralizeRow .rightText h4 img{max-width:50px;}
 	.manager_assessor_account .box.niceselect .form-type-select.js-form-type-select{max-width:100%;}
 	.timing span{width:100%;float:left;display:block;position:relative;}
-	.assessment_block .timing h2{max-height:50px;overflow:hidden;padding:0 15px 0 0;}	
+	.assessment_block .timing h2{max-height:50px;overflow:hidden;padding:0 15px 0 0;}
 	.private-assesspopup.drupal-assess-fm .close span{font-size:50px;line-height:35px;height:35px;display:block;overflow:hidden;}
 	.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{height:auto;margin:0 0 10px;}
 	.sm_cls{width:100%;margin:15px 0;}
@@ -1023,10 +1025,10 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.dashboard-profile .simple-popup-blocks-global .popup_form_id-modal .spb-popup-main-wrapper{margin:0 auto;width:90%;left:0;right:0;}
 	.centeralizeRow .rightText h4{width:100%;float:left;display:block;padding-right:60px;}
 	.centeralizeRow p{display:block;float:left;width:100%;}
-	.profile-right-modal .container{padding:0;}	
+	.profile-right-modal .container{padding:0;}
 	.user-info .item_image, .user-info .bio_data{height:100%;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%;}
 	.user-info .bio_data{padding:0;}
-	.user-info .item_image .image{min-height:180px;}	
+	.user-info .item_image .image{min-height:180px;}
 	.custom-nav-box .header_rightbar .row{-moz-justify-content:space-between;-webkit-justify-content:space-between;justify-content:space-between;}
 	.custom-nav-box .header_rightbar .profile_img_section{width:60px;flex:0 0 60px;max-width:60px;}
 	.top_right .calender_img, .top_right .athletic_profile{width:95px;}
@@ -1062,7 +1064,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.user-info .bio_data{font-size:16px;line-height:18px;margin:10px 0 0;}
 	.toggle-content iframe{width:100%;}
 	.space{padding:15px 0;}
-	.social_icons_top{margin:0;}	
+	.social_icons_top{margin:0;}
 	.user-stats h6{line-height:15px;margin:5px 0 10px;}
 	.user-stats{margin-top:20px;}
 	.dashboard .tab-nav ul{text-align:center;}
@@ -1082,8 +1084,8 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.upcoming-group-assessments .right_side_section .tab-main-sec .row > .col-lg-12.col-md-12{flex:0 0 100%;max-width:100%;}
  	body.dashboard .header_leftbar .navbar .navbar-brand{display:none;}
  	body.dashboard .header_leftbar .navbar{height:100%;padding:0 !important;-webkit-flex-wrap:nowrap;-ms-flex-wrap:nowrap;flex-wrap:nowrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
- 	body.dashboard .header_leftbar .navbar #cssmenu{margin:0;padding:0 15px;}	
-	body.dashboard .custom-nav-box .header_rightbar .top_right{width:190px;flex: 0 0 190px;max-width:190px;display:none;}	
+ 	body.dashboard .header_leftbar .navbar #cssmenu{margin:0;padding:0 15px;}
+	body.dashboard .custom-nav-box .header_rightbar .top_right{width:190px;flex: 0 0 190px;max-width:190px;display:none;}
  	body.dashboard .custom-nav-box .header_rightbar .top_right.toggle2{display:block;position:absolute;left:15px;top:60px;z-index:9999;}
  	body.dashboard .chat-popup{top:60px;}
  	.dashboard-menu{padding:0;width:40px;}
@@ -1096,7 +1098,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	body.dashboard.open_left_side_mobile .left_side_section{left:0;}
 	body.dashboard.open_left_side_mobile .right_side_section{transform:translateX(240px);-moz-transform:translateX(240px);-webkit-transform:translateX(240px);}
   	body.dashboard .right_side_section, .dashboard.preview-profile .region.region-content{width:100%;float:right;-moz-transition:all 0.2s ease-in-out;-webkit-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;}
-  	.user_pro_block .block-bfss-assessors.block-events-listing, .user_pro_block .block-bfss-assessors.block-private-accessments-block{padding:0;}	
+  	.user_pro_block .block-bfss-assessors.block-events-listing, .user_pro_block .block-bfss-assessors.block-private-accessments-block{padding:0;}
 	#assessor_popup_form .accessorform_inner{padding:20px;}
 	.dashboard .my-assessment{margin:20px 0 0;}
 	.dashboard nav .dropdown .drop .down-arrow{color:#fff;}
@@ -1107,7 +1109,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.dashboard .region.region-content{width:100%;}
 	.dashboard #edit-form{grid-template-columns:1fr;}
 	.mob_bottom_margin .quick-link-sub-sec p, .quick-link-sub-sec p, #sidenav > ul > li nav div a span.side_menu_text, #sidenav > ul > li.sub_menu.active > a > span, #sidenav > ul > li nav div ul li a{font-size:14px !important;line-height:16px !important;}
-	.dashboard .sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 30px;}	
+	.dashboard .sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 30px;}
 	.wrapper #multistep-form-three div.js-form-item.form-item-first-name input, .wrapper #multistep-form-three div.js-form-item.form-item-last-name input{margin:0;}
 	.wrapper #multistep-form-four div.form-item-cvv{width:100%;}
 	.wrapper #multistep-form-four div.form-item-city, .wrapper #multistep-form-four div.form-item-country, .wrapper #multistep-form-four div.form-item-state, .wrapper #multistep-form-four div.form-item-zip{width:49%;}
@@ -1128,7 +1130,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.infoRow span{margin-right:20px;}
 	.centeralizeRow h4, .infoRow h4{font-size:18px;}
 	.accelaration .row > div{padding:20px;}
-	.centeralizeRow.small span, .infoRow span{font-size:45px;}
+	.centeralizeRow.small span, .infoRow span{font-size:65px;}
 	.centeralizeRow span{font-size:80px;}
 	.centeralizeRow{max-width:520px;}
 	.centeralizeRow .rightText h4{padding-right:50px;}
