@@ -529,7 +529,7 @@ div.form-item-current-pass{padding-top:31px;margin-top:20px;}
 .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:before, .user_pro_block .block-bfss-assessors .table-responsive table thead th a span:after{font-size:8px;color:#000;height:8px;line-height:8px;display:block;width:10px;font-family:"Glyphicons Halflings";}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td{border:0;color:#000;font-size:13px;padding:15px 12px;text-transform:capitalize;position:relative;vertical-align:middle;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td.long-td, .user_pro_block .block-bfss-assessors .table-responsive table tbody th.long-th{width:400px;}
-.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#EB6E06;position:relative;padding-right:30px;font-size:13px;font-weight:500;}
+.user_pro_block .block-bfss-assessors .table-responsive table tbody td a{color:#EB6E06;position:relative;padding-right:30px;font-size:13px;font-weight:700;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:hover, .user_pro_block .block-bfss-assessors .table-responsive table tbody td a:focus{outline:none;text-decoration:none !important;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a span{position:absolute;right:0;top:5px;}
 .user_pro_block .block-bfss-assessors .table-responsive table tbody td a.delete-assess-pl{background:red;}
@@ -620,6 +620,9 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 .drupal-assess-fm .modal-footer button:last-child{float:right;background:#105714;border-color:#105714;}
 .accessorform_inner form .form-control{margin:0;border-radius:0;color:#000;font-size:13px;padding:10px;}
 
+/* Jody TODO: get rid of ui-dialog-buttonpane, and name it something else. */
+.ui-dialog-buttonpane {position: sticky; bottom: 0; background-color: white; padding-top: 4px;}
+/* .sticky-tops {position: sticky; top: 0; background-color: white; float: left; z-index: 5;} */
 
 #block-privateaccessmentsblock a.form-modal-fn, .eventlisting_main.user_pro_block a.form-modal-fn{color:#EB6E06;cursor:pointer;}
 ul.dropdown-menu.open li.active{text-decoration:none;background-color:#EB6E06;color:#fff;}
@@ -918,8 +921,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .bfss_save_all.save_all_changes button.button .mobile{display:none;}
 .bfss_save_all.save_all_changes button.button em{font-style:normal;margin:0 10px;}
 .bfss_save_all.save_all_changes{position:fixed;bottom:5px;right:0;width:auto;z-index:9999;}
-.bfss_save_all.save_all_changes button.button{width:300px;border-radius:0;height:40px;line-height:25px;background:green;border-color:green}
-.bfss_save_all.save_all_changes button.button:hover, .bfss_save_all.save_all_changes button.button:focus{background:#EB6E06;border-color:#EB6E06;opacity:1;}
+.bfss_save_all.save_all_changes button.button{width:300px;border-radius:0;height:40px;line-height:25px;}
 .add-assessments .tokenize > .tokens-container > .token{padding:5px 25px 5px 10px;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;font-size:12px;}
 .add-assessments .tokenize > .tokens-container > .token > .dismiss{font-size:20px;line-height:18px;right:7.5px;}
 .tokenize-dropdown.dropdown > .dropdown-menu{max-height:100%;padding:15px;}
