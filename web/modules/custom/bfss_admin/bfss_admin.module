@@ -86,12 +86,15 @@ function bfss_admin_mail_alter(&$message){
       $body_array = explode(',',$message['body'][0]);
       $BODY = $node->body->value;
       $SUBJECT = $node->field_subject->value;
+      $SUBJECT = str_replace('[user:display-name]',$body_array[0],$SUBJECT);
+      $SUBJECT = str_replace('[site:name]',$body_array[4],$SUBJECT);
       if(!empty($BODY)){
         $BODY = str_replace('[user:display-name]',$body_array[0],$BODY);
         $BODY = str_replace('[user:one-time-login-url]',$body_array[1],$BODY);
         $BODY = str_replace('[user:name]',$body_array[2],$BODY);
         $BODY = str_replace('[site:login-url]',$body_array[3],$BODY);
         $BODY = str_replace('[site:name]',$body_array[4],$BODY);
+        $BODY = str_replace('[user:field_first_name]',$body_array[5],$BODY);
         $BODY = Markup::create($BODY);
         //body
         $message['body'] = [];
@@ -110,6 +113,7 @@ function bfss_admin_mail_alter(&$message){
     $node = Node::load(195);
     $body_array = explode(',',$message['body'][0]);
     $BODY = $node->body->value;
+    //\Drupal::logger('$BODY array')->notice('@type', array('@type' => print_r($message['body'], 1) ));
     $SUBJECT = $node->field_subject->value;
     if(!empty($BODY)){
         $BODY = str_replace('[user:display-name]',$body_array[0],$BODY);
@@ -117,6 +121,7 @@ function bfss_admin_mail_alter(&$message){
         $BODY = str_replace('[user:name]',$body_array[2],$BODY);
         $BODY = str_replace('[site:login-url]',$body_array[3],$BODY);
         $BODY = str_replace('[site:name]',$body_array[4],$BODY);
+        $BODY = str_replace('[user:field_first_name]',$body_array[5],$BODY);
         $BODY = Markup::create($BODY);
         //body 
         $message['body'] = [];
@@ -126,10 +131,22 @@ function bfss_admin_mail_alter(&$message){
         $message['subject'] = '';
         $message['subject'] = $SUBJECT;
     }
- // \Drupal::logger('message array')->notice('@type', array('@type' => print_r($message['body'], 1) ));
+  
   //\Drupal::logger('body_array array')->notice('@type', array('@type' => print_r($body_array, 1) ));
   }
    
-   // \Drupal::logger('$subject')->notice('@type', array('@type' => print_r($message['subject'], 1) ));
+   // \Drupal::logger('$subject')->notice('@type', array('@type' => print_r($message['subject'], 1) ));manager_assessor_account
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

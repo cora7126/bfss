@@ -255,3 +255,11 @@ bfss_assessment.view_payments_and_receipts:
 #     _permission: 'access content'
 
 
+bfss_assessment.ctv_filter:
+  path: '/ctv-filter'
+  defaults:
+    _form: '\Drupal\bfss_assessment\Form\CTVfilter'
+    _title: 'CTV filter'
+  requirements:
+    #_permission: 'access content'
+    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'

@@ -4,6 +4,12 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\AlertCommand;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\HtmlCommand;
 /*
 * Including twig template */
 
@@ -36,4 +42,33 @@ function edit_form_theme($existing, $type, $theme, $path) {
 //       $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
 // 	}
 	
+// }
+ 
+//  function edit_form_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+// 	if($form['#form_id'] == 'user_pass'){
+// 		  $form['#submit'][] = 'alert_message';
+// 	}
+//  }
+
+//  function alert_message(array $form, FormStateInterface $form_state){
+// die;
+
+//  }
+// function alert_message(array $form, FormStateInterface $form_state){
+// 	//die("here");
+// 	  $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
+//       $computed_settings = [
+//         'payment_status' => 'FORGETPASSWORD',
+//       ];
+//       $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
+//      // for success message show
+// 	      $message = "successfully saved!";
+// 	      $response = new AjaxResponse();
+// 	      $response->addCommand(
+// 		new HtmlCommand(
+// 		  '.result_message',
+// 		  '<div class="success_message">'.$message.'</div>'
+// 		)
+// 	      );
+// 	      return $response;
 // }

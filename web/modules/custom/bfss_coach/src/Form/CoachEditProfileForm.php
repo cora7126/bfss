@@ -80,7 +80,8 @@ class CoachEditProfileForm extends FormBase {
         $query1->addField('ufln', 'field_first_name_value');
         $query1->condition('entity_id', $current_user,'=');
         $results1 = $query1->execute()->fetchAssoc(); 
-  $query2 = \Drupal::database()->select('user__field_last_name', 'ufln2');
+        $query2 = \Drupal::database()->select('user__field_last_name', 'ufln2');
+
         $query2->addField('ufln2', 'field_last_name_value');
         $query2->condition('entity_id', $current_user,'=');
         $results2 = $query2->execute()->fetchAssoc();
@@ -738,6 +739,34 @@ $form['html_image_athlete_end'] = [
         $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
     }
 
+    $us_cities_check = \Drupal::database()->select('us_cities', 'athw')
+                  ->fields('athw')
+                  ->condition('name',$form_state->getValue('city'),'LIKE')
+                  ->condition('state_code',$form_state->getValue('az'), '=')
+                  ->range(0, 100)
+                  ->execute()->fetchAll();
+    if(empty($us_cities_check)){
+       $form_state->setErrorByName('city', $this->t('Incorrect city.'));
+    }
+
+    if(!empty($form_state->getValues('resident')['resident']) && is_array($form_state->getValues('resident')['resident'])){
+      foreach($form_state->getValues('resident')['resident'] as $values) {   
+          if(!empty($values['organization_name'])){
+              $nids = \Drupal::entityQuery('node')
+                     ->condition('type', 'bfss_organizations') 
+                     ->condition('field_organization_name',$values['organization_name'],'=')
+                     ->condition('field_type',$values['type'],'=')
+                     ->condition('field_state',$form_state->getValue('az'),'=')
+                     ->execute();
+            
+              if(empty($nids)){
+                $form_state->setErrorByName('organization_name', $this->t('Incorrect organization name.'));
+              }
+          }
+      }
+    }
+
+
   }
 
   /**
@@ -750,6 +779,12 @@ $form['html_image_athlete_end'] = [
     $conn = Database::getConnection();
     $uid = \Drupal::currentUser()->id();
     $user = \Drupal\user\Entity\User::load($uid);
+
+    
+    $user->field_state->value = $form_state->getValue('az');
+    $user->mail->value = $form_state->getValue('email');
+    $user->save();
+
     $roles = $user->getRoles();
     if(in_array('coach', $roles)){
       $role = 'coach';
@@ -873,9 +908,7 @@ $form['html_image_athlete_end'] = [
       }
 
   
-    // $userdt = User::load($current_user);
-    // $userdt->field_state->value = $form_state->getValue('az');
-    // $userdt->save();
+
     
 
     //mydata
@@ -934,15 +967,15 @@ $form['html_image_athlete_end'] = [
     }
 
     //email
-    $conn->update('users_field_data')
-    ->condition('uid',$current_user,'=')
-    ->fields([
-      'mail' => $form_state->getValue('email'),
-    ])
-    ->execute();
+    // $conn->update('users_field_data')
+    // ->condition('uid',$current_user,'=')
+    // ->fields([
+    //   'mail' => $form_state->getValue('email'),
+    // ])
+    // ->execute();
 
     
-    //drupal_set_message(t('An error occurred and processing did not complete.'), 'success');
+     drupal_set_message(t('<p class="bfss-success-msg">Successfully save.</p>'), 'success');
   }
 
   // public function getORG(){

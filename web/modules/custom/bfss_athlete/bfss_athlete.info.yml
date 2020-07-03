@@ -1,0 +1,5 @@
+name: Bfss Athlete
+type: module
+description: 'bfss Athlete'
+package: Custom
+core: 8.x

@@ -1,0 +1,45 @@
+<?php
+use Drupal\Core\Database\Database;
+//module name - bfss_athlete
+function bfss_athlete_schema() {
+  $schema['bfss_athlete_profile_image'] = array(
+     'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => FALSE,
+      ),
+      'athlete_fid'=>array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+   $schema['bfss_athlete_profile_image1'] = array(
+     'fields' => array(
+      'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+      ),
+      'athlete_uid'=>array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => FALSE,
+      ),
+      'athlete_fid'=>array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

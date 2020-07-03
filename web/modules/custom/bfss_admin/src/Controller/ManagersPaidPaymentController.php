@@ -23,6 +23,16 @@ class ManagersPaidPaymentController extends ControllerBase {
 		      	$nid = $entity->assessment->value;
 		      	$assessmentDate = date('F d, Y',$entity->time->value);
 		      	$node = Node::load($nid);
+		      	$m_uid = $node->getOwnerId();
+
+		      	if(isset($m_uid)){
+			      	$m_user = User::load($m_uid);
+			      	$roles = $m_user->getRoles();
+			      	if(in_array('bfss_manager', $roles)){
+			      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+			      	}	
+		      	}
+		      	
 		      	$type = $node->field_type_of_assessment->value;
 			      	if($amount == '29.99'){
 			      		$program = 'Starter';
@@ -48,10 +58,11 @@ class ManagersPaidPaymentController extends ControllerBase {
 			       		'city' => $city,
 			       		'state' => $state,
 			       		'user_id' => $entity->user_id->value,
+			       		'manager_name' => $m_name,
 			       	];
 		       }
         }	
-
+        
         $reg_payments = $this->GET_bfss_register_user_payments();
      
         $data = array_merge($data,$reg_payments);
@@ -77,7 +88,9 @@ class ManagersPaidPaymentController extends ControllerBase {
                 </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>Program</a>
                 </th>
-                 <th class="th-hd long-th th-fisrt"><a><span></span>Amount</a>
+                <th class="th-hd long-th th-fisrt"><a><span></span>Amount</a>
+                </th>
+                <th class="th-hd long-th th-fisrt"><a><span></span>BFSS Manager</a>
                 </th>
               </tr>
             </thead>
@@ -92,7 +105,8 @@ class ManagersPaidPaymentController extends ControllerBase {
 	        <td>'.$value['state'].'</td>
 	        <td>'.$value['program'].'</td>
 	        <td>'.$value['amount'].'</td>
-	         </tr>';
+	        <td>'.$value['manager_name'].'</td>
+	        </tr>';
         }
          
          $tb1 .= '</tbody>
@@ -133,6 +147,21 @@ class ManagersPaidPaymentController extends ControllerBase {
 		          $description = '';
 		        }
 	        	$user = User::load($value->uid);
+
+	        	if(isset($value->booking_id)){
+	        		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value->booking_id);
+	        		$nid = $entity->assessment->value;
+					$node = Node::load($nid);
+					$m_uid = $node->getOwnerId();
+					if(isset($m_uid)){
+						$m_user = User::load($m_uid);
+						$roles = $m_user->getRoles();
+						if(in_array('bfss_manager', $roles)){
+							$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+						}	
+					}
+	        	}
+	        	
 				if($user){
 					$register_payment_data[] = [
 						'purchased_date' => $value->created,
@@ -143,6 +172,7 @@ class ManagersPaidPaymentController extends ControllerBase {
 						'city' => $value->bi_city,
 						'state' => $value->bi_state,
 						'user_id' => $value->uid,
+						'manager_name' => $m_name,
 					];
 				}
 	        }

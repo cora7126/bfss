@@ -55,10 +55,16 @@ class PrivateAssessmentsBlock extends BlockBase implements ContainerFactoryPlugi
 
 
     if(isset($param['SearchAssessments'])){
-      
       $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'private');
-    }else{
-     
+    }
+    elseif(isset($param['categories'])){
+        $nids = $this->assessmentService->assessment_categories_filter($element,'private');
+    }elseif(isset($param['tags'])){
+       $nids = $this->assessmentService->assessment_tags_filter($element,'private');
+    }elseif(isset($param['state']) && isset($param['city'])){
+      $nids = $this->assessmentService->assessment_venues_filter($element,'private');
+    }
+    else{
       $nids = $this->assessmentService->assessment_after_month_filter_private($element);
     }
  

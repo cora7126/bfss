@@ -104,7 +104,7 @@
                {% else %}
                {% for Data in Pending_Approval_Data_Block %}
                <div class="panel_row">
-                  <p>{{ Data.field_organization_name }}</p>
+                  <p><a href="/pending-approval" target="_blank">{{ Data.field_organization_name }}</a></p>
                   <p>{{ Data.field_city }} {{ Data.field_state }}</p>
                </div>
                {% endfor %}

@@ -99,6 +99,16 @@ class ManagerAssessorAccount extends FormBase {
         '#suffix' => '',
     ];
 
+
+    $passWordConfirmProcesses[] = [__CLASS__, 'addPlaceholderOnPassword'];
+    $form['pass'] = array(
+     # '#title'=> $this->t('Password'),
+      '#title_display' => 'invisible',
+      '#placeholder' => $this->t('Password'),
+      '#type' => 'password_confirm',
+      '#required' => TRUE,
+      '#process' => $passWordConfirmProcesses,
+    );
     $form['phone'] = [
         '#type' => 'textfield',
         '#placeholder' => t('Phone'),
@@ -334,6 +344,43 @@ class ManagerAssessorAccount extends FormBase {
   }
 
 
+public function addPlaceholderOnPassword(&$element, FormStateInterface $form_state, &$complete_form) {
+ $element['pass1'] =  array(
+    '#type' => 'password',
+    '#placeholder' => t('Password'),
+    '#value' => empty($element['#value']) ? NULL : $element['#value']['pass1'],
+    '#required' => $element['#required'],
+    '#attributes' => array('class' => array('password-field')),
+  );
+  $element['pass2'] =  array(
+    '#type' => 'password',
+    '#placeholder' => t('Confirm password'),
+    #'#title' => t('Confirm password'),
+    '#value' => empty($element['#value']) ? NULL : $element['#value']['pass2'],
+    '#required' => $element['#required'],
+    '#attributes' => array('class' => array('password-confirm')),
+  );
+   $element['#element_validate'][] =  [__CLASS__, 'password_confirm_validate']; 
+   $element['#tree'] = TRUE;
+
+  // if (isset($element['#size'])) {
+  //   $element['pass1']['#size'] = $element['pass2']['#size'] = $element['#size'];
+  // }
+
+  return $element;
+}
+ public function password_confirm_validate(array &$form, FormStateInterface $form_state) {
+
+    if(!preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/", $form_state->getValue('pass')['pass1'])) {
+      
+      $form_state->setErrorByName('pass[pass2]', t('Password must be at least 8 characters and contain at least one number, one uppercase letter, one lowercase char and one special character.'));
+
+    }elseif ($form_state->getValue('pass')['pass1'] != $form_state->getValue('pass')['pass2']) {
+      
+      $form_state->setErrorByName('pass[pass2]', t('Password no match.'));
+    }
+
+  }
 
   /**
    * {@inheritdoc}
@@ -365,7 +412,7 @@ class ManagerAssessorAccount extends FormBase {
     $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
     $password = $this->random_password(8);
     $user = \Drupal\user\Entity\User::create();
-    $user->setPassword($password);
+    $user->setPassword($form_state->getValue('pass')['pass1']);
     $user->enforceIsNew();
     $user->setEmail($manager_email);
     $user->setUsername($username);//This username must be unique and accept only a-Z,0-9, - _ @ .
@@ -428,7 +475,7 @@ class ManagerAssessorAccount extends FormBase {
             $node->save();
 
             _user_mail_notify('register_no_approval_required', $user);
-
+             drupal_set_message(t('<p class="bfss-success-msg">Successfully inserted User.</p>'), 'success');
     }
         
   }
