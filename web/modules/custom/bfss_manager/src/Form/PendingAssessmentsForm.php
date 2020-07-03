@@ -1,230 +1,255 @@
 <?php
-
-namespace Drupal\bfss_assessment\Plugin\Block;
-
-use Drupal\Core\Block\BlockBase;
-
-use  \Drupal\user\Entity\User;
+namespace Drupal\bfss_manager\Controller;
+use Drupal\Core\Controller\ControllerBase;
 use \Drupal\node\Entity\Node;
+use  \Drupal\user\Entity\User;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Database\Database;
 
-/**
- * Provides a 'Assessment Snapshot Block' Block.
- *
- * @Block(
- *   id = "asssessmen_snapshot_block",
- *   admin_label = @Translation("Assessment Snapshot Block"),
- *   category = @Translation("Assessment Snapshot Block"),
- * )
- */
+class PendingAssessments extends ControllerBase {
 
-//Things going good and I'm learning lots - I'm very aware of deadline so I'm cutting out all the fluff.  Gonna take a 4-hour break.
-
-class AssessmentSnapshotBlock extends BlockBase {
 
   /** TODO: make utility class
    * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
    * @param string $assessmentPrice
    */
   public function getFormTypeFromPrice($assessmentPrice) {
-	if($assessmentPrice == '299.99'){
-	  return 'elite';
-	}elseif($assessmentPrice == '29.99'){
-	  return 'starter';
-	}elseif($assessmentPrice == '69.99'){
-	  return 'professional';
-	}else{
-	  return 'UNKNOWN';
-	}
- }
-
-  /** TODO: make utility class
-   * Find the pdf template "fid" -- see /admin/structure/fillpdf
-   * @param string $form_type
-   */
-  public function getPdfTemplateId($form_type) {
-	switch ($form_type) {
-      case 'starter':
-			return '12';
-		case 'professional':
-			return '11';
-		case 'elite':
-			return '10';
-		default:
-		 	return -1111;
-	}
- }
-
-	/** TODO: make utility class
-	 * Returns one assessment data record - based on booked_id
-	* @param string $booked_id -- id of a single assessment
-	* @param string $userId -- current user
-	*/
-	protected function getAssessmentData(string $booked_id, string $userId = '')
-	{
-		$assmntData = [];
-
-		// $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-		// $address_1 = $entity->address_1->value;
-
-		$query1 = \Drupal::entityQuery('node');
-		$query1->condition('type', 'athlete_assessment_info');
-		$query1->condition('field_booked_id',$booked_id, 'IN');
-		$nids1 = $query1->execute();
-
-		// ksm(['$booked_id, nids1', $booked_id, $nids1]);
-
-		//sport
-		// $query5 = \Drupal::database()->select('athlete_school', 'ats');
-		// $query5->fields('ats');
-		// $query5->condition('athlete_uid', $userId,'=');
-		// $results5 = $query5->execute()->fetchAssoc();
-		// $sport = $results5['athlete_school_sport'];
-
-		// $realFormType = $this->getFormTypeFromPrice($entity->service->value);
-
-		$assmntData['field_status'] = 0;
-		$assmntData['field_age'] = 0;
-		$assmntData['field_sport_assessment'] = 0;
-		$assmntData['field_weight'] = 0;
-		$assmntData['field_sex'] = 0;
-		$assmntData['field_jump_height_in_reactive'] = 0;
-		$assmntData['field_jump_height_in_elastic'] = 0;
-		$assmntData['field_jump_height_in_ballistic'] = 0;
-		$assmntData['field_10m_time_sec_sprint'] = 0;
-		$assmntData['field_peak_force_n_maximal'] = 0;
-		$assmntData['field_rsi_reactive'] = 0;
-
-		if(!empty($nids1)){
-			foreach ($nids1 as $key => $value) {
-				$node1 = Node::load($value);
-				$assmntData['field_status'] = $node1->field_status->value;
-				$assmntData['field_age'] = $node1->field_age->value;
-				$assmntData['field_sport_assessment'] = $node1->field_sport_assessment->value;
-				$assmntData['field_weight'] = $node1->field_weight->value;
-				$assmntData['field_sex'] = $node1->field_sex->value;
-				$assmntData['field_jump_height_in_reactive'] = $node1->field_jump_height_in_reactive->value;
-				$assmntData['field_jump_height_in_elastic'] = $node1->field_jump_height_in_elastic->value;
-				$assmntData['field_jump_height_in_ballistic'] = $node1->field_jump_height_in_ballistic->value;
-				$assmntData['field_10m_time_sec_sprint'] = $node1->field_10m_time_sec_sprint->value;
-				$assmntData['field_peak_force_n_maximal'] = $node1->field_peak_force_n_maximal->value;
-				$assmntData['field_rsi_reactive'] = $node1->field_rsi_reactive->value;
-			}
-		}
-		return $assmntData;
-	}
-
-
-  /**
-   * {@inheritdoc}
-   */
-  public function build() {
-
-	$uid = \Drupal::currentUser();
-	// $user = \Drupal\user\Entity\User::load($uid->id());
-
-	$query = \Drupal::entityQuery('node');
-	$query->condition('type', 'assessment');
-	$nids = $query->execute();
-
-	$assessmentData = [];
-
-	foreach ($nids as $nid) {
-		$booked_ids = \Drupal::entityQuery('bfsspayments')
-		->condition('assessment', $nid,'IN')
-		->condition('user_id',$uid->id(),'IN')
-		->sort('time','DESC')
-		->execute();
-		foreach ($booked_ids as $key => $booked_id)
-		{
-			$assessmentData = $this->getAssessmentData($booked_id, $uid->id());
-			if ($assessmentData['field_status'] == 'complete')
-			{
-				break 2; //#################### brak from 2'nd outer loop.
-			}
-		}
-	}
-
-	// ksm(['user id, assessmentData, nids...', $uid->id(), $assessmentData, $nids]);
-
-  	$html = '<div class="user_pro_block">
-		<section class="assessmentshot">
-			<div class="container">
-				<div class="row">
-					<h2>ASSESSMENT SNAPSHOT</h2>
-					<div class="strengthRow">
-						<div class="centeralizeRow">
-							<div class="rightText">
-								<span>'.$assessmentData['field_jump_height_in_ballistic'].'</span>
-							</div>
-							<div class="rightText">
-								<h4>MY REACTIVE<br>
-								STRENGTH (IN)
-								<img src="/modules/custom/bfss_assessment/img/coin.png" class="sideIcon" alt=""></h4>
-								<p>Rebound Jump Test (RSI)</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section class="accelaration">
-			<div class="container">
-				<div class="row">
-					<div class="infoRow leftBg leftBg1">
-						<div class="inner">
-							<span>'.$assessmentData['field_10m_time_sec_sprint'].' / '.$assessmentData['field_10m_time_sec_sprint'].'</span>
-							<h4 style="white-space:nowrap;">SPEED / ACCELERATION<br>
-							40M / 10M (SECS)</h4>
-						</div>
-						<img src="/modules/custom/bfss_assessment/img/run.svg" class="sideIcon" alt="">
-					</div>
-					<div class="infoRow">
-						<div class="centeralizeRow white large">
-							<div class="rightText">
-								<span>'.$assessmentData['field_peak_force_n_maximal'].'</span>
-							</div>
-							<div class="rightText">
-								<h4>MAXIMAL<br>
-								STRENGTH (LBS)</h4>
-								<p>Isometric <br> Mid-Thigh Pull</p>
-							</div>
-						</div>
-						<img src="/modules/custom/bfss_assessment/img/builder.png" class="sideIcon" alt="">
-					</div>
-				</div>
-				<div class="row">
-					<div class="infoRow">
-						<div class="centeralizeRow white small">
-							<div class="rightText">
-								<span>'.$assessmentData['field_jump_height_in_ballistic'].'</span>
-							</div>
-							<div class="rightText">
-								<h4>BALLISTIC<br>
-								STRENGTH (IN)</h4>
-								<p>Squat Jump</p>
-							</div>
-						</div>
-						<img src="/modules/custom/bfss_assessment/img/arrows_data.png" class="sideIcon" alt="">
-					</div>
-					<div class="infoRow leftBg leftBg2">
-						<div class="centeralizeRow small whiteDesc">
-							<div class="rightText">
-								<span>'.$assessmentData['field_jump_height_in_elastic'].'</span>
-							</div>
-							<div class="rightText">
-								<h4>ELASTIC<br>
-								STRENGTH (IN)</h4>
-								<p>Countermovement Jump</p>
-							</div>
-						</div>
-						<img src="/modules/custom/bfss_assessment/img/jump.png" class="sideIcon" alt="">
-					</div>
-				</div>
-			</section>
-			</div>';
-    return [
-      '#markup' => $html,
-    ];
+    if($assessmentPrice == '299.99'){
+      return 'elite';
+    }elseif($assessmentPrice == '29.99'){
+      return 'starter';
+    }elseif($assessmentPrice == '69.99'){
+      return 'professional';
+    }else{
+      return 'UNKNOWN';
+    }
   }
 
+  /** TODO: make utility class;
+   * Return a url to download the assessment pdf.
+   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
+   */
+  protected function getFillPdfUrl($pdf_template_fid, $nid) {
+    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
+    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
+    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
+
+  }
+
+
+  public function pending_assessments() {
+      $param = \Drupal::request()->query->all();
+
+      $booked_ids = \Drupal::entityQuery('bfsspayments')
+      //->condition('assessment',$param['nid'],'IN')
+      //->condition('time',$param['timeslot'],'=')
+      ->execute();
+
+      $result = array();
+      foreach ($booked_ids  as $key => $booked_id) {
+        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+
+        $node_id =  $entity->assessment->value;
+        if($node_id != '9999999999'){
+          $nid = $node_id;
+        }else{
+          $nid = '';
+        }
+
+        $assess_id = $entity->assessment->value;
+        $user_id = $entity->user_id->value;
+        $timestamp = $entity->time->value;
+
+        $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$user_id,'athlete_uid'); //FOR ORG-1
+        $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
+        $mydata = $this->Get_Data_From_Tables('mydata','md',$user_id,'uid');
+        $city = isset($mydata['field_city']) ? $mydata['field_city'] : '';
+
+        if(empty($mydata['field_az'])){
+          $statequery =  $this->Get_Data_From_Tables('user__field_state','ufln',$user_id,'entity_id');
+          $state = isset($statequery['field_state_value']) ? $statequery['field_state_value'] : '';
+        }else{
+          $state = $mydata['field_az'];
+        }
+
+        // See if assessment has been started by assessor or mgr.
+        // And get latest recorded status (and $assess_nid) for current assessment - see if complete or incomplete.
+        $field_status = 'not started';
+        $nidPrev = 0;
+        $queryStat = \Drupal::entityQuery('node');
+        $queryStat->condition('type', 'athlete_assessment_info');
+        $queryStat->condition('field_booked_id',$booked_id, 'IN');
+        $nidsStat = $queryStat->execute();
+        if($nidsStat){
+          foreach ($nidsStat as $nid) {
+            if ($nid > $nidPrev) {
+              $nidPrev = $nid;
+              $assessmentNode = Node::load($nid);
+              $field_status = $assessmentNode->get('field_status')->getValue()[0]['value'];
+            }
+          }
+        }
+        $assess_nid = $nidPrev;
+
+        // ksm($booked_id, $assess_nid, $field_status);
+
+        if(!$nidsStat || $field_status == 'incomplete'){
+          $booking_date = date("Y/m/d",$timestamp);
+          $booking_time = date("h:i:sa",$timestamp);
+
+          $formtype = $this->getFormTypeFromPrice($entity->service->value);
+
+          if(!empty($entity->assessment->value)){
+            $Assess_type = 'individual';
+          }else{
+            $Assess_type = 'private';
+          }
+
+          $result[] = array(
+            'booked_id' => $booked_id,
+            'id' => $entity->id->value,
+            'user_name' => $entity->user_name->value,
+            'nid' => $nid,
+            'formtype' => $formtype,
+            'Assess_type' => $Assess_type,
+            'field_status' => $field_status,
+            'booking_date'  => $booking_date,
+            'booking_time'  => $booking_time,
+            'assess_nid' => $assess_nid,
+            'first_name' => $entity->first_name->value,
+            'last_name' => $entity->last_name->value,
+            'org_name' => $org_name,
+            'city' => $city,
+            'state' => $state,
+          );
+        }
+      }
+
+
+      if(!empty($_GET['par_page_item'])){
+        $parpage = $_GET['par_page_item'];
+      }else{
+        $parpage = 10;
+      }
+      //$result = $this->_return_pager_for_array($result, $parpage);
+      // Wrapper for rows
+      $tb = '<div class="wrapped_div_main user_pro_block">
+      <div class="block-bfss-assessors">
+      <div class="table-responsive-wrap">
+      <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
+        <thead>
+          <tr>
+            <th class="th-hd"><a><span></span> Date</a>
+            </th>
+            <th class="th-hd"><a><span></span> First Name</a>
+            </th>
+            <th class="th-hd"><a><span></span> Last Name</a>
+            </th>
+            <th class="th-hd"><a><span></span> Form Type</a>
+            </th>
+            <th class="th-hd"><a><span></span> Status</a>
+            </th>
+            <th class="th-hd"><a><span></span> Organization</a>
+            </th>
+            <th class="th-hd"><a><span></span> State</a>
+            </th>
+            <th class="th-hd"><a><span></span> City</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>';
+
+    foreach ($result as $item) {
+      $nid = $item['nid'];
+      $type = $item['formtype'];
+      $Assesstype = $item['Assess_type'];
+      $booked_id = $item['booked_id'];
+      $st = $item['st'];
+      $user_name = $item['field_status'];
+      $field_status = $item['field_status'];
+      $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status']; // .'&assess_nid='.$item['assess_nid']
+
+      $first_name = $item['first_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
+
+      $last_name = $item['last_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
+
+      // $field_status = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$field_status.'</a></p>');
+      $type = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$type.'</a></p>');
+
+        $tb .= '<tr>
+              <td>'.$item['booking_date'].'</td>
+              <td>'.$first_name.'</td>
+              <td>'.$last_name.'</td>
+              <td>'.$type.'</td>
+              <td>'.$field_status.'</td>
+              <td>'.$item['org_name'].'</td>
+              <td>'.$item['state'].'</td>
+              <td>'.$item['city'].'</td>
+            </tr>';
+    }
+    $tb .= '</tbody>
+        </table>
+          </div>
+        </div>
+          </div>
+
+        ';
+
+    //$rows = $this->_records_nonsql_sort($rows, $header);
+
+    // Create table and pager
+      $out = array(
+        '#type' => 'markup',
+        '#markup' => 'This block list the article.',
+      );
+        $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
+        $element['#suffix'] = '</div>';
+      //$form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessors\Form\ParPageItemShow');
+      //$element['out'] = $form;
+      // $par_page_item = $_GET['par_page_item'];
+      $element['table'] = array(
+        '#theme' => 'table',
+        '#prefix' => '<div class="block-bfss-assessors">',
+        '#suffix' => '</div>',
+        '#header' => $header,
+        '#attributes'=>['id' => ['dtBasicExample']],
+        '#rows' => $rows,
+        '#empty' => t('There is no data available.'),
+      );
+
+      $element['pager'] = array(
+        '#type' => 'pager',
+      );
+
+        return [
+        '#cache' => ['max-age' => 0,],
+        '#theme' => 'pending_assessments_page',
+        '#name' => 'G.K',
+        // '#prefix' => '<div class="block-bfss-assessors">',
+        // '#suffix' => '</div>',
+        '#pending_assessments_block' => Markup::create($tb),
+        '#attached' => [
+          'library' => [
+            'acme/acme-styles', //include our custom library for this response
+          ]
+        ]
+      ];
+    //return $element;
+  }
+
+public function Get_Data_From_Tables($TableName,$atr,$current_user,$user_key){
+      if($TableName){
+        $conn = Database::getConnection();
+      $query = $conn->select($TableName, $atr);
+        $query->fields($atr);
+        $query->condition($user_key, $current_user, '=');
+        $results = $query->execute()->fetchAssoc();
+      }
+      return $results;
+  }
+
+
 }
+
+
+?>
