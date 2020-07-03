@@ -32,12 +32,12 @@ class MyAssessments extends ControllerBase {
    */
   public function getPdfTemplateId($form_type) {
     switch ($form_type) {
-        case 'starter':
-          return '7';
-        case 'professional':
-          return '8';
-        case 'elite':
-          return '9';
+      case 'starter':
+        return '12';
+      case 'professional':
+        return '11';
+      case 'elite':
+        return '10';
       default:
        return -1111;
     }
