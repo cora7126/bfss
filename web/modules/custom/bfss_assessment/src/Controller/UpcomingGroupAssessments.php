@@ -40,6 +40,8 @@ class UpcomingGroupAssessments extends ControllerBase {
     $MonthFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
     $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
     $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+    $CTVfilter = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\CTVfilter');
+
     $BlockData = '';
     if($param['MonthView'] == 'MonthView'){
       $BlockData = $assessments_block_m_v;
@@ -54,6 +56,7 @@ class UpcomingGroupAssessments extends ControllerBase {
       '#month_block' =>  $MonthFilterForm,
       '#search_filter_block' =>  $SearchFilterForm,
       '#month_view_filter_block' =>  $MonthViewFilterForm,
+      '#CTVfilter_block' =>  $CTVfilter,
       '#attached' => [
         'library' => [
          'bfss_month_view/month_view_lib', //include our custom library for this response

@@ -55,7 +55,14 @@ class UpcomingGroupAssessments extends BlockBase implements ContainerFactoryPlug
 
     if(isset($param['SearchAssessments'])){
       $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'group');
-    }else{
+    }elseif(isset($param['categories'])){
+        $nids = $this->assessmentService->assessment_categories_filter($element,'group');
+    }elseif(isset($param['tags'])){
+       $nids = $this->assessmentService->assessment_tags_filter($element,'group');
+    }elseif(isset($param['state']) && isset($param['city'])){
+      $nids = $this->assessmentService->assessment_venues_filter($element,'group');
+    }
+    else{
       $nids = $this->assessmentService->assessment_after_month_filter_upcoming($element);
     }
     

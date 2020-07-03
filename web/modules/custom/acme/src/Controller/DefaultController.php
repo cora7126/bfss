@@ -80,7 +80,7 @@ class DefaultController extends ControllerBase {
         $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
         $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
         $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
-
+        $CTVfilter = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\CTVfilter');
         //MY Assessments
         $myAssessments = $this->My_assessments($uid);
         if($param['MonthView'] == 'MonthView'){
@@ -88,6 +88,9 @@ class DefaultController extends ControllerBase {
         }else{
          $BlockData = $assessments_block;
         }
+
+        
+
           return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'hello_page',
@@ -98,6 +101,7 @@ class DefaultController extends ControllerBase {
           '#month_view_filter_block' =>  $MonthViewFilterForm,
           '#my_assessments_section_block' => $myAssessments,
           '#rolename' => $rolename,
+          '#CTVfilter_block' => $CTVfilter,
           '#attached' => [
             'library' => [
               'bfss_month_view/month_view_lib',//include our custom library for this response
@@ -122,6 +126,7 @@ class DefaultController extends ControllerBase {
         $form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\MonthSelectForm');
         $SearchFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\SearchForm');
         $MonthViewFilterForm = \Drupal::formBuilder()->getForm('Drupal\bfss_month_view\Form\MonthViewForm');
+        $CTVfilter = \Drupal::formBuilder()->getForm('Drupal\bfss_assessment\Form\CTVfilter');
 
         //MY Assessments
         $myAssessments = $this->My_assessments($uid);
@@ -138,6 +143,7 @@ class DefaultController extends ControllerBase {
           '#month_block' => $form,
           '#search_filter_block' =>  $SearchFilterForm,
           '#month_view_filter_block' =>  $MonthViewFilterForm,
+          '#CTVfilter_block' => $CTVfilter,
           '#rolename' => $roles[1],
           '#Pending_Approval_Data_Block' => $Pending_Approval_Data,
           '#attached' => [
@@ -522,6 +528,17 @@ public function userform()
             $full_name = $entity->first_name->value.' '.$entity->last_name->value;
             $city = $entity->city->value;
             $state = $entity->state->value;
+
+            $m_uid = $node->getOwnerId();
+
+            if(isset($m_uid)){
+              $m_user = User::load($m_uid);
+              $roles = $m_user->getRoles();
+              if(in_array('bfss_manager', $roles)){
+                $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+              } 
+            }
+
             if (strpos($amount, 'freecredit') !== false) {
               #code for this condition
             }else{
@@ -533,6 +550,8 @@ public function userform()
                 'customer_name' => $full_name,
                 'city' => $city,
                 'state' => $state,
+                'manager_name' => $m_name,
+                'user_id' => $entity->user_id->value,
               ];
             }
         } 
@@ -561,18 +580,22 @@ public function userform()
                 </th>
                  <th class="th-hd long-th th-fisrt"><a><span></span>Amount</a>
                 </th>
+                  <th class="th-hd long-th th-fisrt"><a><span></span>BFSS Manager</a>
+                </th>
               </tr>
             </thead>
             <tbody>';
 
         foreach ($data as $value) {
+          $uid = $value['user_id'];
           $tb1 .= '<tr>
           <td>'.date('F d, Y',$value['purchased_date']).'</td>
-          <td>'.$value['customer_name'].'</td>
+          <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['customer_name'].'</a></td>
           <td>'.$value['city'].'</td>
           <td>'.$value['state'].'</td>
           <td>'.$value['program'].'</td>
           <td>'.$value['amount'].'</td>
+          <td>'.$value['manager_name'].'</td>
            </tr>';
         }
          
@@ -604,6 +627,20 @@ public function userform()
               $description = '';
             }
             $user = User::load($value->uid);
+
+            if(isset($value->booking_id)){
+              $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value->booking_id);
+              $nid = $entity->assessment->value;
+              $node = Node::load($nid);
+              $m_uid = $node->getOwnerId();
+              if(isset($m_uid)){
+                $m_user = User::load($m_uid);
+                $roles = $m_user->getRoles();
+                if(in_array('bfss_manager', $roles)){
+                  $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+                } 
+              }
+            }           
         if($user){
           $register_payment_data[] = [
             'purchased_date' => $value->created,
@@ -613,6 +650,8 @@ public function userform()
             'customer_name' => $value->bi_first_name.' '.$value->bi_last_name,
             'city' => $value->bi_city,
             'state' => $value->bi_state,
+            'user_id' => $value->uid,
+            'manager_name' => $m_name,
             'user_id' => $value->uid,
           ];
         }

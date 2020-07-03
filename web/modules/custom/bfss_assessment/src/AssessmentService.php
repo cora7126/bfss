@@ -47,6 +47,120 @@ class AssessmentService {
 
   }
 
+  public function assessment_categories_filter($element,$page){
+    // print_r($element);
+    // print_r($page);
+    // die;
+    $param = \Drupal::request()->query->all();
+    if(isset($param['categories'])){
+      if($page == 'dashboard'){
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_categories', $param['categories'], 'IN');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }elseif($page == 'group'){
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_categories', $param['categories'], 'IN');
+        $query->condition('field_type_of_assessment','group', '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }elseif($page == 'private') {
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_categories', $param['categories'], 'IN');
+        $query->condition('field_type_of_assessment','private', '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }
+
+      $nids_arr = [];
+      foreach ($nids as $key => $value) {
+        $nids_arr[] =  $value;
+      }
+    }
+    return $nids_arr;
+  }
+
+ public function assessment_tags_filter($element,$page){
+    $param = \Drupal::request()->query->all();
+    if(isset($param['tags'])){
+      if($page == 'dashboard'){
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_event_tags', $param['tags'], 'IN');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }elseif($page == 'group'){
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_event_tags', $param['tags'], 'IN');
+        $query->condition('field_type_of_assessment','group', '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }elseif($page == 'private') {
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_event_tags', $param['tags'], 'IN');
+        $query->condition('field_type_of_assessment','private', '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }
+      $nids_arr = [];
+      foreach ($nids as $key => $value) {
+        $nids_arr[] =  $value;
+      }
+    }
+    return $nids_arr;
+  }
+
+
+ public function assessment_venues_filter($element,$page){
+    $param = \Drupal::request()->query->all();
+    if(isset($param['state']) && isset($param['city'])){
+       if($page == 'dashboard'){
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_venue_state_assess', $param['state'], '=');
+        $query->condition('field_venue_location_assess', $param['city'], '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }elseif($page == 'group'){
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_venue_state_assess', $param['state'], '=');
+        $query->condition('field_venue_location_assess', $param['city'], '=');
+        $query->condition('field_type_of_assessment','group', '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }elseif($page == 'private') {
+        $query = \Drupal::entityQuery('node');
+        $query->condition('type', 'assessment');
+        $query->condition('field_venue_state_assess', $param['state'], '=');
+        $query->condition('field_venue_location_assess', $param['city'], '=');
+        $query->condition('field_type_of_assessment','private', '=');
+        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+        $query->condition('status', 1);
+        $nids = $query->execute();
+      }
+      $nids_arr = [];
+      foreach ($nids as $key => $value) {
+        $nids_arr[] =  $value;
+      }
+    }
+    return $nids_arr;
+  }
+
+
   public function assessment_after_month_filter($element){
     $param = \Drupal::request()->query->all();
     $current_date = date('Y/m/d');

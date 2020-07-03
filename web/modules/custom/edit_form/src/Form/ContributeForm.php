@@ -826,6 +826,10 @@ class ContributeForm extends FormBase {
               </div>
         <div class=items_div>',
 		];
+    $query_img1 = $conn->select('bfss_athlete_profile_image1', 'ath');
+    $query_img1->fields('ath');
+    $query_img1->condition('athlete_uid', $current_user, '=');
+    $results_img1 = $query_img1->execute()->fetchAssoc();
     $form['image_athlete'] = [
     '#type' => 'managed_file',
     '#upload_validators' => [
@@ -836,7 +840,7 @@ class ContributeForm extends FormBase {
     '#preview_image_style' => 'medium', 
     '#upload_location' => 'public://',
     '#required' => false,
-    '#default_value' => array($img_id),
+    '#default_value' => array(isset($results_img1['athlete_fid'])?$results_img1['athlete_fid']:NULL),
     '#prefix' => '</div>',
     '#suffix' => '<div class="action_bttn"><span>Action</span><ul><li>Remove</li></ul></div></div></div>',
     ];
@@ -1009,10 +1013,47 @@ class ContributeForm extends FormBase {
 
 
     }
+   
+  // $form['image_markup_start'] = array(
+  //       '#type' => 'markup',
+  //       '#markup' => '<div class = "athlete_right">
+  //                         <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>image for testing</h3>
+  //                       <div class=items_div>',
+  // );
+
+    $conn = Database::getConnection();
+    $query_img = $conn->select('bfss_athlete_profile_image', 'ath');
+    $query_img->fields('ath');
+    $query_img->condition('athlete_uid', $current_user, '=');
+    $results_img = $query_img->execute()->fetchAssoc();
+ 
+
+  // $form['image_markup_end'] = array(
+  //       '#type' => 'markup',
+  //        '#markup' => '</div></div>'
+  // );
+
    // $valsave = Markup::create('<em class="desktop">SAVE ALL CHANGES</em><em class="mobile">SAVE</em>');
     $form['submit'] = ['#type' => 'submit', '#value' => 'SAVE ALL CHANGES', '#prefix' => ' </div><div class="bfss_save_all save_all_changes">', '#suffix' => '</div>',
       //'#value' => t('Submit'),
       ];
+
+    if($current_user == 615){
+      $form['image_profile_athlete'] = [
+      '#type' => 'managed_file',
+      '#upload_validators' => [
+          'file_validate_extensions' => ['gif png jpg jpeg'],
+          //'file_validate_size' => [25600000], 
+      ],
+      '#theme' => 'image_widget', 
+      '#preview_image_style' => 'medium', 
+      '#upload_location' => 'public://',
+      '#required' => false,
+      '#default_value' => array(isset($results_img['athlete_fid'])?$results_img['athlete_fid']:NULL),
+      '#prefix' => '',
+      '#suffix' => '',
+      ];
+    }
     // $form['#theme'] = 'athlete_form';
     return $form;
   }
@@ -1173,6 +1214,47 @@ class ContributeForm extends FormBase {
    
   	}	
 	
+    $query_img = $conn->select('bfss_athlete_profile_image', 'ath');
+    $query_img->fields('ath');
+    $query_img->condition('athlete_uid', $current_user, '=');
+    $results_img = $query_img->execute()->fetchAssoc();
+    if($current_user == 615){
+      if (empty($results_img)) {
+          $conn->insert('bfss_athlete_profile_image')->fields(array(
+            'athlete_uid' => $current_user,
+            'athlete_fid' => isset($form_state->getValue('image_profile_athlete')[0])?$form_state->getValue('image_profile_athlete')[0]:NULL,
+          ))->execute();
+      }else{
+      
+            $conn->update('bfss_athlete_profile_image')->condition('athlete_uid', $current_user, '=')
+            ->fields(
+              array(
+                'athlete_fid' => isset($form_state->getValue('image_profile_athlete')[0])?$form_state->getValue('image_profile_athlete')[0]:NULL,
+              ))->execute();
+     
+      } 
+    }
+
+    $query_img1 = $conn->select('bfss_athlete_profile_image1', 'ath');
+    $query_img1->fields('ath');
+    $query_img1->condition('athlete_uid', $current_user, '=');
+    $results_img1 = $query_img1->execute()->fetchAssoc();
+   
+      if (empty($results_img1)) {
+          $conn->insert('bfss_athlete_profile_image1')->fields(array(
+            'athlete_uid' => $current_user,
+            'athlete_fid' => isset($form_state->getValue('image_athlete')[0])?$form_state->getValue('image_athlete')[0]:NULL,
+          ))->execute();
+      }else{
+      
+            $conn->update('bfss_athlete_profile_image1')->condition('athlete_uid', $current_user, '=')
+            ->fields(
+              array(
+                'athlete_fid' => isset($form_state->getValue('image_athlete')[0])?$form_state->getValue('image_athlete')[0]:NULL,
+              ))->execute();
+     
+      } 
+    
 
     $conn->update('user__field_first_name')->condition('entity_id', $current_user, '=')->fields(array('field_first_name_value' => $form_state->getValue('fname'), ))->execute();
 

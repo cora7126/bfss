@@ -146,7 +146,7 @@ class CalendarPopup extends ControllerBase {
                                             </a>
                                     </li>
                                     <li>
-                                    <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Check out this site '.$data['current_page'].', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Email">
+                                    <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Better Faster Stronger Science -Assessment<br/><br/>Time:<br/>'.date("h:i A",$data['latest_timing']).'<br/><br/>Location:<br/>'.str_replace(',',' ',$data['field_location']).'<br/><br/>Description: '.str_replace(',',' ',substr(strip_tags($data['body']),0,80)).'..." title="Email">
                                             <img alt="Email" src="http://5ppsystem.com/modules/contrib/social_media/icons/email.svg">
                                             </a>
                                     </li>
@@ -193,7 +193,7 @@ class CalendarPopup extends ControllerBase {
 		                           	}else{
 		                           	$html .= '<div class="ticketing">
 		                              <p>ASSESSMENT TYPE</p>
-		                             <p style="color:#000;">'.ucfirst($assessment_type).'</p>
+		                             <span style="color:#000;">'.ucfirst($assessment_type).'</span>
 		                            <div>';
 		                           	}
 		                        $html .=  '</div>
@@ -336,7 +336,7 @@ class CalendarPopup extends ControllerBase {
                                             </a>
                                     </li>
                                     <li>
-                                    <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Check out this site '.$data['current_page'].', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Email">
+                                       <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Better Faster Stronger Science -Assessment<br/><br/>Time:<br/>'.date("h:i A",$data['latest_timing']).'<br/><br/>Location:<br/>'.str_replace(',',' ',$data['field_location']).'<br/><br/>Description: '.str_replace(',',' ',substr(strip_tags($data['body']),0,80)).'..." title="Email">
                                             <img alt="Email" src="http://5ppsystem.com/modules/contrib/social_media/icons/email.svg">
                                             </a>
                                     </li>
@@ -373,7 +373,7 @@ class CalendarPopup extends ControllerBase {
 		                           
 		                            $html .= '<div class="ticketing">
 		                              <p>ASSESSMENT TYPE</p>
-		                             <p style="color:#000;">'.ucfirst($assessment_type).'</p>
+		                             <span style="color:#000;">'.ucfirst($assessment_type).'</span>
 		                            <div>';
 		                           	
 		                        $html .=  '</div>

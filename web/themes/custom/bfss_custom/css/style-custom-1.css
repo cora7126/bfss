@@ -72,7 +72,7 @@ ul.ui-autocomplete li.ui-menu-item div:hover, ui-autocomplete li.ui-menu-item di
 .payments_receipts_print_main .invoice-footer .total sup{font-size: 50px;}
 .payments_receipts_print_main .invoice-footer p{font-size: 14px;padding-bottom: 8px;}
 .edit-coach-form-popup .org_type_name_wrapper {float: left;width: 100%;margin-bottom: 40px;}
-.ui-autocomplete{ margin:4px, 4px; padding:4px; width: 500px; height: 200px; overflow-x: hidden; overflow-y: auto; text-align:justify;} 
+.ui-autocomplete{ margin:4px, 4px; padding:4px; width: 500px; max-height: 200px; overflow-x: hidden; overflow-y: auto; text-align:justify;} 
 .coach-edit-form .right_section .image-widget .data {top:0px;}
 .atheltic-profile .item_image .mail_athlete{margin-top: 60px;}
 .atheltic-profile .item_image .image img{max-height: 275px;}
@@ -136,6 +136,31 @@ footer.user-profile-fo.footer.container {
 .maintenance-message p {
     font-size: 13px;
     }
+.manager-assessor-account .form-item.js-form-item.form-type-password.js-form-type-password.form-item-pass-pass1.js-form-item-pass-pass1.form-no-label.form-group, .manager-assessor-account .form-item.js-form-item.form-type-password.js-form-type-password.form-item-pass-pass2.js-form-item-pass-pass2.form-no-label.form-group  {
+    padding: 0px;
+}
+.manager-assessor-account button.close {
+    margin: 22px 22px 0px 0px;
+}
+#StateCityFilter div#edit-output-22 {
+    padding-bottom: 13px;
+}
+.ctv_filter_main p.venue {
+    cursor: pointer;
+}
+.ctv_filter_main .btn-primary:not(:disabled):not(.disabled).active, .ctv_filter_main .btn-primary:not(:disabled):not(.disabled):active{
+    color: #fff;
+    background-color: green;
+    border-color: green;
+}
+.cat_tags_wrpp .nice-select ul.list{
+    overflow: auto;
+    max-height: 300px;
+}
+.ctv_filter_main  .btn-primary:not(:disabled):not(.disabled):active:focus{box-shadow: 0 0 0 0.2rem #4CAF50;}
+.coach-edit-form button.close {
+    margin: 22px 22px 0 0;
+}
 /***********INVOICE END FROM HERE************/
 
 /******************* RESPONSIVE CSS STARTS HERE *********************/

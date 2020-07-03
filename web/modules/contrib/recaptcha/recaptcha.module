@@ -46,7 +46,7 @@ function recaptcha_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_theme().
  */
-/*function recaptcha_theme() {
+function recaptcha_theme() {
   return [
     'recaptcha_widget_noscript' => [
       'variables' => [
@@ -55,7 +55,7 @@ function recaptcha_help($route_name, RouteMatchInterface $route_match) {
       'template' => 'recaptcha-widget-noscript',
     ],
   ];
-}*/
+}
 
 /**
  * Implements hook_captcha().
@@ -91,13 +91,13 @@ function recaptcha_captcha($op, $captcha_type = '') {
 
           // Check if reCAPTCHA use globally is enabled.
           $recaptcha_src = 'https://www.google.com/recaptcha/api.js';
-          //$recaptcha_src_fallback = 'https://www.google.com/recaptcha/api/fallback';
+          $recaptcha_src_fallback = 'https://www.google.com/recaptcha/api/fallback';
           if ($recaptcha_use_globally) {
             $recaptcha_src = 'https://www.recaptcha.net/recaptcha/api.js';
-        //    $recaptcha_src_fallback = 'https://www.recaptcha.net/recaptcha/api/fallback';
-        //  }
+            $recaptcha_src_fallback = 'https://www.recaptcha.net/recaptcha/api/fallback';
+          }
 
-         /* $noscript = '';
+          $noscript = '';
           if ($config->get('widget.noscript')) {
             $recaptcha_widget_noscript = [
               '#theme' => 'recaptcha_widget_noscript',
@@ -107,7 +107,7 @@ function recaptcha_captcha($op, $captcha_type = '') {
                 'language' => \Drupal::service('language_manager')->getCurrentLanguage()->getId(),
               ],
             ];
-            $noscript = $renderer->render($recaptcha_widget_noscript);*/
+            $noscript = $renderer->render($recaptcha_widget_noscript);
           }
 
           $attributes = [
@@ -118,37 +118,19 @@ function recaptcha_captcha($op, $captcha_type = '') {
             'data-size' => $config->get('widget.size'),
             'data-tabindex' => $config->get('widget.tabindex'),
           ];
-		            $captcha['form']['#attached']['library'][] = 'recaptcha/recaptcha';
-
-          // Set the callback for invisible captcha.
-          if ('invisible' === $config->get('widget.size')) {
-            $attributes['data-badge'] = $config->get('widget.badge');
-            $attributes['data-callback'] = 'recaptchaOnInvisibleSubmit';
-            $captcha['form']['#attached']['library'][] = 'recaptcha/recaptcha.invisible';
-          }
-
-		  
           // Filter out empty tabindex/size.
           $attributes = array_filter($attributes);
 
           $captcha['form']['recaptcha_widget'] = [
             '#markup' => '<div' . new Attribute($attributes) . '></div>',
-          //  '#suffix' => $noscript,
+            '#suffix' => $noscript,
             '#attached' => [
               'html_head' => [
                 [
                   [
                     '#tag' => 'script',
                     '#attributes' => [
-                    //  'src' => Url::fromUri($recaptcha_src, ['query' => ['hl' => \Drupal::service('language_manager')->getCurrentLanguage()->getId()], 'absolute' => TRUE])->toString(),
-					'src' => Url::fromUri($recaptcha_src, [
-                        'query' => [
-                          'hl' => \Drupal::service('language_manager')->getCurrentLanguage()->getId(),
-                          'onload' => 'drupalRecaptchaOnload',
-                          'render' => 'explicit',
-                        ],
-                        'absolute' => TRUE,
-                      ])->toString(),
+                      'src' => Url::fromUri($recaptcha_src, ['query' => ['hl' => \Drupal::service('language_manager')->getCurrentLanguage()->getId()], 'absolute' => TRUE])->toString(),
                       'async' => TRUE,
                       'defer' => TRUE,
                     ],
@@ -241,8 +223,8 @@ function recaptcha_captcha_validation($solution, $response, $element, $form_stat
  *
  * @see recaptcha-widget-noscript.tpl.php
  */
-/* function template_preprocess_recaptcha_widget_noscript(&$variables) {
+function template_preprocess_recaptcha_widget_noscript(&$variables) {
   $variables['sitekey'] = $variables['widget']['sitekey'];
   $variables['language'] = $variables['widget']['language'];
   $variables['url'] = Url::fromUri($variables['widget']['recaptcha_src_fallback'], ['query' => ['k' => $variables['widget']['sitekey'], 'hl' => $variables['widget']['language']], 'absolute' => TRUE])->toString();
-} */
+}

@@ -122,7 +122,8 @@ div.mob_bottom_margin .quick-link-sub-sec:hover p, div.mob_bottom_margin .quick-
 .dashboard .my-assessment button.accordion i{color:#EB6E06;font-size:16px;pointer-events:none;font-weight:400;}
 .dashboard .my-assessment button.accordion i:first-child{padding-right:15px;}
 .dashboard .my-assessment{position:relative;}
-.dashboard .my-assessment .panel{display:block;padding:0;position:absolute;width:100%;border:none;background-color:white;overflow:hidden;border:1px solid #949494;}
+.dashboard .my-assessment .panel{display:block;padding:0;position:absolute;width:100%;border:none;background-color:white;border:1px solid #949494;max-height: 300px;
+    overflow: auto;}
 .dashboard .my-assessment .panel .panel_row{width:100%;float:left;display:block;padding:15px;border-bottom:1px solid #ced4da;}
 .dashboard .my-assessment .panel .panel_row h3{font-size:16px;color:#000;font-weight:500;letter-spacing:.1px;margin:0;line-height:20px;}
  .dashboard .my-assessment .panel .panel_row:first-child h3{color:#000;} 
@@ -930,6 +931,16 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .tokenize-dropdown.dropdown > .dropdown-menu li a:hover, .tokenize-dropdown.dropdown > .dropdown-menu li a:focus{background:transparent;}
 .bfss-success-msg{background-color:#1e7e34;color:#fff;padding:15px;}
 .data .file-size{padding:0 1em 1rem;}
+.ctv_filter_main .st_ct_wp{display:none;}
+.ctv_filter_main .cat_tags_wrpp{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
+.ctv_filter_main .cat_tags_wrpp .box.niceselect{padding-right:20px;}
+.ctv_filter_main .cat_tags_wrpp .box.niceselect .select-wrapper{display:block;position:relative;}
+.ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select{border:0;padding:0;-moz-box-shadow:none;-word-breakit-box-shadow:none;box-shadow:none;}
+.ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select > span, .ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select .list li, .ctv_filter_main .cat_tags_wrpp .box.niceselect p.venue a{color:#808080;font-size:14px;font-weight:400;font-family:montserrat, sans-serif;}
+.ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select > span:hover, .ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select > span:focus, .ctv_filter_main .cat_tags_wrpp .box.niceselect p.venue a{color:#4c4c4c;}
+.ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select .list li{padding:0 10px;}
+.ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select .list li:hover{color:#fff;background:#EB6E06;}
+
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

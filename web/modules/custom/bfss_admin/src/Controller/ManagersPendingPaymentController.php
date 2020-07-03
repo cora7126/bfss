@@ -35,6 +35,15 @@ class ManagersPendingPaymentController extends ControllerBase {
 		      	$city = $entity->city->value;
 		      	$state = $entity->state->value;
 
+		      	$m_uid = $node->getOwnerId();
+
+		      	if(isset($m_uid)){
+			      	$m_user = User::load($m_uid);
+			      	$roles = $m_user->getRoles();
+			      	if(in_array('bfss_manager', $roles)){
+			      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+			      	}	
+		      	}
 
 		      	if (strpos($amount, 'freecredit') !== false) {
           			#code for this condition
@@ -48,6 +57,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 			       		'city' => $city,
 			       		'state' => $state,
 			       		'user_id' => $entity->user_id->value,
+			       		'manager_name' => $m_name,
 			       	];
 		       	}
         }	
@@ -70,6 +80,9 @@ class ManagersPendingPaymentController extends ControllerBase {
                 </th>
                  <th class="th-hd long-th th-fisrt"><a><span></span>Amount</a>
                 </th>
+                </th>
+                 <th class="th-hd long-th th-fisrt"><a><span></span>BFSS Manager</a>
+                </th>
               </tr>
             </thead>
             <tbody>';
@@ -88,6 +101,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 	        <td>'.$value['state'].'</td>
 	        <td>'.$value['program'].'</td>
 	        <td>'.$value['amount'].'</td>
+	        <td>'.$value['manager_name'].'</td>
 	         </tr>';
         }
          
@@ -130,6 +144,21 @@ class ManagersPendingPaymentController extends ControllerBase {
 		          $description = '';
 		        }
 	        	$user = User::load($value->uid);
+
+	        	if(isset($value->booking_id)){
+	        		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value->booking_id);
+	        		$nid = $entity->assessment->value;
+					$node = Node::load($nid);
+					$m_uid = $node->getOwnerId();
+					if(isset($m_uid)){
+						$m_user = User::load($m_uid);
+						$roles = $m_user->getRoles();
+						if(in_array('bfss_manager', $roles)){
+							$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+						}	
+					}
+	        	}
+
 				if($user){
 					$register_payment_data[] = [
 						'purchased_date' => date('F d, Y',$value->created),
@@ -140,6 +169,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 						'city' => $value->bi_city,
 						'state' => $value->bi_state,
 						'user_id' => $value->uid,
+						'manager_name' => $m_name,
 					];
 				}
 	        }
