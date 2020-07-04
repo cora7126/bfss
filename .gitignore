@@ -1,2 +1,5 @@
 web/sites/default/files/
 web/sites/default/files/contentimportlog.txt
+.vscode/sftp.json
+.vscode/bfss.code-workspace
+web/sites/default/settings.php
