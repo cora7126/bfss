@@ -169,7 +169,7 @@ class EditAssessmentsForm extends FormBase {
       ];
 
       $form['address_1'] = [
-        '#type' => 'textarea',
+        '#type' => 'textfield',
         '#placeholder' => t('Address 1'),
         '#required' => TRUE,
         '#default_value' => $address_1,
@@ -178,7 +178,7 @@ class EditAssessmentsForm extends FormBase {
       ];
 
       $form['address_2'] = [
-        '#type' => 'textarea',
+        '#type' => 'textfield',
         '#placeholder' => t('Address 2'),
         #'#required' => TRUE,
         '#default_value' => $address_2,
@@ -590,7 +590,7 @@ class EditAssessmentsForm extends FormBase {
                 $date = new DrupalDateTime($values['field_date'].$values['field_time']);
                 if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
                   $data[] = [
-                      'field_duration' => $values['field_duration'],
+                      'field_duration' => $values['field_duration']*60,
                       'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
                     ]; 
                 }   
@@ -602,7 +602,7 @@ class EditAssessmentsForm extends FormBase {
                 $date = new DrupalDateTime($values['field_date'].$values['field_time']);
                 if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
                   $data[] = [
-                      'field_duration' => $values['field_duration'],
+                      'field_duration' => $values['field_duration']*60,
                       'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
                     ]; 
                 }   
