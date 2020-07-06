@@ -134,7 +134,7 @@ class AddGroupAssessmentsForm extends FormBase {
       ];
 
       $form['address_1'] = [
-        '#type' => 'textarea',
+        '#type' => 'textfield',
         '#placeholder' => t('Address 1'),
         '#required' => TRUE,
         '#default_value' => '',
@@ -143,7 +143,7 @@ class AddGroupAssessmentsForm extends FormBase {
       ];
 
       $form['address_2'] = [
-        '#type' => 'textarea',
+        '#type' => 'textfield',
         '#placeholder' => t('Address 2'),
         #'#required' => TRUE,
         '#default_value' => '',
@@ -534,7 +534,7 @@ class AddGroupAssessmentsForm extends FormBase {
                 $date = new DrupalDateTime($values['field_date'].$values['field_time']);
                 if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
                   $data[] = [
-                      'field_duration' => $values['field_duration'],
+                      'field_duration' => $values['field_duration']*60,
                       'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
                     ]; 
                 }    
@@ -585,7 +585,10 @@ class AddGroupAssessmentsForm extends FormBase {
               }
             }
 
-            //venue 
+            #Assessment type
+            $node->field_type_of_assessment->value = $form_state->getValue('type');
+
+            #venue 
             $node->field_venue_state_assess->value = $form_state->getValue('venue_state');
             $node->field_venue_location_assess->value = $form_state->getValue('venue_loaction');
 

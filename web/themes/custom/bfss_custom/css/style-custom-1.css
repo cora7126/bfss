@@ -75,7 +75,7 @@ ul.ui-autocomplete li.ui-menu-item div:hover, ui-autocomplete li.ui-menu-item di
 .ui-autocomplete{ margin:4px, 4px; padding:4px; width: 500px; max-height: 200px; overflow-x: hidden; overflow-y: auto; text-align:justify;} 
 .coach-edit-form .right_section .image-widget .data {top:0px;}
 .atheltic-profile .item_image .mail_athlete{margin-top: 60px;}
-.atheltic-profile .item_image .image img{max-height: 275px;}
+.atheltic-profile .item_image .image img{max-height: 275px;object-fit:cover;min-height: 100%;}
 footer.user-profile-fo.footer.container {
     display: block;
 }
@@ -103,7 +103,7 @@ footer.user-profile-fo.footer.container {
     padding: 20px 15px;
     font-size: 16px;
     text-transform: uppercase;
-    margin-bottom: 40px;
+   /* margin-bottom: 40px;*/
    padding: 15px 0px 35px 0px;
 
 }

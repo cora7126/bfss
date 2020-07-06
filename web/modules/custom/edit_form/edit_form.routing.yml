@@ -6,6 +6,17 @@ edit_form.contribute_form:
   requirements:
     #_permission: 'access content'
     _role: 'athlete+parent_guardian_registering_athlete_'
+
+
+edit_form.form_testfrm:
+  path: '/example-formfrm'
+  defaults:
+    _title: 'Example form'
+    _form: '\Drupal\edit_form\Form\ExampleFormtest'
+  requirements:
+    _permission: 'access content'
+
+
     
 edit_form.athlete_form:
   path: /bfssAthleteProfile
@@ -86,4 +97,3 @@ edit_form.autocomplete:
   requirements:
    # _access: 'TRUE'
    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
-

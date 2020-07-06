@@ -58,18 +58,13 @@ class EditOrganizationPopup extends FormBase {
                               <div class="items_div">',
               ];
 
-             $form['resident'] = [
-                '#type' => 'container',
-                //'#title' => 'EDIT ORGANIZATION',
-                '#attributes' => ['id' => 'edit-resident'],
-              ];
               
               $form['message'] = [
                   '#type' => 'markup',
                   '#markup' => '<div class="result_message"></div>',
               ];
 
-              $form['resident']['organization_name'] = [
+              $form['organization_name'] = [
                 '#type' => 'textfield',
                 '#placeholder' => t('Organization Name'),
                 #'#title' => $this->t('Organization Name'),
@@ -77,26 +72,39 @@ class EditOrganizationPopup extends FormBase {
                 '#default_value' => $field_organization_name,
               ];
 
+              $form_state_values = $form_state->getValues();
+              $state_name = isset($form_state_values['state'])?$form_state_values['state']:'AZ';
 
-              $form['resident']['city'] = [
-                '#type' => 'textfield',
-               '#placeholder' => t('City'),
-                '#required' => TRUE,
-                '#default_value' => $field_city,
-              ];
               $states = $this->get_state();
-              $form['resident']['state'] = [
+              $form['state'] = [
                 '#placeholder' => t('State'),
                 '#type' => 'select',
                 '#required' => TRUE,
                 '#options' => $states,
                 '#default_value' => $field_state,
-                
+                 '#ajax' => [
+                    'progress' => array('type' => 'none'),
+                    'callback' => '::StateAjaxCallback', // don't forget :: when calling a class method.
+                    //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+                    'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+                    'event' => 'change',
+                    'wrapper' => 'edit-output-221', // This element is updated with this AJAX callback. 
+                  ]
               ];
-          
+               
+               $form['city'] = [
+                '#type' => 'textfield',
+                '#placeholder' => t('City'),
+                '#required' => TRUE,
+                '#default_value' => $field_city,
+                '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
+                '#autocomplete_route_parameters' => array('field_name' => $state_name, 'count' => 10), 
+                '#prefix' => '<div id="edit-output-221" class="full-width-inp">',
+                '#suffix' => '</div>',
+              ];
 
               $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club', 'university' => 'University'];
-              $form['resident']['type'] = [
+              $form['type'] = [
                   '#placeholder' => t('Type'),
                   '#type' => 'select',
                   '#required' => TRUE,
@@ -163,16 +171,14 @@ system has been performed before updating this organization.</p>',
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // echo "<pre>";
-    // print_r($form_state->getValues()['organization_name']);
-    // die;
+
       $param = \Drupal::request()->query->all();
       $nid = $param['nid'];
       $data = $form_state->getValues();
-      $organization_name = $data['organization_name'];
-      $city = $data['city'];
-      $state = $data['state'];
-      $type = $data['type'];
+      $organization_name =  $form_state->getValue('organization_name');
+      $city = $form_state->getValue('city');
+      $state = $form_state->getValue('state');
+      $type = $form_state->getValue('type');
       if(isset($nid)){
           if (empty($organization_name)) {
               $message = '<p style="color:red;">"Organization Name" Required.</p>';
@@ -279,4 +285,8 @@ system has been performed before updating this organization.</p>',
        ];
        return $states;
   }
+
+      public function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+        return $form['city']; 
+      }
 }

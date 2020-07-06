@@ -982,6 +982,10 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 }
 
 @media (max-width:767px) {
+	.user-by-permissions-table-form .left_section .items_div .table{width: 600px;}
+	.user-by-permissions-table-form .left_section .items_div{overflow-y: auto;}
+	.main_section_plx form textarea.form-control {height: 40px;resize:none;}
+
 	div.dataTables_wrapper .dataTables_info{width:100%;margin:0 0 10px;padding:0;}
 	.dataTables_paginate.paging_simple_numbers{width:100%;text-align:center;}
 	.dataTables_paginate.paging_simple_numbers a.paginate_button{display:inline-block;float:none;}
@@ -993,12 +997,17 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.private-assesspopup.drupal-assess-fm .close span{font-size:50px;line-height:35px;height:35px;display:block;overflow:hidden;}
 	.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{height:auto;margin:0 0 10px;}
 	.sm_cls{width:100%;margin:15px 0;}
+	.instagram_feed .slick-prev{left: -35px!important;top:18px;}	
+	.instagram_feed .slick-next{right: -35px!important;top:18px;}	
+	.instagram_feed .slick-prev::before, .instagram_feed  .slick-next::before{background-size: 20px!important;}
+
 	#assessor_popup_form .accessorform_inner{padding:25px;}
 	.drupal-assess-fm .modal-footer{padding:0 25px 25px;}
 	.user_pro_block .block-bfss-assessors, .assessor-profile-desh .user_pro_block .block-bfss-assessors{padding:20px;}
 	.myassess_main_pxl.user_pro_block .block-bfss-assessors{padding:0;}
 	.bfss_manager_page{grid-template-columns:1fr;}
 	.bfss_manager{margin:10px 0 0;}
+	.user-webpage-footer ul{margin-right: 0;padding: 0 10px;}
 	.bfss_manager_inner_sec{margin:30px 0px 0;}
 	.add-assessments .athlete_submit button{width:100%;}
 	.assessment_inner .top-head{min-height:60px;}
@@ -1107,7 +1116,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 	.block-bfss-assessment .faq li.a{width:100%;float:left;}
 	.block-bfss-assessment .faq li.q .faq-right{padding-left:10px;}
 	.dashboard .region.region-content{width:100%;}
-	.dashboard #edit-form{grid-template-columns:1fr;}
+	.dashboard #edit-form, .dashboard .edit-form{grid-template-columns:1fr;}
 	.mob_bottom_margin .quick-link-sub-sec p, .quick-link-sub-sec p, #sidenav > ul > li nav div a span.side_menu_text, #sidenav > ul > li.sub_menu.active > a > span, #sidenav > ul > li nav div ul li a{font-size:14px !important;line-height:16px !important;}
 	.dashboard .sidenav ul.dropdown-menu.open li a{padding:10px 15px 10px 30px;}
 	.wrapper #multistep-form-three div.js-form-item.form-item-first-name input, .wrapper #multistep-form-three div.js-form-item.form-item-last-name input{margin:0;}
