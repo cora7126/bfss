@@ -85,14 +85,16 @@ class PendingAssessmentsForm extends FormBase {
     $fieldAry[$fieldName] = array(
       '#type' => 'textfield',
       '#default_value' => $defaultValue,
-      #'#required' => TRUE,
+      // '#required' => TRUE,
       '#attributes' => array(
         'placeholder' => t($placeholder),
+        'title' => t($placeholder) . ($units ? '   (' . t($units) . ')' : ''),
         'style' => 'height: calc(1.4em + 0.3rem + 2px); ' . $style1 . ';',
       ),
     );
     $style2 = '';
     if ($units) {
+      // '#field_suffix' => t($units),
       $style2 = $modVal ? 'right: 50.4%' : 'right: 7.4%';
       $fieldWidth = 5;
       $fieldWidth += strlen($units) > 5 ? (strlen($units) * 0.3) : 0;

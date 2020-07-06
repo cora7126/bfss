@@ -34,7 +34,7 @@ class CreateTicket extends FormBase {
       '#prefix' => '<div class="main_header 1111111111111111"><h1 style="margin-top: 10px;font-size:15px;margin-left: 20px;"><i class="fas fa-home" style="color: #f76907;margin-right: 5px;"></i><i class="fas fa-angle-right" style="font-weight:400;margin-right:5px;"></i><a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold;">Dashboard</a><i class="fas fa-angle-right" style="font-weight:400;margin-right:5px;"></i><a class="edit_dash" style="font-weight: bold;">Support</a><i class="fas fa-angle-right" style="font-weight:400;margin-right:5px;"></i><a class="edit_dash" style="font-weight: bold;">Ticketing</a></h1><div class="edit_header" style="display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;"><i class="fa fa-laptop edit_image" aria-hidden="true"></i><h2 style="margin-top:0px;margin-bottom:0px;"><span style="font-size:13px;font-weight:600;">SUBMIT A</span><br>Ticket</h2></div>',
       '#suffix' => '</div>',
     );
-  $form[sub_header] = array( 
+  $form[sub_header] = array(
     '#prefix' => '<div class="left_section popup_left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class= "        fa fa-plus hide"></i></div>
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -47,8 +47,8 @@ class CreateTicket extends FormBase {
     </h3><div class=items_div>',
      '#suffix' => '</div>',
       );
-   
-   
+
+
     $form['subject'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
@@ -68,10 +68,10 @@ class CreateTicket extends FormBase {
 		'#suffix' => '</div></div>',
         //'#value' => t('Submit'),
     ];
-   
+
     return $form;
   }
-  
+
   public function validateForm(array &$form, FormStateInterface $form_state) {
          // $name = $form_state->getValue('jodi');
           // if(preg_match('/[^A-Za-z]/', $name)) {
@@ -114,7 +114,7 @@ class CreateTicket extends FormBase {
 //    $position=$field['position'];
 //    $instagram=$field['instagram'];
 //    $youtube=$field['youtube'];
-//      
+//
 //           $field  = array(
 //              'field_jodi'   => $jodi,
 //              'field_bloggs' =>  $bloggs,

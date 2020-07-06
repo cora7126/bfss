@@ -1,0 +1,12 @@
+name: 'Freshdesk Integration for Drupal 8'
+type: module
+description: 'Provides Freshdesk Integration.'
+configure: freshdesk_integration.admin_settings_form
+core: 8.x
+dependencies:
+  - reroute_email
+
+# Information added by Drupal.org packaging script on 2019-10-13
+version: '8.x-1.0-alpha1'
+project: 'freshdesk_integration'
+datestamp: 1570944788
