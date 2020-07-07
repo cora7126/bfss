@@ -1,0 +1,10 @@
+freshdesk_integration.settings_form:
+  title: 'Settings Form'
+  route_name:   freshdesk_integration.admin_settings_form
+  base_route: freshdesk_integration.admin_settings_form
+freshdesk_integration.sync_contacts_form:
+  title: 'Sync Contacts'
+  route_name: freshdesk_integration.sync_contacts_form
+  base_route: freshdesk_integration.admin_settings_form
+  weight: 30
+  

@@ -5,3 +5,10 @@ bfss_ticket_support:
     _controller: '\Drupal\bfss_ticket_support\TicketingController::content'
   requirements:
     _permission: 'access content'
+bfss_ticket_support.create_ticket:
+  path: '/create-ticket'
+  defaults:
+    _form: '\Drupal\bfss_ticket_support\Form\CreateTicket'
+    _title: 'create-ticket'
+  requirements:
+    _access: 'TRUE'

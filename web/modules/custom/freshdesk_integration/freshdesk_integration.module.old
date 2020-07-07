@@ -177,7 +177,7 @@ function _freshdesk_integration_create($user) {
   $CURLOPT_USERPWD = $config->get('apikey') . ':999999';
   $fields = (is_array($params)) ? json_encode($params, JSON_FORCE_OBJECT) : $params;
 
-  ksm(['aaaaa', $config->get('apikey'), $CURLOPT_URL, $CURLOPT_USERPWD, $fields, $params]);
+  ksm(['aaaaa', $CURLOPT_URL, $CURLOPT_USERPWD, $fields, $params]);
 
   // Make cURL call.
   $ch = curl_init();
@@ -200,7 +200,7 @@ function _freshdesk_integration_create($user) {
 
   $http_headers = get_headers($info['url']);
 
-  // ksm(['bbbbbbbb', $headers, $server_output, $server_output, $info]);
+  ksm(['bbbbbbbb', $headers, $server_output, $server_output, $info]);
 
 
   // Search for rate limit remaining line.
