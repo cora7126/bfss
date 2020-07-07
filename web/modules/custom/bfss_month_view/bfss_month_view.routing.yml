@@ -16,6 +16,24 @@ bfss_month_view.event_data_get:
   requirements:
     _permission: 'access content'
 
+bfss_month_view.event_data_get_group:
+  path: '/event-data-group'
+  defaults:
+    _controller: '\Drupal\bfss_month_view\Controller\EventDataGet::group_event_data_get'
+    _title: 'MonthViewForm'
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
+bfss_month_view.event_data_get_private:
+  path: '/event-data-private'
+  defaults:
+    _controller: '\Drupal\bfss_month_view\Controller\EventDataGet::private_event_data_get'
+    _title: 'MonthViewForm'
+    node_id: null
+  requirements:
+    _permission: 'access content'
+
 bfss_month_view.event_data_get_scheduled:
   path: '/scheduled-event-data'
   defaults:

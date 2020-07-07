@@ -15,37 +15,67 @@ class EventDataGet extends ControllerBase {
  
 		public function event_data_get()
 		{	
-
 			$query = \Drupal::entityQuery('node');
 			$query->condition('type', 'assessment');
+			$query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
 			$query->condition('status', 1);
-			$nids = $query->execute();
-			$event_data = [];
+			$nids = $query->execute();	
+			$event_data = $this->get_assessments_data($nids);
+			return new JsonResponse($event_data);
+		}
 
-			foreach( $nids as $nid ){
-				$node = Node::load($nid);
-				$data['title'] = $node->getTitle();
-				$field_schedules = $node->get('field_schedules')->getValue();
+		public function group_event_data_get()
+		{	
+			$query = \Drupal::entityQuery('node');
+			$query->condition('type', 'assessment');
+			$query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+			$query->condition('field_type_of_assessment','group', '=');
+			$query->condition('status', 1);
+			$nids = $query->execute();	
+			$event_data = $this->get_assessments_data($nids);
+			return new JsonResponse($event_data);
+		}
 
-				foreach ( $field_schedules as $element ) {
-					 $pGraph = Paragraph::load($element['target_id'] );
-					 $timing = (int) $pGraph->get('field_timing')->value;
-					 $date = date("Y-m-d",$timing);
-					 $time = $date.'T'.date("h:i:s",$timing);
-					 $duration = $pGraph->get('field_duration')->value;
-					 $event_data[] = [
-					 	'id'=>$nid,
-					   'title' => substr($data['title'], 0, 10).'...',
-					   //'date' => $date,
-					   'url' => '#'.$nid,
-					   'start' => $time,
-					   'className' => 'use-ajax',
 
-					 ];
+		public function private_event_data_get()
+		{	
+			$query = \Drupal::entityQuery('node');
+			$query->condition('type', 'assessment');
+			$query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+			$query->condition('field_type_of_assessment','private', '=');
+			$query->condition('status', 1);
+			$nids = $query->execute();	
+			$event_data = $this->get_assessments_data($nids);
+			return new JsonResponse($event_data);
+		}
+
+		public function get_assessments_data($nids){
+			if(is_array($nids) && !empty($nids)){
+				$event_data = [];
+				foreach( $nids as $nid ){
+					$node = Node::load($nid);
+					$data['title'] = $node->getTitle();
+					$field_schedules = $node->get('field_schedules')->getValue();
+
+					foreach ( $field_schedules as $element ) {
+						 $pGraph = Paragraph::load($element['target_id'] );
+						 $timing = (int) $pGraph->get('field_timing')->value;
+						 $date = date("Y-m-d",$timing);
+						 $time = $date.'T'.date("h:i:s",$timing);
+						 $duration = $pGraph->get('field_duration')->value;
+						 $event_data[] = [
+						 	'id'=>$nid,
+						   'title' => substr($data['title'], 0, 10).'...',
+						   //'date' => $date,
+						   'url' => '#'.$nid,
+						   'start' => $time,
+						   'className' => 'use-ajax',
+
+						 ];
+					}
 				}
 			}
-
-			  return new JsonResponse($event_data);
+			return $event_data;
 		}
 
 		public function event_data_get_scheduled()

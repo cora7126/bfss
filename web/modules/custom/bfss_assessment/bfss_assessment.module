@@ -2,10 +2,15 @@
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\NodeInterface;
+
+
 /*
  * HOOK_theme
  */
 function bfss_assessment_theme() {
+  $current_path = \Drupal::service('path.current')->getPath();
+  // print_r($current_path);
+  // die;
 	      $month_options = [];
         for ($m = 1; $m <= 12; ++$m) {
           $time = mktime(0, 0, 0, $m, 1);

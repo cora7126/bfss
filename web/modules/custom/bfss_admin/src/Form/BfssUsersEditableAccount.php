@@ -27,12 +27,12 @@ class BfssUsersEditableAccount extends FormBase {
     if(isset($param['uid'])){
         $current_user = $param['uid'];
         $conn = Database::getConnection();
-        $userdt = User::load($current_user);
-        // echo "<pre>";
-        // print_r($userdt);
-        // die;
+        $user = User::load($current_user);
+        if(is_array($user->get('user_picture')->getValue()) && !empty($user->get('user_picture')->getValue())){
+          $fid = isset($user->get('user_picture')->getValue()[0]['target_id'])?$user->get('user_picture')->getValue()[0]['target_id']:'';
+        }
 
-        $field_state =  $userdt->get('field_state')->value;
+        $field_state =  $user->get('field_state')->value;
         $roles_user = \Drupal::currentUser()->getRoles();
         $query18 = \Drupal::database()->select('mydata', 'md');
         $query18->fields('md');
@@ -184,7 +184,7 @@ class BfssUsersEditableAccount extends FormBase {
     '#preview_image_style' => 'medium', 
     '#upload_location' => 'public://',
     '#required' => false,
-    '#default_value' => array($img_id),
+    '#default_value' => array($fid),
     '#prefix' => '</div>',
     '#suffix' => '<div class="action_bttn">
             <span>Action</span><ul><li>Remove</li></ul>
@@ -263,6 +263,7 @@ class BfssUsersEditableAccount extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
       $param = \Drupal::request()->query->all();
       $conn = Database::getConnection();
+      $imgid = $form_state->getValue('image_athlete');
       if(isset($param['uid'])){
         $current_user = $param['uid'];
         $user = User::load($current_user);
@@ -273,14 +274,16 @@ class BfssUsersEditableAccount extends FormBase {
         $user->field_mobile->value = $form_state->getValue('numberone');
         #$user->field_state->value = $form_state->getValue('az');
         $user->field_date_of_birth->value = $form_state->getValue('doj');
-
+         if(isset($imgid[0])){
+             $user->set('user_picture', $fid);  
+          }
         $user->save();
         //user profile 
         $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
         $query_pic->fields('uup');
         $query_pic->condition('entity_id', $current_user,'=');
         $results_pic = $query_pic->execute()->fetchAll(); 
-        $imgid = $form_state->getValue('image_athlete');
+        
 
             if(empty($results_pic)){
               if(isset($imgid[0])){
