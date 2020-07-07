@@ -172,9 +172,9 @@ class TicketingController extends ControllerBase {
     // </form>';
 
     $html = '<br><div class="success_message_delete">
-      Freshdesk Test Account username / password:  digitalrace@gmail.com / nephilehi
-      <br><br>
-      Note: BFSS user auto-sync configuration at: <a href="/admin" target="_blank">freshDesk Admin</a>
+      Freshdesk Test Account username / password:  digitalrace@gmail.com / nephilehi (<b>log in as an Agent</b>)
+      <br>
+      BFSS user auto-sync configuration at: <a href="/admin" target="_blank">freshDesk Admin</a>
     </div><br>';
 
     $html .= '<div class="table-responsive-wrap"><table class="table table-hover table-striped" cellspacing="0" width="100%">

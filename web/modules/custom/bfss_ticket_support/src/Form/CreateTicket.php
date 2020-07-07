@@ -2,6 +2,9 @@
 namespace Drupal\bfss_ticket_support\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
+use  \Drupal\user\Entity\User;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Database;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,36 +26,35 @@ class CreateTicket extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $current_user = \Drupal::currentUser()->id();
-    //    $conn = Database::getConnection();
-    //    $query2 = \Drupal::database()->select('user__field_state', 'ufs');
-    //    $query2->addField('ufs', 'field_state_value');
-    //    $query2->condition('entity_id', $current_user,'=');
-    //    $results2 = $query2->execute()->fetchAssoc();
-    //    $state = $results2['field_state_value'];
+    //assessment get by current assessors
+    $uid = \Drupal::currentUser();
+    $user_id = $uid->id();
+    $user = \Drupal\user\Entity\User::load($user_id);
+    // $roles = $user->getRoles();
+    // $userEmail = $user->getEmail();
+    // $username = $user->getUsername();
+    $name = $user->getDisplayName();
 
-   $form['header'] = array(
-      '#prefix' => '<div class="main_header">
-      <h1 style="margin-top: 10px;font-size:15px;margin-left: 20px;">
-        <i class="fas fa-home" style="color: #f76907;margin-right: 5px;"></i>
-        <i class="fas fa-angle-right" style="font-weight:400;margin-right:5px;"></i>
-        <a href="/dashboard" class="edit_dash" style="margin-right:5px;font-weight: bold;">Dashboard</a>
-        <i class="fas fa-angle-right" style="font-weight:400;margin-right:5px;"></i>
-        <a class="edit_dash" style="font-weight: bold;">Support</a>
-        <i class="fas fa-angle-right" style="font-weight:400;margin-right:5px;"></i>
-        <a class="edit_dash" style="font-weight: bold;">Ticketing</a></h1>
-        <div class="edit_header" style="display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;">
-        <i class="fa fa-laptop edit_image" aria-hidden="true"></i>
-        <h2 style="margin-top:0px;margin-bottom:0px;">
-          <span style="font-size:13px;font-weight:600;">
-          SUBMIT A TICKET</span><br>
-        </h2>
-        <div><br>
-          &nbsp; We will respond to your ticket at our earliest availability<br>
-        </div>
-        </div>',
+    // ksm($user);
+
+    $form['header'] = array(
+      '#prefix' => '<div class="dash-main-right">
+      <h1><i class="fas fa-home" 1123></i> >
+        <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Pending Assessments</h1>
+        <div class="dash-sub-main">
+          <i class="fas fa-laptop edit_image_solid" aria-hidden="true"></i>
+          <h2><span>'.$name.'<div>SUBMIT A TICKET</div></span><br></h2>
+          <div><br><br>
+          &nbsp;
+          </div>
+        </div><br><br>',
       '#suffix' => '</div>',
     );
+
+    $form['message'] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="result_message"></div>',
+    ];
 
     $form['subject'] = array(
       '#type' => 'textfield',
@@ -71,8 +73,20 @@ class CreateTicket extends FormBase {
     );
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => 'save',
-  		'#prefix' =>'<div id="create_tct_submit">',
+      '#value' => 'Submit',
+      '#prefix' =>'<div id="create_tct_submit">',
+      '#suffix' => '</div>',
+      '#ajax' => [
+        'callback' => '::submitForm', // don't forget :: when calling a class method.
+        //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+        'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+        'event' => 'click',
+        'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+        'progress' => [
+          'type' => 'throbber',
+          'message' => $this->t('Verifying entry...'),
+        ],
+      ],
       //'#value' => t('Submit'),
     ];
 
@@ -84,19 +98,6 @@ class CreateTicket extends FormBase {
       // if(preg_match('/[^A-Za-z]/', $name)) {
           // $form_state->setErrorByName('jodi', $this->t('your jodi must in characters without space'));
       // }
-    // if (!is_float($form_state->getValue('height'))) {
-          // $form_state->setErrorByName('candidate_age', $this->t('Height needs to be a number'));
-        // }
-    // if (!is_float($form_state->getValue('weight'))) {
-          // $form_state->setErrorByName('candidate_age', $this->t('Weight needs to be a number'));
-        // }
-      /* $number = $form_state->getValue('candidate_age');
-      if(!preg_match('/[^A-Za-z]/', $number)) {
-          $form_state->setErrorByName('candidate_age', $this->t('your age must in numbers'));
-      }*/
-      //     if (strlen($form_state->getValue('mobile_number')) < 10 ) {
-      //       $form_state->setErrorByName('mobile_number', $this->t('your mobile number must in 10 digits'));
-      //      }
       // parent::validateForm($form, $form_state);
   }
 
@@ -104,6 +105,20 @@ class CreateTicket extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    $uid = \Drupal::currentUser();
+    $user_id = $uid->id();
+    $user = \Drupal\user\Entity\User::load($user_id);
+    $roles = $user->getRoles();
+    $userEmail = $user->getEmail();
+    $username = $user->getUsername();
+    $name = $user->getDisplayName();
+
+    // $roles['athlete']
+    // $roles['assessors']
+    // $roles['bfss_manager']
+    // $roles['coach']
+    // $roles['bfss_administrator']
 
     if (@$_POST['create_ticket']) {
       /**
@@ -117,10 +132,11 @@ class CreateTicket extends FormBase {
       $ticket_data = json_encode(array(
         "description" => $_POST['description'],
         "subject" => $_POST['subject'],
-        "email" => 'ashnsugar@gmail.com',
+        "name" => $name,
+        "email" => $userEmail,
         "priority" => 1,
         "status" => 2,
-        "cc_emails" => array("ashnsugar@gmail.com")
+        "cc_emails" => array('jodybrabec@gmail.com')
       ));
 
       $url = "https://$yourdomain.freshdesk.com/api/v2/tickets";
@@ -139,83 +155,31 @@ class CreateTicket extends FormBase {
       $info = curl_getinfo($ch);
       $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
       $headers = substr($server_output, 0, $header_size);
-      $response = substr($server_output, $header_size);
+      $c_response = substr($server_output, $header_size);
 
       if($info['http_code'] == 201) {
-        // ksm("Ticket created successfully, the response is given below \n");
-        // ksm("$headers\n");
-        // ksm("$response \n");
+        // ksm("$headers\n");  ksm("$c_response \n");
+        $message = 'Thank you,<br> We will respond to your ticket at our earliest availability';
+        $response = new AjaxResponse();
+        $response->addCommand(
+          new HtmlCommand(
+            '.result_message',
+            '<div class="success_message">'.$message.'</div>'
+          )
+        );
+        return $response;
+
       } else {
         if($info['http_code'] == 404) {
           ksm("Error, Please check the end point \n");
         } else {
           ksm("Error, HTTP Status Code : " . $info['http_code'] . "\n");
           ksm("Headers are ".$headers);
-          ksm("Response are ".$response);
+          ksm("Response are ".$c_response);
         }
+        return;
       }
       curl_close($ch);
     }
-
-    //    $popupFlag = 'filled';
-    //    $field=$form_state->getValues();
-    //    $jodi=$field['fname'];
-    //    //echo "$name";
-    //    $bloggs=$field['lname'];
-    //    $az=$field['state'];
-    //    $city=$field['city'];
-    //    $gender=$field['birth_gender'];
-    //    $dob=$field['field_dob'];
-    //    $height = $field['height'];
-    //    $weight = $field['weight'];
-    //    $organizaton_type=$field['organization_type'];
-    //    $organizaton_name=$field['organization_name'];
-    //    $coach_lname=$field['coach_lname'];
-    //    $sport=$field['sport'];
-    //    $position=$field['position'];
-    //    $instagram=$field['instagram'];
-    //    $youtube=$field['youtube'];
-    //
-    //           $field  = array(
-    //              'field_jodi'   => $jodi,
-    //              'field_bloggs' =>  $bloggs,
-    //              'field_az' =>  $az,
-    //              'field_city' => $city,
-    //              'field_birth_gender' => $gender,
-    //              'field_dob' => $dob,
-    //              'field_height' => $height,
-    //              'field_weight' => $weight,
-    //              'field_organization_type' => $organizaton_type,
-    //              'field_organization_name' => $organizaton_name,
-    //              'field_coach_lname' => $coach_lname,
-    //              'field_sport' => $sport,
-    //              'field_position' => $position,
-    //              'field_instagram' => $instagram,
-    //              'field_youtube' => $youtube,
-    //          );
-    //		    $current_user = \Drupal::currentUser()->id();
-    //    $conn = Database::getConnection();
-    //	$conn->insert('mydata')->fields(
-    //	array(
-    //              'field_jodi'   => $jodi,
-    //              'field_bloggs' =>  $bloggs,
-    //              'field_az' =>  $az,
-    //              'field_city' => $city,
-    //              'field_birth_gender' => $gender,
-    //              'field_dob' => $dob,
-    //              'field_height' => $height,
-    //              'field_weight' => $weight,
-    //              'field_organization_type' => $organizaton_type,
-    //              'field_organization_name' => $organizaton_name,
-    //              'field_coach_lname' => $coach_lname,
-    //              'field_sport' => $sport,
-    //              'field_position' => $position,
-    //              'field_instagram' => $instagram,
-    //              'field_youtube' => $youtube,
-    //              'popup_flag' => $popupFlag,
-    //              'uid' => $current_user,
-    //          )
-    //	)->execute();
-    //       $form_state->setRedirect('acme_hello');
   }
 }
