@@ -879,12 +879,12 @@ class ContributeForm extends FormBase {
       );
     $form['label_1'] = array(
       '#type' => 'label',
-      '#title' => ' http://bfsscience.com/profile/',
+      '#title' => ' http://bfssathlete.com/profile/',
       '#attributes' => array('id' => 'label_1', 'class' => array('weblabel')),
       );
     $form['label_2'] = array(
       '#type' => 'label',
-      '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+      '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
       );
     if(!empty($results_web) && is_array($results_web)){
       $pasth1 = !empty($results_web['athlete_web_name'])?'/profile/'.$results_web['athlete_web_name']:'/preview/profile';
@@ -932,12 +932,12 @@ class ContributeForm extends FormBase {
         );
       $form['label_12'] = array(
         '#type' => 'label',
-        '#title' => ' http://bfsscience.com/profile/',
+        '#title' => ' http://bfssathlete.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_22'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       if(!empty($results_addweb) && is_array($results_addweb)){
         $pasth2 = isset($results_addweb['athlete_addweb_name'])?'/profile/'.$results_addweb['athlete_addweb_name']:'/preview/profile';
@@ -987,12 +987,12 @@ class ContributeForm extends FormBase {
         );
       $form['label_13'] = array(
         '#type' => 'label',
-        '#title' => 'http://bfsscience.com/profile/',
+        '#title' => 'http://bfssathlete.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_23'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       if(!empty($results_clubweb) && is_array($results_clubweb)){
        $pasth3 = isset($results_clubweb['athlete_web_name'])?'/profile/'.$results_clubweb['athlete_web_name']:'/preview/profile';

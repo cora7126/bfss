@@ -64,8 +64,13 @@ class CoachEditProfileForm extends FormBase {
 // print_r($orgname);
 // die;
     $current_user = \Drupal::currentUser()->id();
-    $userdt = User::load($current_user);
-    $field_state =  $userdt->get('field_state')->value;
+    $user = User::load($current_user);
+    if(is_array($user->get('user_picture')->getValue()) && !empty($user->get('user_picture')->getValue())){
+      $fid = isset($user->get('user_picture')->getValue()[0]['target_id'])?$user->get('user_picture')->getValue()[0]['target_id']:'';
+    }
+
+    $field_state =  $user->get('field_state')->value;
+
     $roles_user = \Drupal::currentUser()->getRoles();
 
     $query18 = \Drupal::database()->select('mydata', 'md');
@@ -520,7 +525,7 @@ $form['html_image_athlete_start'] = [
     '#preview_image_style' => 'medium', 
     '#upload_location' => 'public://',
     '#required' => false,
-    '#default_value' => array($img_id),
+    '#default_value' => array($fid),
     '#prefix' => '',
     '#suffix' => '<div class="action_bttn">
                       <span>Action</span><ul><li>Remove</li></ul>
@@ -778,12 +783,17 @@ $form['html_image_athlete_end'] = [
     $roles_user = \Drupal::currentUser()->getRoles();
     $conn = Database::getConnection();
     $uid = \Drupal::currentUser()->id();
-    $user = \Drupal\user\Entity\User::load($uid);
-
+    $imgid = $form_state->getValue('image_athlete');
+    if(isset($uid)){
+      $user = User::load($uid);
+      $user->field_state->value = $form_state->getValue('az');
+      $user->mail->value = $form_state->getValue('email');
+      if(isset($imgid[0])){
+             $user->set('user_picture', $fid);  
+      }
+      $user->save();
+    }
     
-    $user->field_state->value = $form_state->getValue('az');
-    $user->mail->value = $form_state->getValue('email');
-    $user->save();
 
     $roles = $user->getRoles();
     if(in_array('coach', $roles)){
@@ -869,7 +879,7 @@ $form['html_image_athlete_end'] = [
     $query_pic->fields('uup');
     $query_pic->condition('entity_id', $current_user,'=');
     $results_pic = $query_pic->execute()->fetchAll(); 
-    $imgid = $form_state->getValue('image_athlete');
+    
         if(empty($results_pic)){
           if(isset($imgid[0])){
            $conn->insert('user__user_picture')->fields(

@@ -97,7 +97,7 @@ bfss_manager.pending_assessments_form:
     _title: 'pending-Assessments'
   requirements:
    # _access: 'TRUE' 
-    _role: 'bfss_manager'
+    _role: 'bfss_manager+bfss_administrator'
 
 bfss_manager.role_update_con:
   path: 'user-role-update/{uid}/{oldrole}/{newrole}/{dropdown}'
