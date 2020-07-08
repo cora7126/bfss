@@ -1111,8 +1111,6 @@ class ContributeForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array & $form, FormStateInterface $form_state) {
-    // print_r($form_state->getValue('image_athlete'));
-    // die;
 
     $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
@@ -1155,7 +1153,7 @@ class ContributeForm extends FormBase {
     $query_school->condition('athlete_uid', $current_user, '=');
     $results_school = $query_school->execute()->fetchAll();
 	
-	   $count_school_num_results = count($results_school);
+	  $count_school_num_results = count($results_school);
     $query_uni = \Drupal::database()->select('athlete_uni', 'au');
     $query_uni->fields('au');
     $query_uni->condition('athlete_uid', $current_user, '=');
@@ -1191,7 +1189,7 @@ class ContributeForm extends FormBase {
     $results_mydata = $query_mydata->execute()->fetchAll();
 
     $imgid = $form_state->getValue('image_athlete');
-
+    //================//
     $query_athletic_profile_image = \Drupal::entityQuery('node');
     $query_athletic_profile_image->condition('type', 'athletic_profile_image');
     $query_athletic_profile_image->condition('field_athelete_uid_pr',$current_user,'=');
@@ -1223,7 +1221,7 @@ class ContributeForm extends FormBase {
       $athletic_profile_image->set('field_image_athletic',[$imgfid]);
       $athletic_profile_image->save();
     }
-
+    //================//
 
   	$query_pic = \Drupal::database()->select('athlete_prof_image', 'uup');
     $query_pic->fields('uup');
