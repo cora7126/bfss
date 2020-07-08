@@ -264,57 +264,58 @@ $form['html_image_athlete'] = [
     $roles_user = \Drupal::currentUser()->getRoles();
     $conn = Database::getConnection();
     $imgid = $form_state->getValue('image_athlete');
+
     if(isset($current_user)){
           $user = User::load($current_user);
           if(isset($imgid[0])){
-             $user->set('user_picture', $fid);
+             $user->set('user_picture', $imgid[0]);
              
           }
          $user->save();
     }
 
     //user profile 
-	  $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
-		$query_pic->fields('uup');
-		$query_pic->condition('entity_id', $current_user,'=');
-		$results_pic = $query_pic->execute()->fetchAll();	
+	 //  $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
+		// $query_pic->fields('uup');
+		// $query_pic->condition('entity_id', $current_user,'=');
+		// $results_pic = $query_pic->execute()->fetchAll();	
   
-				if(empty($results_pic)){
-          if(isset($imgid[0])){
-					 $conn->insert('user__user_picture')->fields(
-							array(
-							'entity_id' => $current_user,
-							'bundle' => 'user',
-							'deleted' => '0',
-							'revision_id' => $current_user,
-							'langcode' => 'en',
-							'delta' => '0',
-							'user_picture_target_id' => $imgid[0],
-							)
-					)->execute();
-          }
-				}else {
-					if(!empty($imgid[0])){
-						$conn->update('user__user_picture')
-						->condition('entity_id',$current_user,'=')
-						->fields(
-							array(
-							'user_picture_target_id' => $imgid[0],
-							)
-						)
-						->execute();
-					}else{
-						$conn->update('user__user_picture')
-						->condition('entity_id',$current_user,'=')
-						->fields(
-							array(
-							'user_picture_target_id' => '240',
-							)
-						)
-						->execute();
-					}
+		// 		if(empty($results_pic)){
+  //         if(isset($imgid[0])){
+		// 			 $conn->insert('user__user_picture')->fields(
+		// 					array(
+		// 					'entity_id' => $current_user,
+		// 					'bundle' => 'user',
+		// 					'deleted' => '0',
+		// 					'revision_id' => $current_user,
+		// 					'langcode' => 'en',
+		// 					'delta' => '0',
+		// 					'user_picture_target_id' => $imgid[0],
+		// 					)
+		// 			)->execute();
+  //         }
+		// 		}else {
+		// 			if(!empty($imgid[0])){
+		// 				$conn->update('user__user_picture')
+		// 				->condition('entity_id',$current_user,'=')
+		// 				->fields(
+		// 					array(
+		// 					'user_picture_target_id' => $imgid[0],
+		// 					)
+		// 				)
+		// 				->execute();
+		// 			}else{
+		// 				$conn->update('user__user_picture')
+		// 				->condition('entity_id',$current_user,'=')
+		// 				->fields(
+		// 					array(
+		// 					'user_picture_target_id' => '240',
+		// 					)
+		// 				)
+		// 				->execute();
+		// 			}
                 
-			}
+		// 	}
 
 		//joining date	
 
