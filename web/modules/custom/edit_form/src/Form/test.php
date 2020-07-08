@@ -260,19 +260,21 @@ $form['html_image_athlete'] = [
       }
       
     $ath_fids = isset($ath_fid)?$ath_fid:'';
+    if($current_user == 668){
+      $form['testing_image'] = [
+        '#type' => 'managed_file',
+        '#upload_validators' => [
+            'file_validate_extensions' => ['gif png jpg jpeg'],
+            //'file_validate_size' => [25600000], 
+        ],
+        '#theme' => 'image_widget', 
+        '#preview_image_style' => 'medium', 
+        '#upload_location' => 'public://',
+        '#required' => false,
+        '#default_value' => array($ath_fids),
+      ];
+    }
 
-    $form['testing_image'] = [
-      '#type' => 'managed_file',
-      '#upload_validators' => [
-          'file_validate_extensions' => ['gif png jpg jpeg'],
-          //'file_validate_size' => [25600000], 
-      ],
-      '#theme' => 'image_widget', 
-      '#preview_image_style' => 'medium', 
-      '#upload_location' => 'public://',
-      '#required' => false,
-      '#default_value' => array($ath_fids),
-    ];
     return $form;
   }
 
@@ -312,31 +314,32 @@ $form['html_image_athlete'] = [
     $query_athletic_profile_image->condition('status', 1);
     $nids_athletic_profile_image = $query_athletic_profile_image->execute();
 
-    
-    if(empty($nids_athletic_profile_image)){
-    $athletic_profile_image = Node::create([
-      'type'        => 'user_profile_image',
-      'title'       =>  $form_state->getValue('username'),
-      'field_user_uid' => $current_user,
-      'field_user_profile_image' => [
-        'target_id' => isset($fid[0])?$fid[0]:'',
-        'alt' => $form_state->getValue('username'),
-        ],
-    ]);
-    $athletic_profile_image->save();
-    }else{
-        foreach ($nids_athletic_profile_image as $key => $value) {
-          $ath_nid = $value;
-        }
+    if($current_user == 668){
+      if(empty($nids_athletic_profile_image)){
+      $athletic_profile_image = Node::create([
+        'type'        => 'user_profile_image',
+        'title'       =>  $form_state->getValue('username'),
+        'field_user_uid' => $current_user,
+        'field_user_profile_image' => [
+          'target_id' => isset($fid[0])?$fid[0]:'',
+          'alt' => $form_state->getValue('username'),
+          ],
+      ]);
+      $athletic_profile_image->save();
+      }else{
+          foreach ($nids_athletic_profile_image as $key => $value) {
+            $ath_nid = $value;
+          }
 
-        $imgfid = [
-                  'target_id' => isset($fid[0])?$fid[0]:'',
-                  'alt' => $form_state->getValue('username'),
-                  ];
+          $imgfid = [
+                    'target_id' => isset($fid[0])?$fid[0]:'',
+                    'alt' => $form_state->getValue('username'),
+                    ];
 
-        $athletic_profile_image = Node::load($ath_nid);
-        $athletic_profile_image->set('field_user_profile_image',[$imgfid]);
-        $athletic_profile_image->save();
+          $athletic_profile_image = Node::load($ath_nid);
+          $athletic_profile_image->set('field_user_profile_image',[$imgfid]);
+          $athletic_profile_image->save();
+      }
     }
     //================//
     //user profile 
