@@ -67,7 +67,7 @@ jQuery(".share a.share_assessment").click(function(){
 			{% if role in data.roles %}
 			<div class="ticketing">
 				<p>ASSESSMENT TYPE</p>
-				<p style="color:#000;">{{ data.assess_type|capitalize }}</p>
+				<span style="color:#000;">{{ data.assess_type|capitalize }}</span>
 				<!-- <a href="{{ data.url }}" class="book-now">Book Now</a> -->
 			<div>
 			{% endif %}

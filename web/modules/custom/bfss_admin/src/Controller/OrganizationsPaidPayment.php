@@ -130,7 +130,10 @@ class OrganizationsPaidPayment extends ControllerBase {
 				$nids = $query->execute();
 				foreach($nids as $nid){
 					$node = Node::load($nid);
-					$coach = $node->field_coach_title->value;
+					if(!empty($node)){
+						$coach = $node->field_coach_title->value;
+					}
+					
 				}
 			}
 			return $coach;

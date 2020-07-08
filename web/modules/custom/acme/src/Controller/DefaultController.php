@@ -530,8 +530,9 @@ public function userform()
             $state = $entity->state->value;
             if($nid){
                 $node = Node::load($nid);
-                if(is_array($node) && !empty($node)){
+                if(!empty($node)){
                 $m_uid = $node->getOwnerId();
+         
                 if(isset($m_uid)){
                   $m_user = User::load($m_uid);
                   $roles = $m_user->getRoles();
@@ -638,7 +639,7 @@ public function userform()
               $nid = $entity->assessment->value;
               if($nid){
                   $node = Node::load($nid);
-                  if(is_array($node) && !empty($node)){
+                  if(!empty($node)){
                      $m_uid = $node->getOwnerId();
                     if(isset($m_uid)){
                       $m_user = User::load($m_uid);
