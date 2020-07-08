@@ -12,6 +12,7 @@ use Drupal\Core\Database\Database;
 use Drupal\file\Entity\File;
 use \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
+use \Drupal\node\Entity\Node;
 /**
  * Contribute form.
  */
@@ -33,6 +34,7 @@ class test extends FormBase {
     $user = User::load($current_user);
     if(is_array($user->get('user_picture')->getValue()) && !empty($user->get('user_picture')->getValue())){
       $fid = isset($user->get('user_picture')->getValue()[0]['target_id'])?$user->get('user_picture')->getValue()[0]['target_id']:'';
+
     }
 
     $field_state =  $user->get('field_state')->value;
@@ -244,6 +246,33 @@ $form['html_image_athlete'] = [
      
     ];
   	}
+
+    $query_athletic_profile_image = \Drupal::entityQuery('node');
+    $query_athletic_profile_image->condition('type', 'user_profile_image');
+    $query_athletic_profile_image->condition('field_user_uid',$current_user,'=');
+    $query_athletic_profile_image->condition('status', 1);
+    $nids_athletic_profile_image = $query_athletic_profile_image->execute();
+    //$ath_fid = [];
+     foreach ($nids_athletic_profile_image as $key => $value) {
+        $ath_node = Node::load($value);
+        $ath_fid = isset($ath_node->get('field_user_profile_image')->getValue()[0]['target_id'])?$ath_node->get('field_user_profile_image')->getValue()[0]['target_id']:'';     
+      
+      }
+      
+    $ath_fids = isset($ath_fid)?$ath_fid:'';
+
+    $form['testing_image'] = [
+      '#type' => 'managed_file',
+      '#upload_validators' => [
+          'file_validate_extensions' => ['gif png jpg jpeg'],
+          //'file_validate_size' => [25600000], 
+      ],
+      '#theme' => 'image_widget', 
+      '#preview_image_style' => 'medium', 
+      '#upload_location' => 'public://',
+      '#required' => false,
+      '#default_value' => array($ath_fids),
+    ];
     return $form;
   }
 
@@ -276,6 +305,7 @@ $form['html_image_athlete'] = [
 
 
     //================//
+    $fid = $form_state->getValue('testing_image');
     $query_athletic_profile_image = \Drupal::entityQuery('node');
     $query_athletic_profile_image->condition('type', 'user_profile_image');
     $query_athletic_profile_image->condition('field_user_uid',$current_user,'=');
@@ -289,7 +319,7 @@ $form['html_image_athlete'] = [
       'title'       =>  $form_state->getValue('username'),
       'field_user_uid' => $current_user,
       'field_user_profile_image' => [
-        'target_id' => isset($imgid[0])?$imgid[0]:'',
+        'target_id' => isset($fid[0])?$fid[0]:'',
         'alt' => $form_state->getValue('username'),
         ],
     ]);
@@ -300,7 +330,7 @@ $form['html_image_athlete'] = [
         }
 
         $imgfid = [
-                  'target_id' => isset($imgid[0])?$imgid[0]:'',
+                  'target_id' => isset($fid[0])?$fid[0]:'',
                   'alt' => $form_state->getValue('username'),
                   ];
 
