@@ -245,7 +245,7 @@ class CalendarPopup extends ControllerBase {
 		    	$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($param['booked_id']);
 		    	 $data['latest_timing'] = $entity->time->value;
 		    	 $duration = date('h:i A',strtotime('+'.$entity->until->value.' minutes',$entity->time->value));
-		        $data['latest_duration'] = $latest_duration;
+		        $data['latest_duration'] = $duration;
 		    }
 		    // if ($node->hasField('field_schedules')) {
 		    //   $field_schedules = $node->get('field_schedules')->getValue();
@@ -371,7 +371,7 @@ class CalendarPopup extends ControllerBase {
 		                                </span>
 		                              <p>UNTIL</p>
 		                              <span>
-		                          '.$data['field_location'].'
+		                          '.$data['latest_duration'].'
 		                              </span>
 		                            <div>
 		                            <div class="location">
