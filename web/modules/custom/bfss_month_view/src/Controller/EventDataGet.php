@@ -106,7 +106,7 @@ class EventDataGet extends ControllerBase {
 						   'id' => $entity->assessment->value,
 						   'title' => substr($entity->assessment_title->value, 0, 10).'...',
 						   //'date' => $date,
-						   'url' => '#'.$entity->assessment->value,
+						   'url' => '#'.$entity->assessment->value.'?booked_id='.$booked_id,
 						   'start' => $time,
 						   'className' => 'use-ajax',
 
