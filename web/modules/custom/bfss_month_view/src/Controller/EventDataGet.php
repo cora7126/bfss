@@ -105,8 +105,7 @@ class EventDataGet extends ControllerBase {
 		                $event_data[] = [
 						   'id' => $entity->assessment->value,
 						   'title' => substr($entity->assessment_title->value, 0, 10).'...',
-						   //'date' => $date,
-						   'url' => '#'.$entity->assessment->value,
+						   'url' => '#'.$entity->assessment->value.'?booked_id='.$booked_id,
 						   'start' => $time,
 						   'className' => 'use-ajax',
 
@@ -114,24 +113,6 @@ class EventDataGet extends ControllerBase {
 		               }
 		        }
 		      }
-			
-
-			// foreach( $entity_ids as $nid ){
-			// 	$node = Node::load($nid);
-			// 	if(!empty($node)){
-			// 	$data['title'] = $node->getTitle();
-			// 	$field_schedules = $node->get('field_schedules')->getValue();
-				
-			// 		foreach ( $field_schedules as $element ) {
-			// 			 $pGraph = Paragraph::load($element['target_id'] );
-			// 			 $timing = (int) $pGraph->get('field_timing')->value;
-			// 			 $date = date("Y-m-d",$timing);
-			// 			 $time = $date.'T'.date("h:i:s",$timing);
-			// 			 $duration = $pGraph->get('field_duration')->value;
-						
-			// 		}
-			// 	}
-			// }
 
 			  return new JsonResponse($event_data);
 		}

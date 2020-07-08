@@ -71,13 +71,13 @@ jQuery(document).ready(function(){
           //for scheduled
            jQuery('body').on('click','#calendar-scheduled .use-ajax',function(){
              var nid = jQuery(this).attr('href').replace('#','');
-         
+              console.log(nid);
                 jQuery.ajax({
                   url : 'http://5ppsystem.com/scheduled-calendar-modal-show/'+nid,
                   dataType: 'json',
                   cache: false,
                   success: function(data){
-
+                  
                     if(data){
                         jQuery("#calpopup-plx").html(data.modal); 
                        jQuery('#myModal').modal('show');

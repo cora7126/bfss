@@ -50,25 +50,25 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
     $element = 1;
     $param = \Drupal::request()->query->all();
     #get nodes by paginations
-    if(isset($param['SearchAssessments'])){
-      $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'scheduled');
-    }else{
-      $nids = $this->assessmentService->My_Scheduled_Assessment_Block($element);
-    }
-    #load data
-    $current_path = \Drupal::service('path.current')->getPath();
-    $res = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+    // if(isset($param['SearchAssessments'])){
+    //   $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'scheduled');
+    // }else{
+    //   $nids = $this->assessmentService->My_Scheduled_Assessment_Block($element);
+    // }
+    // #load data
+    // $current_path = \Drupal::service('path.current')->getPath();
+    // $res = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
 
-    foreach($nids as $nid){  
-      $arr = $this->assessmentService->getNodeData($nid);
-      if ($arr) {
-        $arr['url'] = '/assessment/scheduled/node/'.$nid;
-        $data[] = $arr;
-      }
-    }
+    // foreach($nids as $nid){  
+    //   $arr = $this->assessmentService->getNodeData($nid);
+    //   if ($arr) {
+    //     $arr['url'] = '/assessment/scheduled/node/'.$nid;
+    //     $data[] = $arr;
+    //   }
+    // }
     $booked_assessments = $this->assessmentService->My_Booked_Scheduled_Assessment_Block($element);
     #send results
-    if (!empty($data)) {
+    if (!empty($booked_assessments)) {
       return [
         'results' => [
               '#cache' => ['max-age' => 0,],
