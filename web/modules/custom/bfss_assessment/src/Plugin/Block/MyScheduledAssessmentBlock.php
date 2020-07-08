@@ -50,39 +50,30 @@ class MyScheduledAssessmentBlock extends BlockBase implements ContainerFactoryPl
     $element = 1;
     $param = \Drupal::request()->query->all();
     #get nodes by paginations
-    //$nids =$this->assessmentService->getComingAssessments($element);
-    
-
     if(isset($param['SearchAssessments'])){
       $nids = $this->assessmentService->Assessments_Search_Filter($element,$param['SearchAssessments'],'scheduled');
     }else{
       $nids = $this->assessmentService->My_Scheduled_Assessment_Block($element);
     }
-    //$data['booking_status'] = 'purchased';
- 
     #load data
     $current_path = \Drupal::service('path.current')->getPath();
     $res = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
-    // $data['current_page'] = $res;
-    foreach($nids as $nid){
-  
+
+    foreach($nids as $nid){  
       $arr = $this->assessmentService->getNodeData($nid);
       if ($arr) {
-        // $arr['url'] = $base_url.'/assessment/node/'.$nid;
-        // $arr['url'] = 'http://bfss.mindimage.net/assessment/node/'.$nid;
         $arr['url'] = '/assessment/scheduled/node/'.$nid;
-       //$arr['booking_status'] = 'purchased';
         $data[] = $arr;
       }
     }
-
-  #send results
+    $booked_assessments = $this->assessmentService->My_Booked_Scheduled_Assessment_Block($element);
+    #send results
     if (!empty($data)) {
       return [
         'results' => [
               '#cache' => ['max-age' => 0,],
               '#theme' => 'my_scheduled_assessment',
-              '#data' => $data,
+              '#data' => $booked_assessments,
               '#empty' => 'no',
             ],
         'pager' =>[

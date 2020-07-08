@@ -22,16 +22,22 @@ class ManagersPaidPaymentController extends ControllerBase {
 		      	$amount = $entity->service->value;
 		      	$nid = $entity->assessment->value;
 		      	$assessmentDate = date('F d, Y',$entity->time->value);
-		      	$node = Node::load($nid);
-		      	$m_uid = $node->getOwnerId();
-
-		      	if(isset($m_uid)){
-			      	$m_user = User::load($m_uid);
-			      	$roles = $m_user->getRoles();
-			      	if(in_array('bfss_manager', $roles)){
-			      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-			      	}	
+		      	if(isset($nid)){
+		      		$node = Node::load($nid);
+		      		if(!empty($node))
+		      		{
+		      			$m_uid = $node->getOwnerId();
+				      	if(isset($m_uid)){
+					      	$m_user = User::load($m_uid);
+					      	$roles = $m_user->getRoles();
+					      	if(in_array('bfss_manager', $roles)){
+					      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+					      	}	
+				      	}
+		      		}	
 		      	}
+		      	
+		      	
 		      	
 		      	$type = $node->field_type_of_assessment->value;
 			      	if($amount == '29.99'){
@@ -151,15 +157,21 @@ class ManagersPaidPaymentController extends ControllerBase {
 	        	if(isset($value->booking_id)){
 	        		$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value->booking_id);
 	        		$nid = $entity->assessment->value;
-					$node = Node::load($nid);
-					$m_uid = $node->getOwnerId();
-					if(isset($m_uid)){
-						$m_user = User::load($m_uid);
-						$roles = $m_user->getRoles();
-						if(in_array('bfss_manager', $roles)){
-							$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-						}	
-					}
+
+					if(isset($nid)){
+		      		$node = Node::load($nid);
+		      		if(!empty($node))
+		      		{
+		      			$m_uid = $node->getOwnerId();
+				      	if(isset($m_uid)){
+					      	$m_user = User::load($m_uid);
+					      	$roles = $m_user->getRoles();
+					      	if(in_array('bfss_manager', $roles)){
+					      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+					      	}	
+				      	}
+		      		}	
+		      		}
 	        	}
 	        	
 				if($user){
