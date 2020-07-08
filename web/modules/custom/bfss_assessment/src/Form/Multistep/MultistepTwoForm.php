@@ -9,7 +9,8 @@ namespace Drupal\bfss_assessment\Form\Multistep;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-
+use \Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 class MultistepTwoForm extends MultistepFormBase {
 
   /**
@@ -35,10 +36,18 @@ class MultistepTwoForm extends MultistepFormBase {
       $form['actions']['submit']['#access'] = false;
       return $form;
     }
+
+     $assessment_type = '';
+     $node = Node::load($nid);
+     if(!empty($node)){
+      if($node->hasField('field_type_of_assessment')) {
+        $assessment_type  = $node->field_type_of_assessment->value;
+      }
+     }
     #add container class to form
     $form['#attributes']['class'][] = 'container';
 
-    if($nid == '9999999999'){
+    if($nid == '9999999999' || $assessment_type == 'private'){
       //private
       $query = \Drupal::entityQuery('node');
       $query->condition('status', 1);
@@ -82,13 +91,21 @@ class MultistepTwoForm extends MultistepFormBase {
 		'#prefix' => "<p class='service-top-head'>Below is a list of available time slots and days for your assessment. Click on a time slot to proceed with booking.</p>",
     '#suffix' => "<div class='timeslots-main'>",
 	  );
- if($nid == '9999999999'){
+     
+//print_r($assessment_type);
+ if($nid == '9999999999' ||  $assessment_type == 'private'){
       foreach ($timings_private as $timings_pri) {
- 
            foreach ($timings_pri['schedule'] as $key => $value) {
-
-                $value = date('h:i a',$value);
-                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn" data-nid="'.$timings_pri['private_nid'].'"></span>'.$value.'<span>';
+                $booked_ids = \Drupal::entityQuery('bfsspayments')
+                ->condition('user_id', \Drupal::currentUser()->id())
+                ->condition('assessment', $timings_pri['private_nid'], "=")
+                ->condition('time',$value, "=")
+                ->execute();
+                $value = date('h:i a',$value);              
+                
+                if(empty($booked_ids)){
+                  $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn" data-nid="'.$timings_pri['private_nid'].'"></span>'.$value.'<span>';
+                }
         }
       }
 
@@ -109,8 +126,16 @@ class MultistepTwoForm extends MultistepFormBase {
         }
  }else{
         foreach ($timings as $key => $value) {
+                $booked_ids = \Drupal::entityQuery('bfsspayments')
+                ->condition('user_id', \Drupal::currentUser()->id())
+                ->condition('assessment',$nid, "=")
+                ->condition('time',$value, "=")
+                ->execute();
+
                 $value = date('h:i a',$value);
-                $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
+                if(empty($booked_ids)){
+                  $sortedTimings[date('Ymd',$key)][$key] = '<span class="radiobtn"></span>'.$value.'<span>';
+                }
         }
         foreach ($sortedTimings as $key => $value) {
           $maintitle = current(array_keys($value));

@@ -77,7 +77,7 @@ jQuery(document).ready(function(){
                   dataType: 'json',
                   cache: false,
                   success: function(data){
-
+                  
                     if(data){
                         jQuery("#calpopup-plx").html(data.modal); 
                        jQuery('#myModal').modal('show');
