@@ -218,7 +218,8 @@ class CalendarPopup extends ControllerBase {
 		    $user = User::load($uid);
 		    $roles = $user->getRoles();
 		    $param = \Drupal::request()->query->all();
-		    print_r($param);
+
+		    
 		    //$nid = \Drupal::request()->get('node_id');
 		    //print_r($nid);
 		    $data = [];
@@ -240,44 +241,50 @@ class CalendarPopup extends ControllerBase {
 		      }
 		    }
 
-		    if ($node->hasField('field_schedules')) {
-		      $field_schedules = $node->get('field_schedules')->getValue();
-		      $latest_timing = null;
-		      $latest_duration = null;
-		      if ($field_schedules) {
-		        foreach ( $field_schedules as $element ) {
-		          if (isset($element['target_id'])) {
-		            $pGraph = Paragraph::load($element['target_id'] );
-		            if ($pGraph->hasField('field_timing') && $pGraph->hasField('field_duration')) {
-		              $timing = (int) $pGraph->get('field_timing')->value;
-		              $duration = $pGraph->get('field_duration')->value;
-		              if ($duration) {
-		                $duration = date('h:i A',strtotime('+'.$duration.' minutes',$timing));
-		              }
-		              if (empty($latest_timing)) {
-		                $latest_timing = $timing;
-		                $latest_duration = $duration;
-		              }else{
-		                if ($latest_timing > $timing) {
-		                  $latest_timing = $timing;
-		                  $latest_duration = $duration;
-		                }
-		              }
-
-		              if ($timing > time()) {
-		                $data['schedules'][] = [
-		                  'field_timing' => $timing,
-		                  'field_duration' => $duration,
-		                ];
-		              }
-		            }
-		          }
-		        }
-		        #get the latest upcoming schedule
-		        $data['latest_timing'] = $latest_timing;
+		    if(isset($param['booked_id'])){
+		    	$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($param['booked_id']);
+		    	 $data['latest_timing'] = $entity->time->value;
+		    	 $duration = date('h:i A',strtotime('+'.$entity->until->value.' minutes',$entity->time->value));
 		        $data['latest_duration'] = $latest_duration;
-		      }
 		    }
+		    // if ($node->hasField('field_schedules')) {
+		    //   $field_schedules = $node->get('field_schedules')->getValue();
+		    //   $latest_timing = null;
+		    //   $latest_duration = null;
+		    //   if ($field_schedules) {
+		    //     foreach ( $field_schedules as $element ) {
+		    //       if (isset($element['target_id'])) {
+		    //         $pGraph = Paragraph::load($element['target_id'] );
+		    //         if ($pGraph->hasField('field_timing') && $pGraph->hasField('field_duration')) {
+		    //           $timing = (int) $pGraph->get('field_timing')->value;
+		    //           $duration = $pGraph->get('field_duration')->value;
+		    //           if ($duration) {
+		    //             $duration = date('h:i A',strtotime('+'.$duration.' minutes',$timing));
+		    //           }
+		    //           if (empty($latest_timing)) {
+		    //             $latest_timing = $timing;
+		    //             $latest_duration = $duration;
+		    //           }else{
+		    //             if ($latest_timing > $timing) {
+		    //               $latest_timing = $timing;
+		    //               $latest_duration = $duration;
+		    //             }
+		    //           }
+
+		    //           if ($timing > time()) {
+		    //             $data['schedules'][] = [
+		    //               'field_timing' => $timing,
+		    //               'field_duration' => $duration,
+		    //             ];
+		    //           }
+		    //         }
+		    //       }
+		    //     }
+		    //     #get the latest upcoming schedule
+		    //     $data['latest_timing'] = $latest_timing;
+		    //     $data['latest_duration'] = $latest_duration;
+		    //   }
+		    // }
 
 		    $html = '<div class="modal fade" id="myModal" role="dialog">
 		            <div class="modal-dialog assessments-popup-md">
