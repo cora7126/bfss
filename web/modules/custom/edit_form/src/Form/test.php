@@ -274,6 +274,41 @@ $form['html_image_athlete'] = [
          $user->save();
     }
 
+
+    //================//
+    $query_athletic_profile_image = \Drupal::entityQuery('node');
+    $query_athletic_profile_image->condition('type', 'user_profile_image');
+    $query_athletic_profile_image->condition('field_user_uid',$current_user,'=');
+    $query_athletic_profile_image->condition('status', 1);
+    $nids_athletic_profile_image = $query_athletic_profile_image->execute();
+
+    
+    if(empty($nids_athletic_profile_image)){
+    $athletic_profile_image = Node::create([
+      'type'        => 'user_profile_image',
+      'title'       =>  $form_state->getValue('username'),
+      'field_user_uid' => $current_user,
+      'field_user_profile_image' => [
+        'target_id' => isset($imgid[0])?$imgid[0]:'',
+        'alt' => $form_state->getValue('username'),
+        ],
+    ]);
+    $athletic_profile_image->save();
+    }else{
+        foreach ($nids_athletic_profile_image as $key => $value) {
+          $ath_nid = $value;
+        }
+
+        $imgfid = [
+                  'target_id' => isset($imgid[0])?$imgid[0]:'',
+                  'alt' => $form_state->getValue('username'),
+                  ];
+
+        $athletic_profile_image = Node::load($ath_nid);
+        $athletic_profile_image->set('field_user_profile_image',[$imgfid]);
+        $athletic_profile_image->save();
+    }
+    //================//
     //user profile 
 	 //  $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
 		// $query_pic->fields('uup');
