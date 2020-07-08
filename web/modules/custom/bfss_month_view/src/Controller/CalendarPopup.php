@@ -218,6 +218,7 @@ class CalendarPopup extends ControllerBase {
 		    $user = User::load($uid);
 		    $roles = $user->getRoles();
 		    $param = \Drupal::request()->query->all();
+		    print_r($param);
 		    //$nid = \Drupal::request()->get('node_id');
 		    //print_r($nid);
 		    $data = [];
