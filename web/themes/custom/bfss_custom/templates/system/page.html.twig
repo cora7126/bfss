@@ -346,7 +346,7 @@
                         <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li ><a href="/faqs"> FAQs </a></li>
-                           <li><a href="#">Ticketing</a></li>
+                           <li><a href="/ticketing">Ticketing</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -431,7 +431,7 @@
                </li>
 
                <li {% if (current_path == '/editable-templates') %} class="sub_menu active"{% else %}class="sub_menu"{% endif %} >
-                  <a href="#" class="side_button menulink my_assess"><i class="far fa-ticket-alt"></i><span class="side_menu_text">Ticketing</span></a>
+                  <a href="/ticketing" class="side_button menulink my_assess"><i class="far fa-ticket-alt"></i><span class="side_menu_text">Ticketing</span></a>
                </li>
             
               {% elseif user_role == 2 %}<!--FOR COACH-->
@@ -466,7 +466,7 @@
                         <a {% if (current_path == '/faqs') %} class="drop active" {% else %} class="drop" {% endif %} href="#"><i class="far fa-cogs"></i></i><span class="side_menu_text">Support</span><span class="down-arrow fa fa-angle-down"></span></a>
                         <ul class="dropdown-menu">
                            <li ><a href="/faqs"> FAQs </a></li>
-                           <li><a href="#">Ticketing</a></li>
+                           <li><a href="/ticketing">Ticketing</a></li>
                         </ul>
                      </div>
                   </nav>
@@ -524,7 +524,7 @@
                </li>
 			   
 			   <li class="sub_menu">
-                  <a href="#" class="side_button menulink my_assess"><i class="fal fa-ticket-alt"></i><span class="side_menu_text">Ticketing</span></a>
+                  <a href="/ticketing" class="side_button menulink my_assess"><i class="fal fa-ticket-alt"></i><span class="side_menu_text">Ticketing</span></a>
                </li>
 			   
                 {% endif %}

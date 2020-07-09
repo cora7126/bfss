@@ -204,7 +204,7 @@ class CompleteRegistrationForm extends FormBase {
    */
   function ajaxSubmit(array &$form, FormStateInterface $form_state) {
      if(!preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/", $form_state->getValue('pass'))) {
-        $message = '<p style="color:red">Password must be at least 8 characters and contain at least one number, one uppercase letter, one lowercase char and one special character.<p>';
+        $message = '<p style="color:red">Password must be at least 8 characters and contain at least one number, one uppercase letter, one lowercase letter and one special character.<p>';
         $response = new AjaxResponse();
         $response->addCommand(
           new HtmlCommand(

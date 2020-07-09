@@ -373,7 +373,7 @@ public function addPlaceholderOnPassword(&$element, FormStateInterface $form_sta
 
     if(!preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/", $form_state->getValue('pass')['pass1'])) {
       
-      $form_state->setErrorByName('pass[pass2]', t('Password must be at least 8 characters and contain at least one number, one uppercase letter, one lowercase char and one special character.'));
+      $form_state->setErrorByName('pass[pass2]', t('Password must be at least 8 characters and contain at least one number, one uppercase letter, one lowercase letter and one special character.'));
 
     }elseif ($form_state->getValue('pass')['pass1'] != $form_state->getValue('pass')['pass2']) {
       
