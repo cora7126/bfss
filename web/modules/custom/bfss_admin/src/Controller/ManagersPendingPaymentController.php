@@ -70,6 +70,8 @@ class ManagersPendingPaymentController extends ControllerBase {
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
+              	<th class="th-hd"><a><span></span>Select</a>
+                </th>
                 <th class="th-hd"><a><span></span>Purchased Date</a>
                 </th>
                   <th class="th-hd long-th th-last"><a><span></span>Customer Name</a>
@@ -108,7 +110,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 	         </tr>';
         }
 
-         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="active_submit" value="Payment" onclick="deactivate_users();" ></div>
+         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="active_submit" value="Payment" onclick="payment_status_change();" ></div>
             </tbody>
             </table>
              </div>
