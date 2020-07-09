@@ -18,7 +18,9 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\AlertCommand;
+use Drupal\Core\Ajax\HtmlCommand;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Ajax\RedirectCommand;
 /**
  * Contribute form.
  */
@@ -131,8 +133,12 @@ class EditCoachUserProfile extends FormBase {
   </div>';
 
   
-      $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add 
+    $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add 
     $form['#tree'] = TRUE;
+    $form['message'] = [ //for custom message "like: ajax msgs"
+      '#type' => 'markup',
+      '#markup' => '<div class="result_message"></div>',
+    ];
     $form['fname'] = array(
     '#type' => 'textfield',
     '#prefix' => '<div class="left_section popup_left_section athlete_left">
@@ -340,11 +346,21 @@ class EditCoachUserProfile extends FormBase {
 *ORGANIZATION SECTION END
 */ 
     
- $form['submit'] = [
+  $form['submit'] = [
       '#type' => 'submit', 
       '#value' => 'FINISH', 
-      '#prefix' => '<div id="athlete_submit">
-                          ',
+      '#ajax' => [
+              'callback' => '::AjaxsubmitForm', // don't forget :: when calling a class method.
+              //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+              'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+              'event' => 'click',
+              'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+              'progress' => [
+                'type' => 'throbber',
+                'message' => $this->t('Verifying entry...'),
+              ],
+            ],
+      '#prefix' => '<div id="athlete_submit">',
       '#suffix' => '</div></div><!--LEFT SECTION END-->',
     ];
 
@@ -375,6 +391,165 @@ class EditCoachUserProfile extends FormBase {
    
     return $form;
   }
+
+ public function AjaxsubmitForm(array &$form, FormStateInterface $form_state) {
+            $us_cities_check = \Drupal::database()->select('us_cities', 'athw')
+                  ->fields('athw')
+                  ->condition('name',$form_state->getValue('city'),'LIKE')
+                  ->condition('state_code',$form_state->getValue('az'), '=')
+                  ->range(0, 100)
+                  ->execute()->fetchAll();
+                  $checked = [];;;;
+                  if(!empty($form_state->getValues('resident')['resident']) && is_array($form_state->getValues('resident')['resident'])){
+                      foreach($form_state->getValues('resident')['resident'] as $values) {   
+                        if(!empty($values['organization_name'])){
+                            $nids = \Drupal::entityQuery('node')
+                                   ->condition('type', 'bfss_organizations') 
+                                   ->condition('field_organization_name',$values['organization_name'],'=')
+                                   ->condition('field_type',$values['type'],'=')
+                                   ->condition('field_state',$form_state->getValue('az'),'=')
+                                   ->execute();
+                          
+                                if(empty($nids)){
+                                  $checked[] = FALSE;
+                                   
+                                }
+                        }
+                      }
+                  }
+                  
+           if(empty($us_cities_check)){
+             $message = "<p style='color:red;'>Incorrect city.</p>"; 
+           }elseif(!empty($checked)){
+            $message = "<p style='color:red;'>Incorrect organization name.</p>";
+           }
+           else{
+                $current_user = \Drupal::currentUser()->id();
+                $roles_user = \Drupal::currentUser()->getRoles();
+                $conn = Database::getConnection();
+                
+                $userdt = User::load($current_user);
+                $userdt->field_state->value = $form_state->getValue('az');
+                $userdt->save();
+
+                /*
+                *ORGANIZATION SAVE START
+                */
+                 $data=[];
+                 foreach($form_state->getValues('resident')['resident'] as $values) {   
+                  if(!empty($values['organization_name'])){
+                    $data[] = [
+                        'type' => $values['type'],
+                        'organization_name' => $values['organization_name'],
+                        'sport' => $values['sport'],
+                        'coach_title' => $values['coach_title'],
+                        'grade' => $values['grade'],
+                        'city' => isset($form_state->getValues()['city'])?$form_state->getValues()['city']:'',
+                        'az' =>isset($form_state->getValues()['az'])?$form_state->getValues()['az']:'',
+                        // 'organization_name' => $values['organization_name'],
+                        // 'type' => $values['type'],
+                      ]; 
+                  }    
+                 }
+
+                  foreach ($data as $key => $value) {
+                    $node = Node::create([
+                           'type' => 'bfss_organizations',
+                    ]);
+                    $node->field_type->value = $value['type'];
+                    $node->field_organization_name->value = $value['organization_name'];
+                    $node->field_sport->value = $value['sport'];
+                    $node->field_coach_title->value = $value['coach_title'];
+                    $node->field_year->value = $value['grade'];
+                    $node->field_user_role->value = isset($role)?$role:'';
+                    $node->field_organization_name->value = $value['organization_name'];
+                    $node->field_type->value = $value['type'];
+                    $node->title->value = $value['type'].'-'.$value['organization_name'];
+                    $node->field_city->value = $value['city'];
+                    $node->field_state->value = $value['az'];
+                    $node->setPublished(FALSE);
+                    $node->save();
+                  }
+                /*
+                *ORGANIZATION SAVE END
+                */
+
+                    
+               
+                //mydata
+                $query_mydata = \Drupal::database()->select('mydata', 'md');
+                $query_mydata->fields('md');
+                $query_mydata->condition('uid', $current_user, '=');
+                $results_mydata = $query_mydata->execute()->fetchAll();
+
+                if (empty($results_mydata)) {
+                    $conn->insert('mydata')->fields(array(
+                      'uid' => $current_user,
+                      'field_az' => $form_state->getValue('az'),
+                      'field_city' => $form_state->getValue('city'),
+                      'field_birth_gender' => $form_state->getValue('sextype'),
+                      'field_instagram' => $form_state->getValue('instagram_account'),
+                      'field_youtube' => $form_state->getValue('youtube_account'),
+                      ))->execute();
+                  } else {
+                    $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
+                      'field_az' => $form_state->getValue('az'),
+                      'field_city' => $form_state->getValue('city'),
+                      'field_birth_gender' => $form_state->getValue('sextype'),
+                      'field_instagram' => $form_state->getValue('instagram_account'),
+                      'field_youtube' => $form_state->getValue('youtube_account'),
+                      ))->execute();
+                  } 
+             
+                
+                //mobile field
+                $query = \Drupal::database()->select('user__field_mobile', 'ufm');
+                $query->fields('ufm');
+                $query->condition('entity_id', $current_user,'=');
+                $results = $query->execute()->fetchAll();     
+                if(empty($results)){
+                $conn->insert('user__field_mobile')->fields(
+                        array(
+                        'entity_id' => $current_user,
+                        'field_mobile_value' => $form_state->getValue('numberone'),
+                        'bundle' => 'user',
+                        'deleted' => '0',
+                        'revision_id' => $current_user,
+                        'langcode' => 'en',
+                        'delta' => '0',
+                        )
+                )->execute();
+                }else{
+                    $conn->update('user__field_mobile')
+                    ->condition('entity_id',$current_user,'=')
+                    ->fields([
+                      'field_mobile_value' => $form_state->getValue('numberone'),
+                    ])
+                    ->execute();
+                }
+                # for success message show
+                $message = "<p style='color:green;'>successfully saved!</p>";
+                $response = new \Drupal\Core\Ajax\AjaxResponse();
+                $url = '/dashboard';
+                $response->addCommand(new RedirectCommand($url));
+                return $response;
+            
+           }         
+
+        $response = new AjaxResponse();
+        $response->addCommand(
+        new HtmlCommand(
+            '.result_message',
+            '<div class="success_message" style="margin: 0px 0px 20px 0;background: #9e9e9e78;padding: 5px 0px 5px 0;">'.$message.'</div>'
+          )
+        );
+        return $response;
+ }
+
+
+
+
+
 
 /**
    * Ajax Callback for the form.
@@ -448,111 +623,7 @@ class EditCoachUserProfile extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $current_user = \Drupal::currentUser()->id();
-    $roles_user = \Drupal::currentUser()->getRoles();
-    $conn = Database::getConnection();
-    
-    $userdt = User::load($current_user);
-    $userdt->field_state->value = $form_state->getValue('az');
-    $userdt->save();
 
-    /*
-    *ORGANIZATION SAVE START
-    */
-     $data=[];
-     foreach($form_state->getValues('resident')['resident'] as $values) {   
-      if(!empty($values['organization_name'])){
-        $data[] = [
-            'type' => $values['type'],
-            'organization_name' => $values['organization_name'],
-            'sport' => $values['sport'],
-            'coach_title' => $values['coach_title'],
-            'grade' => $values['grade'],
-            'city' => isset($form_state->getValues()['city'])?$form_state->getValues()['city']:'',
-            'az' =>isset($form_state->getValues()['az'])?$form_state->getValues()['az']:'',
-            // 'organization_name' => $values['organization_name'],
-            // 'type' => $values['type'],
-          ]; 
-      }    
-     }
-
-      foreach ($data as $key => $value) {
-        $node = Node::create([
-               'type' => 'bfss_organizations',
-        ]);
-        $node->field_type->value = $value['type'];
-        $node->field_organization_name->value = $value['organization_name'];
-        $node->field_sport->value = $value['sport'];
-        $node->field_coach_title->value = $value['coach_title'];
-        $node->field_year->value = $value['grade'];
-        $node->field_user_role->value = isset($role)?$role:'';
-        $node->field_organization_name->value = $value['organization_name'];
-        $node->field_type->value = $value['type'];
-        $node->title->value = $value['type'].'-'.$value['organization_name'];
-        $node->field_city->value = $value['city'];
-        $node->field_state->value = $value['az'];
-        $node->setPublished(FALSE);
-        $node->save();
-      }
-    /*
-    *ORGANIZATION SAVE END
-    */
-
-        
-   
-    //mydata
-    $query_mydata = \Drupal::database()->select('mydata', 'md');
-    $query_mydata->fields('md');
-    $query_mydata->condition('uid', $current_user, '=');
-    $results_mydata = $query_mydata->execute()->fetchAll();
-
-    if (empty($results_mydata)) {
-        $conn->insert('mydata')->fields(array(
-          'uid' => $current_user,
-          'field_az' => $form_state->getValue('az'),
-          'field_city' => $form_state->getValue('city'),
-          'field_birth_gender' => $form_state->getValue('sextype'),
-          'field_instagram' => $form_state->getValue('instagram_account'),
-          'field_youtube' => $form_state->getValue('youtube_account'),
-          ))->execute();
-      } else {
-        $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
-          'field_az' => $form_state->getValue('az'),
-          'field_city' => $form_state->getValue('city'),
-          'field_birth_gender' => $form_state->getValue('sextype'),
-          'field_instagram' => $form_state->getValue('instagram_account'),
-          'field_youtube' => $form_state->getValue('youtube_account'),
-          ))->execute();
-      } 
- 
-    
-    //mobile field
-    $query = \Drupal::database()->select('user__field_mobile', 'ufm');
-    $query->fields('ufm');
-    $query->condition('entity_id', $current_user,'=');
-    $results = $query->execute()->fetchAll();     
-    if(empty($results)){
-    $conn->insert('user__field_mobile')->fields(
-            array(
-            'entity_id' => $current_user,
-            'field_mobile_value' => $form_state->getValue('numberone'),
-            'bundle' => 'user',
-            'deleted' => '0',
-            'revision_id' => $current_user,
-            'langcode' => 'en',
-            'delta' => '0',
-            )
-    )->execute();
-    }else{
-        $conn->update('user__field_mobile')
-        ->condition('entity_id',$current_user,'=')
-        ->fields([
-          'field_mobile_value' => $form_state->getValue('numberone'),
-        ])
-        ->execute();
-    }
-    
-     $form_state->setRedirect('acme_hello');
   }
 
 

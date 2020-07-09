@@ -129,19 +129,34 @@ class PaymentTestForm extends FormBase {
  	 $data['country'] = $formState['country'];
  	 $data['zip'] = $formState['zip'];
  	 $data['phone'] = $formState['phone'];
- 	 if (!empty($data['amount'])) {
-      $paymentdone = $this->payment->createTransaction($data);
+ 	 //  if (!empty($data['amount'])) {
+   //    $paymentdone = $this->payment->createTransaction($data);
   
-       if (is_array($paymentdone) && isset($paymentdone['status'])) {
-        if ($paymentdone['status'] == true) {
-          drupal_set_message('Payment successfully received.');
-        } else {
-          drupal_set_message('Something went wrong! Payment was interrupted. Please try again.','error');
-          drupal_set_message( (isset($paymentdone['message'])? $paymentdone['message'] : ''),'error');
-        }
-      }
-  	 }
+   //     if (is_array($paymentdone) && isset($paymentdone['status'])) {
+   //        if ($paymentdone['status'] == true) {
+   //          drupal_set_message('Payment successfully received.');
+   //        } else {
+   //          drupal_set_message('Something went wrong! Payment was interrupted. Please try again.','error');
+   //          drupal_set_message( (isset($paymentdone['message'])? $paymentdone['message'] : ''),'error');
+   //        }
+   //    }
+  	// }
+       // $mailManager = \Drupal::service('plugin.manager.mail');
+       // $module = 'bfss_assessment';
+       // $key = 'node_insert';
+       // $to = 'gulshan.codedrill@gmail.com';
+       // $params['message'] = "hello";
+       // $params['node_title'] = "test mail";
+       // $langcode = \Drupal::currentUser()->getPreferredLangcode();
+       // $send = true;
 
+       // $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+       // if ($result['result'] !== true) {
+       //   drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+       // }
+       // else {
+       //   drupal_set_message(t('Your message has been sent.'));
+       // }
   }
 
 }

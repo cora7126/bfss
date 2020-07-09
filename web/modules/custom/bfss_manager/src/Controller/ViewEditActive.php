@@ -12,26 +12,26 @@ class ViewEditActive extends ControllerBase {
 
   public function view_edit_active() {
   	$uid = \Drupal::currentUser()->id();
-	$current_user = \Drupal\user\Entity\User::load($uid);
-	$current_roles = $current_user->getRoles();
-  if(in_array('bfss_administrator', $current_roles)  || in_array('bfss_manager', $current_roles)){
-    $page_redirect = '/users-editable-account';
-  }else{
-    $page_redirect =  '/preview/profile';
-  }
+  	$current_user = \Drupal\user\Entity\User::load($uid);
+  	$current_roles = $current_user->getRoles();
+    if(in_array('bfss_administrator', $current_roles)  || in_array('bfss_manager', $current_roles)){
+      $page_redirect = '/users-editable-account';
+    }else{
+      $page_redirect =  '/preview/profile';
+    }
 	
      // $user = User::load(349);
      // echo "<pre>";
      // print_r($user);
 
     if( isset($_POST['active_submit']) ){
-    if(isset($_POST['items_selected'])){
-      foreach ($_POST['items_selected'] as $key => $value) {
-        $user = User::load($value);
-        $user->status->value = 0;
-        $user->save();
+      if(isset($_POST['items_selected'])){
+        foreach ($_POST['items_selected'] as $key => $value) {
+          $user = User::load($value);
+          $user->status->value = 0;
+          $user->save();
         } 
-    }
+      }
      }
 
 

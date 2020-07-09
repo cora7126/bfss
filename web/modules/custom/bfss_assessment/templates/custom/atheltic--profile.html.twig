@@ -1,7 +1,7 @@
-<!--     <pre>
+<!--      <pre>
 	{{ dump(data) }}
-</pre>   --> 
-
+</pre>   
+ -->
  <!-- Modal START-->
   <div class="modal fade" id="social_share_us" role="dialog">
 	    <div class="modal-dialog">
@@ -84,14 +84,14 @@
 						<div class="container">
 							<div class="row">
 								<div class="leftCol">
-									<span>14.1'</span>
+									<span>{{ (data.mydata.snapshot_data is null or  data.mydata.snapshot_data is empty) ? 0 : data.mydata.snapshot_data.my_reactive_strength }}'</span>
 									<div class="textRight">
 										<h4>MY REACTIVE STRENGTH</h4>
 										<h6>(IN.)</h6>
 									</div>
 								</div>
 								<div class="rightCol greyTitle">
-									<span>14.8'</span>
+									<span>{{ (data.mydata.snapshot_data is null or  data.mydata.snapshot_data is empty) ? 0 : data.mydata.snapshot_data.reactive_strength_avg }}'</span>
 									<div class="textRight">
 										<h4>REACTIVE STRENGTH NATIONAL AVERAGE</h4>
 										<h6>(MY AGE GROUP)</h6>
@@ -102,14 +102,14 @@
 							<!-- 2	 -->
 							<div class="row">
 								<div class="leftCol bgGray">
-									<span>5.89 </span>
+									<span>{{ (data.mydata.snapshot_data is null or  data.mydata.snapshot_data is empty) ? 0 : data.mydata.snapshot_data.acc_speed }}</span>
 									<div class="textRight">
 										<h4>ACCELERATION SPEED</h4>
 										<h6>(SECS)</h6>
 									</div>
 								</div>
 								<div class="rightCol">
-									<span>213</span>
+									<span>{{ (data.mydata.snapshot_data is null or  data.mydata.snapshot_data is empty) ? 0 : data.mydata.snapshot_data.max_strength }}</span>
 									<div class="textRight">
 										<h4>MAXIMAL STRENGTH</h4>
 										<h6>(LBS)</h6>
@@ -129,13 +129,13 @@
 								</div>
 								<div class="rightCol grey noBorder noSpace align-items-start twoColInside">
 									<div class="smallScores bgGray">
-										<span>16.4'</span>
+										<span>{{ (data.mydata.snapshot_data is null or  data.mydata.snapshot_data is empty) ? 0 : data.mydata.snapshot_data.elastic_strength }}'</span>
 										<div class="textRight">
 											<h4>ELASTIC STRENGTH (IN)</h4>
 										</div>
 									</div>
 									<div class="smallScores bgGray">
-										<span>14.9'</span>
+										<span>{{ (data.mydata.snapshot_data is null or  data.mydata.snapshot_data is empty) ? 0 : data.mydata.snapshot_data.ballistic_strength }}'</span>
 										<div class="textRight">
 											<h4>BALLISTIC STRENGTH (IN) </h4>
 										</div>

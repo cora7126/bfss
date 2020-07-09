@@ -21,94 +21,54 @@ use \Drupal\node\Entity\Node;
 
 class AssessmentSnapshotBlock extends BlockBase {
 
-	/**
-	 * Returns one assessment data record - based on booked_id
-	* @param string $booked_id -- id of a single assessment
-	* @param string $userId -- current user
-	*/
-	protected function getAssessmentData(string $booked_id, string $userId = '')
-	{
-		$assmntData = [];
-
-		// $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-		// $address_1 = $entity->address_1->value;
-
-		$query1 = \Drupal::entityQuery('node');
-		$query1->condition('type', 'athlete_assessment_info');
-		$query1->condition('field_booked_id',$booked_id, 'IN');
-		$nids1 = $query1->execute();
-
-		// ksm(['$booked_id, nids1', $booked_id, $nids1]);
-
-		//sport
-		// $query5 = \Drupal::database()->select('athlete_school', 'ats');
-		// $query5->fields('ats');
-		// $query5->condition('athlete_uid', $userId,'=');
-		// $results5 = $query5->execute()->fetchAssoc();
-		// $sport = $results5['athlete_school_sport'];
-
-		$assmntData['field_status'] = 0;
-		$assmntData['field_age'] = 0;
-		$assmntData['field_sport_assessment'] = 0;
-		$assmntData['field_weight'] = 0;
-		$assmntData['field_sex'] = 0;
-		$assmntData['field_jump_height_in_reactive'] = 0;
-		$assmntData['field_jump_height_in_elastic'] = 0;
-		$assmntData['field_jump_height_in_ballistic'] = 0;
-		$assmntData['field_10m_time_sec_sprint'] = 0;
-		$assmntData['field_peak_force_n_maximal'] = 0;
-		$assmntData['field_rsi_reactive'] = 0;
-
-		if(!empty($nids1)){
-			foreach ($nids1 as $key => $value) {
-				$node1 = Node::load($value);
-				$assmntData['field_status'] = $node1->field_status->value;
-				$assmntData['field_age'] = $node1->field_age->value;
-				$assmntData['field_sport_assessment'] = $node1->field_sport_assessment->value;
-				$assmntData['field_weight'] = $node1->field_weight->value;
-				$assmntData['field_sex'] = $node1->field_sex->value;
-				$assmntData['field_jump_height_in_reactive'] = $node1->field_jump_height_in_reactive->value;
-				$assmntData['field_jump_height_in_elastic'] = $node1->field_jump_height_in_elastic->value;
-				$assmntData['field_jump_height_in_ballistic'] = $node1->field_jump_height_in_ballistic->value;
-				$assmntData['field_10m_time_sec_sprint'] = $node1->field_10m_time_sec_sprint->value;
-				$assmntData['field_peak_force_n_maximal'] = $node1->field_peak_force_n_maximal->value;
-				$assmntData['field_rsi_reactive'] = $node1->field_rsi_reactive->value;
-			}
-		}
-		return $assmntData;
-	}
-
-
   /**
    * {@inheritdoc}
    */
   public function build() {
+  	$uid = \Drupal::currentUser()->id();
+	$booked_ids = \Drupal::entityQuery('bfsspayments')
+              ->condition('user_id', $uid,'IN')
+              ->sort('created' , 'DESC')
+              ->execute();
+      $nid = ''; 
+      if(!empty($booked_ids) && is_array($booked_ids)){
+          foreach ($booked_ids as $booked_id) {
+              if(isset($booked_id)){
+                $nid = \Drupal::entityQuery('node')
+                ->condition('type', 'athlete_assessment_info')
+                ->condition('field_booked_id',$booked_id,'=')
+                ->condition('status', 1)
+                ->sort('created' , 'DESC') 
+                ->execute();
+              }      
+          }
+      }
 
-	$uid = \Drupal::currentUser();
-	// $user = \Drupal\user\Entity\User::load($uid->id());
+      #latest 
+      $nid = array_values($nid);
+      if(isset($nid[0])){
+        $node = Node::load($nid[0]);
+        $field_form_type = $node->field_form_type->value;
 
-	$query = \Drupal::entityQuery('node');
-	$query->condition('type', 'assessment');
-	$nids = $query->execute();
+        #Snapshot
+        $MY_REACTIVE_STRENGTH = isset($node->field_jump_height_in_reactive->value) ? $node->field_jump_height_in_reactive->value : 0;
+        $REACTIVE_STRENGTH_NATIONAL_AVERAGE = isset($node->field_rsi_reactive_b->value) ? $node->field_rsi_reactive_b->value : 0; 
+        $ACCELERATION_SPEED = isset($node->field_10m_time_sec_sprint->value) ? $node->field_10m_time_sec_sprint->value : 0;
+        $MAXIMAL_STRENGTH = isset($node->field_peak_force_n_maximal->value) ? $node->field_peak_force_n_maximal->value : 0;
+        $ELASTIC_STRENGTH = isset($node->field_jump_height_in_elastic->value) ? $node->field_jump_height_in_elastic->value : 0;
+        $BALLISTIC_STRENGTH = isset($node->field_jump_height_in_ballistic->value) ? $node->field_jump_height_in_ballistic->value : 0;
 
-	$assessmentData = [];
+        $data = [
+          'my_reactive_strength' => $MY_REACTIVE_STRENGTH,
+          'reactive_strength_avg' => $REACTIVE_STRENGTH_NATIONAL_AVERAGE,
+          'acc_speed' => $ACCELERATION_SPEED,
+          'max_strength' => $MAXIMAL_STRENGTH,
+          'elastic_strength' => $ELASTIC_STRENGTH,
+          'ballistic_strength' => $BALLISTIC_STRENGTH,
+        ];
 
-	foreach ($nids as $nid) {
-		$booked_ids = \Drupal::entityQuery('bfsspayments')
-		->condition('assessment', $nid,'IN')
-		->condition('user_id',$uid->id(),'IN')
-		->sort('time','DESC')
-		->execute();
-		foreach ($booked_ids as $key => $booked_id)
-		{
-			$assessmentData = $this->getAssessmentData($booked_id, $uid->id());
-			if ($assessmentData['field_status'] == 'complete')
-			{
-				break 2; //#################### brak from 2'nd outer loop.
-			}
-		}
-	}
-
+      }
+	  
 	// ksm(['user id, assessmentData, nids...', $uid->id(), $assessmentData, $nids]);
 
   	$html = '<div class="user_pro_block">
@@ -119,7 +79,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="strengthRow">
 						<div class="centeralizeRow">
 							<div class="rightText">
-								<span>'.$assessmentData['field_jump_height_in_ballistic'].'</span>
+								<span>'.((!empty($data)&&is_array($data))?$data['my_reactive_strength']:0).'</span>
 							</div>
 							<div class="rightText">
 								<h4>MY REACTIVE<br>
@@ -137,7 +97,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 				<div class="row">
 					<div class="infoRow leftBg leftBg1">
 						<div class="inner">
-							<span>'.$assessmentData['field_10m_time_sec_sprint'].' / '.$assessmentData['field_10m_time_sec_sprint'].'</span>
+							<span>'.((!empty($data)&&is_array($data))?$data['acc_speed']:0).' / '.((!empty($data)&&is_array($data))?$data['acc_speed']:0).'</span>
 							<h4 style="white-space:nowrap;">SPEED / ACCELERATION<br>
 							40M / 10M (SECS)</h4>
 						</div>
@@ -146,7 +106,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="infoRow">
 						<div class="centeralizeRow white large">
 							<div class="rightText">
-								<span>'.$assessmentData['field_peak_force_n_maximal'].'</span>
+								<span>'.((!empty($data)&&is_array($data))?$data['max_strength']:0).'</span>
 							</div>
 							<div class="rightText">
 								<h4>MAXIMAL<br>
@@ -161,7 +121,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="infoRow">
 						<div class="centeralizeRow white small">
 							<div class="rightText">
-								<span>'.$assessmentData['field_jump_height_in_ballistic'].'</span>
+								<span>'.((!empty($data)&&is_array($data))?$data['ballistic_strength']:0).'</span>
 							</div>
 							<div class="rightText">
 								<h4>BALLISTIC<br>
@@ -174,7 +134,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 					<div class="infoRow leftBg leftBg2">
 						<div class="centeralizeRow small whiteDesc">
 							<div class="rightText">
-								<span>'.$assessmentData['field_jump_height_in_elastic'].'</span>
+								<span>'.((!empty($data)&&is_array($data))?$data['elastic_strength']:0).'</span>
 							</div>
 							<div class="rightText">
 								<h4>ELASTIC<br>
@@ -188,6 +148,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 			</section>
 			</div>';
     return [
+      '#cache' => ['max-age' => 0,],
       '#markup' => $html,
     ];
   }

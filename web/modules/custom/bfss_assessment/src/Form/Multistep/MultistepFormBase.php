@@ -244,7 +244,42 @@ abstract class MultistepFormBase extends FormBase {
       // die;
        if (is_array($paymentdone) && isset($paymentdone['status'])) {
         if ($paymentdone['status'] == true) {
-          drupal_set_message('Payment successfully received.');
+         
+          //*************SEND MAIL AFTER BOOKING ASSESSMENT START************//
+             $mailManager = \Drupal::service('plugin.manager.mail');
+             $module = 'bfss_assessment';
+             $key = 'booked_assessment';
+             $to = $data['email'];
+             $params['message'] = '<p>Hi'.' '.$data['first_name'].',</p>'; 
+             $params['message'] .= '<p>Thank you for Assessment booking at <strong>BFSS.</strong></p>';
+             $params['message'] .= '<p><strong>First Name</strong> : '.$data['first_name'].'</p>';
+             $params['message'] .= '<p><strong>Last Name</strong> : '.$data['last_name'].'</p>';
+             $params['message'] .= '<p><strong>Email</strong> : '.$data['email'].'</p>';
+             $params['message'] .= '<p><strong>Assessment Title</strong> : '.$data['assessment_title'].'</p>';
+             $params['message'] .= '<p><strong>Assessment Date</strong> : '.date('D, M d Y',$data['time']).'</p>';
+             $params['message'] .= '<p><strong>Assessment Time</strong> : '.date('h:i a',$data['time']).'</p>';
+             $params['message'] .= '<p><strong>Address 1</strong> : '.$data['address_1'].'</p>';
+             $params['message'] .= '<p><strong>Address 2</strong> : '.$data['address_2'].'</p>';
+             $params['message'] .= '<p><strong>City</strong> : '.$data['city'].'</p>';
+             $params['message'] .= '<p><strong>State</strong> : '.$data['state'].'</p>';
+             $params['message'] .= '<p><strong>Zip</strong> : '.$data['zip'].'</p>';
+             $params['message'] .= '<p><strong>Phone</strong> : '.$data['phone'].'</p>';
+             $params['message'] .= '<p><strong>Price</strong> : $'.$data['service'].'</p>';
+             $params['message'] .= '<p><strong>BFSS TEAM</strong></p>';
+
+             $langcode = \Drupal::currentUser()->getPreferredLangcode();
+             $send = true;
+
+             $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+             if ($result['result'] !== true) {
+               drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+             }
+
+             drupal_set_message('Payment successfully received.');
+
+           //************SEND MAIL AFTER BOOKING ASSESSMENT END************//
+
+
         } else {
           drupal_set_message('Something went wrong! Payment was interrupted. Please try again.','error');
           drupal_set_message( (isset($paymentdone['message'])? $paymentdone['message'] : ''),'error');

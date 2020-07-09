@@ -318,8 +318,13 @@ class AthelticController extends ControllerBase {
         $data['mydata']['bfss_assessments'] = $assessments_block;
       }
     } 
-      //$data['mydata']['bfss_assessments'] = 'field_youtube1';
     
+        if(isset($_GET['uid'])){
+          $uid = $_GET['uid']; 
+        }else{
+          $uid = \Drupal::currentUser()->id();
+        }
+        $data['mydata']['snapshot_data'] = $this->Latest_Assessment_Snapshot($uid);
   }
 
   private function getYouTubeXMLUrl( $url, $return_id_only = false ) {
@@ -525,9 +530,56 @@ class AthelticController extends ControllerBase {
        $data['mydata']['person_year'] = $this->DOB_get_year($uid);
    // }
     //}
-
+       $data['mydata']['snapshot_data'] = $this->Latest_Assessment_Snapshot($uid);
 
   }
+public function Latest_Assessment_Snapshot($uid){
+      $booked_ids = \Drupal::entityQuery('bfsspayments')
+              ->condition('user_id', $uid,'IN')
+              ->sort('created' , 'DESC')
+              ->execute();
+      $nid = ''; 
+      if(!empty($booked_ids) && is_array($booked_ids)){
+          foreach ($booked_ids as $booked_id) {
+              if(isset($booked_id)){
+                $nid = \Drupal::entityQuery('node')
+                ->condition('type', 'athlete_assessment_info')
+                ->condition('field_booked_id',$booked_id,'=')
+                ->condition('status', 1)
+                ->sort('created' , 'DESC') 
+                ->execute();
+              }      
+          }
+      }
+
+      #latest 
+      $nid = array_values($nid);
+      if(isset($nid[0])){
+        $node = Node::load($nid[0]);
+        $field_form_type = $node->field_form_type->value;
+
+        #Snapshot
+        $MY_REACTIVE_STRENGTH = isset($node->field_jump_height_in_reactive->value) ? $node->field_jump_height_in_reactive->value : 0;
+        $REACTIVE_STRENGTH_NATIONAL_AVERAGE = isset($node->field_rsi_reactive_b->value) ? $node->field_rsi_reactive_b->value : 0; 
+        $ACCELERATION_SPEED = isset($node->field_10m_time_sec_sprint->value) ? $node->field_10m_time_sec_sprint->value : 0;
+        $MAXIMAL_STRENGTH = isset($node->field_peak_force_n_maximal->value) ? $node->field_peak_force_n_maximal->value : 0;
+        $ELASTIC_STRENGTH = isset($node->field_jump_height_in_elastic->value) ? $node->field_jump_height_in_elastic->value : 0;
+        $BALLISTIC_STRENGTH = isset($node->field_jump_height_in_ballistic->value) ? $node->field_jump_height_in_ballistic->value : 0;
+
+        $data = [
+          'my_reactive_strength' => $MY_REACTIVE_STRENGTH,
+          'reactive_strength_avg' => $REACTIVE_STRENGTH_NATIONAL_AVERAGE,
+          'acc_speed' => $ACCELERATION_SPEED,
+          'max_strength' => $MAXIMAL_STRENGTH,
+          'elastic_strength' => $ELASTIC_STRENGTH,
+          'ballistic_strength' => $BALLISTIC_STRENGTH,
+        ];
+
+      }
+      
+      return $data;;           
+}
+
   /**
    * @return markup
    *url bfss_assessment.atheltic_profile
@@ -587,10 +639,12 @@ class AthelticController extends ControllerBase {
     if(isset($_GET['uid'])){
       $this->atheleteUserId = $_GET['uid'];
       $this->DOB_get_year($_GET['uid']);
+    
     }else{
       $uid = \Drupal::currentUser()->id();
       $this->atheleteUserId = $uid;
       $this->DOB_get_year($uid);
+     
     }
       
     

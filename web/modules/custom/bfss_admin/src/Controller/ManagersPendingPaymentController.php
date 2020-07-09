@@ -11,6 +11,18 @@ use Drupal\user\Entity\Role;
 class ManagersPendingPaymentController extends ControllerBase {
 
 	 public function managers_pending_payment() {
+
+	 	    if( isset($_POST['maid_payment_submit']) ){
+			      if(isset($_POST['items_selected'])){  	
+			        foreach ($_POST['items_selected'] as $key => $value) {
+			          $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value);
+			          $entity->payment_status->value = 'paid';
+			          $entity->notes->value = 'Payment status changed by bfss admin.';
+			          $entity->save();
+			        } 
+			      }
+     		}
+
 	 	$booked_ids = \Drupal::entityQuery('bfsspayments')
 		->condition('payment_status','unpaid', '=')
         ->execute();
@@ -48,7 +60,9 @@ class ManagersPendingPaymentController extends ControllerBase {
 		      	if (strpos($amount, 'freecredit') !== false) {
           			#code for this condition
         		}else{
+
 			       	$data[] = [
+			       		'booked_id' => $booked_id,
 			       		'purchased_date' => $paid_date,
 			       		'program' => $program,
 			       		'amount' => $amount,
@@ -61,13 +75,16 @@ class ManagersPendingPaymentController extends ControllerBase {
 			       	];
 		       	}
         }
-		$tb1 = '<div class="search_athlete_main user_pro_block">
+		$tb1 = '<form class="athletes-unfollow-form" action="" method="post" id="manager-pending_payments-form" onsubmit="return false;" accept-charset="UTF-8">
+			<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
           <div class="table-responsive-wrap">
          <table id="bfss_payment_pending_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
             <thead>
               <tr>
+              	<th class="th-hd"><a><span></span>Select</a>
+                </th>
                 <th class="th-hd"><a><span></span>Purchased Date</a>
                 </th>
                   <th class="th-hd long-th th-last"><a><span></span>Customer Name</a>
@@ -86,15 +103,19 @@ class ManagersPendingPaymentController extends ControllerBase {
               </tr>
             </thead>
             <tbody>';
+
          $reg_payments = $this->GET_bfss_register_user_payments();
 		 $data = array_merge($data,$reg_payments);
 		 foreach ($data as $key => $part) {
        		$sort[$key] = $part['purchased_date'];
   		 }
   		array_multisort($sort, SORT_DESC, $data);
+  		// print_r($data);
+    //         die;
         foreach ($data as $value) {
         	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
+	         <td><input class="form-checkbox getcheckboxid" type="checkbox" name="items_selected[]" value="'.$value['booked_id'].'"><span class="unfollow-checkbox"></span></td>
 	        <td>'.$value['purchased_date'].'</td>
 	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['customer_name'].'</a></td>
 	        <td>'.$value['city'].'</td>
@@ -105,13 +126,13 @@ class ManagersPendingPaymentController extends ControllerBase {
 	         </tr>';
         }
 
-         $tb1 .= '
+         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="maid_payment_submit" value="PAYMENT MADE" onclick="payment_status_change();" ></div>
             </tbody>
             </table>
              </div>
             </div>
              </div>
-            </div>';
+            </div></form></form>';
 
 	      	return [
 		    '#cache' => ['max-age' => 0,],
@@ -166,6 +187,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 
 				if($user){
 					$register_payment_data[] = [
+						'booked_id' =>'',
 						'purchased_date' => date('F d, Y',$value->created),
 						'program' =>$description,
 						'amount' => $value->amount,
