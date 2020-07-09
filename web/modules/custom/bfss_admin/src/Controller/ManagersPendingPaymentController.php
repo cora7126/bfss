@@ -11,9 +11,9 @@ use Drupal\user\Entity\Role;
 class ManagersPendingPaymentController extends ControllerBase {
 
 	 public function managers_pending_payment() {
+
 	 	    if( isset($_POST['maid_payment_submit']) ){
-			      if(isset($_POST['items_selected'])){
-			      	
+			      if(isset($_POST['items_selected'])){  	
 			        foreach ($_POST['items_selected'] as $key => $value) {
 			          $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value);
 			          $entity->payment_status->value = 'paid';
@@ -126,7 +126,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 	         </tr>';
         }
 
-         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="maid_payment_submit" value="Payment" onclick="payment_status_change();" ></div>
+         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="maid_payment_submit" value="PAYMENT MADE" onclick="payment_status_change();" ></div>
             </tbody>
             </table>
              </div>

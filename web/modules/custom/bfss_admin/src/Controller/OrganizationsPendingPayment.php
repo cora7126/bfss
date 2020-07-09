@@ -117,7 +117,7 @@ class OrganizationsPendingPayment extends ControllerBase {
 	        </tr>';
         }
 
-         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="org_maid_payment_submit" value="Payment" onclick="org_payment_status_change();" ></div>
+         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="org_maid_payment_submit" value="PAYMENT MADE" onclick="org_payment_status_change();" ></div>
          	</tbody>
             </table>
              </div>

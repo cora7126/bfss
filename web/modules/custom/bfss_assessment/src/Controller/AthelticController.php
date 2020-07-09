@@ -528,6 +528,16 @@ class AthelticController extends ControllerBase {
 
 
   }
+public function Latest_Assessment_Snapshot($uid){
+// print_r($uid);
+// die;
+$booked_ids = \Drupal::entityQuery('bfsspayments')
+              ->condition('user_id', $uid,'IN')
+              ->execute();
+print_r($booked_ids);
+die;
+}
+
   /**
    * @return markup
    *url bfss_assessment.atheltic_profile
@@ -587,10 +597,12 @@ class AthelticController extends ControllerBase {
     if(isset($_GET['uid'])){
       $this->atheleteUserId = $_GET['uid'];
       $this->DOB_get_year($_GET['uid']);
+      $this->Latest_Assessment_Snapshot($_GET['uid']);
     }else{
       $uid = \Drupal::currentUser()->id();
       $this->atheleteUserId = $uid;
       $this->DOB_get_year($uid);
+      $this->Latest_Assessment_Snapshot($uid);
     }
       
     

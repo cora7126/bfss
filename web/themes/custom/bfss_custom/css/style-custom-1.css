@@ -161,6 +161,19 @@ footer.user-profile-fo.footer.container {
 .coach-edit-form button.close {
     margin: 22px 22px 0 0;
 }
+
+.managers-pending-payment .search_athlete_main .unfollow-sub input[type="submit"],.organizations-pending-payment .search_athlete_main .unfollow-sub input[type="submit"]{
+    color: #fff;
+}
+.managers-pending-payment .search_athlete_main .unfollow-sub, .organizations-pending-payment .search_athlete_main .unfollow-sub {
+    background: #EB6E06;
+    padding: 5px 1px 5px 10px;
+    margin: -5px 0 0 0;
+}
+.managers-pending-payment .search_athlete_main .unfollow-sub i, .organizations-pending-payment .search_athlete_main .unfollow-sub i {
+    color: #fff;
+}
+.managers-pending-payment .search_athlete_main .unfollow-sub input[type="submit"]:focus, .organizations-pending-payment .search_athlete_main .unfollow-sub input[type="submit"]:focus{color:#fff;}
 /***********INVOICE END FROM HERE************/
 
 /******************* RESPONSIVE CSS STARTS HERE *********************/
