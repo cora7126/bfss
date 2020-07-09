@@ -17,7 +17,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 			        foreach ($_POST['items_selected'] as $key => $value) {
 			          $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value);
 			          $entity->payment_status->value = 'paid';
-			          $entity->notes->value = 'Payment status chnaged by bfss admin.';
+			          $entity->notes->value = 'Payment status changed by bfss admin.';
 			          $entity->save();
 			        } 
 			      }
