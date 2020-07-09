@@ -688,6 +688,18 @@ function unfollow_athlete(){
 	} 
 }
 
+function payment_status_change(){
+	if(confirm('You are sure , you want to chnage!'))
+	{
+	 //alert("confirm ok");
+	 document.getElementById('manager-pending_payments-form').removeAttribute('onsubmit').submit();// Form submission
+	}
+	else{
+		document.getElementById('manager-pending_payments-form').attr('onsubmit','return false;');
+	    return false;                   
+	} 
+}
+
 function deactivate_users(){
 	if(confirm('You are sure , you want to deactivate!'))
 	{

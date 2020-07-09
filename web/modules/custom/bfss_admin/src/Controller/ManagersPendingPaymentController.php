@@ -11,6 +11,18 @@ use Drupal\user\Entity\Role;
 class ManagersPendingPaymentController extends ControllerBase {
 
 	 public function managers_pending_payment() {
+	 	    if( isset($_POST['maid_payment_submit']) ){
+			      if(isset($_POST['items_selected'])){
+			      	print_r($_POST['items_selected']);
+			      	die;
+			        // foreach ($_POST['items_selected'] as $key => $value) {
+			        //   $user = User::load($value);
+			        //   $user->status->value = 0;
+			        //   $user->save();
+			        // } 
+			      }
+     		}
+
 	 	$booked_ids = \Drupal::entityQuery('bfsspayments')
 		->condition('payment_status','unpaid', '=')
         ->execute();
@@ -62,7 +74,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 			       	];
 		       	}
         }
-		$tb1 = '<form class="athletes-unfollow-form" action="" method="post" id="view-edit-active-form" onsubmit="return false;" accept-charset="UTF-8">
+		$tb1 = '<form class="athletes-unfollow-form" action="" method="post" id="manager-pending_payments-form" onsubmit="return false;" accept-charset="UTF-8">
 			<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
@@ -110,7 +122,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 	         </tr>';
         }
 
-         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="active_submit" value="Payment" onclick="payment_status_change();" ></div>
+         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="maid_payment_submit" value="Payment" onclick="payment_status_change();" ></div>
             </tbody>
             </table>
              </div>
