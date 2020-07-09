@@ -2,7 +2,7 @@
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\NodeInterface;
-
+use Drupal\Core\Render\Markup;
 
 /*
  * HOOK_theme
@@ -280,3 +280,23 @@ function bfss_assessment_user_login($account) {
 // 	die;
 //   } 
 // }
+
+
+/**
+ * Implements hook_mail().
+ */
+function bfss_assessment_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+  switch ($key) {
+    case 'booked_assessment':
+      $message['from'] = "ryan@mindimage.net";
+      $message['headers']['MIME-Version'] = '1.0';
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+      $message['headers']['Content-Transfer-Encoding'] = '8Bit';
+      $message['subject'] = "Assessment Booking";
+      $message['body'][] = Markup::create($params['message']);
+      break;
+  }
+}

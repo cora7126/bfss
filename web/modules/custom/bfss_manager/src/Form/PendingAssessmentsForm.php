@@ -118,7 +118,7 @@ class PendingAssessmentsForm extends FormBase {
       $realFormType = AssessmentService::getFormTypeFromPrice($entity->service->value);
 
       $realFormType = $realFormType ? $realFormType : $param['formtype'];
-ksm('$realFormType', $realFormType);
+//ksm('$realFormType', $realFormType);
       if($realFormType == 'Starter' && $Assess_type == 'individual'){
         $form_title = 'STARTER ASSESSMENT';
       }

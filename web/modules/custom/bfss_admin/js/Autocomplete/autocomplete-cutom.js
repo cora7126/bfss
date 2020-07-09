@@ -32,7 +32,7 @@ jQuery(function() {
 
 	});
 
-	jQuery(document).on('click', '.org_name_get', function(){
+	jQuery(document).on('click keypress blur change paste cut mouseenter', '.org_name_get', function(){
 		var wrp = jQuery(this).attr('id');
 		var wrp_id = jQuery("#"+wrp).parent().parent().attr('id');
 	    var type_val  = jQuery('#'+wrp_id).find('.org_type_get').val();
