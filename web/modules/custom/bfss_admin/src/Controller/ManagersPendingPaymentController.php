@@ -13,13 +13,13 @@ class ManagersPendingPaymentController extends ControllerBase {
 	 public function managers_pending_payment() {
 	 	    if( isset($_POST['maid_payment_submit']) ){
 			      if(isset($_POST['items_selected'])){
-			      	print_r($_POST['items_selected']);
-			      	die;
-			        // foreach ($_POST['items_selected'] as $key => $value) {
-			        //   $user = User::load($value);
-			        //   $user->status->value = 0;
-			        //   $user->save();
-			        // } 
+			      	
+			        foreach ($_POST['items_selected'] as $key => $value) {
+			          $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value);
+			          $entity->payment_status->value = 'paid';
+			          $entity->notes->value = 'Payment status chnaged by bfss admin.';
+			          $entity->save();
+			        } 
 			      }
      		}
 
@@ -60,6 +60,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 		      	if (strpos($amount, 'freecredit') !== false) {
           			#code for this condition
         		}else{
+
 			       	$data[] = [
 			       		'booked_id' => $booked_id,
 			       		'purchased_date' => $paid_date,
@@ -102,16 +103,19 @@ class ManagersPendingPaymentController extends ControllerBase {
               </tr>
             </thead>
             <tbody>';
+
          $reg_payments = $this->GET_bfss_register_user_payments();
 		 $data = array_merge($data,$reg_payments);
 		 foreach ($data as $key => $part) {
        		$sort[$key] = $part['purchased_date'];
   		 }
   		array_multisort($sort, SORT_DESC, $data);
+  		// print_r($data);
+    //         die;
         foreach ($data as $value) {
         	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
-	         <td><input class="form-checkbox getcheckboxid" type="checkbox" name="items_selected[]" value="'.$$value['booked_id'].'"><span class="unfollow-checkbox"></span></td>
+	         <td><input class="form-checkbox getcheckboxid" type="checkbox" name="items_selected[]" value="'.$value['booked_id'].'"><span class="unfollow-checkbox"></span></td>
 	        <td>'.$value['purchased_date'].'</td>
 	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['customer_name'].'</a></td>
 	        <td>'.$value['city'].'</td>
@@ -183,6 +187,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 
 				if($user){
 					$register_payment_data[] = [
+						'booked_id' =>'',
 						'purchased_date' => date('F d, Y',$value->created),
 						'program' =>$description,
 						'amount' => $value->amount,
