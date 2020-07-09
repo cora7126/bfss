@@ -700,6 +700,18 @@ function payment_status_change(){
 	} 
 }
 
+function org_payment_status_change(){
+	if(confirm('You are sure , you want to chnage!'))
+	{
+	 //alert("confirm ok");
+	 document.getElementById('organizations-pending-payments-form').removeAttribute('onsubmit').submit();// Form submission
+	}
+	else{
+		document.getElementById('organizations-pending-payments-form').attr('onsubmit','return false;');
+	    return false;                   
+	} 
+}
+
 function deactivate_users(){
 	if(confirm('You are sure , you want to deactivate!'))
 	{
