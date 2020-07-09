@@ -262,7 +262,7 @@ class AddGroupAssessmentsForm extends FormBase {
         '#required' => TRUE,
         '#default_value' => date('m/d/Y'),
         '#format' => 'm/d/Y',
-        '#attributes' => array('id' => array('datepicker')),
+        '#attributes' => array('id' => array('datepicker'),'readonly' => 'readonly'),
         '#prefix' => '<div class="date_duration">',
       ];
 
