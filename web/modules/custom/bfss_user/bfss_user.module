@@ -102,6 +102,16 @@ function bfss_user_pass_submit_ajax(array &$form, \Drupal\Core\Form\FormStateInt
     '#weight' => 20,
   ];
 
+  /************popup START*****/
+  if(empty($form_state->getErrors())){
+      $form['#attached']['library'][] = 'bfss_registration_form/ajax-popup';
+       $computed_settings = [
+         'payment_status' => 'FORGETPASSWORD',
+      ];
+      $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
+  }
+
+  /************popup END*****/
   return $form;
 }
 

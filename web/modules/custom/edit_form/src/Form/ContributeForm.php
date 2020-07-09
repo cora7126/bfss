@@ -879,12 +879,12 @@ class ContributeForm extends FormBase {
       );
     $form['label_1'] = array(
       '#type' => 'label',
-      '#title' => ' http://bfsscience.com/profile/',
+      '#title' => ' http://bfssathlete.com/profile/',
       '#attributes' => array('id' => 'label_1', 'class' => array('weblabel')),
       );
     $form['label_2'] = array(
       '#type' => 'label',
-      '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+      '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
       );
     if(!empty($results_web) && is_array($results_web)){
       $pasth1 = !empty($results_web['athlete_web_name'])?'/profile/'.$results_web['athlete_web_name']:'/preview/profile';
@@ -932,12 +932,12 @@ class ContributeForm extends FormBase {
         );
       $form['label_12'] = array(
         '#type' => 'label',
-        '#title' => ' http://bfsscience.com/profile/',
+        '#title' => ' http://bfssathlete.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_22'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       if(!empty($results_addweb) && is_array($results_addweb)){
         $pasth2 = isset($results_addweb['athlete_addweb_name'])?'/profile/'.$results_addweb['athlete_addweb_name']:'/preview/profile';
@@ -987,12 +987,12 @@ class ContributeForm extends FormBase {
         );
       $form['label_13'] = array(
         '#type' => 'label',
-        '#title' => 'http://bfsscience.com/profile/',
+        '#title' => 'http://bfssathlete.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_23'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfsscience.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       if(!empty($results_clubweb) && is_array($results_clubweb)){
        $pasth3 = isset($results_clubweb['athlete_web_name'])?'/profile/'.$results_clubweb['athlete_web_name']:'/preview/profile';
@@ -1111,8 +1111,6 @@ class ContributeForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array & $form, FormStateInterface $form_state) {
-    // print_r($form_state->getValue('image_athlete'));
-    // die;
 
     $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
@@ -1155,7 +1153,7 @@ class ContributeForm extends FormBase {
     $query_school->condition('athlete_uid', $current_user, '=');
     $results_school = $query_school->execute()->fetchAll();
 	
-	   $count_school_num_results = count($results_school);
+	  $count_school_num_results = count($results_school);
     $query_uni = \Drupal::database()->select('athlete_uni', 'au');
     $query_uni->fields('au');
     $query_uni->condition('athlete_uid', $current_user, '=');
@@ -1191,7 +1189,7 @@ class ContributeForm extends FormBase {
     $results_mydata = $query_mydata->execute()->fetchAll();
 
     $imgid = $form_state->getValue('image_athlete');
-
+    //================//
     $query_athletic_profile_image = \Drupal::entityQuery('node');
     $query_athletic_profile_image->condition('type', 'athletic_profile_image');
     $query_athletic_profile_image->condition('field_athelete_uid_pr',$current_user,'=');
@@ -1223,7 +1221,7 @@ class ContributeForm extends FormBase {
       $athletic_profile_image->set('field_image_athletic',[$imgfid]);
       $athletic_profile_image->save();
     }
-
+    //================//
 
   	$query_pic = \Drupal::database()->select('athlete_prof_image', 'uup');
     $query_pic->fields('uup');

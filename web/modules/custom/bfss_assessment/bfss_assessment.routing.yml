@@ -30,7 +30,7 @@ bfss_assessment.modal_node_view:
     # _permission: 'access content'
 
 bfss_assessment.modal_node_view_scheduled:
-  path: '/assessment/scheduled/node/{node_id}'
+  path: '/assessment/scheduled/node/{node_id}/{booked_id}'
   defaults:
     _controller: '\Drupal\bfss_assessment\Controller\AssessmentController::modalNodeViewForScheduled'
     _title: 'Assessment'
