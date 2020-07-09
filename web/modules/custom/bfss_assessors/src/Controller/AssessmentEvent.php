@@ -75,8 +75,8 @@ class AssessmentEvent extends ControllerBase {
               'booking_date'  => $booking_date,
               'booking_time'  => $booking_time,
               'assessment_title'  => $assessment_title,
-              'status' => $field_status,
-              'sport' => $sport,
+              'field_status' => $field_status,
+              // 'sport' => $sport,
               'st' => $st,
               'assess_nid' => $assess_nid,
               'first_name' =>$entity->first_name->value,
@@ -89,7 +89,7 @@ class AssessmentEvent extends ControllerBase {
         $header = array(
           array('data' => Markup::create('Name <span></span>'), 'field' => 'user_name'),
           array('data' => Markup::create('Sport <span></span>'), 'field' => 'sport'),
-          array('data' => Markup::create('Status <span></span>'), 'field' => 'status'),
+          array('data' => Markup::create('Status <span></span>'), 'field' => 'field_status'),
         );
 
         if(!empty($_GET['par_page_item'])){
@@ -98,8 +98,7 @@ class AssessmentEvent extends ControllerBase {
           $parpage = 10;
         }
         //$result = $this->_return_pager_for_array($result, $parpage);
-      // Wrapper for rows
-
+        // Wrapper for rows
 
          $tb = '
           <div class="wrapped_div_main">
@@ -126,18 +125,20 @@ class AssessmentEvent extends ControllerBase {
         $booked_id = $item['booked_id'];
         $st = $item['st'];
         $user_name = $item['user_name'];
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&user_id='.$item['user_id'];
+
+        $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status'].'&assess_nid='.$item['assess_nid'];
+        // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&user_id='.$item['user_id'];
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}" data-dialog-type="modal" href="'.$url.'">'.$user_name.'</a></p>');
         // $rows[] = array(
         //   'user_name' => $user_name,
         //   'sport' => $item['sport'],
-        //   'status' => $item['status'],
+        //   'field_status' => $item['field_status'],
         // );
          $tb .= '<tr>
                 <td>'.$user_name.'</td>
                 <td>'.$item['sport'].'</td>
-                <td>'.$item['status'].'</td>
+                <td>'.$item['field_status'].'</td>
               </tr>';
       }
       $tb .= '</tbody>

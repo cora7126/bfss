@@ -139,7 +139,9 @@ class PendingAssessments extends ControllerBase {
       $st = $item['st'];
       $user_name = $item['field_status'];
       $field_status = $item['field_status'];
-      $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status']; // .'&assess_nid='.$item['assess_nid']
+
+      //xxxx &st='.$st.'&postion='.$item['postion'].'
+      $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&field_status='.$item['field_status']; // .'&assess_nid='.$item['assess_nid']
 
       $first_name = $item['first_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
 

@@ -92,21 +92,22 @@ class PrivateAccessmentsBlock extends BlockBase {
                 $st = 0;
             }
               $result[] = array(
+              'booked_id' => $booked_id,
               'id' => $entity->id->value,
               'user_name' =>$entity->user_name->value,
-              'first_name' =>$entity->first_name->value,
-              'last_name' =>$entity->last_name->value,
               'nid' => $nid,
               'formtype' => $formtype,
               'Assess_type' => $Assess_type,
+              'field_status' => $field_status,
               'booking_date'  => $booking_date,
               'booking_time'  => $booking_time,
-              'booked_id' => $booked_id,
-              'st' =>  $st,
               'assess_nid' => $assess_nid,
+              'first_name' =>$entity->first_name->value,
+              'last_name' =>$entity->last_name->value,
               'address_1' => $address_1,
-              'sport' => $sport,
+              // 'sport' => $sport,
               'postion' => $postion,
+              'st' =>  $st,
             );
         	}
         }
@@ -131,7 +132,8 @@ class PrivateAccessmentsBlock extends BlockBase {
         $st = $item['st'];
         $user_name = $item['user_name'];
 
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
+        $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status'].'&assess_nid='.$item['assess_nid'];
+        // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'];
 
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
