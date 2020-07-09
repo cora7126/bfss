@@ -505,7 +505,7 @@ public function userform()
             $amount = $entity->service->value;
             $nid = $entity->assessment->value;
             $assessmentDate = date('F d, Y',$entity->time->value);
-            $node = Node::load($nid);
+
             $type = $node->field_type_of_assessment->value;
 
             $program = AssessmentService::getFormTypeFromPrice($amount);
@@ -513,16 +513,22 @@ public function userform()
             $full_name = $entity->first_name->value.' '.$entity->last_name->value;
             $city = $entity->city->value;
             $state = $entity->state->value;
+            if($nid){
+                $node = Node::load($nid);
+                if(!empty($node)){
+                $m_uid = $node->getOwnerId();
 
-            $m_uid = $node->getOwnerId();
+                if(isset($m_uid)){
+                  $m_user = User::load($m_uid);
+                  $roles = $m_user->getRoles();
+                  if(in_array('bfss_manager', $roles)){
+                    $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+                  }
+                }
+                }
 
-            if(isset($m_uid)){
-              $m_user = User::load($m_uid);
-              $roles = $m_user->getRoles();
-              if(in_array('bfss_manager', $roles)){
-                $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-              }
             }
+
 
             if (strpos($amount, 'freecredit') !== false) {
               #code for this condition
@@ -616,15 +622,22 @@ public function userform()
             if(isset($value->booking_id)){
               $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($value->booking_id);
               $nid = $entity->assessment->value;
-              $node = Node::load($nid);
-              $m_uid = $node->getOwnerId();
-              if(isset($m_uid)){
-                $m_user = User::load($m_uid);
-                $roles = $m_user->getRoles();
-                if(in_array('bfss_manager', $roles)){
-                  $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-                }
+              if($nid){
+                  $node = Node::load($nid);
+                  if(!empty($node)){
+                     $m_uid = $node->getOwnerId();
+                    if(isset($m_uid)){
+                      $m_user = User::load($m_uid);
+                      $roles = $m_user->getRoles();
+                      if(in_array('bfss_manager', $roles)){
+                        $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
+                      }
+                    }
+                  }
+
               }
+
+
             }
         if($user){
           $register_payment_data[] = [

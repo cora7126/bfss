@@ -43,6 +43,7 @@ class AssessmentService {
         return \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('status', 1)
+              ->condition('field_type_of_assessment','private', '!=')
               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
 
   }
@@ -57,6 +58,7 @@ class AssessmentService {
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
         $query->condition('field_categories', $param['categories'], 'IN');
+        $query->condition('field_type_of_assessment','private', '!=');
         $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
         $query->condition('status', 1);
         $nids = $query->execute();
@@ -93,6 +95,7 @@ class AssessmentService {
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
         $query->condition('field_event_tags', $param['tags'], 'IN');
+        $query->condition('field_type_of_assessment','private', '!=');
         $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
         $query->condition('status', 1);
         $nids = $query->execute();
@@ -130,6 +133,7 @@ class AssessmentService {
         $query->condition('type', 'assessment');
         $query->condition('field_venue_state_assess', $param['state'], '=');
         $query->condition('field_venue_location_assess', $param['city'], '=');
+        $query->condition('field_type_of_assessment','private', '!=');
         $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
         $query->condition('status', 1);
         $nids = $query->execute();
@@ -178,24 +182,28 @@ class AssessmentService {
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('status', 1)
+              ->condition('field_type_of_assessment','private', '!=')
               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
       $entity_ids = $assessment->execute();
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
        $node = Node::load($entity_id);
-       $target_id = array_column($node->field_schedules->getValue(), 'target_id');
-       foreach ($target_id as $target) {
-        $paragraph = Paragraph::load($target);
-        $timesamp = $paragraph->field_timing->value;
-        $monthdata[] = [
-        	'timesamp' => $timesamp,
-        	'date' =>  date('Y/m/d', $timesamp),
-        	'day' =>  date('d', $timesamp),
-            'month' =>  date('m', $timesamp),
-            'year' =>  date('Y', $timesamp),
-            'nid' => $entity_id,
-          ];
+       if(!empty($node)){
+            $target_id = array_column($node->field_schedules->getValue(), 'target_id');
+           foreach ($target_id as $target) {
+            $paragraph = Paragraph::load($target);
+            $timesamp = $paragraph->field_timing->value;
+            $monthdata[] = [
+              'timesamp' => $timesamp,
+              'date' =>  date('Y/m/d', $timesamp),
+              'day' =>  date('d', $timesamp),
+                'month' =>  date('m', $timesamp),
+                'year' =>  date('Y', $timesamp),
+                'nid' => $entity_id,
+              ];
+           }
        }
+
       }
 
       $NIDS = [];
@@ -248,19 +256,22 @@ class AssessmentService {
 		      $monthdata = [];
 		      foreach ($entity_ids as $entity_id) {
 		       $node = Node::load($entity_id);
-		       $target_id = array_column($node->field_schedules->getValue(), 'target_id');
-		       foreach ($target_id as $target) {
-		        $paragraph = Paragraph::load($target);
-		        $timesamp = $paragraph->field_timing->value;
-		        $monthdata[] = [
-		            'timesamp' => $timesamp,
-		        	  'date' =>  date('Y/m/d', $timesamp),
-		        	  'day' =>  date('d', $timesamp),
-		            'month' =>  date('m', $timesamp),
-		            'year' =>  date('Y', $timesamp),
-		            'nid' => $entity_id,
-		          ];
-		       }
+           if(!empty($node)){
+             $target_id = array_column($node->field_schedules->getValue(), 'target_id');
+             foreach ($target_id as $target) {
+              $paragraph = Paragraph::load($target);
+              $timesamp = $paragraph->field_timing->value;
+              $monthdata[] = [
+                  'timesamp' => $timesamp,
+                  'date' =>  date('Y/m/d', $timesamp),
+                  'day' =>  date('d', $timesamp),
+                  'month' =>  date('m', $timesamp),
+                  'year' =>  date('Y', $timesamp),
+                  'nid' => $entity_id,
+                ];
+             }
+           }
+
 		      }
 
 		      $NIDS = [];
@@ -291,6 +302,117 @@ class AssessmentService {
 
     return !empty(array_unique($NIDS)) ? array_unique($NIDS): null;
   }
+
+// booked assessments
+ public function My_Booked_Scheduled_Assessment_Block($element){
+    $data = [];
+     $param = \Drupal::request()->query->all();
+    $requriedFields = [
+      'id',
+      'time',
+      'assessment_title',
+      'assessment',
+      'until',
+      'created',
+    ];
+
+    $current_date = date('Y/m/d');
+    if(isset($param['showdate'])){
+      $exp = explode("/",$param['showdate']);
+      $M =  $exp[0];
+      $Y = $exp[1];
+    }else{
+      $current_date = date("Y/m/d");
+      $date_arr = explode('/',$current_date);
+      $M = $date_arr[1];
+      $Y =  $date_arr[0];
+    }
+
+    if( !empty($M) && !empty($Y) ){
+       $entity_ids = \Drupal::entityQuery('bfsspayments')
+        ->condition('user_id', \Drupal::currentUser()->id())
+        ->condition('time', time(), ">")
+        ->sort('time','ASC')
+        ->execute();
+        $monthdata = [];
+          foreach($entity_ids as $entity_id){
+            $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($entity_id);
+            $timesamp = $entity->time->value;;;
+            $monthdata[] =[
+              'timesamp' => $timesamp,
+              'date' =>  date('Y/m/d', $timesamp),
+              'day' =>  date('d', $timesamp),
+              'month' =>  date('m', $timesamp),
+              'year' =>  date('Y', $timesamp),
+              'id' => $entity_id,
+            ];
+          }
+
+        $BIDS = [];
+        if(isset($param['showdate'])){
+            foreach ($monthdata as $month_data) {
+              if($month_data['month'] == $M && $month_data['year'] == $Y && $current_date <= $month_data['date']){
+                $BIDS[] = $month_data['id'];
+              }
+            }
+        }
+        else{
+             foreach ($monthdata as $month_data) {
+              if($current_date <= $month_data['date'] && $month_data['month'] == $M){
+                $BIDS[] = $month_data['id'];
+              }
+            }
+        }
+      }
+
+
+    #if there is data
+    if ($BIDS) {
+      foreach ($BIDS as $entity_id) {
+        #load entity
+        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($entity_id);
+
+        if ($entity instanceof \Drupal\Core\Entity\ContentEntityInterface) {
+              $node = Node::load($entity->assessment->value);
+              if(!empty($node)){
+                $val = [];
+                $val['latest_timing'] = $entity->time->value;
+                $val['url'] = '/assessment/scheduled/node/'.$entity->assessment->value.'/'.$entity_id;
+                  foreach ($requriedFields as $field) {
+                    if ($entity->hasField($field)) {
+                      $val[$field] = $entity->get($field)->value;
+                    }
+                  }
+            // print_r($val['assessment']);
+            // die;
+            #if assessment avail
+                if (isset($val['assessment'])) { // node id
+                  $nodeData = $this->getNodeData($val['assessment']);
+                    #udpate title
+                    if (isset($nodeData['title']) && !empty($nodeData['title'])) {
+                      $val['title'] = $nodeData['title'];
+                    }
+                    #img
+                    $val['field_image'] = isset($nodeData['field_image']) ? $nodeData['field_image'] : null;
+                    #loc
+                    $val['location'] = isset($nodeData['field_location']) ? $nodeData['field_location'] : null;
+                    #body
+                    $val['body'] = isset($nodeData['body']) ? $nodeData['body'] : null;
+                    $val['booking_status'] = "purchased";
+                }
+              if ($val) {
+                $data[] = $val;
+              }
+            }
+        }
+      }
+    }
+    return $data;
+
+ }
+
+
+
 //My Scheduled Assessment
  public function My_Scheduled_Assessment_Block($element){
   $requriedFields = [
@@ -339,19 +461,24 @@ class AssessmentService {
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
        $node = Node::load($entity_id);
-       $target_id = array_column($node->field_schedules->getValue(), 'target_id');
-       foreach ($target_id as $target) {
-        $paragraph = Paragraph::load($target);
-        $timesamp = $paragraph->field_timing->value;
-        $monthdata[] = [
-            'timesamp' => $timesamp,
-            'date' =>  date('Y/m/d', $timesamp),
-            'day' =>  date('d', $timesamp),
-            'month' =>  date('m', $timesamp),
-            'year' =>  date('Y', $timesamp),
-            'nid' => $entity_id,
-          ];
-       }
+
+       if(!empty($node)){
+          if(!empty($node->field_schedules->getValue())){
+           $target_id = array_column($node->field_schedules->getValue(), 'target_id');
+           foreach ($target_id as $target) {
+            $paragraph = Paragraph::load($target);
+            $timesamp = $paragraph->field_timing->value;
+            $monthdata[] = [
+                'timesamp' => $timesamp,
+                'date' =>  date('Y/m/d', $timesamp),
+                'day' =>  date('d', $timesamp),
+                'month' =>  date('m', $timesamp),
+                'year' =>  date('Y', $timesamp),
+                'nid' => $entity_id,
+              ];
+           }
+          }
+        }
       }
 
       $NIDS = [];
@@ -414,24 +541,13 @@ class AssessmentService {
               }
         }
       }
-
-
-
-
-      // $assessment = \Drupal::entityQuery('node')
-      //         ->condition('type', 'assessment')
-      //         ->condition('field_type_of_assessment','private', '=')
-      //          ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
-      //         ->condition('title','%'.$search_val.'%','LIKE')
-      //         ->condition('status', 1);
-      // $entity_ids = $assessment->execute();
-
     }else{
 
       $assessment = \Drupal::entityQuery('node')
               ->condition('type', 'assessment')
               ->condition('title','%'.$search_val.'%','LIKE')
-               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
+              ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
+              ->condition('field_type_of_assessment','private', '!=')
               ->condition('status', 1);
       $entity_ids = $assessment->execute();
     }
@@ -469,19 +585,21 @@ class AssessmentService {
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
        $node = Node::load($entity_id);
-       $target_id = array_column($node->field_schedules->getValue(), 'target_id');
-       foreach ($target_id as $target) {
-        $paragraph = Paragraph::load($target);
-        $timesamp = $paragraph->field_timing->value;
-        $monthdata[] = [
-             'timesamp' => $timesamp,
-        	'date' =>  date('Y/m/d', $timesamp),
-        	'day' =>  date('d', $timesamp),
-            'month' =>  date('m', $timesamp),
-            'year' =>  date('Y', $timesamp),
-            'nid' => $entity_id,
-          ];
-       }
+       if(!empty($node)){
+         $target_id = array_column($node->field_schedules->getValue(), 'target_id');
+         foreach ($target_id as $target) {
+          $paragraph = Paragraph::load($target);
+          $timesamp = $paragraph->field_timing->value;
+          $monthdata[] = [
+               'timesamp' => $timesamp,
+          	'date' =>  date('Y/m/d', $timesamp),
+          	'day' =>  date('d', $timesamp),
+              'month' =>  date('m', $timesamp),
+              'year' =>  date('Y', $timesamp),
+              'nid' => $entity_id,
+            ];
+         }
+        }
       }
 
       $NIDS = [];
@@ -602,6 +720,41 @@ class AssessmentService {
             $data['latest_duration'] = $latest_duration;
 
           }
+        }
+      }
+    return $data;
+  }
+
+/**
+*get sheduled data
+**/
+  public function getNodeDataScheduled($nid,$booked_id){
+      $node = Node::load($nid);
+      $data = [];
+      global $base_url;
+      $current_path = \Drupal::service('path.current')->getPath();
+      $data['current_page'] = $base_url;
+      $data['assess_type'] = $node->field_type_of_assessment->value;
+      if ($node instanceof NodeInterface) {
+        $data['title'] = $node->getTitle();
+        if ($node->hasField('body')) {
+          $data['body'] = t($node->get('body')->value);
+        }
+        if ($node->hasField('field_location')) {
+          $data['field_location'] = t($node->get('field_location')->value);
+        }
+
+        if ($node->hasField('field_image')) {
+          $imageurl = $node->get('field_image')->entity->uri->value;
+          if(isset($imageurl)){
+            $data['field_image'] = file_create_url($imageurl);
+          }
+        }
+        if(isset($booked_id)){
+          $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+          $data['latest_timing'] = $entity->time->value;
+          $duration = date('h:i A',strtotime('+'.$entity->until->value.' minutes',$entity->time->value));
+          $data['latest_duration'] = $duration;
         }
       }
     return $data;
