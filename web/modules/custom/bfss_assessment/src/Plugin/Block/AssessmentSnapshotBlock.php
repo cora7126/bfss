@@ -30,7 +30,7 @@ class AssessmentSnapshotBlock extends BlockBase {
               ->condition('user_id', $uid,'IN')
               ->sort('created' , 'DESC')
               ->execute();
-      $nid = ''; 
+      $nid = '';
       if(!empty($booked_ids) && is_array($booked_ids)){
           foreach ($booked_ids as $booked_id) {
               if(isset($booked_id)){
@@ -38,13 +38,13 @@ class AssessmentSnapshotBlock extends BlockBase {
                 ->condition('type', 'athlete_assessment_info')
                 ->condition('field_booked_id',$booked_id,'=')
                 ->condition('status', 1)
-                ->sort('created' , 'DESC') 
+                ->sort('created' , 'DESC')
                 ->execute();
-              }      
+              }
           }
       }
 
-      #latest 
+      #latest
       $nid = array_values($nid);
       if(isset($nid[0])){
         $node = Node::load($nid[0]);
@@ -52,7 +52,7 @@ class AssessmentSnapshotBlock extends BlockBase {
 
         #Snapshot
         $MY_REACTIVE_STRENGTH = isset($node->field_jump_height_in_reactive->value) ? $node->field_jump_height_in_reactive->value : 0;
-        $REACTIVE_STRENGTH_NATIONAL_AVERAGE = isset($node->field_rsi_reactive_b->value) ? $node->field_rsi_reactive_b->value : 0; 
+        $REACTIVE_STRENGTH_NATIONAL_AVERAGE = isset($node->field_rsi_reactive_b->value) ? $node->field_rsi_reactive_b->value : 0;
         $ACCELERATION_SPEED = isset($node->field_10m_time_sec_sprint->value) ? $node->field_10m_time_sec_sprint->value : 0;
         $MAXIMAL_STRENGTH = isset($node->field_peak_force_n_maximal->value) ? $node->field_peak_force_n_maximal->value : 0;
         $ELASTIC_STRENGTH = isset($node->field_jump_height_in_elastic->value) ? $node->field_jump_height_in_elastic->value : 0;
@@ -68,7 +68,7 @@ class AssessmentSnapshotBlock extends BlockBase {
         ];
 
       }
-	  
+
 	// ksm(['user id, assessmentData, nids...', $uid->id(), $assessmentData, $nids]);
 
   	$html = '<div class="user_pro_block">

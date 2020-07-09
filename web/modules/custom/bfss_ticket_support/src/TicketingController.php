@@ -263,15 +263,9 @@ class TicketingController extends ControllerBase {
       $fdSubjectUrl = '<a href="' . $ticketUrl . '" target="_blank"><strong>' . htmlspecialchars($ticket->subject) . '</strong></a>';
       $replyBttn = '';
 
-      if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles)) {
+      if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
       }
-      else if (in_array('assessors', $roles)) {
-      }
-      else if (in_array('coach', $roles)) {
-      }
-      else if (in_array('bfss_manager', $roles)) {
-      }
-      else if (in_array('athlete', $roles)) {
+      else if (in_array('athlete', $roles) || in_array('coach', $roles) || in_array('assessors', $roles)) {
         if (!$username || $username != $userRequester['bfss_username']) {
           continue;
         }
