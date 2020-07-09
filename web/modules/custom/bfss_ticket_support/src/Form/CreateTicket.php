@@ -40,7 +40,7 @@ class CreateTicket extends FormBase {
     $form['header'] = array(
       '#prefix' => '<div class="dash-main-right">
       <h1><i class="fas fa-home" 1123></i> >
-        <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Pending Assessments</h1>
+        <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Create Ticket</h1>
         <div class="dash-sub-main">
           <i class="fas fa-laptop edit_image_solid" aria-hidden="true"></i>
           <h2><span>'.$name.'<div>SUBMIT A TICKET</div></span><br></h2>
@@ -56,6 +56,13 @@ class CreateTicket extends FormBase {
       '#markup' => '<div class="result_message"></div>',
     ];
 
+    $arr = ['one'  => t('Priority'), '1'  => t('Low'), '2'  =>t('Medium'), '3'  =>t('High'), '4'  =>t('Urgent')];
+    $form['priority'] = array(
+      '#type' => 'select',
+      '#options' => $arr,
+      '#default_value' => 'one',
+    );
+
     $form['subject'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
@@ -65,6 +72,7 @@ class CreateTicket extends FormBase {
     $form['description'] = array(
       '#type' => 'textarea',
       '#placeholder' => t('Questions/Comments'),
+      '#required' => TRUE,
       // '#default_value' => $results1['field_last_name_value'],
     );
     $form['create_ticket'] = array(
@@ -125,41 +133,11 @@ class CreateTicket extends FormBase {
        * Sends form data (ticket_data) to freshdesk.
        * customer sso security
        */
-      $api_key = "6aTnr07ieoIsXLhN1c0";
-      $password = "99999"; // not needed, keep as x
-      $yourdomain = "digitalrace";
 
-      $ticket_data = json_encode(array(
-        "description" => $_POST['description'],
-        "subject" => $_POST['subject'],
-        "name" => $name,
-        "email" => $userEmail,
-        "priority" => 1,
-        "status" => 2,
-        "cc_emails" => array('jodybrabec@gmail.com')
-      ));
+      $successMessage = 'Thank you,<br> We will respond to your ticket at our earliest availability';
 
-      $url = "https://$yourdomain.freshdesk.com/api/v2/tickets";
-
-      $ch = curl_init($url);
-
-      $header[] = "Content-type: application/json";
-      curl_setopt($ch, CURLOPT_POST, true);
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-      curl_setopt($ch, CURLOPT_HEADER, true);
-      curl_setopt($ch, CURLOPT_USERPWD, "$api_key:$password");
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $ticket_data);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-      $server_output = curl_exec($ch);
-      $info = curl_getinfo($ch);
-      $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-      $headers = substr($server_output, 0, $header_size);
-      $c_response = substr($server_output, $header_size);
-
-      if($info['http_code'] == 201) {
-        // ksm("$headers\n");  ksm("$c_response \n");
-        $message = 'Thank you,<br> We will respond to your ticket at our earliest availability';
+      if ($_POST['create_ticket'] == $successMessage) { // Doing this because this popup form submits twice.
+        $message = $successMessage;
         $response = new AjaxResponse();
         $response->addCommand(
           new HtmlCommand(
@@ -168,18 +146,64 @@ class CreateTicket extends FormBase {
           )
         );
         return $response;
-
-      } else {
-        if($info['http_code'] == 404) {
-          ksm("Error, Please check the end point \n");
-        } else {
-          ksm("Error, HTTP Status Code : " . $info['http_code'] . "\n");
-          ksm("Headers are ".$headers);
-          ksm("Response are ".$c_response);
-        }
-        return;
       }
-      curl_close($ch);
+      else {
+
+        $api_key = "6aTnr07ieoIsXLhN1c0";
+        $password = "99999"; // not needed, keep as x
+        $yourdomain = "digitalrace";
+
+        $ticket_data = json_encode(array(
+          "description" => htmlentities($_POST['description']),
+          "subject" => htmlentities($_POST['subject']),
+          "name" => $name,
+          "email" => $userEmail,
+          "priority" => ($_POST['priority'] == 'one') ? 1 : (int)$_POST['priority'],
+          "status" => 2,
+          "cc_emails" => array('jodybrabec@gmail.com')
+        ));
+
+        $url = "https://$yourdomain.freshdesk.com/api/v2/tickets";
+
+        $ch = curl_init($url);
+
+        $header[] = "Content-type: application/json";
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_USERPWD, "$api_key:$password");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $ticket_data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+        $info = curl_getinfo($ch);
+        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $headers = substr($server_output, 0, $header_size);
+        $c_response = substr($server_output, $header_size);
+
+        if($info['http_code'] == 201) {
+          $_POST['create_ticket'] = $successMessage;
+          // ksm("$headers\n");  ksm("$c_response \n");
+          $message = $successMessage . '....'; // this should not be displayed, if double-submit is happening.
+          $response = new AjaxResponse();
+          $response->addCommand(
+            new HtmlCommand(
+              '.result_message',
+              '<div class="success_message">'.$message.'</div>'
+            )
+          );
+          return $response;
+
+        } else {
+          if($info['http_code'] == 404) {
+            ksm("Error, Please check the end point \n");
+          } else {
+            ksm("Error, HTTP Status Code : " . $info['http_code'] . "\n", "Headers are ".$headers, "Response are ".$c_response);
+          }
+          return;
+        }
+        curl_close($ch);
+      }
     }
   }
 }

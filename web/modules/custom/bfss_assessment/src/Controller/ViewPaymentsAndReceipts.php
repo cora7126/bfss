@@ -5,6 +5,7 @@ use Drupal\Core\Controller\ControllerBase;
 use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
+use Drupal\bfss_assessment\AssessmentService;
 
 class ViewPaymentsAndReceipts extends ControllerBase {
 
@@ -17,7 +18,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
              	->condition('user_id',$uid,'IN')
              	->condition('payment_status', 'paid','=')
               ->execute();
-        $data = [];      
+        $data = [];
       foreach ($booked_ids as $booked_id) {
       	# code...time,created,service
       	$entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
@@ -26,16 +27,11 @@ class ViewPaymentsAndReceipts extends ControllerBase {
       	$nid = $entity->assessment->value;
       	$assessmentDate = date('F d, Y',$entity->time->value);
       	$node = Node::load($nid);
-      	$type = $node->field_type_of_assessment->value;
-      	if($amount == '29.99'){
-      		$description = 'Starter Assessment';
-      	}elseif($amount == '69.99'){
-      		$description = 'Professional Assessment';
-      	}elseif($amount == '299.99'){
-      		$description = 'Elite Assessment';
-      	}else{
-      		$description = '';
-      	}
+        $type = $node->field_type_of_assessment->value;
+
+        $description = AssessmentService::getFormTypeFromPrice($amount);
+        $description += ' Assessment';
+
         if (strpos($amount, 'freecredit') !== false) {
           #code for this condition
         }else{
@@ -49,7 +45,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
             'form' => 'multistep',
           ];
         }
-       	
+
       	$reg_data = $this->register_form_payment_receipts_listing();
         $PaymentData = array_merge($data,$reg_data);
       }
@@ -64,9 +60,9 @@ class ViewPaymentsAndReceipts extends ControllerBase {
                   <thead>
                     <tr>
                       <th class="th-hd"><a><span></span>Invoice #</a>
-                      </th> 
+                      </th>
                         <th class="th-hd long-th th-last"><a><span></span>Paid Date</a>
-                      </th>  
+                      </th>
                       <th class="th-hd long-th th-fisrt"><a><span></span>Description</a>
                       </th>
                        <th class="th-hd long-th th-fisrt"><a><span></span>Amount</a>
@@ -83,9 +79,9 @@ class ViewPaymentsAndReceipts extends ControllerBase {
       	     <td>'.$value['description'].'</td>
       	     <td>'.$value['amount'].'</td>
       	     <td>'.$value['assessment_date'].'</td>
-      	     </tr>';    
+      	     </tr>';
           }
-          
+
            $tb1 .= '
           </tbody>
           </table>
@@ -117,7 +113,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
          }else{
             $page_data = $tb1;
          }
-         
+
 
        	 return [
             '#cache' => ['max-age' => 0,],
@@ -151,15 +147,9 @@ class ViewPaymentsAndReceipts extends ControllerBase {
         $assessmentDate = date('F d, Y',$entity->time->value);
         $node = Node::load($nid);
         $type = $node->field_type_of_assessment->value;
-        if($amount == '29.99'){
-          $description = 'Starter Assessment';
-        }elseif($amount == '69.99'){
-          $description = 'Professional Assessment';
-        }elseif($amount == '299.99'){
-          $description = 'Elite Assessment';
-        }else{
-          $description = '';
-        }
+
+        $description = AssessmentService::getFormTypeFromPrice($amount);
+        $description += ' Assessment';
 
         $data = [
           'invoice_number' => '#M-'.$booked_id,
@@ -205,7 +195,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
           'transaction_id' => $reg_payments['transaction_id'],
           'paid_by' => $reg_payments['card_name'],
         ];
-      return $data;  
+      return $data;
     }
 
     public function register_form_payment_receipts_listing(){
@@ -227,7 +217,7 @@ class ViewPaymentsAndReceipts extends ControllerBase {
           }else{
             $description = '';
           }
-        
+
           if($user){
             $data[] = [
               'invoice_id' => $value->id,

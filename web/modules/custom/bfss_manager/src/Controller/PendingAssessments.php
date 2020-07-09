@@ -5,37 +5,9 @@ use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Database\Database;
+use Drupal\bfss_assessment\AssessmentService;
 
 class PendingAssessments extends ControllerBase {
-
-
-  /** TODO: make utility class
-   * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
-   * @param string $assessmentPrice
-   */
-  public function getFormTypeFromPrice($assessmentPrice) {
-    if($assessmentPrice == '299.99'){
-      return 'elite';
-    }elseif($assessmentPrice == '29.99'){
-      return 'starter';
-    }elseif($assessmentPrice == '69.99'){
-      return 'professional';
-    }else{
-      return 'UNKNOWN';
-    }
-  }
-
-  /** TODO: make utility class;
-   * Return a url to download the assessment pdf.
-   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
-   */
-  protected function getFillPdfUrl($pdf_template_fid, $nid) {
-    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
-    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
-    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
-
-  }
-
 
   public function pending_assessments() {
       $param = \Drupal::request()->query->all();
@@ -97,7 +69,7 @@ class PendingAssessments extends ControllerBase {
           $booking_date = date("Y/m/d",$timestamp);
           $booking_time = date("h:i:sa",$timestamp);
 
-          $formtype = $this->getFormTypeFromPrice($entity->service->value);
+          $formtype = AssessmentService::getFormTypeFromPrice($entity->service->value);
 
           if(!empty($entity->assessment->value)){
             $Assess_type = 'individual';
@@ -248,8 +220,6 @@ public function Get_Data_From_Tables($TableName,$atr,$current_user,$user_key){
       return $results;
   }
 
-
 }
-
 
 ?>

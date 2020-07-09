@@ -188,22 +188,5 @@ class BackendProxy implements BackendProxyInterface {
       return $mappingsWithValues;
     }
   }
-
-
-  /** TODO: make utility class
-   * Use this to extract "professional" because $param['formtype'] only contains 'starter' OR 'elite'
-   * @param string $assessmentPrice
-   */
-  public function getFormTypeFromPrice($assessmentPrice) {
-    if($assessmentPrice == '299.99'){
-      return 'elite';
-    }elseif($assessmentPrice == '29.99'){
-      return 'starter';
-    }elseif($assessmentPrice == '69.99'){
-      return 'professional';
-    }else{
-      return 'UNKNOWN';
-    }
-  }
 }
 

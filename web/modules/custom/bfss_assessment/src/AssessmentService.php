@@ -283,7 +283,7 @@ class AssessmentService {
               ->condition('type', 'assessment')
               ->condition('field_type_of_assessment','group', '=')
               ->condition('field_schedules.entity:paragraph.field_timing', time(),'>')
-              ->sort('field_schedules.entity:paragraph.field_timing' , 'ASC') 
+              ->sort('field_schedules.entity:paragraph.field_timing' , 'ASC')
               ->condition('status', 1);
         $entity_ids = $assessment->execute();
         $NIDS = $entity_ids;
@@ -325,7 +325,7 @@ class AssessmentService {
         ->sort('time','ASC')
         ->execute();
          #if there is data
-         $entity_ids = []; 
+         $entity_ids = [];
       if ($booked_ids) {
         foreach ($booked_ids as $booked_id) {
           #load entity
@@ -335,7 +335,7 @@ class AssessmentService {
               }
         }
       }
-       
+
       $monthdata = [];
       foreach ($entity_ids as $entity_id) {
        $node = Node::load($entity_id);
@@ -404,7 +404,7 @@ class AssessmentService {
         ->sort('time','ASC')
         ->execute();
          #if there is data
-         $entity_ids = []; 
+         $entity_ids = [];
       if ($booked_ids) {
         foreach ($booked_ids as $booked_id) {
           #load entity
@@ -414,7 +414,7 @@ class AssessmentService {
               }
         }
       }
-     
+
 
 
 
@@ -542,7 +542,7 @@ class AssessmentService {
       $current_path = \Drupal::service('path.current')->getPath();
       $data['current_page'] = $base_url;
       $data['assess_type'] = $node->field_type_of_assessment->value;
-    
+
       // echo "<pre>";
       // print_r($data['assess_type']);
       // die;
@@ -561,7 +561,7 @@ class AssessmentService {
         	if(isset($imageurl)){
         		$data['field_image'] = file_create_url($imageurl);
         	}
-        	        
+
           //$data['field_image'] = file_create_url($node->get('field_image')->getFileUri());
         }
         if ($node->hasField('field_schedules')) {
@@ -670,10 +670,56 @@ class AssessmentService {
       }
     return $until;
   }
+
   /*
    * check assessment available
    */
   public function notAvailableMessage(){
       drupal_set_message(t('The event you are looking for booking is not available! Please select another.'), 'error');
   }
+
+  /**
+   * Returns "Elite", "Starter", or "Professional", based on price.
+   * Sometimes the price could contain "( free credit )"
+   * @param string $assessmentPrice
+   */
+  public static function getFormTypeFromPrice($assessmentPrice) {
+    if(preg_match('/299\.99/si', $assessmentPrice)) { // 299.99
+      return 'Elite';
+    }elseif(preg_match('/69\.99/si', $assessmentPrice)) { // 69.99
+      return 'Professional';
+    }elseif(preg_match('/29\.99/si', $assessmentPrice)) { // 29.99
+      return 'Starter';
+    }else{
+      return 'UNKNOWN Assessment Type';
+    }
+  }
+
+  /**
+   * Find the pdf template "fid" -- see /admin/structure/fillpdf
+   * @param string $form_type
+   */
+  public static function getPdfTemplateId($form_type) {
+    switch ($form_type) {
+      case 'Starter':
+        return '12';
+      case 'Professional':
+        return '11';
+      case 'Elite':
+        return '10';
+      default:
+       return -1111;
+    }
+  }
+
+  /**
+   * Return a url to download the assessment pdf.
+   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
+   */
+  public static function getFillPdfUrl($pdf_template_fid, $nid) {
+    // $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
+    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
+    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
+  }
+
 } //end of class

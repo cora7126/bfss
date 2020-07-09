@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
 use Drupal\node\Entity\Node;
+use Drupal\bfss_assessment\AssessmentService;
 Use Drupal\node\NodeInterface;
 /**
  * Provides route responses for the Example module.
@@ -19,8 +20,7 @@ class PaymentReceipts extends ControllerBase {
    *   A simple renderable array.
    */
   public function payment_receipts() {
-     
-      
+
       $reg_payments_data = $this->GET_bfss_register_user_payments();
       $uid = \Drupal::currentUser()->id();
       $param = \Drupal::request()->query->all();
@@ -28,7 +28,7 @@ class PaymentReceipts extends ControllerBase {
               ->condition('user_id', $uid,'IN')
               ->condition('payment_status', 'paid','=')
               ->execute();
-        $data = [];      
+        $data = [];
       foreach ($booked_ids as $booked_id) {
         # code...time,created,service
         $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
@@ -38,15 +38,10 @@ class PaymentReceipts extends ControllerBase {
         $assessmentDate = date('F d, Y',$entity->time->value);
         $node = Node::load($nid);
         $type = $node->field_type_of_assessment->value;
-        if($amount == '29.99'){
-          $description = 'Starter Assessment';
-        }elseif($amount == '69.99'){
-          $description = 'Professional Assessment';
-        }elseif($amount == '299.99'){
-          $description = 'Elite Assessment';
-        }else{
-          $description = '';
-        }
+
+        $description = AssessmentService::getFormTypeFromPrice($amount);
+        $description += ' Assessment';
+
         if (strpos($amount, 'freecredit') !== false) {
           #code for this condition
         }else{
@@ -73,7 +68,7 @@ class PaymentReceipts extends ControllerBase {
       ]
     ];
   }
-  
+
   function GET_bfss_register_user_payments(){
     $uid = \Drupal::currentUser()->id();
         $reg_payments = \Drupal::database()->select('bfss_register_user_payments', 'rup')

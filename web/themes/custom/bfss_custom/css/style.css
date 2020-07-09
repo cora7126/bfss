@@ -52,9 +52,9 @@
   font-family: 'FontAwesome';
   src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
   src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),
-       url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), 
-       url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), 
-       url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), 
+       url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),
+       url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),
+       url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),
        url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
   font-weight:normal;
   font-style:normal;
@@ -2072,7 +2072,7 @@ input#name_1{width:70%;}
 
 @media (min-width:768px){
   .container{width:750px;}
-  .navbar-right .dropdown-menu{right:0;left:auto;} 
+  .navbar-right .dropdown-menu{right:0;left:auto;}
   .navbar-right .dropdown-menu-left{left:0;right:auto;}
   .form-horizontal .control-label{padding-top:7px;margin-bottom:0;text-align:right;}
   .form-horizontal .form-group-lg .control-label{padding-top:11px;font-size:18px;}
@@ -2129,3 +2129,9 @@ input#name_1{width:70%;}
 /*****************************************************************************/
 /*********************** RESPONSIVE CSS ENDS HERE **************************/
 /*****************************************************************************/
+
+/* Jody: ticketing replies */
+.ticketing-conversations{margin-right: -80%; margin-left: 5%;}
+.ticketing-reply{text-align: right;}
+.ticketing-reply a{background-color: #FFFCD7; padding: 1px 2px;}
+.ticketing-reply a:hover{background-color: #000000; color: #ffffff; text-decoration: none;}

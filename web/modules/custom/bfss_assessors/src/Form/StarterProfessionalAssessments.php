@@ -35,17 +35,17 @@ class StarterProfessionalAssessments extends FormBase {
     $sport = $param['sport'];
   if(isset($nid) && isset($formtype) && isset($Assess_type))
     {
-            if($formtype == 'starter' && $Assess_type == 'individual'){
+            if($formtype == 'Starter' && $Assess_type == 'individual'){
               $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
-            }elseif($formtype == 'elete' && $Assess_type == 'individual'){
+            }elseif($formtype == 'Elite' && $Assess_type == 'individual'){
               $form_title = 'ELITE ASSESSMENT';
-            }elseif($formtype == 'starter' && $Assess_type == 'private'){
+            }elseif($formtype == 'Starter' && $Assess_type == 'private'){
                $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
-            }elseif($formtype == 'elete' && $Assess_type == 'private'){
+            }elseif($formtype == 'Elite' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
-            }elseif($formtype == 'professional' && $Assess_type == 'private'){
+            }elseif($formtype == 'Professional' && $Assess_type == 'private'){
                $form_title = 'ELITE ASSESSMENT';
-            }elseif($formtype == 'professional' && $Assess_type == 'individual'){
+            }elseif($formtype == 'Professional' && $Assess_type == 'individual'){
                $form_title = 'STARTER/PROFESSIONAL ASSESSMENTS';
             }
 
@@ -266,13 +266,13 @@ class StarterProfessionalAssessments extends FormBase {
               ),
             );
 
-             /*********** elete fields start ************/
-                       if($formtype == 'elete'){
+             /*********** elite fields start ************/
+                       if($formtype == 'Elite'){
                           $required = TRUE;
                        }else{
                           $required = FALSE;
                        }
-            if($formtype == 'elete'){
+            if($formtype == 'Elite'){
                 //UE Power (SPM Ball Throw)
                 $form['form_fields_wrap']['ue_power'] = array(
                   '#type' => 'fieldset',
@@ -356,16 +356,16 @@ class StarterProfessionalAssessments extends FormBase {
                   ),
                 );
             }
-            /*********** elete fields start ************/
+            /*********** elite fields start ************/
 
              //hidden fields
 
-            if($formtype == 'elete'){
-             $formtype_val = 'elete';
-            }elseif($formtype == 'starter'){
-             $formtype_val = 'starter';
-            }elseif($formtype == 'professional'){
-             $formtype_val = 'professional';
+            if($formtype == 'Elite'){
+             $formtype_val = 'Elite';
+            }elseif($formtype == 'Starter'){
+             $formtype_val = 'Starter';
+            }elseif($formtype == 'Professional'){
+             $formtype_val = 'Professional';
             }else{
               $formtype_val = '';
             }
@@ -506,7 +506,7 @@ class StarterProfessionalAssessments extends FormBase {
         $node->set('field_form_type', $form_data['form_type']);
         $node->set('field_athelete_nid', $form_data['athelete_nid']);
         $node->set('field_booked_id', $form_data['booked_id']);
-        //aditional fields for elete
+        //aditional fields for elite
         $node->set('field_power_w_ssm_ipe', $form_data['power']);
         $node->set('field_power_w_spm_ipe', $form_data['power_spm']);
         $node->set('field_power_w_rm_ipe', $form_data['power_rm']);
@@ -553,25 +553,25 @@ class StarterProfessionalAssessments extends FormBase {
            }elseif(!is_numeric($form_state->getValue('starter_rfd_max')) || empty($form_state->getValue('starter_rfd_max'))){
              $message = '<p style="color:red;">"RFD @ 100ms (N)" Required or Numeric</p>';
            }
-           elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'elete' ){
+           elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'Elite' ){
 
 
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
 
 
            }
-           elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'elete'){
+           elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'Elite'){
 
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
             }
-           elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'elete'){
+           elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'Elite'){
 
               $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
 
            }
-            elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'elete'){
+            elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'Elite'){
              $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';
-           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elete'){
+           }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'Elite'){
              $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
            }
            else{

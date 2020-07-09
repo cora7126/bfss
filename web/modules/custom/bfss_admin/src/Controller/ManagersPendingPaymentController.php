@@ -4,11 +4,12 @@ use Drupal\Core\Controller\ControllerBase;
 use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
+use Drupal\bfss_assessment\AssessmentService;
 use Drupal\Core\Database\Database;
 use Drupal\user\Entity\Role;
 
 class ManagersPendingPaymentController extends ControllerBase {
-	  
+
 	 public function managers_pending_payment() {
 	 	$booked_ids = \Drupal::entityQuery('bfsspayments')
 		->condition('payment_status','unpaid', '=')
@@ -21,16 +22,10 @@ class ManagersPendingPaymentController extends ControllerBase {
 		      	$nid = $entity->assessment->value;
 		      	$assessmentDate = date('F d, Y',$entity->time->value);
 		      	$node = Node::load($nid);
-		      	$type = $node->field_type_of_assessment->value;
-			      	if($amount == '29.99'){
-			      		$program = 'Starter';
-			      	}elseif($amount == '69.99'){
-			      		$program = 'Professional';
-			      	}elseif($amount == '299.99'){
-			      		$program = 'Elite';
-			      	}else{
-			      		$program = '';
-			      	}
+					$type = $node->field_type_of_assessment->value;
+
+					$program = AssessmentService::getFormTypeFromPrice($amount);
+
 		      	$full_name = $entity->first_name->value.' '.$entity->last_name->value;
 		      	$city = $entity->city->value;
 		      	$state = $entity->state->value;
@@ -42,7 +37,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 			      	$roles = $m_user->getRoles();
 			      	if(in_array('bfss_manager', $roles)){
 			      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-			      	}	
+			      	}
 		      	}
 
 		      	if (strpos($amount, 'freecredit') !== false) {
@@ -60,7 +55,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 			       		'manager_name' => $m_name,
 			       	];
 		       	}
-        }	
+        }
 		$tb1 = '<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
@@ -69,9 +64,9 @@ class ManagersPendingPaymentController extends ControllerBase {
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Purchased Date</a>
-                </th> 
+                </th>
                   <th class="th-hd long-th th-last"><a><span></span>Customer Name</a>
-                </th>  
+                </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>City</a>
                 </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>State</a>
@@ -104,7 +99,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 	        <td>'.$value['manager_name'].'</td>
 	         </tr>';
         }
-         
+
          $tb1 .= '
             </tbody>
             </table>
@@ -122,8 +117,8 @@ class ManagersPendingPaymentController extends ControllerBase {
 		        'acme/acme-styles', //include our custom library for this response
       			]
     		]
-  		]; 
-	   
+  		];
+
   	}
 
   	function GET_bfss_register_user_payments(){
@@ -155,7 +150,7 @@ class ManagersPendingPaymentController extends ControllerBase {
 						$roles = $m_user->getRoles();
 						if(in_array('bfss_manager', $roles)){
 							$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-						}	
+						}
 					}
 	        	}
 
@@ -174,6 +169,6 @@ class ManagersPendingPaymentController extends ControllerBase {
 				}
 	        }
     	}
-       return $register_payment_data;     	
+       return $register_payment_data;
   	}
 }

@@ -8,11 +8,11 @@ jQuery(document).ready(function(){
  	var $Assess_type = jQuery(this).data('assesstype');
  	var $booked_id = jQuery(this).data('booked_id');
 	 
- 	if($formtype == 'starter' ){
+ 	if($formtype == 'Starter' ){
      	jQuery('h2.el').css('display','none');
      	jQuery('h2.st').css('display','block');
     }
-    else if($formtype == 'elete' ){
+    else if($formtype == 'Elite' ){
      jQuery('h2.st').css('display','none');
      jQuery('h2.el').css('display','block');
     }
@@ -21,14 +21,14 @@ jQuery(document).ready(function(){
      	 jQuery('h2.el').css('display','none');
      }
 	
-	if($formtype == 'starter'){
+	if($formtype == 'Starter'){
 		 jQuery('div#for_elete').css('display','none');
-		 jQuery('div#form_type_hd input').val('starter');
+		 jQuery('div#form_type_hd input').val('Starter');
 		 jQuery("div#for_elete input").prop('required',false);
-	}else if($formtype == 'elete'){
+	}else if($formtype == 'Elite'){
 		 jQuery('div#for_elete').css('display','block');
 		jQuery("div#for_elete input").prop('required',true);
-		 jQuery('div#form_type_hd input').val('elete');
+		 jQuery('div#form_type_hd input').val('Elite');
 	}
 
 	if($Assess_type == 'individual'){	

@@ -12,3 +12,10 @@ bfss_ticket_support.create_ticket:
     _title: 'create-ticket'
   requirements:
     _access: 'TRUE'
+bfss_ticket_support.reply_ticket:
+  path: '/reply-ticket'
+  defaults:
+    _form: '\Drupal\bfss_ticket_support\Form\ReplyTicket'
+    _title: 'reply-ticket'
+  requirements:
+    _access: 'TRUE'
