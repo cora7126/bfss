@@ -1,0 +1,560 @@
+<?php
+
+/**
+ * @file
+ * Provides Freshdesk Integration for Drupal 8.
+ * @author Randall Box <rb@randallbox.com>
+ *
+ * @todo Add utility functions to help sync existing users with Freshdesk (can currently be done with
+ *       a little custom code through devel or drush)
+ * @todo Provide block so users may view current tickets or stats w/links
+ * @todo Provide form to enter Freshdesk tickets directly from Drupal
+ * @todo Validate image type since Freshdesk only supports PNG and JPEG (create image style in code?)
+ * @todo Provide pseudo-field on user entity to store Freshdesk ID
+ * @todo Provide image style packaged with module for optimal compatibility with Freshdesk profile
+ * @todo Read Freshdesk config through API to avoid duplicate notifications, etc.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\file\Entity\File;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\Component\Utility\Environment;
+
+Environment::setTimeLimit(2400); // 20 mins
+
+/**
+ * Implements hook_help().
+ */
+function freshdesk_integration_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the freshdesk_integration module.
+    case 'help.page.freshdesk_integration':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Freshdesk') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/***
+ * BFSS Customization
+ * Convert User Role id (which is a drupla "Machine Name" of type string) into a numeric value.
+  function machineNameToId($machineId) {
+    return gmp_strval(gmp_init(substr(md5($machineId), 0, 16), 16), 10);
+  }
+*/
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function freshdesk_integration_user_insert($user) {
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+
+  // Check if push is enabled.
+  if ($config->get('push')) {
+    // Call Freshdesk to create user.
+    _freshdesk_integration_create($user);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function freshdesk_integration_user_update($user) {
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+
+  // Check if we need to update user entity.
+  $lock = drupal_static('freshdesk_integration_user_update');
+
+  // Check and update user in Freshdesk system based on UID incase fields have changed.
+  if ($config->get('push') && is_numeric($user->freshdesk_id->getString()) && empty($lock)) {
+    // Call Freshdesk API only on field update to preserve rate limit.
+    $field_user_phone = @$user->field_user_phone ? $user->field_user_phone->getString() : '';
+    $orig_field_user_phone = @$user->original->field_user_phone ? $user->original->field_user_phone->getString() : '';
+    if (($user->field_first_name->getString() != $user->original->field_first_name->getString())
+    || ($user->field_last_name->getString() != $user->original->field_last_name->getString())
+    || ($user->mail->getString() != $user->original->mail->getString())
+    || ($field_user_phone != $orig_field_user_phone)
+    || ($user->getRoles(TRUE) != $user->original->getRoles(TRUE))) {
+      _freshdesk_integration_update($user);
+    }
+  }
+  else {
+    // Should we check freshdesk system for email address and add user if they don't exist in Freshdesk?
+    // I don't know yet.  Maybe this is a future setting on config page.
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function freshdesk_integration_user_delete($user) {
+  // Delete user in Freshdesk when deleted from site.
+  // This may or may not be needed depending on preference.
+}
+
+/**
+ * Create Freshdesk contact via API.
+ *
+ * @param object $user
+ *   A user account object.
+ */
+function _freshdesk_integration_create($user) {
+
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+
+  // Set up parameters for API call.
+  $params = [
+    'email' => $user->mail->getString(),
+    'phone' => $user->field_user_phone ? $user->field_user_phone->getString() : '',
+    'unique_external_id' => $user->id(),
+  ];
+
+  // Check if first or last name is set, and if so, use this for the name.
+  if ($user->field_first_name->isEmpty() && $user->field_last_name->isEmpty()) {
+    $params['name'] = $user->mail->getString();
+  }
+  else {
+    $params['name'] = substr($user->field_first_name->getString() . ' ' . $user->field_last_name->getString(), 0, 255);
+  }
+
+  // Check if user needs a company set.
+  $params['company_id'] = (int)_freshdesk_integration_company_from_user_by_role($user);
+
+  // if (is_numeric($company_id) && $company_id >= 0) {
+  //   $params['company_id'] = (int)$company_id;
+  // }
+  // else {
+  //   //TODO: Maybe Need value to pass to remove company, waiting on API fix from Freshdesk.
+  //   if (@$company_id) {
+  //     $debugMsg = 'company_id MUST be integer or empty';
+  //   }
+  // }
+
+  // Check if user has profile image.
+  if ($user->field_user_image && isset($user->field_user_image->getValue()[0]['target_id'])) {
+    // Load user profile photo.
+    $file = File::load($user->field_user_image->getValue()[0]['target_id']);
+
+    // Get image filename.
+    $image_filename = $file->getFilename();
+    $image_mime = $file->getMimeType();
+    $image_uri = $file->getFileUri();
+
+    // Load image style if set in module configuration.
+    if ($config->get('image_style')) {
+      $image_style = ImageStyle::load($config->get('image_style'));
+
+      // Generate derivative URI.
+      $final_image_uri = $image_style->buildUri($file->getFileUri());
+
+      // Generate image derivative.
+      if (!file_exists($final_image_uri)) {
+        $image_style->createDerivative($image_uri, $final_image_uri);
+      }
+    }
+    else {
+      $final_image_uri = $file->getFileUri();
+      $final_image_url = $file->url();
+    }
+    // Copy image file to temporary directory before uploading.
+    $temp_file_path = file_unmanaged_copy($final_image_uri, file_directory_temp());
+
+    // Add avatar image to parameters.
+    $params['avatar'] = new \CurlFile($temp_file_path, $image_mime, $image_filename);
+  }
+
+  // Example GET:  curl -v -u abcdefghij1234567890:X    -H "Content-Type: application/json" -X GET 'https://domain.freshdesk.com/api/v2/tickets'
+  // Example POST: curl -v -u user@yourcompany.com:test -H 'Content-Type: application/json' -X POST -d '{ "name":"Super Man", "email":"superman@freshdesk.com", "other_emails": ["lex@freshdesk.com", "louis@freshdesk.com"] }' 'https://domain.freshdesk.com/api/v2/contacts'
+  // reality: curl
+
+  $CURLOPT_URL = $config->get('url') . '/api/v2/contacts';
+  $CURLOPT_USERPWD = $config->get('apikey') . ':999999';
+  $fields = (is_array($params)) ? json_encode($params, JSON_FORCE_OBJECT) : $params;
+
+  ksm(['aaaaa', $CURLOPT_URL, $CURLOPT_USERPWD, $fields, $params]);
+
+  // Make cURL call.
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $CURLOPT_URL);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json', ]); // -H  for images, use 'Content-Type: multipart/form-data'
+  curl_setopt($ch, CURLOPT_USERPWD, $CURLOPT_USERPWD);
+  curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS); // HTTPS
+  // curl_setopt($ch, CURLOPT_POST, TRUE); // POST
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); // -X POST  (needed for the -d option)
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields); // -d
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+  // Make call to API.
+  $server_output = curl_exec($ch);
+  $info = curl_getinfo($ch);
+  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+  $headers = substr($server_output, 0, $header_size);
+  $response = substr($server_output, $header_size);
+
+  $http_headers = get_headers($info['url']);
+
+  ksm(['bbbbbbbb', $headers, $server_output, $server_output, $info]);
+
+
+  // Search for rate limit remaining line.
+  foreach ($http_headers as $header_value) {
+    if (substr($header_value, 0, 21) == 'x-ratelimit-remaining') {
+      // We found the rate limit remaining value.
+      $remaining = str_replace('x-ratelimit-remaining: ', '', $header_value);
+      break;
+    }
+  }
+
+  // Check response.
+  if ($info['http_code'] == 201) {
+    \Drupal::logger('freshdesk_integration')->notice('Created user: ' . $user->id() . ' via Freshdesk API' . '<br />Remaining: ' . $remaining);
+
+    $response_json = json_decode($server_output, TRUE);
+
+    // Send invite to user
+    // _freshdesk_integration_invite($response_json['id']);
+    // Update Freshdesk ID on user entity.
+    $user->freshdesk_id = $response_json['id'];
+    $user->save();
+  }
+  else {
+    \Drupal::logger('freshdesk_integration')->error('Failed to create user: ' . $user->id() . ' via Freshdesk API. HTTP Status Code: ' . $info['http_code'] . '<br />' . $server_output);
+  }
+  curl_close($ch);
+  if (isset($temp_file_path)) {
+    // Delete temporary file.
+    file_unmanaged_delete($temp_file_path);
+  }
+}
+
+/**
+ * Update Freshdesk contact via API.
+ *
+ * @param object $user
+ *   A user account object.
+ */
+function _freshdesk_integration_update($user) {
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+
+  // Check if user has Freshdesk ID set.
+  if (is_numeric($user->freshdesk_id->getString())) {
+    // Set up parameters for API call.
+    $params = [
+      'email' => $user->mail->getString(),
+      'phone' => $user->field_user_phone->getString(),
+      'unique_external_id' => $user->id(),
+    ];
+
+    // Check if first or last name is set, and if so, use this for the name.
+    if ($user->field_first_name->isEmpty() && $user->field_last_name->isEmpty()) {
+      $params['name'] = $user->mail->getString();
+    }
+    else {
+      $params['name'] = substr($user->field_first_name->getString() . ' ' . $user->field_last_name->getString(), 0, 255);
+    }
+
+    // Check if user` needs a company set.
+    $params['company_id'] = (int)_freshdesk_integration_company_from_user_by_role($user);
+    // if (is_numeric($company_id) && $company_id >= 0) {
+    //   $params['company_id'] = (int)$company_id;
+    // }
+    // else {
+    //   // Need value to pass to remove company.
+    //   $params['company_id'] = (int)$company_id;
+    // }
+    // Check if user has profile image.
+    if (isset($user->field_user_image->getValue()[0]['target_id'])) {
+      // Load user profile photo.
+      $file = File::load($user->field_user_image->getValue()[0]['target_id']);
+
+      // Get image filename.
+      $image_filename = $file->getFilename();
+      $image_mime = $file->getMimeType();
+      $image_uri = $file->getFileUri();
+
+      // Load image style if set in module configuration.
+      if ($config->get('image_style')) {
+        $image_style = ImageStyle::load($config->get('image_style'));
+
+        // Generate derivative URI.
+        $final_image_uri = $image_style->buildUri($file->getFileUri());
+
+        // Generate image derivative.
+        if (!file_exists($final_image_uri)) {
+          $image_style->createDerivative($image_uri, $final_image_uri);
+        }
+      }
+      else {
+        $final_image_uri = $file->getFileUri();
+        $final_image_url = $file->url();
+      }
+      // Copy image file to temporary directory before uploading.
+      $temp_file_path = file_unmanaged_copy($final_image_uri, file_directory_temp());
+
+      // Add avatar image to parameters.
+      $params['avatar'] = new \CurlFile($temp_file_path, $image_mime, $image_filename);
+    }
+    // Make cURL call.
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $config->get('url') . '/api/v2/contacts/' . $user->freshdesk_id->getString());
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+      'Content-Type: multipart/form-data',
+    ]);
+    curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+    // Make call to API.
+    $server_output = curl_exec($ch);
+    $info = curl_getinfo($ch);
+    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    $headers = substr($server_output, 0, $header_size);
+    $response = substr($server_output, $header_size);
+    $http_headers = get_headers($info['url']);
+    // Search for rate limit remaining line.
+    foreach ($http_headers as $header_value) {
+      if (substr($header_value, 0, 21) == 'x-ratelimit-remaining') {
+        // We found the rate limit remaining value.
+        $remaining = str_replace('x-ratelimit-remaining: ', '', $header_value);
+        break;
+      }
+    }
+
+    // Check response.
+    if ($info['http_code'] == 200) {
+      \Drupal::logger('freshdesk_integration')->notice('Updated user: ' . $user->id() . ' via Freshdesk API' . '<br />Remaining: ' . $remaining);
+    }
+    else {
+      \Drupal::logger('freshdesk_integration')->error('Failed to update user: ' . $user->id() . ' via Freshdesk API. HTTP Status Code: ' . $info['http_code'] . '<br /> ' . $server_output);
+    }
+    curl_close($ch);
+    if (isset($temp_file_path)) {
+      // Delete temporary file.
+      file_unmanaged_delete($temp_file_path);
+    }
+  }
+}
+
+/**
+ * Delete Freshdesk contact via API.
+ *
+ * @param object $user
+ *   A user account object.
+ */
+function _freshdesk_integration_delete($user) {
+  \Drupal::logger('freshdesk_integration')->notice('Deleted user: ' . $user->id() . ' via Freshdesk API');
+}
+
+/**
+ * Sends Freshdesk requester activation email.
+ */
+function _freshdesk_integration_invite($id) {
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+
+  // Make cURL call.
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $config->get('url') . 'api/v2/contacts/' . $id . '/send_invite');
+  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+  // Make call to API.
+  $server_output = curl_exec($ch);
+  $info = curl_getinfo($ch);
+  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+  $headers = substr($server_output, 0, $header_size);
+  $response = substr($server_output, $header_size);
+
+  $http_headers = get_headers($info['url']);
+  // Search for rate limit remaining line.
+  foreach ($http_headers as $header_value) {
+    if (substr($header_value, 0, 21) == 'x-ratelimit-remaining') {
+      // We found the rate limit remaining value.
+      $remaining = str_replace('x-ratelimit-remaining: ', '', $header_value);
+      break;
+    }
+  }
+
+  // Check response.
+  if ($info['http_code'] == 204) {
+    \Drupal::logger('freshdesk_integration')->notice('Invite sent to Freshdesk ID: ' . $id . ' via Freshdesk API' . '<br />Remaining: ' . $remaining);
+  }
+  else {
+    \Drupal::logger('freshdesk_integration')->error('Failed to send invite to Freshdesk ID: ' . $id . ' via Freshdesk API. HTTP Status Code: ' . $info['http_code'] . '<br />' . $server_output);
+  }
+  curl_close($ch);
+}
+
+/**
+ * Send an outbound message to a customer.
+ *
+ * @param string $mail
+ *   The Receiver.
+ * @param string $subject
+ *   Subject of the email to be sent.
+ * @param string $message
+ *   Message to be sent.
+ *
+ * @return bool|int
+ *   The remaining of quote of FALSE if we got error.
+ */
+function _freshdesk_integration_send_message($mail, $subject, $message) {
+  /** @var \GuzzleHttp\Client $client */
+  $client = \Drupal::httpClient();
+  $logger = \Drupal::logger('freshdesk_integration');
+
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+  $uri = $config->get('url') . '/api/v2/tickets/outbound_email';
+
+  // Required params.
+  $params = [
+    'email' => $mail,
+    'subject' => $subject,
+    'description' => $message,
+    'status' => 5,
+    'priority' => 2,
+    'email_config_id' => 43000131186,
+  ];
+
+  try {
+    $response = $client->post($uri, [
+      'headers' => ['Content-Type' => 'application/json'],
+      'auth' => [$config->get('apikey'), '999999'],
+      'timeout' => 30,
+      'body' => json_encode($params),
+    ]);
+
+    $remaining = (int) $response->getHeaderLine('x-ratelimit-remaining');
+    $status_code = $response->getStatusCode();
+    if ($status_code != 201) {
+      $logger->error(t('Failed to send message to: %mail via Freshdesk API. HTTP Status Code: %code', [
+        '%mail' => $mail,
+        '%code' => $status_code,
+      ]));
+      $remaining = 0;
+    }
+  }
+  catch (Exception $e) {
+    $logger->error(t('Failed to send message to: %mail via Freshdesk API. Freshdesk API error: %error', [
+      '%mail' => $mail,
+      '%error' => $e->getMessage(),
+    ]));
+
+    return FALSE;
+  }
+
+  return $remaining ?? 500;
+}
+
+/**
+ * Get companies user should be associated with in Freshdesk based on roles.
+ *
+ * @param object $user
+ *   A user account object.
+ */
+function _freshdesk_integration_company_from_user_by_role($user) {
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+
+  // Check if push is enabled.
+  if ($config->get('push')) {
+    $config_roles = $config->get('roles_companies');
+    if (is_array($config_roles)) {
+      foreach ($config_roles as $role => $settings) {
+        if (in_array($role, $user->getRoles())) {
+          // bfss custom  if (in_array('authenticated', $user->getRoles())) {
+          // User has role with company configuration
+          // Return company ID.
+          return($settings['company']);
+        }
+      }
+    }
+    return FALSE;
+  }
+}
+
+/**
+ * Checks if a contact exists in Freshdesk matching uid of user.
+ *
+ * @param string $uid
+ *   A user account object.
+ *
+ * @return string or FALSE
+ *   Freshdesk ID of user (to be updated on user entity)
+ */
+function _freshdesk_integration_contact_exists_by_uid($uid) {
+  // Load module configuration.
+  $config = \Drupal::config('freshdesk_integration.settings');
+
+  // Make cURL call.
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $config->get('url') . '/api/v2/contacts?unique_external_id=' . $uid);
+  curl_setopt($ch, CURLOPT_USERPWD, $config->get('apikey') . ':999999');
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+  // Make call to API.
+  $server_output = curl_exec($ch);
+  $info = curl_getinfo($ch);
+  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+  $headers = substr($server_output, 0, $header_size);
+  $response = substr($server_output, $header_size);
+  // Check response.
+  if ($info['http_code'] == 200) {
+    $response_json = json_decode($server_output, TRUE);
+    if (isset($response_json[0]['id'])) {
+      return $response_json[0]['id'];
+    }
+    else {
+      return FALSE;
+    }
+  }
+  else {
+    return FALSE;
+  }
+  curl_close($ch);
+}
+
+/**
+ * Utility function (for development use, call from PHP)
+ */
+function _freshdesk_integration_get_number_of_unsynced_users() {
+  $ids = \Drupal::entityQuery('user')->notExists('freshdesk_id')->execute();
+  return count($ids);
+}
+
+/**
+ * Utility function (for development use, call from PHP)
+ */
+function _freshdesk_integration_batch_sync() {
+  $ids = \Drupal::entityQuery('user')->notExists('freshdesk_id')->execute();
+
+  foreach ($ids as $id) {
+    $user = user_load($id);
+    _freshdesk_integration_create($user);
+  }
+}
+
+/**
+ *
+ */
+function _freshdesk_integration_batch_sync_finished() {
+  drupal_set_message('Contacts synchronized successfully.');
+}
+
+//Other utility functions for syncing and migrating users and tickets

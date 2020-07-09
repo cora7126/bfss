@@ -1,2 +1,4 @@
 web/sites/default/files/
 web/sites/default/files/contentimportlog.txt
+/.vscode
+/.vscode/sftp.json

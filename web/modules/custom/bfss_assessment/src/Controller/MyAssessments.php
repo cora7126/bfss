@@ -5,55 +5,12 @@ use Drupal\Core\Controller\ControllerBase;
 use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
+use Drupal\bfss_assessment\AssessmentService;
 
 /**
  * Provides route responses for the Example module.
  */
 class MyAssessments extends ControllerBase {
-
-  /** TODO: make utility class
-   * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
-   * @param string $assessmentPrice
-   */
-  protected function getFormTypeFromPrice($assessmentPrice) {
-    if($assessmentPrice == '299.99'){
-      return 'elite';
-    }elseif($assessmentPrice == '29.99'){
-      return 'starter';
-    }elseif($assessmentPrice == '69.99'){
-      return 'professional';
-    }else{
-      return 'UNKNOWN';
-    }
-  }
-  /** TODO: make utility class
-   * Find the pdf template "fid" -- see /admin/structure/fillpdf
-   * @param string $form_type
-   */
-  public function getPdfTemplateId($form_type) {
-    switch ($form_type) {
-      case 'starter':
-        return '12';
-      case 'professional':
-        return '11';
-      case 'elite':
-        return '10';
-      default:
-       return -1111;
-    }
-   }
-
-  /** TODO: make utility class;
-   * Return a url to download the assessment pdf.
-   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
-   */
-  protected function getFillPdfUrl($pdf_template_fid, $nid) {
-    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
-    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
-    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
-
-  }
-
 
   /**
    * Returns a simple page.
@@ -111,7 +68,7 @@ class MyAssessments extends ControllerBase {
           $results5 = $query5->execute()->fetchAssoc();
           $sport = $results5['athlete_school_sport'];
 
-          $realFormType = $this->getFormTypeFromPrice($entity->service->value);
+          $realFormType = AssessmentService::getFormTypeFromPrice($entity->service->value);
 
           if(!empty($entity->assessment->value)){
             $Assess_type = 'individual';
@@ -184,11 +141,11 @@ class MyAssessments extends ControllerBase {
 
       $urlhtml = $formtype = '';
       if($item['status'] == 'complete' || $item['status'] == 'incomplete'){
-        $pdf_template_fid = $this->getPdfTemplateId($item['formtype']);
 
-        // ksm('iiiiiiiiiiiiiiiiiiiiiiiiii', $item);
+				$pdf_template_fid = AssessmentService::getPdfTemplateId($item['formtype']);
 
-        $fillPdfUrl = $this->getFillPdfUrl($pdf_template_fid, $item['booked_id']);
+				$fillPdfUrl = AssessmentService::getFillPdfUrl($pdf_template_fid, $item['booked_id']);
+
         $urlhtml = '<a href="'.$fillPdfUrl.'" target="_blank">';
       }
       if(!empty($item['formtype'])){

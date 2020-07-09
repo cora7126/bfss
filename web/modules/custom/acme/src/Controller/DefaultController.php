@@ -8,12 +8,13 @@ use \Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Render\Markup;
 Use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\bfss_assessment\AssessmentService;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 class DefaultController extends ControllerBase {
 
   public function dashboard() {
-  
+
     //get current user
     $uid = \Drupal::currentUser()->id();
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
@@ -89,7 +90,7 @@ class DefaultController extends ControllerBase {
          $BlockData = $assessments_block;
         }
 
-        
+
 
           return [
           '#cache' => ['max-age' => 0,],
@@ -194,26 +195,22 @@ public function userform()
           $result = array();
           $booked_ids = \Drupal::entityQuery('bfsspayments')
           ->condition('user_id',$uid,'IN')
-          ->sort('created', 'DESC') 
+          ->sort('created', 'DESC')
           ->execute();
                // print_r($booked_ids);die;
                 if(!empty($booked_ids) && is_array($booked_ids)){
                   foreach ($booked_ids  as $key => $booked_id) {
-                            $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-                            $timestamp = $entity->time->value;
-                            $booking_date = date("F j, Y",$timestamp);
-                            if($entity->service->value == '299.99'){
-                                $formtype = 'Elete Assessment';
-                            }elseif($entity->service->value == '29.99'){
-                                $formtype = 'Starter Assessment';
-                            }elseif($entity->service->value == '69.99'){
-                                $formtype = 'Professional Assessment';
-                            }
+                      $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+                      $timestamp = $entity->time->value;
+                      $booking_date = date("F j, Y",$timestamp);
 
-                            $result[] = [
-                              'formtype' => $formtype,
-                              'date' => $booking_date,
-                            ];
+                      $formtype = AssessmentService::getFormTypeFromPrice($entity->service->value);
+                      $formtype .= ' Assessment';
+
+                      $result[] = [
+                        'formtype' => $formtype,
+                        'date' => $booking_date,
+                      ];
                   }
                 }
           return !empty($result)?$result:null;
@@ -287,19 +284,13 @@ public function userform()
                 $sport = $results5['athlete_school_sport'];
                 $postion = $results5['athlete_school_pos'];
 
-                  if($entity->service->value == '199.99'){
-                      $formtype = 'elete';
-                  }elseif($entity->service->value == '29.99'){
-                      $formtype = 'starter';
-                  }elseif($entity->service->value == '69.99'){
-                      $formtype = 'professional';
-                  }
+                $formtype = AssessmentService::getFormTypeFromPrice($entity->service->value);
 
-                  if(!empty($entity->assessment->value)){
-                    $Assess_type = 'individual';
-                  }else{
-                    $Assess_type = 'private';
-                  }
+                if(!empty($entity->assessment->value)){
+                  $Assess_type = 'individual';
+                }else{
+                  $Assess_type = 'private';
+                }
 
                 $st ='';
                 $assess_nid = '';
@@ -309,7 +300,7 @@ public function userform()
                     $node1 = Node::load($value);
                     $field_status = $node1->field_status->value;
                     $assess_nid = $value;
-                  } 
+                  }
                 }else{
                    $field_status = 'No Show';
                    $st = 0;
@@ -331,9 +322,9 @@ public function userform()
                   'sport' => $sport,
                   'postion' => $postion,
                   'user_id' => $user_id,
-                ); 
-          }   
-        } 
+                );
+          }
+        }
          $tb1 = '
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
@@ -342,22 +333,22 @@ public function userform()
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Date</a>
-                </th> 
+                </th>
                   <th class="th-hd"><a><span></span>Time</a>
-                </th>  
+                </th>
                 <th class="th-hd"><a><span></span>Name</a>
                 </th>
-              
+
                 <th class="th-hd"><a><span></span>Assessment Type</a>
                 </th>
                 <th class="th-hd"><a><span></span>Location</a>
                 </th>
-               
+
               </tr>
             </thead>
             <tbody>';
 
-            
+
           foreach ($result as $item) {
           $nid = $item['nid'];
           $type = $item['formtype'];
@@ -367,7 +358,7 @@ public function userform()
           $user_name = $item['user_name'];
 
         $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&user_id='.$item['user_id'];
-       
+
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
         $tb1 .= '<tr>
@@ -376,9 +367,9 @@ public function userform()
           <td>'.$user_name.'</td>
           <td>'.$item['formtype'].'</td>
           <td>'.$item['address_1'].'</td>
-          </tr>'; 
+          </tr>';
 
-      
+
       }
       $tb1 .= '</tbody>
             </table>
@@ -401,20 +392,20 @@ public function userform()
         }else{
             $current_assessors_id = '';
         }
-      
+
         $query = \Drupal::entityQuery('node');
         $query->condition('type', 'assessment');
         #$query->condition('field_assessors', $current_assessors_id , '=');
         #$query->pager(10, (int) $ele);
-        $nids = $query->execute(); 
-  
+        $nids = $query->execute();
+
         $result = array();
         foreach ($nids as $nid) {
-        
+
           $node = Node::load($nid);
           $title = $node->title->value;
           $timeslots = $this->getSchedulesofAssessment_slots($nid);
-         
+
           foreach ($timeslots as $timeslot) {
             $booked_ids = \Drupal::entityQuery('bfsspayments')
             ->condition('assessment',$nid,'IN')
@@ -443,13 +434,13 @@ public function userform()
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Date</a>
-                </th> 
+                </th>
                   <th class="th-hd"><a><span></span>Time</a>
-                </th>  
+                </th>
                 <th class="th-hd"><a><span></span>Event Name</a>
                 </th>
                 <th class="th-hd"><a><span></span>Attendees</a>
-                </th>               
+                </th>
               </tr>
             </thead>
             <tbody>';
@@ -457,7 +448,7 @@ public function userform()
       foreach ($result as $item) {
           $url = 'assessment-event?nid='.$item['nid'].'&timeslot='.$item['timeslot'].'&title='.$item['title'];
           $title = Markup::create('<a href="'.$url.'">'.$item['title'].'</a>');
-       
+
          $tb1 .= '<tr>
           <td>'.$item['date'].'</td>
           <td>'.$item['time'].'</td>
@@ -486,7 +477,7 @@ public function userform()
                 $pGraph = Paragraph::load($element['target_id'] );
                 if ($pGraph->hasField('field_timing')/* && $pGraph->hasField('field_duration')*/) {
                   $timing = (int) $pGraph->get('field_timing')->value;
-                
+
                   if ($timing > time()) {
                     $data[$timing] = $timing;
                   }
@@ -514,17 +505,11 @@ public function userform()
             $amount = $entity->service->value;
             $nid = $entity->assessment->value;
             $assessmentDate = date('F d, Y',$entity->time->value);
-            
+
             $type = $node->field_type_of_assessment->value;
-              if($amount == '29.99'){
-                $program = 'Starter';
-              }elseif($amount == '69.99'){
-                $program = 'Professional';
-              }elseif($amount == '299.99'){
-                $program = 'Elite';
-              }else{
-                $program = '';
-              }
+
+            $program = AssessmentService::getFormTypeFromPrice($amount);
+
             $full_name = $entity->first_name->value.' '.$entity->last_name->value;
             $city = $entity->city->value;
             $state = $entity->state->value;
@@ -532,18 +517,18 @@ public function userform()
                 $node = Node::load($nid);
                 if(!empty($node)){
                 $m_uid = $node->getOwnerId();
-         
+
                 if(isset($m_uid)){
                   $m_user = User::load($m_uid);
                   $roles = $m_user->getRoles();
                   if(in_array('bfss_manager', $roles)){
                     $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-                  } 
+                  }
                 }
                 }
-                
+
             }
-            
+
 
             if (strpos($amount, 'freecredit') !== false) {
               #code for this condition
@@ -560,7 +545,7 @@ public function userform()
                 'user_id' => $entity->user_id->value,
               ];
             }
-        } 
+        }
         $reg_payments = $this->GET_bfss_register_user_payments();
         $data = array_merge($data,$reg_payments);
         foreach ($data as $key => $part) {
@@ -575,9 +560,9 @@ public function userform()
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Date</a>
-                </th> 
+                </th>
                   <th class="th-hd long-th th-last"><a><span></span>Customer Name</a>
-                </th>  
+                </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>City</a>
                 </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>State</a>
@@ -604,7 +589,7 @@ public function userform()
           <td>'.$value['manager_name'].'</td>
            </tr>';
         }
-         
+
          $tb1 .= '
             </tbody>
             </table>
@@ -646,14 +631,14 @@ public function userform()
                       $roles = $m_user->getRoles();
                       if(in_array('bfss_manager', $roles)){
                         $m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-                      } 
+                      }
                     }
                   }
-                 
-              }
-              
 
-            }           
+              }
+
+
+            }
         if($user){
           $register_payment_data[] = [
             'purchased_date' => $value->created,
@@ -670,7 +655,7 @@ public function userform()
         }
           }
       }
-       return $register_payment_data;       
+       return $register_payment_data;
     }
 
 }

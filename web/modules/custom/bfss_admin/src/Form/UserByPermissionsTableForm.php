@@ -59,10 +59,10 @@ class UserByPermissionsTableForm extends FormBase {
     if(isset($param['role'])){
        $form['#tree'] = TRUE;
 
-       $form['html_start'] = [ 
+       $form['html_start'] = [
         '#type' => 'markup',
         '#markup' => '<div class="left_section popup_left_section">
-                     <div class="athlete_left"> 
+                     <div class="athlete_left">
                       <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SELECT PERMISSIONS</h3>
                       <div class="items_div">
                       <div class="table">
@@ -83,7 +83,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#attributes' => ['id' => 'profile-details'],
       ];
 
-      $form['profile']['view'] = [ 
+      $form['profile']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $profile['view'],
             '#prefix' => '<ul>
@@ -93,7 +93,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['profile']['create'] = [ 
+      $form['profile']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $profile['create'],
             '#prefix' => '<li>',
@@ -101,7 +101,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['profile']['edit'] = [ 
+      $form['profile']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $profile['edit'],
             '#prefix' => '<li>',
@@ -109,7 +109,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['profile']['admin'] = [ 
+      $form['profile']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $profile['admin'],
             '#prefix' => '<li>',
@@ -121,7 +121,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['Organizations']['view'] = [ 
+      $form['Organizations']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $Organizations['view'],
             '#prefix' => '<ul><li>Organizations</li>
@@ -130,7 +130,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['Organizations']['create'] = [ 
+      $form['Organizations']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $Organizations['create'],
             '#prefix' => '<li>',
@@ -138,7 +138,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['Organizations']['edit'] = [ 
+      $form['Organizations']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $Organizations['edit'],
             '#prefix' => '<li>',
@@ -146,7 +146,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['Organizations']['admin'] = [ 
+      $form['Organizations']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $Organizations['admin'],
             '#prefix' => '<li>',
@@ -158,7 +158,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['faqs']['view'] = [ 
+      $form['faqs']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $faqs['view'],
             '#prefix' => '<ul><li>FAQs</li>
@@ -167,7 +167,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['faqs']['create'] = [ 
+      $form['faqs']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $faqs['create'],
             '#prefix' => '<li>',
@@ -175,7 +175,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['faqs']['edit'] = [ 
+      $form['faqs']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $faqs['edit'],
             '#prefix' => '<li>',
@@ -183,7 +183,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['faqs']['admin'] = [ 
+      $form['faqs']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $faqs['admin'],
             '#prefix' => '<li>',
@@ -195,7 +195,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['ticketing']['view'] = [ 
+      $form['ticketing']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $ticketing['view'],
             '#prefix' => '<ul><li>Ticketing</li>
@@ -204,7 +204,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['ticketing']['create'] = [ 
+      $form['ticketing']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $ticketing['create'],
             '#prefix' => '<li>',
@@ -212,7 +212,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['ticketing']['edit'] = [ 
+      $form['ticketing']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $ticketing['edit'],
             '#prefix' => '<li>',
@@ -220,7 +220,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['ticketing']['admin'] = [ 
+      $form['ticketing']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $ticketing['admin'],
             '#prefix' => '<li>',
@@ -233,7 +233,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['users']['view'] = [ 
+      $form['users']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $users['view'],
             '#prefix' => '<ul><li>Users</li>
@@ -242,7 +242,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['users']['create'] = [ 
+      $form['users']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $users['create'],
             '#prefix' => '<li>',
@@ -250,7 +250,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['users']['edit'] = [ 
+      $form['users']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $users['edit'],
             '#prefix' => '<li>',
@@ -258,7 +258,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['users']['admin'] = [ 
+      $form['users']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $users['admin'],
             '#prefix' => '<li>',
@@ -271,7 +271,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['pending_approval']['view'] = [ 
+      $form['pending_approval']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $pending_approval['view'],
             '#prefix' => '<ul><li>Pending Approval</li>
@@ -280,7 +280,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['pending_approval']['create'] = [ 
+      $form['pending_approval']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $pending_approval['create'],
             '#prefix' => '<li>',
@@ -288,7 +288,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['pending_approval']['edit'] = [ 
+      $form['pending_approval']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $pending_approval['edit'],
             '#prefix' => '<li>',
@@ -296,7 +296,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['pending_approval']['admin'] = [ 
+      $form['pending_approval']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $pending_approval['admin'],
             '#prefix' => '<li>',
@@ -310,7 +310,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['users_type_permissions']['view'] = [ 
+      $form['users_type_permissions']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $users_type_permissions['view'],
             '#prefix' => '<ul><li>Users Type Permissions</li>
@@ -319,7 +319,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['users_type_permissions']['create'] = [ 
+      $form['users_type_permissions']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $users_type_permissions['create'],
             '#prefix' => '<li>',
@@ -327,7 +327,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['users_type_permissions']['edit'] = [ 
+      $form['users_type_permissions']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $users_type_permissions['edit'],
             '#prefix' => '<li>',
@@ -335,7 +335,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['users_type_permissions']['admin'] = [ 
+      $form['users_type_permissions']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $users_type_permissions['admin'],
             '#prefix' => '<li>',
@@ -349,7 +349,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['editable_templates']['view'] = [ 
+      $form['editable_templates']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $editable_templates['view'],
             '#prefix' => '<ul><li>Editable Templates</li>
@@ -358,7 +358,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['editable_templates']['create'] = [ 
+      $form['editable_templates']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $editable_templates['create'],
             '#prefix' => '<li>',
@@ -366,7 +366,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['editable_templates']['edit'] = [ 
+      $form['editable_templates']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $editable_templates['edit'],
             '#prefix' => '<li>',
@@ -374,7 +374,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['editable_templates']['admin'] = [ 
+      $form['editable_templates']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $editable_templates['admin'],
             '#prefix' => '<li>',
@@ -387,7 +387,7 @@ class UserByPermissionsTableForm extends FormBase {
         '#type' => 'container',
         '#attributes' => ['id' => 'profile-details'],
       ];
-      $form['assessments']['view'] = [ 
+      $form['assessments']['view'] = [
             '#type' => 'checkbox',
             '#default_value' => $assessments['view'],
             '#prefix' => '<ul><li>Assessments</li>
@@ -396,7 +396,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
         ];
 
-      $form['assessments']['create'] = [ 
+      $form['assessments']['create'] = [
             '#type' => 'checkbox',
             '#default_value' => $assessments['create'],
             '#prefix' => '<li>',
@@ -404,7 +404,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['assessments']['edit'] = [ 
+      $form['assessments']['edit'] = [
             '#type' => 'checkbox',
             '#default_value' => $assessments['edit'],
             '#prefix' => '<li>',
@@ -412,7 +412,7 @@ class UserByPermissionsTableForm extends FormBase {
             ',
       ];
 
-      $form['assessments']['admin'] = [ 
+      $form['assessments']['admin'] = [
             '#type' => 'checkbox',
             '#default_value' => $assessments['admin'],
             '#prefix' => '<li>',
@@ -421,14 +421,14 @@ class UserByPermissionsTableForm extends FormBase {
       ];
 
 
-      $form['html_end'] = [ 
+      $form['html_end'] = [
         '#type' => 'markup',
         '#markup' => '</div> <!--table end -->
           </div>
         </div>
         </div>',
       ];
-      
+
       $form['actions']['#type'] = 'actions';
       $form['actions']['submit'] = [
           '#type' => 'submit',
@@ -449,27 +449,27 @@ class UserByPermissionsTableForm extends FormBase {
            //  ]
       ];
     }else{
-      $form['html_start'] = [ 
+      $form['html_start'] = [
           '#type' => 'markup',
           '#markup' => '',
         ];
     }
-   
 
 
-   
+
+
 
   	 return $form;
   }
 
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    
+
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $param = \Drupal::request()->query->all();
     $conn = Database::getConnection();
-    
+
     $role = '';
     if(isset($param['role'])){
       if($param['role'] == 'Athletes'){
@@ -487,7 +487,7 @@ class UserByPermissionsTableForm extends FormBase {
       }
     }
 
-  
+
         $query = $this->Get_Data_From_Tables('bfss_admin_permissions','at',$role);
         if(empty($query)){
 
@@ -504,9 +504,9 @@ class UserByPermissionsTableForm extends FormBase {
                 'editable_templates' => serialize($form_state->getValue('editable_templates')),
                 'assessments' => serialize($form_state->getValue('assessments')),
               ]
-            )->execute(); 
+            )->execute();
           }else{
-         
+
             $conn->update('bfss_admin_permissions')->condition('role', $role, '=')->fields(
               [
                 'profile' => serialize($form_state->getValue('profile')),
@@ -519,9 +519,9 @@ class UserByPermissionsTableForm extends FormBase {
                 'editable_templates' => serialize($form_state->getValue('editable_templates')),
                 'assessments' => serialize($form_state->getValue('assessments')),
               ]
-            )->execute();            
+            )->execute();
         }
-    
+
   }
 
   public function myAjaxCallback(array &$form, FormStateInterface $form_state){
@@ -533,7 +533,7 @@ class UserByPermissionsTableForm extends FormBase {
       $response = new \Drupal\Core\Ajax\AjaxResponse();
       $url = '/user-type-permissions?role='.$selectedText;
       $response->addCommand(new RedirectCommand($url));
-      
+
     }
     return $response;
   }

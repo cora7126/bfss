@@ -4,6 +4,7 @@ use Drupal\Core\Controller\ControllerBase;
 use \Drupal\node\Entity\Node;
 use  \Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
+use Drupal\bfss_assessment\AssessmentService;
 use Drupal\Core\Database\Database;
 use Drupal\user\Entity\Role;
 
@@ -21,7 +22,8 @@ class ManagersPaidPaymentController extends ControllerBase {
         		$paid_date = $entity->created->value;
 		      	$amount = $entity->service->value;
 		      	$nid = $entity->assessment->value;
-		      	$assessmentDate = date('F d, Y',$entity->time->value);
+					$assessmentDate = date('F d, Y',$entity->time->value);
+
 		      	if(isset($nid)){
 		      		$node = Node::load($nid);
 		      		if(!empty($node))
@@ -32,23 +34,15 @@ class ManagersPaidPaymentController extends ControllerBase {
 					      	$roles = $m_user->getRoles();
 					      	if(in_array('bfss_manager', $roles)){
 					      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-					      	}	
+					      	}
 				      	}
-		      		}	
+		      		}
 		      	}
-		      	
-		      	
-		      	
-		      	$type = $node->field_type_of_assessment->value;
-			      	if($amount == '29.99'){
-			      		$program = 'Starter';
-			      	}elseif($amount == '69.99'){
-			      		$program = 'Professional';
-			      	}elseif($amount == '299.99'){
-			      		$program = 'Elite';
-			      	}else{
-			      		$program = '';
-			      	}
+
+					$type = $node->field_type_of_assessment->value;
+
+					$program = AssessmentService::getFormTypeFromPrice($amount);
+
 		      	$full_name = $entity->first_name->value.' '.$entity->last_name->value;
 		      	$city = $entity->city->value;
 		      	$state = $entity->state->value;
@@ -67,10 +61,10 @@ class ManagersPaidPaymentController extends ControllerBase {
 			       		'manager_name' => $m_name,
 			       	];
 		       }
-        }	
-        
+        }
+
         $reg_payments = $this->GET_bfss_register_user_payments();
-     
+
         $data = array_merge($data,$reg_payments);
         foreach ($data as $key => $part) {
        		$sort[$key] = $part['purchased_date'];
@@ -85,9 +79,9 @@ class ManagersPaidPaymentController extends ControllerBase {
             <thead>
               <tr>
                 <th class="th-hd"><a><span></span>Purchased Date</a>
-                </th> 
+                </th>
                   <th class="th-hd long-th th-last"><a><span></span>Customer Name</a>
-                </th>  
+                </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>City</a>
                 </th>
                 <th class="th-hd long-th th-fisrt"><a><span></span>State</a>
@@ -114,7 +108,7 @@ class ManagersPaidPaymentController extends ControllerBase {
 	        <td>'.$value['manager_name'].'</td>
 	        </tr>';
         }
-         
+
          $tb1 .= '</tbody>
             </table>
              </div>
@@ -131,8 +125,8 @@ class ManagersPaidPaymentController extends ControllerBase {
 		        'acme/acme-styles', //include our custom library for this response
       			]
     		]
-  		]; 
-	   
+  		];
+
   	}
 
 	function GET_bfss_register_user_payments(){
@@ -168,12 +162,12 @@ class ManagersPaidPaymentController extends ControllerBase {
 					      	$roles = $m_user->getRoles();
 					      	if(in_array('bfss_manager', $roles)){
 					      		$m_name = $m_user->field_first_name->value.' '.$m_user->field_last_name->value;
-					      	}	
+					      	}
 				      	}
-		      		}	
+		      		}
 		      		}
 	        	}
-	        	
+
 				if($user){
 					$register_payment_data[] = [
 						'purchased_date' => $value->created,
@@ -189,8 +183,8 @@ class ManagersPaidPaymentController extends ControllerBase {
 				}
 	        }
     	}
-       return $register_payment_data;     	
+       return $register_payment_data;
   	}
-  	
+
 
 }

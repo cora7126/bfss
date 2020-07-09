@@ -21,40 +21,7 @@ use \Drupal\node\Entity\Node;
 
 class AssessmentSnapshotBlock extends BlockBase {
 
-  /** TODO: make utility class
-   * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
-   * @param string $assessmentPrice
-   */
-  public function getFormTypeFromPrice($assessmentPrice) {
-	if($assessmentPrice == '299.99'){
-	  return 'elite';
-	}elseif($assessmentPrice == '29.99'){
-	  return 'starter';
-	}elseif($assessmentPrice == '69.99'){
-	  return 'professional';
-	}else{
-	  return 'UNKNOWN';
-	}
- }
-
-  /** TODO: make utility class
-   * Find the pdf template "fid" -- see /admin/structure/fillpdf
-   * @param string $form_type
-   */
-  public function getPdfTemplateId($form_type) {
-	switch ($form_type) {
-      case 'starter':
-			return '12';
-		case 'professional':
-			return '11';
-		case 'elite':
-			return '10';
-		default:
-		 	return -1111;
-	}
- }
-
-	/** TODO: make utility class
+	/**
 	 * Returns one assessment data record - based on booked_id
 	* @param string $booked_id -- id of a single assessment
 	* @param string $userId -- current user
@@ -79,8 +46,6 @@ class AssessmentSnapshotBlock extends BlockBase {
 		// $query5->condition('athlete_uid', $userId,'=');
 		// $results5 = $query5->execute()->fetchAssoc();
 		// $sport = $results5['athlete_school_sport'];
-
-		// $realFormType = $this->getFormTypeFromPrice($entity->service->value);
 
 		$assmntData['field_status'] = 0;
 		$assmntData['field_age'] = 0;

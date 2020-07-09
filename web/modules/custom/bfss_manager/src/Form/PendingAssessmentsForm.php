@@ -10,52 +10,9 @@ use Drupal\Core\Form\FormStateInterface;
 use \Drupal\node\Entity\Node;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\bfss_assessment\AssessmentService;
+
 class PendingAssessmentsForm extends FormBase {
-
-  /** TODO: make utility class
-   * Use this to extract "professional", because $param['formtype'] only contains 'starter' OR 'elite'
-   * @param string $assessmentPrice
-   */
-  public function getFormTypeFromPrice($assessmentPrice) {
-    if($assessmentPrice == '299.99'){
-      return 'elite';
-    }elseif($assessmentPrice == '29.99'){
-      return 'starter';
-    }elseif($assessmentPrice == '69.99'){
-      return 'professional';
-    }else{
-      return 'UNKNOWN';
-    }
-  }
-
-  /** TODO: make utility class;
-   * Return a url to download the assessment pdf.
-   * @param string $pdf_template_fid -- see /admin/structure/fillpdf
-   */
-  protected function getFillPdfUrl($pdf_template_fid, $nid) {
-    $default_entity_id = ''; // $form_state->getValue('form_token'); // currently not used
-    return '/fillpdf?fid='.$pdf_template_fid.'&entity_type=node&entity_id='.$nid.'&download=1';
-    // http://bfss.mindimage.net/fillpdf?fid=2&entity_type=node&entity_id=310&download=1
-
-  }
-
-  /** TODO: make utility class
-   * Find the pdf template "fid" -- see /admin/structure/fillpdf
-   * @param string $form_type
-   */
-  public function getPdfTemplateId($form_type) {
-    switch ($form_type) {
-      case 'starter':
-        return '12';
-      case 'professional':
-        return '11';
-      case 'elite':
-        return '10';
-    default:
-        return -1111;
-    }
-  }
-
 
   /**
    * {@inheritdoc}
@@ -85,14 +42,16 @@ class PendingAssessmentsForm extends FormBase {
     $fieldAry[$fieldName] = array(
       '#type' => 'textfield',
       '#default_value' => $defaultValue,
-      #'#required' => TRUE,
+      // '#required' => TRUE,
       '#attributes' => array(
         'placeholder' => t($placeholder),
+        'title' => t($placeholder) . ($units ? '   (' . t($units) . ')' : ''),
         'style' => 'height: calc(1.4em + 0.3rem + 2px); ' . $style1 . ';',
       ),
     );
     $style2 = '';
     if ($units) {
+      // '#field_suffix' => t($units),
       $style2 = $modVal ? 'right: 50.4%' : 'right: 7.4%';
       $fieldWidth = 5;
       $fieldWidth += strlen($units) > 5 ? (strlen($units) * 0.3) : 0;
@@ -150,32 +109,32 @@ class PendingAssessmentsForm extends FormBase {
 
     if($nid && $formtype && $Assess_type)
     {
-      //jody - use this to extract "professional" (because $formtype only contains 'starter' OR 'elite')
+      //jody - use this to extract "professional" (because $formtype only contains 'Starter' OR 'Elite')
       $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($field_booked_id);
 
       $sport = $param['sport'] ? $param['sport'] : $entity->mydata->field_sport->value; // to be set in field_sport_assessment
       // $tmp_user_id = $entity->user_id->value;
 
-      $realFormType = $this->getFormTypeFromPrice($entity->service->value);
+      $realFormType = AssessmentService::getFormTypeFromPrice($entity->service->value);
 
       $realFormType = $realFormType ? $realFormType : $param['formtype'];
-
-      if($realFormType == 'starter' && $Assess_type == 'individual'){
+ksm('$realFormType', $realFormType);
+      if($realFormType == 'Starter' && $Assess_type == 'individual'){
         $form_title = 'STARTER ASSESSMENT';
       }
-      elseif($realFormType == 'professional' && $Assess_type == 'individual'){
+      elseif($realFormType == 'Professional' && $Assess_type == 'individual'){
         $form_title = 'PROFESSIONAL ASSESSMENT';
       }
-      elseif($realFormType == 'elite' && $Assess_type == 'individual'){
+      elseif($realFormType == 'Elite' && $Assess_type == 'individual'){
         $form_title = 'ELITE ASSESSMENT';
       }
-      elseif($realFormType == 'starter' && $Assess_type == 'private'){
+      elseif($realFormType == 'Starter' && $Assess_type == 'private'){
         $form_title = 'STARTER ASSESSMENT';
       }
-      elseif($realFormType == 'professional' && $Assess_type == 'private'){
+      elseif($realFormType == 'Professional' && $Assess_type == 'private'){
         $form_title = 'PROFESSIONAL ASSESSMENT';
       }
-      elseif($realFormType == 'elite' && $Assess_type == 'private'){
+      elseif($realFormType == 'Elite' && $Assess_type == 'private'){
           $form_title = 'ELITE ASSESSMENT';
       }
 
@@ -236,7 +195,7 @@ class PendingAssessmentsForm extends FormBase {
       $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'SEX'); // 4
 
       //------------------------------------ starter form
-      if($realFormType == 'starter')
+      if($realFormType == 'Starter')
       {
         $formFields['field_wrap_1'] = array(
           '#type' => 'fieldset',
@@ -268,7 +227,7 @@ class PendingAssessmentsForm extends FormBase {
       }
 
       //------------------------------------------ professional and elite form
-      else if($realFormType == 'professional' || $realFormType == 'elite')
+      else if($realFormType == 'Professional' || $realFormType == 'Elite')
       {
         $formFields['field_wrap_1'] = array(
           '#type' => 'fieldset',
@@ -316,7 +275,7 @@ class PendingAssessmentsForm extends FormBase {
         $formFields['field_wrap_1'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'ELITE PERFORMERS AGE', 'range'); // *ELITE PERFORMERS AGE
 
         //------------------------------------------ elite-only form fields
-        if($realFormType == 'elite')
+        if($realFormType == 'Elite')
         {
           //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ASSESSMENT TABLE 2    BFS Testing: Performance Tests
           $formFields['field_wrap_1E'] = array(
@@ -538,7 +497,7 @@ class PendingAssessmentsForm extends FormBase {
 
 
         //------------------------------------------ elite-only form fields
-        if($realFormType == 'elite')
+        if($realFormType == 'Elite')
         {
           //~~~~~~~~~~~~~~~~~~~~ Supine Med Ball Chest Throw
           $formFields['field_wrap_9E'] = array(
@@ -636,12 +595,12 @@ class PendingAssessmentsForm extends FormBase {
 
 
           /*********** elite fields start ************/
-          // if( 0   &&   $realFormType == 'elite'){
+          // if( 0   &&   $realFormType == 'Elite'){
           //   $required = TRUE;
           // }else{
           //   $required = FALSE;
           // }
-          // if( 0   &&   $realFormType == 'elite') {
+          // if( 0   &&   $realFormType == 'Elite') {
           //     //UE Power (SPM Ball Throw)
           //     $formFields['form_fields_wrap']['ue_power'] = array(
           //       '#type' => 'fieldset',
@@ -760,12 +719,12 @@ class PendingAssessmentsForm extends FormBase {
 
         //hidden fields
 
-      if($realFormType == 'elite'){
-        $formtype_val = 'elite';
-      }elseif($realFormType == 'starter'){
-        $formtype_val = 'starter';
-      }elseif($realFormType == 'professional'){
-        $formtype_val = 'professional';
+      if($realFormType == 'Elite'){
+        $formtype_val = 'Elite';
+      }elseif($realFormType == 'Starter'){
+        $formtype_val = 'Starter';
+      }elseif($realFormType == 'Professional'){
+        $formtype_val = 'Professional';
       }
 
       $formFields['field_assessment_type'] = array(
@@ -836,7 +795,6 @@ class PendingAssessmentsForm extends FormBase {
       );
 
 
-
       $formFields['actions']['submit'] = array(
         '#type' => 'submit',
         '#name' => 'save_published',
@@ -854,13 +812,11 @@ class PendingAssessmentsForm extends FormBase {
             ],
           ]
       );
-
       // ksm(['formFields', $formFields]);
 
       return $formFields;
     }
-    else
-    {
+    else {
       return;
     }
   }
@@ -934,7 +890,7 @@ class PendingAssessmentsForm extends FormBase {
 
     $form_data['title'] = @$form_data['title'] ? $form_data['title'] : 'Starter Assessment'; // $_SESSION['temp-session-form-values']['field_form_type'];
 
-    $pdf_template_fid = $this->getPdfTemplateId($form_data['field_form_type']);
+    $pdf_template_fid = AssessmentService::getPdfTemplateId($form_data['field_form_type']);
 
     $default_entity_id = $form_state->getValue('form_token'); // currently not used
 
@@ -949,7 +905,7 @@ class PendingAssessmentsForm extends FormBase {
     // ksm(['$pdf_template_fid, $assess_nid, form_data, $param', $pdf_template_fid, $assess_nid, $form_data, $param]);
 
     if ($pdf_template_fid) {
-      // $fillPdfUrl = $this->getFillPdfUrl($pdf_template_fid, $assess_nid);
+      // $fillPdfUrl = AssessmentService::getFillPdfUrl($pdf_template_fid, $assess_nid);
       // $message .= ' &nbsp; &nbsp; <a href="'.$fillPdfUrl.'" target="_blank">Generate PDF</a><br>';
     }
     $message .= "</div>";
@@ -999,19 +955,19 @@ class PendingAssessmentsForm extends FormBase {
       // }elseif(!is_numeric($form_state->getValue('field_rfd_100ms_n_maximal')) || empty($form_state->getValue('field_rfd_100ms_n_maximal'))){
       //   $message = '<p style="color:red;">"RFD @ 100ms (N)" Required or Numeric</p>';
       // }
-      // elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'elite' ){
+      // elseif( (!is_numeric($form_state->getValue('power')) || empty($form_state->getValue('power'))) && $formtype == 'Elite' ){
       //   $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
       // }
-      // elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'elite'){
+      // elseif((!is_numeric($form_state->getValue('power_spm')) || empty($form_state->getValue('power_spm'))) && $formtype == 'Elite'){
 
       //   $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
       // }
-      // elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'elite'){
+      // elseif( (!is_numeric($form_state->getValue('power_rm')) || empty($form_state->getValue('power_rm'))) && $formtype == 'Elite'){
       //   $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
       // }
-      // elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'elite'){
+      // elseif((!is_numeric($form_state->getValue('repetitions')) || empty($form_state->getValue('repetitions'))) && $formtype == 'Elite'){
       //   $message = '<p style="color:red;">"Repetitions (#)" Required or Numeric</p>';
-      // }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'elite'){
+      // }elseif((!is_numeric($form_state->getValue('power_ch')) || empty($form_state->getValue('power_ch'))) && $formtype == 'Elite'){
       //   $message = '<p style="color:red;">"Power (W)" Required or Numeric</p>';
       // }
 
