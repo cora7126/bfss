@@ -13,7 +13,7 @@ bfss_assessors.pending_assessments_form:
     _title: 'Assessor Assessments'
   requirements:
    # _access: 'TRUE'
-    _role: 'assessors'
+    _role: 'assessors+bfss_manager+bfss_administrator'
 
 bfss_assessors.assessment_event:
  path: '/assessment-event'

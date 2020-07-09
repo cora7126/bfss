@@ -76,7 +76,7 @@ class AssessmentEvent extends ControllerBase {
               'booking_time'  => $booking_time,
               'assessment_title'  => $assessment_title,
               'field_status' => $field_status,
-              'sport' => $sport,
+              // 'sport' => $sport,
               'st' => $st,
               'assess_nid' => $assess_nid,
               'first_name' =>$entity->first_name->value,

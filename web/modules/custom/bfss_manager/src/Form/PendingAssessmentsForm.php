@@ -74,6 +74,13 @@ class PendingAssessmentsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+
+    //current user
+    // $current_user = \Drupal::currentUser();
+    // $user_id = $current_user->id();
+    // $user = \Drupal\user\Entity\User::load($user_id);
+    // $roles = $user->getRoles();
+
     $formFields = $form;
     $param = \Drupal::request()->query->all();
     $nid = $param['nid'];
@@ -794,24 +801,25 @@ class PendingAssessmentsForm extends FormBase {
           ]
       );
 
-
-      $formFields['actions']['submit'] = array(
-        '#type' => 'submit',
-        '#name' => 'save_published',
-        '#value' => $this->t('SAVE & PUBLISH'),
-        '#button_type' => 'primary',
-        '#ajax' => [
-            'callback' => '::submitForm', // don't forget :: when calling a class method.
-            //'callback' => [$this, 'myAjaxCallback'], //alternative notation
-            'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
-            'event' => 'click',
-            'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
-            'progress' => [
-              'type' => 'throbber',
-              'message' => $this->t('Verifying entry...'),
-            ],
-          ]
-      );
+      // if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
+          $formFields['actions']['submit'] = array(
+          '#type' => 'submit',
+          '#name' => 'save_published',
+          '#value' => $this->t('SAVE & PUBLISH'),
+          '#button_type' => 'primary',
+          '#ajax' => [
+              'callback' => '::submitForm', // don't forget :: when calling a class method.
+              //'callback' => [$this, 'myAjaxCallback'], //alternative notation
+              'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+              'event' => 'click',
+              'wrapper' => 'edit-output', // This element is updated with this AJAX callback.
+              'progress' => [
+                'type' => 'throbber',
+                'message' => $this->t('Verifying entry...'),
+              ],
+            ]
+        );
+      // }
       // ksm(['formFields', $formFields]);
 
       return $formFields;
@@ -872,7 +880,6 @@ class PendingAssessmentsForm extends FormBase {
     $query1->condition('type', 'athlete_assessment_info');
     $query1->condition('field_booked_id',$field_booked_id, 'IN');
     $nids1 = $query1->execute();
-
 
     //current user
     $current_user = \Drupal::currentUser();

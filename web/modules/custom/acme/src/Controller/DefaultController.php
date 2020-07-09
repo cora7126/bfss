@@ -323,7 +323,7 @@ public function userform()
           'st' =>  $st,
           'assess_nid' => $assess_nid,
           'address_1' => $address_1,
-          'sport' => $sport,
+          // 'sport' => $sport,
           'postion' => $postion,
           'user_id' => $user_id,
         );
