@@ -49,6 +49,7 @@ class ManagersPendingPaymentController extends ControllerBase {
           			#code for this condition
         		}else{
 			       	$data[] = [
+			       		'booked_id' => $booked_id,
 			       		'purchased_date' => $paid_date,
 			       		'program' => $program,
 			       		'amount' => $amount,
@@ -61,7 +62,8 @@ class ManagersPendingPaymentController extends ControllerBase {
 			       	];
 		       	}
         }
-		$tb1 = '<div class="search_athlete_main user_pro_block">
+		$tb1 = '<form class="athletes-unfollow-form" action="" method="post" id="view-edit-active-form" onsubmit="return false;" accept-charset="UTF-8">
+			<div class="search_athlete_main user_pro_block">
           <div class="wrapped_div_main">
           <div class="block-bfss-assessors">
           <div class="table-responsive-wrap">
@@ -95,6 +97,7 @@ class ManagersPendingPaymentController extends ControllerBase {
         foreach ($data as $value) {
         	$uid = $value['user_id'];
 	        $tb1 .= '<tr>
+	         <td><input class="form-checkbox getcheckboxid" type="checkbox" name="items_selected[]" value="'.$$value['booked_id'].'"><span class="unfollow-checkbox"></span></td>
 	        <td>'.$value['purchased_date'].'</td>
 	        <td><a href="/users-editable-account?uid='.$uid.'" target="_blank">'.$value['customer_name'].'</a></td>
 	        <td>'.$value['city'].'</td>
@@ -105,13 +108,13 @@ class ManagersPendingPaymentController extends ControllerBase {
 	         </tr>';
         }
 
-         $tb1 .= '
+         $tb1 .= '<div class="unfollow-sub"><i class="fas fa-times"></i><input type="submit" name="active_submit" value="Payment" onclick="deactivate_users();" ></div>
             </tbody>
             </table>
              </div>
             </div>
              </div>
-            </div>';
+            </div></form></form>';
 
 	      	return [
 		    '#cache' => ['max-age' => 0,],
