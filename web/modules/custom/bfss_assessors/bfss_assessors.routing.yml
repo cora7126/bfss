@@ -6,6 +6,15 @@ bfss_assessors.ind_starter:
  requirements:
     _role: 'assessors'
 
+bfss_assessors.pending_assessments_form:
+  path: '/pending-assessments-form'
+  defaults:
+    _form: '\Drupal\bfss_manager\Form\PendingAssessmentsForm'
+    _title: 'Assessor Assessments'
+  requirements:
+   # _access: 'TRUE'
+    _role: 'assessors'
+
 bfss_assessors.assessment_event:
  path: '/assessment-event'
  defaults:

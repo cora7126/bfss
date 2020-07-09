@@ -120,25 +120,6 @@ class MyAssessments extends ControllerBase {
     foreach ($result as $item) {
       $nid = $item['nid'];
 
-      // old pdf way:
-      //xxxxx $type = $item['formtype'];
-      // $Assesstype = $item['Assess_type'];
-      // $booked_id = $item['booked_id'];
-      // $st = $item['st'];
-      // $user_name = $item['user_name'];
-      // // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'];
-      //xxxxxx $pdf_arr = [
-      //   'date' => $item['booking_date'],
-      //   'user_name' => $user_name,
-      //   'Assesstype' => $Assesstype,
-      //   'type' => $type,
-      //   'status' => $item['status'],
-      //   'location' => $item['address_1'],
-      //   'sport' => $item['sport'],
-      //   'time' => $item['time'],
-      // ];
-      //xxxxx $url = '/pdf-download?'.http_build_query($pdf_arr); // <a href="'.$url.'">
-
       $urlhtml = $formtype = '';
       if($item['status'] == 'complete' || $item['status'] == 'incomplete'){
 

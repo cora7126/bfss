@@ -236,8 +236,8 @@ public function userform()
     }
 
 
-    public function Private_Accessments_Block(){
-        //assessment get by current assessors
+    public function Private_Accessments_Block() {
+    //assessment get by current assessors
     $ele = 4;
     $uid = \Drupal::currentUser();
     $user = \Drupal\user\Entity\User::load($uid->id());
@@ -248,117 +248,118 @@ public function userform()
        $current_assessors_id = '';
     }
 
-        $query = \Drupal::entityQuery('node');
-        $query->condition('type', 'assessment');
-        #$query->condition('field_assessors', $current_assessors_id, '=');
-        $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
-        $query->condition('field_type_of_assessment','private', '=');
-        $nids = $query->execute();
-        $result = array();
-        foreach ($nids as $nid) {
-          $booked_ids = \Drupal::entityQuery('bfsspayments')
-          ->condition('assessment', $nid,'IN')
-          ->condition('time',time(),'>')
-          ->execute();
-          //print_r($booked_ids);
-          foreach ($booked_ids  as $key => $booked_id) {
-                $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
-                $address_1 = $entity->address_1->value;
-                $timestamp = $entity->time->value;
-                $booking_date = date("M d Y",$timestamp);
-                $booking_time = date("h:i a",$timestamp);
-                $user_id = $entity->user_id->value;
-                $query1 = \Drupal::entityQuery('node');
-                $query1->condition('type', 'athlete_assessment_info');
-                $query1->condition('field_booked_id',$booked_id, 'IN');
-                $nids1 = $query1->execute();
+    $query = \Drupal::entityQuery('node');
+    $query->condition('type', 'assessment');
+    #$query->condition('field_assessors', $current_assessors_id, '=');
+    $query->condition('field_schedules.entity:paragraph.field_timing', time(),'>');
+    $query->condition('field_type_of_assessment','private', '=');
+    $nids = $query->execute();
+    $result = array();
+    foreach ($nids as $nid) {
+      $booked_ids = \Drupal::entityQuery('bfsspayments')
+      ->condition('assessment', $nid,'IN')
+      ->condition('time',time(),'>')
+      ->execute();
+      //print_r($booked_ids);
+      foreach ($booked_ids  as $key => $booked_id) {
+        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
 
-                //sport
-                $query5 = \Drupal::database()->select('athlete_school', 'ats');
-                $query5->fields('ats');
-                $query5->condition('athlete_uid', $user_id,'=');
-                $results5 = $query5->execute()->fetchAssoc();
-                // echo "<pre>";
-                // print_r($results5);
+        $nid_book =  $entity->assessment->value;
 
-                $sport = $results5['athlete_school_sport'];
-                $postion = $results5['athlete_school_pos'];
+        $address_1 = $entity->address_1->value;
+        $timestamp = $entity->time->value;
+        $booking_date = date("M d Y",$timestamp);
+        $booking_time = date("h:i a",$timestamp);
+        $user_id = $entity->user_id->value;
+        $query1 = \Drupal::entityQuery('node');
+        $query1->condition('type', 'athlete_assessment_info');
+        $query1->condition('field_booked_id',$booked_id, 'IN');
+        $nids1 = $query1->execute();
 
-                $formtype = AssessmentService::getFormTypeFromPrice($entity->service->value);
+        //sport
+        $query5 = \Drupal::database()->select('athlete_school', 'ats');
+        $query5->fields('ats');
+        $query5->condition('athlete_uid', $user_id,'=');
+        $results5 = $query5->execute()->fetchAssoc();
+        // echo "<pre>";
+        // print_r($results5);
 
-                if(!empty($entity->assessment->value)){
-                  $Assess_type = 'individual';
-                }else{
-                  $Assess_type = 'private';
-                }
+        $sport = $results5['athlete_school_sport'];
+        $postion = $results5['athlete_school_pos'];
 
-                $st ='';
-                $assess_nid = '';
-                if(!empty($nids1)){
-                   $st = 1;
-                   foreach ($nids1 as $key => $value) {
-                    $node1 = Node::load($value);
-                    $field_status = $node1->field_status->value;
-                    $assess_nid = $value;
-                  }
-                }else{
-                   $field_status = 'No Show';
-                   $st = 0;
-                }
-                 $result[] = array(
-                  'id' => $entity->id->value,
-                  'user_name' =>$entity->user_name->value,
-                  'first_name' =>$entity->first_name->value,
-                  'last_name' =>$entity->last_name->value,
-                  'nid' => $nid,
-                  'formtype' => $formtype,
-                  'Assess_type' => $Assess_type,
-                  'booking_date'  => $booking_date,
-                  'booking_time'  => $booking_time,
-                  'booked_id' => $booked_id,
-                  'st' =>  $st,
-                  'assess_nid' => $assess_nid,
-                  'address_1' => $address_1,
-                  'sport' => $sport,
-                  'postion' => $postion,
-                  'user_id' => $user_id,
-                );
-          }
+        $formtype = AssessmentService::getFormTypeFromPrice($entity->service->value);
+
+        if(!empty($nid_book)){
+          $Assess_type = 'individual';
+        }else{
+          $Assess_type = 'private';
         }
-         $tb1 = '
-          <div class="wrapped_div_main">
-          <div class="block-bfss-assessors">
-          <div class="table-responsive-wrap">
-         <table id="bfss_private_assessor_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
-            <thead>
-              <tr>
-                <th class="th-hd"><a><span></span>Date</a>
-                </th>
-                  <th class="th-hd"><a><span></span>Time</a>
-                </th>
-                <th class="th-hd"><a><span></span>Name</a>
-                </th>
 
-                <th class="th-hd"><a><span></span>Assessment Type</a>
-                </th>
-                <th class="th-hd"><a><span></span>Location</a>
-                </th>
+        $st ='';
+        $assess_nid = '';
+        if(!empty($nids1)){
+            $st = 1;
+            foreach ($nids1 as $key => $value) {
+            $node1 = Node::load($value);
+            $field_status = $node1->field_status->value;
+            $assess_nid = $value;
+          }
+        }else{
+            $field_status = 'No Show';
+            $st = 0;
+        }
+          $result[] = array(
+          'booked_id' => $booked_id,
+          'id' => $entity->id->value,
+          'user_name' =>$entity->user_name->value,
+          'first_name' =>$entity->first_name->value,
+          'last_name' =>$entity->last_name->value,
+          'nid_book' => $nid_book,
+          'formtype' => $formtype,
+          'Assess_type' => $Assess_type,
+          'field_status' => $field_status,
+          'booking_date'  => $booking_date,
+          'booking_time'  => $booking_time,
+          'st' =>  $st,
+          'assess_nid' => $assess_nid,
+          'address_1' => $address_1,
+          'sport' => $sport,
+          'postion' => $postion,
+          'user_id' => $user_id,
+        );
+      }
+    }
+    $tb1 = '
+    <div class="wrapped_div_main">
+    <div class="block-bfss-assessors">
+    <div class="table-responsive-wrap">
+    <table id="bfss_private_assessor_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
+      <thead>
+        <tr>
+          <th class="th-hd"><a><span></span>Date</a>
+          </th>
+            <th class="th-hd"><a><span></span>Time</a>
+          </th>
+          <th class="th-hd"><a><span></span>Name</a>
+          </th>
+          <th class="th-hd"><a><span></span>Assessment Type</a>
+          </th>
+          <th class="th-hd"><a><span></span>Location</a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>';
 
-              </tr>
-            </thead>
-            <tbody>';
+      foreach ($result as $item) {
+        $nid_book = $item['nid_book'];
+        $type = $item['formtype'];
+        $Assesstype = $item['Assess_type'];
+        $booked_id = $item['booked_id'];
+        $st = $item['st'];
+        $user_name = $item['user_name'];
 
-
-          foreach ($result as $item) {
-          $nid = $item['nid'];
-          $type = $item['formtype'];
-          $Assesstype = $item['Assess_type'];
-          $booked_id = $item['booked_id'];
-          $st = $item['st'];
-          $user_name = $item['user_name'];
-
-        $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&user_id='.$item['user_id'];
-
+        $url = 'pending-assessments-form?nid='.$nid_book.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status'].'&assess_nid='.$item['assess_nid'];
+        // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&user_id='.$item['user_id'];
 
         $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
         $tb1 .= '<tr>
@@ -368,8 +369,6 @@ public function userform()
           <td>'.$item['formtype'].'</td>
           <td>'.$item['address_1'].'</td>
           </tr>';
-
-
       }
       $tb1 .= '</tbody>
             </table>
@@ -379,7 +378,6 @@ public function userform()
             </div>';
       return  Markup::create($tb1);
     }
-
 
     public function Events_lsiting_assessor_block(){
        //assessment get by current assessors
