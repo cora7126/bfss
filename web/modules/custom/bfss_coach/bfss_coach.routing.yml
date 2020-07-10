@@ -47,7 +47,7 @@ bfss_coach.edit_coach_profile:
  path: '/dashboard/edit-coach-profile'
  defaults:
    _title: 'Edit Coach Profile'
-   _form: '\Drupal\bfss_coach\Form\EditCoachUserProfile'
+   _form: '\Drupal\bfss_coach\Form\PopupEditCoachUserProfile'
  requirements:
    #_permission: 'access content'
    _role: 'coach'

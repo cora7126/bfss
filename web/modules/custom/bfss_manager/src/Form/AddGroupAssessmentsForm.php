@@ -90,24 +90,11 @@ class AddGroupAssessmentsForm extends FormBase {
     $form['body'] = [
           '#type' => 'text_format',
           '#placeholder' => t('Assessment Body'),
-          #'#title' => $this->t('Email Content:'),
-          #'#required' => TRUE,
-          // '#default_value' => '',
-          // '#format' => '',
            '#prefix' => '<div class="html_body_wrap">',
            '#suffix' => '</div>',
          // '#allowed_formats' => array('full_html'),
           
       ];
-
-    // $form['body'] = [
-    //     '#type' => 'textarea',
-    //     '#placeholder' => t('Assessment Body'),
-    //     '#required' => TRUE,
-    //     '#default_value' => '',
-    //     '#prefix' => '',
-    // ]; 
-
 
 
 
@@ -178,30 +165,6 @@ class AddGroupAssessmentsForm extends FormBase {
         '#prefix' => '<div id="edit-output-22" class="full-width-inp">',
         '#suffix' => '</div>',
       ];
-
-
-
-
-
-      // $form['city'] = [
-      //   '#type' => 'textfield',
-      //   '#placeholder' => t('City'),
-      //   '#required' => TRUE,
-      //   '#default_value' => '',
-      //   '#prefix' => '',
-      //   '#suffix' => '',
-      // ];
-
-      
-      // $form['state'] = [
-      //   '#type' => 'select',
-      //   '#options' => $states_op,
-      //   '#placeholder' => t('State'),
-      //   '#required' => TRUE,
-      //   '#default_value' => '',
-      //   '#prefix' => '',
-      //   '#suffix' => '',
-      // ];
 
       $form['zip'] = [
         '#type' => 'textfield',
@@ -284,16 +247,24 @@ class AddGroupAssessmentsForm extends FormBase {
       }
 
       $hours = ['' => 'Duration (Hours)'] + $hours;
-      $form['resident'][$i]['field_duration'] = [
-        #'#placeholder' => t('Duration (Hours)'),
-        '#options' => $hours,
-        '#type' => 'select',
+      // $form['resident'][$i]['field_duration'] = [
+      //   #'#placeholder' => t('Duration (Hours)'),
+      //   '#options' => $hours,
+      //   '#type' => 'select',
+      //   '#required' => TRUE,
+      //   '#default_value' =>'',
+      //   '#prefix' => '<div class="box niceselect duration">',
+      //   '#suffix' => '</div></div>',
+      // ];
+        $form['resident'][$i]['field_duration'] = [
+        '#placeholder' => t('Duration (Minutes)'),
+        '#type' => 'textfield',
         '#required' => TRUE,
         '#default_value' =>'',
+        '#description' => 'Minutes',
         '#prefix' => '<div class="box niceselect duration">',
         '#suffix' => '</div></div>',
       ];
-
 
       $form['resident'][$i]['actions'] = [
         '#type' => 'actions',
@@ -341,37 +312,6 @@ class AddGroupAssessmentsForm extends FormBase {
         </div>'
     ];
 
-    //categories  strat
-    // $form['category'] = [
-    //   '#type' => 'container',
-    //   '#attributes' => ['id' => 'category-details'],
-    // ];
-    //  for ($j = 0; $j <= $this->categoryCount; $j++) {
-    //   $form['category'][$j]['field_date1'] = [
-    //     '#type' => 'textfield',
-    //     '#placeholder' => t('Select Date'),
-    //   ];
-
-    //  }
-    // $form['category']['actions1'] = [
-    //   '#type' => 'actions',
-    // ];
-
-    // $form['category']['actions1']['add_item1'] = [
-    //   '#type' => 'submit',
-    //   '#value' => Markup::create('<p><i class="fa fa-plus"></i>Add another<p>'),
-    //   '#submit' => ['::addCategory'],
-    //   '#limit_validation_errors' => [],
-    //   '#ajax' => [
-    //     'callback' => '::categoriesAjaxCallback',
-    //     'wrapper' => 'category-details',
-    //     'disable-refocus' => TRUE
-    //   ],
-    // ];
-    //categories end 
-
-
-  
 
     $cat_vid = 'categories';
     $cat_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($cat_vid);    
@@ -399,34 +339,7 @@ class AddGroupAssessmentsForm extends FormBase {
       $venue_state = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:'AZ';
 
       $venue_state_op = $this->getStates();
-      // $form['venue_state'] = array(
-      //   '#type' => 'select',
-      //   '#options' => $venue_state_op,
-      //   '#default_value' => '',
-      //   #'#attributes' => array('class' => array('full-width-inp')),
-      //   '#prefix' => '<div class="athlete_left schedule_plx venue_plx">
-      //                   <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Location (Cities)</h3>
-      //                  <div class="items_div"><div class="box niceselect duration">',
-      //    '#suffix' => '</div>',
-      //  # '#default_value' => isset($athlete_uni['athlete_uni_type'])?$athlete_uni['athlete_uni_type']:'school',
-      //   '#ajax' => [
-      //     'callback' => '::VenueLocationAjaxCallback', // don't forget :: when calling a class method.
-      //     'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
-      //     'event' => 'change',
-      //     'wrapper' => 'edit-output-2', // This element is updated with this AJAX callback.
-      //   ]
-      //   );
 
-        
-      //   $form['venue_loaction'] = [
-      //       '#type' => 'textfield',
-      //       '#placeholder' => t('Location Name'),
-      //       '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
-      //       '#autocomplete_route_parameters' => array('field_name' => $venue_state, 'count' => 10), 
-      //       '#prefix' => '<div id="edit-output-2" class="org-3">',
-      //       '#suffix' => '</div></div></div>',
-      //      # '#default_value' => '',
-      //   ];
       $form['venue_state'] = [
         '#type' => 'select',
         '#options' => $venue_state_op,
@@ -534,7 +447,8 @@ class AddGroupAssessmentsForm extends FormBase {
                 $date = new DrupalDateTime($values['field_date'].$values['field_time']);
                 if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
                   $data[] = [
-                      'field_duration' => $values['field_duration']*60,
+                      #'field_duration' => $values['field_duration']*60,
+                  	  'field_duration' => $values['field_duration'],
                       'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
                     ]; 
                 }    
@@ -591,7 +505,6 @@ class AddGroupAssessmentsForm extends FormBase {
             #venue 
             $node->field_venue_state_assess->value = $form_state->getValue('venue_state');
             $node->field_venue_location_assess->value = $form_state->getValue('venue_loaction');
-
             $node->save();
 
             drupal_set_message(t('<p class="bfss-success-msg">Successfully inserted Assessment.</p>'), 'success');

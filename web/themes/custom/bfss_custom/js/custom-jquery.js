@@ -185,5 +185,5 @@ jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
 			}
 		});
 		
-       
+
 });

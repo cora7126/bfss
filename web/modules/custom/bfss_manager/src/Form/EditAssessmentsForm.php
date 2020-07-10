@@ -281,10 +281,19 @@ class EditAssessmentsForm extends FormBase {
           }
 
           $hours = ['' => 'Duration (Hours)'] + $hours;
+          // $form['update'][$key]['field_duration'] = [
+          //   #'#placeholder' => t('Duration (Hours)'),
+          //   '#options' => $hours,
+          //   '#type' => 'select',
+          //  # '#required' => TRUE,
+          //   '#default_value' => $pGraph->field_duration->value,
+          //   '#prefix' => '<div class="box niceselect duration">',
+          //   '#suffix' => '</div></div>',
+          // ];
+
           $form['update'][$key]['field_duration'] = [
-            #'#placeholder' => t('Duration (Hours)'),
-            '#options' => $hours,
-            '#type' => 'select',
+            '#placeholder' => t('Duration (Minutes)'),
+            '#type' => 'textfield',
            # '#required' => TRUE,
             '#default_value' => $pGraph->field_duration->value,
             '#prefix' => '<div class="box niceselect duration">',
@@ -372,17 +381,25 @@ class EditAssessmentsForm extends FormBase {
       }
 
       $hours = ['' => 'Duration (Hours)'] + $hours;
-      $form['resident'][$i]['field_duration'] = [
-        #'#placeholder' => t('Duration (Hours)'),
-        '#options' => $hours,
-        '#type' => 'select',
+      // $form['resident'][$i]['field_duration'] = [
+      //   #'#placeholder' => t('Duration (Hours)'),
+      //   '#options' => $hours,
+      //   '#type' => 'select',
+      //   #'#required' => TRUE,
+      //   '#default_value' =>'',
+      //   '#prefix' => '<div class="box niceselect duration">',
+      //   '#suffix' => '</div></div>',
+      // ];
+
+     $form['resident'][$i]['field_duration'] = [
+        '#placeholder' => t('Duration (Minutes)'),
+        #'#options' => $hours,
+        '#type' => 'textfield',
         #'#required' => TRUE,
         '#default_value' =>'',
         '#prefix' => '<div class="box niceselect duration">',
         '#suffix' => '</div></div>',
       ];
-
-     
 
 
       $form['resident'][$i]['actions'] = [
@@ -602,7 +619,8 @@ class EditAssessmentsForm extends FormBase {
                 $date = new DrupalDateTime($values['field_date'].$values['field_time']);
                 if(!empty($values['field_duration']) && !empty($values['field_time']) && !empty($values['field_date'])){
                   $data[] = [
-                      'field_duration' => $values['field_duration']*60,
+                      #'field_duration' => $values['field_duration']*60,
+                     'field_duration' => $values['field_duration'],
                       'field_timing' => strtotime($date->format('Y-m-d h:i:sa')),
                     ]; 
                 }   

@@ -254,10 +254,10 @@ ul.ui-widget.ui-widget-content.ui-autocomplete li a:hover, ul.ui-widget.ui-widge
 /**************** EDIT COACH PROFILE CSS STARTS HERE *******************/
 .payment_paid_dv .search_athlete_main.user_pro_block .block-bfss-assessors,.payment_pending_dv .search_athlete_main.user_pro_block .block-bfss-assessors{border: 1px solid #000;}
 .panel.fund-raised-box h3 {color: #EB6E06!important;}
-#edit-coach-profile-form-modal .modal-dialog{max-width:70%;margin:125px 10% 0 20%;}
+#edit-coach-profile-form-modal .modal-dialog{max-width:60%;margin:125px 10% 0 22%;}
 #edit-coach-profile-form-modal .modal-dialog .modal-body{padding:2rem 3.5rem 4rem;}
 #edit-coach-profile-form-modal .modal-dialog .wlcm_cont{color:#000;font-size:14px;margin:0 0 15px;line-height:16px;}
-#edit-coach-profile-form-modal .left_section.popup_left_section{width:70%;float:left;padding-right:20px;}
+#edit-coach-profile-form-modal .left_section.popup_left_section{width:100%;float:left;padding-right:20px;}
 #edit-coach-profile-form-modal .right_section{width:30%;float:left;}
 #edit-coach-profile-form-modal .edit-coach-form-popup{width:100%;float:left;display:block;}
 #edit-coach-profile-form-modal .left_section .athlete_left h3, #edit-coach-profile-form-modal .right_section .athlete_right h3{height:40px;/*padding:11px 15px;*/font-size:13px;font-weight:500;}
@@ -266,7 +266,7 @@ ul.ui-widget.ui-widget-content.ui-autocomplete li a:hover, ul.ui-widget.ui-widge
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div, #edit-coach-profile-form-modal .right_section .athlete_right .items_div{padding:35px 15px;}
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div .form-item, #edit-coach-profile-form-modal .right_section .athlete_right .items_div .form-item{margin:0 0 40px;padding:0;float:left;width:100%;display:block;}
 #edit-coach-profile-form-modal .left_section .athlete_left .items_div .form-item:last-child, #edit-coach-profile-form-modal .right_section .athlete_right .items_div .form-item:last-child{margin:0;}
-#edit-coach-profile-form-modal .left_section .athlete_left .form-item input, #edit-coach-profile-form-modal .right_section .athlete_right .form-item input, #edit-coach-profile-form-modal .right_section .athlete_right .form-item select, #edit-coach-profile-form-modal .left_section .athlete_left .form-item select{height:35px;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;text-transform:capitalize;color:#000;opacity:1;-webkit-appearance:none;-moz-appearance:none;appearance:none}
+#edit-coach-profile-form-modal .left_section .athlete_left .form-item input, #edit-coach-profile-form-modal .right_section .athlete_right .form-item input, #edit-coach-profile-form-modal .right_section .athlete_right .form-item select, #edit-coach-profile-form-modal .left_section .athlete_left .form-item select{height:35px;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0color:#000;opacity:1;-webkit-appearance:none;-moz-appearance:none;appearance:none}
 #edit-coach-profile-form-modal .right_section .athlete_right .form-item select, #edit-coach-profile-form-modal .left_section .athlete_left .form-item select{background:#fff url("../images/select-arrow.png") no-repeat right 20px center/15px auto;}
 #edit-coach-profile-form-modal input::-webkit-input-placeholder{color:#000;opacity:.7;}
 #edit-coach-profile-form-modal input::-moz-placeholder{color:#000;opacity:.7;}
@@ -280,8 +280,23 @@ ul.ui-widget.ui-widget-content.ui-autocomplete li a:hover, ul.ui-widget.ui-widge
 #edit-coach-profile-form-modal .left_section a.add_org.popup_add_org{font-size:13px;padding:0;font-weight:500;}
 #edit-coach-profile-form-modal .left_section a.add_org.popup_add_org i{padding-right:5px;font-size:10px;position:relative;top:-0.5px;}
 #edit-coach-profile-form-modal .left_section #athlete_submit{padding:30px 0 0;}
-#edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit{text-transform:uppercase;width:100%;background-color:#a8a9ad;height:45px;    font-size:18px !important;font-weight:500;}
-#edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:hover, #edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:focus{background-color:#EB6E06;}
+#edit-coach-profile-form-modal .left_section #athlete_submit .gray{
+	text-transform:uppercase;
+	width:100%;
+	background-color:#a8a9ad;
+	border: 0px;
+	height:45px;
+	font-size:18px !important;
+	font-weight:500;}
+	#edit-coach-profile-form-modal .left_section #athlete_submit .green{
+	border: 0px;
+	text-transform:uppercase;
+	width:100%;
+	background-color:green;
+	height:45px;
+	font-size:18px !important;
+	font-weight:500;}
+#edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:hover, #edit-coach-profile-form-modal .left_section #athlete_submit .button.form-submit:focus{background-color:#EB6E06;color:#fff;}
 
 .left_section .athlete_left .form-item.form-item-organizationtype .select-wrapper, .left_section .athlete_left .form-item.form-item-education-2 .select-wrapper, .left_section .athlete_left .form-item.form-item-education-1 .select-wrapper{display:block;width:100%;}
 form.edit-form .js-form-managed-file.form-managed-file .js-form-file.form-file{padding:7.5px 10px;line-height:18px;outline:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}

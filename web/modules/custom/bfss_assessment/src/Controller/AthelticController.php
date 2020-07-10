@@ -538,20 +538,23 @@ public function Latest_Assessment_Snapshot($uid){
               ->condition('user_id', $uid,'IN')
               ->sort('created' , 'DESC')
               ->execute();
+
       $nid = ''; 
       if(!empty($booked_ids) && is_array($booked_ids)){
           foreach ($booked_ids as $booked_id) {
               if(isset($booked_id)){
-                $nid = \Drupal::entityQuery('node')
+                $nids = \Drupal::entityQuery('node')
                 ->condition('type', 'athlete_assessment_info')
                 ->condition('field_booked_id',$booked_id,'=')
                 ->condition('status', 1)
                 ->sort('created' , 'DESC') 
                 ->execute();
+                if(!empty($nids)){
+                  $nid = $nids;
+                }  
               }      
           }
       }
-
       #latest 
       $nid = array_values($nid);
       if(isset($nid[0])){

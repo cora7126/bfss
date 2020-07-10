@@ -24,7 +24,7 @@ use Drupal\Core\Ajax\RedirectCommand;
 /**
  * Contribute form.
  */
-class EditCoachUserProfile extends FormBase {
+class PopupEditCoachUserProfile extends FormBase {
 
 
     /**
@@ -134,6 +134,7 @@ class EditCoachUserProfile extends FormBase {
 
   
     $form['#attached']['library'][] = 'bfss_admin/bfss_admin_autocomplete_lib';       //here can add 
+    $form['#attached']['library'][] = 'bfss_coach/bfss_coach_lib';       //here can add 
     $form['#tree'] = TRUE;
     $form['message'] = [ //for custom message "like: ajax msgs"
       '#type' => 'markup',
@@ -233,11 +234,11 @@ class EditCoachUserProfile extends FormBase {
            '
         ];
 
-       $types = ['' => 'Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
+        $types = ['' => 'Select Type', 'school' => 'School', 'club' => 'Club','university' => 'University'];
         $form['resident'][$i]['type'] = [
           '#placeholder' => t('Type'),
           '#type' => 'select',
-           '#required' => TRUE,
+         #  '#required' => TRUE,
           '#options' => $types,
           '#default_value' => '',
           '#attributes' => [
@@ -252,7 +253,7 @@ class EditCoachUserProfile extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Organization Name'),
         #'#title' => $this->t('Organization Name'),
-        '#required' => TRUE,
+       ## '#required' => TRUE,
         '#default_value' => '',
         '#attributes' => [
               'class' => ['org_name_get'],
@@ -267,7 +268,7 @@ class EditCoachUserProfile extends FormBase {
         '#placeholder' => t('Sport'),
         '#options' => $sports_arr,
         #'#title' => $this->t('Organization Name'),$sports_arr
-        '#required' => TRUE,
+        ##'#required' => TRUE,
         '#default_value' => '',
         // '#prefix' => '<div class="sport_name_wrapper">',
         // '#suffix' => '</div>',
@@ -277,7 +278,7 @@ class EditCoachUserProfile extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Coach Title'),
         #'#title' => $this->t('Organization Name'),
-        '#required' => TRUE,
+       # '#required' => TRUE,
         '#default_value' => '',
       ];
 
@@ -294,7 +295,7 @@ class EditCoachUserProfile extends FormBase {
         '#type' => 'select',
         '#placeholder' => t('Grade'),
         '#options' => $grade_op,
-        '#required' => TRUE,
+        #'#required' => TRUE,
         '#default_value' => '',
       ];
 
@@ -364,25 +365,25 @@ class EditCoachUserProfile extends FormBase {
       '#suffix' => '</div></div><!--LEFT SECTION END-->',
     ];
 
- $form['instagram_account'] = [
-  '#type' => 'textfield',
-  '#placeholder' => t('TEAM Instagram Account(Optional)'),
-  '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
-  '#prefix' => '<div class="right_section">
-                  <div class = "athlete_right">
-                    <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
-                      <div class=items_div>',
-  ];
+ // $form['instagram_account'] = [
+ //  '#type' => 'textfield',
+ //  '#placeholder' => t('TEAM Instagram Account(Optional)'),
+ //  '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
+ //  '#prefix' => '<div class="right_section">
+ //                  <div class = "athlete_right">
+ //                    <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
+ //                      <div class=items_div>',
+ //  ];
 
 
-  $form['youtube_account'] = [
-    '#type' => 'textfield',
-    '#placeholder' => t('TEAM Youtube/Video Channel(Optional)'),
-    '#default_value' => isset($results18['field_youtube'])?$results18['field_youtube']:'',
-    '#suffix' => '</div>
-      </div>
-    </div>',
-  ];
+ //  $form['youtube_account'] = [
+ //    '#type' => 'textfield',
+ //    '#placeholder' => t('TEAM Youtube/Video Channel(Optional)'),
+ //    '#default_value' => isset($results18['field_youtube'])?$results18['field_youtube']:'',
+ //    '#suffix' => '</div>
+ //      </div>
+ //    </div>',
+ //  ];
 
 
 
@@ -418,7 +419,18 @@ class EditCoachUserProfile extends FormBase {
                       }
                   }
                   
-           if(empty($us_cities_check)){
+          
+           if(!empty($form_state->getValue('numberone'))){
+            $message = "<p style='color:red;'>Phone Number required.</p>";
+           }
+           elseif(!empty($form_state->getValue('az'))){
+            $message = "<p style='color:red;'>State required.</p>";
+           }
+           elseif(!empty($form_state->getValue('city'))){
+            $message = "<p style='color:red;'>City required.</p>";
+           }elseif(empty($form_state->getValue('sextype'))){
+             $message = "<p style='color:red;'>Gender required.</p>"; 
+           }elseif(empty($us_cities_check)){
              $message = "<p style='color:red;'>Incorrect city.</p>"; 
            }elseif(!empty($checked)){
             $message = "<p style='color:red;'>Incorrect organization name.</p>";
@@ -489,7 +501,7 @@ class EditCoachUserProfile extends FormBase {
                       'field_city' => $form_state->getValue('city'),
                       'field_birth_gender' => $form_state->getValue('sextype'),
                       'field_instagram' => $form_state->getValue('instagram_account'),
-                      'field_youtube' => $form_state->getValue('youtube_account'),
+                      'field_youtube' => '',
                       ))->execute();
                   } else {
                     $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
@@ -497,7 +509,7 @@ class EditCoachUserProfile extends FormBase {
                       'field_city' => $form_state->getValue('city'),
                       'field_birth_gender' => $form_state->getValue('sextype'),
                       'field_instagram' => $form_state->getValue('instagram_account'),
-                      'field_youtube' => $form_state->getValue('youtube_account'),
+                      'field_youtube' => '',
                       ))->execute();
                   } 
              
@@ -629,7 +641,7 @@ class EditCoachUserProfile extends FormBase {
 
   public function getStates() {
       return $st=array(
-          ''=> t('Select State'),
+          #''=> t('Select State'),
           'AL'=> t('AL'),
           'AK'=> t('AK'),
           'AZ'=> t('AZ'),
@@ -682,6 +694,7 @@ class EditCoachUserProfile extends FormBase {
             'WY'=>  t('WY'));
     }
        public function StateAjaxCallback(array &$form, FormStateInterface $form_state) {
+         $form['#attached']['library'][] = 'bfss_coach/bfss_coach_lib';       //here can add 
         return $form['city']; 
       }
 }

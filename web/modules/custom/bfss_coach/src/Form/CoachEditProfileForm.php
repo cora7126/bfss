@@ -147,7 +147,7 @@ class CoachEditProfileForm extends FormBase {
       '#type' => 'textfield',
       '#placeholder' => t('Email'),
       '#required' => TRUE,
-      '#default_value' => $userdt->mail->value,
+      '#default_value' => $user->mail->value,
      # '#attributes' => ['disabled'=>true],
       '#prefix' => '',
       '#suffix' => '<a class="change_pass" id="change_id" href="javascript:void(0)">Change Password</a>
@@ -543,26 +543,26 @@ $form['html_image_athlete_start'] = [
 //   '#attributes' => array('id => parent_label'),
 //   );
 
-  $form['instagram_account'] = array(
-  '#type' => 'textfield',
-  '#placeholder' => t('TEAM Instagram Account(Optional)'),
-  '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
+  // $form['instagram_account'] = array(
+  // '#type' => 'textfield',
+  // '#placeholder' => t('TEAM Instagram Account(Optional)'),
+  // '#default_value' => isset($results18['field_instagram'])?$results18['field_instagram']:'',
 
-  '#prefix' => '</div>
-  </div>
-  <div class = "athlete_right">
-                    <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
-                  <div class=items_div>',
-  );
+  // '#prefix' => '</div>
+  // </div>
+  // <div class = "athlete_right">
+  //                   <h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>SCHOOL/TEAM SCOCIAL MEDIA</h3>
+  //                   <div class=items_div>',
+  // );
 
 
-  $form['youtube_account'] = array(
-    '#type' => 'textfield',
-    '#placeholder' => t('TEAM Youtube/Video Channel(Optional)'),
-    '#default_value' => isset($results18['field_youtube'])?$results18['field_youtube']:'',
-    '#suffix' => '</div>
-    </div>',
-  );
+  // $form['youtube_account'] = array(
+  //   '#type' => 'textfield',
+  //   '#placeholder' => t('TEAM Youtube/Video Channel(Optional)'),
+  //   '#default_value' => isset($results18['field_youtube'])?$results18['field_youtube']:'',
+  //   '#suffix' => '</div>
+  //   </div>',
+  // );
 
 
 $form['html_image_athlete_end'] = [
@@ -771,6 +771,12 @@ $form['html_image_athlete_end'] = [
       }
     }
 
+    $check_email = \Drupal::entityQuery('user')
+    ->condition('mail', $form_state->getValue('email'))
+    ->execute();
+    if (!empty($check_email)) {
+      $form_state->setErrorByName('email', $this->t('The mail '.$form_state->getValue('email').' is already taken.'));
+    } 
 
   }
 
@@ -802,16 +808,6 @@ $form['html_image_athlete_end'] = [
       $role = '';
     }
 
-      // $orgname = $this->getORG(); 
-      
-      // if(!empty($form_state->getValues('resident')['resident']) && is_array($form_state->getValues('resident')['resident'])){
-      //   foreach ($form_state->getValues('resident')['resident'] as $key => $value) {
-      //     if( in_array($value['organization_name'], $orgname)){
-      //      drupal_set_message(t('"'.$value['organization_name'].'" organization name already exist.'), 'error');
-      //      return;
-      //     }
-      //   }
-      // }
 
   	//old data update
     if(!empty($form_state->getValues('resident1')['resident1'])){
@@ -874,50 +870,6 @@ $form['html_image_athlete_end'] = [
     */
 
 
-    //user profile 
-    // $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
-    // $query_pic->fields('uup');
-    // $query_pic->condition('entity_id', $current_user,'=');
-    // $results_pic = $query_pic->execute()->fetchAll(); 
-    
-    //     if(empty($results_pic)){
-    //       if(isset($imgid[0])){
-    //        $conn->insert('user__user_picture')->fields(
-    //           array(
-    //           'entity_id' => $current_user,
-    //           'bundle' => 'user',
-    //           'deleted' => '0',
-    //           'revision_id' => $current_user,
-    //           'langcode' => 'en',
-    //           'delta' => '0',
-    //           'user_picture_target_id' => $imgid[0],
-    //           )
-    //       )->execute();
-    //       }
-    //     }else {
-    //       if(!empty($imgid[0])){
-    //         $conn->update('user__user_picture')
-    //         ->condition('entity_id',$current_user,'=')
-    //         ->fields(
-    //           array(
-    //           'user_picture_target_id' => $imgid[0],
-    //           )
-    //         )
-    //         ->execute();
-    //       }else{
-    //         $conn->update('user__user_picture')
-    //         ->condition('entity_id',$current_user,'=')
-    //         ->fields(
-    //           array(
-    //           'user_picture_target_id' => '240',
-    //           )
-    //         )
-    //         ->execute();
-    //       }
-                
-    //   }
-
-  
 
     
 
@@ -934,7 +886,7 @@ $form['html_image_athlete_end'] = [
           'field_city' => $form_state->getValue('city'),
           'field_birth_gender' => $form_state->getValue('sextype'),
           'field_instagram' => $form_state->getValue('instagram_account'),
-          'field_youtube' => $form_state->getValue('youtube_account'),
+          'field_youtube' => '',
           ))->execute();
       } else {
         $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
@@ -942,7 +894,7 @@ $form['html_image_athlete_end'] = [
           'field_city' => $form_state->getValue('city'),
           'field_birth_gender' => $form_state->getValue('sextype'),
           'field_instagram' => $form_state->getValue('instagram_account'),
-          'field_youtube' => $form_state->getValue('youtube_account'),
+          'field_youtube' => '',
           ))->execute();
       } 
       

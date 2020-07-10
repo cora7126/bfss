@@ -52,7 +52,7 @@ class GetLoactionAutocompleteController extends ControllerBase {
                   ->fields('athw')
                   ->condition('name',"%".$input."%",'LIKE')
                   ->condition('state_code',$field_name, '=')
-                  ->range(0, 100)
+                  ->range(0, 2000)
                   ->execute()->fetchAll();
          
         foreach ($results as $result) {

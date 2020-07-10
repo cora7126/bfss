@@ -1071,9 +1071,13 @@ class ContributeForm extends FormBase {
     if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
       $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
     }
-    /* if (!$form_state->getValue('sex') || empty($form_state->getValue('sex'))) {
-      $form_state->setErrorByName('sex', $this->t('Gender should not be empty.'));
-    } */
+
+    $check_email = \Drupal::entityQuery('user')
+    ->condition('mail', $form_state->getValue('email'))
+    ->execute();
+    if (!empty($check_email)) {
+      $form_state->setErrorByName('email', $this->t('The mail '.$form_state->getValue('email').' is already taken.'));
+    } 
     if (!$form_state->getValue('venue_loaction') || empty($form_state->getValue('venue_loaction'))) {
       $form_state->setErrorByName('venue_loaction', $this->t('City should not be empty.'));
     }

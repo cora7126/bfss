@@ -285,6 +285,12 @@ $form['html_image_athlete'] = [
    if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
         $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
     }
+    $check_email = \Drupal::entityQuery('user')
+    ->condition('mail', $form_state->getValue('email'))
+    ->execute();
+    if (!empty($check_email)) {
+      $form_state->setErrorByName('email', $this->t('The mail '.$form_state->getValue('email').' is already taken.'));
+    } 
   }
 
   /**
@@ -341,49 +347,7 @@ $form['html_image_athlete'] = [
           $athletic_profile_image->save();
       }
     }
-    //================//
-    //user profile 
-	 //  $query_pic = \Drupal::database()->select('user__user_picture', 'uup');
-		// $query_pic->fields('uup');
-		// $query_pic->condition('entity_id', $current_user,'=');
-		// $results_pic = $query_pic->execute()->fetchAll();	
-  
-		// 		if(empty($results_pic)){
-  //         if(isset($imgid[0])){
-		// 			 $conn->insert('user__user_picture')->fields(
-		// 					array(
-		// 					'entity_id' => $current_user,
-		// 					'bundle' => 'user',
-		// 					'deleted' => '0',
-		// 					'revision_id' => $current_user,
-		// 					'langcode' => 'en',
-		// 					'delta' => '0',
-		// 					'user_picture_target_id' => $imgid[0],
-		// 					)
-		// 			)->execute();
-  //         }
-		// 		}else {
-		// 			if(!empty($imgid[0])){
-		// 				$conn->update('user__user_picture')
-		// 				->condition('entity_id',$current_user,'=')
-		// 				->fields(
-		// 					array(
-		// 					'user_picture_target_id' => $imgid[0],
-		// 					)
-		// 				)
-		// 				->execute();
-		// 			}else{
-		// 				$conn->update('user__user_picture')
-		// 				->condition('entity_id',$current_user,'=')
-		// 				->fields(
-		// 					array(
-		// 					'user_picture_target_id' => '240',
-		// 					)
-		// 				)
-		// 				->execute();
-		// 			}
-                
-		// 	}
+
 
 		//joining date	
 
@@ -422,21 +386,7 @@ $form['html_image_athlete'] = [
     $query_mydata->condition('uid', $current_user, '=');
     $results_mydata = $query_mydata->execute()->fetchAll();
 
-    // if (empty($results_mydata)) {
-    //     $conn->insert('mydata')->fields(array(
-    //       'uid' => $current_user,
-    //       'field_az' => $form_state->getValue('az'),
-    //       'field_city' => $form_state->getValue('city'),
-    //       'field_birth_gender' => $form_state->getValue('sextype'),
-    //       ))->execute();
-    //   } else {
-    //     $conn->update('mydata')->condition('uid', $current_user, '=')->fields(array(
-    //       'field_az' => $form_state->getValue('az'),
-    //       'field_city' => $form_state->getValue('city'),
-    //       'field_birth_gender' => $form_state->getValue('sextype'),
-    //       ))->execute();
-    //   } 
-      
+
 		
     //mobile field
 

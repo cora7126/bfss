@@ -21,7 +21,7 @@ class GetOrgName extends ControllerBase {
 			$query->condition('type', 'bfss_organizations');
 			$query->condition('field_type',$param['type'], 'IN');
 			$query->condition('field_state',$param['state'], 'IN');
-			$query->range(0, 100);
+			$query->range(0, 2000);
 			$nids = $query->execute();
 			$ORG_NAME = [];
 			foreach ($nids as $nid) {
