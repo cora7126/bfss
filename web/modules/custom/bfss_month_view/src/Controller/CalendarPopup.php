@@ -130,11 +130,7 @@ class CalendarPopup extends ControllerBase {
 		                                </a>
 		                                             
 		                            </li>
-		                             <li>
-		                                 <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;title='.$data['title'].'&amp;source='.$data['current_page'].'&amp;summary=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Linkedin">
-		                                            <img alt="Linkedin" src="/modules/contrib/social_media/icons/linkedin.svg">
-		                                 </a>
-		                            </li>
+		                            
 		                            <li>
                                         <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;text=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'...&amp;hashtags='.str_replace('-','',str_replace(' ', '',$data['title'])).'" title="Twitter">
                                               <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
@@ -328,11 +324,7 @@ class CalendarPopup extends ControllerBase {
 		                                </a>
 		                                             
 		                            </li>
-		                             <li>
-		                                 <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;title='.$data['title'].'&amp;source='.$data['current_page'].'&amp;summary=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Linkedin">
-		                                            <img alt="Linkedin" src="/modules/contrib/social_media/icons/linkedin.svg">
-		                                 </a>
-		                            </li>
+
 		                            <li>
                                         <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;text=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'...&amp;hashtags='.str_replace('-','',str_replace(' ', '',$data['title'])).'" title="Twitter">
                                               <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">

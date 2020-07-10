@@ -35,17 +35,17 @@
 		<span><a class="share_assessment"><i class="fas fa-share"></i>  Share</a></span>
 				<div class="social_share_links" style="display:none;">
 					<ul>
-					<li><a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u={{data.current_page}}&amp;title={{ data.title }}" title="Facebook">
+					<li><a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u=http://5ppsystem.com/node/43826&amp;title={{ data.title }}" title="Facebook">
 			                      <img alt="Facebook" src="/modules/contrib/social_media/icons/facebook_share.svg"> </a>
 			                 
 			        </li>
-			        <li>
-			        <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;title={{ data.title }}&amp;source={{data.current_page}}&amp;summary=Date:{{ data.latest_timing|date('M d, Y h:i A') }}, Time:{{ data.latest_timing|date('h:i A') }}, Location:{{ data.field_location }}" title="Linkedin">
+<!-- 			        <li>
+			        <a target="_blank" rel="nooopener noreffer" class="linkedin share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{data.current_page}}&amp;summary=aa&amp;title=asdas" title="Linkedin">
                       <img alt="Linkedin" src="/modules/contrib/social_media/icons/linkedin.svg">
                   	</a>
-			        </li>
+			        </li> -->
 			        <li>
-			            <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url={{data.current_page}}&amp;text= Date:{{ data.latest_timing|date('M d, Y h:i A') }}, Time:{{ data.latest_timing|date('h:i A') }}, Location:{{ data.field_location }}, Description:{{ data.body|striptags|truncate(60) }}...&amp;hashtags={{ data.title|replace({' ': ''}) }}" title="Twitter">
+			            <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?text=Date:{{ data.latest_timing|date('M d, Y h:i A') }}%0aTime:{{ data.latest_timing|date('h:i A') }}%0aLocation:{{ data.field_location }}%0aSite:{{data.current_page}}%0aDescription:{{ data.body|striptags|truncate(60) }}...&amp;hashtags={{ data.title|replace({' ': ''}) }}" title="Twitter">
 	                      <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
 	                  </a>
 	                  </li>

@@ -386,7 +386,12 @@ public function addPlaceholderOnPassword(&$element, FormStateInterface $form_sta
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    
+    $check_email = \Drupal::entityQuery('user')
+    ->condition('mail', $form_state->getValue('manager_email'))
+    ->execute();
+    if (!empty($check_email)) {
+      $form_state->setErrorByName('manager_email', $this->t('The mail '.$form_state->getValue('manager_email').' is already taken.'));
+    } 
   }
 
 

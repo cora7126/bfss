@@ -1,0 +1,7 @@
+bfss_coach_lib:
+  version: 1.x
+  css:
+    layout:
+      #css/bfss_coach.css: {}
+  js:
+    js/bfss_coach.js: {}

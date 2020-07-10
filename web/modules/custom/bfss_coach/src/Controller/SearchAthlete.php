@@ -14,47 +14,36 @@ class SearchAthlete extends ControllerBase {
 
 	  public function content() {
 
-		
 	  	$athlete_user_ids = \Drupal::entityQuery('user')
 	    ->condition('roles', 'athlete', 'CONTAINS')
 	    ->execute();
 	    $data_user = [];
 	    foreach ($athlete_user_ids as $athlete_user_id) {
 	    	$data['mydata'] = $this->getUserInfo('mydata','','uid',$athlete_user_id);
-	    	// echo "<pre>";
-	    	// print_r($data['mydata']);
+	    	$data['athlete_school'] = $this->getUserInfo('athlete_school','','athlete_uid',$athlete_user_id);
+
 			$userdata =	User::load($athlete_user_id);
-	   		$query_fname = \Drupal::database()->select('user__field_first_name', 'uffn');
-			$query_fname->fields('uffn');
-			$query_fname->condition('entity_id', $athlete_user_id,'=');
-			$results_fname = $query_fname->execute()->fetchAll();
-			$firstname = isset($results_fname[0]->field_first_name_value)?$results_fname[0]->field_first_name_value:'';
+			
+			$firstname = $userdata->field_first_name->value;
+			$lastname =  $userdata->field_last_name->value;
+			$age = $this->DOB_get_year($athlete_user_id);
 			if(!empty($firstname)){
 				$firstname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$firstname.'</a>';	
 			}
-			
-			    	
-			$query_lname = \Drupal::database()->select('user__field_last_name', 'ufln2');
-			$query_lname->addField('ufln2', 'field_last_name_value');
-			$query_lname->condition('entity_id', $athlete_user_id,'=');
-			$results_lname = $query_lname->execute()->fetchAssoc();
-			$lastname = $results_lname['field_last_name_value'];
+
 			if(!empty($lastname)){
 				$lastname = '<a href="/preview/profile?uid='.$athlete_user_id.'" target="_blank">'.$lastname.'</a>';	
 			}
 			
-			
-			$query7 = \Drupal::database()->select('athlete_info', 'ai');
-			$query7->fields('ai');
-			$query7->condition('athlete_uid', $athlete_user_id,'=');
-			$results7 = $query7->execute()->fetchAssoc();
-
+		
 	   		$data_user[] = [
 	   			'firstname' => $firstname,
 	   			'lastname' => $lastname,
-	   			'organization' => $data['mydata']['field_organization_name'],
+	   			'organization' => $data['athlete_school']['athlete_school_name'],
 	   			'state' => $userdata->field_state->value,
 	   			'city' => $data['mydata']['field_city'],
+	   			'age' => $age,
+	   			'sport' => $data['athlete_school']['athlete_school_sport'],
 	   		];
 	   		
 	    }
@@ -77,6 +66,10 @@ class SearchAthlete extends ControllerBase {
                 </th>  
                  <th class="th-hd"><a><span></span>City</a>
                 </th>  
+                <th class="th-hd"><a><span></span>Age</a>
+                </th> 
+                <th class="th-hd"><a><span></span>Sport</a>
+                </th> 
               </tr>
             </thead>
             <tbody>';
@@ -85,9 +78,11 @@ class SearchAthlete extends ControllerBase {
         		 $tb .= '<tr>
                 <td>'.$value['firstname'].'</td>
                 <td>'.$value['lastname'].'</td>
-                 <td>'.$value['organization'].'</td>
+                <td>'.$value['organization'].'</td>
                 <td>'.$value['state'].'</td>
                 <td>'.$value['city'].'</td>
+                <td>'.$value['age'].'</td>
+                <td>'.$value['sport'].'</td>
               </tr>';
         }
 	      $tb .= '</tbody>
@@ -129,4 +124,12 @@ class SearchAthlete extends ControllerBase {
     return $result;
   }
 
+	public function DOB_get_year($uid){
+	    if($uid){
+	        $user = \Drupal\user\Entity\User::load($uid);
+	        $dob = $user->field_date_of_birth->value;
+	        $diff = (date('Y') - date('Y',strtotime($dob)));
+	    }
+	    return $diff;
+ 	}
 }
