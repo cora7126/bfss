@@ -29,40 +29,44 @@ class edit_parent extends FormBase {
 	$current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
     $query1 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
+
 	$query1->join('parent_mobiles', 'pm', 'fpfnv.delta = pm.parent_id');
-		$query1->fields('pm');
-		$query1->addField('fpfnv','field_parent_first_name_value');
-		$query1->condition('fpfnv.entity_id', $current_user,'=');
-		$query1->condition('pm.entity_id', $current_user,'=');
-		$results1 = $query1->execute()->fetchAll(); 
-		// $count = count($results1);
-		// echo "<pre>"; print_r($results1);die;
+	$query1->fields('pm');
+	$query1->addField('fpfnv','field_parent_first_name_value');
+	$query1->condition('fpfnv.entity_id', $current_user,'=');
+	$query1->condition('pm.entity_id', $current_user,'=');
+	$results1 = $query1->execute()->fetchAll(); 
+
+
 	$query2 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
 	$query2->join('user__field_parent_last_name', 'ufpln', 'fpfnv.delta = ufpln.delta');
-		$query2->addField('ufpln','field_parent_last_name_value');
-		$query2->condition('fpfnv.entity_id', $current_user,'=');
-		$query2->condition('ufpln.entity_id', $current_user,'=');
-		$results2 = $query2->execute()->fetchAll(); 
-	// echo "<pre>"; print_r($results2);die;
+	$query2->addField('ufpln','field_parent_last_name_value');
+	$query2->condition('fpfnv.entity_id', $current_user,'=');
+	$query2->condition('ufpln.entity_id', $current_user,'=');
+	$results2 = $query2->execute()->fetchAll(); 
+
+
 	$form['prefix'] = "<div class=athlete_edit_class>";
 	$form['suffix'] = "</div>";
     $query3 = \Drupal::database()->select('user__field_parent_first_name', 'fpfnv');
 	$query3->fields('fpfnv');
-	  $query3->condition('fpfnv.entity_id', $current_user,'=');
-	  $results3 = $query3->execute()->fetchAll();
+	$query3->condition('fpfnv.entity_id', $current_user,'=');
+	$results3 = $query3->execute()->fetchAll();
+	
 	$query4 = \Drupal::database()->select('user__field_parent_last_name', 'abcd');
 	$query4->fields('abcd');
-	  $query4->condition('entity_id', $current_user,'=');
-	  $results4 = $query4->execute()->fetchAll();
-	  $count = count($results3);
+	$query4->condition('entity_id', $current_user,'=');
+	$results4 = $query4->execute()->fetchAll();
+	$count = count($results3);
 	  // echo "<pre>"; print_r($results3);die;
 	  $form['fname1'] = array(
-      '#type' => 'textfield',
-      '#default_value' => $results3[0]->field_parent_first_name_value,
+	  '#type' => 'textfield',
+	  '#default_value' => $results3[0]->field_parent_first_name_value,
 	  // '#attributes' => array('disabled'=>true),
 	  '#prefix'=> '<div class="left_section"><div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>PARENT / GUARDIAN</h3> <div class=items_div>',
 	  '#placeholder' => t('First Name'),
-      );
+	  );
+	  
 	  $form['lname1'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Last Name'),

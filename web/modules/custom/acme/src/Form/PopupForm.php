@@ -225,8 +225,9 @@ class PopupForm extends FormBase {
     ];
      $form['organizationType'] = array(
     //'#title' => t('az'),
+    '#required' => TRUE,
     '#type' => 'select',
-   '#default_value' => isset($athlete_school['athlete_school_type'])?$athlete_school['athlete_school_type']:'school',
+    '#default_value' => isset($athlete_school['athlete_school_type'])?$athlete_school['athlete_school_type']:'school',
     '#options' => $orgtype,
     '#prefix' => '<div class="athlete_school"><div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University<i class="far fa-trash-alt right-icon delete_icon" aria-hidden="true"></i></h3><div class=items_div><div class="full-width-inp orgtype">',
      '#suffix' => '</div>',
@@ -241,6 +242,7 @@ class PopupForm extends FormBase {
    
     $form['organizationName'] = array(
       '#type' => 'textfield',
+      '#required' => TRUE,
       '#placeholder' => t('Orginization Name'),
       '#autocomplete_route_name' => 'edit_form.autocomplete',
       '#autocomplete_route_parameters' => array('state_name' => $VNS,'org_type' => $type_organization_1, 'count' => 10), 
@@ -252,6 +254,7 @@ class PopupForm extends FormBase {
  
    
     $form['sport'] = array(
+    '#required' => TRUE,
     //'#title' => t('az'),
     '#type' => 'select',
     //'#description' => 'Select the desired pizza crust size.',
@@ -260,6 +263,7 @@ class PopupForm extends FormBase {
       );
     
      $form['position'] = array (
+      '#required' => TRUE,
       '#type' => 'textfield',
       //'#title' => ('Height'),
       '#placeholder' => t('Position'),

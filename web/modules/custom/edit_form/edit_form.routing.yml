@@ -97,3 +97,11 @@ edit_form.autocomplete:
   requirements:
    # _access: 'TRUE'
    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
+
+edit_form.select_coach:
+  path: '/select-coach/{parm_1}/{count}'
+  defaults:
+    _controller: '\Drupal\edit_form\Controller\AutocompleteControllerCoach::handleAutocomplete'
+    _format: json
+  requirements:
+   _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'

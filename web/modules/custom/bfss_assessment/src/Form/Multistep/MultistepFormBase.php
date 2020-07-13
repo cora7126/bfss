@@ -312,7 +312,7 @@ abstract class MultistepFormBase extends FormBase {
 
     #delete temp storage
     $this->deleteStore();
-    drupal_set_message($this->t('Thank you for booking!'));
+    #drupal_set_message($this->t('Thank you for booking!'));
 
   }
 

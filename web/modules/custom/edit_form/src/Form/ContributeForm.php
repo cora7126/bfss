@@ -343,6 +343,7 @@ class ContributeForm extends FormBase {
       '#prefix' => '<div class = "athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>About me</h3><div class=items_div>',
       '#suffix' => '</div></div>',
       );
+
     $form['instagram'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('You Instagram Handle'),
@@ -358,6 +359,16 @@ class ContributeForm extends FormBase {
       '#default_value' => $results10['athlete_social_2'],
       );
 
+    $form['coach_info'] = array(
+      '#type' => 'textfield',
+      '#placeholder' => t('Select your coach'),
+      '#default_value' => '',
+      '#autocomplete_route_name' => 'edit_form.select_coach',
+      '#autocomplete_route_parameters' => array('parm_1' => 'coach', 'count' => 10), 
+
+      '#prefix' => '<div class="athlete_left full-width-inp"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>Select Coach</h3><div class=items_div>',
+      '#suffix' => '</div></div>',
+      );
     /*
     *ORGANIZATION - 1
     */
@@ -393,6 +404,7 @@ class ContributeForm extends FormBase {
     $type_organization_1 = isset($form_state_values['organizationType'])?$form_state_values['organizationType']:$type__1; 
    
     $form['organizationName'] = array(
+        '#required' => TRUE,
       '#type' => 'textfield',
       '#placeholder' => t('Orginization Name'),
       '#autocomplete_route_name' => 'edit_form.autocomplete',
@@ -425,6 +437,7 @@ class ContributeForm extends FormBase {
 	$sports_arr = [''=>'Select Sport'] + $sports_arr;
     $form['sport'] = array(
       '#type' => 'select',
+        '#required' => TRUE,
 	  '#options' => $sports_arr,
       '#default_value' => $athlete_school['athlete_school_sport'],
       );
@@ -432,6 +445,7 @@ class ContributeForm extends FormBase {
     $form['position'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Position'),
+        '#required' => TRUE,
       '#default_value' => $athlete_school['athlete_school_pos'],
       '#prefix' => '<div class="add_pos_div_first">',
       '#suffix' => '<a class="add_pos_first"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Position</a><a class="remove_pos_first"><i class="fa fa-trash"></i>&nbsp;&nbsp;Remove Position</a>',
@@ -879,12 +893,12 @@ class ContributeForm extends FormBase {
       );
     $form['label_1'] = array(
       '#type' => 'label',
-      '#title' => ' http://bfssathlete.com/profile/',
+      '#title' => ' https://bfssathlete.com/profile/',
       '#attributes' => array('id' => 'label_1', 'class' => array('weblabel')),
       );
     $form['label_2'] = array(
       '#type' => 'label',
-      '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+      '#title' => 'Create your unique website profile.<br> eg: https://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
       );
     if(!empty($results_web) && is_array($results_web)){
       $pasth1 = !empty($results_web['athlete_web_name'])?'/profile/'.$results_web['athlete_web_name']:'/preview/profile';
@@ -932,12 +946,12 @@ class ContributeForm extends FormBase {
         );
       $form['label_12'] = array(
         '#type' => 'label',
-        '#title' => ' http://bfssathlete.com/profile/',
+        '#title' => ' https://bfssathlete.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_22'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: https://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       if(!empty($results_addweb) && is_array($results_addweb)){
         $pasth2 = isset($results_addweb['athlete_addweb_name'])?'/profile/'.$results_addweb['athlete_addweb_name']:'/preview/profile';
@@ -987,12 +1001,12 @@ class ContributeForm extends FormBase {
         );
       $form['label_13'] = array(
         '#type' => 'label',
-        '#title' => 'http://bfssathlete.com/profile/',
+        '#title' => 'https://bfssathlete.com/profile/',
         '#attributes' => array('id' => 'label_2', 'class' => array('weblabel')),
         );
       $form['label_23'] = array(
         '#type' => 'label',
-        '#title' => 'Create your unique website profile.<br> eg: http://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
+        '#title' => 'Create your unique website profile.<br> eg: https://bfssathlete.com/profile/jodibloggs<br>Once published, this will become your permanent address and it can not be changed.<br>',
         );
       if(!empty($results_clubweb) && is_array($results_clubweb)){
        $pasth3 = isset($results_clubweb['athlete_web_name'])?'/profile/'.$results_clubweb['athlete_web_name']:'/preview/profile';
@@ -1068,6 +1082,7 @@ class ContributeForm extends FormBase {
     if (!$form_state->getValue('lname') || empty($form_state->getValue('lname'))) {
       $form_state->setErrorByName('lname', $this->t('Last name should not be empty.'));
     }
+
     if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
       $form_state->setErrorByName('email', $this->t('Please enter a valid email.'));
     }
@@ -1075,7 +1090,8 @@ class ContributeForm extends FormBase {
     $check_email = \Drupal::entityQuery('user')
     ->condition('mail', $form_state->getValue('email'))
     ->execute();
-    if (!empty($check_email)) {
+
+    if ($check_email<=1) {
       $form_state->setErrorByName('email', $this->t('The mail '.$form_state->getValue('email').' is already taken.'));
     } 
     if (!$form_state->getValue('venue_loaction') || empty($form_state->getValue('venue_loaction'))) {
