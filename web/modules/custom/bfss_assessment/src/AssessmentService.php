@@ -671,7 +671,9 @@ class AssessmentService {
           $data['body'] = t($node->get('body')->value);
         }
         if ($node->hasField('field_location')) {
-          $data['field_location'] = t($node->get('field_location')->value);
+          if(!empty($node->get('field_location')->value)){
+            $data['field_location'] = t($node->get('field_location')->value);
+          } 
         }
 
         if ($node->hasField('field_image')) {

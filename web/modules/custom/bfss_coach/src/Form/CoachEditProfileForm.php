@@ -774,7 +774,7 @@ $form['html_image_athlete_end'] = [
     $check_email = \Drupal::entityQuery('user')
     ->condition('mail', $form_state->getValue('email'))
     ->execute();
-    if (!empty($check_email)) {
+    if ($check_email<=1) {
       $form_state->setErrorByName('email', $this->t('The mail '.$form_state->getValue('email').' is already taken.'));
     } 
 

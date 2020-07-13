@@ -78,7 +78,7 @@ bfss_admin.users_editable_account_url:
     _title: 'Users Editable Account'
   requirements:
    # _access: 'TRUE'
-   _role: 'bfss_administrator'
+   _role: 'bfss_administrator+bfss_manager'
 
 bfss_admin.managers_pending_payment:
   path: '/managers-pending-payment'
