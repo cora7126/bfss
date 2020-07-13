@@ -105,31 +105,32 @@ class PendingAssessments extends ControllerBase {
       }
       //$result = $this->_return_pager_for_array($result, $parpage);
       // Wrapper for rows
-      $tb = '<div class="wrapped_div_main user_pro_block">
-      <div class="block-bfss-assessors">
-      <div class="table-responsive-wrap">
-      <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
-        <thead>
-          <tr>
-            <th class="th-hd"><a><span></span> Date</a>
-            </th>
-            <th class="th-hd"><a><span></span> First Name</a>
-            </th>
-            <th class="th-hd"><a><span></span> Last Name</a>
-            </th>
-            <th class="th-hd"><a><span></span> Form Type</a>
-            </th>
-            <th class="th-hd"><a><span></span> Status</a>
-            </th>
-            <th class="th-hd"><a><span></span> Organization</a>
-            </th>
-            <th class="th-hd"><a><span></span> State</a>
-            </th>
-            <th class="th-hd"><a><span></span> City</a>
-            </th>
-          </tr>
-        </thead>
-        <tbody>';
+      $tb = '
+      <div class="wrapped_div_main user_pro_block">
+        <div class="block-bfss-assessors">
+        <div class="table-responsive-wrap">
+        <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%" >
+          <thead>
+            <tr>
+              <th class="th-hd"><a><span></span> Date</a>
+              </th>
+              <th class="th-hd"><a><span></span> First Name</a>
+              </th>
+              <th class="th-hd"><a><span></span> Last Name</a>
+              </th>
+              <th class="th-hd"><a><span></span> Assessment Type</a>
+              </th>
+              <th class="th-hd"><a><span></span> Status</a>
+              </th>
+              <th class="th-hd"><a><span></span> Organization</a>
+              </th>
+              <th class="th-hd"><a><span></span> State</a>
+              </th>
+              <th class="th-hd"><a><span></span> City</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>';
 
     foreach ($result as $item) {
       $nid = $item['nid'];
@@ -140,34 +141,33 @@ class PendingAssessments extends ControllerBase {
       $user_name = $item['field_status'];
       $field_status = $item['field_status'];
 
-      //xxxx &st='.$st.'&postion='.$item['postion'].'
-      $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&field_status='.$item['field_status']; // .'&assess_nid='.$item['assess_nid']
+      //xxxx &st='.$st.'&postion='.$item['postion'].'    // .'&assess_nid='.$item['assess_nid']
+      $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&field_status='.$item['field_status'];
 
       $first_name = $item['first_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
-
       $last_name = $item['last_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
 
       // $field_status = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$field_status.'</a></p>');
       $type = Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$type.'</a></p>');
 
-        $tb .= '<tr>
-              <td>'.$item['booking_date'].'</td>
-              <td>'.$first_name.'</td>
-              <td>'.$last_name.'</td>
-              <td>'.$type.'</td>
-              <td>'.$field_status.'</td>
-              <td>'.$item['org_name'].'</td>
-              <td>'.$item['state'].'</td>
-              <td>'.$item['city'].'</td>
-            </tr>';
+      $tb .= '
+          <tr>
+            <td>'.$item['booking_date'].'</td>
+            <td>'.$first_name.'</td>
+            <td>'.$last_name.'</td>
+            <td>'.$type.'</td>
+            <td>'.$field_status.'</td>
+            <td>'.$item['org_name'].'</td>
+            <td>'.$item['state'].'</td>
+            <td>'.$item['city'].'</td>
+          </tr>';
     }
-    $tb .= '</tbody>
+    $tb .= '
+      </tbody>
         </table>
           </div>
         </div>
-          </div>
-
-        ';
+          </div>';
 
     //$rows = $this->_records_nonsql_sort($rows, $header);
 
@@ -176,8 +176,8 @@ class PendingAssessments extends ControllerBase {
         '#type' => 'markup',
         '#markup' => 'This block list the article.',
       );
-        $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
-        $element['#suffix'] = '</div>';
+      $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
+      $element['#suffix'] = '</div>';
       //$form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessors\Form\ParPageItemShow');
       //$element['out'] = $form;
       // $par_page_item = $_GET['par_page_item'];

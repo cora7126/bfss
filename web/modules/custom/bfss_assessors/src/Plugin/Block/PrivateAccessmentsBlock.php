@@ -91,7 +91,7 @@ class PrivateAccessmentsBlock extends BlockBase {
                 $field_status = 'No Show';
                 $st = 0;
             }
-              $result[] = array(
+            $result[] = array(
               'booked_id' => $booked_id,
               'id' => $entity->id->value,
               'user_name' =>$entity->user_name->value,
@@ -105,7 +105,7 @@ class PrivateAccessmentsBlock extends BlockBase {
               'first_name' =>$entity->first_name->value,
               'last_name' =>$entity->last_name->value,
               'address_1' => $address_1,
-              // 'sport' => $sport,
+              'sport' => $sport,
               'postion' => $postion,
               'st' =>  $st,
             );
