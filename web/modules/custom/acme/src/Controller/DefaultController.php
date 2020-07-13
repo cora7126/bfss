@@ -276,6 +276,14 @@ public function userform()
         $query1->condition('field_booked_id',$booked_id, 'IN');
         $nids1 = $query1->execute();
 
+
+        $queryInf = \Drupal::database()->select('athlete_info', 'ainf');
+        $queryInf->fields('ainf');
+        $queryInf->condition('athlete_uid', $user_id, '=');
+        $queryInf->orderBy('id','DESC');
+        $athletInfoAry = $queryInf->execute()->fetchAll();
+        // ksm($athletInfoAry[0]->field_height);
+
         //sport
         $query5 = \Drupal::database()->select('athlete_school', 'ats');
         $query5->fields('ats');
@@ -308,25 +316,29 @@ public function userform()
             $field_status = 'No Show';
             $st = 0;
         }
+        if ($field_status != 'complete') {
           $result[] = array(
-          'booked_id' => $booked_id,
-          'id' => $entity->id->value,
-          'user_name' =>$entity->user_name->value,
-          'first_name' =>$entity->first_name->value,
-          'last_name' =>$entity->last_name->value,
-          'nid_book' => $nid_book,
-          'formtype' => $formtype,
-          'Assess_type' => $Assess_type,
-          'field_status' => $field_status,
-          'booking_date'  => $booking_date,
-          'booking_time'  => $booking_time,
-          'st' =>  $st,
-          'assess_nid' => $assess_nid,
-          'address_1' => $address_1,
-          // 'sport' => $sport,
-          'postion' => $postion,
-          'user_id' => $user_id,
-        );
+            'booked_id' => $booked_id,
+            'id' => $entity->id->value,
+            'user_name' =>$entity->user_name->value,
+            'first_name' =>$entity->first_name->value,
+            'last_name' =>$entity->last_name->value,
+            'nid_book' => $nid_book,
+            'formtype' => $formtype,
+            'Assess_type' => $Assess_type,
+            'field_status' => $field_status,
+            'booking_date'  => $booking_date,
+            'booking_time'  => $booking_time,
+            'st' =>  $st,
+            'assess_nid' => $assess_nid,
+            'weight' => $athletInfoAry[0]->field_weight,
+            'height' => $athletInfoAry[0]->field_height,
+            'address_1' => $address_1,
+            'sport' => $sport,
+            'postion' => $postion,
+            'user_id' => $user_id,
+          );
+        }
       }
     }
     $tb1 = '
@@ -344,6 +356,8 @@ public function userform()
           </th>
           <th class="th-hd"><a><span></span>Assessment Type</a>
           </th>
+          <th class="th-hd"><a><span></span>Status</a>
+          </th>
           <th class="th-hd"><a><span></span>Location</a>
           </th>
         </tr>
@@ -358,19 +372,22 @@ public function userform()
         $st = $item['st'];
         $user_name = $item['user_name'];
 
-        $url = 'pending-assessments-form?nid='.$nid_book.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status'].'&assess_nid='.$item['assess_nid'];
-        // $url = 'starter-professional-assessments?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&assess_nid='.$item['assess_nid'].'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&user_id='.$item['user_id'];
+        $url = 'pending-assessments-form?nid='.$nid_book.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&st='.$st.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&postion='.$item['postion'].'&field_status='.$item['field_status'].'&assess_nid='.$item['assess_nid'].'&weight='.$item['weight'].'&height='.$item['height'];
 
-        $user_name = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}"  href="'.$url.'">'.$user_name.'</a></p>');
-        $tb1 .= '<tr>
+        $formtype = Markup::create('<p><a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm private-assesspopup&quot;}"  href="'.$url.'">'.$type.'</a></p>');
+
+        $tb1 .= '
+         <tr>
           <td>'.$item['booking_date'].'</td>
           <td>'.$item['booking_time'].'</td>
           <td>'.$user_name.'</td>
-          <td>'.$item['formtype'].'</td>
+          <td>'.$formtype.'</td>
+          <td>'.$item['field_status'].'</td>
           <td>'.$item['address_1'].'</td>
-          </tr>';
+         </tr>';
       }
-      $tb1 .= '</tbody>
+      $tb1 .= '
+          </tbody>
             </table>
              </div>
             </div>

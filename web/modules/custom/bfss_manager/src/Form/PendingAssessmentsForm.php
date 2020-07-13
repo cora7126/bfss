@@ -76,10 +76,10 @@ class PendingAssessmentsForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     //current user
-    // $current_user = \Drupal::currentUser();
-    // $user_id = $current_user->id();
-    // $user = \Drupal\user\Entity\User::load($user_id);
-    // $roles = $user->getRoles();
+    $current_user = \Drupal::currentUser();
+    $user_id = $current_user->id();
+    $user = \Drupal\user\Entity\User::load($user_id);
+    $roles = $user->getRoles();
 
     $formFields = $form;
     $param = \Drupal::request()->query->all();
@@ -89,9 +89,12 @@ class PendingAssessmentsForm extends FormBase {
     $field_booked_id = $param['booked_id'];
     $st = $param['st'];
     $field_status = $param['field_status'];
-    // $assess_nid = $param['assess_nid'];
+    $assess_nid = $param['assess_nid'];
     $first_name = $param['first_name'];
     $last_name = $param['last_name'];
+
+    // ksm('$param', $param);
+    // ksm('$user', $user->getFieldDefinitions());
 
     if ($field_booked_id) {
       // See if assessment has been started by assessor or mgr.
@@ -116,16 +119,14 @@ class PendingAssessmentsForm extends FormBase {
 
     if($nid && $formtype && $Assess_type)
     {
-      //jody - use this to extract "professional" (because $formtype only contains 'Starter' OR 'Elite')
       $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($field_booked_id);
 
       $sport = $param['sport'] ? $param['sport'] : $entity->mydata->field_sport->value; // to be set in field_sport_assessment
-      // $tmp_user_id = $entity->user_id->value;
 
       $realFormType = AssessmentService::getFormTypeFromPrice($entity->service->value);
 
       $realFormType = $realFormType ? $realFormType : $param['formtype'];
-//ksm('$realFormType', $realFormType);
+
       if($realFormType == 'Starter' && $Assess_type == 'individual'){
         $form_title = 'STARTER ASSESSMENT';
       }
@@ -196,10 +197,12 @@ class PendingAssessmentsForm extends FormBase {
       $default_sport = @$node->{$fieldName}->value ? @$node->{$fieldName}->value : $sport;
       $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_sport, 'SPORT'); // 2
 
+      $default_weight = @$node->field_weight->value ? @$node->field_weight->value : $param['weight'];
+      $default_height = @$node->field_height->value ? @$node->field_height->value : $param['height'];
       $fieldName = 'field_weight'; //dd
-      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'WEIGHT', 'Lbs', 'Lbs'); // 3
+      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_weight, 'WEIGHT', 'Lbs', 'Lbs'); // 3
       $fieldName = 'field_sex'; //dd
-      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'SEX'); // 4
+      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_height, 'SEX'); // 4
 
       //------------------------------------ starter form
       if($realFormType == 'Starter')
@@ -480,11 +483,11 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_force_rate_rfd';
         $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'RFD', '%'); // 55 / 76
         $fieldName = 'field_force_rate_low_peak';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'LOW PEAK FORCE'); // 56 / 77
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'LOW PEAK FORCE', '< #.#x'); // 56 / 77
         $fieldName = 'field_force_rate_medium_peak';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'MEDIUM PEAK FORCE'); // 57 / 78
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'MEDIUM PEAK FORCE', '#.#x'); // 57 / 78
         $fieldName = 'field_force_rate_high_peak';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'HIGH PEAK FORCE'); // 58 / 79
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'HIGH PEAK FORCE', '> #.#x'); // 58 / 79
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DYNAMIC STRENGTH INDEX
         $formFields['field_wrap_9'] = array(
@@ -592,9 +595,9 @@ class PendingAssessmentsForm extends FormBase {
           $fldNum = 0;
 
           $fieldName = 'field_1_5_mile_bike';
-          $formFields['field_wrap_dE'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '1.5 MILE BIKE', '##.#'); // 101
+          $formFields['field_wrap_dE'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '1.5 MILE BIKE', '#.##'); // 101
           $fieldName = 'field_1_5_mile_bike_e';
-          $formFields['field_wrap_dE'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) 1.5 MILE BIKE', '##.#'); // 102
+          $formFields['field_wrap_dE'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) 1.5 MILE BIKE', '#.##'); // 102
           $fieldName = 'field_heart_rate_recover';
           $formFields['field_wrap_dE'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'HEART RATE', '## Secs'); // 103
           $fieldName = 'field_heart_rate_recover_e';
@@ -801,7 +804,7 @@ class PendingAssessmentsForm extends FormBase {
           ]
       );
 
-      // if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
+      if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
           $formFields['actions']['submit'] = array(
           '#type' => 'submit',
           '#name' => 'save_published',
@@ -819,7 +822,7 @@ class PendingAssessmentsForm extends FormBase {
               ],
             ]
         );
-      // }
+      }
       // ksm(['formFields', $formFields]);
 
       return $formFields;
@@ -860,6 +863,17 @@ class PendingAssessmentsForm extends FormBase {
     return $data;
   }
 
+  /****
+   * Add units to formValue ONLY IF formValue ends in a digit.  Example 5.5 will return "5.5 $units", but "5.5 Lb." would return same "5.5 Lb.".
+   */
+  private function addUnits($formValue, $units) {
+    if (preg_match('/.*\d\s*$/si', $formValue)) {
+      return $formValue . ' ' . $units;
+    }
+    else {
+      return $formValue;
+    }
+  }
 
   /**
    * {@inheritdoc}
@@ -887,13 +901,6 @@ class PendingAssessmentsForm extends FormBase {
     $user = \Drupal\user\Entity\User::load($user_id);
 
     $form_data = $this->getFormData($form_state, false);
-
-    //jjj hack, added all "session" stuff here, to create pdf.
-    // session_start();
-    // $_SESSION['temp-session-form-values'] = [];
-    // $_SESSION['temp-session-form-values'] = $this->getFormData($form_state, true);
-    // Form field to pdf field mappings:
-    // $_SESSION['temp-session-form-values']['FULL_NAME_TOP'] = $_SESSION['temp-session-form-values']['first_name'] . ' ' . $_SESSION['temp-session-form-values']['last_name'];
 
     $form_data['title'] = @$form_data['title'] ? $form_data['title'] : 'Starter Assessment'; // $_SESSION['temp-session-form-values']['field_form_type'];
 
@@ -999,6 +1006,89 @@ class PendingAssessmentsForm extends FormBase {
 
           foreach ($form_data as $key => $val) {
             if (isset($form_data[$key])) {
+              switch ($key) {
+                // Add Units if not already present in submitted form.
+                case 'field_weight':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
+                case 'field_age':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'y/o');                 break;
+                case 'field_rsi_reactive_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_jump_height_in_elastic_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                break;
+                case 'field_jump_height_in_ballistic_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_10m_time_sec_sprint_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                break;
+                case 'field_peak_force_n_maximal_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_elite_age_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'y/o');                 break;
+                case 'field_single_leg_strength':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Reps');                 break;
+                case 'field_push_ups_num':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Reps');                 break;
+                case 'field_chin_ups_num':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Reps');                break;
+                case 'field_single_leg_strength_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Reps');                 break;
+                case 'field_push_ups_num_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Reps');                 break;
+                case 'field_chin_ups_num_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Reps');                 break;
+                case 'field_static_ball_throw_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_rotate_ball_throw_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_single_leg_strength_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_push_ups_num_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_chin_ups_num_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_agility_sec_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_bike_test_time_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_mid_thigh_your_weight':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
+                case 'field_mt_abs_strength_lbs':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
+                case 'field_mt_abs_strength_lbs_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
+                case 'field_mid_thigh_rel_strength':
+                  $form_data[$key] = $this->addUnits($form_data[$key], '%');                 break;
+                case 'field_mid_thigh_rel_strength_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], '%');                 break;
+                case 'field_static_chest_throw':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'W');                 break;
+                case 'field_polyometric_chest_throw':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'W');                 break;
+                case 'field_rot_rank':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'W');                 break;
+                case 'field_rot_ball_throw':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'W');                 break;
+                case 'field_5_10_5_agile':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Secs');                 break;
+                case 'field_5_10_5_agile_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Secs');                 break;
+                case 'field_heart_rate_recover':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Secs');                 break;
+                case 'field_heart_rate_recover_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Secs');                 break;
+                case 'field_summary_reactive_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_summary_relative_b':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
+                case 'field_summary_dynamic':
+                  $form_data[$key] = $this->addUnits($form_data[$key], '%');                 break;
+                case 'field_summary_dynamic_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], '%');                 break;
+                case 'field_summary_relative':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
+                case 'field_summary_relative_e':
+                  $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
+              }
               if ($key != 'draft' && $key != 'submit' && $key != 'save_published' && $key != 'save_unpublished' && $key != 'form_build_id' && $key != 'form_token' && $key != 'form_id') {
                 $node->set($key, $form_data[$key]);
               }

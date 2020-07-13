@@ -3,3 +3,5 @@ web/sites/default/files/contentimportlog.txt
 /.vscode
 /.vscode/sftp.json
 web/sites/default/settings.php
+/.vscode/sftp.2.json
+/web/sites/default/settings.php
