@@ -297,6 +297,18 @@ class MultistepFourForm extends MultistepFormBase {
     return $form;
   }
 
+ public function validateForm(array &$form, FormStateInterface $form_state) {
+      $us_cities_check = \Drupal::database()->select('us_cities', 'athw')
+                  ->fields('athw')
+                  ->condition('name',$form_state->getValue('city'),'LIKE')
+                  ->condition('state_code',$form_state->getValue('state'), '=')
+                  ->range(0, 2000)
+                  ->execute()->fetchAll();
+    if(empty($us_cities_check)){
+       $form_state->setErrorByName('city', $this->t('Incorrect city.'));
+    }
+ }
+
   /**
    * {@inheritdoc}
    */

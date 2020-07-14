@@ -957,7 +957,42 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select > span:hover, .ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select > span:focus, .ctv_filter_main .cat_tags_wrpp .box.niceselect p.venue a{color:#4c4c4c;}
 .ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select .list li{padding:0 10px;}
 .ctv_filter_main .cat_tags_wrpp .box.niceselect .nice-select .list li:hover{color:#fff;background:#EB6E06;}
-
+/***cookies START***/
+div#sliding-popup{
+    background: #EB6E06!important;
+}
+button.decline-button.eu-cookie-compliance-default-button {
+    background: green;
+    color: #fff;
+    color: white;
+    box-shadow: none;
+    outline: 0;
+    width: auto;
+    text-transform: uppercase;
+    height: 35px;
+    line-height: 23px;
+    padding: 5px 20px;
+    font-size: 14px;
+    border: 0;
+    border-radius: 0px;
+    font-weight: 400;
+    font-family: inherit;
+    text-shadow: none;
+}
+button.agree-button.eu-cookie-compliance-secondary-button {
+    background: green;
+    color: #fff;
+    color: white;
+    box-shadow: none;
+    outline: 0;
+    width: auto;
+    text-transform: uppercase;
+    height: 35px;
+    line-height: 23px;
+    padding: 5px 20px;
+    font-size: 14px;
+}
+/***cookies END***/
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {

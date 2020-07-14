@@ -28,17 +28,17 @@ class AutocompleteControllerCoach extends ControllerBase {
     }
     $input = Xss::filter($input);
     $coach_ids = \Drupal::entityQuery('user')
-    ->condition('field_first_name', $input, 'CONTAINS')
+    ->condition('name', $input, 'CONTAINS')
     ->condition('roles', 'coach', 'CONTAINS')
     ->execute();
 
     foreach ($coach_ids as $coach_id) {
       $user = User::load($coach_id);
       $label = [
-              $user->field_first_name->value.' '.$user->field_last_name->value,
+              $user->name->value,
       ];
       $results[] = [
-          'value' => $user->uid->value,
+          'value' => $user->name->value,
           'label' => implode(' ', $label),
       ];
     }

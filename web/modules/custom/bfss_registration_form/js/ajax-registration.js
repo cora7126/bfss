@@ -1,6 +1,34 @@
 (function ($, Drupal) {
   Drupal.behaviors.bfss_registration_form = {
     attach: function (context, settings) {
+            /****tooltip for register start**/     
+            $('.form-item-field-first-name-0-value input').attr("data-toggle","tooltip").attr("title","Enter your first name.");
+            $('.form-item-field-last-name-0-value input').attr("data-toggle","tooltip").attr("title","Enter your last name.");
+            $('.form-item-mail input').attr("data-toggle","tooltip").attr("title","Enter your email address.");
+            $('.form-item-conf-mail input').attr("data-toggle","tooltip").attr("title","Enter your confirm E-mail.");
+            $('.form-item-name input').attr("data-toggle","tooltip").attr("title","Enter your username.");
+            $('.field--name-field-state select').attr("data-toggle","tooltip").attr("title","Select your state.");
+            $('.form-item-user-type  select').attr("data-toggle","tooltip").attr("title","Select your account.");
+            $('.form-item-field-program-term  select').attr("data-toggle","tooltip").attr("title","Select your program.");
+
+            $('.form-item-cck-name  input').attr("data-toggle","tooltip").attr("title","Enter your credit card name.");
+            $('.form-item-cck-number  input').attr("data-toggle","tooltip").attr("title","Enter your credit card number.");
+
+            $('.form-item-cck-month select').attr("data-toggle","tooltip").attr("title","Select month.");
+            $('.form-item-cck-year select').attr("data-toggle","tooltip").attr("title","Select year.");
+
+            $('.form-item-cck-csv  input').attr("data-toggle","tooltip").attr("title","Enter your csv.");
+
+            $('.form-item-bi-first-name  input').attr("data-toggle","tooltip").attr("title","Enter your billing first name.");
+            $('.form-item-bi-last-name  input').attr("data-toggle","tooltip").attr("title","Enter your billing last name.");
+            $('.form-item-bi-address  input').attr("data-toggle","tooltip").attr("title","Enter your billing address.");
+            $('.form-item-bi-city input').attr("data-toggle","tooltip").attr("title","Enter your billing city.");
+            $('.form-item-bi-state select').attr("data-toggle","tooltip").attr("title","Select your state.");
+            $('.form-item-bi-postal-code input').attr("data-toggle","tooltip").attr("title","Enter Zip/Post Code");
+            $('.form-item-bi-country select').attr("data-toggle","tooltip").attr("title","Select country.");
+            $('[data-toggle="tooltip"]').tooltip();
+            /****tooltip for register end**/
+
       // trigger submit button
       $('select[name=user_type],select[name=field_program_term]').on('change', function (e) {
         e.preventDefault();

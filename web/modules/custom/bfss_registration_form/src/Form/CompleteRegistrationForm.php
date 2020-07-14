@@ -35,10 +35,12 @@ class CompleteRegistrationForm extends FormBase {
       '#type' => 'fieldset',
     ];
 
-    $form['pass_section']['description'] = [
+    $form['pass_section']['description_message'] = [
       '#type' => 'item',
-      '#markup' => t('<div class="result_message"></p></div>')
+      '#markup' => t('<div class="description_message">Password must be at least 8 characters and contain at least one number, one uppercase letter, one lowercase letter and one special character.</div>')
     ];
+
+
  // $form['message'] = [ //for custom message "like: ajax msgs"
  //          '#type' => 'markup',
  //          '#markup' => '<div class="result_message"></div>',
@@ -132,7 +134,11 @@ class CompleteRegistrationForm extends FormBase {
     //     'class' => ['btn-trouble']
     //   ],
     // ];
-
+    $form['pass_section']['description'] = [
+      '#type' => 'item',
+      '#markup' => t('<div class="result_message"></div>')
+    ];
+    
     $form['actions'] = ['#type' => 'actions', '#weight'=> 9];
     $form['actions']['submit'] = [
       '#type' => 'submit',
