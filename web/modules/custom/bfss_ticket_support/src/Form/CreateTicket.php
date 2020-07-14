@@ -39,10 +39,10 @@ class CreateTicket extends FormBase {
 
     $form['header'] = array(
       '#prefix' => '<div class="dash-main-right">
-      <h1><i class="fas fa-home" 1123></i> >
+      <h1><i class="fas fa-home"></i> >
         <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Create Ticket</h1>
         <div class="dash-sub-main">
-          <i class="fas fa-laptop edit_image_solid" aria-hidden="true"></i>
+          <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
           <h2><span>'.$name.'<div>SUBMIT A TICKET</div></span><br></h2>
           <div><br><br>
           &nbsp;
