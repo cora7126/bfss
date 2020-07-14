@@ -1,0 +1,11 @@
+{
+  "name": "drupal/simpleautologout",
+  "description": "A simple module to auto logout user after given time out.",
+  "type": "drupal-module",
+  "homepage": "http://drupal.org/project/simpleautologout",
+  "license": "GPL-2.0+",
+  "require": {
+      "php": ">=7.0.8",
+      "drupal/core": "^8.8 || ^9",
+    },
+}

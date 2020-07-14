@@ -1,0 +1,11 @@
+name: Simple Autologout
+type: module
+description: A simple module to auto logout user after given time out.
+package: Simple Autologout
+core_version_requirement: ^8 || ^9
+
+
+# Information added by Drupal.org packaging script on 2020-06-10
+version: '8.x-1.6'
+project: 'simpleautologout'
+datestamp: 1591791908
