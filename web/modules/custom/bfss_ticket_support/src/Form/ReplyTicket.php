@@ -42,18 +42,23 @@ class ReplyTicket extends FormBase {
       <h1><i class="fas fa-home" 1123></i> >
         <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Reply to Ticket</h1>
         <div class="dash-sub-main">
-          <i class="fas fa-laptop edit_image_solid" aria-hidden="true"></i>
-          <h2><span>'.$name.'<div>REPLY TO TICKET</div></span><br></h2>
-          <div><br><br><br>
-			 &nbsp; &quot;'.htmlentities(urldecode($_GET['subject'])).'&quot;
-          </div>
+          <table><tbody><tr>
+          <td>
+            <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
+          </td><td>
+            <h4>'.$name.'<h2>REPLY TO TICKET</h2></h4>
+          </td>
+          </tr></tbody></table>
         </div><br><br>',
       '#suffix' => '</div>',
     );
 
     $form['message'] = [
       '#type' => 'markup',
-      '#markup' => '<div class="result_message"></div>',
+      '#markup' => '
+        <div class="result_message"></div>
+        <div class="ticketing-create">' .
+          htmlentities(urldecode($_GET['subject'])) . '<br><br>',
     ];
 
 	 $form['ticket_id'] = array(
@@ -99,6 +104,12 @@ class ReplyTicket extends FormBase {
       //'#value' => t('Submit'),
     ];
 
+    $form['message2'] = [
+      '#type' => 'markup',
+      '#markup' => '</div>
+      ',
+    ];
+
     return $form;
   }
 
@@ -140,7 +151,7 @@ class ReplyTicket extends FormBase {
 			$response->addCommand(
 				new HtmlCommand(
 					'.result_message',
-					'<div class="success_message">'.$message.'</div>'
+					'<div class="success_message">'.$message.'<br><br></div>'
 				)
 			);
 			return $response;
@@ -188,7 +199,7 @@ class ReplyTicket extends FormBase {
 				$response->addCommand(
 					new HtmlCommand(
 						'.result_message',
-						'<div class="success_message">'.$message.'</div>'
+						'<div class="success_message">'.$message.'<br><br></div>'
 					)
 				);
 				return $response;

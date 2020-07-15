@@ -42,18 +42,22 @@ class CreateTicket extends FormBase {
       <h1><i class="fas fa-home" 1123></i> >
         <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Create Ticket</h1>
         <div class="dash-sub-main">
-          <i class="fas fa-laptop edit_image_solid" aria-hidden="true"></i>
-          <h2><span>'.$name.'<div>SUBMIT A TICKET</div></span><br></h2>
-          <div><br><br>
-          &nbsp;
-          </div>
+          <table><tbody><tr>
+          <td>
+            <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
+          </td><td>
+            <h4>'.$name.'<h2>SUBMIT A TICKET</h2></h4>
+          </td>
+          </tr></tbody></table>
         </div><br><br>',
       '#suffix' => '</div>',
     );
 
     $form['message'] = [
       '#type' => 'markup',
-      '#markup' => '<div class="result_message"></div>',
+      '#markup' => '
+      <div class="result_message"></div>
+        <div class="ticketing-create">',
     ];
 
     $arr = ['one'  => t('Priority'), '1'  => t('Low'), '2'  =>t('Medium'), '3'  =>t('High'), '4'  =>t('Urgent')];
@@ -96,6 +100,12 @@ class CreateTicket extends FormBase {
         ],
       ],
       //'#value' => t('Submit'),
+    ];
+
+    $form['message2'] = [
+      '#type' => 'markup',
+      '#markup' => '
+      </div>',
     ];
 
     return $form;

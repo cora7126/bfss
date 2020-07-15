@@ -167,78 +167,68 @@ class TicketingController extends ControllerBase {
       4 => 'Urgent',
     );
 
+    $rolesFlags = [];
 
-    // $html = '<div style="font-weight:bold; font-size: 1.3em;">New ticket</div>
-    // We will respond to your ticket at our earliest availability
-    // <form method="POST">
-    //   <input type="hidden" name="create_ticket" value="true" />
-    //   <input type="text" name="subject" value="" placeholder="Subject"  style="width: 50%;" /><br><br>
-    //   Problem Description:<br>
-    //   <textarea name="description" style="width: 50%; height: 300px;"></textarea><br>
-    //   <input type="submit" />
-    // </form>';
+    if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
+      $rolesFlags['administrators-coach'] = true;
+    }
+    else if (in_array('athlete', $roles) || in_array('coach', $roles) || in_array('assessors', $roles)) {
+      $rolesFlags['athlete-coach-assessors'] = true;
+    }
 
-    $html = '
-    <div class="dash-main-right">
-      <h1><i class="fas fa-home" 1123></i> >
-        <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Ticketing</h1>
-        <div class="dash-sub-main">
-          <i class="fas fa-laptop edit_image_solid" aria-hidden="true"></i>
-          <h2>TICKETING<br></h2>
-          <div><br><br>
-          &nbsp;
-          </div>
-        </div>
-        </div>
-        <br><br>
-
-    <br><div class="success_message_delete">
-      Freshdesk Test Account username / password:  digitalrace@gmail.com / nephilehi (<b>log in as an Agent</b>)
-      <br>
-      BFSS user auto-sync configuration at: <a href="/admin" target="_blank">freshDesk Admin</a>
-    </div><br>
-    <div style="text-align:left"><h2><a href="/create-ticket">Submit A Ticket</a></h2><br></div>';
+    $html = '';
 
     $html .= '
-    <div class="table-responsive-wrap"><table class="table table-hover table-striped" cellspacing="0" width="100%" style="margin-left:21px;">
-      <tr><thead>
-        <th class="th-hd" >Subject & Description</th>
-        <th class="th-hd" ></th>
-        <th class="th-hd" >Created</th>
-        <th class="th-hd" >Requester</th>
-        <th class="th-hd" >Assigned</th>
-        <th class="th-hd" >Type</th>
-        <th class="th-hd" >Status</th>
-        <th class="th-hd" >Priority</th>
-      </thead></tr>
-      <tbody>';
+    <div class="dash-main-right">
+      <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> &gt; Ticketing</h1>
+      <div class="dash-sub-main ticket-submit-link">
+      <a href="/create-ticket">
+        <table><tbody><tr>
+        <td>
+          <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
+        </td><td>
+          <h4>SUBMIT A</div><h2>TICKET</h4>
+        </td>
+        </tr></tbody></table>
+      </a>
+      </div>
+    </div>';
 
-    //   $html .= '
-    //   <div class="search_athlete_main user_pro_block latest_revenue">
-    //   <div class="wrapped_div_main">
-    //   <div class="block-bfss-assessors">
-    //   <div class="table-responsive-wrap">
-    //  <table id="bfss_payment_letest_pxl" class="table table-hover table-striped" cellspacing="0" width="100%" >
-    //     <thead>
-    //       <tr>
-    //         <th class="th-hd"><a><span></span>Date</a>
-    //         </th>
-    //           <th class="th-hd long-th th-last"><a><span></span>Customer Name</a>
-    //         </th>
-    //         <th class="th-hd long-th th-fisrt"><a><span></span>City</a>
-    //         </th>
-    //         <th class="th-hd long-th th-fisrt"><a><span></span>State</a>
-    //         </th>
-    //         <th class="th-hd long-th th-fisrt"><a><span></span>Program</a>
-    //         </th>
-    //          <th class="th-hd long-th th-fisrt"><a><span></span>Amount</a>
-    //         </th>
-    //           <th class="th-hd long-th th-fisrt"><a><span></span>BFSS Manager</a>
-    //         </th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //     ';
+    $html .= '
+    <div class="tab-main-sec">
+    <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <!-- ---------Profile Card---HTML----Start-->
+      <div class="edit_organizations pending-assessment-block">
+    <div class="wrapped_div_main user_pro_block">
+      <div class="block-bfss-assessors">
+      <div class="table-responsive-wrap">
+      <div class="ticketing-pad">
+      <table id="dtBasicExample" class="table table-hover table-striped ticketing-table" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th class="th-hd"><a><span></span> Subject & Description</a>
+            </th>';
+            if ($rolesFlags['athlete-coach-assessors']) {
+              $html .= '
+              <th>Reply</th>';
+            }
+            $html .= '
+            <th class="th-hd"><a><span></span> Created</a>
+            </th>
+            <th class="th-hd"><a><span></span> Requester</a>
+            </th>
+            <th class="th-hd"><a><span></span> Assigned</a>
+            </th>
+            <th class="th-hd"><a><span></span> Type</a>
+            </th>
+            <th class="th-hd"><a><span></span> Status</a>
+            </th>
+            <th class="th-hd"><a><span></span> Priority</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>';
 
     foreach($this->allTickets as $kt => $ticket) {
 
@@ -265,7 +255,7 @@ class TicketingController extends ControllerBase {
 
       if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
       }
-      else if (in_array('athlete', $roles) || in_array('coach', $roles) || in_array('assessors', $roles)) {
+      else if ($rolesFlags['athlete-coach-assessors']) {
         if (!$username || $username != $userRequester['bfss_username']) {
           continue;
         }
@@ -286,13 +276,18 @@ class TicketingController extends ControllerBase {
         $replyStr = '<div class="ticketing-conversations">' . $replyStr . '</div>';
       }
 
-      $html .= '<tr>
-        <td>'.$fdSubjectUrl.'<br> ' .
-          htmlspecialchars($ticket->description_text) .
-          $replyStr . '
-        </td>
-        <td>' . $replyBttn . '</td>
-        <td>' . date('Y-m-d H:i:s', strtotime($ticket->created_at)) . '</td>
+      $html .= '
+      <tr>
+        <td style="vertical-align: top;">'.$fdSubjectUrl .
+          '<div> ' . htmlspecialchars($ticket->description_text) .
+          '</div>' . $replyStr . '
+        </td>';
+        if ($rolesFlags['athlete-coach-assessors']) {
+          $html .= '
+          <td>' . $replyBttn . '</td>';
+        }
+        $html .= '
+        <td><span class="ticketing-nowrap">' . date('Y-m-d', strtotime($ticket->created_at)) . '<br>' . date('H:i:s', strtotime($ticket->created_at)) . '</span></td>
         <td>' . $requester . '</td>
         <td>' . $responder . '</td>
         <td>' . $ticket->type . '</td>
@@ -302,7 +297,7 @@ class TicketingController extends ControllerBase {
       // EMAIL LINK: <a href="mailto:'.$userResponder['email'].'&subject=Regarding Ticket: '.htmlspecialchars($ticket->subject).'">'
     }
 
-    $html .= '</tbody></table></div>';
+    $html .= '</tbody></table></div></div></div></div></div></div>';
 
     return array(
       '#markup' => '' . $html . '',
