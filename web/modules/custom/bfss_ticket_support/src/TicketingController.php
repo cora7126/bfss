@@ -5,7 +5,7 @@
  */
 
 namespace Drupal\bfss_ticket_support;
-use Drupal\Core\Render\Markup;
+
 
 use Drupal\Core\Controller\ControllerBase;
 use  \Drupal\user\Entity\User;
@@ -167,36 +167,53 @@ class TicketingController extends ControllerBase {
       4 => 'Urgent',
     );
 
-    $html = '
+    $rolesFlags = [];
+
+    if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
+      $rolesFlags['administrators-coach'] = true;
+    }
+    else if (in_array('athlete', $roles) || in_array('coach', $roles) || in_array('assessors', $roles)) {
+      $rolesFlags['athlete-coach-assessors'] = true;
+    }
+
+    $html = '';
+
+    $html .= '
     <div class="dash-main-right">
       <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> &gt; Ticketing</h1>
-      <div class="dash-sub-main">
-        <i class="fas fa-laptop edit_image_solid" aria-hidden="true"></i>
-        <h2>TICKETING</h2>
-        <div class="ticket-submit-link"><a href="/create-ticket">
+      <div class="dash-sub-main ticket-submit-link">
+      <a href="/create-ticket">
+        <table><tbody><tr>
+        <td>
           <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
-          <span>SUBMIT A</span><h2>TICKET</h2></a>
-        </div>
+        </td><td>
+          <h4>SUBMIT A</div><h2>TICKET</h4>
+        </td>
+        </tr></tbody></table>
+      </a>
       </div>
     </div>';
 
     $html .= '
     <div class="tab-main-sec">
-    <div class="row ticketing-pad">
+    <div class="row">
     <div class="col-lg-12 col-md-12">
-        <!-- ---------Profile Card---HTML----Start-->
-        <div class="edit_organizations pending-assessment-block">
-
+      <!-- ---------Profile Card---HTML----Start-->
+      <div class="edit_organizations pending-assessment-block">
     <div class="wrapped_div_main user_pro_block">
       <div class="block-bfss-assessors">
       <div class="table-responsive-wrap">
-      <table id="dtBasicExample" class="table table-hover table-striped  ticketing-table ticketing-table" cellspacing="0" width="100%">
+      <div class="ticketing-pad">
+      <table id="dtBasicExample" class="table table-hover table-striped ticketing-table" cellspacing="0" width="100%">
         <thead>
           <tr>
             <th class="th-hd"><a><span></span> Subject & Description</a>
-            </th>
-            <th>
-            </th>
+            </th>';
+            if ($rolesFlags['athlete-coach-assessors']) {
+              $html .= '
+              <th>Reply</th>';
+            }
+            $html .= '
             <th class="th-hd"><a><span></span> Created</a>
             </th>
             <th class="th-hd"><a><span></span> Requester</a>
@@ -238,7 +255,7 @@ class TicketingController extends ControllerBase {
 
       if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
       }
-      else if (in_array('athlete', $roles) || in_array('coach', $roles) || in_array('assessors', $roles)) {
+      else if ($rolesFlags['athlete-coach-assessors']) {
         if (!$username || $username != $userRequester['bfss_username']) {
           continue;
         }
@@ -259,13 +276,18 @@ class TicketingController extends ControllerBase {
         $replyStr = '<div class="ticketing-conversations">' . $replyStr . '</div>';
       }
 
-      $html .= '<tr>
-        <td style="vertical-align: top;">'.$fdSubjectUrl.'<br> ' .
-          htmlspecialchars($ticket->description_text) .
-          $replyStr . '
-        </td>
-        <td>' . $replyBttn . '</td>
-        <td>' . date('Y-m-d H:i:s', strtotime($ticket->created_at)) . '</td>
+      $html .= '
+      <tr>
+        <td style="vertical-align: top;">'.$fdSubjectUrl .
+          '<div> ' . htmlspecialchars($ticket->description_text) .
+          '</div>' . $replyStr . '
+        </td>';
+        if ($rolesFlags['athlete-coach-assessors']) {
+          $html .= '
+          <td>' . $replyBttn . '</td>';
+        }
+        $html .= '
+        <td><span class="ticketing-nowrap">' . date('Y-m-d', strtotime($ticket->created_at)) . '<br>' . date('H:i:s', strtotime($ticket->created_at)) . '</span></td>
         <td>' . $requester . '</td>
         <td>' . $responder . '</td>
         <td>' . $ticket->type . '</td>
@@ -275,10 +297,9 @@ class TicketingController extends ControllerBase {
       // EMAIL LINK: <a href="mailto:'.$userResponder['email'].'&subject=Regarding Ticket: '.htmlspecialchars($ticket->subject).'">'
     }
 
-    $html .= '</tbody></table></div></div></div></div></div>';
+    $html .= '</tbody></table></div></div></div></div></div></div>';
 
     return array(
-      '#cache' => ['max-age' => 0,],
       '#markup' => '' . $html . '',
     );
   }
