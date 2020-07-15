@@ -37,6 +37,8 @@ class ContributeForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $current_user = \Drupal::currentUser()->id();
+     $user = User::load($current_user);
+        
     #/preview/profile
     $url = \Drupal\Core\Url::fromRoute('bfss_assessment.preview_atheltic_profile');
     // print_r($url);die;
@@ -362,7 +364,7 @@ class ContributeForm extends FormBase {
     $form['coach_info'] = array(
       '#type' => 'textfield',
       '#placeholder' => t('Select your coach'),
-      '#default_value' => '',
+      '#default_value' => $user->field_coach->value,
       '#autocomplete_route_name' => 'edit_form.select_coach',
       '#autocomplete_route_parameters' => array('parm_1' => 'coach', 'count' => 10), 
 
@@ -1125,6 +1127,51 @@ class ContributeForm extends FormBase {
       $form_state->setErrorByName('sport', $this->t("Sport should not be empty."));
     }
 
+     $us_cities_check = \Drupal::database()->select('us_cities', 'athw')
+      ->fields('athw')
+      ->condition('name',$form_state->getValue('venue_loaction'),'LIKE')
+      ->condition('state_code',$form_state->getValue('venue_state'), '=')
+      ->range(0, 2000)
+      ->execute()->fetchAll();
+      if(empty($us_cities_check)){
+         $form_state->setErrorByName('venue_loaction', $this->t('Incorrect city.'));
+      }
+
+      if(!empty($form_state->getValue('organizationName')) ){
+        $nids = \Drupal::entityQuery('node')
+         ->condition('type', 'bfss_organizations') 
+         ->condition('field_organization_name',$form_state->getValue('organizationName'),'=')
+         ->condition('field_type',$form_state->getValue('organizationType'),'=')
+         ->condition('field_state',$form_state->getValue('venue_state'),'=')
+         ->execute();
+        if(empty($nids)){
+          $form_state->setErrorByName('organizationName', $this->t('Incorrect organization name.1'));
+        }
+      }
+
+    if(!empty($form_state->getValue('schoolname_1')) ){
+        $nids = \Drupal::entityQuery('node')
+         ->condition('type', 'bfss_organizations') 
+         ->condition('field_organization_name',$form_state->getValue('schoolname_1'),'=')
+         ->condition('field_type',$form_state->getValue('education_1'),'=')
+         ->condition('field_state',$form_state->getValue('venue_state'),'=')
+         ->execute();
+        if(empty($nids)){
+          $form_state->setErrorByName('schoolname_1', $this->t('Incorrect organization name.'));
+        }
+      }
+
+      if(!empty($form_state->getValue('schoolname_2')) ){
+        $nids = \Drupal::entityQuery('node')
+         ->condition('type', 'bfss_organizations') 
+         ->condition('field_organization_name',$form_state->getValue('schoolname_2'),'=')
+         ->condition('field_type',$form_state->getValue('education_2'),'=')
+         ->condition('field_state',$form_state->getValue('venue_state'),'=')
+         ->execute();
+        if(empty($nids)){
+          $form_state->setErrorByName('schoolname_2', $this->t('Incorrect organization name.'));
+        }
+      }
   }
 
   /**
@@ -1135,8 +1182,12 @@ class ContributeForm extends FormBase {
     $current_user = \Drupal::currentUser()->id();
     $conn = Database::getConnection();
 
-	// $user = User::load($current_user);
-	// $user->save();
+    if(!empty($form_state->getValue('coach_info'))){ 
+        $user = User::load($current_user);
+        $user->field_coach->value = $form_state->getValue('coach_info');
+        $user->save();
+    }
+
 
     $seltype1 = $form_state->getValue('organizationType');
     $selname1 = $form_state->getValue('organizationName');

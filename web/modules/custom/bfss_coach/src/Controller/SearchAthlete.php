@@ -16,6 +16,7 @@ class SearchAthlete extends ControllerBase {
 
 	  	$athlete_user_ids = \Drupal::entityQuery('user')
 	    ->condition('roles', 'athlete', 'CONTAINS')
+      ->condition('status', 1, '=')
 	    ->execute();
 	    $data_user = [];
 	    foreach ($athlete_user_ids as $athlete_user_id) {

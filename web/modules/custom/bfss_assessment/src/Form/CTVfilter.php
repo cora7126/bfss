@@ -80,7 +80,11 @@ class CTVfilter extends FormBase {
       '#default_value' => '',
       #'#multiple' => TRUE,
       '#prefix' => '<div class="box niceselect"><span id="tags-flt">',
-      '#suffix' => '</span></div><div class="box niceselect"><p class="venue"><a data-toggle="modal" data-target="#StateCityFilter" >Venues </a></p></div></div>',
+      '#suffix' => '</span></div>
+        <div class="box niceselect">
+         <p class="venue"><a data-toggle="modal" data-target="#StateCityFilter" >Venues </a></p>
+        </div>
+     ',
       '#ajax' => [
               'progress' => array('type' => 'none'),
               'callback' => '::TagsAjaxCallback', // don't forget :: when calling a class method.
@@ -91,7 +95,19 @@ class CTVfilter extends FormBase {
         ],
       ];
 
-
+    $form['reset'] = [
+      '#type' => 'submit',
+      '#value' => t('Reset'),
+      '#prefix' => '<div class="box niceselect">',
+      '#suffix' =>'</div></div>',
+      '#ajax' => [
+          'callback' => '::ResetCallback',
+          'disable-refocus' => FALSE, 
+          'wrapper'  => 'filter-details',
+          'event' => 'click',
+        ],
+        '#attributes' => array('class' => array('filter_reset')),
+    ];
     #Venue
     $form_state_values = $form_state->getValues();
     $stateName = isset($form_state_values['venue_state'])?$form_state_values['venue_state']:'AZ';
@@ -130,7 +146,7 @@ class CTVfilter extends FormBase {
     
     $form['venue_loaction'] = [
         '#type' => 'textfield',
-        '#placeholder' => t('city'),
+        '#placeholder' => t('City'),
          '#default_value' => $results18['field_city'],
         '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
         '#autocomplete_route_parameters' => array('field_name' => $stateName, 'count' => 10), 
@@ -138,6 +154,7 @@ class CTVfilter extends FormBase {
         '#suffix' => '</div>',
     ];
 
+   
     // $form['actions'] = [
     //     '#type' => 'actions',
     // ];
@@ -152,6 +169,7 @@ class CTVfilter extends FormBase {
           'wrapper'  => 'filter-details',
           'event' => 'click',
         ],
+
     ];
  $form['popup_end'] = [
     '#type' => 'markup',
@@ -162,11 +180,19 @@ class CTVfilter extends FormBase {
                   </div>
               ',
   ];
+ 
 
     return $form;
   }
 
-
+  function ResetCallback(&$form, FormStateInterface $form_state) {
+    global $base_url;
+    $current_path = \Drupal::service('path.current')->getPath();
+    $url = $base_url.$current_path;
+    $response = new \Drupal\Core\Ajax\AjaxResponse();
+    $response->addCommand(new RedirectCommand($url)); 
+    return $response;    
+  }
 
   function StateCityAjaxCallback(&$form, FormStateInterface $form_state) {
     global $base_url;

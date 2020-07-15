@@ -117,13 +117,15 @@ class BfssPaymentService {
             "message" => "Transaction Failed. \n " . $tresponse->getErrors()[0]->getErrorText()
           ];
         } else {
+
           return [
-            "AUTH_CODE" => $tresponse->getAuthCode(),
-            "TRANS_ID" => $tresponse->getTransId(),
+            "AUTH_CODE" => '',
+            "TRANS_ID" => '',
             "transaction_status"=> $response->getMessages()->getResultCode(),
             "status" => false,
             "message" => "Transaction Failed. \n " . $response->getMessages()->getMessage()[0]->getText()
           ];
+
         }
       }
     } else {
