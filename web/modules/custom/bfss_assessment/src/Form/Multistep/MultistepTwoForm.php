@@ -100,6 +100,7 @@ class MultistepTwoForm extends MultistepFormBase {
                 ->condition('user_id', \Drupal::currentUser()->id())
                 ->condition('assessment', $timings_pri['private_nid'], "=")
                 ->condition('time',$value, "=")
+                ->condition('payment_status','paid', "=")
                 ->execute();
                 $value = date('h:i a',$value);              
                 
@@ -130,6 +131,7 @@ class MultistepTwoForm extends MultistepFormBase {
                 ->condition('user_id', \Drupal::currentUser()->id())
                 ->condition('assessment',$nid, "=")
                 ->condition('time',$value, "=")
+                ->condition('payment_status','paid', "=")
                 ->execute();
 
                 $value = date('h:i a',$value);

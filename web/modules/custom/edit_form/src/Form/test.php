@@ -144,8 +144,9 @@ class test extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => 'Phone Number',
             #'#required' => TRUE,
-             '#default_value' => $results5['field_mobile_value'],
-             '#attributes' => ["pattern" => "[0-9]{3}-[0-9]{3}-[0-9]{4}"],
+            '#default_value' => $results5['field_mobile_value'],
+            '#maxlength' => 12,
+            '#attributes' => ["pattern" => "[0-9]{3}-[0-9]{3}-[0-9]{4}"],
           ); 
         if(!in_array('coach', $roles_user)){
           $form['date_joined'] = array (
