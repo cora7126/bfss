@@ -2131,7 +2131,12 @@ input#name_1{width:70%;}
 /*****************************************************************************/
 
 /* Jody: ticketing replies */
-.ticketing-conversations{margin-right: -80%; margin-left: 5%;}
+.ticketing-pad{margin-left: 5px !important;}
+.ticketing-table td{vertical-align:top !important;}
+.ticket-submit-link{padding-left: 30%; vertical-align:top !important;}
+.ticket-submit-link a{color: #000000 !important; text-decoration: none !important;}
+.ticketing-conversations{margin-right: -29vw; margin-left: 5%;}
 .ticketing-reply{text-align: right;}
 .ticketing-reply a{background-color: #FFFCD7; padding: 1px 2px;}
 .ticketing-reply a:hover{background-color: #000000; color: #ffffff; text-decoration: none;}
+.ticketing-submit {margin-left: 0px;margin-right: 0px;}
