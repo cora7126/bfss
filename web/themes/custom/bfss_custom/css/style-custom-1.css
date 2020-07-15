@@ -175,7 +175,20 @@ footer.user-profile-fo.footer.container {
 }
 .managers-pending-payment .search_athlete_main .unfollow-sub input[type="submit"]:focus, .organizations-pending-payment .search_athlete_main .unfollow-sub input[type="submit"]:focus{color:#fff;}
 /***********INVOICE END FROM HERE************/
-
+.ctv-filter-form .sitepopup-wrap .sitepopup-default-bfss-content .success-msg{
+    padding: 25px 20px!important;
+}
+#edit-reset.filter_reset.button {
+    border: 0;
+    background: none;
+    color: #4c4c4c;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0;
+    height: auto;
+    text-transform: capitalize;
+}
+#edit-reset.filter_reset.button#edit-reset.filter_reset.button span{display:none;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

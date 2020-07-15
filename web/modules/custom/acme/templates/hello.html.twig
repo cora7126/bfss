@@ -1,3 +1,5 @@
+
+
 <!-- ------------Side Navbar----------start -->
 <!-- ------------Side Navbar----------end -->
 <div class="dash-main-right">
@@ -45,7 +47,7 @@
                </a>
             </div>
             <div class="col-md-3 mob_bottom_margin">
-               <a href='#' class="atheltic_link">
+               <a href='/ticketing' class="atheltic_link">
                   <div class="quick-link-sub-sec">
                      <i class="far fa-ticket-alt"></i>
                      <p>Support<br />Ticket</p>
@@ -101,26 +103,18 @@
          <div class="my-assessment ">
             <button class="accordion"><i class="fa fa-minus" aria-hidden="true"></i>FUNDS RAISED</button>
             <div class="panel fund-raised-box">
-               <div class="panel_row">
-                  <h3><a href="/bfss-funds">James Walker</a></h3>
-                  <p>+$10 Pending</p>
-               </div>
-               <div class="panel_row">
-                  <h3><a href="/bfss-funds">Tom Twyford</a></h3>
-                  <p>+ $25 Pending</p>
-               </div>
-               <div class="panel_row">
-                  <h3><a href="/bfss-funds">Charles Argyle</a></h3>
-                  <p>+ $25 Pending</p>
-               </div>
-               <div class="panel_row">
-                  <h3><a href="/bfss-funds">Tom Twyford</a></h3>
-                  <p>+ $25 Pending</p>
-               </div>
-               <div class="panel_row">
-                  <h3><a href="/bfss-funds">Charles Argyle</a></h3>
-                  <p>+ $10 Pending</p>
-               </div>
+               {% if fund_raised_block is empty %}
+                <div class="panel_row">
+                   <p>No Funds Raised</p>
+                </div>
+                {% else %}
+                     {% for fund_raised in fund_raised_block %}
+                        <div class="panel_row">
+                           <h3><a href="/bfss-funds">{{ fund_raised.first_name }} {{ fund_raised.last_name }}</a></h3>
+                           <p>{{ fund_raised.amount }} {{ fund_raised.payment_status }}</p>
+                        </div>
+                     {% endfor %}
+               {% endif %}
             </div>
          </div>
          {% else %}

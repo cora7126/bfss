@@ -14,7 +14,7 @@ p.note{margin-left:1%;background-color:#cecece;width:50%;padding-left:4px;color:
 .timing-date{display:block;}
 .timing-date > span{background:#EB6E06;color:#fff;padding:2px 7px;font-weight:500;display:block;}
 .timing-info{background:#EB6E06;color:#fff;flex-wrap:wrap;justify-content:space-around;align-items:center;padding:2px 7px;font-weight:500;}
-.assessment_inner .node-body{padding:0 0 20px;color:#000;font-size:12px;}
+.assessment_inner .node-body{padding:15px 0 20px;color:#000;font-size:12px;}
 .categories-tags ul{display:flex;flex-wrap:wrap;padding:0;text-align:left;position:relative;list-style:none;}
 .categories-tags ul li{text-align:left;margin:0 0 5px;font-size:10px;font-weight:bold;background-repeat:no-repeat;color:#808285;text-transform:capitalize;}
 .categories-tags ul li::before{content:'.';background-repeat:no-repeat;font-size:62px;line-height:0;color:#EB6E06;}

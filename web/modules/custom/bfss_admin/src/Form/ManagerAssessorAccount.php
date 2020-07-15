@@ -113,6 +113,7 @@ class ManagerAssessorAccount extends FormBase {
         '#type' => 'textfield',
         '#placeholder' => t('Phone'),
         '#required' => TRUE,
+        '#maxlength' => 12,
         '#default_value' => '',
         '#prefix' => '',
         '#suffix' => '',

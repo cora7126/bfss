@@ -21,10 +21,11 @@ class DefaultController extends ControllerBase {
     $roles = $user->getRoles();
     $param = \Drupal::request()->query->all();
 
+
     // the {name} in the route gets captured as $name variable
     // in the function called
 	   #ATTACH BLOCK
-
+	
 
       if(in_array('assessors', $roles)){
         $block1 = \Drupal\block\Entity\Block::load('eventslisting');
@@ -90,6 +91,7 @@ class DefaultController extends ControllerBase {
          $BlockData = $assessments_block;
         }
 
+        $fund_raised_data = $this->FUNDS_RAISED();
 
 
           return [
@@ -103,6 +105,7 @@ class DefaultController extends ControllerBase {
           '#my_assessments_section_block' => $myAssessments,
           '#rolename' => $rolename,
           '#CTVfilter_block' => $CTVfilter,
+          '#fund_raised_block' => $fund_raised_data,
           '#attached' => [
             'library' => [
               'bfss_month_view/month_view_lib',//include our custom library for this response
@@ -672,5 +675,35 @@ public function userform()
       }
        return $register_payment_data;
     }
+
+
+	public function FUNDS_RAISED(){
+		$uid = \Drupal::currentUser()->id();
+		$user = User::load($uid);
+		$username = $user->name->value;
+		 $athlete_uids = \Drupal::entityQuery('user')
+      	  ->condition('field_coach',$username, '=') 
+          ->execute();
+       
+		foreach($athlete_uids as $athlete_uid){
+			$booked_ids = \Drupal::entityQuery('bfsspayments')
+		                ->condition('user_id',$athlete_uid, '=')
+		                ->sort('created','DESC')
+		                ->range(0, 10)
+		            	->execute();
+		     foreach ($booked_ids as $booked_id) {
+		        $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($booked_id);
+		        $data[] = [
+				 'first_name' => $entity->first_name->value,
+				 'last_name' => $entity->last_name->value,
+				 'payment_status' => $entity->payment_status->value,
+				 'amount' => $entity->service->value,			 
+			 	];
+		     }       	
+			            	
+		}
+		return $data;
+	}
+
 
 }

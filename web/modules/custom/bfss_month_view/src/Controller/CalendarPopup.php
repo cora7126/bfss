@@ -123,31 +123,31 @@ class CalendarPopup extends ControllerBase {
 		                          <div class="share">
 		                          <span><a class="share_assessment"><i class="fas fa-share"></i>  Share</a></span>
 		                              <div class="social_share_links" style="display:none;">
-		                            <ul>
-		                            <li>
-		                            	<a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u="'.$data['current_page'].'"&amp;title='.$data['title'].'" title="Facebook">
-		                                     <img alt="Facebook" src="/modules/contrib/social_media/icons/facebook_share.svg">
-		                                </a>
+		                            <ul>';
+		                            // <li>
+		                            // 	<a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u="'.$data['current_page'].'"&amp;title='.$data['title'].'" title="Facebook">
+		                            //          <img alt="Facebook" src="/modules/contrib/social_media/icons/facebook_share.svg">
+		                            //     </a>
 		                                             
-		                            </li>
+		                            // </li>
 		                            
-		                            <li>
-                                        <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;text=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'...&amp;hashtags='.str_replace('-','',str_replace(' ', '',$data['title'])).'" title="Twitter">
-                                              <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
-                                         </a>
-                                    </li>
-                                    <li>
-                                      <a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url='.$data['current_page'].'&amp;description='.$data['title'].', Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Pinterest">
-                                              <img alt="Pinterest" src="/modules/contrib/social_media/icons/pinterest.svg">
-                                            </a>
-                                    </li>
-                                    <li>
+		                            // <li>
+                              //           <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;text=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'...&amp;hashtags='.str_replace('-','',str_replace(' ', '',$data['title'])).'" title="Twitter">
+                              //                 <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
+                              //            </a>
+                              //       </li>
+                              //       <li>
+                              //         <a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url='.$data['current_page'].'&amp;description='.$data['title'].', Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Pinterest">
+                              //                 <img alt="Pinterest" src="/modules/contrib/social_media/icons/pinterest.svg">
+                              //               </a>
+                              //       </li>
+                               $html .= '<li>
                                     <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Better Faster Stronger Science -Assessment<br/><br/>Time:<br/>'.date("h:i A",$data['latest_timing']).'<br/><br/>Location:<br/>'.str_replace(',',' ',$data['field_location']).'<br/><br/>Description: '.str_replace(',',' ',substr(strip_tags($data['body']),0,80)).'..." title="Email">
                                             <img alt="Email" src="http://5ppsystem.com/modules/contrib/social_media/icons/email.svg">
                                             </a>
                                     </li>
 
-		                            </ul>
+		                       </ul>
 		                                   </div>
 		                          </div>';
 		                    if( in_array('bfss_administrator', $roles) || in_array('coach', $roles) || in_array('bfss_manager', $roles) ){
@@ -317,31 +317,31 @@ class CalendarPopup extends ControllerBase {
 		                          <div class="share">
 		                          <span><a class="share_assessment"><i class="fas fa-share"></i>  Share</a></span>
 		                              <div class="social_share_links" style="display:none;">
-		                            <ul>
-		                            <li>
-		                            	<a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u="'.$data['current_page'].'"&amp;title='.$data['title'].'" title="Facebook">
-		                                     <img alt="Facebook" src="/modules/contrib/social_media/icons/facebook_share.svg">
-		                                </a>
+		                            <ul>';
+		                            // <li>
+		                            // 	<a target="_blank" rel="nooopener noreffer" class="facebook-share share" href="http://www.facebook.com/share.php?u="'.$data['current_page'].'"&amp;title='.$data['title'].'" title="Facebook">
+		                            //          <img alt="Facebook" src="/modules/contrib/social_media/icons/facebook_share.svg">
+		                            //     </a>
 		                                             
-		                            </li>
+		                            // </li>
 
-		                            <li>
-                                        <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;text=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'...&amp;hashtags='.str_replace('-','',str_replace(' ', '',$data['title'])).'" title="Twitter">
-                                              <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
-                                         </a>
-                                    </li>
-                                    <li>
-                                      <a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url='.$data['current_page'].'&amp;description='.$data['title'].', Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Pinterest">
-                                              <img alt="Pinterest" src="/modules/contrib/social_media/icons/pinterest.svg">
-                                            </a>
-                                    </li>
-                                    <li>
+		                            // <li>
+                              //           <a target="_blank" rel="nooopener noreffer" class="twitter share" href="https://twitter.com/intent/tweet?url='.$data['current_page'].'&amp;text=Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'...&amp;hashtags='.str_replace('-','',str_replace(' ', '',$data['title'])).'" title="Twitter">
+                              //                 <img alt="Twitter" src="/modules/contrib/social_media/icons/twitter.svg">
+                              //            </a>
+                              //       </li>
+                              //       <li>
+                              //         <a target="_blank" rel="nooopener noreffer" class="pinterest share" href="https://www.pinterest.com/pin/create/button/?url='.$data['current_page'].'&amp;description='.$data['title'].', Date:'.date("M d, Y",$data['latest_timing']).', Time:'.date("h:i A",$data['latest_timing']).', Location:'.$data['field_location'].', Description:'.substr(strip_tags($data['body']),0,80).'..." title="Pinterest">
+                              //                 <img alt="Pinterest" src="/modules/contrib/social_media/icons/pinterest.svg">
+                              //               </a>
+                              //       </li>
+                                  $html .= '<li>
                                        <a class="email share" href="mailto:?subject='.$data['title'].'&amp;body=Better Faster Stronger Science -Assessment<br/><br/>Time:<br/>'.date("h:i A",$data['latest_timing']).'<br/><br/>Location:<br/>'.str_replace(',',' ',$data['field_location']).'<br/><br/>Description: '.str_replace(',',' ',substr(strip_tags($data['body']),0,80)).'..." title="Email">
                                             <img alt="Email" src="http://5ppsystem.com/modules/contrib/social_media/icons/email.svg">
                                             </a>
                                     </li>
 
-		                            </ul>
+		                       	 </ul>
 		                                   </div>
 		                          </div>';
 		                 

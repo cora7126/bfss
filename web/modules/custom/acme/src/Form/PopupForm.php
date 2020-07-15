@@ -490,25 +490,57 @@ class PopupForm extends FormBase {
     * {@inheritdoc}
     */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-         // $name = $form_state->getValue('jodi');
-          // if(preg_match('/[^A-Za-z]/', $name)) {
-             // $form_state->setErrorByName('jodi', $this->t('your jodi must in characters without space'));
-          // }
-        // if (!is_float($form_state->getValue('height'))) {
-             // $form_state->setErrorByName('candidate_age', $this->t('Height needs to be a number'));
-            // }
-        // if (!is_float($form_state->getValue('weight'))) {
-             // $form_state->setErrorByName('candidate_age', $this->t('Weight needs to be a number'));
-            // }
-         /* $number = $form_state->getValue('candidate_age');
-          if(!preg_match('/[^A-Za-z]/', $number)) {
-             $form_state->setErrorByName('candidate_age', $this->t('your age must in numbers'));
-          }*/
-//          if (strlen($form_state->getValue('mobile_number')) < 10 ) {
-//            $form_state->setErrorByName('mobile_number', $this->t('your mobile number must in 10 digits'));
-//           }
-    // parent::validateForm($form, $form_state);
+
+      if(!empty($form_state->getValue('organizationName')) ){
+        $nids = \Drupal::entityQuery('node')
+         ->condition('type', 'bfss_organizations') 
+         ->condition('field_organization_name',$form_state->getValue('organizationName'),'=')
+         ->condition('field_type',$form_state->getValue('organizationType'),'=')
+         ->condition('field_state',$form_state->getValue('state'),'=')
+         ->execute();
+        if(empty($nids)){
+          $form_state->setErrorByName('organizationName', $this->t('Incorrect organization name.'));
+        }
+      }
+
+    if(!empty($form_state->getValue('schoolname_1')) ){
+        $nids = \Drupal::entityQuery('node')
+         ->condition('type', 'bfss_organizations') 
+         ->condition('field_organization_name',$form_state->getValue('schoolname_1'),'=')
+         ->condition('field_type',$form_state->getValue('education_1'),'=')
+         ->condition('field_state',$form_state->getValue('state'),'=')
+         ->execute();
+        if(empty($nids)){
+          $form_state->setErrorByName('schoolname_1', $this->t('Incorrect organization name.'));
+        }
+      }
+
+      if(!empty($form_state->getValue('schoolname_2')) ){
+        $nids = \Drupal::entityQuery('node')
+         ->condition('type', 'bfss_organizations') 
+         ->condition('field_organization_name',$form_state->getValue('schoolname_2'),'=')
+         ->condition('field_type',$form_state->getValue('education_2'),'=')
+         ->condition('field_state',$form_state->getValue('state'),'=')
+         ->execute();
+        if(empty($nids)){
+          $form_state->setErrorByName('schoolname_2', $this->t('Incorrect organization name.'));
+        }
+      }
+    
+      $us_cities_check = \Drupal::database()->select('us_cities', 'athw')
+      ->fields('athw')
+      ->condition('name',$form_state->getValue('city'),'LIKE')
+      ->condition('state_code',$form_state->getValue('state'), '=')
+      ->range(0, 2000)
+      ->execute()->fetchAll();
+      if(empty($us_cities_check)){
+         $form_state->setErrorByName('city', $this->t('Incorrect city.'));
+      }
+     parent::validateForm($form, $form_state);
   }
+
+
+
   /**
    * {@inheritdoc}
    */

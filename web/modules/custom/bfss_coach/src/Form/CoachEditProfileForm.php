@@ -174,6 +174,7 @@ class CoachEditProfileForm extends FormBase {
       $form['numberone'] = [
         '#type' => 'textfield',
         '#placeholder' => 'Phone Number',
+         '#maxlength' => 12,
         '#default_value' => $results5['field_mobile_value'],
       ]; 
 
