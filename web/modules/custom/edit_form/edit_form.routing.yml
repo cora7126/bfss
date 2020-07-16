@@ -105,3 +105,21 @@ edit_form.select_coach:
     _format: json
   requirements:
    _role: 'bfss_administrator+bfss_manager+coach+athlete+assessors+administrator+parent_guardian_registering_athlete_'
+
+edit_form.parent_edit_form:
+  path: '/parent-edit-form'
+  defaults:
+    _form: '\Drupal\edit_form\Form\ParentEditForm'
+    _format: json
+  requirements:
+   _role: 'athlete+parent_guardian_registering_athlete_'
+
+edit_form.delete_parent_guardian_u:
+  path: '/delete-parent-guardian/{tid}'
+  defaults:
+    _controller: '\Drupal\edit_form\Controller\DeleteParentGuardian::delete_parent_guardian'
+    _title: 'Delete Parent/Guardian'
+  requirements:
+   # _access: 'TRUE'
+   _role: 'athlete+parent_guardian_registering_athlete_'
+    

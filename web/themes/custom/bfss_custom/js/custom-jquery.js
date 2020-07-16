@@ -199,5 +199,24 @@ jQuery( ".user-login-form input[name=pass]" ).attr('tabindex','2');
 			}
 		});
 		
-
+		jQuery('i.athlete-parent.fa.fa-trash.right-icon').on('click',function(){
+			var $tid = jQuery(this).attr("tid");
+			//console.log($tid);
+			if(confirm('Are you sure you want to delete this?')){
+				jQuery.ajax({
+					url : 'http://5ppsystem.com/delete-parent-guardian/'+$tid,
+					dataType: 'json',
+					cache: false,
+					success: function(data){
+						if(data){
+							location.reload();	
+						}	
+					},
+					error :function (data){
+						//console.log(data);
+					}
+				});
+				//jQuery(this).parents('.athlete_left').remove();
+			}
+		});
 });
