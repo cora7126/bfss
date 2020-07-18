@@ -93,9 +93,6 @@ class PendingAssessmentsForm extends FormBase {
     $first_name = $param['first_name'];
     $last_name = $param['last_name'];
 
-    // ksm('$param', $param);
-    // ksm('$user', $user->getFieldDefinitions());
-
     if ($field_booked_id) {
       // See if assessment has been started by assessor or mgr.
       // And get latest recorded status (and $assess_nid) for current assessment - see if complete or incomplete.
@@ -119,10 +116,25 @@ class PendingAssessmentsForm extends FormBase {
 
     if($nid && $formtype && $Assess_type)
     {
+
+      if($assess_nid) { // from PendingAssessments.php, assess_nid is 0 by default.
+        $node = Node::load($assess_nid);
+      }
+      else {
+        $node = array();
+      }
+
+      $default_sport = @$node->field_sport_assessment->value ? @$node->field_sport_assessment->value : $param['school_sport'];
+      $default_position = $param['school_position'];
+      $default_weight = @$node->field_weight->value ? @$node->field_weight->value : $param['weight'];
+      $default_sex = @$node->field_sex->value ? @$node->field_sex->value : $param['gender'];
+      if ($param['dob']) {
+        $param_age = floor((time() - strtotime($param['dob'])) / 31556926); // 31556926 is the number of seconds in a year.
+      }
+      $default_age = @$node->field_age->value ? @$node->field_age->value : $param_age;
+      // $default_height = @$node->field_height->value ? @$node->field_height->value : $param['height'];
+
       $entity = \Drupal\bfss_assessment\Entity\BfssPayments::load($field_booked_id);
-
-      $sport = $param['sport'] ? $param['sport'] : $entity->mydata->field_sport->value; // to be set in field_sport_assessment
-
       $realFormType = AssessmentService::getFormTypeFromPrice($entity->service->value);
 
       $realFormType = $realFormType ? $realFormType : $param['formtype'];
@@ -157,7 +169,7 @@ class PendingAssessmentsForm extends FormBase {
             <div>
               <div id="accessorform">
                   <div class="accessorform_inner">
-                    <div class="usrinfo"><h3>'.$first_name.' '.$last_name.'</h3><ul><li>'.$sport.'</li><li>'.$param['postion'].'</li></ul></div>
+                    <div class="usrinfo"><h3>'.$first_name.' '.$last_name.'</h3><ul><li>'.$default_sport.'</li><li>'.$default_position.'</li></ul></div>
                     <h2>'.$form_title.'</h2>
                     <ul class="st_lk">
                     <li>EF-Equipment Failure</li>
@@ -176,13 +188,6 @@ class PendingAssessmentsForm extends FormBase {
         '#markup' => '<div class="result_message form_fields_wrap"></div>',
       ];
 
-      if($assess_nid) { // from PendingAssessments.php, assess_nid is 0 by default.
-        $node = Node::load($assess_nid);
-      }
-      else {
-        $node = array();
-      }
-
       //-------------------------------------- common to all pdf's -- Age, Sport, Weight, Sex
       $formFields['field_wrap_0'] = array(
         '#type' => 'fieldset',
@@ -192,17 +197,14 @@ class PendingAssessmentsForm extends FormBase {
       $fldNum = 0;
 
       $fieldName = 'field_age'; //dd
-      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'AGE', 'y/o'); // 0
+      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_age, 'AGE', 'y/o'); // 0
       $fieldName = 'field_sport_assessment'; // d
-      $default_sport = @$node->{$fieldName}->value ? @$node->{$fieldName}->value : $sport;
       $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_sport, 'SPORT'); // 2
 
-      $default_weight = @$node->field_weight->value ? @$node->field_weight->value : $param['weight'];
-      $default_height = @$node->field_height->value ? @$node->field_height->value : $param['height'];
       $fieldName = 'field_weight'; //dd
       $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_weight, 'WEIGHT', 'Lbs', 'Lbs'); // 3
       $fieldName = 'field_sex'; //dd
-      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_height, 'SEX'); // 4
+      $formFields['field_wrap_0'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_sex, 'SEX'); // 4
 
       //------------------------------------ starter form
       if($realFormType == 'Starter')
@@ -748,29 +750,23 @@ class PendingAssessmentsForm extends FormBase {
       );
 
       $formFields['field_booked_id'] = array(
-        '#type' => 'hidden',
-        '#value' => $field_booked_id,
-        );
+      '#type' => 'hidden',
+      '#value' => $field_booked_id,
+      );
 
-      // not used, using field_sport_assessment, but just in case, maybe set default value
-      $formFields['sport'] = array(
-        '#type' => 'hidden',
-        '#value' => $sport,
-        );
+      $formFields['field_first_name'] = array(
+      '#type' => 'hidden',
+      '#value' => $first_name,
+      );
 
-        $formFields['field_first_name'] = array(
-        '#type' => 'hidden',
-        '#value' => $first_name,
-        );
+      $formFields['field_last_name'] = array(
+      '#type' => 'hidden',
+      '#value' => $last_name,
+      );
 
-        $formFields['field_last_name'] = array(
-        '#type' => 'hidden',
-        '#value' => $last_name,
-        );
-
-        $formFields['field_athelete_nid'] = array(
-        '#type' => 'hidden',
-        '#value' => $nid,
+      $formFields['field_athelete_nid'] = array(
+      '#type' => 'hidden',
+      '#value' => $nid,
       );
 
 
@@ -823,8 +819,6 @@ class PendingAssessmentsForm extends FormBase {
             ]
         );
       }
-      // ksm(['formFields', $formFields]);
-
       return $formFields;
     }
     else {
@@ -843,23 +837,23 @@ class PendingAssessmentsForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFormData(FormStateInterface $form_state, bool $includeUnits) {
+  protected function getFormData(FormStateInterface $form_state, bool $includeUnits = false) {
     $data = [];
     foreach ($form_state->getValues() as $key => $value) {
       if (!preg_match('/^(.+)_unit$/i', $key)) {
         $data[$key] = $value;
       }
     }
-    if ($includeUnits) {
-      foreach ($form_state->getValues() as $key => $value) {
-        if (preg_match('/^(.+)_unit$/i', $key, $matches)) {
-          if (isset($data[$matches[1]]) && $data[$matches[1]] != '') {
-            // add units to end - ie " lbs"
-            $data[$matches[1]] .= ' ' . $value;
-          }
-        }
-      }
-    }
+    // if ($includeUnits) {
+    //   foreach ($form_state->getValues() as $key => $value) {
+    //     if (preg_match('/^(.+)_unit$/i', $key, $matches)) {
+    //       if (isset($data[$matches[1]]) && $data[$matches[1]] != '') {
+    //         // add units to end - ie " lbs"
+    //         $data[$matches[1]] .= ' ' . $value;
+    //       }
+    //     }
+    //   }
+    // }
     return $data;
   }
 
@@ -882,12 +876,12 @@ class PendingAssessmentsForm extends FormBase {
     $param = \Drupal::request()->query->all();
     $triggerElement = $form_state->getTriggeringElement();
     if(!empty($param)){
-        $nid = $param['nid'];
-        $formtype = $param['formtype'];
-        $Assess_type = $param['Assess_type'];
         $field_booked_id = $param['field_booked_id'];
-        $st = $param['st'];
-        $assess_nid = $param['assess_nid'];
+        // $nid = $param['nid'];
+        // $formtype = $param['formtype'];
+        // $Assess_type = $param['Assess_type'];
+        // $st = $param['st'];
+        // $assess_nid = $param['assess_nid'];
     }
     //check node already exist
     $query1 = \Drupal::entityQuery('node');
@@ -900,7 +894,7 @@ class PendingAssessmentsForm extends FormBase {
     $user_id = $current_user->id();
     $user = \Drupal\user\Entity\User::load($user_id);
 
-    $form_data = $this->getFormData($form_state, false);
+    $form_data = $this->getFormData($form_state);
 
     $form_data['title'] = @$form_data['title'] ? $form_data['title'] : 'Starter Assessment'; // $_SESSION['temp-session-form-values']['field_form_type'];
 

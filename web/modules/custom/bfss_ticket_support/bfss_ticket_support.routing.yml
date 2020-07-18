@@ -5,6 +5,8 @@ bfss_ticket_support:
     _controller: '\Drupal\bfss_ticket_support\TicketingController::content'
   requirements:
     _permission: 'access content'
+  options:
+    no_cache: 'TRUE'
 bfss_ticket_support.create_ticket:
   path: '/create-ticket'
   defaults:

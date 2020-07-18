@@ -2130,17 +2130,20 @@ input#name_1{width:70%;}
 /*********************** RESPONSIVE CSS ENDS HERE **************************/
 /*****************************************************************************/
 
-/* Jody: ticketing replies */
-.ticketing-pad{margin-left: 16px !important; margin-right: 1.8vw;}
+/*  Jody: ticketing replies */
+.ticketing-pad{margin-left: 14px !important; margin-right: 1vw;}
 .ticketing-table td{vertical-align:top !important; white-space: initial !important;}
-.ticketing-nowrap{white-space:nowrap !important;}
-.ticket-submit-link{padding-left: 30%; vertical-align:top !important;}
-.ticket-submit-link a{color: #000000 !important; text-decoration: none !important;}
+.ticketing-nowrap {white-space:nowrap !important;}
+.ticketing-edit_dash {margin-right:5px; color: #333333;}
+.ticketing-create-span {font-weight: normal !important; font-size: 13px; font-family: "Proxima Nova Rg";}
 .ticketing-conversations{margin-right: -29vw; margin-left: 4vw;}
-.ticketing-reply{text-align: right;}
-.ticketing-reply a{background-color: #FFFCD7; padding: 1px 2px;}
-.ticketing-reply a:hover{background-color: #000000; color: #ffffff; text-decoration: none;}
+.ticketing-create-link {all: inherit; cursor: pointer; text-decoration: none !important; border: 0; padding: 0;}
+.ticketing-success{text-align: left !important; margin-top: 8px;}
+.ticketing-reply a{font-size: 14px !important; background-color: transparent !important; font-weight: 500 !important;}
+.ticketing-reply a:hover{background-color: transparent !important; color: #ffffff; text-decoration: none;}
 .ticketing-create {margin-left: 15px; margin-right: 12%; margin-bottom: 11px;}
 .ticketing-create input {font-size: 1.2em;}
 .ticketing-create textarea {font-size: 1.2em;}
 .ticketing-create select {font-size: 1.2em;}
+.ticketing-button-href {text-transform: initial !important; font-family: montserrat, Sans-Serif !important; font-size: 14px !important; border-radius: 0 !important; border: 1px solid #f4650f !important; background: #f4650f !important; }
+.ticketing-button button {text-transform: initial !important; font-family: montserrat, Sans-Serif !important; font-size: 14px !important; border-radius: 0 !important; border: 1px solid #f4650f !important; background: #f4650f !important; }
