@@ -677,17 +677,20 @@ function closeModal(elem){
 }
 
 function unfollow_athlete(){
-	if(confirm('You are sure , you want to unfollow these athletes!'))
-	{
-	 //alert("confirm ok");
-	 document.getElementById('athletes-unfollow-form').removeAttribute('onsubmit').submit();// Form submission
-	}
-	else{
-		document.getElementById('athletes-unfollow-form').attr('onsubmit','return false;');
-	    return false;                   
-	} 
+	jQuery('#ConfirmUnfollowModal').modal('show');
+	// if(confirm('You are sure , you want to unfollow these athletes!'))
+	// {
+	//  //alert("confirm ok");
+	//  document.getElementById('athletes-unfollow-form').removeAttribute('onsubmit').submit();// Form submission
+	// }
+	// else{
+	// 	document.getElementById('athletes-unfollow-form').attr('onsubmit','return false;');
+	//     return false;                   
+	// } 
 }
-
+ function unfollow(){
+ 	 document.getElementById('athletes-unfollow-form').removeAttribute('onsubmit').submit();// Form submission
+ }
 function payment_status_change(){
 	if(confirm('You are sure , you want to chnage!'))
 	{

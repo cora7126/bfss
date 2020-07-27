@@ -430,7 +430,28 @@ class AddGroupAssessmentsForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    
+
+     $citycheck_1 = \Drupal::database()->select('us_cities', 'athw')
+      ->fields('athw')
+      ->condition('name',$form_state->getValue('city'),'LIKE')
+      ->condition('state_code',$form_state->getValue('state'), '=')
+      ->range(0, 2000)
+      ->execute()->fetchAll();
+
+      if(empty($citycheck_1)){
+         $form_state->setErrorByName('city', $this->t('Incorrect city.'));
+      }
+
+      $citycheck_2 = \Drupal::database()->select('us_cities', 'athw')
+      ->fields('athw')
+      ->condition('name',$form_state->getValue('venue_loaction'),'LIKE')
+      ->condition('state_code',$form_state->getValue('venue_state'), '=')
+      ->range(0, 2000)
+      ->execute()->fetchAll();
+
+      if(empty($citycheck_1)){
+         $form_state->setErrorByName('venue_loaction', $this->t('Incorrect city.'));
+      }
   }
 
 

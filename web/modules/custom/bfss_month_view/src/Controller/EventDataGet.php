@@ -63,7 +63,7 @@ class EventDataGet extends ControllerBase {
 							 $pGraph = Paragraph::load($element['target_id'] );
 							 $timing = (int) $pGraph->get('field_timing')->value;
 							 $date = date("Y-m-d",$timing);
-							 $time = $date.'T'.date("h:i:s",$timing);
+							 $time = $date.'T'.date("H:i:s",$timing);
 							 $duration = $pGraph->get('field_duration')->value;
 							 $event_data[] = [
 							 	'id'=>$nid,
@@ -101,7 +101,7 @@ class EventDataGet extends ControllerBase {
 		               $node_checked = Node::load($entity->assessment->value);
 		               if(!empty($node_checked)){
 		               	$date = date("Y-m-d",$entity->time->value);
-						$time = $date.'T'.date("h:i:s",$entity->time->value);
+						$time = $date.'T'.date("H:i:s",$entity->time->value);
 		                $event_data[] = [
 						   'id' => $entity->assessment->value,
 						   'title' => substr($entity->assessment_title->value, 0, 10).'...',
