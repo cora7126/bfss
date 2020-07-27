@@ -27,14 +27,14 @@ html body{margin-top:0 !important;padding:0 !important;}
 
 /**************** DASHBOARD MAIN CONTENT LAYOUT CSS STARTS HERE *******************/
 .left_side_section{background:#000;border-right:1px solid #ced4da;width:300px;transition:width 0.5s;float:left;min-height:calc(100vh - 100px);}
-.dashboard .region.region-content{width:calc(100% - 300px);-moz-transition:width 0.5s;-webkit-transition:width 0.5s;transition:width 0.5s;min-height:calc(100vh - 10rem);position:relative;padding:0 0 15rem;}
+.dashboard .region.region-content{width:calc(100% - 305px);-moz-transition:width 0.5s;-webkit-transition:width 0.5s;transition:width 0.5s;min-height:calc(100vh - 10rem);position:relative;padding:0 0 15rem;}
 
 .dash-main-right, .tab-main-sec, .region.region-footer, div.quick-link{width:100%;float:left;display:block;}
 .tab-main-sec{margin:30px 0;}
 .region-footer{padding:15px;margin:100px 0 0;position:absolute;bottom:0;}
 .dashboard footer.footer{display:none;}
 /**************** DASHBOARD MAIN CONTENT LAYOUT CSS ENDS HERE *******************/
-
+.custom-nav-box:before{display:none!important;}
 /*********** SITE DEFAULT BUTTON CSS STARTS HERE *************/
 i.fal.fa-caret-down, i.fal.fa-calendar-alt {cursor:pointer;}
 .block-month-view-block .fc-toolbar h2{color:#EB6E06;}
@@ -439,6 +439,8 @@ h3.add-organization{margin-top:12px;}
 .card-img-sec img{background:#fff;padding:8px 6px 8px 6px;}
 .profile-card.profile-card-second{margin-top:10px;}
 
+
+.header_rightbar .row::before,.quick-link .row::before{display:none!important;}
 /* Menu Css */
 .menutoggle.open{display:block;}
 .menutoggle li{width:100%;float:left;display:block;margin:10px 0px 0px 0px;text-align:center;}

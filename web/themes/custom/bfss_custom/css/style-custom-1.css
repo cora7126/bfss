@@ -189,6 +189,8 @@ footer.user-profile-fo.footer.container {
     text-transform: capitalize;
 }
 #edit-reset.filter_reset.button#edit-reset.filter_reset.button span{display:none;}
+.athletes-unfollow-form .ui-dialog-titlebar .ui-dialog-title {display: block;}
+.athletes-unfollow-form .modal-body.px-4.ui-dialog-content {margin-top: 16px;font-size: 14px;}
 /******************* RESPONSIVE CSS STARTS HERE *********************/
 
 @media(min-width:100px) and (max-width:579px) {	

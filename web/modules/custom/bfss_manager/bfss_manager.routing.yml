@@ -146,3 +146,12 @@ bfss_manager.get_location_autocomplete:
   requirements:
     _access: 'TRUE'
    # _role: 'bfss_manager+bfss_administrator'
+
+bfss_manager.get_org_by_state:
+  path: '/get-org-by-state/{state_name}/{count}'
+  defaults:
+    _controller: '\Drupal\bfss_manager\Controller\GetOrgByState::handleAutocomplete'
+    _format: json
+  requirements:
+    _access: 'TRUE'
+   # _role: 'bfss_manager+bfss_administrator'

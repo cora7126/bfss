@@ -87,7 +87,27 @@ class AthletesFollow extends ControllerBase {
 	           </div>
 	          </div>
 	           </div>
-	          </div></form>';
+	          </div>';
+
+
+            $tb1 .=  '<div class="modal fade" id="ConfirmUnfollowModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                       <div class="modal-dialog" role="document">
+                         <div class="modal-content">
+                           <div class="modal-header p-4" style="background: #000;">
+                             <h3 class="modal-title text-uppercase text-white" id="exampleModalLabel">DELETE Information</h3>
+                             <button type="button" class="close confirmation-close-button" data-dismiss="modal" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                             </button>
+                           </div>
+                           <div class="modal-body px-4"><p>You are sure , you want to unfollow these athletes!</p></div>
+                           <div class="modal-footer px-4">
+                           
+                           <input type="submit" name="follow_submit" value="YES" onclick="unfollow();" class="btn btn-lg text-white btn-default text-uppercase p-3"  id="confirm-unfollow" style="background: #f76907; font-size: 17px;">
+                           </div>
+                         </div>
+                       </div>
+            </div></form>';
+
 	    return [
 	      '#cache' => ['max-age' => 0,],
 	      '#theme' => 'athletes_follow_page',

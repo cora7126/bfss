@@ -223,8 +223,8 @@ class PendingApprovalForm extends FormBase {
             '#type' => 'textfield',
             '#placeholder' => t('Search'),
              '#default_value' => $results18['field_city'],
-            '#autocomplete_route_name' => 'bfss_manager.get_location_autocomplete',
-            '#autocomplete_route_parameters' => array('field_name' => $VNS, 'count' => 10), 
+            '#autocomplete_route_name' => 'bfss_manager.get_org_by_state',
+            '#autocomplete_route_parameters' => array('state_name' => $VNS, 'count' => 10), 
             '#prefix' => '<div id="edit-output-22" class="org-3">',
             '#suffix' => '</div>',
         ];

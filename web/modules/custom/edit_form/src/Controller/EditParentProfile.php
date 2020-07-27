@@ -10,7 +10,7 @@ class EditParentProfile extends ControllerBase {
 	    // ];
 
 
-	    $form = \Drupal::formBuilder()->getForm('Drupal\edit_form\Form\edit_parent');
+	    $form = \Drupal::formBuilder()->getForm('Drupal\edit_form\Form\ParentEditForm');
 	  	return [
           '#cache' => ['max-age' => 0,],
           '#theme' => 'edit_parent_profile_page',
