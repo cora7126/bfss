@@ -34,8 +34,10 @@ class PendingAssessmentsForm extends FormBase {
    *   Optional. The text that appears within the textfield when empty.
    * @param string $units
    *   Optional. i.e.  Lbs, In,  Secs
+   * @param boolean $readonly
+   *   Default is false, set to 'true' if you don't want text field edited.
    */
-  public function getFormField($fieldName, $fieldNum, $defaultValue = '', $placeholder = '', $units='') {
+  public function getFormField($fieldName, $fieldNum, $defaultValue = '', $placeholder = '', $units='', $readonly=false) {
     $fieldAry = [];
     $modVal = ($fieldNum % 2);
     $style1 = $modVal ? 'width: 64.5%' : 'position: absolute; width: 43%; right: 7.2%';
@@ -49,6 +51,9 @@ class PendingAssessmentsForm extends FormBase {
         'style' => 'height: calc(1.4em + 0.3rem + 2px); ' . $style1 . ';',
       ),
     );
+    if ($readonly) {
+      $fieldAry[$fieldName]['#attributes']['readonly'] = 'true';
+    }
     $style2 = '';
     if ($units) {
       // '#field_suffix' => t($units),
@@ -246,7 +251,7 @@ class PendingAssessmentsForm extends FormBase {
         );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ASSESSMENT TABLE 1
-        $formFields['field_wrap_1']['#title'] = $this->t('<div style="text-align: center; font-weight: bold;">ASSESSMENT TABLE</div>');
+        $formFields['field_wrap_1']['#title'] = $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">ASSESSMENT TABLE</div>');
         $fldNum = 0;
 
         $fieldName = 'field_jump_height_in_reactive'; //dd  LEGACY:  starter_jump_height_rea_str
@@ -290,7 +295,7 @@ class PendingAssessmentsForm extends FormBase {
           //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ASSESSMENT TABLE 2    BFS Testing: Performance Tests
           $formFields['field_wrap_1E'] = array(
             '#type' => 'fieldset',
-            '#title' => $this->t('<div style="text-align: center; font-weight: bold;">ASSESSMENT TABLE 2</div>'),
+            '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">ASSESSMENT TABLE 2</div>'),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
           );
@@ -347,7 +352,7 @@ class PendingAssessmentsForm extends FormBase {
           '#suffix' => '</div>',
         );
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REBOUND JUMP
-        $formFields['field_wrap_2']['#title'] = $this->t('<div style="text-align: center; font-weight: bold;">REBOUND JUMP</div>');
+        $formFields['field_wrap_2']['#title'] = $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">REBOUND JUMP</div>');
         $fldNum = 0;
 
         $fieldName = 'field_rebound_jump_rank';
@@ -359,16 +364,19 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_rj_ground_contact_time';
         $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'GROUND CONTACT TIME', 'ms'); // 23 / 44
         $fieldName = 'field_rebound_jump_low_rsi';
-        $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'LOW RSI', '>1.5'); // 24 / 45
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'Below Avg: < 1.5';
+        $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, 'LOW RSI', '', true); // 24 / 45
         $fieldName = 'field_rebound_jump_medium_rsi';
-        $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'MEDIUM RSI', '1.5-2.0'); // 25 / 46
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'Avg: 1.5 - 2.5';
+        $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, 'MEDIUM RSI', '', true); // 25 / 46
         $fieldName = 'field_rebound_jump_high_rsi';
-        $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'HIGH RSI', '2.0-2.5'); // 26 / 47
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'Good: > 2.5';
+        $formFields['field_wrap_2'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, 'HIGH RSI', '', true); // 26 / 47
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COUNTER MOVEMENT JUMP
         $formFields['field_wrap_3'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">COUNTER MOVEMENT JUMP</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">COUNTER MOVEMENT JUMP</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
@@ -381,14 +389,14 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_cmj_height_e';
         $formFields['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) CMJ HEIGHT', 'In'); // 29 / 50
         $fieldName = 'field_cmj_force';
-        $formFields['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'CMJ PEAK FORCE', 'N'); // 30 / 51
+        $formFields['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'CMJ PEAK FORCE', 'W/kg'); // 30 / 51
         $fieldName = 'field_cmj_force_e';
-        $formFields['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) CMJ PEAK FORCE', 'N'); // 31 / 52
+        $formFields['field_wrap_3'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) CMJ PEAK FORCE', 'W/kg'); // 31 / 52
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SQUAT JUMP
         $formFields['field_wrap_4'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">SQUAT JUMP</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">SQUAT JUMP</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
@@ -401,14 +409,14 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_squat_jump_jump_height_e';
         $formFields['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) JUMP HEIGHT', 'In'); // 34 / 55
         $fieldName = 'field_squat_jump_force';
-        $formFields['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'PEAK FORCE', 'N'); // 35 / 56
+        $formFields['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'PEAK FORCE', 'W/kg'); // 35 / 56
         $fieldName = 'field_squat_jump_force_e';
-        $formFields['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) PEAK FORCE', 'N'); // 36 / 57
+        $formFields['field_wrap_4'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) PEAK FORCE', 'W/kg'); // 36 / 57
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EUR SCORE
         $formFields['field_wrap_5'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">EUR SCORE</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">EUR SCORE</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
@@ -417,10 +425,10 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_eur_score';
         $formFields['field_wrap_5'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'YOUR EUR SCORE'); // 37 / 58
 
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 10M/40M SPRINT
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 10YD/40YD SPRINT
         $formFields['field_wrap_6'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">10M/40M SPRINT</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">10YD/40YD SPRINT</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
@@ -429,18 +437,18 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_sprint_rank';
         $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'YOUR RANK IS'); // 38 / 59
         $fieldName = 'field_sprint_10m';
-        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '10M SPRINT', 'Sec'); // 39 / 60
+        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '10YD SPRINT', 'Sec'); // 39 / 60
         $fieldName = 'field_sprint_10m_e';
-        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) 10M SPRINT', 'Sec'); // 40 / 61
+        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) 10YD SPRINT', 'Sec'); // 40 / 61
         $fieldName = 'field_sprint_40m';
-        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '40M SPRINT', 'Sec'); // 41 / 62
+        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '40YD SPRINT', 'Sec'); // 41 / 62
         $fieldName = 'field_sprint_40m_e';
-        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) 40M SPRINT', 'Sec'); // 42 / 63
+        $formFields['field_wrap_6'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) 40YD SPRINT', 'Sec'); // 42 / 63
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MID-THIGH PULL
         $formFields['field_wrap_7'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">MID-THIGH PULL</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">MID-THIGH PULL</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
@@ -459,14 +467,14 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_mt_abs_strength_n_e';
         $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) ABSOLUTE STRENGTH', 'Lbs'); // 48 / 69
         $fieldName = 'field_mid_thigh_rel_strength';
-        $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'RELATIVE STRENGTH', '%'); // 49 / 70
+        $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'RELATIVE STRENGTH', '#x'); // 49 / 70
         $fieldName = 'field_mid_thigh_rel_strength_e';
-        $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) RELATIVE STRENGTH', '%'); // 50 / 71
+        $formFields['field_wrap_7'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) RELATIVE STRENGTH', '#x'); // 50 / 71
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ RATE OF FORCE
         $formFields['field_wrap_8'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">RATE OF FORCE</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">RATE OF FORCE</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
@@ -479,20 +487,23 @@ class PendingAssessmentsForm extends FormBase {
         $fieldName = 'field_force_rate_peak_weight';
         $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'PEAK FORCE/BODY WEIGHT', '#.#x'); // 53 / 74
         $fieldName = 'field_force_rate_force_n';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'FORCE', 'N'); // 54 / 75
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '100ms FORCE', 'N'); // 54 / 75
         $fieldName = 'field_force_rate_rfd';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'RFD', '%'); // 55 / 76
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '100ms RFD', '%'); // 55 / 76
         $fieldName = 'field_force_rate_low_peak';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'LOW PEAK FORCE', '< #.#x'); // 56 / 77
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'Low: < 2.2x Body Weight';
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, 'LOW PEAK FORCE', '', true); // 56 / 77
         $fieldName = 'field_force_rate_medium_peak';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'MEDIUM PEAK FORCE', '#.#x'); // 57 / 78
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'Medium: 2.2x - 3.2x Body Weight';
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, 'MEDIUM PEAK FORCE', '', true); // 57 / 78
         $fieldName = 'field_force_rate_high_peak';
-        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'HIGH PEAK FORCE', '> #.#x'); // 58 / 79
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'High: > 3.2x Body Weight';
+        $formFields['field_wrap_8'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, 'HIGH PEAK FORCE', '', true); // 58 / 79
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DYNAMIC STRENGTH INDEX
         $formFields['field_wrap_9'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">DYNAMIC STRENGTH INDEX</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">DYNAMIC STRENGTH INDEX</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
@@ -512,7 +523,7 @@ class PendingAssessmentsForm extends FormBase {
           //~~~~~~~~~~~~~~~~~~~~ Supine Med Ball Chest Throw
           $formFields['field_wrap_9E'] = array(
             '#type' => 'fieldset',
-            '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Supine Med Ball Chest Throw</div>'),
+            '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">Supine Med Ball Chest Throw</div>'),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
           );
@@ -534,7 +545,7 @@ class PendingAssessmentsForm extends FormBase {
           //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Rotational med Ball Throw Test
           $formFields['field_wrap_aE'] = array(
             '#type' => 'fieldset',
-            '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Rotational Med Ball Throw</div>'),
+            '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">Rotational Med Ball Throw</div>'),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
           );
@@ -550,7 +561,7 @@ class PendingAssessmentsForm extends FormBase {
           //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Strength Endurance Testing
           $formFields['field_wrap_bE'] = array(
             '#type' => 'fieldset',
-            '#title' => $this->t('<div style="text-align: center; font-weight: bold;">Strength Endurance Testing</div>'),
+            '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">Strength Endurance Testing</div>'),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
           );
@@ -572,7 +583,7 @@ class PendingAssessmentsForm extends FormBase {
           //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 5-10-5 AGILITY
           $formFields['field_wrap_cE'] = array(
             '#type' => 'fieldset',
-            '#title' => $this->t('<div style="text-align: center; font-weight: bold;">5-10-5 AGILITY</div>'),
+            '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">5-10-5 AGILITY</div>'),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
           );
@@ -588,7 +599,7 @@ class PendingAssessmentsForm extends FormBase {
           //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 1.5 MILE BIKE
           $formFields['field_wrap_dE'] = array(
             '#type' => 'fieldset',
-            '#title' => $this->t('<div style="text-align: center; font-weight: bold;">1.5 MILE BIKE</div>'),
+            '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">1.5 MILE BIKE</div>'),
             '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
             '#suffix' => '</div>',
           );
@@ -693,34 +704,36 @@ class PendingAssessmentsForm extends FormBase {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SUMMARY
         $formFields['field_wrap_m'] = array(
           '#type' => 'fieldset',
-          '#title' => $this->t('<div style="text-align: center; font-weight: bold;">SUMMARY</div>'),
+          '#title' => $this->t('<div style="text-align: center; font-weight: 500; margin: -5px;">SUMMARY</div>'),
           '#prefix' => '<div id="form_fields_wrap" class="form_fields_wrap">',
           '#suffix' => '</div>',
         );
         $fldNum = 0;
 
         $fieldName = 'field_summary_reactive';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'REACTIVE STRENGTH', '#.#'); // 62 / 105
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'REACTIVE STRENGTH INDEX', '#.#'); // 62 / 105
         $fieldName = 'field_summary_reactive_e';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH', '#.#'); // 63 / 106
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) REACTIVE STRENGTH INDEX', '#.#'); // 63 / 106
         $fieldName = 'field_summary_reactive_b';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH', '%tile'); // 64 / 107
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(B) REACTIVE STRENGTH INDEX', '%tile'); // 64 / 107
         $fieldName = 'field_summary_dynamic';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'DYNAMIC STRENGTH', '##%'); // 65 / 108
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'DYNAMIC STRENGTH INDEX', '##%'); // 65 / 108
         $fieldName = 'field_summary_dynamic_e';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) DYNAMIC STRENGTH', '##%'); // 66 / 109
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'Elite: 70%';
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, '(E) DYNAMIC STRENGTH INDEX', '', true); // 66 / 109
         $fieldName = 'field_summary_dynamic_b';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(B) DYNAMIC STRENGTH', 'N/A'); // 67 / 110
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(B) DYNAMIC STRENGTH INDEX', 'N/A'); // 67 / 110
         $fieldName = 'field_summary_ecc';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'ECC. RATIO', '#.##'); // 68 / 111
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'ECC. UTILIZATION RATIO', '#.##'); // 68 / 111
         $fieldName = 'field_summary_ecc_e';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) ECC. RATIO', '#.##'); // 69 / 112
+        $default_for_readonly = @$node->{$fieldName}->value ? $node->{$fieldName}->value : 'Elite: 1.15';
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, $default_for_readonly, '(E) ECC. UTILIZATION RATIO', '', true); // 69 / 112
         $fieldName = 'field_summary_ecc_b';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(B) ECC. RATIO', 'N/A'); // 70 / 113
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(B) ECC. UTILIZATION RATIO', 'N/A'); // 70 / 113
         $fieldName = 'field_summary_relative';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'RELATIVE STRENGTH', 'Lbs'); // 71 / 114
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, 'RELATIVE STRENGTH', '#.##x'); // 71 / 114
         $fieldName = 'field_summary_relative_e';
-        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) RELATIVE STRENGTH', 'Lbs'); // 72 / 115
+        $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(E) RELATIVE STRENGTH', '#.##x'); // 72 / 115
         $fieldName = 'field_summary_relative_b';
         $formFields['field_wrap_m'][$fieldName] = $this->getFormField($fieldName, ++$fldNum, @$node->{$fieldName}->value, '(B) RELATIVE STRENGTH', '%tile'); // 73 / 116
       }
@@ -864,10 +877,14 @@ class PendingAssessmentsForm extends FormBase {
   }
 
   /****
-   * Add units to formValue ONLY IF formValue ends in a digit.  Example 5.5 will return "5.5 $units", but "5.5 Lb." would return same "5.5 Lb.".
+   * Add units to formValue ONLY IF formValue ends in a digit (or other).  Example 5.5 will return "5.5 $units", but "5.5 Lb." would return unchanged "5.5 Lb.".
    */
   private function addUnits($formValue, $units) {
-    if (preg_match('/.*\d\s*$/si', $formValue)) {
+    $formValue = trim($formValue);
+    if (preg_match('/.*\d$/si', $formValue)) {
+      return $formValue . ' ' . $units;
+    }
+    else if ($units == 'Percentile' && preg_match('/.*\d\s?(st|th|rd|nd)$/si', $formValue)) {
       return $formValue . ' ' . $units;
     }
     else {
@@ -1082,13 +1099,29 @@ class PendingAssessmentsForm extends FormBase {
                   $form_data[$key] = $this->addUnits($form_data[$key], 'Percentile');                 break;
                 case 'field_summary_dynamic':
                   $form_data[$key] = $this->addUnits($form_data[$key], '%');                 break;
-                case 'field_summary_dynamic_e':
-                  $form_data[$key] = $this->addUnits($form_data[$key], '%');                 break;
                 case 'field_summary_relative':
                   $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
                 case 'field_summary_relative_e':
                   $form_data[$key] = $this->addUnits($form_data[$key], 'Lbs');                 break;
               }
+
+              // Only if submission is "saved and published".  For the form fields which are read-only,
+              //  remove anything before the ':', example remove "Elite: " from "Elite: 70%"
+              if (@$form_data['save_published']) {
+                switch ($key) {
+                  case 'field_summary_dynamic_e':
+                  case 'field_summary_ecc_e':
+                  case 'field_rebound_jump_low_rsi':
+                  case 'field_rebound_jump_medium_rsi':
+                  case 'field_rebound_jump_high_rsi':
+                  case 'field_force_rate_low_peak':
+                  case 'field_force_rate_medium_peak':
+                  case 'field_force_rate_high_peak':
+                    $form_data[$key] = preg_replace('/^.*?\:\s?/si', '', $form_data[$key]);
+                   break;
+                }
+              }
+
               if ($key != 'draft' && $key != 'submit' && $key != 'save_published' && $key != 'save_unpublished' && $key != 'form_build_id' && $key != 'form_token' && $key != 'form_id') {
                 $node->set($key, $form_data[$key]);
               }

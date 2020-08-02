@@ -1234,7 +1234,7 @@ $uid = $form_state->getformObject()->getEntity()->id();
       ];
       $form['#attached']['drupalSettings']['payment']['status'] = $computed_settings;
   }else{
-        
+
         $user = USER::load($uid);
          #Payment Service START from here
         foreach ($form_state->getValue('field_program_term') as $key => $value) {

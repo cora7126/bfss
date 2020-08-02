@@ -5,15 +5,15 @@
     	// 	jQuery('a.add_org.popup_add_org').hide();
     	// }
 		jQuery('#basic0_circle_progressbar').circlesProgress({'progress':'48','borderSize':'0','innerColor':'#f56907'});
-		//month filter	    	
+		//month filter
 		//alert();
     	 jQuery('.niceselect select').niceSelect();
-    	
+
     	jQuery(document).on('click','a.paginate_button',function(){
- 				jQuery(document).find('.niceselect select').niceSelect(); 
+ 				jQuery(document).find('.niceselect select').niceSelect();
 		});
 		jQuery(document).on('click','.table-responsive table th',function(){
- 				jQuery(document).find('.niceselect select').niceSelect(); 
+ 				jQuery(document).find('.niceselect select').niceSelect();
 		});
     // 	   jQuery(".month_filter select").change(function(){
   		// 		jQuery('form#month-form').submit();
@@ -27,7 +27,7 @@
        			jQuery('body').removeClass('fixed');
    				}
 			});
-    	   jQuery(document).ready(function() { 
+    	   jQuery(document).ready(function() {
 			  jQuery('.org_name_tabs input[name=orgname]').change(function(){
 			        jQuery('form#org-tab-form-plx').submit();
 			   });
@@ -70,19 +70,19 @@ jQuery('.faqct li.q').on('click', function(){
   jQuery(".profile_icon_hv").mouseenter(function(){
     jQuery(".profile_icon_hv_leave").css("display", "block");
   });
-  
+
   jQuery(".profile_icon_hv").mouseleave(function(){
     jQuery(".profile_icon_hv_leave").css("display", "none");
   });
 
  jQuery(".custom_faq.togle div.tog").click(function(){
     jQuery(this).parent().find('.toggle_cont').slideToggle();
-    
+
      if( jQuery(this).parent().find('icon-sign').hasClass('close') ){
         jQuery("span.icon-sign").removeClass('close');
      }else{
     	 jQuery("span.icon-sign").addClass('close');
-       
+
      }
  });
 
@@ -95,7 +95,7 @@ jQuery('.faqct li.q').on('click', function(){
 			var dataId= jQuery(this).parent('.previewdiv').data('id');
 			var queryParamts = '?'+jQuery('#edit-form').serialize()+'&btnId='+dataId;
 	 		jQuery(this).attr('href', newurl+queryParamts);
-			
+
 		});
 
 
@@ -226,7 +226,7 @@ jQuery('.faqct li.q').on('click', function(){
 								 window.location= "/user/login";
 
 							}
-							
+
 						},
 						error :function (data){
 							alert("There is an error.");
@@ -260,40 +260,40 @@ jQuery('.faqct li.q').on('click', function(){
 //            console.log('clickkk');
 //            jQuery(document).find('.image-widget').find('button').submit();
 //        })
-        
+
         // jQuery(document).on('click','.add_pos_div .remove_pos',function(){
             // jQuery(this).parents('.add_pos_div ').find('.form-item').last().remove();
             // if(jQuery(this).parents('.add_pos_div ').find('.form-item').length < 2 ){
                 // jQuery(this).parents('.add_pos_div ').find('.remove_pos').hide();
             // }else{
                 // jQuery(this).parents('.add_pos_div').find('.remove_pos').show();
-                
+
             // }
-            
+
         // })
-       
+
          /* 20-02-2020 */
         jQuery(document).on('click','.left_section .athlete_left h3 , .right_section .athlete_right h3',function(){
             jQuery(this).parent().find('.items_div').slideToggle();
             jQuery(this).find('.toggle_icon').find('i').toggleClass('hide');
         });
-        
+
          // jQuery(document).on('click','.delete_icon',function(e){
             //alert('jj')
            // var delete_icon_popup = jQuery("<div class='modal' id='myModal'><div class='modal-dialog'><div class='modal-content'><div class='modal-header'><h4 class='modal-title'>Modal Heading</h4><button type='button' class='close' data-dismiss='modal'>&times;</button></div><div class='modal-body'>Modal body.</div><div class='modal-footer'><button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button></div></div></div></div>");
-            
+
 			//jQuery(this).append(delete_icon_popup);
             //jQuery('.region-content').append('delete_icon_popup');
         // });
-        
+
             /* var athleteprofile_header = "<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000'>Atheltic Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='far fa-chart-network edit_image'></i></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Atheltic</span><br>Profile</h2></div></div>"; */
     //         var athleteprofile_header = "<div class='dash-main-right'><h1><i class='fas fa-home'></i> &gt; <a href='/dashboard' class='edit_dash' style='margin-right:5px;color: #333333;'>Dashboard</a> &gt; Athletic Profile</h1><div class='dash-sub-main'><i class='far fa-chart-network edit_image'></i><h2><span>Edit</span><br> Athletic Profile</h2></div></div>";
-     
- 
-    // jQuery(athleteprofile_header).insertBefore( ".bfssAthleteProfile .edit-form" );
-        
 
-        
+
+    // jQuery(athleteprofile_header).insertBefore( ".bfssAthleteProfile .edit-form" );
+
+
+
       /*  jQuery(document).on('click','.add_org', function(){
             var skl_data = '<div class="athlete_left"><h3><div class="toggle_icon"><i class="fa fa-minus"></i><i class="fa fa-plus hide"></i></div>School/Club/University</h3><i class="fa fa-trash right-icon delete_icon" aria-hidden="true"></i><div class="items_div"><div class="form-item js-form-item form-type-select js-form-type-select form-item-schoolname js-form-item-schoolname form-no-label form-group"><div class="select-wrapper"><select data-drupal-selector="edit-education" class="form-select form-control" id="edit-education" name="education"><option value="0">--- Highschol ---</option><option value="1">10"</option><option value="2">12"</option><option value="3">16"</option></select></div></div><div class="form-item js-form-item form-type-select js-form-type-select form-item-schoolname js-form-item-schoolname form-no-label form-group"><div class="select-wrapper"><select data-drupal-selector="edit-schoolname" class="form-select form-control" id="edit-schoolname" name="schoolname"><option value="0">--- Williams Highschol ---</option><option value="1">10"</option><option value="2">12"</option><option value="3">16"</option></select></div></div><div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-coach js-form-item-coach form-no-label form-group"><input data-drupal-selector="edit-coach" class="form-text form-control" type="text" id="edit-coach" name="coach" value="" size="60" maxlength="128" placeholder="Coaches Last Name (Optional)"></div><div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-sport js-form-item-sport form-no-label form-group"><input data-drupal-selector="edit-sport" class="form-text form-control" type="text" id="edit-sport" name="sport" value="" size="60" maxlength="128" placeholder="Sport"></div><div class="add_pos_div"><div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-position js-form-item-position form-no-label form-group"><input data-drupal-selector="edit-position" class="form-text form-control" type="text" id="edit-position" name="position" value="" size="60" maxlength="128" placeholder="Position"></div><a class="add_pos"><i class="fa fa-plus"></i>Add Position</a><a class="remove_pos" style="display: none;"><i class="fa fa-trash"></i>Remove Position</a></div><div class="form-item js-form-item form-type-textarea js-form-type-textarea form-item-stats js-form-item-stats form-no-label form-group"><div class="form-textarea-wrapper"><textarea data-drupal-selector="edit-stats" class="form-textarea form-control resize-vertical" id="edit-stats" name="stats" rows="5" cols="60"></textarea></div></div></div></div></div></div>';
             jQuery(this).parents('.athlete_school').append(skl_data);
@@ -306,7 +306,7 @@ jQuery('.faqct li.q').on('click', function(){
 			}
 			jQuery('.remove_pos_first').show();
 		}
-        jQuery(document).on('click','.add_pos_first', function(){ 
+        jQuery(document).on('click','.add_pos_first', function(){
 			if(jQuery('#edit-position2').css('display') == 'none'){
 				jQuery('#edit-position2').show();
 				jQuery('.remove_pos_first').show();
@@ -333,7 +333,7 @@ jQuery('.faqct li.q').on('click', function(){
 			}
 			jQuery('.remove_pos_second').show();
 		}
-		jQuery(document).on('click','.add_pos_second', function(){ 
+		jQuery(document).on('click','.add_pos_second', function(){
 			if(jQuery('#edit-position-12').css('display') == 'none'){
 				jQuery('#edit-position-12').show();
 				jQuery('.remove_pos_second').show();
@@ -360,7 +360,7 @@ jQuery('.faqct li.q').on('click', function(){
 			}
 			jQuery('.remove_pos_third').show();
 		}
-		jQuery(document).on('click','.add_pos_third', function(){ 
+		jQuery(document).on('click','.add_pos_third', function(){
 			if(jQuery('#edit-position-22').css('display') == 'none'){
 				jQuery('#edit-position-22').show();
 				jQuery('.remove_pos_third').show();
@@ -386,16 +386,16 @@ jQuery('.faqct li.q').on('click', function(){
 			console.log("here");
 			jQuery('.popup_add_org').hide();
 		}
-		
-		
+
+
             /*console.log("here: ", jQuery(this).parents('.add_pos_div_first ').find('.hidpos').length);
             if(jQuery(this).parents('.add_pos_div_first ').find('.hidpos').length == 2 ){
                 console.log("if");
                 if(counter_click_addpos == 0)
-                {     jQuery('.remove_pos_first').css('display', 'inline-block');  
+                {     jQuery('.remove_pos_first').css('display', 'inline-block');
                     jQuery(this).parents('.add_pos_div_first ').children('.pos_hidden_first_1').addClass('showpos').find('input').css('display' , 'block');
                     counter_click_addpos = 1;
-                    
+
                 }
                 else if(counter_click_addpos == 1){
                     jQuery(this).parents('.add_pos_div_first ').children('.pos_hidden_first_2').addClass('showpos').find('input').css('display' , 'block');
@@ -411,11 +411,11 @@ jQuery('.faqct li.q').on('click', function(){
                     counter_click_addpos = 1;
                 }
             }
-            
+
 //            var add_pos = '<div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-position js-form-item-position form-no-label form-group"><input data-drupal-selector="edit-position" class="form-text form-control" type="text" id="edit-position" name="position" value="" size="60" maxlength="128" placeholder="Position"></div>';
 //            jQuery(this).parents('.add_pos_div').append(add_pos);
             */
-               
+
        /*  jQuery(document).on('click','.remove_pos_first', function(){
             if(jQuery(this).parents('.add_pos_div_first ').find('.hidpos').length == 2 ){
                 if(counter_click_addpos == 2){
@@ -455,29 +455,29 @@ jQuery('.faqct li.q').on('click', function(){
     jQuery(document).on("click", "#athelets-modal button.bg-transparent", function(){
         jQuery(this).parents(".card").find(".actions").before(position_html);
     });
-   
+
 })(jQuery);
     var footer_content = jQuery("footer").html();
     jQuery('.tab-main-sec').after(footer_content);
-    
+
      jQuery(".athlete_form_submit .form-submit").click(function(){
      jQuery("#accordion").find('form').submit();
 });
      // var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Edit Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>EDIT</span><br>Profile</h2></div></div>");
      // jQuery('.edit-user .edit-form').before(header_html);
-	 
+
 	 var header_html='';
 	  var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Payment/Receipts</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Manage </span><br>Payment/Receipts</h2></div></div>");
      jQuery('.payment-receipts #block-paymentreceipts--2').before(header_html);
-	 
-	 
+
+
 	  // var header_html='';
 	  // var header_html = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a href='/dashboard' class='edit_dash' style='margin-right:5px;font-weight: bold; color:#000'>Dashboard</a><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><a class='edit_dash' style='font-weight: bold; color:#000''>Parent/Guardian Profile</a></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='fa fa-laptop edit_image' aria-hidden='true'></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Edit</span><br>Parent/Guardian</h2></div></div>");
    //   jQuery('.edit-parent #edit-parent').before(header_html);
 
      var image_action = jQuery("<div class='edit_dropdown'><a class='drop'>Action<span class='down-arrow fa fa-angle-down'></span></a><ul class='dropdown-menu' style='padding:0'></ul></div>");
      jQuery('#edit-profile-class .field-group-format-toggler').after(image_action);
-     
+
    jQuery('#edit-profile-class .edit_dropdown , .right_section .edit_dropdown .drop').click(function(){
 //        var button_html =  jQuery(document).find('.image-widget').find('button[value="Remove"]').wrap('<div class="remove_bttn"></div>');
 //        var full_html = jQuery('.remove_bttn').html();
@@ -485,44 +485,48 @@ jQuery('.faqct li.q').on('click', function(){
 //        jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu,.right_section .edit_dropdown ul.dropdown-menu ').html('');
 //        if(full_html != undefined){
            //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu,.right_section .edit_dropdown ul.dropdown-menu ').append('<li>'+full_html+'</li>');
-            
+
             //jQuery('#edit-profile-class .edit_dropdown ul.dropdown-menu ,.right_section .edit_dropdown ul.dropdown-menu').toggle();
             //jQuery('.bfssAthleteProfile .right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
            // jQuery('.edit-user .right_section .image-widget .data ,  #edit-user-picture-wrapper .image-widget .data').toggle();
-           
+
 
 
             jQuery('#edit-profile-class .edit_dropdown a span , .right_section .edit_dropdown a span').toggleClass('edit_open');
         //}
-        
+
 
      });
-	 
-	
-     
+
+
+
 //     var athleteprofile_header = jQuery("<div class='main_header'><h1 style='margin-top: 10px;font-size:15px;margin-left: 20px;'><i class='fas fa-home' style='color: #f76907;margin-right: 5px;'></i><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='margin-right:5px;font-weight: bold;'>Dashboard</span><i class='fas fa-angle-right' style='font-weight:400;margin-right:5px;'></i><span class='edit_dash' style='font-weight: bold;'>Atheltic Profile</span></h1><div class='edit_header' style='display:flex; padding:15px;background: #fffcd7;border: 1px solid grey;'><i class='far fa-chart-network edit_image'></i></i><h2 style='margin-top:0px;margin-bottom:0px;'><span style='font-size:13px;font-weight:600;'>Atheltic</span><br>Profile</h2></div></div>");
-//     
+//
 //    //jQuery('.bfssathleteprofile .dialog-off-canvas-main-canvas .edit-form').before(athleteprofile_header);
 //    jQuery(athleteprofile_header).insertBefore( ".inner" );
-	
+
 
     jQuery(document).on('click', '#edit-submit', function(){
         jQuery('.dashboard #athelets-modal').modal('hide');
 
 
-		
+
     })
-    
+
+	jQuery(document).on('click', '.remind-to-save', function(){
+		jQuery('#remind-to-save-msg').removeClass('hide');
+	})
+
  jQuery('.popup_form_id-modal spb_overlay').css('background','black');
- 
+
  var counter_click = 0;
- 
+
  jQuery(document).on('click', '.bfssAthleteProfile .popup_add_org', function(){
 	if(counter_click < 0){
 		counter_click = 0
 	}
 	 console.log(counter_click);
-	// console.log("i");	
+	// console.log("i");
      if(counter_click == 0){
         jQuery(this).siblings('.previous_athlete').css('display', 'block');
 			$("#edit-education-1").prop('required',true);
@@ -540,7 +544,7 @@ jQuery('.faqct li.q').on('click', function(){
         counter_click++
     }
  });
- 
+
  jQuery(document).on('click', '.add-organization .popup_add_org', function(){
 	if(counter_click < 0){
 		counter_click = 0
@@ -553,9 +557,9 @@ jQuery('.faqct li.q').on('click', function(){
 		jQuery(this).hide();
         counter_click++
     }
-	
+
  });
- 
+
  jQuery(document).on('click', '#popup_form_id .popup_add_org', function(){
 	 //alert();
 	 //console.log("2");
@@ -586,10 +590,10 @@ jQuery('.faqct li.q').on('click', function(){
 		jQuery(this).hide();
     }
  });
-	
 
 
-   
+
+
 
 
 
@@ -605,7 +609,7 @@ jQuery('.faqct li.q').on('click', function(){
     // }
  // });
  jQuery(document).ready(function(){
-	jQuery('.messages__wrapper').css('display','none'); 
+	jQuery('.messages__wrapper').css('display','none');
  });
 	var counter_click_1 = 0;
 	jQuery(document).on('click', '.add_pos', function(){
@@ -630,22 +634,22 @@ jQuery('.faqct li.q').on('click', function(){
 
   jQuery(document).click(function(){
      jQuery('.dropdown-menu').removeClass('open');
-       jQuery('.down-arrow').removeClass('open-caret');  
+       jQuery('.down-arrow').removeClass('open-caret');
      });
    });
-   
+
    function openForm() {
    document.getElementById("myForm").style.display = "block";
    }
-   
+
    function closeForm() {
    document.getElementById("myForm").style.display = "none";
    }
-   
+
 
       var acc = document.getElementsByClassName("accordion");
       var i;
-      
+
       for (i = 0; i < acc.length; i++) {
        acc[i].addEventListener("click", function() {
          this.classList.toggle("active");
@@ -657,7 +661,7 @@ jQuery('.faqct li.q').on('click', function(){
          }
        });
       }
-    // });  
+    // });
 //    jQuery('.select-wrapper select[data-drupal-selector="edit-user-type"]').on('change', function(){
 //	console.log('here');
 //        jQuery('.js-text-full').removeAttr('value')
@@ -685,8 +689,8 @@ function unfollow_athlete(){
 	// }
 	// else{
 	// 	document.getElementById('athletes-unfollow-form').attr('onsubmit','return false;');
-	//     return false;                   
-	// } 
+	//     return false;
+	// }
 }
  function unfollow(){
  	 document.getElementById('athletes-unfollow-form').removeAttribute('onsubmit').submit();// Form submission
@@ -699,8 +703,8 @@ function payment_status_change(){
 	}
 	else{
 		document.getElementById('manager-pending_payments-form').attr('onsubmit','return false;');
-	    return false;                   
-	} 
+	    return false;
+	}
 }
 
 function org_payment_status_change(){
@@ -711,8 +715,8 @@ function org_payment_status_change(){
 	}
 	else{
 		document.getElementById('organizations-pending-payments-form').attr('onsubmit','return false;');
-	    return false;                   
-	} 
+	    return false;
+	}
 }
 
 function deactivate_users(){
@@ -723,8 +727,8 @@ function deactivate_users(){
 	}
 	else{
 		document.getElementById('view-edit-active-form').attr('onsubmit','return false;');
-	    return false;                   
-	} 
+	    return false;
+	}
 }
 
 function activate_users(){
@@ -735,8 +739,8 @@ function activate_users(){
 	}
 	else{
 		document.getElementById('view-edit-deactive-form').attr('onsubmit','return false;');
-	    return false;                   
-	} 
+	    return false;
+	}
 }
 
 
@@ -748,7 +752,7 @@ jQuery(function(){
 		}
 	});
 	jQuery('.passerror').remove();
-	
+
 	jQuery('#spb-imagepopup .submit_btn').on('click', function(){
 		var imgpopup=jQuery("#imagepopup img").attr("src");
 		//alert(imgpopup);
@@ -758,15 +762,15 @@ jQuery(function(){
 		}
 		else if(imgpopup!=''){
 			jQuery('.athlete_right img').attr('src',imgpopup);
-			
+
 			jQuery('.athlete_right img').next().append('<div class="profile-image-text">No longer need your account and want to deactivate it? You can request deactivating your account via our ticketing system.</div>');
 		}else{
 			jQuery('.athlete_right img').attr('src','');
 		}
 	});
-	
+
 	if(jQuery(".edit-user .edit-profile-image").attr('src')!=''){
 		jQuery('.athlete_right .edit-profile-image').next().append('<div class="profile-image-text">No longer need your account and want to deactivate it? You can request deactivating your account via our ticketing system.</div>');
 	}
-	
+
 });
