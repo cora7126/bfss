@@ -609,7 +609,7 @@ div.dataTables_wrapper .dataTables_info{float:left;color:#000;font-size:12px;fon
 #accessorform a.close{font-size:30px;}
 .drupal-assess-fm .modal-body.ui-dialog-content{overflow:visible !important;}
 .drupal-assess-fm .modal-body.ui-dialog-content .asse_frm{width:100%;float:left;display:block;}
-#assessor_popup_form .accessorform_inner{padding:20px 40px;float:left;width:100%;display:block;background-color:#fff;}
+#assessor_popup_form .accessorform_inner{padding:20px 40px 62px 20px;float:left;width:100%;display:block;background-color:#fff;}
 .usrinfo{width:100%;float:left;display:block;margin:0 0 15px;}
 .usrinfo h3{width:100%;float:left;display:block;color:#EB6E06;text-transform:capitalize;font-weight:700;margin:0 0 5px;font-size:22px;line-height:22px;}
 .usrinfo ul{width:100%;float:left;display:block;padding:0;margin:0;list-style-type:none;}
@@ -949,6 +949,7 @@ ul.faq.faqct li.q .faq-left{padding:9px 0;height:45px;line-height:28px;}
 .tokenize-dropdown.dropdown > .dropdown-menu li.active a{color:#fff;}
 .tokenize-dropdown.dropdown > .dropdown-menu li a:hover, .tokenize-dropdown.dropdown > .dropdown-menu li a:focus{background:transparent;}
 .bfss-success-msg{background-color:#1e7e34;color:#fff;padding:15px;}
+.bfss-success-msg-sm{background-color:#1e7e34;color:#fff; padding:6px; display:inline-block;}
 .data .file-size{padding:0 1em 1rem;}
 .ctv_filter_main .st_ct_wp{display:none;}
 .ctv_filter_main .cat_tags_wrpp{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-moz-justify-content:flex-start;-webkit-justify-content:flex-start;justify-content:flex-start;}
@@ -1049,8 +1050,8 @@ button.agree-button.eu-cookie-compliance-secondary-button {
 	.private-assesspopup.drupal-assess-fm .close span{font-size:50px;line-height:35px;height:35px;display:block;overflow:hidden;}
 	.sm_cls .form-item.js-form-item.panel .panel-heading .panel-title{height:auto;margin:0 0 10px;}
 	.sm_cls{width:100%;margin:15px 0;}
-	.instagram_feed .slick-prev{left: -35px!important;top:18px;}	
-	.instagram_feed .slick-next{right: -35px!important;top:18px;}	
+	.instagram_feed .slick-prev{left: -35px!important;top:18px;}
+	.instagram_feed .slick-next{right: -35px!important;top:18px;}
 	.instagram_feed .slick-prev::before, .instagram_feed  .slick-next::before{background-size: 20px!important;}
 
 	#assessor_popup_form .accessorform_inner{padding:25px;}
