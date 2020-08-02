@@ -31,6 +31,10 @@ class TicketingController extends ControllerBase {
     curl_setopt($ch, CURLOPT_USERPWD, "$api_key:$password");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
+    // SEE if this fixes Drupal cache issue - nope!
+    // curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
+    // curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+
     $server_output = curl_exec($ch);
     $info = curl_getinfo($ch);
     $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
@@ -170,31 +174,21 @@ class TicketingController extends ControllerBase {
     $rolesFlags = [];
 
     if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
-      $rolesFlags['administrators-coach'] = true;
+      $rolesFlags['administrators-manager'] = true;
     }
     else if (in_array('athlete', $roles) || in_array('coach', $roles) || in_array('assessors', $roles)) {
       $rolesFlags['athlete-coach-assessors'] = true;
     }
 
-    $html = '';
+    $html = '<div class="dash-main-right">
+    <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="ticketing-edit_dash">Dashboard</a> &gt; Ticketing</h1>
+    <div class="dash-sub-main">
+      <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
+      <h2><span class="ticketing-create-span"><br></span>Ticketing</h2>
+    </div><br><br></div>';
 
     $html .= '
-    <div class="dash-main-right">
-      <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> &gt; Ticketing</h1>
-      <div class="dash-sub-main ticket-submit-link">
-      <a href="/create-ticket">
-        <table><tbody><tr>
-        <td>
-          <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
-        </td><td>
-          <h4>SUBMIT A</div><h2>TICKET</h4>
-        </td>
-        </tr></tbody></table>
-      </a>
-      </div>
-    </div>';
-
-    $html .= '
+    <a href="/create-ticket" class="button js-form-submit form-submit btn-primary btn ticketing-button-href ticketing-pad">Create a Ticket</a>
     <div class="tab-main-sec">
     <div class="row">
     <div class="col-lg-12 col-md-12">
@@ -211,7 +205,8 @@ class TicketingController extends ControllerBase {
             </th>';
             if ($rolesFlags['athlete-coach-assessors']) {
               $html .= '
-              <th>Reply</th>';
+              <th class="th-hd"><a><span></span> Reply</a>
+              </th>';
             }
             $html .= '
             <th class="th-hd"><a><span></span> Created</a>
@@ -241,7 +236,7 @@ class TicketingController extends ControllerBase {
         $userResponder = [];
       }
       $ticketUrl = 'http://support2.5ppdev1.com/a/tickets/' . $ticket->id;
-      $agentUrl = 'http://support2.5ppdev1.com/a/contacts/' . $ticket->responder_id;
+      // $agentUrl = 'http://support2.5ppdev1.com/a/contacts/' . $ticket->responder_id;
       if (  0  &&  $userRequester['bfss_user_id']) {
         // $requester = '<a href="/user/' . $userRequester['bfss_user_id'] . '" target="_blank"> ' . htmlspecialchars($userRequester['name']) . '</a>';
       }
@@ -250,16 +245,16 @@ class TicketingController extends ControllerBase {
       }
       $responder = htmlspecialchars(@$userResponder['name']);
 
-      $fdSubjectUrl = '<a href="' . $ticketUrl . '" target="_blank"><strong>' . htmlspecialchars($ticket->subject) . '</strong></a>';
-      $replyBttn = '';
-
-      if (in_array('administrator', $roles) || in_array('bfss_administrator', $roles) || in_array('bfss_manager', $roles)) {
+      $replyBttn = $fdSubjectUrl = '';
+      if ($rolesFlags['administrators-manager']) {
+        $fdSubjectUrl = '<a href="' . $ticketUrl . '" target="_blank">' . htmlspecialchars($ticket->subject) . '</a>';
       }
       else if ($rolesFlags['athlete-coach-assessors']) {
+        // Only allow athlete, coach or assessor to view/reply to his own tickets.
         if (!$username || $username != $userRequester['bfss_username']) {
           continue;
         }
-        $fdSubjectUrl = '<strong>'.htmlspecialchars($ticket->subject).'</strong>';
+        $fdSubjectUrl = htmlspecialchars($ticket->subject);
         $replyBttn = '<div class="ticketing-reply">
         <a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="reply-ticket?tickets='.$ticket->id.'&amp;priority='.$ticket->priority.'&amp;subject='.urlencode($ticket->subject).'">Reply</a></div>';
       }
@@ -300,6 +295,7 @@ class TicketingController extends ControllerBase {
     $html .= '</tbody></table></div></div></div></div></div></div>';
 
     return array(
+      // '#cache' => ['max-age' => 0,],
       '#markup' => '' . $html . '',
     );
   }

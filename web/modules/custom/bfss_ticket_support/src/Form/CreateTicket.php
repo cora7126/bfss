@@ -39,16 +39,10 @@ class CreateTicket extends FormBase {
 
     $form['header'] = array(
       '#prefix' => '<div class="dash-main-right">
-      <h1><i class="fas fa-home" 1123></i> >
-        <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Create Ticket</h1>
+      <h1><i class="fas fa-home"></i> &gt; <a href="/dashboard" class="ticketing-edit_dash">Dashboard</a> &gt; Create a Ticket</h1>
         <div class="dash-sub-main">
-          <table><tbody><tr>
-          <td>
-            <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
-          </td><td>
-            <h4>'.$name.'<h2>SUBMIT A TICKET</h2></h4>
-          </td>
-          </tr></tbody></table>
+          <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
+          <h2><span class="ticketing-create-span">CREATE A</span><br>Ticket</h2>
         </div><br><br>',
       '#suffix' => '</div>',
     );
@@ -56,8 +50,7 @@ class CreateTicket extends FormBase {
     $form['message'] = [
       '#type' => 'markup',
       '#markup' => '
-      <div class="result_message"></div>
-        <div class="ticketing-create">',
+      <div class="ticketing-create">',
     ];
 
     $arr = ['one'  => t('Priority'), '1'  => t('Low'), '2'  =>t('Medium'), '3'  =>t('High'), '4'  =>t('Urgent')];
@@ -86,7 +79,7 @@ class CreateTicket extends FormBase {
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => 'Submit',
-      '#prefix' =>'<div id="create_tct_submit">',
+      '#prefix' =>'<div id="create_tct_submit" class="ticketing-button">',
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => '::submitForm', // don't forget :: when calling a class method.
@@ -105,6 +98,7 @@ class CreateTicket extends FormBase {
     $form['message2'] = [
       '#type' => 'markup',
       '#markup' => '
+      <div class="result_message ticketing-success"></div>
       </div>',
     ];
 
@@ -143,10 +137,10 @@ class CreateTicket extends FormBase {
        * Sends form data (ticket_data) to freshdesk.
        * customer sso security
        */
+      $successMessage = 'Thank you, We will respond to your ticket at our earliest availability';
 
-      $successMessage = 'Thank you,<br> We will respond to your ticket at our earliest availability';
-
-      if ($_POST['create_ticket'] == $successMessage) { // Doing this because this popup form submits twice.
+      if ($_POST['create_ticket'] == $successMessage) {
+        // Doing this redundant block (which is duplicated below), because this popup form submits twice.
         $message = $successMessage;
         $response = new AjaxResponse();
         $response->addCommand(
@@ -172,11 +166,11 @@ class CreateTicket extends FormBase {
           "status" => 2,
           "cc_emails" => array('jodybrabec@gmail.com')
         ));
+        // ksm('$ticket_data', $ticket_data);
 
         $url = "https://$yourdomain.freshdesk.com/api/v2/tickets";
 
         $ch = curl_init($url);
-
         $header[] = "Content-type: application/json";
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
@@ -202,17 +196,32 @@ class CreateTicket extends FormBase {
               '<div class="success_message">'.$message.'</div>'
             )
           );
+          curl_close($ch);
           return $response;
 
         } else {
+          // ksm("Error, HTTP Status Code : " . $info['http_code'] . "\n", "Headers are ".$headers, "Response are ".$c_response);
           if($info['http_code'] == 404) {
-            ksm("Error, Please check the end point \n");
+            $errMsg = 'Ticketing Error 404';
+            // ksm("Error, Please check the end point \n");
           } else {
-            ksm("Error, HTTP Status Code : " . $info['http_code'] . "\n", "Headers are ".$headers, "Response are ".$c_response);
+            if (preg_match('/Validation\s+fail/si', $c_response)) {
+              $errMsg = 'Validation failed, user email '.$userEmail.' is probably not registered.';
+            }
+            else {
+              $errMsg = 'Unknown Ticketing Error';
+            }
           }
-          return;
+          $response = new AjaxResponse();
+          $response->addCommand(
+            new HtmlCommand(
+              '.result_message',
+              '<div class="success_message_delete">'.$errMsg.'</div>'
+            )
+          );
+          curl_close($ch);
+          return $response;
         }
-        curl_close($ch);
       }
     }
   }

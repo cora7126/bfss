@@ -12,6 +12,24 @@ class PendingAssessments extends ControllerBase {
   public function pending_assessments() {
       $param = \Drupal::request()->query->all();
 
+      //current user
+      $current_user = \Drupal::currentUser();
+      $user_id = $current_user->id();
+      $user = \Drupal\user\Entity\User::load($user_id);
+      $roles = $user->getRoles();
+
+      $includeAll = 0;
+      $allStatusLink = '';
+      if (in_array('bfss_administrator', $roles)) { //  || in_array('bfss_manager', $roles)
+        $includeAll = $_GET['includeAll'] ? 1 : 0;
+        if ($includeAll) {
+          $allStatusLink = '<div><a href="/pending-assessments?includeAll=0" class="button js-form-submit form-submit btn-primary btn ticketing-button-href">Pending Only</a><br><br></div>';
+        }
+        else {
+          $allStatusLink = '<div><a href="/pending-assessments?includeAll=1" class="button js-form-submit form-submit btn-primary btn ticketing-button-href">Include ALL Status\'</a><br><br></div>';
+        }
+      }
+
       $booked_ids = \Drupal::entityQuery('bfsspayments')
       //->condition('assessment',$param['nid'],'IN')
       //->condition('time',$param['timeslot'],'=')
@@ -34,8 +52,17 @@ class PendingAssessments extends ControllerBase {
 
         $athlete_school = $this->Get_Data_From_Tables('athlete_school','ats',$user_id,'athlete_uid'); //FOR ORG-1
         $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
+        $athlete_school_sport = isset($athlete_school['athlete_school_sport']) ? $athlete_school['athlete_school_sport'] : '';
+        $athlete_school_pos = isset($athlete_school['athlete_school_pos']) ? $athlete_school['athlete_school_pos'] : '';
+        $athlete_school_pos .= @$athlete_school['athlete_school_pos2'] ? ', '. $athlete_school['athlete_school_pos2'] : '';
+        $athlete_school_pos .= @$athlete_school['athlete_school_pos3'] ? ', '. $athlete_school['athlete_school_pos3'] : '';
+        $org_name = isset($athlete_school['athlete_school_name']) ? $athlete_school['athlete_school_name'] : '';
+
         $mydata = $this->Get_Data_From_Tables('mydata','md',$user_id,'uid');
         $city = isset($mydata['field_city']) ? $mydata['field_city'] : '';
+        $height = isset($mydata['field_height']) ? $mydata['field_height'] : '';
+        $weight = isset($mydata['field_weight']) ? $mydata['field_weight'] : '';
+        $gender = isset($mydata['field_birth_gender']) ? $mydata['field_birth_gender'] : '';
 
         if(empty($mydata['field_az'])){
           $statequery =  $this->Get_Data_From_Tables('user__field_state','ufln',$user_id,'entity_id');
@@ -43,6 +70,22 @@ class PendingAssessments extends ControllerBase {
         }else{
           $state = $mydata['field_az'];
         }
+        if(empty($mydata['field_dob'])){
+          $statedob =  $this->Get_Data_From_Tables('user__field_date_of_birth','ufdoj',$user_id,'entity_id');
+          $dob = $statedob['field_date_of_birth_value'];
+        }else{
+          $dob = $mydata['field_dob'];
+        }
+
+        // if ($booked_id == 103) {
+        //   ksm('$dob', $dob);
+        //   ksm('$statedob', $statequery);
+        //   ksm('$mydata', $mydata);
+        //   ksm('$statequery', $statequery);
+        //   ksm('$athlete_school', $athlete_school);
+        //   // $athlete_info = $this->Get_Data_From_Tables('athlete_info','ai',$user_id,'athlete_uid');
+        //   // ksm('$athlete_info', $athlete_info);
+        // }
 
         // See if assessment has been started by assessor or mgr.
         // And get latest recorded status (and $assess_nid) for current assessment - see if complete or incomplete.
@@ -65,7 +108,7 @@ class PendingAssessments extends ControllerBase {
 
         // ksm($booked_id, $assess_nid, $field_status);
 
-        if(!$nidsStat || $field_status == 'incomplete'){
+        if($includeAll || !$nidsStat || $field_status == 'incomplete'){
           $booking_date = date("Y/m/d",$timestamp);
           $booking_time = date("h:i:sa",$timestamp);
 
@@ -76,6 +119,7 @@ class PendingAssessments extends ControllerBase {
           }else{
             $Assess_type = 'private';
           }
+          // ksm('$entity', $entity->getFieldDefinitions() );
 
           $result[] = array(
             'booked_id' => $booked_id,
@@ -93,10 +137,15 @@ class PendingAssessments extends ControllerBase {
             'org_name' => $org_name,
             'city' => $city,
             'state' => $state,
+            'height' => $height,
+            'weight' => $weight,
+            'gender' => $gender,
+            'dob' => $dob,
+            'school_sport' => $athlete_school_sport,
+            'school_position' => $athlete_school_pos,
           );
         }
       }
-
 
       if(!empty($_GET['par_page_item'])){
         $parpage = $_GET['par_page_item'];
@@ -105,7 +154,7 @@ class PendingAssessments extends ControllerBase {
       }
       //$result = $this->_return_pager_for_array($result, $parpage);
       // Wrapper for rows
-      $tb = '
+      $tb = $allStatusLink . '
       <div class="wrapped_div_main user_pro_block">
         <div class="block-bfss-assessors">
         <div class="table-responsive-wrap">
@@ -141,8 +190,8 @@ class PendingAssessments extends ControllerBase {
       $user_name = $item['field_status'];
       $field_status = $item['field_status'];
 
-      //xxxx &st='.$st.'&postion='.$item['postion'].'    // .'&assess_nid='.$item['assess_nid']
-      $url = 'pending-assessments-form?nid='.$nid.'&formtype='.$type.'&Assess_type='.$Assesstype.'&booked_id='.$booked_id.'&first_name='.$item['first_name'].'&last_name='.$item['last_name'].'&sport='.$item['sport'].'&field_status='.$item['field_status'];
+      // ksm('$item', $item);
+      $url = 'pending-assessments-form?nid='.urlencode($nid).'&formtype='.urlencode($type).'&Assess_type='.urlencode($Assesstype).'&booked_id='.urlencode($booked_id).'&first_name='.urlencode($item['first_name']).'&last_name='.urlencode($item['last_name']).'&field_status='.urlencode($item['field_status']).'&weight='.urlencode($item['weight']).'&gender='.urlencode($item['gender']).'&dob='.urlencode($item['dob']).'&height='.urlencode($item['height']).'&school_sport='.urlencode($item['school_sport']).'&school_position='.urlencode($item['school_position']);
 
       $first_name = $item['first_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['first_name'].'</a></p>');
       $last_name = $item['last_name']; // Markup::create('<p><a class="use-ajax" data-dialog-options="{&quot;dialogClass&quot;: &quot;drupal-assess-fm&quot;}" data-dialog-type="modal" href="'.$url.'">'.$item['last_name'].'</a></p>');
@@ -172,46 +221,45 @@ class PendingAssessments extends ControllerBase {
     //$rows = $this->_records_nonsql_sort($rows, $header);
 
     // Create table and pager
-      $out = array(
-        '#type' => 'markup',
-        '#markup' => 'This block list the article.',
-      );
-      $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
-      $element['#suffix'] = '</div>';
-      //$form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessors\Form\ParPageItemShow');
-      //$element['out'] = $form;
-      // $par_page_item = $_GET['par_page_item'];
-      $element['table'] = array(
-        '#theme' => 'table',
-        '#prefix' => '<div class="block-bfss-assessors">',
-        '#suffix' => '</div>',
-        '#header' => $header,
-        '#attributes'=>['id' => ['dtBasicExample']],
-        '#rows' => $rows,
-        '#empty' => t('There is no data available.'),
-      );
+    $out = array(
+      '#type' => 'markup',
+      '#markup' => 'This block list the article.',
+    );
+    // $element['#prefix'] = '<div class="wrapped_div_main"><h2>'.$title.'</h2>';
+    // $element['#suffix'] = '</div>';
+    // //$form = \Drupal::formBuilder()->getForm('Drupal\bfss_assessors\Form\ParPageItemShow');
+    // //$element['out'] = $form;
+    // // $par_page_item = $_GET['par_page_item'];
+    // $element['table'] = array(
+    //   '#theme' => 'table',
+    //   '#prefix' => '<div class="block-bfss-assessors">',
+    //   '#suffix' => '</div>',
+    //   '#header' => $header,
+    //   '#attributes'=>['id' => ['dtBasicExample']],
+    //   '#rows' => $rows,
+    //   '#empty' => t('There is no data available.'),
+    // );
+    // $element['pager'] = array(
+    //   '#type' => 'pager',
+    // );
 
-      $element['pager'] = array(
-        '#type' => 'pager',
-      );
-
-        return [
-        '#cache' => ['max-age' => 0,],
-        '#theme' => 'pending_assessments_page',
-        '#name' => 'G.K',
-        // '#prefix' => '<div class="block-bfss-assessors">',
-        // '#suffix' => '</div>',
-        '#pending_assessments_block' => Markup::create($tb),
-        '#attached' => [
-          'library' => [
-            'acme/acme-styles', //include our custom library for this response
-          ]
+    return [
+      '#cache' => ['max-age' => 0,],
+      '#theme' => 'pending_assessments_page',
+      '#name' => 'G.K',
+      // '#prefix' => '<div class="block-bfss-assessors">',
+      // '#suffix' => '</div>',
+      '#pending_assessments_block' => Markup::create($tb),
+      '#attached' => [
+        'library' => [
+          'acme/acme-styles', //include our custom library for this response
         ]
-      ];
+      ]
+    ];
     //return $element;
   }
 
-public function Get_Data_From_Tables($TableName,$atr,$current_user,$user_key){
+  public function Get_Data_From_Tables($TableName,$atr,$current_user,$user_key){
       if($TableName){
         $conn = Database::getConnection();
       $query = $conn->select($TableName, $atr);

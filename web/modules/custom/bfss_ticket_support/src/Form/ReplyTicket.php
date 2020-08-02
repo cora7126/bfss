@@ -39,16 +39,9 @@ class ReplyTicket extends FormBase {
 
     $form['header'] = array(
       '#prefix' => '<div class="dash-main-right">
-      <h1><i class="fas fa-home" 1123></i> >
-        <a href="/dashboard" class="edit_dash" style="margin-right:5px;color: #333333;">Dashboard</a> > Reply to Ticket</h1>
         <div class="dash-sub-main">
-          <table><tbody><tr>
-          <td>
-            <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
-          </td><td>
-            <h4>'.$name.'<h2>REPLY TO TICKET</h2></h4>
-          </td>
-          </tr></tbody></table>
+          <i class="fas fa-ticket-alt edit_image_solid" aria-hidden="true"></i>
+          <h2><span class="ticketing-create-span">REPLY TO</span><br>Ticket</h2>
         </div><br><br>',
       '#suffix' => '</div>',
     );
@@ -56,8 +49,7 @@ class ReplyTicket extends FormBase {
     $form['message'] = [
       '#type' => 'markup',
       '#markup' => '
-        <div class="result_message"></div>
-        <div class="ticketing-create">' .
+        <div class="ticketing-create ticketing-success">' .
           htmlentities(urldecode($_GET['subject'])) . '<br><br>',
     ];
 
@@ -88,7 +80,7 @@ class ReplyTicket extends FormBase {
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => 'Submit',
-      '#prefix' =>'<div id="reply_tct_submit">',
+      '#prefix' =>'<div id="reply_tct_submit" class="ticketing-button">',
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => '::submitForm', // don't forget :: when calling a class method.
@@ -106,8 +98,9 @@ class ReplyTicket extends FormBase {
 
     $form['message2'] = [
       '#type' => 'markup',
-      '#markup' => '</div>
-      ',
+      '#markup' => '
+      <div class="result_message"></div>
+      </div>',
     ];
 
     return $form;
@@ -142,78 +135,92 @@ class ReplyTicket extends FormBase {
 
     if (@$_POST['reply_ticket']) {
 
-		$successMessage = 'Thank you for your reply,<br> We will respond at our earliest availability';
+      $successMessage = 'Thank you for your reply, We will respond at our earliest availability';
 
-		if ($_POST['reply_ticket'] == $successMessage) { // Doing this because this popup form submits twice.
-			// ksm("$headers\n");  ksm("$c_response \n");
-			$message = $successMessage;
-			$response = new AjaxResponse();
-			$response->addCommand(
-				new HtmlCommand(
-					'.result_message',
-					'<div class="success_message">'.$message.'<br><br></div>'
-				)
-			);
-			return $response;
-		}
-		else {
-			/**
-			 * Sends form data (ticket_data) to freshdesk.
-			 * customer sso security
-			 */
-			$api_key = "6aTnr07ieoIsXLhN1c0";
-			$password = "99999"; // not needed, keep as x
-			$yourdomain = "digitalrace";
+      if ($_POST['reply_ticket'] == $successMessage) { // Doing this because this popup form submits twice.
+        // ksm("$headers\n");  ksm("$c_response \n");
+        $message = $successMessage;
+        $response = new AjaxResponse();
+        $response->addCommand(
+          new HtmlCommand(
+            '.result_message',
+            '<div class="success_message">'.$message.'<br><br></div>'
+          )
+        );
+        return $response;
+      }
+      else {
+        /**
+         * Sends form data (ticket_data) to freshdesk.
+         * customer sso security
+         */
+        $api_key = "6aTnr07ieoIsXLhN1c0";
+        $password = "99999"; // not needed, keep as x
+        $yourdomain = "digitalrace";
 
-			$ticket_data = json_encode(array(
-			"body" => htmlentities($_POST['reply_message']),
-			// "from_email" => 'digitalrace@gmail.com', // $userEmail,
-			"bcc_emails" => array('jodybrabec@gmail.com')
-				// "user_id" => '', // ID of the agent who is adding the note
-				// "attachments" => $name, // Must use Content-type: multipart/form-data
-			));
+        $ticket_data = json_encode(array(
+        "body" => htmlentities($_POST['reply_message']),
+        // "from_email" => 'digitalrace@gmail.com', // $userEmail,
+        "bcc_emails" => array('jodybrabec@gmail.com')
+          // "user_id" => '', // ID of the agent who is adding the note
+          // "attachments" => $name, // Must use Content-type: multipart/form-data
+        ));
 
-			$url = "https://$yourdomain.freshdesk.com/api/v2/tickets/".$_POST['ticket_id']."/reply";
+        $url = "https://$yourdomain.freshdesk.com/api/v2/tickets/".$_POST['ticket_id']."/reply";
 
-			$ch = curl_init($url);
+        $ch = curl_init($url);
 
-			$header[] = "Content-type: application/json";
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-			curl_setopt($ch, CURLOPT_HEADER, true);
-			curl_setopt($ch, CURLOPT_USERPWD, "$api_key:$password");
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $ticket_data);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $header[] = "Content-type: application/json";
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_USERPWD, "$api_key:$password");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $ticket_data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-			$server_output = curl_exec($ch);
-			$info = curl_getinfo($ch);
-			$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-			$headers = substr($server_output, 0, $header_size);
-			$c_response = substr($server_output, $header_size);
+        $server_output = curl_exec($ch);
+        $info = curl_getinfo($ch);
+        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $headers = substr($server_output, 0, $header_size);
+        $c_response = substr($server_output, $header_size);
 
-			if($info['http_code'] == 201) {
-				$_POST['reply_ticket'] = $successMessage;
-				// ksm("$headers\n");  ksm("$c_response \n");
-				$message = $successMessage;
-				$response = new AjaxResponse();
-				$response->addCommand(
-					new HtmlCommand(
-						'.result_message',
-						'<div class="success_message">'.$message.'<br><br></div>'
-					)
-				);
-				return $response;
-			}
-			else {
-				if($info['http_code'] == 404) {
-					ksm("Error, Please check the end point \n");
-				} else {
-					ksm("Error, HTTP Status Code : " . $info['http_code'] . "\n", "Headers are ".$headers, "Response are ".$c_response);
-				}
-				return;
-			}
-			curl_close($ch);
-		}
+        if($info['http_code'] == 201) {
+          $_POST['reply_ticket'] = $successMessage;
+          // ksm("$headers\n");  ksm("$c_response \n");
+          $message = $successMessage;
+          $response = new AjaxResponse();
+          $response->addCommand(
+            new HtmlCommand(
+              '.result_message',
+              '<div class="success_message">'.$message.'<br><br></div>'
+            )
+          );
+          curl_close($ch);
+          return $response;
+        }
+        else {
+          if($info['http_code'] == 404) {
+            $errMsg = 'Ticketing Error 404';
+          } else {
+            // ksm("Error, HTTP Status Code : " . $info['http_code'] . "\n", "Headers are ".$headers, "Response are ".$c_response);
+            if (preg_match('/Validation\s+fail/si', $c_response)) {
+              $errMsg = 'Validation failed, user email '.$userEmail.' is probably not registered.';
+            }
+            else {
+              $errMsg = 'Unknown Ticketing Error';
+            }
+          }
+          $response = new AjaxResponse();
+          $response->addCommand(
+            new HtmlCommand(
+              '.result_message',
+              '<div class="success_message_delete">'.$errMsg.'</div>'
+            )
+          );
+          curl_close($ch);
+          return $response;
+        }
+      }
     }
   }
 }
